@@ -8,7 +8,7 @@ This script is unlikely to run for most users out of the box. Thus, it cannot ye
 
 1. Compile the script, following instructions in the kol-ts-starter.
 2. Copy InstantHCCS.ccs from KoLmafia/ccs to your Mafia css directory.
-3. Copy InstantHCCS.js and InstantHCCS-combat.js from KoLmafia/scripts/loop-cs to your Mafia scripts directory.
+3. Compile your own script (specifically, you'll need to set your own MOTHERSLIME_CLAN and VIP_CLAN in common.ts, so a compiled js script will not be provided)
 
 <sub><sup>Adapted from [loop-cs](https://github.com/MrFizzyBubbs/loop-cs) which was adapted from [loop-casual](https://github.com/Kasekopf/loop-casual)</sub></sup>
 
@@ -18,7 +18,7 @@ For those who are interested in using `InstantHCCS` as is, the following section
 
 ### Before Ascending
 
-- [Mother Slime](https://kol.coldfront.net/thekolwiki/index.php/Showdown) ready in the side clan Slimetube, and an [Ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith) prepared in the fax machine (You will have to modify MOTHERSLIME_CLAN in common.ts)
+- [Mother Slime](https://kol.coldfront.net/thekolwiki/index.php/Showdown) ready in the side clan Slimetube, and an [Ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith) prepared in the fax machine
 - Access to a fully stocked clan [VIP Lounge](https://kol.coldfront.net/thekolwiki/index.php/VIP_Lounge)
 - All 11 beach heads unlocked for the [Beach Comb](https://kol.coldfront.net/thekolwiki/index.php/Beach_Comb)
 - [Chateau Mantegna](https://kol.coldfront.net/thekolwiki/index.php/Chateau_Mantegna) containing:
@@ -26,7 +26,7 @@ For those who are interested in using `InstantHCCS` as is, the following section
   - foreign language tapes
   - continental juice bar
 - [Gold detective badge](https://kol.coldfront.net/thekolwiki/index.php/Gold_detective_badge) purchased from the [11th Precinct](https://kol.coldfront.net/thekolwiki/index.php/The_Precinct)
-- [Your cowboy boots](https://kol.coldfront.net/thekolwiki/index.php/Your_cowboy_boots) modified with [nicksilver spurs](https://kol.coldfront.net/thekolwiki/index.php/Nicksilver_spurs) and [grizzled bearskin](https://kol.coldfront.net/thekolwiki/index.php/Grizzled_bearskin) (items drop and muscle)
+- [Your cowboy boots](https://kol.coldfront.net/thekolwiki/index.php/Your_cowboy_boots) modified with [nicksilver spurs](https://kol.coldfront.net/thekolwiki/index.php/Nicksilver_spurs) and [grizzled bearskin](https://kol.coldfront.net/thekolwiki/index.php/Grizzled_bearskin) (item drops and muscle)
 - [Peppermint patch](https://kol.coldfront.net/thekolwiki/index.php/A_Peppermint_Patch) growing in your garden
 - [Source Terminal](https://kol.coldfront.net/thekolwiki/index.php/Source_Terminal) fully upgraded
 - [Spacegate Vaccination Machine](https://kol.coldfront.net/thekolwiki/index.php/Spacegate_Vaccination_Machine) with the [Broad-Spectrum Vaccine](https://kol.coldfront.net/thekolwiki/index.php/Broad-Spectrum_Vaccine) unlocked
