@@ -1,0 +1,53 @@
+{
+  "name": "InstantHCCS",
+  "version": "0.1.0",
+  "description": "A looping resource-optimal HCCS script.",
+  "main": "KoLmafia/scripts/instant-hccs/InstantHCCS.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "yarn run build:types && yarn run build:js",
+    "build:types": "tsc",
+    "build:js": "webpack",
+    "lint": "eslint src && prettier --check .",
+    "watch": "webpack --watch --progress"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-libram": "^0.2.14",
+    "prettier": "^2.3.2",
+    "typescript": "^4.4.2",
+    "webpack": "^5.61.0",
+    "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "core-js": "^3.16.4",
+    "grimoire-kolmafia": "^0.2.5",
+    "kolmafia": ">=1.2.0",
+    "libram": "^0.6.23"
+  },
+  "author": "Pantocyclus",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/docrostov/kol-js-starter.git"
+  },
+  "keywords": [
+    "KoLMafia",
+    "JS",
+    "TS"
+  ],
+  "bugs": {
+    "url": "https://github.com/docrostov/kol-js-starter/issues"
+  },
+  "homepage": "https://github.com/docrostov/kol-js-starter#readme"
+}
