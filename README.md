@@ -1,6 +1,6 @@
 # InstantHCCS
 
-`InstantHCCS` is a softcore Community Service script for looping in Kingdom of Loathing designed to work if you are me, [WARriorer (#1634187)](https://cheesellc.com/kol/profile.php?u=WARriorer).
+`InstantHCCS` is a softcore Community Service script for looping in Kingdom of Loathing designed to work if you are me, [WARriorer (#1634187)](https://cheesellc.com/kol/profile.php?u=WARriorer). It most probably definitely won't work for you.
 
 ## Installation
 
@@ -18,7 +18,7 @@ For those who are interested in using `InstantHCCS` as is, the following section
 
 ### Before Ascending
 
-- [Mother Slime](https://kol.coldfront.net/thekolwiki/index.php/Showdown) ready in the side clan Slimetube, and an [Ungulith] (https://kol.coldfront.net/thekolwiki/index.php/Ungulith) prepared in the fax machine (You will have to modify MOTHERSLIME_CLAN in common.ts)
+- [Mother Slime](https://kol.coldfront.net/thekolwiki/index.php/Showdown) ready in the side clan Slimetube, and an [Ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith) prepared in the fax machine (You will have to modify MOTHERSLIME_CLAN in common.ts)
 - Access to a fully stocked clan [VIP Lounge](https://kol.coldfront.net/thekolwiki/index.php/VIP_Lounge)
 - All 11 beach heads unlocked for the [Beach Comb](https://kol.coldfront.net/thekolwiki/index.php/Beach_Comb)
 - [Chateau Mantegna](https://kol.coldfront.net/thekolwiki/index.php/Chateau_Mantegna) containing:
@@ -32,12 +32,10 @@ For those who are interested in using `InstantHCCS` as is, the following section
 - [Spacegate Vaccination Machine](https://kol.coldfront.net/thekolwiki/index.php/Spacegate_Vaccination_Machine) with the [Broad-Spectrum Vaccine](https://kol.coldfront.net/thekolwiki/index.php/Broad-Spectrum_Vaccine) unlocked
 - All 150 [Witchess puzzles](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Puzzles) completed
 - Eudora set to [Our Daily Candles™ order form](https://kol.coldfront.net/thekolwiki/index.php/Our_Daily_Candles%E2%84%A2_order_form)
-- A [Witchess Knight](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Knight) and [Black Crayon Elemental] (https://kol.coldfront.net/thekolwiki/index.php/Black_Crayon_Elemental) in your [combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket)
-- A [Blessing of your favorite Bird] (https://kol.coldfront.net/thekolwiki/index.php/Blessing_of_your_favorite_Bird) with Weapon Damage and at least -5% Combat Frequency
-- A fully maxed-out [Guzzlr tablet] (https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet)
+- A [Witchess Knight](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Knight) and [Black Crayon Elemental](https://kol.coldfront.net/thekolwiki/index.php/Black_Crayon_Elemental) in your [combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket)
+- A [Blessing of your favorite Bird](https://kol.coldfront.net/thekolwiki/index.php/Blessing_of_your_favorite_Bird) with Weapon Damage and at least -5% Combat Frequency
+- A fully maxed-out [Guzzlr tablet](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet)
 - Literally every possible stat, hp, exp, hot resist, -combat rate, weapon dmg, spell damage, familiar weight, item and booze drop skill permed (tests are extremely marginal to achieve maximal profits)
-
-<sub><sup>Adapted from [seventy-hccs](https://github.com/s-k-z/seventy-hccs)</sub></sup>
 
 ### In Valhalla
 
