@@ -1,6 +1,6 @@
 # InstantHCCS
 
-`loop-cs` is a softcore Community Service script for looping in Kingdom of Loathing designed to work if you are me, [WARriorer (#1634187)](https://cheesellc.com/kol/profile.php?u=WARriorer).
+`InstantHCCS` is a softcore Community Service script for looping in Kingdom of Loathing designed to work if you are me, [WARriorer (#1634187)](https://cheesellc.com/kol/profile.php?u=WARriorer).
 
 ## Installation
 
