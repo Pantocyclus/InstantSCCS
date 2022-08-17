@@ -47,6 +47,8 @@ For those who are interested in using `InstantHCCS` as is, the following section
 
 ### Required Resources
 
+IoTMs used are listed sequentially by age. Skills listed at the end of the table include important skills and largely exclude specific passives and buffs (e.g. class, dread and crimbo skills that straight up give stat, hp, exp, hot resist, -combat rate, weapon dmg, spell damage, familiar weight, item and booze drop)
+
 | Resource                                                                                                                      | Type        |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | [Summon Candy Heart](https://kol.coldfront.net/thekolwiki/index.php/Summon_Candy_Heart)                                       | Skill       |
