@@ -299,7 +299,11 @@ export const PostCoilQuest: Quest = {
       completed: () => have($item`li'l ninja costume`),
       do: () => mapMonster($location`The Haiku Dungeon`, $monster`amateur ninja`),
       post: () => visitUrl("questlog.php?which=1"), // Check quest log for protonic ghost location
-      combat: new CombatStrategy().macro(Macro.skill($skill`Chest X-Ray`)),
+      combat: new CombatStrategy().macro(
+        Macro.if_($monster`amateur ninja`, Macro.skill($skill`Chest X-Ray`))
+          .ifHolidayWanderer(Macro.trySkill($skill`Reflex Hammer`))
+          .abort()
+      ),
       outfit: {
         hat: $item`Daylight Shavings Helmet`,
         back: $item`protonic accelerator pack`,
@@ -308,7 +312,7 @@ export const PostCoilQuest: Quest = {
         acc1: $item`Lil' Doctor™ bag`,
         familiar: $familiar`Melodramedary`,
       },
-      limit: { tries: 1 },
+      limit: { tries: 2 },
     },
     {
       name: "Nanobrainy",
