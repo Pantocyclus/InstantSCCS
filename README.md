@@ -80,7 +80,6 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [The Tunnel of L.O.V.E.](https://kol.coldfront.net/thekolwiki/index.php/The_Tunnel_of_L.O.V.E.)                               | Zone        |
 | [Secret Underground Spacegate Facility](https://kol.coldfront.net/thekolwiki/index.php/Secret_Underground_Spacegate_Facility) | Zone        |
 | [Kremlin's Greatest Briefcase](https://kol.coldfront.net/thekolwiki/index.php/Kremlin%27s_Greatest_Briefcase)                 | Accessory   |
-| [Meteor Lore](https://kol.coldfront.net/thekolwiki/index.php/Meteor_Lore)                                                     | Skill       |
 | [Pantogram pants](https://kol.coldfront.net/thekolwiki/index.php/Pantogram_pants)                                             | Pants       |
 | [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                             | Item        |
 | [SongBoom™ BoomBox](https://kol.coldfront.net/thekolwiki/index.php/SongBoom%E2%84%A2_BoomBox)                                 | Item        |
@@ -136,5 +135,6 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [Summon Confiscated Things](https://kol.coldfront.net/thekolwiki/index.php/Summon_Confiscated_Things)                               | Skill          |
 | [Melodramedary](https://kol.coldfront.net/thekolwiki/index.php/Melodramedary)                                                       | Familiar       |
 | [Unwrapped knock-off retro superhero cape](https://kol.coldfront.net/thekolwiki/index.php/Unwrapped_knock-off_retro_superhero_cape) | Back           |
+| [Meteor Lore](https://kol.coldfront.net/thekolwiki/index.php/Meteor_Lore)                                                           | Skill          |
 | [Designer sweatpants](https://kol.coldfront.net/thekolwiki/index.php/Designer_sweatpants)                                           | Pants          |
 | [Tiny stillsuit](https://kol.coldfront.net/thekolwiki/index.php/Tiny_stillsuit)                                                     | Familiar Equip |
