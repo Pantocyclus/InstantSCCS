@@ -95,13 +95,15 @@ export function main(command?: string): void {
       `Time: ${convertMilliseconds(gametimeToInt() - get(timeProperty, gametimeToInt()))}`,
       "purple"
     );
-  else
+  else {
     print(
       `Time: ${convertMilliseconds(
         gametimeToInt() - get(timeProperty, gametimeToInt())
       )} since first run today started`,
       "purple"
     );
+    set(timeProperty, -1);
+  }
 }
 
 function runComplete(): boolean {
