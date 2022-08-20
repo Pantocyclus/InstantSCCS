@@ -24,8 +24,8 @@ import {
 import Macro from "../combat";
 import { Task } from "../engine/task";
 
-const MOTHERSLIME_CLAN = "";
-const VIP_CLAN = "";
+const MOTHERSLIME_CLAN = "The Genius Clan";
+const VIP_CLAN = "Bonus Adventures from Hell";
 
 export const holidayRunawayTask: Task = {
   name: "Holiday Runaway",
