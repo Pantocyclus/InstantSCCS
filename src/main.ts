@@ -90,20 +90,13 @@ export function main(command?: string): void {
   print("Community Service complete!", "purple");
   print(`Adventures used: ${turnsPlayed()}`, "purple");
   print(`Adventures remaining: ${myAdventures()}`, "purple");
-  if (setTimeNow)
-    print(
-      `Time: ${convertMilliseconds(gametimeToInt() - get(timeProperty, gametimeToInt()))}`,
-      "purple"
-    );
-  else {
-    print(
-      `Time: ${convertMilliseconds(
-        gametimeToInt() - get(timeProperty, gametimeToInt())
-      )} since first run today started`,
-      "purple"
-    );
-    set(timeProperty, -1);
-  }
+  print(
+    `Time: ${convertMilliseconds(
+      gametimeToInt() - get(timeProperty, gametimeToInt())
+    )} since first run today started`,
+    "purple"
+  );
+  set(timeProperty, -1);
 }
 
 function runComplete(): boolean {
