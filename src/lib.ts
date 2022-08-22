@@ -14,6 +14,48 @@ import {
 } from "kolmafia";
 import { $effect, $effects, $skill, get, have } from "libram";
 
+export enum CommunityServiceTests {
+  HPTEST = 1,
+  MUSTEST = 2,
+  MYSTTEST = 3,
+  MOXTEST = 4,
+  FAMTEST = 5,
+  WPNTEST = 6,
+  SPELLTEST = 7,
+  COMTEST = 8,
+  ITEMTEST = 9,
+  HOTTEST = 10,
+  COILTEST = 11,
+  DONATEBODY = 30,
+}
+
+const testModifiers = new Map([
+  [CommunityServiceTests.HPTEST, ["Maximum HP", "Maximum HP Percent"]],
+  [CommunityServiceTests.MUSTEST, ["Muscle", "Muscle Percent"]],
+  [CommunityServiceTests.MYSTTEST, ["Mysticality", "Mysticality Percent"]],
+  [CommunityServiceTests.MOXTEST, ["Moxie", "Moxie Percent"]],
+  [CommunityServiceTests.FAMTEST, ["Familiar Weight"]],
+  [CommunityServiceTests.WPNTEST, ["Weapon Damage", "Weapon Damage Percent"]],
+  [CommunityServiceTests.SPELLTEST, ["Spell Damage", "Spell Damage Percent"]],
+  [CommunityServiceTests.COMTEST, ["Combat Rate"]],
+  [CommunityServiceTests.ITEMTEST, ["Item Drop", "Booze Drop"]],
+  [CommunityServiceTests.HOTTEST, ["Hot Resistance"]],
+  [CommunityServiceTests.COILTEST, []],
+]);
+const testNames = new Map([
+  [CommunityServiceTests.HPTEST, "HP Test"],
+  [CommunityServiceTests.MUSTEST, "Muscle Test"],
+  [CommunityServiceTests.MYSTTEST, "Mysticality Test"],
+  [CommunityServiceTests.MOXTEST, "Moxie Test"],
+  [CommunityServiceTests.FAMTEST, "Familiar Weight Test"],
+  [CommunityServiceTests.WPNTEST, "Weapon Damage Test"],
+  [CommunityServiceTests.SPELLTEST, "Spell Damage Test"],
+  [CommunityServiceTests.COMTEST, "Noncombat Test"],
+  [CommunityServiceTests.ITEMTEST, "Item Drop Test"],
+  [CommunityServiceTests.HOTTEST, "Hot Resistance Test"],
+  [CommunityServiceTests.COILTEST, "Coil Wire"],
+]);
+
 export function debug(message: string, color?: string): void {
   if (color) {
     print(message, color);
@@ -61,10 +103,11 @@ function replaceAll(str: string, searchValue: string, replaceValue: string): str
   return replaceAll(newStr, searchValue, replaceValue);
 }
 
-export function printModtrace(modifiers: string | string[], baseModifier?: string): void {
+function printModtrace(modifiers: string | string[], baseModifier?: string): void {
   if (typeof modifiers === "string") {
     return printModtrace([modifiers], modifiers);
   } else {
+    if (modifiers.length === 0) return;
     if (!baseModifier) {
       const baseModifiers = new Map(
         modifiers.map((key) => {
@@ -90,7 +133,6 @@ export function printModtrace(modifiers: string | string[], baseModifier?: strin
             if (keyThis === keyNext) continue;
             if (keyNext.includes(keyThis)) modifiersSubset.push(keyNext);
           }
-
           printModtrace(modifiersSubset, keyThis);
         }
       });
@@ -195,4 +237,30 @@ export function printModtrace(modifiers: string | string[], baseModifier?: strin
       print(`Total ${baseModifier}: ${total.toFixed(1)}`, "blue");
     }
   }
+}
+
+function advCost(whichTest: number): number {
+  // Adapted from AutoHCCS
+  const page = visitUrl("council.php");
+  const testStr = `name=option value=${whichTest}>`;
+  if (page.includes(testStr)) {
+    const chars = 140; // chars to look ahead
+    const pageStr = page.slice(
+      page.indexOf(testStr) + testStr.length,
+      page.indexOf(testStr) + testStr.length + chars
+    );
+    const advStr = page.slice(pageStr.indexOf("(") + 1, pageStr.indexOf("(") + 3);
+    return parseInt(advStr.trim());
+  } else {
+    print("Didn't find specified test on the council page. Already done?");
+    return 99999;
+  }
+}
+
+export function logTestSetup(whichTest: number): void {
+  printModtrace(testModifiers.get(whichTest) ?? []);
+  print(
+    `${testNames.get(whichTest) ?? "Unknown Test"} takes ${advCost(whichTest)} adventures.`,
+    "blue"
+  );
 }

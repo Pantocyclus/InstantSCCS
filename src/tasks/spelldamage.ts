@@ -11,7 +11,7 @@ import {
   have,
 } from "libram";
 import { Quest } from "../engine/task";
-import { printModtrace } from "../lib";
+import { CommunityServiceTests, logTestSetup } from "../lib";
 import { burnLibram, innerElfTask, meteorShowerTask } from "./common";
 
 export const SpellDamageQuest: Quest = {
@@ -55,10 +55,7 @@ export const SpellDamageQuest: Quest = {
       },
       completed: () => CommunityService.SpellDamage.isDone(),
       do: () =>
-        CommunityService.SpellDamage.run(
-          () => printModtrace(["Spell Damage", "Spell Damage Percent"]),
-          22
-        ),
+        CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 22),
       outfit: { modifier: "spell dmg", familiar: $familiar`Disembodied Hand` },
       effects: [
         $effect`Arched Eyebrow of the Archmage`,

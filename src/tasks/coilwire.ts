@@ -14,6 +14,7 @@ import {
 } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
+import { CommunityServiceTests, logTestSetup } from "../lib";
 import { holidayRunawayTask } from "./common";
 
 export const CoilWireQuest: Quest = {
@@ -50,7 +51,7 @@ export const CoilWireQuest: Quest = {
     {
       name: "Test",
       completed: () => CommunityService.CoilWire.isDone(),
-      do: () => CommunityService.CoilWire.run(() => undefined),
+      do: () => CommunityService.CoilWire.run(() => logTestSetup(CommunityServiceTests.COILTEST)),
       outfit: {
         familiar: $familiar`Left-Hand Man`,
         modifier: "mp, mp regen, switch disembodied hand",

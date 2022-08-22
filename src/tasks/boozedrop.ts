@@ -14,7 +14,7 @@ import {
 import Macro from "../combat";
 import { Quest } from "../engine/task";
 import { CombatStrategy } from "grimoire-kolmafia";
-import { printModtrace } from "../lib";
+import { CommunityServiceTests, logTestSetup } from "../lib";
 
 export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
@@ -46,7 +46,8 @@ export const BoozeDropQuest: Quest = {
           if (have(it)) ensureEffect(effectModifier(it, "effect"));
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
-      do: () => CommunityService.BoozeDrop.run(() => printModtrace(["Item Drop", "Booze Drop"]), 2),
+      do: () =>
+        CommunityService.BoozeDrop.run(() => logTestSetup(CommunityServiceTests.ITEMTEST), 2),
       outfit: {
         modifier: "Item Drop, -equip broken champagne bottle",
         familiar: $familiar`Trick-or-Treating Tot`,

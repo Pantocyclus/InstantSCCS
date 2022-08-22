@@ -16,7 +16,7 @@ import {
   SongBoom,
 } from "libram";
 import { Quest } from "../engine/task";
-import { crimboCarols, printModtrace } from "../lib";
+import { CommunityServiceTests, crimboCarols, logTestSetup } from "../lib";
 import { burnLibram, innerElfTask } from "./common";
 
 export const WeaponDamageQuest: Quest = {
@@ -69,10 +69,7 @@ export const WeaponDamageQuest: Quest = {
       },
       completed: () => CommunityService.WeaponDamage.isDone(),
       do: () =>
-        CommunityService.WeaponDamage.run(
-          () => printModtrace(["Weapon Damage", "Weapon Damage Percent"]),
-          1
-        ),
+        CommunityService.WeaponDamage.run(() => logTestSetup(CommunityServiceTests.WPNTEST), 1),
       outfit: { modifier: "weapon dmg", familiar: $familiar`Disembodied Hand` },
       effects: [
         $effect`Billiards Belligerence`,

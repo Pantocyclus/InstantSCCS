@@ -3,7 +3,7 @@ import { cliExecute } from "kolmafia";
 import { $effect, $familiar, $item, $location, $skill, CommunityService, get, have } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { printModtrace } from "../lib";
+import { CommunityServiceTests, logTestSetup } from "../lib";
 
 export const HotResQuest: Quest = {
   name: "Hot Res",
@@ -32,7 +32,7 @@ export const HotResQuest: Quest = {
       name: "Test",
       prepare: () => cliExecute("retrocape vampire hold"),
       completed: () => CommunityService.HotRes.isDone(),
-      do: () => CommunityService.HotRes.run(() => printModtrace("Hot Resistance"), 1),
+      do: () => CommunityService.HotRes.run(() => logTestSetup(CommunityServiceTests.HOTTEST), 1),
       outfit: {
         modifier: "hot res",
         familiar: $familiar`Exotic Parrot`,

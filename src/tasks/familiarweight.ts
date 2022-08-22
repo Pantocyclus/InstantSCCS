@@ -24,7 +24,7 @@ import {
 } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { printModtrace } from "../lib";
+import { CommunityServiceTests, logTestSetup } from "../lib";
 import { meteorShowerTask } from "./common";
 
 export const FamiliarWeightQuest: Quest = {
@@ -157,7 +157,8 @@ export const FamiliarWeightQuest: Quest = {
     {
       name: "Test",
       completed: () => CommunityService.FamiliarWeight.isDone(),
-      do: () => CommunityService.FamiliarWeight.run(() => printModtrace("Familiar Weight"), 19),
+      do: () =>
+        CommunityService.FamiliarWeight.run(() => logTestSetup(CommunityServiceTests.FAMTEST), 19),
       outfit: { modifier: "familiar weight", familiar: $familiar`Exotic Parrot` },
       limit: { tries: 1 },
     },

@@ -1,6 +1,6 @@
 import { $effect, $familiar, CommunityService, uneffect } from "libram";
 import { Quest } from "../engine/task";
-import { printModtrace } from "../lib";
+import { CommunityServiceTests, logTestSetup } from "../lib";
 import { burnLibram } from "./common";
 
 export const NoncombatQuest: Quest = {
@@ -10,7 +10,8 @@ export const NoncombatQuest: Quest = {
     {
       name: "Test",
       completed: () => CommunityService.Noncombat.isDone(),
-      do: () => CommunityService.Noncombat.run(() => printModtrace("Combat Rate"), 1),
+      do: () =>
+        CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), 1),
       outfit: {
         familiar: $familiar`Disgeist`,
         modifier: "-combat",

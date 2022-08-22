@@ -1,7 +1,7 @@
 import { useSkill } from "kolmafia";
 import { $effect, $familiar, $skill, CommunityService, have, uneffect } from "libram";
 import { Quest } from "../engine/task";
-import { printModtrace } from "../lib";
+import { CommunityServiceTests, logTestSetup } from "../lib";
 import { burnLibram } from "./common";
 
 export const HPQuest: Quest = {
@@ -13,8 +13,7 @@ export const HPQuest: Quest = {
         if (have($effect`[1458]Blood Sugar Sauce Magic`)) useSkill($skill`Blood Sugar Sauce Magic`);
       },
       completed: () => CommunityService.HP.isDone(),
-      do: () =>
-        CommunityService.HP.run(() => printModtrace(["Maximum HP", "Maximum HP Percent"]), 1),
+      do: () => CommunityService.HP.run(() => logTestSetup(CommunityServiceTests.HPTEST), 1),
       outfit: { modifier: "HP", familiar: $familiar`Disembodied Hand` },
       effects: [
         $effect`A Few Extra Pounds`,
@@ -44,7 +43,7 @@ export const MuscleQuest: Quest = {
       name: "Test",
       prepare: () => useSkill($skill`Bind Undead Elbow Macaroni`),
       completed: () => CommunityService.Muscle.isDone(),
-      do: () => CommunityService.Muscle.run(() => printModtrace(["Muscle", "Muscle Percent"]), 1),
+      do: () => CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), 1),
       outfit: { modifier: "Muscle", familiar: $familiar`Disembodied Hand` },
       effects: [
         $effect`Go Get 'Em, Tiger!`,
@@ -69,10 +68,7 @@ export const MysticalityQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Mysticality.isDone(),
       do: () =>
-        CommunityService.Mysticality.run(
-          () => printModtrace(["Mysticality", "Mysticality Percent"]),
-          1
-        ),
+        CommunityService.Mysticality.run(() => logTestSetup(CommunityServiceTests.MYSTTEST), 1),
       outfit: { modifier: "Mysticality", familiar: $familiar`Disembodied Hand` },
       effects: [
         $effect`Glittering Eyelashes`,
@@ -95,7 +91,7 @@ export const MoxieQuest: Quest = {
     {
       name: "Test",
       completed: () => CommunityService.Moxie.isDone(),
-      do: () => CommunityService.Moxie.run(() => printModtrace(["Moxie", "Moxie Percent"]), 1),
+      do: () => CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), 1),
       outfit: { modifier: "Moxie", familiar: $familiar`Disembodied Hand` },
       effects: [
         $effect`Blubbered Up`,
