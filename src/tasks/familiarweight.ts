@@ -153,6 +153,21 @@ export const FamiliarWeightQuest: Quest = {
       },
       limit: { tries: 3 },
     },
+    {
+      name: "Get Shaving Buff",
+      completed: () => get("_chestXRayUsed") >= 3 || have($effect`Musician's Musician's Moustache`),
+      do: $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(Macro.skill($skill`Chest X-Ray`).abort()),
+      outfit: {
+        hat: $item`Daylight Shavings Helmet`,
+        offhand: $item`familiar scrapbook`,
+        pants: $item`designer sweatpants`,
+        acc1: $item`Kremlin's Greatest Briefcase`,
+        acc3: $item`Lil' Doctor™ bag`,
+        familiar: $familiar`Melodramedary`,
+      },
+      limit: { tries: 1 },
+    },
     { ...meteorShowerTask },
     {
       name: "Test",
