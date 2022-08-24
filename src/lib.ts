@@ -258,9 +258,12 @@ function advCost(whichTest: number): number {
 }
 
 export function logTestSetup(whichTest: number): void {
+  const testTurns = advCost(whichTest);
   printModtrace(testModifiers.get(whichTest) ?? []);
   print(
-    `${testNames.get(whichTest) ?? "Unknown Test"} takes ${advCost(whichTest)} adventures.`,
+    `${testNames.get(whichTest) ?? "Unknown Test"} takes ${testTurns} adventure${
+      testTurns === 1 ? "" : "s"
+    }.`,
     "blue"
   );
 }
