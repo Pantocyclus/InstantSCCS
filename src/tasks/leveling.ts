@@ -244,7 +244,10 @@ export const LevelingQuest: Quest = {
       },
       completed: () => get("_neverendingPartyFreeTurns") >= 10,
       do: $location`The Neverending Party`,
-      choices: { 1324: 5 },
+      choices: {
+        1322: 2,
+        1324: 5,
+      },
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Bowl Sideways`).default()),
       outfit: {
         shirt: $item`makeshift garbage shirt`,
@@ -292,7 +295,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_sausageFights") > 1,
       ready: () => getKramcoWandererChance() >= 1.0,
       do: $location`The Neverending Party`,
-      choices: { 1322: 1 },
+      choices: { 1322: 2 },
       combat: new CombatStrategy().macro(
         Macro.if_($monster`sausage goblin`, Macro.trySkill($skill`Portscan`).default()).abort()
       ),

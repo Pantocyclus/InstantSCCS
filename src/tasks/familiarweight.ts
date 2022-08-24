@@ -1,6 +1,7 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
   cliExecute,
+  eat,
   familiarWeight,
   haveEffect,
   itemAmount,
@@ -20,12 +21,13 @@ import {
   CommunityService,
   ensureEffect,
   get,
+  getKramcoWandererChance,
   have,
 } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
-import { meteorShowerTask } from "./common";
+import { burnLibram, meteorShowerTask } from "./common";
 
 export const FamiliarWeightQuest: Quest = {
   name: "Familiar Weight",
@@ -42,6 +44,34 @@ export const FamiliarWeightQuest: Quest = {
       completed: () => get("_lookingGlass"),
       do: () => visitUrl("clan_viplounge.php?action=lookingglass&whichfloor=2"),
       limit: { tries: 1 },
+    },
+    {
+      name: "Sausage Goblin",
+      completed: () => get("_sausageFights") > 2,
+      ready: () => getKramcoWandererChance() >= 1.0,
+      do: $location`The Neverending Party`,
+      choices: { 1322: 2 },
+      combat: new CombatStrategy().macro(
+        Macro.if_($monster`sausage goblin`, Macro.default()).abort()
+      ),
+      outfit: {
+        hat: $item`Daylight Shavings Helmet`,
+        offhand: $item`Kramco Sausage-o-Matic™`,
+        shirt: $item`makeshift garbage shirt`,
+        pants: $item`designer sweatpants`,
+        acc1: $item`Kremlin's Greatest Briefcase`,
+        acc3: $item`Lil' Doctor™ bag`,
+        familiar: $familiar`Galloping Grill`,
+      },
+      acquire: [{ item: $item`makeshift garbage shirt` }],
+      limit: { tries: 1 },
+      post: (): void => {
+        eat(
+          itemAmount($item`magical sausage`) + itemAmount($item`magical sausage casing`),
+          $item`magical sausage`
+        );
+        burnLibram(300);
+      },
     },
     {
       name: "Buffs",
