@@ -249,8 +249,8 @@ function advCost(whichTest: number): number {
       page.indexOf(testStr) + testStr.length,
       page.indexOf(testStr) + testStr.length + chars
     );
-    const advStr = page.slice(pageStr.indexOf("(") + 1, pageStr.indexOf("(") + 3);
-    return parseInt(advStr.trim());
+    const advStr = pageStr.slice(pageStr.indexOf("(") + 1, pageStr.indexOf("(") + 3).trim();
+    return parseInt(advStr);
   } else {
     print("Didn't find specified test on the council page. Already done?");
     return 99999;
