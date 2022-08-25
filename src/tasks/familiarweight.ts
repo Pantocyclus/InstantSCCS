@@ -185,7 +185,7 @@ export const FamiliarWeightQuest: Quest = {
     },
     {
       name: "Get Shaving Buff",
-      completed: () => get("_chestXRayUsed") >= 3 || have($effect`Musician's Musician's Moustache`),
+      completed: () => get("_chestXRayUsed") >= 3 || have($effect`Toiletbrush Moustache`),
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(Macro.skill($skill`Chest X-Ray`).abort()),
       outfit: {
