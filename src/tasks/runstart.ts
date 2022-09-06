@@ -8,7 +8,7 @@ import {
   useSkill,
   visitUrl,
 } from "kolmafia";
-import { $familiar, $item, $skill, get, have, Pantogram, SongBoom } from "libram";
+import { $familiar, $item, $skill, get, have, SongBoom } from "libram";
 import { Quest } from "../engine/task";
 
 export const RunStartQuest: Quest = {
@@ -101,7 +101,7 @@ export const RunStartQuest: Quest = {
       do: () => visitUrl("place.php?whichplace=town_wrong&action=townwrong_precinct"),
       limit: { tries: 1 },
     },
-    {
+    /* {
       name: "Pantogramming",
       completed: () => Pantogram.havePants(),
       do: (): void => {
@@ -114,7 +114,7 @@ export const RunStartQuest: Quest = {
         );
       },
       limit: { tries: 1 },
-    },
+    }, */
     {
       name: "Mummery",
       completed: () => get("_mummeryMods").includes("Experience (Mysticality)"),

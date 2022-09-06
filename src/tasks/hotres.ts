@@ -30,7 +30,10 @@ export const HotResQuest: Quest = {
     },
     {
       name: "Test",
-      prepare: () => cliExecute("retrocape vampire hold"),
+      prepare: (): void => {
+        cliExecute("retrocape vampire hold");
+        if (get("parkaMode") !== "pterodactyl") cliExecute("parka pterodactyl");
+      },
       completed: () => CommunityService.HotRes.isDone(),
       do: () => CommunityService.HotRes.run(() => logTestSetup(CommunityServiceTests.HOTTEST), 1),
       outfit: {

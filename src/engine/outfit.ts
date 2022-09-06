@@ -3,7 +3,7 @@ import { $item, $items, $slot } from "libram";
 
 export function equipDefaults(outfit: Outfit): void {
   outfit.equip($item`Daylight Shavings Helmet`, $slot`hat`);
-  outfit.equip($item`fresh coat of paint`, $slot`shirt`);
+  outfit.equip($item`Jurassic Parka`, $slot`shirt`);
   outfit.equip($items`weeping willow wand, Fourth of May Cosplay Saber`, $slot`weapon`);
   outfit.equip($item`unbreakable umbrella`, $slot`off-hand`);
   outfit.equip($item`designer sweatpants`, $slot`pants`);

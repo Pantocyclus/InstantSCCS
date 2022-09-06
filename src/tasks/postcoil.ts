@@ -319,6 +319,9 @@ export const PostCoilQuest: Quest = {
       ready: () => get("ghostLocation") !== $location`none` && get("_nanorhinoCharge") >= 100,
       completed: () => have($effect`Nanobrainy`),
       do: () => adv1(get("ghostLocation", $location`none`), 0, ""),
+      prepare: (): void => {
+        if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
+      },
       combat: new CombatStrategy().macro(
         Macro.skill($skill`Entangling Noodles`) // Myst skill to trigger nanorhino buff
           .trySkill($skill`Giant Growth`)
@@ -339,11 +342,19 @@ export const PostCoilQuest: Quest = {
     {
       name: "Skeleton Fruits",
       ready: () => get("_monstersMapped") < 3 && get("_chestXRayUsed") < 3,
+      prepare: (): void => {
+        if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
+      },
       completed: () =>
         have($item`cherry`) || have($item`oil of expertise`) || have($effect`Expert Oiliness`),
       do: () => mapMonster($location`The Skeleton Store`, $monster`novelty tropical skeleton`),
-      combat: new CombatStrategy().macro(Macro.skill($skill`Feel Envy`).skill($skill`Chest X-Ray`)),
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Spit jurassic acid`)
+          .skill($skill`Feel Envy`)
+          .skill($skill`Chest X-Ray`)
+      ),
       outfit: {
+        shirt: $item`Jurassic Parka`,
         pants: $item`designer sweatpants`,
         acc3: $item`Lil' Doctor™ bag`,
         familiar: $familiar`Melodramedary`,

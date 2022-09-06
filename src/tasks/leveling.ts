@@ -66,6 +66,7 @@ export const LevelingQuest: Quest = {
         useFamiliar($familiar`Galloping Grill`);
         useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
       },
       completed: () => get("_snojoFreeFights") >= 5,
       do: $location`The X-32-F Combat Training Snowman`,
@@ -85,6 +86,7 @@ export const LevelingQuest: Quest = {
           runChoice(1);
         }
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
       },
       completed: () => have($item`burning newspaper`) || get("_snojoFreeFights") >= 10,
       do: $location`The X-32-F Combat Training Snowman`,

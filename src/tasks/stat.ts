@@ -1,5 +1,5 @@
-import { useSkill } from "kolmafia";
-import { $effect, $familiar, $skill, CommunityService, have, uneffect } from "libram";
+import { cliExecute, useSkill } from "kolmafia";
+import { $effect, $familiar, $skill, CommunityService, get, have, uneffect } from "libram";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
 import { burnLibram } from "./common";
@@ -11,6 +11,7 @@ export const HPQuest: Quest = {
       name: "Test",
       prepare: (): void => {
         if (have($effect`[1458]Blood Sugar Sauce Magic`)) useSkill($skill`Blood Sugar Sauce Magic`);
+        if (get("parkaMode") !== "kachungasaur") cliExecute("parka kachungasaur");
       },
       completed: () => CommunityService.HP.isDone(),
       do: () => CommunityService.HP.run(() => logTestSetup(CommunityServiceTests.HPTEST), 1),

@@ -1,4 +1,5 @@
-import { $effect, $familiar, CommunityService, uneffect } from "libram";
+import { cliExecute } from "kolmafia";
+import { $effect, $familiar, CommunityService, get, uneffect } from "libram";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
 import { burnLibram } from "./common";
@@ -10,6 +11,9 @@ export const NoncombatQuest: Quest = {
     {
       name: "Test",
       completed: () => CommunityService.Noncombat.isDone(),
+      prepare: (): void => {
+        if (get("parkaMode") !== "pterodactyl") cliExecute("parka pterodactyl");
+      },
       do: () =>
         CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), 1),
       outfit: {
