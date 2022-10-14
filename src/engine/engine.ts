@@ -11,7 +11,7 @@ export class Engine extends BaseEngine {
   }
 
   public execute(task: Task): void {
-    this.checkLimits(task);
+    this.checkLimits(task, undefined);
     super.execute(task);
     if (have($effect`Beaten Up`)) {
       if (get("lastEncounter") === "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl")
