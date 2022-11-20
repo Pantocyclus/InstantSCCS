@@ -87,6 +87,7 @@ export function main(command?: string): void {
   set("InstantHCCSTurncount", myTurncount());
   set("InstantHCCSRunEnd", gametimeToInt());
   set("InstantHCCSDaycount", myDaycount());
+  set("_InstantHCCSClanFortuneAttempts", get("_clanFortuneConsultUses", 0));
   print("Community Service complete!", "purple");
   print(`Adventures used: ${turnsPlayed()}`, "purple");
   print(`Adventures remaining: ${myAdventures()}`, "purple");

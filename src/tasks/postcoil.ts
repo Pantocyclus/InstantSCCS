@@ -140,7 +140,8 @@ export const PostCoilQuest: Quest = {
     },
     {
       name: "Fortune Teller Consult",
-      completed: () => get("_clanFortuneConsultUses", 0) >= 3,
+      completed: () =>
+        get("_clanFortuneConsultUses", 0) >= 3 || get("_InstantHCCSClanFortuneAttempts", 0) >= 3,
       do: (): void => {
         switch (get("_clanFortuneConsultsUses", 0)) {
           case 0:
@@ -156,6 +157,7 @@ export const PostCoilQuest: Quest = {
             break;
         }
         wait(5);
+        set("_InstantHCCSClanFortuneAttempts", get("_InstantHCCSClanFortuneAttempts", 0) + 1);
       },
       limit: { tries: 3 },
     },
