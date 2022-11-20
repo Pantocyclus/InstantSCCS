@@ -30,6 +30,7 @@ import {
   ensureEffect,
   get,
   have,
+  set,
 } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
@@ -157,7 +158,7 @@ export const PostCoilQuest: Quest = {
             break;
         }
         wait(5);
-        set("_InstantHCCSClanFortuneAttempts", get("_InstantHCCSClanFortuneAttempts", 0) + 1);
+        set("_InstantHCCSClanFortuneAttempts", 1 + get("_InstantHCCSClanFortuneAttempts", 0));
       },
       limit: { tries: 3 },
     },
