@@ -42,7 +42,7 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Test",
       prepare: (): void => {
-        for (const it of $items`lavender candy heart, resolution: be happier, pulled yellow taffy, resolution: be luckier`)
+        for (const it of $items`lavender candy heart, resolution: be happier, pulled yellow taffy, resolution: be luckier, autumn leaf`)
           if (have(it)) ensureEffect(effectModifier(it, "effect"));
       },
       completed: () => CommunityService.BoozeDrop.isDone(),

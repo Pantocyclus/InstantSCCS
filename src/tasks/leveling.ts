@@ -315,6 +315,20 @@ export const LevelingQuest: Quest = {
         ),
     },
     {
+      name: "Oliver's Place",
+      prepare: (): void => {
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        cliExecute("terminal educate portscan");
+      },
+      completed: () => get("_oliversPlaceFreeFights", 0) > 0,
+      do: $location`An Unusually Quiet Barroom Brawl`,
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Gulp Latte`)
+          .if_($monster`Government agent`, Macro.trySkill($skill`Feel Envy`).default())
+          .default()
+      ),
+    },
+    {
       name: "DMT",
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");

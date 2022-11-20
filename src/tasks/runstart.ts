@@ -1,4 +1,5 @@
 import {
+  availableAmount,
   cliExecute,
   getCampground,
   retrieveItem,
@@ -8,7 +9,7 @@ import {
   useSkill,
   visitUrl,
 } from "kolmafia";
-import { $familiar, $item, $skill, get, have, SongBoom } from "libram";
+import { $effect, $familiar, $item, $skill, get, have, SongBoom } from "libram";
 import { Quest } from "../engine/task";
 
 export const RunStartQuest: Quest = {
@@ -186,6 +187,15 @@ export const RunStartQuest: Quest = {
       name: "Garden",
       completed: () => getCampground()[$item`peppermint sprout`.name] === 0,
       do: () => cliExecute("garden pick"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Autumnaton",
+      completed: () =>
+        availableAmount($item`autumn-aton`) === 0 ||
+        have($item`autumn leaf`) ||
+        have($effect`Crunching Leaves`),
+      do: () => cliExecute("autumnaton send The Sleazy Back Alley"),
       limit: { tries: 1 },
     },
   ],
