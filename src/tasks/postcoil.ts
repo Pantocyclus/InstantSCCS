@@ -303,8 +303,8 @@ export const PostCoilQuest: Quest = {
       do: () => mapMonster($location`The Haiku Dungeon`, $monster`amateur ninja`),
       post: () => visitUrl("questlog.php?which=1"), // Check quest log for protonic ghost location
       combat: new CombatStrategy().macro(
-        Macro.if_($monster`amateur ninja`, Macro.skill($skill`Chest X-Ray`))
-          .ifHolidayWanderer(Macro.trySkill($skill`Reflex Hammer`))
+        Macro.ifHolidayWanderer(Macro.skill($skill`Reflex Hammer`).abort())
+          .if_($monster`amateur ninja`, Macro.skill($skill`Chest X-Ray`))
           .abort()
       ),
       outfit: {
