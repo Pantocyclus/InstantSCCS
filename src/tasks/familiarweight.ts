@@ -52,7 +52,9 @@ export const FamiliarWeightQuest: Quest = {
       do: $location`The Neverending Party`,
       choices: { 1322: 2 },
       combat: new CombatStrategy().macro(
-        Macro.if_($monster`sausage goblin`, Macro.default()).abort()
+        Macro.ifHolidayWanderer(Macro.skill($skill`Reflex Hammer`).abort())
+          .if_($monster`sausage goblin`, Macro.default())
+          .abort()
       ),
       outfit: {
         hat: $item`Daylight Shavings Helmet`,
