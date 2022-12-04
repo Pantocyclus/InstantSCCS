@@ -80,7 +80,9 @@ export const DonateQuest: Quest = {
         debug(`Deck Summons: ${get("_deckCardsDrawn")}/15`);
         debug(`Macrometeorites: ${get("_macrometeoriteUses")}/10`);
         debug(`Batteries: ${7 - availableAmount($item`battery (AAA)`)}/7`);
+        debug(`CMC Uses: ${get("_coldMedicineConsults")}/5`);
         debug(`Tome Summons: ${get("tomeSummons")}/3`);
+        debug(`Peppermint Sprouts: ${3 - availableAmount($item`peppermint sprout`)}/3`);
         debug(`Wishes: ${get("_genieWishesUsed")}/3`);
         debug(`Tea Tree: ${get("_pottedTeaTreeUsed") ? 1 : 0}/1`);
         debug(`Favorite Bird: ${get("_favoriteBirdVisited") ? 1 : 0}/1`);
@@ -91,8 +93,6 @@ export const DonateQuest: Quest = {
             get("_gingerbreadCityTurns") >= 5 + (get("_gingerbreadClockAdvanced") ? 5 : 0)
           } / 1`
         );
-        // Can't track worksheds well
-        // Can't track gardens well
 
         // Organ Use
         debug("\nOrgan Use:");
