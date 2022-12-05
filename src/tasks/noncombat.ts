@@ -29,6 +29,9 @@ export const NoncombatQuest: Quest = {
         $effect`Smooth Movements`,
         $effect`The Sonata of Sneakiness`,
         $effect`Throwing Some Shade`,
+        $effect`Blood Bond`,
+        $effect`Leash of Linguini`,
+        $effect`Puzzle Champ`,
       ],
       post: (): void => {
         uneffect($effect`The Sonata of Sneakiness`);

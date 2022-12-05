@@ -100,6 +100,8 @@ export const DonateQuest: Quest = {
           }/1`
         );
         debug(`Pantogram: ${get("_pantogramModifier").length > 0 ? 1 : 0}/1`);
+        debug(`Cargo Shorts: ${get("_cargoPocketEmptied") ? 1 : 0}/1`);
+        debug(`Pillkeeper: ${get("_freePillKeeperUsed") ? 1 : 0}/1`);
 
         // Organ Use
         debug("");
