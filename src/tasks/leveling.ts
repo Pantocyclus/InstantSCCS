@@ -35,7 +35,7 @@ import {
 } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { tryUse } from "../lib";
+import { mapMonster, tryUse } from "../lib";
 import { burnLibram, innerElfTask } from "./common";
 
 export const LevelingQuest: Quest = {
@@ -56,6 +56,17 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     { ...innerElfTask },
+    {
+      name: "Oliver's Place Free Fights",
+      prepare: (): void => {
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+      },
+      completed: () => get("_speakeasyFreeFights", 0) >= 2,
+      // eslint-disable-next-line libram/verify-constants
+      do: $location`An Unusually Quiet Barroom Brawl`,
+      combat: new CombatStrategy().macro(Macro.default()),
+      outfit: { familiar: $familiar`Melodramedary` },
+    },
     {
       name: "Early Snojo",
       prepare: (): void => {
@@ -143,7 +154,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
         shirt: $item`makeshift garbage shirt`,
-        familiar: $familiar`Galloping Grill`,
+        familiar: $familiar`Melodramedary`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 1 },
@@ -160,7 +171,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
         shirt: $item`makeshift garbage shirt`,
-        familiar: $familiar`Shorter-Order Cook`,
+        familiar: $familiar`Melodramedary`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 3 },
@@ -195,7 +206,7 @@ export const LevelingQuest: Quest = {
       outfit: {
         weapon: $item`Fourth of May Cosplay Saber`,
         shirt: $item`makeshift garbage shirt`,
-        familiar: $familiar`Shorter-Order Cook`,
+        familiar: $familiar`Melodramedary`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 1 },
@@ -253,7 +264,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Bowl Sideways`).default()),
       outfit: {
         shirt: $item`makeshift garbage shirt`,
-        familiar: $familiar`Galloping Grill`,
+        familiar: $familiar`Melodramedary`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 11 },
@@ -276,7 +287,7 @@ export const LevelingQuest: Quest = {
       do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
       outfit: {
         shirt: $item`makeshift garbage shirt`,
-        familiar: $familiar`Galloping Grill`,
+        familiar: $familiar`Melodramedary`,
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Pride`)
@@ -304,7 +315,7 @@ export const LevelingQuest: Quest = {
       outfit: {
         offhand: $item`Kramco Sausage-o-Matic™`,
         shirt: $item`makeshift garbage shirt`,
-        familiar: $familiar`Galloping Grill`,
+        familiar: $familiar`Melodramedary`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 1 },
@@ -315,18 +326,37 @@ export const LevelingQuest: Quest = {
         ),
     },
     {
-      name: "Oliver's Place",
+      name: "Oliver's Place Portscan",
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         cliExecute("terminal educate portscan");
       },
-      completed: () => get("_speakeasyFreeFights", 0) > 0,
+      completed: () => get("_speakeasyFreeFights", 0) >= 3,
+      // eslint-disable-next-line libram/verify-constants
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Gulp Latte`)
           .if_($monster`Government agent`, Macro.trySkill($skill`Feel Envy`).default())
           .default()
       ),
+      outfit: { familiar: $familiar`Melodramedary` },
+    },
+    {
+      name: "Oliver's Place Map",
+      ready: () => get("_monstersMapped") < 3,
+      prepare: (): void => {
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        if (get("parkaMode") !== "dilophosaur") cliExecute("parka dilophosaur");
+      },
+      completed: () => have($effect`Everything Looks Yellow`),
+      // eslint-disable-next-line libram/verify-constants
+      do: mapMonster($location`An Unusually Quiet Barroom Brawl`, $monster`goblin flapper`),
+      combat: new CombatStrategy().macro(Macro.skill($skill`Spit jurassic acid`).abort()),
+      outfit: {
+        shirt: $item`Jurassic Parka`,
+        offhand: $item`latte lovers member's mug`,
+        familiar: $familiar`Melodramedary`,
+      },
     },
     {
       name: "DMT",

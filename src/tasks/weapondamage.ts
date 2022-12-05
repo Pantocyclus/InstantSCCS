@@ -64,7 +64,8 @@ export const WeaponDamageQuest: Quest = {
       name: "Test",
       prepare: (): void => {
         SongBoom.setSong("These Fists Were Made for Punchin'");
-        for (const it of $items`Fabiotion, resolution: be feistier`)
+        // eslint-disable-next-line libram/verify-constants
+        for (const it of $items`Fabiotion, resolution: be feistier, imported taffy`)
           if (have(it)) ensureEffect(effectModifier(it, "effect"));
       },
       completed: () => CommunityService.WeaponDamage.isDone(),

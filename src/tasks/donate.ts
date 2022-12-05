@@ -1,8 +1,8 @@
 import {
-  availableAmount,
   cliExecute,
   fullnessLimit,
   inebrietyLimit,
+  itemAmount,
   myAscensions,
   myFullness,
   myInebriety,
@@ -29,7 +29,8 @@ export const DonateQuest: Quest = {
       do: (): void => {
         // Track resources used
         // Banishes
-        debug("\nResource Tracking", "blue");
+        debug("");
+        debug("Resource Tracking", "blue");
         debug("Banishes Used:");
         debug(`Feel Hatred: ${get("_feelHatredUsed")}/3`);
         debug(`Reflex Hammer: ${get("_reflexHammerUsed")}/3`);
@@ -38,14 +39,16 @@ export const DonateQuest: Quest = {
         debug(`Snokebomb: ${get("_snokebombUsed")}/3`);
 
         // Free Kills
-        debug("\nFree Kills Used:");
+        debug("");
+        debug("Free Kills Used:");
         debug(`Chest X-Ray: ${get("_chestXRayUsed")}/3`);
         debug(`Shattering Punch: ${get("_shatteringPunchUsed")}/3`);
-        debug(`Gingerbread Mob Hit: ${get("_gingerbreadMobHitUsed") ? 1 : 0} / 1`);
+        debug(`Gingerbread Mob Hit: ${get("_gingerbreadMobHitUsed") ? 1 : 0}/1`);
         // Spit Jurassic Acid is reusable (but not currently used)
 
         // Notable Skills
-        debug("\nNotable Skills Used:");
+        debug("");
+        debug("Notable Skills Used:");
         debug(`Saber Force: ${get("_saberForceUses")}/5`);
         debug(`Map the Monsters: ${get("_monstersMapped")}/3`);
         debug(`Feel Envy: ${get("_feelEnvyUsed")}/3`);
@@ -54,7 +57,8 @@ export const DonateQuest: Quest = {
         debug(`Duplicate: ${get("_sourceTerminalDuplicateUses")}/1`);
 
         // Free Fights
-        debug("\nFree Fights Used:");
+        debug("");
+        debug("Free Fights Used:");
         debug(`Snojo: ${get("_snojoFreeFights")}/10`);
         debug(`NEP: ${get("_neverendingPartyFreeTurns")}/10`);
         debug(`Witchess Fights: ${get("_witchessFights")}/5`);
@@ -63,26 +67,28 @@ export const DonateQuest: Quest = {
         debug(`Vote Monsters: ${get("_voteFreeFights")}/3`);
         debug(`God Lobster: ${get("_godLobsterFights")}/3`);
         debug(`Oliver's Place: ${get("_speakeasyFreeFights", 0)}/3`);
-        debug(`Eldritch Tentacle: ${get("_eldritchHorrorEvoked")}/1`);
+        debug(`Eldritch Tentacle: ${get("_eldritchHorrorEvoked") ? 1 : 0}/1`);
         debug(`Sausage Goblins: ${get("_sausageFights")}/?`);
 
         // Potentially Free Fights
-        debug("\nPotentially Free Fights:");
+        debug("");
+        debug("Potentially Free Fights:");
         debug(`Backup Camera: ${get("_backUpUses")}/11`);
-        debug(`Locket uses: ${get("_locketMonstersFought")}/3`);
+        debug(`Locket uses: ${get("_locketMonstersFought").split(",").length}/3`);
         debug(`Fax uses: ${get("photocopyUsed") ? 1 : 0}/1`);
         debug(`Chateau Painting: ${get("_chateauMonsterFought") ? 1 : 0}/1`);
 
         // Resources That Compete With Farming
-        debug("\nFarming Resources:");
+        debug("");
+        debug("Farming Resources:");
         debug(`Powerful Glove Charges: ${100 - get("_powerfulGloveBatteryPowerUsed")}/100`);
         debug(`KGB clicks: ${get("_kgbClicksUsed")}/22`);
         debug(`Deck Summons: ${get("_deckCardsDrawn")}/15`);
         debug(`Macrometeorites: ${get("_macrometeoriteUses")}/10`);
-        debug(`Batteries: ${7 - availableAmount($item`battery (AAA)`)}/7`);
-        debug(`CMC Uses: ${get("_coldMedicineConsults")}/5`);
+        debug(`Batteries: ${7 - itemAmount($item`battery (AAA)`)}/7`);
+        debug(`CMC Uses: ${get("_coldMedicineConsults")}/5`); // Assumes workshed is CMC
         debug(`Tome Summons: ${get("tomeSummons")}/3`);
-        debug(`Peppermint Sprouts: ${3 - availableAmount($item`peppermint sprout`)}/3`);
+        debug(`Peppermint Sprouts: ${3 - itemAmount($item`peppermint sprout`)}/3`); // Assumes garden is peppermint
         debug(`Wishes: ${get("_genieWishesUsed")}/3`);
         debug(`Tea Tree: ${get("_pottedTeaTreeUsed") ? 1 : 0}/1`);
         debug(`Favorite Bird: ${get("_favoriteBirdVisited") ? 1 : 0}/1`);
@@ -90,12 +96,14 @@ export const DonateQuest: Quest = {
         debug(`Floundry: ${get("_floundryItemCreated") ? 1 : 0}/1`);
         debug(
           `GingerbreadCity Noon: ${
-            get("_gingerbreadCityTurns") >= 5 + (get("_gingerbreadClockAdvanced") ? 5 : 0)
-          } / 1`
+            get("_gingerbreadCityTurns") >= 5 + (get("_gingerbreadClockAdvanced") ? 5 : 0) ? 1 : 0
+          }/1`
         );
+        debug(`Pantogram: ${get("_pantogramModifier").length > 0 ? 1 : 0}/1`);
 
         // Organ Use
-        debug("\nOrgan Use:");
+        debug("");
+        debug("Organ Use:");
         debug(`Stomach: ${myFullness()}/${fullnessLimit()}`);
         debug(`Liver: ${myInebriety()}/${inebrietyLimit()}`);
         debug(`Spleen: ${mySpleenUse()}/${spleenLimit()}`);
@@ -104,8 +112,11 @@ export const DonateQuest: Quest = {
         );
 
         // Adventures Used
-        debug(`\nAdventures used: ${turnsPlayed()}`);
-        debug("\nEmptying Hagnks!", "purple");
+        debug("");
+        debug(`Adventures used: ${turnsPlayed()}`);
+
+        debug("");
+        debug("Emptying Hagnks!", "purple");
         debug("Please wait for up to 1 minute...", "blue");
         cliExecute("hagnk all");
       },
