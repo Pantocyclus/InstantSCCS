@@ -350,7 +350,7 @@ export const LevelingQuest: Quest = {
       },
       completed: () => have($effect`Everything Looks Yellow`),
       // eslint-disable-next-line libram/verify-constants
-      do: mapMonster($location`An Unusually Quiet Barroom Brawl`, $monster`goblin flapper`),
+      do: () => mapMonster($location`An Unusually Quiet Barroom Brawl`, $monster`goblin flapper`),
       combat: new CombatStrategy().macro(Macro.skill($skill`Spit jurassic acid`).abort()),
       outfit: {
         shirt: $item`Jurassic Parka`,
