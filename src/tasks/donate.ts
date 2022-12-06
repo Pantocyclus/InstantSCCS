@@ -72,7 +72,7 @@ export const DonateQuest: Quest = {
 
         // Potentially Free Fights
         debug("");
-        debug("Potentially Free Fights:");
+        debug("Potentially Free Fights Used:");
         debug(`Backup Camera: ${get("_backUpUses")}/11`);
         debug(`Locket uses: ${get("_locketMonstersFought").split(",").length}/3`);
         debug(`Fax uses: ${get("photocopyUsed") ? 1 : 0}/1`);
@@ -81,7 +81,7 @@ export const DonateQuest: Quest = {
         // Resources That Compete With Farming
         debug("");
         debug("Farming Resources:");
-        debug(`Powerful Glove Charges: ${100 - get("_powerfulGloveBatteryPowerUsed")}/100`);
+        debug(`Powerful Glove Charges: ${get("_powerfulGloveBatteryPowerUsed")}/100`);
         debug(`KGB clicks: ${get("_kgbClicksUsed")}/22`);
         debug(`Deck Summons: ${get("_deckCardsDrawn")}/15`);
         debug(`Macrometeorites: ${get("_macrometeoriteUses")}/10`);
@@ -96,16 +96,16 @@ export const DonateQuest: Quest = {
         debug(`Floundry: ${get("_floundryItemCreated") ? 1 : 0}/1`);
         debug(
           `GingerbreadCity Noon: ${
-            get("_gingerbreadCityTurns") >= 5 + (get("_gingerbreadClockAdvanced") ? 5 : 0) ? 1 : 0
+            get("_gingerbreadCityTurns") >= 5 + (get("_gingerbreadClockAdvanced") ? 0 : 5) ? 1 : 0
           }/1`
         );
         debug(`Pantogram: ${get("_pantogramModifier").length > 0 ? 1 : 0}/1`);
         debug(`Cargo Shorts: ${get("_cargoPocketEmptied") ? 1 : 0}/1`);
         debug(`Pillkeeper: ${get("_freePillKeeperUsed") ? 1 : 0}/1`);
 
-        // Organ Use
+        // Organs Used
         debug("");
-        debug("Organ Use:");
+        debug("Organs Used:");
         debug(`Stomach: ${myFullness()}/${fullnessLimit()}`);
         debug(`Liver: ${myInebriety()}/${inebrietyLimit()}`);
         debug(`Spleen: ${mySpleenUse()}/${spleenLimit()}`);
