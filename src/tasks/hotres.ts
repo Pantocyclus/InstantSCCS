@@ -49,7 +49,6 @@ export const HotResQuest: Quest = {
         $effect`Feeling Peaceful`,
         $effect`Hot-Headed`,
         $effect`Leash of Linguini`,
-        $effect`Sleazy Hands`,
       ],
       limit: { tries: 1 },
     },
