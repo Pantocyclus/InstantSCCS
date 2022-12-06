@@ -110,7 +110,9 @@ export const DonateQuest: Quest = {
         debug(`Liver: ${myInebriety()}/${inebrietyLimit()}`);
         debug(`Spleen: ${mySpleenUse()}/${spleenLimit()}`);
         debug(
-          `Sweat: ${get("sweat")}/100, Sweat Out Some Booze: ${get("_sweatOutSomeBoozeUsed")}/3`
+          `Sweat Remaining: ${get("sweat")}/100, Sweat Out Some Booze: ${get(
+            "_sweatOutSomeBoozeUsed"
+          )}/3`
         );
 
         // Adventures Used
