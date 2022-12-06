@@ -26,6 +26,7 @@ export const HotResQuest: Quest = {
         back: $item`vampyric cloake`,
         offhand: $item`industrial fire extinguisher`,
         familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
       },
       limit: { tries: 1 },
     },

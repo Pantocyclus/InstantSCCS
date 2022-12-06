@@ -14,6 +14,7 @@ import {
   sweetSynthesis,
   totalFreeRests,
   use,
+  useFamiliar,
   useSkill,
   visitUrl,
   wait,
@@ -77,7 +78,7 @@ const levelingBuffs = [
   $effect`Glittering Eyelashes`,
   // Other
   $effect`Billiards Belligerence`,
-  $effect`Blessing of your favorite Bird`, // Set up for +75% myst, +2 hot resist, -5% combat freq, +100 weapon dmg%, +20 weapon dmg
+  // $effect`Blessing of your favorite Bird`, // Set up for +75% myst, +2 hot resist, -5% combat freq, +100 weapon dmg%, +20 weapon dmg
   $effect`Broad-Spectrum Vaccine`,
   $effect`Favored by Lyle`,
   $effect`Grumpy and Ornery`,
@@ -267,7 +268,10 @@ export const PostCoilQuest: Quest = {
         create(1, $item`box of Familiar Jacks`);
         use(1, $item`box of Familiar Jacks`);
         useSkill($skill`Summon Sugar Sheets`);
-        create(1, $item`sugar chapeau`);
+        //create(1, $item`sugar chapeau`);
+        useFamiliar($familiar`Melodramedary`);
+        create(1, $item`box of Familiar Jacks`);
+        use(1, $item`box of Familiar Jacks`);
       },
       outfit: { familiar: $familiar`Exotic Parrot` },
       limit: { tries: 1 },
@@ -361,6 +365,7 @@ export const PostCoilQuest: Quest = {
         pants: $item`designer sweatpants`,
         acc3: $item`Lil' Doctor™ bag`,
         familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
       },
       limit: { tries: 1 },
     },

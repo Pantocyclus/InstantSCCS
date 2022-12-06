@@ -65,7 +65,10 @@ export const LevelingQuest: Quest = {
       // eslint-disable-next-line libram/verify-constants
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: { familiar: $familiar`Melodramedary` },
+      outfit: {
+        familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
+      },
     },
     {
       name: "Early Snojo",
@@ -74,7 +77,7 @@ export const LevelingQuest: Quest = {
           visitUrl("place.php?whichplace=snojo&action=snojo_controller");
           runChoice(1);
         }
-        useFamiliar($familiar`Galloping Grill`);
+        useFamiliar($familiar`Grey Goose`);
         useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
@@ -134,6 +137,7 @@ export const LevelingQuest: Quest = {
         weapon: $item`Fourth of May Cosplay Saber`,
         shirt: $item`makeshift garbage shirt`,
         familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 1 },
@@ -155,6 +159,7 @@ export const LevelingQuest: Quest = {
       outfit: {
         shirt: $item`makeshift garbage shirt`,
         familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 1 },
@@ -162,7 +167,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Knight",
       prepare: (): void => {
-        useFamiliar($familiar`Galloping Grill`);
+        useFamiliar($familiar`Grey Goose`);
         useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
@@ -171,7 +176,6 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
         shirt: $item`makeshift garbage shirt`,
-        familiar: $familiar`Melodramedary`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 3 },
@@ -179,7 +183,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Reminisce Knight",
       prepare: (): void => {
-        useFamiliar($familiar`Galloping Grill`);
+        useFamiliar($familiar`Grey Goose`);
         useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
@@ -196,7 +200,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess King",
       prepare: (): void => {
-        useFamiliar($familiar`Galloping Grill`);
+        useFamiliar($familiar`Grey Goose`);
         useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
@@ -206,7 +210,6 @@ export const LevelingQuest: Quest = {
       outfit: {
         weapon: $item`Fourth of May Cosplay Saber`,
         shirt: $item`makeshift garbage shirt`,
-        familiar: $familiar`Melodramedary`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 1 },
@@ -214,7 +217,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Witch",
       prepare: (): void => {
-        useFamiliar($familiar`Galloping Grill`);
+        useFamiliar($familiar`Grey Goose`);
         useFamiliar($familiar`Shorter-Order Cook`);
       },
       completed: () => have($item`battle broom`),
@@ -265,6 +268,7 @@ export const LevelingQuest: Quest = {
       outfit: {
         shirt: $item`makeshift garbage shirt`,
         familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 11 },
@@ -288,6 +292,7 @@ export const LevelingQuest: Quest = {
       outfit: {
         shirt: $item`makeshift garbage shirt`,
         familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Pride`)
@@ -316,6 +321,7 @@ export const LevelingQuest: Quest = {
         offhand: $item`Kramco Sausage-o-Matic™`,
         shirt: $item`makeshift garbage shirt`,
         familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 1 },
@@ -339,7 +345,10 @@ export const LevelingQuest: Quest = {
           .if_($monster`Government agent`, Macro.trySkill($skill`Feel Envy`).default())
           .default()
       ),
-      outfit: { familiar: $familiar`Melodramedary` },
+      outfit: {
+        familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
+      },
     },
     {
       name: "Oliver's Place Map",
@@ -356,6 +365,7 @@ export const LevelingQuest: Quest = {
         shirt: $item`Jurassic Parka`,
         offhand: $item`latte lovers member's mug`,
         familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
       },
     },
     {
