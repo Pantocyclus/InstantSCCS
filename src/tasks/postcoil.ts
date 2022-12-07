@@ -267,8 +267,8 @@ export const PostCoilQuest: Quest = {
       do: (): void => {
         create(1, $item`box of Familiar Jacks`);
         use(1, $item`box of Familiar Jacks`);
-        useSkill($skill`Summon Sugar Sheets`);
-        //create(1, $item`sugar chapeau`);
+        // useSkill($skill`Summon Sugar Sheets`);
+        // create(1, $item`sugar chapeau`);
         useFamiliar($familiar`Melodramedary`);
         create(1, $item`box of Familiar Jacks`);
         use(1, $item`box of Familiar Jacks`);
@@ -318,6 +318,7 @@ export const PostCoilQuest: Quest = {
         pants: $item`designer sweatpants`,
         acc1: $item`Lil' Doctor™ bag`,
         familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
       },
       limit: { tries: 2 },
     },
