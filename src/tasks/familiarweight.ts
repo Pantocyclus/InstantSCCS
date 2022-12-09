@@ -23,6 +23,7 @@ import {
   get,
   getKramcoWandererChance,
   have,
+  set,
 } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
@@ -181,7 +182,10 @@ export const FamiliarWeightQuest: Quest = {
         1208: 3,
       },
       post: (): void => {
-        if (have($item`gingerbread spice latte`)) ensureEffect($effect`Whole Latte Love`);
+        if (have($item`gingerbread spice latte`)) {
+          ensureEffect($effect`Whole Latte Love`);
+          set("_gingerbreadCityNoonCompleted", true);
+        }
       },
       limit: { tries: 3 },
     },

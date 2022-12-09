@@ -412,6 +412,7 @@ export const PostCoilQuest: Quest = {
         } else if (have($item`lavender candy heart`) && have($item`Crimbo fudge`)) {
           sweetSynthesis($item`lavender candy heart`, $item`Crimbo fudge`);
         }
+        set("_sproutsUsed", 3 - itemAmount($item`peppermint sprout`));
       },
       limit: { tries: 1 },
     },
