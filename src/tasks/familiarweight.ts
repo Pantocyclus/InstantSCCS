@@ -98,7 +98,7 @@ export const FamiliarWeightQuest: Quest = {
         $effect`Blood Bond`,
         $effect`Do I Know You From Somewhere?`,
         $effect`Empathy`,
-        $effect`Fidoxene`,
+        // $effect`Fidoxene`,
         $effect`Leash of Linguini`,
         $effect`Puzzle Champ`,
         $effect`Robot Friends`,
@@ -209,7 +209,7 @@ export const FamiliarWeightQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.FamiliarWeight.isDone(),
       do: () =>
-        CommunityService.FamiliarWeight.run(() => logTestSetup(CommunityServiceTests.FAMTEST), 19),
+        CommunityService.FamiliarWeight.run(() => logTestSetup(CommunityServiceTests.FAMTEST), 25),
       outfit: { modifier: "familiar weight", familiar: $familiar`Exotic Parrot` },
       limit: { tries: 1 },
     },
