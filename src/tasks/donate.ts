@@ -17,17 +17,16 @@ import { debug } from "../lib";
 function logPrefUsage(s: string, n?: number): void {
   const localPref = `_instant${s}`;
   const pref = get(s);
-  if (typeof s === "boolean")
+  const prefLength = pref.toString().includes(",") ? pref.toString().split(",").length : 0;
+  if (typeof pref === "boolean")
+    debug(`${trackedPreferences.get(s) ?? s}: ${pref ? n : 0}/${n ?? "?"} ${get(localPref, "")}`);
+  else if (typeof pref === "string")
     debug(
-      `${trackedPreferences.get(pref) ?? pref}: ${pref ? n : 0}/${n ?? "?"} ${get(localPref, "")}`
+      `${trackedPreferences.get(s) ?? s}: ${prefLength > (n ?? 1) ? n ?? 1 : prefLength}/${
+        n ?? "?"
+      } ${get(localPref, "")}`
     );
-  else if (typeof s === "string")
-    debug(
-      `${trackedPreferences.get(pref) ?? pref}: ${
-        pref.split(",").length > (n ?? 1) ? n ?? 1 : pref.split(",").length
-      }/${n ?? "?"} ${get(localPref, "")}`
-    );
-  else debug(`${trackedPreferences.get(pref) ?? pref}: ${pref}/${n ?? "?"} ${get(localPref, "")}`);
+  else debug(`${trackedPreferences.get(s) ?? s}: ${pref}/${n ?? "?"} ${get(localPref, "")}`);
 }
 
 export const DonateQuest: Quest = {

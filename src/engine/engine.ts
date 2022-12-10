@@ -71,7 +71,10 @@ export class Engine extends BaseEngine {
   }
 
   public execute(task: Task): void {
-    const originalValues = Array.from(trackedPreferences.keys()).map(([pref]) => [pref, get(pref)]);
+    const originalValues = Array.from(trackedPreferences.keys()).map((pref) => [
+      pref,
+      get(pref).toString(),
+    ]);
     this.checkLimits(task, undefined);
     super.execute(task);
     if (have($effect`Beaten Up`)) {
@@ -80,7 +83,7 @@ export class Engine extends BaseEngine {
       else throw "Fight was lost; stop.";
     }
     originalValues.forEach(([pref, val]) => {
-      if (val !== get(pref)) {
+      if (val !== get(pref).toString()) {
         const s = `_instant${pref}`;
         const arr = get(s, "").split(",");
         arr.push(task.name);
