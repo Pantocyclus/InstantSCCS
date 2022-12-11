@@ -20,7 +20,7 @@ function logPrefUsage(s: string, n?: number): void {
   const prefLength = pref.toString().includes(",") ? pref.toString().split(",").length : 0;
   if (typeof pref === "boolean" || pref === "true" || pref === "false")
     debug(`${trackedPreferences.get(s) ?? s}: ${pref ? n : 0}/${n ?? "?"} ${get(localPref, "")}`);
-  else if (typeof pref === "string" && isNaN(pref))
+  else if (typeof pref === "string" && isNaN(parseInt(pref)))
     debug(
       `${trackedPreferences.get(s) ?? s}: ${prefLength > (n ?? 1) ? n ?? 1 : prefLength}/${
         n ?? "?"
