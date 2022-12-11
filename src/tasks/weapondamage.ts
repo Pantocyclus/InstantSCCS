@@ -24,7 +24,7 @@ export const WeaponDamageQuest: Quest = {
   completed: () => CommunityService.WeaponDamage.isDone(),
   tasks: [
     {
-      name: "Carol",
+      name: "Carol Ghost Buff",
       ready: () => crimboCarols.every((ef) => !have(ef)) && get("_reflexHammerUsed") < 3,
       completed: () => have($effect`Do You Crush What I Crush?`),
       do: $location`The Dire Warren`,

@@ -18,9 +18,9 @@ function logPrefUsage(s: string, n?: number): void {
   const localPref = `_instant${s}`;
   const pref = get(s);
   const prefLength = pref.toString().includes(",") ? pref.toString().split(",").length : 0;
-  if (typeof pref === "boolean")
+  if (typeof pref === "boolean" || pref === "true" || pref === "false")
     debug(`${trackedPreferences.get(s) ?? s}: ${pref ? n : 0}/${n ?? "?"} ${get(localPref, "")}`);
-  else if (typeof pref === "string")
+  else if (typeof pref === "string" && isNaN(pref))
     debug(
       `${trackedPreferences.get(s) ?? s}: ${prefLength > (n ?? 1) ? n ?? 1 : prefLength}/${
         n ?? "?"
@@ -49,7 +49,7 @@ export const DonateQuest: Quest = {
         debug("Banishes Used:");
         logPrefUsage("_feelHatredUsed", 3);
         logPrefUsage("_reflexHammerUsed", 3);
-        logPrefUsage("_latteRfeillsUsed", 3);
+        logPrefUsage("_latteRefillsUsed", 3);
         logPrefUsage("_kgbTranquilizerDartUses", 3);
         logPrefUsage("_snokebombUsed", 3);
 
