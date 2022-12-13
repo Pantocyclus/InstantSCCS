@@ -20,7 +20,10 @@ function logPrefUsage(s: string, n?: number): void {
   const prefLength = pref.toString().includes(",") ? pref.toString().split(",").length : 0;
   if (typeof pref === "boolean" || pref === "true" || pref === "false")
     debug(`${trackedPreferences.get(s) ?? s}: ${pref ? n : 0}/${n ?? "?"} ${localPref}`);
-  else if (typeof pref === "string" && isNaN(parseInt(pref)))
+  else if (
+    typeof pref === "string" &&
+    (isNaN(parseInt(pref)) || pref.includes(",") || parseInt(pref) > (n ?? 1))
+  )
     debug(
       `${trackedPreferences.get(s) ?? s}: ${prefLength > (n ?? 1) ? n ?? 1 : prefLength}/${
         n ?? "?"
@@ -106,7 +109,7 @@ export const DonateQuest: Quest = {
         logPrefUsage("_sproutsUsed", 3); // Assumes garden is peppermint
         logPrefUsage("_genieWishesUsed", 3);
         logPrefUsage("_pottedTeaTreeUsed", 3);
-        logPrefUsage("_favouriteBirdVisited", 1);
+        logPrefUsage("_favoriteBirdVisited", 1);
         logPrefUsage("_clanFortuneBuffUsed", 1);
         logPrefUsage("_floundryItemCreated", 1);
         logPrefUsage("_gingerbreadCityNoonCompleted", 1);
