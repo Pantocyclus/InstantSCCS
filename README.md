@@ -1,6 +1,6 @@
 # InstantHCCS
 
-`InstantHCCS` is a hardcore Community Service script for looping in Kingdom of Loathing designed to work if you are me, [WARriorer (#1634187)](https://cheesellc.com/kol/profile.php?u=WARriorer). It most probably definitely won't work for you.
+`InstantHCCS` is a hardcore Community Service script for looping in Kingdom of Loathing designed to work if you are me, [WARriorer (#1634187)](https://api.aventuristo.net/av-snapshot?u=WARriorer). It most probably definitely won't work for you.
 
 ## Installation
 
