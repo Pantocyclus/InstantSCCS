@@ -79,8 +79,8 @@ export const LevelingQuest: Quest = {
           visitUrl("place.php?whichplace=snojo&action=snojo_controller");
           runChoice(1);
         }
-        useFamiliar($familiar`Grey Goose`);
-        useFamiliar($familiar`Shorter-Order Cook`);
+        //useFamiliar($familiar`Grey Goose`);
+        //useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
       },
@@ -169,8 +169,8 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Knight",
       prepare: (): void => {
-        useFamiliar($familiar`Grey Goose`);
-        useFamiliar($familiar`Shorter-Order Cook`);
+        //useFamiliar($familiar`Grey Goose`);
+        //useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
       completed: () => get("_witchessFights") >= 3,
@@ -185,8 +185,8 @@ export const LevelingQuest: Quest = {
     {
       name: "Reminisce Knight",
       prepare: (): void => {
-        useFamiliar($familiar`Grey Goose`);
-        useFamiliar($familiar`Shorter-Order Cook`);
+        //useFamiliar($familiar`Grey Goose`);
+        //useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
       completed: () => CombatLoversLocket.monstersReminisced().includes($monster`Witchess Knight`),
@@ -202,8 +202,8 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess King",
       prepare: (): void => {
-        useFamiliar($familiar`Grey Goose`);
-        useFamiliar($familiar`Shorter-Order Cook`);
+        //useFamiliar($familiar`Grey Goose`);
+        //useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
       completed: () => have($item`dented scepter`),
@@ -219,8 +219,8 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Witch",
       prepare: (): void => {
-        useFamiliar($familiar`Grey Goose`);
-        useFamiliar($familiar`Shorter-Order Cook`);
+        //useFamiliar($familiar`Grey Goose`);
+        //useFamiliar($familiar`Shorter-Order Cook`);
       },
       completed: () => have($item`battle broom`),
       do: () => Witchess.fightPiece($monster`Witchess Witch`),
