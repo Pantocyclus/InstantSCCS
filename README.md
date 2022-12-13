@@ -135,3 +135,78 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [Meteor Lore](https://kol.coldfront.net/thekolwiki/index.php/Meteor_Lore)                                                           | Skill          |
 | [Designer sweatpants](https://kol.coldfront.net/thekolwiki/index.php/Designer_sweatpants)                                           | Pants          |
 | [Tiny stillsuit](https://kol.coldfront.net/thekolwiki/index.php/Tiny_stillsuit)                                                     | Familiar Equip |
+
+### Summary of Farming Resource/Skill Usage
+
+A summary of key farming resources used is listed below. The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource. Note that some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers), the Gingerbread City Noon NC (due to not getting enough sprinkles) and Peppermint Sprouts (depending on our luck in summoning candy hearts).
+
+| Free Banishes Used | Usage |
+| ------------------ | ----- |
+| Feel Hatred        | 3/3   |
+| Reflex Hammer      | 1/3   |
+| Latte Refills      | 3/3   |
+| KGB Tranquilizers  | 3/3   |
+| Snokebomb          | 0/3   |
+
+| Free Kills Used     | Usage |
+| ------------------- | ----- |
+| Chest X-Ray         | 2/3   |
+| Shattering Punch    | 3/3   |
+| Gingerbread Mob Hit | 1/1   |
+
+| Notable Skills Used | Usage |
+| ------------------- | ----- |
+| Saber Forces        | 4/5   |
+| Monsters Mapped     | 3/3   |
+| Feel Envy           | 2/3   |
+| Digitize            | 0/3   |
+| Portscan            | 1/3   |
+| Duplicate           | 0/1   |
+
+| Free Fights Used  | Usage |
+| ----------------- | ----- |
+| Snojo             | 10/10 |
+| NEP               | 10/10 |
+| Witchess          | 5/5   |
+| DMT               | 5/5   |
+| LOV Tunnel        | 3/3   |
+| Voters            | 0/3   |
+| God Lobster       | 3/3   |
+| Oliver's Place    | 3/3   |
+| Eldritch Tentacle | 1/1   |
+| Sausage Goblins   | 3/?   |
+
+| Potentially Free Fights Used | Usage |
+| ---------------------------- | ----- |
+| Backup Camera                | 0/11  |
+| Locket Reminisces            | 2/3   |
+| Fax Machine                  | 0/1   |
+| Chateau Painting             | 0/1   |
+
+| Farming Resources Used | Usage  |
+| ---------------------- | ------ |
+| Powerful Glove Charges | 10/100 |
+| KGB Clicks             | 0/22   |
+| Deck Draws             | 15/15  |
+| Macrometeorites        | 0/10   |
+| Batteries (AAA)        | 0/7    |
+| CMC Consults           | 0/5    |
+| Tome Summons           | 3/3    |
+| Peppermint Sprouts     | 3/3    |
+| Genie Wishes           | 0/3    |
+| Tea Tree               | 0/1    |
+| Favorite Bird          | 0/1    |
+| Zatara Consult         | 0/1    |
+| Clan Floundry          | 0/1    |
+| Gingerbread City Noon  | 1/1    |
+| Pantogram              | 0/1    |
+| Cargo Shorts           | 0/1    |
+| Pillkeeper             | 0/1    |
+
+| Organs Used | Usage |
+| ----------- | ----- |
+| Stomach     | 0/15  |
+| Liver       | 4/15  |
+| Spleen      | 2/15  |
+
+Adventures Used : 105
