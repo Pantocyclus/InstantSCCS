@@ -6,7 +6,7 @@
 
 This script is unlikely to run for most users out of the box. Thus, it cannot yet be checked out through the mafia GUI. To use the script, do the following:
 
-1. Compile the script, following instructions in the kol-ts-starter (specifically, you'll need to set your own MOTHERSLIME_CLAN and VIP_CLAN in common.ts, so a compiled js script will not be provided).
+1. Compile the script, following instructions in the [kol-ts-starter](https://github.com/docrostov/kol-ts-starter) (specifically, you'll need to set your own MOTHERSLIME_CLAN and VIP_CLAN in common.ts, so a compiled js script will not be provided).
 2. Copy InstantHCCS.ccs from KoLmafia/ccs to your Mafia css directory.
 
 <sub><sup>Adapted from [loop-cs](https://github.com/MrFizzyBubbs/loop-cs) which was adapted from [loop-casual](https://github.com/Kasekopf/loop-casual)</sub></sup>
@@ -143,7 +143,7 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 
 A summary of key farming resources used is listed below (which shows the worst case scenario where we failed to get the gingerbread latte from the Gingerbread City NC).
 The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource.
-Note that some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers and Gingerbread luck), the Gingerbread City Noon NC (due to not getting enough sprinkles) and Peppermint Sprouts (depending on our luck in summoning candy hearts).
+<sub><sup>Note that some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers and Gingerbread luck), the Gingerbread City Noon NC (due to not getting enough sprinkles) and Peppermint Sprouts (depending on our luck in summoning candy hearts).</sup></sub>
 
 | Free Banishes Used | Usage |
 | ------------------ | ----- |
