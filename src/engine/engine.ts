@@ -17,7 +17,7 @@ export const trackedPreferences = new Map<string, string>([
   ["_chestXRayUsed", "Chest X-Ray"],
   ["_shatteringPunchUsed", "Shattering Punch"],
   ["_gingerbreadMobHitUsed", "Gingerbread Mob Hit"],
-  // Spit Jurassic Acid is reusable (but not currently used)
+  ["_CSParkaYRUsed", "Parka YR"],
 
   // Notable Skills
   ["_saberForceUses", "Saber Forces"],

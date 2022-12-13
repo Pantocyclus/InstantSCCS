@@ -50,6 +50,7 @@ function logResourceUsage(): void {
   logPrefUsage("_chestXRayUsed", 3);
   logPrefUsage("_shatteringPunchUsed", 3);
   logPrefUsage("_gingerbreadMobHitUsed", 1);
+  logPrefUsage("_CSParkaYRUsed");
   // Spit Jurassic Acid is reusable (but not currently tracked)
 
   // Notable Skills

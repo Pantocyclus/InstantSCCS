@@ -29,6 +29,7 @@ import {
   get,
   getKramcoWandererChance,
   have,
+  set,
   TunnelOfLove,
   uneffect,
   Witchess,
@@ -358,6 +359,7 @@ export const LevelingQuest: Quest = {
         if (get("parkaMode") !== "dilophosaur") cliExecute("parka dilophosaur");
       },
       completed: () => have($effect`Everything Looks Yellow`),
+      post: () => set("_CSParkaYRUsed", true),
       // eslint-disable-next-line libram/verify-constants
       do: () => mapMonster($location`An Unusually Quiet Barroom Brawl`, $monster`goblin flapper`),
       combat: new CombatStrategy().macro(Macro.skill($skill`Spit jurassic acid`).abort()),
