@@ -45,9 +45,9 @@ For those who are interested in using `InstantHCCS` as is, the following section
 
 ### Required Resources
 
-IoTMs used are listed sequentially by age. Skills listed at the end of the table include important skills and largely exclude specific passives and buffs (e.g. class, dread and crimbo skills that straight up give stat, hp, exp, hot resist, -combat rate, weapon dmg, spell damage, familiar weight, item and booze drop)
+IoTMs used are listed sequentially by age. Skills listed at the end of the table include important skills and, for brevity, largely exclude specific passives and buffs (e.g. class, dread and crimbo skills that straight up give stat, hp, exp, hot resist, -combat rate, weapon dmg, spell damage, familiar weight, item and booze drop)
 
-| Resource                                                                                                                      | Type        |
+| IoTMs/IoTYs/DLCs                                                                                                              | Type        |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | [Summon Candy Heart](https://kol.coldfront.net/thekolwiki/index.php/Summon_Candy_Heart)                                       | Skill       |
 | [Disembodied Hand](https://kol.coldfront.net/thekolwiki/index.php/Disembodied_Hand)                                           | Familiar    |
@@ -112,19 +112,22 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [Horsery contract](https://kol.coldfront.net/thekolwiki/index.php/Horsery_contract)                                           | Zone        |
 | [Oliver's Place](https://kol.coldfront.net/thekolwiki/index.php/Deed_to_Oliver%27s_Place)                                     | Zone        |
 | [Grim Brother](https://kol.coldfront.net/thekolwiki/index.php/Grim_Brother)                                                   | Familiar    |
-| [Sweet Synthesis](https://kol.coldfront.net/thekolwiki/index.php/Sweet_Synthesis)                                             | Skill       |
-| [Summon Crimbo Candy](https://kol.coldfront.net/thekolwiki/index.php/Summon_Crimbo_Candy)                                     | Skill       |
-| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Always_Never_Not_Guzzling)                         | Skill       |
-| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                             | Skill       |
-| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                             | Skill       |
-| [Kung Fu Hustler](https://kol.coldfront.net/thekolwiki/index.php/Kung_Fu_Hustler)                                             | Skill       |
-| [Evoke Eldritch Horror](https://kol.coldfront.net/thekolwiki/index.php/Evoke_Eldritch_Horror)                                 | Skill       |
-| [Ancestral Recall](https://kol.coldfront.net/thekolwiki/index.php/Ancestral_Recall)                                           | Skill       |
-| [Giant Growth](<https://kol.coldfront.net/thekolwiki/index.php/Giant_Growth_(skill)>)                                         | Skill       |
-| [Shattering Punch](https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch)                                           | Skill       |
-| [Gingerbread Mob Hit](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Mob_Hit)                                     | Skill       |
-| [Torso Awareness](https://kol.coldfront.net/thekolwiki/index.php/Torso_Awareness)                                             | Skill       |
-| [Double-Fisted Skull Smashing](https://kol.coldfront.net/thekolwiki/index.php/Double-Fisted_Skull_Smashing)                   | Skill       |
+
+| Important Skills                                                                                            |
+| ----------------------------------------------------------------------------------------------------------- |
+| [Sweet Synthesis](https://kol.coldfront.net/thekolwiki/index.php/Sweet_Synthesis)                           |
+| [Summon Crimbo Candy](https://kol.coldfront.net/thekolwiki/index.php/Summon_Crimbo_Candy)                   |
+| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Always_Never_Not_Guzzling)       |
+| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)           |
+| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)           |
+| [Kung Fu Hustler](https://kol.coldfront.net/thekolwiki/index.php/Kung_Fu_Hustler)                           |
+| [Evoke Eldritch Horror](https://kol.coldfront.net/thekolwiki/index.php/Evoke_Eldritch_Horror)               |
+| [Ancestral Recall](https://kol.coldfront.net/thekolwiki/index.php/Ancestral_Recall)                         |
+| [Giant Growth](<https://kol.coldfront.net/thekolwiki/index.php/Giant_Growth_(skill)>)                       |
+| [Shattering Punch](https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch)                         |
+| [Gingerbread Mob Hit](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Mob_Hit)                   |
+| [Torso Awareness](https://kol.coldfront.net/thekolwiki/index.php/Torso_Awareness)                           |
+| [Double-Fisted Skull Smashing](https://kol.coldfront.net/thekolwiki/index.php/Double-Fisted_Skull_Smashing) |
 
 ### Not-Required Resources but used anyway
 
