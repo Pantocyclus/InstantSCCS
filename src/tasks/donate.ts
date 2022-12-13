@@ -93,7 +93,7 @@ export const DonateQuest: Quest = {
         debug("Potentially Free Fights Used:");
         logPrefUsage("_backUpUses", 11);
         logPrefUsage("_locketMonstersFought", 3);
-        logPrefUsage("photocopyUsed", 1);
+        logPrefUsage("_photocopyUsed", 1);
         logPrefUsage("_chateauMonsterFought", 1);
 
         // Resources That Compete With Farming

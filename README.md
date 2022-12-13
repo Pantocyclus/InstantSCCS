@@ -185,7 +185,7 @@ Note that some of these are subject to variance, including but not limited to Fr
 | ---------------------------- | ----- |
 | Backup Camera                | 0/11  |
 | Locket Reminisces            | 2/3   |
-| Fax Machine                  | 0/1   |
+| Fax Machine                  | 1/1   |
 | Chateau Painting             | 0/1   |
 
 | Farming Resources Used | Usage  |

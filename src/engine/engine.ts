@@ -42,7 +42,7 @@ export const trackedPreferences = new Map<string, string>([
   // Potentially Free Fights
   ["_backUpUses", "Backup Camera"],
   ["_locketMonstersFought", "Locket Reminisces"],
-  ["photocopyUsed", "Fax Machine"],
+  ["_photocopyUsed", "Fax Machine"],
   ["_chateauMonsterFought", "Chateau Painting"],
 
   // Resources That Compete With Farming
