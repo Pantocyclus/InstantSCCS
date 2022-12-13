@@ -146,10 +146,8 @@ export const FamiliarWeightQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.externalIf(
           itemAmount($item`sprinkles`) < 50 && get("_chestXRayUsed") < 3,
-          Macro.if_(
-            $monster`gingerbread finance bro` || $monster`gingerbread tech bro`,
-            Macro.skill($skill`Chest X-Ray`)
-          )
+          Macro.if_($monster`gingerbread finance bro`, Macro.skill($skill`Chest X-Ray`))
+            .if_($monster`gingerbread tech bro`, Macro.skill($skill`Chest X-Ray`))
             .trySkill($skill`Feel Hatred`)
             .trySkill($skill`Reflex Hammer`)
             .trySkill($skill`Snokebomb`)
