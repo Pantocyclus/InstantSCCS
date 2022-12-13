@@ -15,18 +15,18 @@ import { Quest } from "../engine/task";
 import { debug } from "../lib";
 
 function logPrefUsage(s: string, n?: number): void {
-  const localPref = `_instant${s}`;
+  const localPref = get(`_instant${s}`, "").replace(",", ", ");
   const pref = get(s);
   const prefLength = pref.toString().includes(",") ? pref.toString().split(",").length : 0;
   if (typeof pref === "boolean" || pref === "true" || pref === "false")
-    debug(`${trackedPreferences.get(s) ?? s}: ${pref ? n : 0}/${n ?? "?"} ${get(localPref, "")}`);
+    debug(`${trackedPreferences.get(s) ?? s}: ${pref ? n : 0}/${n ?? "?"} ${localPref}`);
   else if (typeof pref === "string" && isNaN(parseInt(pref)))
     debug(
       `${trackedPreferences.get(s) ?? s}: ${prefLength > (n ?? 1) ? n ?? 1 : prefLength}/${
         n ?? "?"
-      } ${get(localPref, "")}`
+      } ${localPref}`
     );
-  else debug(`${trackedPreferences.get(s) ?? s}: ${pref}/${n ?? "?"} ${get(localPref, "")}`);
+  else debug(`${trackedPreferences.get(s) ?? s}: ${pref}/${n ?? "?"} ${localPref}`);
 }
 
 export const DonateQuest: Quest = {
