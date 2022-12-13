@@ -60,7 +60,7 @@ export const RunStartQuest: Quest = {
       ready: () => Object.keys(reverseNumberology()).includes("69"),
       completed: () => get("_universeCalculated") >= get("skillLevel144"),
       do: () => cliExecute("numberology 69"),
-      limit: { tries: 4 },
+      limit: { tries: 3 },
     },
     {
       name: "Borrowed Time",
