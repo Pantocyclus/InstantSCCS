@@ -61,7 +61,6 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [Summon Resolutions](https://kol.coldfront.net/thekolwiki/index.php/Libram_of_Resolutions)                                    | Skill       |
 | [Nanorhino](https://kol.coldfront.net/thekolwiki/index.php/Nanorhino)                                                         | Familiar    |
 | [Summon Taffy](https://kol.coldfront.net/thekolwiki/index.php/Summon_Taffy)                                                   | Skill       |
-| [Galloping Grill](https://kol.coldfront.net/thekolwiki/index.php/Galloping_Grill)                                             | Familiar    |
 | [Crimbo Shrub](https://kol.coldfront.net/thekolwiki/index.php/Crimbo_Shrub)                                                   | Familiar    |
 | [Chateau Mantegna](https://kol.coldfront.net/thekolwiki/index.php/Chateau_Mantegna)                                           | Zone        |
 | [Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Dinseylandfill)                                               | Zone        |
@@ -135,6 +134,7 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | Resource                                                                                                                            | Type           |
 | ----------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | [Summon Confiscated Things](https://kol.coldfront.net/thekolwiki/index.php/Summon_Confiscated_Things)                               | Skill          |
+| [Galloping Grill](https://kol.coldfront.net/thekolwiki/index.php/Galloping_Grill)                                                   | Familiar       |
 | [Unwrapped knock-off retro superhero cape](https://kol.coldfront.net/thekolwiki/index.php/Unwrapped_knock-off_retro_superhero_cape) | Back           |
 | [Meteor Lore](https://kol.coldfront.net/thekolwiki/index.php/Meteor_Lore)                                                           | Skill          |
 | [Designer sweatpants](https://kol.coldfront.net/thekolwiki/index.php/Designer_sweatpants)                                           | Pants          |
