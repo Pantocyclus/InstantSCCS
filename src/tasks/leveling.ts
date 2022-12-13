@@ -4,6 +4,7 @@ import {
   cliExecute,
   drink,
   eat,
+  equip,
   familiarWeight,
   itemAmount,
   myFamiliar,
@@ -289,6 +290,12 @@ export const LevelingQuest: Quest = {
     {
       name: "Free Kills",
       completed: () => get("_shatteringPunchUsed") >= 3 && get("_gingerbreadMobHitUsed"),
+      prepare: (): void => {
+        if (have($effect`Spit Upon`)) {
+          useFamiliar($familiar`Galloping Grill`);
+          equip($item`tiny stillsuit`);
+        }
+      },
       do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
       outfit: {
         shirt: $item`makeshift garbage shirt`,
@@ -298,6 +305,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Pride`)
           .trySkill($skill`Bowl Sideways`)
+          .trySkill($skill`%fn, spit on me!`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
           .abort()
@@ -310,13 +318,22 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         cliExecute("terminal educate portscan");
+        if (have($effect`Spit Upon`)) {
+          useFamiliar($familiar`Galloping Grill`);
+          equip($item`tiny stillsuit`);
+        }
       },
       completed: () => get("_sausageFights") > 1,
       ready: () => getKramcoWandererChance() >= 1.0,
       do: $location`The Neverending Party`,
       choices: { 1322: 2 },
       combat: new CombatStrategy().macro(
-        Macro.if_($monster`sausage goblin`, Macro.trySkill($skill`Portscan`).default()).abort()
+        Macro.if_(
+          $monster`sausage goblin`,
+          Macro.trySkill($skill`Portscan`)
+            .trySkill($skill`%fn, spit on me!`)
+            .default()
+        ).abort()
       ),
       outfit: {
         offhand: $item`Kramco Sausage-o-Matic™`,
@@ -337,13 +354,19 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         cliExecute("terminal educate portscan");
+        if (have($effect`Spit Upon`)) equip($item`tiny stillsuit`);
       },
       completed: () => get("_speakeasyFreeFights", 0) >= 3,
       // eslint-disable-next-line libram/verify-constants
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Gulp Latte`)
-          .if_($monster`Government agent`, Macro.trySkill($skill`Feel Envy`).default())
+          .if_(
+            $monster`Government agent`,
+            Macro.trySkill($skill`%fn, spit on me!`)
+              .trySkill($skill`Feel Envy`)
+              .default()
+          )
           .default()
       ),
       outfit: {
@@ -357,6 +380,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         if (get("parkaMode") !== "dilophosaur") cliExecute("parka dilophosaur");
+        if (have($effect`Spit Upon`)) equip($item`tiny stillsuit`);
       },
       completed: () => have($effect`Everything Looks Yellow`),
       post: () => set("_CSParkaYRUsed", true),
