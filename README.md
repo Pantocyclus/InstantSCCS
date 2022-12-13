@@ -138,7 +138,7 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 
 ### Summary of Farming Resource/Skill Usage
 
-A summary of key farming resources used is listed below. The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource. Note that some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers), the Gingerbread City Noon NC (due to not getting enough sprinkles) and Peppermint Sprouts (depending on our luck in summoning candy hearts).
+A summary of key farming resources used is listed below (which shows the worst case scenario where we failed to get the gingerbread latte from the Gingerbread City NC). The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource. Note that some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers and Gingerbread luck), the Gingerbread City Noon NC (due to not getting enough sprinkles) and Peppermint Sprouts (depending on our luck in summoning candy hearts).
 
 | Free Banishes Used | Usage |
 | ------------------ | ----- |
@@ -198,7 +198,7 @@ A summary of key farming resources used is listed below. The same summary is gen
 | Favorite Bird          | 0/1    |
 | Zatara Consult         | 0/1    |
 | Clan Floundry          | 0/1    |
-| Gingerbread City Noon  | 1/1    |
+| Gingerbread City Noon  | 0/1    |
 | Pantogram              | 0/1    |
 | Cargo Shorts           | 0/1    |
 | Pillkeeper             | 0/1    |
@@ -209,4 +209,4 @@ A summary of key farming resources used is listed below. The same summary is gen
 | Liver       | 4/15  |
 | Spleen      | 2/15  |
 
-Adventures Used : 105
+Adventures Used : 108
