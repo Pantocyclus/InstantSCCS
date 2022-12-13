@@ -159,7 +159,7 @@ A summary of key farming resources used is listed below. The same summary is gen
 | Chest X-Ray         | 3/3   |
 | Shattering Punch    | 3/3   |
 | Gingerbread Mob Hit | 1/1   |
-| Parka YR            | 1/-   |
+| Parka YR            | 1/?   |
 
 | Notable Skills Used | Usage |
 | ------------------- | ----- |
