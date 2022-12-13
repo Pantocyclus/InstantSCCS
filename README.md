@@ -144,7 +144,7 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 
 A summary of key farming resources used is listed below. The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource. <br />
 <sub><sup>Note 1: Some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers and unluckily missing our high sprinkle Gingerbread targets in 3 free banishes), the Gingerbread City Noon NC (due to the same aforementioned Gingerbread luck) and Peppermint Sprouts (depending on our luck in Summoning Candy Hearts).</sup></sub> <br />
-<sub><sup>Note 2: It should achieve a 1/105 HCCS >95% of the time (failing and hitting a 1/108 if we lose all 3 33% die roll on the Gingerbread Gentrifier, or if we get extremely unlucky with our libram summons). Organ usage is always fixed at 0/4/2.</sup></sub>
+<sub><sup>Note 2: It should achieve a 1/105 HCCS >95% of the time (failing and hitting a 1/108 if we lose all 3 33% die rolls on the Gingerbread Gentrifier, or if we get extremely unlucky with our libram summons). Organ usage is always fixed at 0/4/2.</sup></sub>
 
 | Free Banishes Used | Usage |
 | ------------------ | ----- |
