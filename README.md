@@ -138,7 +138,9 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 
 ### Summary of Farming Resource/Skill Usage
 
-A summary of key farming resources used is listed below (which shows the worst case scenario where we failed to get the gingerbread latte from the Gingerbread City NC). The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource. Note that some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers and Gingerbread luck), the Gingerbread City Noon NC (due to not getting enough sprinkles) and Peppermint Sprouts (depending on our luck in summoning candy hearts).
+A summary of key farming resources used is listed below (which shows the worst case scenario where we failed to get the gingerbread latte from the Gingerbread City NC).
+The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource.
+Note that some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers and Gingerbread luck), the Gingerbread City Noon NC (due to not getting enough sprinkles) and Peppermint Sprouts (depending on our luck in summoning candy hearts).
 
 | Free Banishes Used | Usage |
 | ------------------ | ----- |
