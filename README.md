@@ -33,7 +33,7 @@ For those who are interested in using `InstantHCCS` as is, the following section
 - Eudora set to [Our Daily Candles™ order form](https://kol.coldfront.net/thekolwiki/index.php/Our_Daily_Candles%E2%84%A2_order_form)
 - A [Witchess Knight](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Knight) and [Black Crayon Elemental](https://kol.coldfront.net/thekolwiki/index.php/Black_Crayon_Elemental) in your [combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket)
 - A fully maxed-out [Guzzlr tablet](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet)
-- Unlock the [Gingerbread Sewers](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Sewers) and relocate both the Gingerbread rat and pigeon there.
+- Unlock the [Gingerbread Sewers](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Sewers) and relocate both the Gingerbread rat and pigeon there
 - Literally every possible [mus](https://kol.coldfront.net/thekolwiki/index.php/Muscle_Modifiers), [myst](https://kol.coldfront.net/thekolwiki/index.php/Mysticality_Modifiers), [mox](https://kol.coldfront.net/thekolwiki/index.php/Moxie_Modifiers), [hp](https://kol.coldfront.net/thekolwiki/index.php/HP_Modifiers), [exp](https://kol.coldfront.net/thekolwiki/index.php/Stat_gain_multipliers), [hot resist](https://kol.coldfront.net/thekolwiki/index.php/Elemental_Resistance), [-combat rate](https://kol.coldfront.net/thekolwiki/index.php/Combat_Frequency), [weapon dmg](https://kol.coldfront.net/thekolwiki/index.php/Bonus_Weapon_Damage), [spell damage](https://kol.coldfront.net/thekolwiki/index.php/Bonus_Spell_Damage), [familiar weight](https://kol.coldfront.net/thekolwiki/index.php/Familiar_Weight), [item and booze drop](https://kol.coldfront.net/thekolwiki/index.php/Items_from_Monsters) skill permed (tests are extremely marginal to achieve maximal profits)
 
 ### In Valhalla
@@ -142,10 +142,9 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 
 ### Summary of Farming Resource/Skill Usage
 
-A summary of key farming resources used is listed below (which shows the worst case scenario where we failed to get the gingerbread latte from the Gingerbread City NC). <br />
-The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource. <br />
+A summary of key farming resources used is listed below. The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource. <br />
 <sub><sup>Note 1: Some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers and unluckily missing our high sprinkle Gingerbread targets in 3 free banishes), the Gingerbread City Noon NC (due to the same aforementioned Gingerbread luck) and Peppermint Sprouts (depending on our luck in Summoning Candy Hearts).</sup></sub> <br />
-<sub><sup>Note 2: It should achieve a 1/105 HCCS >95% of the time (mainly failing if we lose all 3 33% die roll on the Gingerbread Gentrified). Organ usage is always fixed at 0/4/2.</sup></sub>
+<sub><sup>Note 2: It should achieve a 1/105 HCCS >95% of the time (failing and hitting a 1/108 if we lose all 3 33% die roll on the Gingerbread Gentrifier, or if we get extremely unlucky with our libram summons). Organ usage is always fixed at 0/4/2.</sup></sub>
 
 | Free Banishes Used | Usage |
 | ------------------ | ----- |
@@ -157,7 +156,7 @@ The same summary is generated at the end of each run, with a list of unique task
 
 | Free Kills Used     | Usage |
 | ------------------- | ----- |
-| Chest X-Ray         | 2/3   |
+| Chest X-Ray         | 3/3   |
 | Shattering Punch    | 3/3   |
 | Gingerbread Mob Hit | 1/1   |
 
@@ -205,7 +204,7 @@ The same summary is generated at the end of each run, with a list of unique task
 | Favorite Bird          | 0/1    |
 | Zatara Consult         | 0/1    |
 | Clan Floundry          | 0/1    |
-| Gingerbread City Noon  | 0/1    |
+| Gingerbread City Noon  | 1/1    |
 | Pantogram              | 0/1    |
 | Cargo Shorts           | 0/1    |
 | Pillkeeper             | 0/1    |
@@ -216,4 +215,4 @@ The same summary is generated at the end of each run, with a list of unique task
 | Liver       | 4/15  |
 | Spleen      | 2/15  |
 
-Adventures Used : 108
+Adventures Used : 105
