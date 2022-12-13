@@ -32,7 +32,6 @@ For those who are interested in using `InstantHCCS` as is, the following section
 - All 150 [Witchess puzzles](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Puzzles) completed
 - Eudora set to [Our Daily Candles™ order form](https://kol.coldfront.net/thekolwiki/index.php/Our_Daily_Candles%E2%84%A2_order_form)
 - A [Witchess Knight](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Knight) and [Black Crayon Elemental](https://kol.coldfront.net/thekolwiki/index.php/Black_Crayon_Elemental) in your [combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket)
-- A [Blessing of your favorite Bird](https://kol.coldfront.net/thekolwiki/index.php/Blessing_of_your_favorite_Bird) with Weapon Damage and at least -5% Combat Frequency
 - A fully maxed-out [Guzzlr tablet](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet)
 - Literally every possible stat, hp, exp, hot resist, -combat rate, weapon dmg, spell damage, familiar weight, item and booze drop skill permed (tests are extremely marginal to achieve maximal profits)
 
@@ -54,7 +53,6 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [Disembodied Hand](https://kol.coldfront.net/thekolwiki/index.php/Disembodied_Hand)                                           | Familiar    |
 | [Summon Love Song](https://kol.coldfront.net/thekolwiki/index.php/Summon_Love_Song)                                           | Skill       |
 | [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)                                     | Clan        |
-| [Summon Sugar Sheets](https://kol.coldfront.net/thekolwiki/index.php/Summon_Sugar_Sheets)                                     | Skill       |
 | [Summon Alice's Army Cards](https://kol.coldfront.net/thekolwiki/index.php/Summon_Alice%27s_Army_Cards)                       | Skill       |
 | [Pair of Stomping Boots](https://kol.coldfront.net/thekolwiki/index.php/Pair_of_Stomping_Boots)                               | Familiar    |
 | [Summon Clip Art](https://kol.coldfront.net/thekolwiki/index.php/Summon_Clip_Art)                                             | Skill       |
@@ -80,7 +78,6 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [The Tunnel of L.O.V.E.](https://kol.coldfront.net/thekolwiki/index.php/The_Tunnel_of_L.O.V.E.)                               | Zone        |
 | [Secret Underground Spacegate Facility](https://kol.coldfront.net/thekolwiki/index.php/Secret_Underground_Spacegate_Facility) | Zone        |
 | [Kremlin's Greatest Briefcase](https://kol.coldfront.net/thekolwiki/index.php/Kremlin%27s_Greatest_Briefcase)                 | Accessory   |
-| [Pantogram pants](https://kol.coldfront.net/thekolwiki/index.php/Pantogram_pants)                                             | Pants       |
 | [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                             | Item        |
 | [SongBoom™ BoomBox](https://kol.coldfront.net/thekolwiki/index.php/SongBoom%E2%84%A2_BoomBox)                                 | Item        |
 | [Bastille Battalion](https://kol.coldfront.net/thekolwiki/index.php/Bastille_Battalion)                                       | Zone        |
@@ -95,10 +92,10 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [Hewn moon-rune spoon](https://kol.coldfront.net/thekolwiki/index.php/Hewn_moon-rune_spoon)                                   | Accessory   |
 | [Beach Comb](https://kol.coldfront.net/thekolwiki/index.php/Beach_Comb)                                                       | Accessory   |
 | [Your Campsite Away From Your Campsite](https://kol.coldfront.net/thekolwiki/index.php/Your_Campsite_Away_From_Your_Campsite) | Zone        |
-| [Eight Days a Week Pill Keeper](https://kol.coldfront.net/thekolwiki/index.php/Eight_Days_a_Week_Pill_Keeper)                 | Accessory   |
 | [Bird-a-Day calendar](https://kol.coldfront.net/thekolwiki/index.php/Bird-a-Day_calendar)                                     | Item        |
 | [Powerful Glove](https://kol.coldfront.net/thekolwiki/index.php/Powerful_Glove)                                               | Accessory   |
 | [Guzzlr tablet](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet)                                                 | Accessory   |
+| [Melodramedary](https://kol.coldfront.net/thekolwiki/index.php/Melodramedary)                                                 | Familiar    |
 | [SpinMaster™ lathe](https://kol.coldfront.net/thekolwiki/index.php/SpinMaster%E2%84%A2_lathe)                                 | Item        |
 | [Comprehensive Cartography](https://kol.coldfront.net/thekolwiki/index.php/Comprehensive_Cartography)                         | Skill       |
 | [Ghost of Crimbo Carols](https://kol.coldfront.net/thekolwiki/index.php/Ghost_of_Crimbo_Carols)                               | Familiar    |
@@ -113,6 +110,7 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [Unbreakable umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella)                                   | Off-hand    |
 | [MayDay™ supply package](https://kol.coldfront.net/thekolwiki/index.php/MayDay%E2%84%A2_supply_package)                       | Item        |
 | [Horsery contract](https://kol.coldfront.net/thekolwiki/index.php/Horsery_contract)                                           | Zone        |
+| [Oliver's Place](https://kol.coldfront.net/thekolwiki/index.php/Deed_to_Oliver%27s_Place)                                     | Zone        |
 | [Grim Brother](https://kol.coldfront.net/thekolwiki/index.php/Grim_Brother)                                                   | Familiar    |
 | [Sweet Synthesis](https://kol.coldfront.net/thekolwiki/index.php/Sweet_Synthesis)                                             | Skill       |
 | [Summon Crimbo Candy](https://kol.coldfront.net/thekolwiki/index.php/Summon_Crimbo_Candy)                                     | Skill       |
@@ -133,7 +131,6 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | Resource                                                                                                                            | Type           |
 | ----------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | [Summon Confiscated Things](https://kol.coldfront.net/thekolwiki/index.php/Summon_Confiscated_Things)                               | Skill          |
-| [Melodramedary](https://kol.coldfront.net/thekolwiki/index.php/Melodramedary)                                                       | Familiar       |
 | [Unwrapped knock-off retro superhero cape](https://kol.coldfront.net/thekolwiki/index.php/Unwrapped_knock-off_retro_superhero_cape) | Back           |
 | [Meteor Lore](https://kol.coldfront.net/thekolwiki/index.php/Meteor_Lore)                                                           | Skill          |
 | [Designer sweatpants](https://kol.coldfront.net/thekolwiki/index.php/Designer_sweatpants)                                           | Pants          |
