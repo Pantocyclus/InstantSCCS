@@ -15,11 +15,11 @@ import { Quest } from "../engine/task";
 import { debug } from "../lib";
 
 function logPrefUsage(s: string, n?: number): void {
-  const localPref = get(`_instant${s}`, "").replace(",", ", ");
+  const localPref = get(`_instant${s}`, "").split(",").join(", ");
   const pref = get(s);
   const prefLength = pref.toString().includes(",") ? pref.toString().split(",").length : 0;
   if (typeof pref === "boolean" || pref === "true" || pref === "false")
-    debug(`${trackedPreferences.get(s) ?? s}: ${pref ? n : 0}/${n ?? "?"} ${localPref}`);
+    debug(`${trackedPreferences.get(s) ?? s}: ${pref ? n ?? 1 : 0}/${n ?? "?"} ${localPref}`);
   else if (
     typeof pref === "string" &&
     (isNaN(parseInt(pref)) || pref.includes(",") || parseInt(pref) > (n ?? 1))
