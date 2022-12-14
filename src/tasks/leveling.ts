@@ -178,6 +178,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
         shirt: $item`makeshift garbage shirt`,
+        familiar: $familiar`Shorter-Order Cook`,
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 3 },
