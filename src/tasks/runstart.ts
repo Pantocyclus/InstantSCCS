@@ -58,7 +58,8 @@ export const RunStartQuest: Quest = {
     {
       name: "Numberology",
       ready: () => Object.keys(reverseNumberology()).includes("69"),
-      completed: () => get("_universeCalculated") >= get("skillLevel144"),
+      completed: () =>
+        get("_universeCalculated") >= (get("skillLevel144") > 3 ? 3 : get("skillLevel144")),
       do: () => cliExecute("numberology 69"),
       limit: { tries: 3 },
     },
