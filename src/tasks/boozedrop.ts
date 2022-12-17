@@ -56,6 +56,7 @@ export const BoozeDropQuest: Quest = {
         hat: $item`Daylight Shavings Helmet`,
         back: $item`vampyric cloake`,
         pants: $item`designer sweatpants`,
+        acc3: $item`Lil' Doctor™ bag`,
         familiar: $familiar`Melodramedary`,
       },
       limit: { tries: 1 },

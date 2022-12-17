@@ -8,7 +8,7 @@ export function equipDefaults(outfit: Outfit): void {
   outfit.equip($item`unbreakable umbrella`, $slot`off-hand`);
   outfit.equip($item`designer sweatpants`, $slot`pants`);
   outfit.equip($item`Kremlin's Greatest Briefcase`, $slot`acc1`);
-  outfit.equip($items`dorky glasses, Eight Days a Week Pill Keeper`, $slot`acc2`);
+  outfit.equip($item`Eight Days a Week Pill Keeper`, $slot`acc2`);
   outfit.equip($item`backup camera`, $slot`acc3`);
 
   outfit.equip($item`tiny stillsuit`, $slot`familiar`);
