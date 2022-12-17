@@ -31,7 +31,7 @@ For those who are interested in using `InstantHCCS` as is, the following section
 - [Spacegate Vaccination Machine](https://kol.coldfront.net/thekolwiki/index.php/Spacegate_Vaccination_Machine) with the [Broad-Spectrum Vaccine](https://kol.coldfront.net/thekolwiki/index.php/Broad-Spectrum_Vaccine) unlocked
 - All 150 [Witchess puzzles](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Puzzles) completed
 - Eudora set to [Our Daily Candles™ order form](https://kol.coldfront.net/thekolwiki/index.php/Our_Daily_Candles%E2%84%A2_order_form)
-- A [Witchess Knight](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Knight) and [Black Crayon Elemental](https://kol.coldfront.net/thekolwiki/index.php/Black_Crayon_Elemental) in your [combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket)
+- A [Witchess Knight](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Knight) in your [combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket)
 - A fully maxed-out [Guzzlr tablet](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet)
 - Unlock the [Gingerbread Sewers](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Sewers) and relocate both the Gingerbread rat and pigeon there
 - Literally every possible [mus](https://kol.coldfront.net/thekolwiki/index.php/Muscle_Modifiers), [myst](https://kol.coldfront.net/thekolwiki/index.php/Mysticality_Modifiers), [mox](https://kol.coldfront.net/thekolwiki/index.php/Moxie_Modifiers), [hp](https://kol.coldfront.net/thekolwiki/index.php/HP_Modifiers), [exp](https://kol.coldfront.net/thekolwiki/index.php/Stat_gain_multipliers), [hot resist](https://kol.coldfront.net/thekolwiki/index.php/Elemental_Resistance), [-combat rate](https://kol.coldfront.net/thekolwiki/index.php/Combat_Frequency), [weapon dmg](https://kol.coldfront.net/thekolwiki/index.php/Bonus_Weapon_Damage), [spell damage](https://kol.coldfront.net/thekolwiki/index.php/Bonus_Spell_Damage), [familiar weight](https://kol.coldfront.net/thekolwiki/index.php/Familiar_Weight), [item and booze drop](https://kol.coldfront.net/thekolwiki/index.php/Items_from_Monsters) skill permed (tests are extremely marginal to achieve maximal profits)
@@ -99,7 +99,7 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [SpinMaster™ lathe](https://kol.coldfront.net/thekolwiki/index.php/SpinMaster%E2%84%A2_lathe)                                 | Item        |
 | [Comprehensive Cartography](https://kol.coldfront.net/thekolwiki/index.php/Comprehensive_Cartography)                         | Skill       |
 | [Ghost of Crimbo Carols](https://kol.coldfront.net/thekolwiki/index.php/Ghost_of_Crimbo_Carols)                               | Familiar    |
-| [Emotionally Chipper](https://kol.coldfront.net/thekolwiki/index.php/Emotionally_Chipped)                                     | Skill       |
+| [Emotionally Chipped](https://kol.coldfront.net/thekolwiki/index.php/Emotionally_Chipped)                                     | Skill       |
 | [Shorter-Order Cook](https://kol.coldfront.net/thekolwiki/index.php/Shorter-Order_Cook)                                       | Familiar    |
 | [Familiar scrapbook](https://kol.coldfront.net/thekolwiki/index.php/Familiar_scrapbook)                                       | Off-hand    |
 | [Our Daily Candles™ order form](https://kol.coldfront.net/thekolwiki/index.php/Our_Daily_Candles%E2%84%A2_order_form)         | Eudora      |
@@ -149,7 +149,7 @@ A summary of key farming resources used is listed below. The same summary is gen
 | Free Banishes Used | Usage |
 | ------------------ | ----- |
 | Feel Hatred        | 3/3   |
-| Reflex Hammer      | 1/3   |
+| Reflex Hammer      | 2/3   |
 | Latte Refills      | 3/3   |
 | KGB Tranquilizers  | 3/3   |
 | Snokebomb          | 0/3   |
@@ -186,7 +186,7 @@ A summary of key farming resources used is listed below. The same summary is gen
 | Potentially Free Fights Used | Usage |
 | ---------------------------- | ----- |
 | Backup Camera                | 0/11  |
-| Locket Reminisces            | 2/3   |
+| Locket Reminisces            | 1/3   |
 | Fax Machine                  | 1/1   |
 | Chateau Painting             | 0/1   |
 

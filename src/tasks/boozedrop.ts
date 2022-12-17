@@ -4,9 +4,8 @@ import {
   $familiar,
   $item,
   $items,
-  $monster,
+  $location,
   $skill,
-  CombatLoversLocket,
   CommunityService,
   ensureEffect,
   have,
@@ -20,6 +19,7 @@ export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
   completed: () => CommunityService.BoozeDrop.isDone(),
   tasks: [
+    /*
     {
       name: "Medley of Buffs",
       completed: () =>
@@ -36,6 +36,27 @@ export const BoozeDropQuest: Quest = {
         pants: $item`designer sweatpants`,
         familiar: $familiar`Ghost of Crimbo Carols`,
         famequip: $item`none`,
+      },
+      limit: { tries: 1 },
+    },
+    */
+    {
+      name: "Vampyric Cape and Bowling Ball Buffs",
+      completed: () => have($effect`Bat-Adjacent Form`),
+      do: $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(
+        Macro.skill($skill`Become a Bat`)
+          .skill($skill`Bowl Straight Up`)
+          .trySkill($skill`Reflex Hammer`)
+          .trySkill($skill`Feel Hatred`)
+          .skill($skill`Snokebomb`)
+          .abort()
+      ),
+      outfit: {
+        hat: $item`Daylight Shavings Helmet`,
+        back: $item`vampyric cloake`,
+        pants: $item`designer sweatpants`,
+        familiar: $familiar`Melodramedary`,
       },
       limit: { tries: 1 },
     },
