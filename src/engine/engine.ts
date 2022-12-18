@@ -26,6 +26,7 @@ export const trackedPreferences = new Map<string, string>([
   ["_sourceTerminalDigitizeUses", "Digitize"],
   ["_sourceTerminalPortscanUses", "Portscan"],
   ["_sourceTerminalDuplicateUses", "Duplicate"],
+  ["_sourceTerminalEnhanceUses", "Source Terminal Enhances"],
 
   // Free Fights
   ["_snojoFreeFights", "Snojo"],

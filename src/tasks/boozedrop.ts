@@ -78,7 +78,7 @@ export const BoozeDropQuest: Quest = {
         $effect`El Aroma de Salsa`,
         $effect`Fat Leon's Phat Loot Lyric`,
         $effect`Feeling Lost`,
-        $effect`items.enh`,
+        // $effect`items.enh`,
         $effect`I See Everything Thrice!`,
         $effect`Nearly All-Natural`,
         $effect`The Spirit of Taking`,

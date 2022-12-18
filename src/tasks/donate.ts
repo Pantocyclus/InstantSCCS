@@ -59,6 +59,7 @@ function logResourceUsage(): void {
   logPrefUsage("_saberForceUses", 5);
   logPrefUsage("_monstersMapped", 3);
   logPrefUsage("_feelEnvyUsed", 3);
+  logPrefUsage("_sourceTerminalEnhanceUses", 3);
   logPrefUsage("_sourceTerminalDigitizeUses", 3);
   logPrefUsage("_sourceTerminalPortscanUses", 3);
   logPrefUsage("_sourceTerminalDuplicateUses", 1);
