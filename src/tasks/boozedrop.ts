@@ -1,4 +1,4 @@
-import { effectModifier } from "kolmafia";
+import { cliExecute, effectModifier } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -41,25 +41,24 @@ export const BoozeDropQuest: Quest = {
     },
     */
     {
-      name: "Vampyric Cape and Bowling Ball Buffs",
+      name: "Vampyric Cape, Bowling Ball and DSH Buffs",
       completed: () => have($effect`Bat-Adjacent Form`),
-      do: $location`The Dire Warren`,
+      do: $location`The X-32-F Combat Training Snowman`,
       combat: new CombatStrategy().macro(
         Macro.skill($skill`Become a Bat`)
           .skill($skill`Bowl Straight Up`)
-          .trySkill($skill`Reflex Hammer`)
-          .trySkill($skill`Feel Hatred`)
-          .skill($skill`Snokebomb`)
-          .abort()
+          .default()
       ),
       outfit: {
         hat: $item`Daylight Shavings Helmet`,
         back: $item`vampyric cloake`,
         pants: $item`designer sweatpants`,
-        acc3: $item`Lil' Doctor™ bag`,
         familiar: $familiar`Melodramedary`,
       },
       limit: { tries: 1 },
+      post: (): void => {
+        cliExecute("hottub");
+      },
     },
     {
       name: "Test",

@@ -112,6 +112,7 @@ export class Engine extends BaseEngine {
     manager.set({
       hpAutoRecovery: -0.05,
       mpAutoRecovery: -0.05,
+      maximizerCombinationLimit: 0,
     });
   }
 }

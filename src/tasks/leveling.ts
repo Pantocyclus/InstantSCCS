@@ -59,21 +59,22 @@ export const LevelingQuest: Quest = {
     },
     { ...innerElfTask },
     {
-      name: "Oliver's Place Free Fights",
+      name: "Oliver's Place for Newspaper",
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
       completed: () => get("_speakeasyFreeFights", 0) >= 2,
       // eslint-disable-next-line libram/verify-constants
       do: $location`An Unusually Quiet Barroom Brawl`,
-      combat: new CombatStrategy().macro(Macro.default()),
-      outfit: {
-        familiar: $familiar`Melodramedary`,
-        famequip: $item`dromedary drinking helmet`,
-      },
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Giant Growth`)
+          .if_($item`blue rocket`, Macro.item($item`blue rocket`))
+          .default()
+      ),
+      outfit: { familiar: $familiar`Garbage Fire` },
     },
     {
-      name: "Early Snojo",
+      name: "Snojo for Short Pancakes",
       prepare: (): void => {
         if (get("snojoSetting") === null) {
           visitUrl("place.php?whichplace=snojo&action=snojo_controller");
@@ -104,11 +105,14 @@ export const LevelingQuest: Quest = {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
       },
-      completed: () => have($item`burning newspaper`) || get("_snojoFreeFights") >= 10,
+      completed: () =>
+        have($item`burning newspaper`) ||
+        have($item`burning paper crane`) ||
+        get("_snojoFreeFights") >= 9,
       do: $location`The X-32-F Combat Training Snowman`,
       post: (): void => {
         if (have($item`burning newspaper`)) cliExecute("create burning paper crane");
-        if (get("_snojoFreeFights") >= 10) cliExecute("hottub"); // Clean -stat effects
+        if (get("_snojoFreeFights") >= 9) cliExecute("hottub"); // Clean -stat effects
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Giant Growth`)
@@ -116,7 +120,33 @@ export const LevelingQuest: Quest = {
           .default()
       ),
       outfit: { familiar: $familiar`Garbage Fire` },
-      limit: { tries: 5 },
+      limit: { tries: 4 },
+    },
+    {
+      name: "Snojo for Spit Upon",
+      prepare: (): void => {
+        if (get("snojoSetting") === null) {
+          visitUrl("place.php?whichplace=snojo&action=snojo_controller");
+          runChoice(1);
+        }
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
+      },
+      completed: () => get("_snojoFreeFights") >= 9,
+      do: $location`The X-32-F Combat Training Snowman`,
+      post: (): void => {
+        if (get("_snojoFreeFights") >= 9) cliExecute("hottub"); // Clean -stat effects
+      },
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Giant Growth`)
+          .if_($item`blue rocket`, Macro.item($item`blue rocket`))
+          .default()
+      ),
+      outfit: {
+        familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
+      },
+      limit: { tries: 1 },
     },
     {
       name: "LOV Tunnel",
