@@ -1,5 +1,5 @@
 import { CombatStrategy } from "grimoire-kolmafia";
-import { effectModifier, use, useFamiliar } from "kolmafia";
+import { cliExecute, effectModifier, use, useFamiliar } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -67,6 +67,7 @@ export const WeaponDamageQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         for (const it of $items`Fabiotion, resolution: be feistier, imported taffy`)
           if (have(it)) ensureEffect(effectModifier(it, "effect"));
+        if (!have($effect`Spit Upon`)) cliExecute("genie effect outer wolf");
       },
       completed: () => CommunityService.WeaponDamage.isDone(),
       do: () =>
