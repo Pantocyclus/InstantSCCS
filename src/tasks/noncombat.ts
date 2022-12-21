@@ -13,6 +13,7 @@ export const NoncombatQuest: Quest = {
       completed: () => CommunityService.Noncombat.isDone(),
       prepare: (): void => {
         if (get("parkaMode") !== "pterodactyl") cliExecute("parka pterodactyl");
+        cliExecute("maximize -combat");
       },
       do: () =>
         CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), 1),

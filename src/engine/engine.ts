@@ -101,7 +101,6 @@ export class Engine extends BaseEngine {
   dress(task: Task, outfit: Outfit): void {
     if (task.combat !== undefined && !outfit.skipDefaults) equipDefaults(outfit);
     super.dress(task, outfit);
-    super.dress(task, outfit);
   }
 
   prepare(task: Task): void {

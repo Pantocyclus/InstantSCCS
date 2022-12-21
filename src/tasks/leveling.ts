@@ -451,6 +451,7 @@ export const LevelingQuest: Quest = {
       post: (): void => {
         uneffect($effect`Aloysius' Antiphon of Aptitude`);
         uneffect($effect`Ur-Kel's Aria of Annoyance`);
+        cliExecute("refresh all");
       },
     },
   ],
