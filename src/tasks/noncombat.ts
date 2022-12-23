@@ -23,18 +23,17 @@ export const NoncombatQuest: Quest = {
         modifier: "-combat",
       },
       effects: [
-        $effect`Blessing of the Bird`,
         $effect`Driving Stealthily`,
         $effect`Feeling Lonely`,
-        $effect`Gummed Shoes`,
-        // $effect`Invisible Avatar`,
+        // $effect`Gummed Shoes`,
+        $effect`Invisible Avatar`,
         $effect`Silent Running`,
         $effect`Smooth Movements`,
         $effect`The Sonata of Sneakiness`,
         $effect`Throwing Some Shade`,
         $effect`Blood Bond`,
         $effect`Leash of Linguini`,
-        $effect`Puzzle Champ`,
+        // $effect`Puzzle Champ`,
       ],
       post: (): void => {
         uneffect($effect`The Sonata of Sneakiness`);

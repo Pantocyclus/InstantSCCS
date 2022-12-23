@@ -56,7 +56,7 @@ const levelingBuffs = [
   $effect`Frenzied, Bloody`,
   $effect`Ruthlessly Efficient`,
   $effect`Song of Bravado`,
-  // $effect`Triple-Sized`,
+  $effect`Triple-Sized`,
   // Class Skill
   $effect`Astral Shell`,
   $effect`Aloysius' Antiphon of Aptitude`,
@@ -106,7 +106,7 @@ export const PostCoilQuest: Quest = {
     },
     {
       name: "Install Workshed",
-      completed: () => getWorkshed() === $item`Asdon Martin keyfob` && getFuel() >= 111,
+      completed: () => getWorkshed() === $item`Asdon Martin keyfob` && getFuel() >= 74,
       do: (): void => {
         use($item`Asdon Martin keyfob`);
         fillTo(111);
