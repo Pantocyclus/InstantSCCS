@@ -273,7 +273,8 @@ export const PostCoilQuest: Quest = {
         create(1, $item`box of Familiar Jacks`);
         use(1, $item`box of Familiar Jacks`);
       },
-      outfit: { familiar: $familiar`Exotic Parrot` },
+      // eslint-disable-next-line libram/verify-constants
+      outfit: { familiar: $familiar`Mini-Trainbot` },
       limit: { tries: 1 },
     },
     {

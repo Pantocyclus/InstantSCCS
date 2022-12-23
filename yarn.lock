@@ -878,9 +878,9 @@
     "@babel/plugin-transform-typescript" "^7.15.0"
 
 "@babel/runtime-corejs3@^7.17.2":
-  version "7.20.6"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.20.6.tgz#63dae945963539ab0ad578efbf3eff271e7067ae"
-  integrity sha512-tqeujPiuEfcH067mx+7otTQWROVMKHXEaOQcAeNV5dDdbPWvPcFA8/W9LXw2NfjNmOetqLl03dfnG2WALPlsRQ==
+  version "7.20.7"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.20.7.tgz#a1e5ea3d758ba6beb715210142912e3f29981d84"
+  integrity sha512-jr9lCZ4RbRQmCR28Q8U8Fu49zvFqLxTY9AMOUz+iyMohMoAgpEcVxY+wJNay99oXOpOcCTODkk70NDN2aaJEeg==
   dependencies:
     core-js-pure "^3.25.1"
     regenerator-runtime "^0.13.11"
@@ -1840,9 +1840,9 @@ eslint-config-prettier@^8.3.0:
   integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
 
 eslint-plugin-libram@^0.2.17:
-  version "0.2.21"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.2.21.tgz#6f47123992c272203a8586dc5574dc1f1ca2dc7e"
-  integrity sha512-KkPsfFY5Coj2gc5JSbzIJksj8ydMqLIcIeYYtvRvKSrNHHjkAebEnHC2dSthpN0O8uNoJkcNT9meexzD4TUnzA==
+  version "0.2.24"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.2.24.tgz#d041f3c692027c6fdd770b264f5f073bb6a3eccf"
+  integrity sha512-zBcLHPXgk6kMJg8prq6KwPrknOiG7sN9q7chTxeIooY/H16sy3CRh485KhGYjM69dqINl+ENJxKbooXF/Hk30Q==
   dependencies:
     html-entities "^2.3.2"
     requireindex "~1.1.0"
@@ -2603,9 +2603,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
 kolmafia@>=1.2.0:
-  version "5.26990.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.26990.0.tgz#a7529f00e9dfc8f51a65d19d49d57a44cd9e77f2"
-  integrity sha512-EKJ22DeeZmmqoXZqf4K0lZxRK1cAVkNL2Uws3hFabkN14WWC2PlitmyFIbYQc8BtEtgoiHjpe2WP8VezazV7QQ==
+  version "5.27022.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.27022.0.tgz#78003846b9dcd2d15874628b7f29110bd9004627"
+  integrity sha512-kqlY0rcDMEDUmt043YS2Pn3JyrmIf/OpFab5VVoGT849OX6+2YKvKZ9GryRkt0QF4Z3XhivgYnt7WQ84NRo4PA==
 
 levn@^0.4.1:
   version "0.4.1"

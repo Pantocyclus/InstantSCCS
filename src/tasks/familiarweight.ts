@@ -208,7 +208,8 @@ export const FamiliarWeightQuest: Quest = {
       completed: () => CommunityService.FamiliarWeight.isDone(),
       do: () =>
         CommunityService.FamiliarWeight.run(() => logTestSetup(CommunityServiceTests.FAMTEST), 25),
-      outfit: { modifier: "familiar weight", familiar: $familiar`Exotic Parrot` },
+      // eslint-disable-next-line libram/verify-constants
+      outfit: { modifier: "familiar weight", familiar: $familiar`Mini-Trainbot` },
       limit: { tries: 1 },
     },
   ],
