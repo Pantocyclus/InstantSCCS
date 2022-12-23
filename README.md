@@ -78,6 +78,7 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [The Tunnel of L.O.V.E.](https://kol.coldfront.net/thekolwiki/index.php/The_Tunnel_of_L.O.V.E.)                               | Zone        |
 | [Secret Underground Spacegate Facility](https://kol.coldfront.net/thekolwiki/index.php/Secret_Underground_Spacegate_Facility) | Zone        |
 | [Kremlin's Greatest Briefcase](https://kol.coldfront.net/thekolwiki/index.php/Kremlin%27s_Greatest_Briefcase)                 | Accessory   |
+| [Asdon Martin Keyfob](https://kol.coldfront.net/thekolwiki/index.php/Asdon_Martin_keyfob)                                     | Workshed    |
 | [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                             | Item        |
 | [SongBoom™ BoomBox](https://kol.coldfront.net/thekolwiki/index.php/SongBoom%E2%84%A2_BoomBox)                                 | Item        |
 | [Bastille Battalion](https://kol.coldfront.net/thekolwiki/index.php/Bastille_Battalion)                                       | Zone        |

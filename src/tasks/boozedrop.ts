@@ -65,21 +65,23 @@ export const BoozeDropQuest: Quest = {
       prepare: (): void => {
         for (const it of $items`lavender candy heart, resolution: be happier, pulled yellow taffy, resolution: be luckier, autumn leaf`)
           if (have(it)) ensureEffect(effectModifier(it, "effect"));
+        if (have($effect`Driving Stealthily`)) cliExecute("shrug driving stealthily");
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: () =>
-        CommunityService.BoozeDrop.run(() => logTestSetup(CommunityServiceTests.ITEMTEST), 2),
+        CommunityService.BoozeDrop.run(() => logTestSetup(CommunityServiceTests.ITEMTEST), 1),
       outfit: {
         modifier: "Item Drop, -equip broken champagne bottle",
         familiar: $familiar`Trick-or-Treating Tot`,
       },
       effects: [
         $effect`Blessing of the Bird`,
-        $effect`El Aroma de Salsa`,
+        $effect`Driving Observantly`,
+        // $effect`El Aroma de Salsa`,
         $effect`Fat Leon's Phat Loot Lyric`,
         $effect`Feeling Lost`,
         // $effect`items.enh`,
-        $effect`I See Everything Thrice!`,
+        // $effect`I See Everything Thrice!`,
         $effect`Nearly All-Natural`,
         $effect`The Spirit of Taking`,
         $effect`Singer's Faithful Ocelot`,

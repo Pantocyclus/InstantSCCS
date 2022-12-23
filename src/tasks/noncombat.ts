@@ -1,5 +1,5 @@
 import { cliExecute } from "kolmafia";
-import { $effect, $familiar, CommunityService, get, uneffect } from "libram";
+import { $effect, $familiar, CommunityService, get, have, uneffect } from "libram";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
 import { burnLibram } from "./common";
@@ -13,6 +13,7 @@ export const NoncombatQuest: Quest = {
       completed: () => CommunityService.Noncombat.isDone(),
       prepare: (): void => {
         if (get("parkaMode") !== "pterodactyl") cliExecute("parka pterodactyl");
+        if (have($effect`Driving Recklessly`)) cliExecute("shrug driving recklessly");
         cliExecute("maximize -combat");
       },
       do: () =>
@@ -23,9 +24,10 @@ export const NoncombatQuest: Quest = {
       },
       effects: [
         $effect`Blessing of the Bird`,
+        $effect`Driving Stealthily`,
         $effect`Feeling Lonely`,
         $effect`Gummed Shoes`,
-        $effect`Invisible Avatar`,
+        // $effect`Invisible Avatar`,
         $effect`Silent Running`,
         $effect`Smooth Movements`,
         $effect`The Sonata of Sneakiness`,

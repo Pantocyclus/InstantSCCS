@@ -7,6 +7,8 @@ import {
   cliExecute,
   create,
   eat,
+  getFuel,
+  getWorkshed,
   itemAmount,
   myMeat,
   myMp,
@@ -33,6 +35,7 @@ import {
   have,
   set,
 } from "libram";
+import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
 import { mapMonster } from "../lib";
@@ -53,7 +56,7 @@ const levelingBuffs = [
   $effect`Frenzied, Bloody`,
   $effect`Ruthlessly Efficient`,
   $effect`Song of Bravado`,
-  $effect`Triple-Sized`,
+  // $effect`Triple-Sized`,
   // Class Skill
   $effect`Astral Shell`,
   $effect`Aloysius' Antiphon of Aptitude`,
@@ -66,6 +69,7 @@ const levelingBuffs = [
   $effect`[1458]Blood Sugar Sauce Magic`,
   // ML
   $effect`Drescher's Annoying Noise`,
+  $effect`Driving Recklessly`,
   $effect`Ur-Kel's Aria of Annoyance`,
   $effect`Pride of the Puffin`,
   // Beach Comb
@@ -97,6 +101,15 @@ export const PostCoilQuest: Quest = {
       do: (): void => {
         use($item`MayDay™ supply package`);
         if (have($item`space blanket`)) autosell(1, $item`space blanket`);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Install Workshed",
+      completed: () => getWorkshed() === $item`Asdon Martin keyfob` && getFuel() >= 111,
+      do: (): void => {
+        use($item`Asdon Martin keyfob`);
+        fillTo(111);
       },
       limit: { tries: 1 },
     },
