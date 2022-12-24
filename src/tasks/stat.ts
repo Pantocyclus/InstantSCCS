@@ -107,6 +107,7 @@ export const MoxieQuest: Quest = {
       do: () => CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), 1),
       outfit: { modifier: "Moxie", familiar: $familiar`Disembodied Hand` },
       effects: [
+        $effect`Amazing`,
         $effect`Blubbered Up`,
         $effect`Butt-Rock Hair`,
         $effect`Disco Fever`,
