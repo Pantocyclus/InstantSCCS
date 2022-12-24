@@ -1,5 +1,14 @@
 import { cliExecute, useSkill } from "kolmafia";
-import { $effect, $familiar, $skill, CommunityService, get, have, uneffect } from "libram";
+import {
+  $effect,
+  $familiar,
+  $skill,
+  CommunityService,
+  ensureEffect,
+  get,
+  have,
+  uneffect,
+} from "libram";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
 import { burnLibram } from "./common";
@@ -42,7 +51,10 @@ export const MuscleQuest: Quest = {
   tasks: [
     {
       name: "Test",
-      prepare: () => useSkill($skill`Bind Undead Elbow Macaroni`),
+      prepare: (): void => {
+        useSkill($skill`Bind Undead Elbow Macaroni`);
+        if (!have($effect`Spit Upon`)) ensureEffect($effect`Triple-Sized`);
+      },
       completed: () => CommunityService.Muscle.isDone(),
       do: () => CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), 1),
       outfit: { modifier: "Muscle", familiar: $familiar`Disembodied Hand` },

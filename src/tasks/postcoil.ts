@@ -56,7 +56,7 @@ const levelingBuffs = [
   $effect`Frenzied, Bloody`,
   $effect`Ruthlessly Efficient`,
   $effect`Song of Bravado`,
-  $effect`Triple-Sized`,
+  // $effect`Triple-Sized`,
   // Class Skill
   $effect`Astral Shell`,
   $effect`Aloysius' Antiphon of Aptitude`,
