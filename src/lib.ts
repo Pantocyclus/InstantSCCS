@@ -12,7 +12,7 @@ import {
   useSkill,
   visitUrl,
 } from "kolmafia";
-import { $effect, $effects, $skill, get, have } from "libram";
+import { $effect, $effects, $skill, get, have, set } from "libram";
 
 export enum CommunityServiceTests {
   HPTEST = 1,
@@ -42,7 +42,7 @@ const testModifiers = new Map([
   [CommunityServiceTests.HOTTEST, ["Hot Resistance"]],
   [CommunityServiceTests.COILTEST, []],
 ]);
-const testNames = new Map([
+export const testNames = new Map([
   [CommunityServiceTests.HPTEST, "HP Test"],
   [CommunityServiceTests.MUSTEST, "Muscle Test"],
   [CommunityServiceTests.MYSTTEST, "Mysticality Test"],
@@ -266,4 +266,5 @@ export function logTestSetup(whichTest: number): void {
     }.`,
     "blue"
   );
+  set(`_CSTest${whichTest}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
 }
