@@ -217,4 +217,4 @@ A summary of key farming resources used is listed below. The same summary is gen
 | Liver       | 4/15  |
 | Spleen      | 2/15  |
 
-Adventures Used : 105
+Adventures Used : 103
