@@ -145,7 +145,7 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 
 A summary of key farming resources used is listed below. The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource. <br />
 <sub><sup>Note 1: Some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers and unluckily missing our high sprinkle Gingerbread targets in 3 free banishes), the Gingerbread City Noon NC (due to the same aforementioned Gingerbread luck) and Peppermint Sprouts (depending on our luck in Summoning Candy Hearts).</sup></sub> <br />
-<sub><sup>Note 2: It should achieve a 1/105 HCCS >95% of the time (failing and hitting a 1/108 if we lose all 3 33% die rolls on the Gingerbread Gentrifier, or if we get extremely unlucky with our libram summons). Organ usage is always fixed at 0/4/2.</sup></sub>
+<sub><sup>Note 2: It should achieve a 1/103 HCCS >95% of the time (failing [but still completing the run] if we lose all 3 33% die rolls on the Gingerbread Gentrifier, or if we get extremely unlucky with our libram summons). Organ usage is always fixed at 0/4/2.</sup></sub>
 
 | Free Banishes Used | Usage |
 | ------------------ | ----- |
@@ -160,6 +160,7 @@ A summary of key farming resources used is listed below. The same summary is gen
 | Chest X-Ray         | 3/3   |
 | Shattering Punch    | 3/3   |
 | Gingerbread Mob Hit | 1/1   |
+| Missile Launcher    | 1/1   |
 | Parka YR            | 1/?   |
 
 | Notable Skills Used | Usage |
@@ -191,25 +192,26 @@ A summary of key farming resources used is listed below. The same summary is gen
 | Fax Machine                  | 1/1   |
 | Chateau Painting             | 0/1   |
 
-| Farming Resources Used | Usage  |
-| ---------------------- | ------ |
-| Powerful Glove Charges | 10/100 |
-| KGB Clicks             | 0/22   |
-| Deck Draws             | 15/15  |
-| Macrometeorites        | 0/10   |
-| Batteries (AAA)        | 0/7    |
-| CMC Consults           | 0/5    |
-| Tome Summons           | 3/3    |
-| Peppermint Sprouts     | 3/3    |
-| Genie Wishes           | 0/3    |
-| Tea Tree               | 0/1    |
-| Favorite Bird          | 0/1    |
-| Zatara Consult         | 0/1    |
-| Clan Floundry          | 0/1    |
-| Gingerbread City Noon  | 1/1    |
-| Pantogram              | 0/1    |
-| Cargo Shorts           | 0/1    |
-| Pillkeeper             | 0/1    |
+| Farming Resources Used    | Usage  |
+| ------------------------- | ------ |
+| Powerful Glove Charges    | 10/100 |
+| KGB Clicks                | 0/22   |
+| Deck Draws                | 15/15  |
+| Macrometeorites           | 0/10   |
+| Batteries (AAA)           | 0/7    |
+| CMC Consults              | 0/5    |
+| Tome Summons              | 3/3    |
+| Peppermint Sprouts        | 3/3    |
+| Genie Wishes              | 0/3    |
+| Tea Tree                  | 0/1    |
+| Favorite Bird             | 0/1    |
+| Zatara Consult            | 0/1    |
+| Clan Floundry             | 0/1    |
+| Gingerbread City Noon     | 1/1    |
+| Gingerbread City Midnight | 0/1    |
+| Pantogram                 | 0/1    |
+| Cargo Shorts              | 0/1    |
+| Pillkeeper                | 0/1    |
 
 | Organs Used | Usage |
 | ----------- | ----- |
