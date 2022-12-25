@@ -88,12 +88,22 @@ function mystSynthAttainable(): boolean {
   return false;
 }
 
-function chooseLibram(): Skill {
+function needBrickos(): boolean {
+  const oysters = itemAmount($item`BRICKO oyster`);
+  const brickContributions = Math.floor(itemAmount($item`BRICKO brick`) / 8);
+  const eyeContributions = itemAmount($item`BRICKO eye brick`);
+  const materials = brickContributions < eyeContributions ? brickContributions : eyeContributions;
+  return have($skill`Summon BRICKOs`) && oysters + materials < 1;
+}
+
+function chooseLibram(useBrickos: boolean): Skill {
   const needLoveSong =
     itemAmount($item`love song of icy revenge`) +
       Math.floor(haveEffect($effect`Cold Hearted`) / 5) <
     4;
-  if (!have($effect`Synthesis: Smart`) && !mystSynthAttainable()) {
+  if (useBrickos && needBrickos()) {
+    return $skill`Summon BRICKOs`;
+  } else if (!have($effect`Synthesis: Smart`) && !mystSynthAttainable()) {
     return $skill`Summon Candy Heart`;
   } else if (
     (!have($item`resolution: be happier`) && !have($effect`Joyful Resolve`)) ||
@@ -112,8 +122,8 @@ function chooseLibram(): Skill {
   return $skill`Summon Taffy`;
 }
 
-export function burnLibram(saveMp: number): void {
-  while (myMp() >= mpCost(chooseLibram()) + saveMp) {
-    useSkill(chooseLibram());
+export function burnLibram(saveMp: number, useBrickos?: boolean): void {
+  while (myMp() >= mpCost(chooseLibram(useBrickos ?? false)) + saveMp) {
+    useSkill(chooseLibram(useBrickos ?? false));
   }
 }

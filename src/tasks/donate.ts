@@ -50,6 +50,7 @@ function logResourceUsage(): void {
   logPrefUsage("_chestXRayUsed", 3);
   logPrefUsage("_shatteringPunchUsed", 3);
   logPrefUsage("_gingerbreadMobHitUsed", 1);
+  logPrefUsage("_missileLauncherUsed", 1);
   logPrefUsage("_CSParkaYRUsed");
   // Spit Jurassic Acid is reusable (but not currently tracked)
 
@@ -103,6 +104,7 @@ function logResourceUsage(): void {
   logPrefUsage("_clanFortuneBuffUsed", 1);
   logPrefUsage("_floundryItemCreated", 1);
   logPrefUsage("_gingerbreadCityNoonCompleted", 1);
+  logPrefUsage("_gingerbreadCityMidnightCompleted", 1);
   logPrefUsage("_pantogramModifier", 1);
   logPrefUsage("_cargoPocketEmptied", 1);
   logPrefUsage("_freePillKeeperUsed", 1);

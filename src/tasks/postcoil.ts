@@ -109,7 +109,7 @@ export const PostCoilQuest: Quest = {
       completed: () => getWorkshed() === $item`Asdon Martin keyfob` && getFuel() >= 74,
       do: (): void => {
         use($item`Asdon Martin keyfob`);
-        fillTo(111);
+        fillTo(211);
       },
       limit: { tries: 1 },
     },

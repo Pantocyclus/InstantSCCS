@@ -2,6 +2,7 @@ import { CombatStrategy } from "grimoire-kolmafia";
 import {
   adv1,
   cliExecute,
+  create,
   drink,
   eat,
   equip,
@@ -59,21 +60,6 @@ export const LevelingQuest: Quest = {
     },
     { ...innerElfTask },
     {
-      name: "Oliver's Place for Newspaper",
-      prepare: (): void => {
-        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
-      },
-      completed: () => get("_speakeasyFreeFights", 0) >= 2,
-      // eslint-disable-next-line libram/verify-constants
-      do: $location`An Unusually Quiet Barroom Brawl`,
-      combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Giant Growth`)
-          .if_($item`blue rocket`, Macro.item($item`blue rocket`))
-          .default()
-      ),
-      outfit: { familiar: $familiar`Garbage Fire` },
-    },
-    {
       name: "Snojo for Short Pancakes",
       prepare: (): void => {
         if (get("snojoSetting") === null) {
@@ -108,19 +94,15 @@ export const LevelingQuest: Quest = {
       completed: () =>
         have($item`burning newspaper`) ||
         have($item`burning paper crane`) ||
-        get("_snojoFreeFights") >= 9,
+        get("_snojoFreeFights") >= 7,
       do: $location`The X-32-F Combat Training Snowman`,
-      post: (): void => {
-        if (have($item`burning newspaper`)) cliExecute("create burning paper crane");
-        if (get("_snojoFreeFights") >= 9) cliExecute("hottub"); // Clean -stat effects
-      },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Giant Growth`)
           .if_($item`blue rocket`, Macro.item($item`blue rocket`))
           .default()
       ),
       outfit: { familiar: $familiar`Garbage Fire` },
-      limit: { tries: 4 },
+      limit: { tries: 2 },
     },
     {
       name: "Snojo for Spit Upon",
@@ -146,7 +128,7 @@ export const LevelingQuest: Quest = {
         familiar: $familiar`Melodramedary`,
         famequip: $item`dromedary drinking helmet`,
       },
-      limit: { tries: 1 },
+      limit: { tries: 2 },
     },
     {
       name: "LOV Tunnel",
@@ -320,7 +302,10 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Free Kills",
-      completed: () => get("_shatteringPunchUsed") >= 3 && get("_gingerbreadMobHitUsed"),
+      completed: () =>
+        get("_shatteringPunchUsed") >= 3 &&
+        get("_gingerbreadMobHitUsed") &&
+        get("_missileLauncherUsed"),
       prepare: (): void => {
         if (have($effect`Spit Upon`)) {
           useFamiliar($familiar`Galloping Grill`);
@@ -339,10 +324,11 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`%fn, spit on me!`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
+          .trySkill($skill`Asdon Martin: Missile Launcher`)
           .abort()
       ),
       acquire: [{ item: $item`makeshift garbage shirt` }],
-      limit: { tries: 5 },
+      limit: { tries: 6 },
     },
     {
       name: "Sausage Goblin",
@@ -390,20 +376,19 @@ export const LevelingQuest: Quest = {
       completed: () => get("_speakeasyFreeFights", 0) >= 3,
       // eslint-disable-next-line libram/verify-constants
       do: $location`An Unusually Quiet Barroom Brawl`,
+      post: (): void => {
+        if (have($item`burning newspaper`)) cliExecute("create burning paper crane");
+      },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Gulp Latte`)
-          .if_(
-            $monster`Government agent`,
-            Macro.trySkill($skill`%fn, spit on me!`)
-              .trySkill($skill`Feel Envy`)
-              .default()
-          )
+          .if_($monster`Government agent`, Macro.trySkill($skill`Feel Envy`))
+          .trySkill($skill`Portscan`)
           .default()
       ),
       outfit: {
-        familiar: $familiar`Melodramedary`,
-        famequip: $item`dromedary drinking helmet`,
+        familiar: $familiar`Garbage Fire`,
       },
+      limit: { tries: 3 },
     },
     {
       name: "Oliver's Place Map",
@@ -432,7 +417,7 @@ export const LevelingQuest: Quest = {
       },
       completed: () => get("_machineTunnelsAdv") >= 5,
       do: (): void => {
-        burnLibram(300);
+        burnLibram(300, true);
         adv1($location`The Deep Machine Tunnels`, -1);
         if (get("_latteRefillsUsed") < 3) cliExecute("latte refill cinnamon pumpkin vanilla");
       },
@@ -452,6 +437,19 @@ export const LevelingQuest: Quest = {
         uneffect($effect`Aloysius' Antiphon of Aptitude`);
         uneffect($effect`Ur-Kel's Aria of Annoyance`);
         cliExecute("refresh all");
+        while (itemAmount($item`BRICKO brick`) >= 8 && have($item`BRICKO eye brick`))
+          create($item`BRICKO oyster`);
+      },
+    },
+    {
+      name: "Bricko Oyster",
+      completed: () => get("camelSpit") >= 100 || !have($item`BRICKO oyster`),
+      do: () => $item`BRICKO oyster`,
+      combat: new CombatStrategy().macro(Macro.default()),
+      limit: { tries: 2 },
+      outfit: {
+        familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
       },
     },
   ],

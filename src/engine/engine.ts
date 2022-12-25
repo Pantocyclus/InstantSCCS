@@ -17,6 +17,7 @@ export const trackedPreferences = new Map<string, string>([
   ["_chestXRayUsed", "Chest X-Ray"],
   ["_shatteringPunchUsed", "Shattering Punch"],
   ["_gingerbreadMobHitUsed", "Gingerbread Mob Hit"],
+  ["_missileLauncherUsed", "Missile Launcher"],
   ["_CSParkaYRUsed", "Parka YR"],
 
   // Notable Skills
@@ -61,6 +62,7 @@ export const trackedPreferences = new Map<string, string>([
   ["_clanFortuneBuffUsed", "Zatara Consult"],
   ["_floundryItemCreated", "Clan Floundry"],
   ["_gingerbreadCityNoonCompleted", "GingerbreadCity Noon"],
+  ["_gingerbreadCityMidnightCompleted", "GingerbreadCity Midnight"],
   ["_pantogramModifier", "Pantogram"],
   ["_cargoPocketEmptied", "Cargo Shorts"],
   ["_freePillKeeperUsed", "Pillkeeper"],
