@@ -80,6 +80,10 @@ const levelingBuffs = [
   $effect`You Learned Something Maybe!`,
   // Items
   $effect`Glittering Eyelashes`,
+  // Spell Damage
+  $effect`Carol of the Hells`,
+  $effect`Song of Sauce`,
+  $effect`Warlock, Warstock, and Warbarrel`,
   // Other
   $effect`Billiards Belligerence`,
   // $effect`Blessing of your favorite Bird`, // Set up for +75% myst, +2 hot resist, -5% combat freq, +100 weapon dmg%, +20 weapon dmg
