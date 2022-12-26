@@ -371,7 +371,6 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         cliExecute("terminal educate portscan");
-        if (have($effect`Spit Upon`)) equip($item`tiny stillsuit`);
       },
       completed: () => get("_speakeasyFreeFights", 0) >= 1,
       do: $location`An Unusually Quiet Barroom Brawl`,
@@ -391,7 +390,6 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         cliExecute("terminal educate portscan");
-        if (have($effect`Spit Upon`)) equip($item`tiny stillsuit`);
       },
       completed: () => get("_speakeasyFreeFights", 0) >= 2,
       do: $location`An Unusually Quiet Barroom Brawl`,
@@ -406,7 +404,6 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         cliExecute("terminal educate portscan");
-        if (have($effect`Spit Upon`)) equip($item`tiny stillsuit`);
       },
       completed: () => get("_speakeasyFreeFights", 0) >= 3,
       do: $location`An Unusually Quiet Barroom Brawl`,
