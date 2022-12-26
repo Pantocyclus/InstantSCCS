@@ -367,18 +367,14 @@ export const LevelingQuest: Quest = {
         ),
     },
     {
-      name: "Oliver's Place Portscan",
+      name: "Oliver's Place Agent with Portscan and Envy",
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         cliExecute("terminal educate portscan");
         if (have($effect`Spit Upon`)) equip($item`tiny stillsuit`);
       },
-      completed: () => get("_speakeasyFreeFights", 0) >= 3,
-      // eslint-disable-next-line libram/verify-constants
+      completed: () => get("_speakeasyFreeFights", 0) >= 1,
       do: $location`An Unusually Quiet Barroom Brawl`,
-      post: (): void => {
-        if (have($item`burning newspaper`)) cliExecute("create burning paper crane");
-      },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Gulp Latte`)
           .if_($monster`Government agent`, Macro.trySkill($skill`Feel Envy`))
@@ -388,7 +384,40 @@ export const LevelingQuest: Quest = {
       outfit: {
         familiar: $familiar`Garbage Fire`,
       },
-      limit: { tries: 3 },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Oliver's Place Agent with Portscan",
+      prepare: (): void => {
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        cliExecute("terminal educate portscan");
+        if (have($effect`Spit Upon`)) equip($item`tiny stillsuit`);
+      },
+      completed: () => get("_speakeasyFreeFights", 0) >= 2,
+      do: $location`An Unusually Quiet Barroom Brawl`,
+      combat: new CombatStrategy().macro(Macro.trySkill($skill`Portscan`).default()),
+      outfit: {
+        familiar: $familiar`Garbage Fire`,
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Oliver's Place Agent",
+      prepare: (): void => {
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        cliExecute("terminal educate portscan");
+        if (have($effect`Spit Upon`)) equip($item`tiny stillsuit`);
+      },
+      completed: () => get("_speakeasyFreeFights", 0) >= 3,
+      do: $location`An Unusually Quiet Barroom Brawl`,
+      post: (): void => {
+        if (have($item`burning newspaper`)) cliExecute("create burning paper crane");
+      },
+      combat: new CombatStrategy().macro(Macro.default()),
+      outfit: {
+        familiar: $familiar`Garbage Fire`,
+      },
+      limit: { tries: 1 },
     },
     {
       name: "Oliver's Place Map",

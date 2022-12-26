@@ -1,9 +1,17 @@
-import { effectModifier, elementalResistance, myHp, myMaxhp, useSkill } from "kolmafia";
+import {
+  effectModifier,
+  elementalResistance,
+  myHp,
+  myMaxhp,
+  retrieveItem,
+  useSkill,
+} from "kolmafia";
 import {
   $effect,
   $effects,
   $element,
   $familiar,
+  $item,
   $items,
   $skill,
   CommunityService,
@@ -18,6 +26,13 @@ export const SpellDamageQuest: Quest = {
   name: "Spell Damage",
   completed: () => CommunityService.SpellDamage.isDone(),
   tasks: [
+    {
+      name: "Obsidian Nutcracker",
+      completed: () => have($item`obsidian nutcracker`),
+      do: () => retrieveItem($item`obsidian nutcracker`),
+      outfit: { pants: $item`designer sweatpants` },
+      limit: { tries: 1 },
+    },
     {
       name: "Simmer",
       completed: () => have($effect`Simmering`),

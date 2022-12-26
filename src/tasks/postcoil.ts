@@ -187,13 +187,6 @@ export const PostCoilQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Obsidian Nutcracker",
-      completed: () => have($item`obsidian nutcracker`),
-      do: () => retrieveItem($item`obsidian nutcracker`),
-      outfit: { pants: $item`designer sweatpants` },
-      limit: { tries: 1 },
-    },
-    {
       name: "Cloud-Talk",
       completed: () => have($effect`That's Just Cloud-Talk, Man`),
       do: () => visitUrl("place.php?whichplace=campaway&action=campaway_sky"),
@@ -286,7 +279,6 @@ export const PostCoilQuest: Quest = {
         create(1, $item`box of Familiar Jacks`);
         use(1, $item`box of Familiar Jacks`);
       },
-      // eslint-disable-next-line libram/verify-constants
       outfit: { familiar: $familiar`Mini-Trainbot` },
       limit: { tries: 1 },
     },
