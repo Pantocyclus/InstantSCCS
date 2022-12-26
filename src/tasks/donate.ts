@@ -12,7 +12,7 @@ import {
 import { $effect, $effects, CommunityService, get, have, uneffect } from "libram";
 import { trackedPreferences } from "../engine/engine";
 import { Quest } from "../engine/task";
-import { debug, testNames } from "../lib";
+import { CommunityServiceTests, debug, testNames } from "../lib";
 
 function logPrefUsage(s: string, n?: number): void {
   const localPref = get(`_instant${s}`, "").split(",").join(", ");
@@ -121,8 +121,20 @@ function logResourceUsage(): void {
 
   // Adventures Used
   debug("");
-  debug("Test Summary");
-  for (let test = 1; test < 12; test++)
+  debug("Test Summary:");
+  for (const test of Array<number>(
+    CommunityServiceTests.COILTEST,
+    CommunityServiceTests.HOTTEST,
+    CommunityServiceTests.HPTEST,
+    CommunityServiceTests.MUSTEST,
+    CommunityServiceTests.MYSTTEST,
+    CommunityServiceTests.MOXTEST,
+    CommunityServiceTests.COMTEST,
+    CommunityServiceTests.WPNTEST,
+    CommunityServiceTests.SPELLTEST,
+    CommunityServiceTests.FAMTEST,
+    CommunityServiceTests.ITEMTEST
+  ))
     debug(`${testNames.get(test) ?? "Unknown Test"}: ${get(`_CSTest${test}`, "?")}`);
   debug(`Adventures used: ${turnsPlayed()}`);
 
