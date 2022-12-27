@@ -151,8 +151,6 @@ export const PostCoilQuest: Quest = {
       completed: () => have($item`oversized sparkler`) && have($item`sombrero-mounted sparkler`),
       do: (): void => {
         if (!have($item`blue rocket`)) buy(1, $item`blue rocket`);
-        if (!have($item`oversized sparkler`)) buy(1, $item`oversized sparkler`);
-        if (!have($item`sombrero-mounted sparkler`)) buy(1, $item`sombrero-mounted sparkler`);
       },
       outfit: { pants: $item`designer sweatpants` },
       limit: { tries: 1 },

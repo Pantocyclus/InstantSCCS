@@ -1,4 +1,4 @@
-import { cliExecute, effectModifier } from "kolmafia";
+import { buy, cliExecute, effectModifier, visitUrl } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -40,6 +40,16 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 1 },
     },
     */
+    {
+      name: "Underground Fireworks Shop",
+      prepare: () => visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2", false),
+      completed: () => have($item`oversized sparkler`) && have($item`sombrero-mounted sparkler`),
+      do: (): void => {
+        if (!have($item`oversized sparkler`)) buy(1, $item`oversized sparkler`);
+      },
+      outfit: { pants: $item`designer sweatpants` },
+      limit: { tries: 1 },
+    },
     {
       name: "Vampyric Cape, Bowling Ball and DSH Buffs",
       completed: () => have($effect`Bat-Adjacent Form`),

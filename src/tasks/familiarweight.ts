@@ -1,5 +1,6 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
+  buy,
   cliExecute,
   eat,
   familiarWeight,
@@ -44,6 +45,16 @@ export const FamiliarWeightQuest: Quest = {
       name: "DRINK ME",
       completed: () => get("_lookingGlass"),
       do: () => visitUrl("clan_viplounge.php?action=lookingglass&whichfloor=2"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Underground Fireworks Shop",
+      prepare: () => visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2", false),
+      completed: () => have($item`oversized sparkler`) && have($item`sombrero-mounted sparkler`),
+      do: (): void => {
+        if (!have($item`sombrero-mounted sparkler`)) buy(1, $item`sombrero-mounted sparkler`);
+      },
+      outfit: { pants: $item`designer sweatpants` },
       limit: { tries: 1 },
     },
     {
