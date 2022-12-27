@@ -148,7 +148,7 @@ export const PostCoilQuest: Quest = {
     {
       name: "Underground Fireworks Shop",
       prepare: () => visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2", false),
-      completed: () => have($item`oversized sparkler`) && have($item`sombrero-mounted sparkler`),
+      completed: () => have($item`blue rocket`) || have($effect`Everything Looks Blue`),
       do: (): void => {
         if (!have($item`blue rocket`)) buy(1, $item`blue rocket`);
       },

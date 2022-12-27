@@ -50,7 +50,7 @@ export const FamiliarWeightQuest: Quest = {
     {
       name: "Underground Fireworks Shop",
       prepare: () => visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2", false),
-      completed: () => have($item`oversized sparkler`) && have($item`sombrero-mounted sparkler`),
+      completed: () => have($item`sombrero-mounted sparkler`),
       do: (): void => {
         if (!have($item`sombrero-mounted sparkler`)) buy(1, $item`sombrero-mounted sparkler`);
       },

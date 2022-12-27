@@ -43,7 +43,7 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Underground Fireworks Shop",
       prepare: () => visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2", false),
-      completed: () => have($item`oversized sparkler`) && have($item`sombrero-mounted sparkler`),
+      completed: () => have($item`oversized sparkler`),
       do: (): void => {
         if (!have($item`oversized sparkler`)) buy(1, $item`oversized sparkler`);
       },
