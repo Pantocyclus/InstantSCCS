@@ -82,7 +82,7 @@ const levelingBuffs = [
   $effect`Glittering Eyelashes`,
   // Spell Damage
   $effect`Carol of the Hells`,
-  $effect`Song of Sauce`,
+  //$effect`Song of Sauce`,
   $effect`Warlock, Warstock, and Warbarrel`,
   // Other
   $effect`Billiards Belligerence`,
