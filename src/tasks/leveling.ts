@@ -144,7 +144,7 @@ export const LevelingQuest: Quest = {
         ),
       combat: new CombatStrategy().macro(
         Macro.if_($monster`LOV Enforcer`, Macro.attack().repeat())
-          .if_($monster`LOV Engineer`, Macro.skill($skill`Saucegeyser`).repeat())
+          .if_($monster`LOV Engineer`, Macro.skill($skill`Toynado`).repeat())
           .if_($monster`LOV Equivocator`, Macro.default())
       ),
       outfit: {

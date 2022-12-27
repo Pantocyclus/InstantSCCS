@@ -45,7 +45,9 @@ const statGainBuffs = [$effect`Inscrutable Gaze`, $effect`Thaumodynamic`];
 
 const levelingBuffs = [
   // Skill
+  $effect`A Few Extra Pounds`,
   $effect`Big`,
+  $effect`Blessing of the Bird`,
   $effect`Blood Bond`,
   $effect`Blood Bubble`,
   $effect`Carol of the Bulls`,
@@ -65,6 +67,12 @@ const levelingBuffs = [
   $effect`Ghostly Shell`,
   $effect`Inscrutable Gaze`,
   $effect`Leash of Linguini`,
+  $effect`Patience of the Tortoise`,
+  $effect`Rage of the Reindeer`,
+  $effect`Reptilian Fortitude`,
+  $effect`Saucemastery`,
+  $effect`Shield of the Pastalord`,
+  $effect`Snarl of the Timberwolf`,
   $effect`Stevedave's Shanty of Superiority`,
   $effect`[1458]Blood Sugar Sauce Magic`,
   // ML
@@ -80,19 +88,23 @@ const levelingBuffs = [
   $effect`You Learned Something Maybe!`,
   // Items
   $effect`Glittering Eyelashes`,
-  // Spell Damage
-  $effect`Carol of the Hells`,
-  //$effect`Song of Sauce`,
   $effect`Warlock, Warstock, and Warbarrel`,
   // Other
   $effect`Billiards Belligerence`,
-  // $effect`Blessing of your favorite Bird`, // Set up for +75% myst, +2 hot resist, -5% combat freq, +100 weapon dmg%, +20 weapon dmg
   $effect`Broad-Spectrum Vaccine`,
   $effect`Favored by Lyle`,
   $effect`Grumpy and Ornery`,
   $effect`Starry-Eyed`,
   $effect`Total Protonic Reversal`,
   $effect`Uncucumbered`,
+  // Prismatic Damage
+  $effect`Frostbeard`,
+  $effect`Intimidating Mien`,
+  $effect`Pyromania`,
+  $effect`Rotten Memories`,
+  $effect`Takin' It Greasy`,
+  $effect`Your Fifteen Minutes`,
+  $effect`Bendin' Hell`,
 ];
 
 export const PostCoilQuest: Quest = {
