@@ -11,6 +11,9 @@ import {
   myFamiliar,
   myInebriety,
   myLevel,
+  myMaxmp,
+  myMp,
+  mySoulsauce,
   runChoice,
   use,
   useFamiliar,
@@ -157,6 +160,14 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
       post: (): void => {
         use(1, $item`LOV Elixir #3`);
+      },
+    },
+    {
+      name: "Soul Food",
+      ready: () => mySoulsauce() >= 5,
+      completed: () => mySoulsauce() < 5 || myMp() > myMaxmp() - 15,
+      do: (): void => {
+        while (mySoulsauce() >= 5 && myMp() <= myMaxmp() - 15) useSkill($skill`Soul Food`);
       },
     },
     {
