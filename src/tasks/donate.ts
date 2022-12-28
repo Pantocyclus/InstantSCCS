@@ -17,8 +17,8 @@ import { CommunityServiceTests, debug, testNames } from "../lib";
 function logPrefUsage(s: string, n?: number): void {
   const localPref = get(`_instant${s}`, "").split(",").join(", ");
   const pref = get(s);
-  const prefLength = pref.toString().includes(",") ? pref.toString().split(",").length : 0;
-  if (typeof pref === "boolean" || pref === "true" || pref === "false")
+  const prefLength = pref.toString() !== "" ? pref.toString().split(",").length : 0;
+  if (typeof pref === "boolean" || pref.toLowerCase() === "true" || pref.toLowerCase() === "false")
     debug(`${trackedPreferences.get(s) ?? s}: ${pref ? n ?? 1 : 0}/${n ?? "?"} ${localPref}`);
   else if (
     typeof pref === "string" &&
