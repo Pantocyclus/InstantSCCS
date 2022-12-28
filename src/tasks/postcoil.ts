@@ -71,7 +71,6 @@ const levelingBuffs = [
   $effect`Rage of the Reindeer`,
   $effect`Reptilian Fortitude`,
   $effect`Saucemastery`,
-  $effect`Snarl of the Timberwolf`,
   $effect`Stevedave's Shanty of Superiority`,
   $effect`[1458]Blood Sugar Sauce Magic`,
   // ML
