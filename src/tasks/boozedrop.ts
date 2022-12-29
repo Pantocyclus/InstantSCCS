@@ -1,4 +1,4 @@
-import { buy, cliExecute, effectModifier, visitUrl } from "kolmafia";
+import { buy, cliExecute, effectModifier, getFuel, visitUrl } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -14,6 +14,7 @@ import Macro from "../combat";
 import { Quest } from "../engine/task";
 import { CombatStrategy } from "grimoire-kolmafia";
 import { CommunityServiceTests, logTestSetup } from "../lib";
+import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
 
 export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
@@ -76,6 +77,7 @@ export const BoozeDropQuest: Quest = {
         for (const it of $items`lavender candy heart, resolution: be happier, pulled yellow taffy, resolution: be luckier, autumn leaf`)
           if (have(it)) ensureEffect(effectModifier(it, "effect"));
         if (have($effect`Driving Stealthily`)) cliExecute("shrug driving stealthily");
+        if (getFuel() < 37 && !have($effect`Driving Observantly`)) fillTo(37);
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: () =>

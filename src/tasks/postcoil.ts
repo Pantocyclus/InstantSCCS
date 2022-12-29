@@ -7,11 +7,12 @@ import {
   cliExecute,
   create,
   eat,
-  getFuel,
   getWorkshed,
   itemAmount,
+  myMaxmp,
   myMeat,
   myMp,
+  mySoulsauce,
   retrieveItem,
   sweetSynthesis,
   totalFreeRests,
@@ -120,10 +121,10 @@ export const PostCoilQuest: Quest = {
     },
     {
       name: "Install Workshed",
-      completed: () => getWorkshed() === $item`Asdon Martin keyfob` && getFuel() >= 74,
+      completed: () => getWorkshed() === $item`Asdon Martin keyfob`,
       do: (): void => {
         use($item`Asdon Martin keyfob`);
-        fillTo(211);
+        fillTo(37);
       },
       limit: { tries: 1 },
     },
@@ -259,6 +260,14 @@ export const PostCoilQuest: Quest = {
       do: () => use($item`a ten-percent bonus`),
       outfit: { offhand: $item`familiar scrapbook` },
       limit: { tries: 1 },
+    },
+    {
+      name: "Soul Food",
+      ready: () => mySoulsauce() >= 5,
+      completed: () => mySoulsauce() < 5 || myMp() > myMaxmp() - 15,
+      do: (): void => {
+        while (mySoulsauce() >= 5 && myMp() <= myMaxmp() - 15) useSkill($skill`Soul Food`);
+      },
     },
     {
       name: "Buffs",

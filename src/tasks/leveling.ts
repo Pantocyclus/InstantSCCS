@@ -7,13 +7,11 @@ import {
   eat,
   equip,
   familiarWeight,
+  getFuel,
   itemAmount,
   myFamiliar,
   myInebriety,
   myLevel,
-  myMaxmp,
-  myMp,
-  mySoulsauce,
   runChoice,
   use,
   useFamiliar,
@@ -39,6 +37,7 @@ import {
   uneffect,
   Witchess,
 } from "libram";
+import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
 import { mapMonster, tryUse } from "../lib";
@@ -160,14 +159,6 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
       post: (): void => {
         use(1, $item`LOV Elixir #3`);
-      },
-    },
-    {
-      name: "Soul Food",
-      ready: () => mySoulsauce() >= 5,
-      completed: () => mySoulsauce() < 5 || myMp() > myMaxmp() - 15,
-      do: (): void => {
-        while (mySoulsauce() >= 5 && myMp() <= myMaxmp() - 15) useSkill($skill`Soul Food`);
       },
     },
     {
@@ -322,6 +313,7 @@ export const LevelingQuest: Quest = {
           useFamiliar($familiar`Galloping Grill`);
           equip($item`tiny stillsuit`);
         }
+        if (getFuel() < 100 && !get("_missileLauncherUsed")) fillTo(100);
       },
       do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
       outfit: {

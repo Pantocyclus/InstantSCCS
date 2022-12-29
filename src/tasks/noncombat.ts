@@ -1,5 +1,6 @@
-import { cliExecute } from "kolmafia";
+import { cliExecute, getFuel } from "kolmafia";
 import { $effect, $familiar, CommunityService, get, have, uneffect } from "libram";
+import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
 import { burnLibram } from "./common";
@@ -14,6 +15,7 @@ export const NoncombatQuest: Quest = {
       prepare: (): void => {
         if (get("parkaMode") !== "pterodactyl") cliExecute("parka pterodactyl");
         if (have($effect`Driving Recklessly`)) cliExecute("shrug driving recklessly");
+        if (getFuel() < 37 && !have($effect`Driving Stealthily`)) fillTo(37);
         cliExecute("maximize -combat");
       },
       do: () =>
