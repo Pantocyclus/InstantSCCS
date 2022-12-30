@@ -4,6 +4,7 @@ import {
   cliExecute,
   eat,
   familiarWeight,
+  getFuel,
   haveEffect,
   itemAmount,
   myFamiliar,
@@ -26,6 +27,7 @@ import {
   have,
   set,
 } from "libram";
+import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
@@ -85,6 +87,14 @@ export const FamiliarWeightQuest: Quest = {
           $item`magical sausage`
         );
         burnLibram(300);
+      },
+    },
+    {
+      name: "Fill Asdon Before Tuning Moon",
+      completed: () => getFuel() >= 37,
+      do: (): void => {
+        if (have($effect`Driving Stealthily`)) cliExecute("shrug driving stealthily");
+        fillTo(37);
       },
     },
     {
