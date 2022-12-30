@@ -1,6 +1,16 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import { cliExecute } from "kolmafia";
-import { $effect, $familiar, $item, $location, $skill, CommunityService, get, have } from "libram";
+import {
+  $effect,
+  $familiar,
+  $item,
+  $location,
+  $skill,
+  CommunityService,
+  get,
+  have,
+  uneffect,
+} from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
@@ -9,6 +19,17 @@ export const HotResQuest: Quest = {
   name: "Hot Res",
   completed: () => CommunityService.HotRes.isDone(),
   tasks: [
+    {
+      name: "Post-levelling",
+      completed: () =>
+        !(have($effect`Aloysius' Antiphon of Aptitude`) || $effect`Ur-Kel's Aria of Annoyance`),
+      do: (): void => {
+        uneffect($effect`Aloysius' Antiphon of Aptitude`);
+        uneffect($effect`Ur-Kel's Aria of Annoyance`);
+        cliExecute("refresh all");
+      },
+      limit: { tries: 1 },
+    },
     {
       name: "Foam Suit",
       ready: () => get("_fireExtinguisherCharge") >= 10 && get("_saberForceUses") < 5,

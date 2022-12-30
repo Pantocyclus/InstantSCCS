@@ -463,9 +463,6 @@ export const LevelingQuest: Quest = {
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 5 },
       post: (): void => {
-        uneffect($effect`Aloysius' Antiphon of Aptitude`);
-        uneffect($effect`Ur-Kel's Aria of Annoyance`);
-        cliExecute("refresh all");
         while (itemAmount($item`BRICKO brick`) >= 8 && have($item`BRICKO eye brick`))
           create($item`BRICKO oyster`);
       },
