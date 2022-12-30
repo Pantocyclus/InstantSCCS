@@ -10,12 +10,18 @@ export const NoncombatQuest: Quest = {
   completed: () => CommunityService.Noncombat.isDone(),
   tasks: [
     {
+      name: "Fill Asdon",
+      completed: () => getFuel() >= 37 || have($effect`Driving Stealthily`),
+      do: (): void => {
+        if (have($effect`Driving Recklessly`)) cliExecute("shrug driving recklessly");
+        if (getFuel() < 37 && !have($effect`Driving Stealthily`)) fillTo(37);
+      },
+    },
+    {
       name: "Test",
       completed: () => CommunityService.Noncombat.isDone(),
       prepare: (): void => {
         if (get("parkaMode") !== "pterodactyl") cliExecute("parka pterodactyl");
-        if (have($effect`Driving Recklessly`)) cliExecute("shrug driving recklessly");
-        if (getFuel() < 37 && !have($effect`Driving Stealthily`)) fillTo(37);
         cliExecute("maximize -combat");
       },
       do: () =>

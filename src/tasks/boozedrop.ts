@@ -72,12 +72,18 @@ export const BoozeDropQuest: Quest = {
       },
     },
     {
+      name: "Fill Asdon",
+      completed: () => getFuel() >= 37 || have($effect`Driving Observantly`),
+      do: (): void => {
+        if (have($effect`Driving Stealthily`)) cliExecute("shrug driving stealthily");
+        if (getFuel() < 37 && !have($effect`Driving Observantly`)) fillTo(37);
+      },
+    },
+    {
       name: "Test",
       prepare: (): void => {
         for (const it of $items`lavender candy heart, resolution: be happier, pulled yellow taffy, resolution: be luckier, autumn leaf`)
           if (have(it)) ensureEffect(effectModifier(it, "effect"));
-        if (have($effect`Driving Stealthily`)) cliExecute("shrug driving stealthily");
-        if (getFuel() < 37 && !have($effect`Driving Observantly`)) fillTo(37);
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: () =>
