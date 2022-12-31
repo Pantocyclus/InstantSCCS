@@ -22,7 +22,9 @@ export const HotResQuest: Quest = {
     {
       name: "Post-levelling",
       completed: () =>
-        !(have($effect`Aloysius' Antiphon of Aptitude`) || $effect`Ur-Kel's Aria of Annoyance`),
+        !(
+          have($effect`Aloysius' Antiphon of Aptitude`) || have($effect`Ur-Kel's Aria of Annoyance`)
+        ),
       do: (): void => {
         uneffect($effect`Aloysius' Antiphon of Aptitude`);
         uneffect($effect`Ur-Kel's Aria of Annoyance`);
