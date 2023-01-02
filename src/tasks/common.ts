@@ -117,6 +117,8 @@ function chooseLibram(useBrickos: boolean): Skill {
     return $skill`Summon Candy Heart`;
   } else if (needLoveSong) {
     return $skill`Summon Love Song`;
+  } else if (!have($item`resolution: be kinder`) && !have($effect`Kindly Resolve`)) {
+    return $skill`Summon Resolutions`;
   }
 
   return $skill`Summon Taffy`;
