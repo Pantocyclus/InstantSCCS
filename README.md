@@ -110,6 +110,8 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 | [Combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket)                               | Accessory   |
 | [Unbreakable umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella)                                   | Off-hand    |
 | [MayDay™ supply package](https://kol.coldfront.net/thekolwiki/index.php/MayDay%E2%84%A2_supply_package)                       | Item        |
+| [Jurassic Parka](https://kol.coldfront.net/thekolwiki/index.php/Jurassic_Parka)                                               | Shirt       |
+| [autumn-aton](https://kol.coldfront.net/thekolwiki/index.php/Autumn-aton)                                                     | Item        |
 | [Horsery contract](https://kol.coldfront.net/thekolwiki/index.php/Horsery_contract)                                           | Zone        |
 | [Oliver's Place](https://kol.coldfront.net/thekolwiki/index.php/Deed_to_Oliver%27s_Place)                                     | Zone        |
 | [Grim Brother](https://kol.coldfront.net/thekolwiki/index.php/Grim_Brother)                                                   | Familiar    |
@@ -145,7 +147,7 @@ IoTMs used are listed sequentially by age. Skills listed at the end of the table
 
 A summary of key farming resources used is listed below. The same summary is generated at the end of each run, with a list of unique tasks that utilized each resource. <br />
 <sub><sup>Note 1: Some of these are subject to variance, including but not limited to Free Banishes (due to Holiday Wanderers and unluckily missing our high sprinkle Gingerbread targets in 3 free banishes), the Gingerbread City Noon NC (due to the same aforementioned Gingerbread luck) and Peppermint Sprouts (depending on our luck in Summoning Candy Hearts).</sup></sub> <br />
-<sub><sup>Note 2: It should achieve a 1/103 HCCS >95% of the time (failing [but still completing the run] if we lose all 3 33% die rolls on the Gingerbread Gentrifier, or if we get extremely unlucky with our libram summons). Organ usage is always fixed at 0/4/2.</sup></sub>
+<sub><sup>Note 2: It should achieve a 1/103 HCCS >95% of the time (failing [but still completing the run] if we lose all 3 33% die rolls on the Gingerbread Gentrifier, or if we get extremely unlucky with our libram summons). Organ usage is always fixed at 0/4/1.</sup></sub>
 
 | Free Banishes Used | Usage |
 | ------------------ | ----- |
@@ -201,7 +203,7 @@ A summary of key farming resources used is listed below. The same summary is gen
 | Batteries (AAA)           | 0/7    |
 | CMC Consults              | 0/5    |
 | Tome Summons              | 3/3    |
-| Peppermint Sprouts        | 3/3    |
+| Peppermint Sprouts        | 2/3    |
 | Genie Wishes              | 0/3    |
 | Tea Tree                  | 0/1    |
 | Favorite Bird             | 0/1    |
@@ -217,6 +219,6 @@ A summary of key farming resources used is listed below. The same summary is gen
 | ----------- | ----- |
 | Stomach     | 0/15  |
 | Liver       | 4/15  |
-| Spleen      | 2/15  |
+| Spleen      | 1/15  |
 
 Adventures Used : 103

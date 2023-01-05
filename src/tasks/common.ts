@@ -75,6 +75,7 @@ export const meteorShowerTask: Task = {
   limit: { tries: 1 },
 };
 
+/*
 function mystSynthAttainable(): boolean {
   if (
     (have($item`yellow candy heart`) && have($item`Crimbo peppermint bark`)) ||
@@ -87,6 +88,7 @@ function mystSynthAttainable(): boolean {
     return true;
   return false;
 }
+*/
 
 function needBrickos(): boolean {
   const oysters = itemAmount($item`BRICKO oyster`);
@@ -103,8 +105,10 @@ function chooseLibram(useBrickos: boolean): Skill {
     4;
   if (useBrickos && needBrickos()) {
     return $skill`Summon BRICKOs`;
+    /*
   } else if (!have($effect`Synthesis: Smart`) && !mystSynthAttainable()) {
     return $skill`Summon Candy Heart`;
+    */
   } else if (
     (!have($item`resolution: be happier`) && !have($effect`Joyful Resolve`)) ||
     (!have($item`resolution: be feistier`) && !have($effect`Destructive Resolve`))
