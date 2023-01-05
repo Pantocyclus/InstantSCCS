@@ -104,6 +104,10 @@ const levelingBuffs = [
   $effect`Takin' It Greasy`,
   $effect`Your Fifteen Minutes`,
   $effect`Bendin' Hell`,
+  // Potions
+  $effect`Comic Violence`,
+  $effect`Clear Ears, Can't Lose`,
+  $effect`The Odour of Magick`,
 ];
 
 export const PostCoilQuest: Quest = {
