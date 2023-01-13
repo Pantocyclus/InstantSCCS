@@ -18,6 +18,7 @@ import {
   Clan,
   Counter,
   get,
+  getTodaysHolidayWanderers,
   have,
   StompingBoots,
 } from "libram";
@@ -30,9 +31,11 @@ const VIP_CLAN = "Bonus Adventures from Hell";
 export const holidayRunawayTask: Task = {
   name: "Holiday Runaway",
   ready: () => StompingBoots.couldRunaway(),
-  completed: () => (Counter.get("Holiday Monster window begin") ?? Infinity) > 0,
+  completed: () =>
+    (Counter.get("Holiday Monster window begin") ??
+      (getTodaysHolidayWanderers().length > 0 ? 0 : Infinity)) > 0,
   do: $location`Noob Cave`,
-  combat: new CombatStrategy().macro(Macro.ifHolidayWanderer(Macro.runaway()).abort()),
+  combat: new CombatStrategy().macro(Macro.runaway().abort()),
   outfit: { familiar: $familiar`Pair of Stomping Boots` },
   limit: { tries: 1 },
 };
