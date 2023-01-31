@@ -294,13 +294,17 @@ export const LevelingQuest: Quest = {
     {
       name: "Retrieve Bowling Ball",
       completed: () =>
-        have($item`cosmic bowling ball`) ||
+        (have($item`cosmic bowling ball`) && get("latteUnlocks").includes("carrot")) ||
         get("_banderRunaways") >= 10 ||
         get("_banderRunaways") >= (familiarWeight(myFamiliar()) + weightAdjustment()) / 5 ||
         get("_feelPrideUsed") > 0,
-      do: $location`Noob Cave`,
+      do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(Macro.runaway()),
-      outfit: { familiar: $familiar`Pair of Stomping Boots`, modifier: "familiar weight" },
+      outfit: {
+        offhand: $item`latte lovers member's mug`,
+        familiar: $familiar`Pair of Stomping Boots`,
+        modifier: "familiar weight",
+      },
     },
     {
       name: "Free Kills",
@@ -448,7 +452,9 @@ export const LevelingQuest: Quest = {
       do: (): void => {
         burnLibram(300, true);
         adv1($location`The Deep Machine Tunnels`, -1);
-        if (get("_latteRefillsUsed") < 3) cliExecute("latte refill cinnamon pumpkin vanilla");
+        const lastIngredient = get("latteUnlocks").includes("carrot") ? "carrot" : "pumpkin";
+        if (get("_latteRefillsUsed") < 3)
+          cliExecute(`latte refill cinnamon vanilla ${lastIngredient}`);
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Gulp Latte`)
