@@ -490,6 +490,7 @@ export const PostCoilQuest: Quest = {
           .abort()
       ),
       choices: { [768]: 4 },
+      limit: { tries: 2 },
     },
   ],
 };

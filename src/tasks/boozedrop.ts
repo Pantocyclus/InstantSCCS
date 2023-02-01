@@ -49,6 +49,7 @@ export const BoozeDropQuest: Quest = {
           .abort()
       ),
       choices: { [768]: 6 },
+      limit: { tries: 2 },
     },
     {
       name: "Vampyric Cape, Bowling Ball and DSH Buffs (Sauceror)",
