@@ -21,6 +21,7 @@ import {
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
 import { burnLibram, innerElfTask, meteorShowerTask } from "./common";
+import { bloodSugarSauceMagic } from "./postcoil";
 
 export const SpellDamageQuest: Quest = {
   name: "Spell Damage",
@@ -28,7 +29,7 @@ export const SpellDamageQuest: Quest = {
   tasks: [
     {
       name: "Obsidian Nutcracker",
-      completed: () => have($item`obsidian nutcracker`),
+      completed: () => have($item`Abracandalabra`) || have($item`obsidian nutcracker`),
       do: () => retrieveItem($item`obsidian nutcracker`),
       outfit: { pants: $item`designer sweatpants` },
       limit: { tries: 1 },
@@ -45,7 +46,7 @@ export const SpellDamageQuest: Quest = {
       name: "Deep Dark",
       completed: () => have($effect`Visions of the Deep Dark Deeps`),
       prepare: (): void => {
-        if (have($effect`[1458]Blood Sugar Sauce Magic`)) useSkill($skill`Blood Sugar Sauce Magic`);
+        if (have(bloodSugarSauceMagic)) useSkill($skill`Blood Sugar Sauce Magic`);
       },
       do: (): void => {
         const resist = 1 - elementalResistance($element`spooky`) / 100;
@@ -71,7 +72,12 @@ export const SpellDamageQuest: Quest = {
       completed: () => CommunityService.SpellDamage.isDone(),
       do: () =>
         CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 22),
-      outfit: { modifier: "spell dmg", familiar: $familiar`Disembodied Hand` },
+      outfit: {
+        modifier: "spell dmg",
+        familiar: have($item`Abracandalabra`)
+          ? $familiar`Left-Hand Man`
+          : $familiar`Disembodied Hand`,
+      },
       effects: [
         $effect`Arched Eyebrow of the Archmage`,
         $effect`Carol of the Hells`,
@@ -84,7 +90,6 @@ export const SpellDamageQuest: Quest = {
         $effect`Spirit of Peppermint`,
         $effect`The Magic of LOV`,
         $effect`We're All Made of Starfish`,
-        $effect`Warlock, Warstock, and Warbarrel`,
       ],
       post: (): void => {
         burnLibram(300);

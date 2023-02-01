@@ -1,18 +1,25 @@
 import {
   cliExecuteOutput,
   familiarWeight,
+  floor,
   Item,
+  itemAmount,
   Location,
   Monster,
   myFamiliar,
   print,
+  retrieveItem,
+  retrievePrice,
   runChoice,
+  sweetSynthesis,
+  toInt,
   toUrl,
   use,
   useSkill,
   visitUrl,
 } from "kolmafia";
-import { $effect, $effects, $skill, get, have, set } from "libram";
+import { $effect, $effects, $item, $items, $skill, $stat, get, have, set } from "libram";
+import { mainStat } from "./combat";
 
 export enum CommunityServiceTests {
   HPTEST = 1,
@@ -267,4 +274,58 @@ export function logTestSetup(whichTest: number): void {
     "blue"
   );
   set(`_CSTest${whichTest}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
+}
+
+function candyAmount(it: Item): number {
+  switch (it) {
+    case $item`peppermint twist`:
+      return itemAmount($item`peppermint sprout`) + itemAmount($item`peppermint twist`);
+    case $item`peppermint patty`:
+      return floor(itemAmount($item`peppermint sprout`) / 2) + itemAmount($item`peppermint patty`);
+    default:
+      return itemAmount(it);
+  }
+}
+
+function haveCandies(a: Item, b: Item): boolean {
+  const crimboCandies = $items`Crimbo fudge, Crimbo peppermint bark, Crimbo candied pecan`;
+  const candiesRequired = new Map([
+    [$item`Crimbo fudge`, 0],
+    [$item`Crimbo peppermint bark`, 0],
+    [$item`Crimbo candied pecan`, 0],
+    [$item`peppermint sprout`, 0],
+  ]);
+  [a, b].forEach((candy) => {
+    const currentAmount = candiesRequired.get(candy) ?? 0;
+    if (crimboCandies.includes(candy)) candiesRequired.set(candy, currentAmount + 1);
+    else candiesRequired.set($item`peppermint sprout`, currentAmount + candyAmount(candy));
+  });
+
+  candiesRequired.forEach((amount, candy) => {
+    candiesRequired.set(candy, itemAmount(candy) >= amount ? 1 : 0);
+  });
+
+  return Array.from(candiesRequired.values()).every((val) => val === 1);
+}
+
+export function getSynthExpBuff(): void {
+  const rem = mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4;
+  const complexCandies = $items`Crimbo fudge, Crimbo peppermint bark, Crimbo candied pecan, peppermint sprout, peppermint twist, peppermint patty`;
+  const pairs = complexCandies.map((a) => complexCandies.map((b) => [a, b])).flat(1);
+  const bestPair = pairs
+    .filter(
+      ([a, b]) =>
+        (toInt(a) + toInt(b)) % 5 === rem &&
+        candyAmount(a) + candyAmount(b) <= 3 &&
+        haveCandies(a, b)
+    )
+    .reduce((left, right) =>
+      left.map((it) => retrievePrice(it)).reduce((acc, val) => acc + val) <
+      right.map((it) => retrievePrice(it)).reduce((acc, val) => acc + val)
+        ? left
+        : right
+    );
+  if (bestPair[0] === bestPair[1]) retrieveItem(bestPair[0], 2);
+  else bestPair.forEach((it) => retrieveItem(it));
+  sweetSynthesis(bestPair[0], bestPair[1]);
 }

@@ -9,7 +9,8 @@ import {
   useSkill,
   visitUrl,
 } from "kolmafia";
-import { $effect, $familiar, $item, $skill, get, have, SongBoom } from "libram";
+import { $effect, $familiar, $item, $skill, $stat, get, have, SongBoom } from "libram";
+import { mainStat } from "../combat";
 import { Quest } from "../engine/task";
 
 export const RunStartQuest: Quest = {
@@ -119,9 +120,14 @@ export const RunStartQuest: Quest = {
     }, */
     {
       name: "Mummery",
-      completed: () => get("_mummeryMods").includes("Experience (Mysticality)"),
-      do: () => cliExecute("mummery myst"),
-      outfit: { familiar: $familiar`Galloping Grill` },
+      completed: () => get("_mummeryMods").includes(`Experience (${mainStat})`),
+      do: () =>
+        cliExecute(
+          `mummery ${
+            mainStat === $stat`Muscle` ? "mus" : mainStat === $stat`Mysticality` ? "myst" : "mox"
+          }`
+        ),
+      outfit: { familiar: $familiar`Melodramedary` },
       limit: { tries: 1 },
     },
     {

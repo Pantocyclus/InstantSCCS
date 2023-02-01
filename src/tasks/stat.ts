@@ -12,6 +12,7 @@ import {
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
 import { burnLibram } from "./common";
+import { bloodSugarSauceMagic } from "./postcoil";
 
 export const HPQuest: Quest = {
   name: "HP",
@@ -19,7 +20,7 @@ export const HPQuest: Quest = {
     {
       name: "Test",
       prepare: (): void => {
-        if (have($effect`[1458]Blood Sugar Sauce Magic`)) useSkill($skill`Blood Sugar Sauce Magic`);
+        if (have(bloodSugarSauceMagic)) useSkill($skill`Blood Sugar Sauce Magic`);
         if (get("parkaMode") !== "kachungasaur") cliExecute("parka kachungasaur");
       },
       completed: () => CommunityService.HP.isDone(),
@@ -37,8 +38,7 @@ export const HPQuest: Quest = {
         $effect`Song of Starch`,
       ],
       post: (): void => {
-        if (!have($effect`[1458]Blood Sugar Sauce Magic`))
-          useSkill($skill`Blood Sugar Sauce Magic`);
+        if (!have(bloodSugarSauceMagic)) useSkill($skill`Blood Sugar Sauce Magic`);
         burnLibram(300);
       },
       limit: { tries: 1 },

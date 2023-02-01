@@ -28,6 +28,7 @@ import {
   $location,
   $monster,
   $skill,
+  $stat,
   CombatLoversLocket,
   get,
   getKramcoWandererChance,
@@ -38,10 +39,17 @@ import {
   Witchess,
 } from "libram";
 import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
-import Macro from "../combat";
+import Macro, { mainStat } from "../combat";
 import { Quest } from "../engine/task";
 import { mapMonster, tryUse } from "../lib";
 import { burnLibram, innerElfTask } from "./common";
+
+const lovEquipment: "LOV Eardigan" | "LOV Epaulettes" | "LOV Earring" =
+  mainStat === $stat`Muscle`
+    ? "LOV Eardigan"
+    : mainStat === $stat`Mysticality`
+    ? "LOV Epaulettes"
+    : "LOV Earring";
 
 export const LevelingQuest: Quest = {
   name: "Leveling",
@@ -68,8 +76,6 @@ export const LevelingQuest: Quest = {
           visitUrl("place.php?whichplace=snojo&action=snojo_controller");
           runChoice(1);
         }
-        //useFamiliar($familiar`Grey Goose`);
-        //useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
       },
@@ -139,11 +145,7 @@ export const LevelingQuest: Quest = {
       },
       completed: () => get("_loveTunnelUsed"),
       do: () =>
-        TunnelOfLove.fightAll(
-          "LOV Epaulettes",
-          "Open Heart Surgery",
-          "LOV Extraterrestrial Chocolate"
-        ),
+        TunnelOfLove.fightAll(lovEquipment, "Open Heart Surgery", "LOV Extraterrestrial Chocolate"),
       combat: new CombatStrategy().macro(
         Macro.if_($monster`LOV Enforcer`, Macro.attack().repeat())
           .if_($monster`LOV Engineer`, Macro.skill($skill`Toynado`).repeat())
@@ -183,8 +185,6 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Knight",
       prepare: (): void => {
-        //useFamiliar($familiar`Grey Goose`);
-        //useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
       completed: () => get("_witchessFights") >= 3,
@@ -200,8 +200,6 @@ export const LevelingQuest: Quest = {
     {
       name: "Reminisce Knight",
       prepare: (): void => {
-        //useFamiliar($familiar`Grey Goose`);
-        //useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
       completed: () => CombatLoversLocket.monstersReminisced().includes($monster`Witchess Knight`),
@@ -217,8 +215,6 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess King",
       prepare: (): void => {
-        //useFamiliar($familiar`Grey Goose`);
-        //useFamiliar($familiar`Shorter-Order Cook`);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
       completed: () => have($item`dented scepter`),
@@ -233,10 +229,6 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Witchess Witch",
-      prepare: (): void => {
-        //useFamiliar($familiar`Grey Goose`);
-        //useFamiliar($familiar`Shorter-Order Cook`);
-      },
       completed: () => have($item`battle broom`),
       do: () => Witchess.fightPiece($monster`Witchess Witch`),
       combat: new CombatStrategy().macro(

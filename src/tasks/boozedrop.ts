@@ -1,11 +1,15 @@
-import { buy, cliExecute, effectModifier, visitUrl } from "kolmafia";
+import { buy, cliExecute, effectModifier, myClass, myThrall, useSkill, visitUrl } from "kolmafia";
 import {
+  $class,
   $effect,
   $familiar,
   $item,
   $items,
   $location,
+  $monster,
   $skill,
+  $thrall,
+  CombatLoversLocket,
   CommunityService,
   ensureEffect,
   have,
@@ -19,27 +23,6 @@ export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
   completed: () => CommunityService.BoozeDrop.isDone(),
   tasks: [
-    /*
-    {
-      name: "Medley of Buffs",
-      completed: () =>
-        CombatLoversLocket.monstersReminisced().includes($monster`Black Crayon Elemental`),
-      do: () => CombatLoversLocket.reminisce($monster`Black Crayon Elemental`),
-      combat: new CombatStrategy().macro(
-        Macro.skill($skill`Become a Bat`)
-          .skill($skill`Bowl Straight Up`)
-          .default()
-      ),
-      outfit: {
-        hat: $item`Daylight Shavings Helmet`,
-        back: $item`vampyric cloake`,
-        pants: $item`designer sweatpants`,
-        familiar: $familiar`Ghost of Crimbo Carols`,
-        famequip: $item`none`,
-      },
-      limit: { tries: 1 },
-    },
-    */
     {
       name: "Underground Fireworks Shop",
       prepare: () => visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2", false),
@@ -51,8 +34,25 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Vampyric Cape, Bowling Ball and DSH Buffs",
-      completed: () => have($effect`Bat-Adjacent Form`),
+      name: "Mini-Accordion Thief Buff",
+      ready: () => have($familiar`Mini-Adventurer`) && myClass() === $class`Accordion Thief`,
+      completed: () => have($effect`Bailando, Fernando`) || myClass() !== $class`Accordion Thief`,
+      do: $location`The Dire Warren`,
+      outfit: {
+        pants: $item`designer sweatpants`,
+        acc3: $item`Lil' Doctor™ bag`,
+        familiar: $familiar`Mini-Adventurer`,
+      },
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Reflex Hammer`)
+          .trySkill($skill`Snokebomb`)
+          .abort()
+      ),
+      choices: { [768]: 6 },
+    },
+    {
+      name: "Vampyric Cape, Bowling Ball and DSH Buffs (Sauceror)",
+      completed: () => have($effect`Bat-Adjacent Form`) || myClass() !== $class`Sauceror`,
       do: $location`The X-32-F Combat Training Snowman`,
       combat: new CombatStrategy().macro(
         Macro.skill($skill`Become a Bat`)
@@ -71,14 +71,43 @@ export const BoozeDropQuest: Quest = {
       },
     },
     {
+      name: "Vampyric Cape, Bowling Ball and DSH Buffs (Non-Sauceror)",
+      completed: () =>
+        CombatLoversLocket.monstersReminisced().includes($monster`Black Crayon Elemental`) ||
+        have($effect`Bat-Adjacent Form`) ||
+        myClass() === $class`Sauceror`,
+      do: () => CombatLoversLocket.reminisce($monster`Black Crayon Elemental`),
+      combat: new CombatStrategy().macro(
+        Macro.skill($skill`Become a Bat`)
+          .skill($skill`Bowl Straight Up`)
+          .default()
+      ),
+      outfit: {
+        hat: $item`Daylight Shavings Helmet`,
+        back: $item`vampyric cloake`,
+        pants: $item`designer sweatpants`,
+        familiar: $familiar`Ghost of Crimbo Carols`,
+        famequip: $item`none`,
+      },
+      limit: { tries: 1 },
+      post: (): void => {
+        cliExecute("hottub");
+      },
+    },
+    {
       name: "Test",
       prepare: (): void => {
         for (const it of $items`lavender candy heart, resolution: be happier, pulled yellow taffy, resolution: be luckier, autumn leaf`)
           if (have(it)) ensureEffect(effectModifier(it, "effect"));
+        if (myClass() !== $class`Pastamancer`) {
+          ensureEffect($effect`Spice Haze`);
+        } else {
+          if (myThrall() !== $thrall`Spice Ghost`) useSkill($skill`Bind Spice Ghost`);
+        }
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: () =>
-        CommunityService.BoozeDrop.run(() => logTestSetup(CommunityServiceTests.ITEMTEST), 1),
+        CommunityService.BoozeDrop.run(() => logTestSetup(CommunityServiceTests.ITEMTEST), 3),
       outfit: {
         modifier: "Item Drop, -equip broken champagne bottle",
         familiar: $familiar`Trick-or-Treating Tot`,
@@ -86,15 +115,13 @@ export const BoozeDropQuest: Quest = {
       effects: [
         $effect`Blessing of the Bird`,
         $effect`Driving Observantly`,
-        // $effect`El Aroma de Salsa`,
         $effect`Fat Leon's Phat Loot Lyric`,
         $effect`Feeling Lost`,
         // $effect`items.enh`,
-        // $effect`I See Everything Thrice!`,
+        $effect`I See Everything Thrice!`,
         $effect`Nearly All-Natural`,
         $effect`The Spirit of Taking`,
         $effect`Singer's Faithful Ocelot`,
-        $effect`Spice Haze`,
         $effect`Steely-Eyed Squint`,
         $effect`The Spirit of Taking`,
         $effect`Uncucumbered`,

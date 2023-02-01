@@ -12,7 +12,7 @@ import {
   getKramcoWandererChance,
   have,
 } from "libram";
-import Macro from "../combat";
+import Macro, { mainStat } from "../combat";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
 import { holidayRunawayTask } from "./common";
@@ -26,7 +26,7 @@ export const CoilWireQuest: Quest = {
       name: "Kramco with Shrub",
       ready: () => getKramcoWandererChance() >= 1.0,
       prepare: (): void => {
-        CrimboShrub.decorate("Mysticality", "Spooky Damage", "Blocking", "Red Ray");
+        CrimboShrub.decorate(`${mainStat.toString()}`, "Spooky Damage", "Blocking", "Red Ray");
         if (myHp() < myMaxhp()) cliExecute("hottub");
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },

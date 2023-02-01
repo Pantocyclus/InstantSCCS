@@ -8,13 +8,14 @@ import {
   create,
   eat,
   getWorkshed,
-  itemAmount,
+  myClass,
+  myLevel,
   myMaxmp,
   myMeat,
   myMp,
   mySoulsauce,
+  restoreMp,
   retrieveItem,
-  sweetSynthesis,
   totalFreeRests,
   use,
   useFamiliar,
@@ -23,7 +24,9 @@ import {
   wait,
 } from "kolmafia";
 import {
+  $class,
   $effect,
+  $effects,
   $familiar,
   $item,
   $items,
@@ -31,18 +34,64 @@ import {
   $monster,
   $skill,
   $skills,
+  $stat,
   ensureEffect,
   get,
   have,
   set,
 } from "libram";
 import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
-import Macro from "../combat";
+import Macro, { mainStat } from "../combat";
 import { Quest } from "../engine/task";
-import { mapMonster } from "../lib";
+import { getSynthExpBuff, mapMonster } from "../lib";
 import { burnLibram, holidayRunawayTask } from "./common";
 
-const statGainBuffs = [$effect`Inscrutable Gaze`, $effect`Thaumodynamic`];
+const statGainBuffs =
+  mainStat === $stat`Muscle`
+    ? [$effect`Muscle Unbound`]
+    : mainStat === $stat`Mysticailty`
+    ? [$effect`Inscrutable Gaze`, $effect`Thaumodynamic`]
+    : [$effect`So Fresh and So Clean`];
+
+export const bloodSugarSauceMagic = $effect`[${
+  myClass() === $class`Sauceror` ? "1458" : "1457"
+}]Blood Sugar Sauce Magic`;
+const combStatBuff =
+  mainStat === $stat`Muscle`
+    ? $effect`Lack of Body-Building`
+    : mainStat === $stat`Mysticality`
+    ? $effect`We're All Made of Starfish`
+    : $effect`Pomp & Circumsands`;
+const generalStorePotion =
+  mainStat === $stat`Muscle`
+    ? $effect`Go Get 'Em, Tiger!`
+    : mainStat === $stat`Mysticality`
+    ? $effect`Glittering Eyelashes`
+    : $effect`Butt-Rock Hair`;
+const barrelBuff =
+  myClass() === $class`Seal Clubber`
+    ? $effect`Barrel Chested`
+    : myClass() === $class`Sauceror`
+    ? $effect`Warlock, Warstock, and Warbarrel`
+    : $effect.none;
+const synthExpBuff =
+  mainStat === $stat`Muscle`
+    ? $effect`Synthesis: Movement`
+    : mainStat === $stat`Mysticality`
+    ? $effect`Synthesis: Learning`
+    : $effect`Synthesis: Style`;
+const juiceBarBuffs =
+  myClass() === $class`Seal Clubber`
+    ? $effects`Over the Ocean`
+    : myClass() === $class`Turtle Tamer`
+    ? $effects`Newt Gets In Your Eyes, Baconstoned`
+    : myClass() === $class`Pastamancer`
+    ? $effects`Baconstoned, Ham-Fisted`
+    : myClass() === $class`Sauceror`
+    ? $effects`Comic Violence`
+    : myClass() === $class`Disco Bandit`
+    ? $effects`Gr8ness, Perspicacious Pressure, Crusty Head`
+    : $effects`Proficient Pressure, Eau D'enmity`;
 
 const levelingBuffs = [
   // Skill
@@ -73,7 +122,7 @@ const levelingBuffs = [
   $effect`Reptilian Fortitude`,
   $effect`Saucemastery`,
   $effect`Stevedave's Shanty of Superiority`,
-  $effect`[1458]Blood Sugar Sauce Magic`,
+  bloodSugarSauceMagic,
   // ML
   $effect`Drescher's Annoying Noise`,
   $effect`Driving Recklessly`,
@@ -83,11 +132,11 @@ const levelingBuffs = [
   $effect`Do I Know You From Somewhere?`,
   $effect`Lack of Body-Building`,
   $effect`Resting Beach Face`,
-  $effect`We're All Made of Starfish`,
+  combStatBuff,
   $effect`You Learned Something Maybe!`,
   // Items
-  $effect`Glittering Eyelashes`,
-  $effect`Warlock, Warstock, and Warbarrel`,
+  generalStorePotion,
+  barrelBuff,
   // Other
   $effect`Billiards Belligerence`,
   $effect`Broad-Spectrum Vaccine`,
@@ -105,10 +154,8 @@ const levelingBuffs = [
   $effect`Your Fifteen Minutes`,
   $effect`Bendin' Hell`,
   // Potions
-  $effect`Comic Violence`,
-  $effect`Clear Ears, Can't Lose`,
-  $effect`The Odour of Magick`,
-];
+  ...juiceBarBuffs,
+].filter((e) => e);
 
 export const PostCoilQuest: Quest = {
   name: "PostCoil",
@@ -215,29 +262,9 @@ export const PostCoilQuest: Quest = {
       do: () => useSkill($skill`Summon Crimbo Candy`),
     },
     {
-      name: "Synth Learning",
-      completed: () => have($effect`Synthesis: Learning`),
-      do: (): void => {
-        if (itemAmount($item`Crimbo fudge`) >= 2) {
-          sweetSynthesis($item`Crimbo fudge`, $item`Crimbo fudge`);
-        } else if (have($item`Crimbo peppermint bark`) && have($item`Crimbo candied pecan`)) {
-          sweetSynthesis($item`Crimbo peppermint bark`, $item`Crimbo candied pecan`);
-        } else if (have($item`Crimbo peppermint bark`) && have($item`peppermint sprout`)) {
-          sweetSynthesis($item`Crimbo peppermint bark`, $item`peppermint sprout`);
-        } else if (itemAmount($item`peppermint sprout`) >= 3) {
-          use(1, $item`peppermint sprout`);
-          use(2, $item`peppermint sprout`);
-          sweetSynthesis($item`peppermint twist`, $item`peppermint patty`);
-        } else if (itemAmount($item`peppermint sprout`) >= 2 && have($item`peppermint twist`)) {
-          use(2, $item`peppermint sprout`);
-          sweetSynthesis($item`peppermint twist`, $item`peppermint patty`);
-        } else if (have($item`peppermint patty`) && have($item`peppermint sprout`)) {
-          use(1, $item`peppermint sprout`);
-          sweetSynthesis($item`peppermint twist`, $item`peppermint patty`);
-        } else if (have($item`peppermint patty`) && have($item`peppermint twist`)) {
-          sweetSynthesis($item`peppermint twist`, $item`peppermint patty`);
-        }
-      },
+      name: "Synth Exp Buff",
+      completed: () => have(synthExpBuff),
+      do: (): void => getSynthExpBuff(),
       limit: { tries: 1 },
     },
     {
@@ -298,8 +325,6 @@ export const PostCoilQuest: Quest = {
       do: (): void => {
         create(1, $item`box of Familiar Jacks`);
         use(1, $item`box of Familiar Jacks`);
-        // useSkill($skill`Summon Sugar Sheets`);
-        // create(1, $item`sugar chapeau`);
         useFamiliar($familiar`Melodramedary`);
         create(1, $item`box of Familiar Jacks`);
         use(1, $item`box of Familiar Jacks`);
@@ -379,13 +404,22 @@ export const PostCoilQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Get Lime",
+      completed: () => get("_preventScurvy"),
+      prepare: () => restoreMp(50),
+      do: () => useSkill($skill`Prevent Scurvy and Sobriety`),
+    },
+    {
       name: "Skeleton Fruits",
       ready: () => get("_monstersMapped") < 3 && get("_chestXRayUsed") < 3,
       prepare: (): void => {
         if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
       },
       completed: () =>
-        have($item`cherry`) || have($item`oil of expertise`) || have($effect`Expert Oiliness`),
+        mainStat === $stat`Moxie` ||
+        have($item`cherry`) ||
+        have($item`oil of expertise`) ||
+        have($effect`Expert Oiliness`),
       do: () => mapMonster($location`The Skeleton Store`, $monster`novelty tropical skeleton`),
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Spit jurassic acid`)
@@ -404,14 +438,24 @@ export const PostCoilQuest: Quest = {
     {
       name: "Saucecraft",
       prepare: () => $skills`Advanced Saucecrafting`.forEach((s) => useSkill(s)),
-      completed: () => have($effect`Mystically Oiled`),
-      do: () =>
-        $items`oil of expertise, ointment of the occult, cordial of concentration`.forEach((item) =>
-          retrieveItem(item)
-        ),
-      post: (): void => {
-        use(1, $item`oil of expertise`);
-        use(1, $item`ointment of the occult`);
+      completed: () =>
+        have($effect`Phorcefullness`) ||
+        have($effect`Mystically Oiled`) ||
+        mainStat === $stat`Moxie`,
+      do: (): void => {
+        if (mainStat === $stat`Muscle`) {
+          $items`oil of stability, philter of phorce, cordial of concentration`.forEach((item) =>
+            retrieveItem(item)
+          );
+          use(1, $item`oil of stability`);
+          use(1, $item`philter of phorce`);
+        } else if (mainStat === $stat`Mysticality`) {
+          $items`oil of expertise, ointment of the occult, cordial of concentration`.forEach(
+            (item) => retrieveItem(item)
+          );
+          use(1, $item`oil of expertise`);
+          use(1, $item`ointment of the occult`);
+        }
       },
       limit: { tries: 1 },
     },
@@ -425,29 +469,27 @@ export const PostCoilQuest: Quest = {
       outfit: { offhand: $item`familiar scrapbook` },
       limit: { tries: 40 },
     },
-    /*
     {
-      name: "Synth Smart",
-      completed: () => have($effect`Synthesis: Smart`),
-      do: (): void => {
-        if (have($item`yellow candy heart`) && have($item`Crimbo peppermint bark`)) {
-          sweetSynthesis($item`yellow candy heart`, $item`Crimbo peppermint bark`);
-        } else if (have($item`orange candy heart`) && have($item`Crimbo candied pecan`)) {
-          sweetSynthesis($item`orange candy heart`, $item`Crimbo candied pecan`);
-        } else if (have($item`orange candy heart`) && have($item`peppermint sprout`)) {
-          sweetSynthesis($item`orange candy heart`, $item`peppermint sprout`);
-        } else if (have($item`pink candy heart`) && have($item`peppermint sprout`)) {
-          use(1, $item`peppermint sprout`);
-          sweetSynthesis($item`pink candy heart`, $item`peppermint twist`);
-        } else if (have($item`pink candy heart`) && have($item`peppermint twist`)) {
-          sweetSynthesis($item`pink candy heart`, $item`peppermint twist`);
-        } else if (have($item`lavender candy heart`) && have($item`Crimbo fudge`)) {
-          sweetSynthesis($item`lavender candy heart`, $item`Crimbo fudge`);
-        }
-        set("_sproutsUsed", 3 - itemAmount($item`peppermint sprout`));
+      name: "Mini-Sauceror Buff",
+      ready: () =>
+        myLevel() >= 15 &&
+        have($familiar`Mini-Adventurer`) &&
+        (myClass() === $class`Seal Clubber` || myClass() === $class`Pastamancer`),
+      completed: () =>
+        $effects`Elbow Sauce, Saucefingers`.some((e) => have(e)) ||
+        !(myClass() === $class`Seal Clubber` || myClass() === $class`Pastamancer`),
+      do: $location`The Dire Warren`,
+      outfit: {
+        pants: $item`designer sweatpants`,
+        acc3: $item`Lil' Doctor™ bag`,
+        familiar: $familiar`Mini-Adventurer`,
       },
-      limit: { tries: 1 },
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Reflex Hammer`)
+          .trySkill($skill`Snokebomb`)
+          .abort()
+      ),
+      choices: { [768]: 4 },
     },
-    */
   ],
 };
