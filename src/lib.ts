@@ -288,17 +288,22 @@ function candyAmount(it: Item): number {
 }
 
 function haveCandies(a: Item, b: Item): boolean {
-  const crimboCandies = $items`Crimbo fudge, Crimbo peppermint bark, Crimbo candied pecan`;
+  const nonPeppermintCandies = $items`Crimbo fudge, Crimbo peppermint bark, Crimbo candied pecan, bag of many confections`;
   const candiesRequired = new Map([
     [$item`Crimbo fudge`, 0],
     [$item`Crimbo peppermint bark`, 0],
     [$item`Crimbo candied pecan`, 0],
     [$item`peppermint sprout`, 0],
+    [$item`bag of many confections`, 0],
   ]);
   [a, b].forEach((candy) => {
     const currentAmount = candiesRequired.get(candy) ?? 0;
-    if (crimboCandies.includes(candy)) candiesRequired.set(candy, currentAmount + 1);
-    else candiesRequired.set($item`peppermint sprout`, currentAmount + candyAmount(candy));
+    if (nonPeppermintCandies.includes(candy)) candiesRequired.set(candy, currentAmount + 1);
+    else
+      candiesRequired.set(
+        $item`peppermint sprout`,
+        currentAmount + (candy === $item`peppermint patty` ? 2 : 1)
+      );
   });
 
   candiesRequired.forEach((amount, candy) => {
@@ -310,7 +315,7 @@ function haveCandies(a: Item, b: Item): boolean {
 
 export function getSynthExpBuff(): void {
   const rem = mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4;
-  const complexCandies = $items`Crimbo fudge, Crimbo peppermint bark, Crimbo candied pecan, peppermint sprout, peppermint twist, peppermint patty`;
+  const complexCandies = $items`Crimbo fudge, Crimbo peppermint bark, Crimbo candied pecan, peppermint sprout, peppermint twist, peppermint patty, bag of many confections`;
   const pairs = complexCandies.map((a) => complexCandies.map((b) => [a, b])).flat(1);
   const bestPair = pairs
     .filter(

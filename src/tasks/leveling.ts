@@ -9,6 +9,7 @@ import {
   familiarWeight,
   getFuel,
   itemAmount,
+  myClass,
   myFamiliar,
   myInebriety,
   myLevel,
@@ -20,6 +21,7 @@ import {
   weightAdjustment,
 } from "kolmafia";
 import {
+  $class,
   $effect,
   $effects,
   $familiar,
@@ -122,10 +124,11 @@ export const LevelingQuest: Quest = {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         if (get("parkaMode") !== "spikolodon") cliExecute("parka spikolodon");
       },
-      completed: () => get("_snojoFreeFights") >= 9,
+      completed: () => get("_snojoFreeFights") >= (myClass() === $class`Sauceror` ? 9 : 10),
       do: $location`The X-32-F Combat Training Snowman`,
       post: (): void => {
-        if (get("_snojoFreeFights") >= 9) cliExecute("hottub"); // Clean -stat effects
+        if (get("_snojoFreeFights") >= (myClass() === $class`Sauceror` ? 9 : 10))
+          cliExecute("hottub"); // Clean -stat effects
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Giant Growth`)
@@ -136,7 +139,7 @@ export const LevelingQuest: Quest = {
         familiar: $familiar`Melodramedary`,
         famequip: $item`dromedary drinking helmet`,
       },
-      limit: { tries: 2 },
+      limit: { tries: 3 },
     },
     {
       name: "LOV Tunnel",
@@ -202,7 +205,9 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
-      completed: () => CombatLoversLocket.monstersReminisced().includes($monster`Witchess Knight`),
+      completed: () =>
+        mainStat === $stat`Moxie` ||
+        CombatLoversLocket.monstersReminisced().includes($monster`Witchess Knight`),
       do: () => CombatLoversLocket.reminisce($monster`Witchess Knight`),
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {

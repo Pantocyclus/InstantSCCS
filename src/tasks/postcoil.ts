@@ -35,6 +35,7 @@ import {
   $skill,
   $skills,
   $stat,
+  CombatLoversLocket,
   ensureEffect,
   get,
   have,
@@ -436,12 +437,33 @@ export const PostCoilQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Reminisce Evil Olive",
+      prepare: (): void => {
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+      },
+      completed: () =>
+        mainStat !== $stat`Moxie` ||
+        CombatLoversLocket.monstersReminisced().includes($monster`Evil Olive`),
+      do: () => CombatLoversLocket.reminisce($monster`Evil Olive`),
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Spit jurassic acid`)
+          .skill($skill`Feel Envy`)
+          .skill($skill`Chest X-Ray`)
+      ),
+      outfit: {
+        shirt: $item`Jurassic Parka`,
+        pants: $item`designer sweatpants`,
+        acc3: $item`Lil' Doctor™ bag`,
+        familiar: $familiar`Melodramedary`,
+        famequip: $item`dromedary drinking helmet`,
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Saucecraft",
       prepare: () => $skills`Advanced Saucecrafting`.forEach((s) => useSkill(s)),
       completed: () =>
-        have($effect`Phorcefullness`) ||
-        have($effect`Mystically Oiled`) ||
-        mainStat === $stat`Moxie`,
+        $effects`Stabilizing Oiliness, Expert Oiliness, Slippery Oiliness`.some((e) => have(e)),
       do: (): void => {
         if (mainStat === $stat`Muscle`) {
           $items`oil of stability, philter of phorce, cordial of concentration`.forEach((item) =>
@@ -455,6 +477,10 @@ export const PostCoilQuest: Quest = {
           );
           use(1, $item`oil of expertise`);
           use(1, $item`ointment of the occult`);
+        } else {
+          $items`oil of slipperiness, serum of sarcasm`.forEach((item) => retrieveItem(item));
+          use(1, $item`oil of slipperiness`);
+          use(1, $item`serum of sarcasm`);
         }
       },
       limit: { tries: 1 },

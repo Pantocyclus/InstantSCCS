@@ -66,12 +66,12 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Test",
       prepare: (): void => {
-        for (const it of $items`confiscated cell phone, Bettie page, resolution: be luckier`)
+        for (const it of $items`confiscated cell phone, Bettie page, resolution: be luckier, cordial of concentration`)
           if (have(it)) ensureEffect(effectModifier(it, "effect"));
       },
       completed: () => CommunityService.SpellDamage.isDone(),
       do: () =>
-        CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 22),
+        CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 24),
       outfit: {
         modifier: "spell dmg",
         familiar: have($item`Abracandalabra`)
@@ -81,7 +81,6 @@ export const SpellDamageQuest: Quest = {
       effects: [
         $effect`Arched Eyebrow of the Archmage`,
         $effect`Carol of the Hells`,
-        $effect`Concentration`,
         $effect`Cowrruption`,
         $effect`Jackasses' Symphony of Destruction`,
         $effect`Mental A-cue-ity`,
