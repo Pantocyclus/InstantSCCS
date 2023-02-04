@@ -31,18 +31,18 @@ For those who are interested in using `InstantHCCS` as is, the following section
 - [Spacegate Vaccination Machine](https://kol.coldfront.net/thekolwiki/index.php/Spacegate_Vaccination_Machine) with the [Broad-Spectrum Vaccine](https://kol.coldfront.net/thekolwiki/index.php/Broad-Spectrum_Vaccine) unlocked
 - All 150 [Witchess puzzles](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Puzzles) completed
 - Eudora set to [Our Daily Candles™ order form](https://kol.coldfront.net/thekolwiki/index.php/Our_Daily_Candles%E2%84%A2_order_form)
-- A [Witchess Knight](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Knight) in your [combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket)
+- A [Witchess Knight](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Knight) in your [combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket), a [Hobelf (WC)](<https://kol.coldfront.net/thekolwiki/index.php/Hobelf_(WC)>) if you're a Moxie class without a [Stocking Mimic](https://kol.coldfront.net/thekolwiki/index.php/Stocking_Mimic), and a [Black Crayon Elemental](https://kol.coldfront.net/thekolwiki/index.php/Black_Crayon_Elemental) if you aren't a myst class.
 - A fully maxed-out [Guzzlr tablet](https://kol.coldfront.net/thekolwiki/index.php/Guzzlr_tablet)
 - Unlock the [Gingerbread Sewers](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Sewers) and relocate both the Gingerbread rat and pigeon there
-- Literally every possible [mus](https://kol.coldfront.net/thekolwiki/index.php/Muscle_Modifiers), [myst](https://kol.coldfront.net/thekolwiki/index.php/Mysticality_Modifiers), [mox](https://kol.coldfront.net/thekolwiki/index.php/Moxie_Modifiers), [hp](https://kol.coldfront.net/thekolwiki/index.php/HP_Modifiers), [exp](https://kol.coldfront.net/thekolwiki/index.php/Stat_gain_multipliers), [hot resist](https://kol.coldfront.net/thekolwiki/index.php/Elemental_Resistance), [-combat rate](https://kol.coldfront.net/thekolwiki/index.php/Combat_Frequency), [weapon dmg](https://kol.coldfront.net/thekolwiki/index.php/Bonus_Weapon_Damage), [spell damage](https://kol.coldfront.net/thekolwiki/index.php/Bonus_Spell_Damage), [familiar weight](https://kol.coldfront.net/thekolwiki/index.php/Familiar_Weight), [item and booze drop](https://kol.coldfront.net/thekolwiki/index.php/Items_from_Monsters) skill permed (tests are extremely marginal to achieve maximal profits)
+- Have HC-permed literally every possible [mus](https://kol.coldfront.net/thekolwiki/index.php/Muscle_Modifiers), [myst](https://kol.coldfront.net/thekolwiki/index.php/Mysticality_Modifiers), [mox](https://kol.coldfront.net/thekolwiki/index.php/Moxie_Modifiers), [hp](https://kol.coldfront.net/thekolwiki/index.php/HP_Modifiers), [exp](https://kol.coldfront.net/thekolwiki/index.php/Stat_gain_multipliers), [hot resist](https://kol.coldfront.net/thekolwiki/index.php/Elemental_Resistance), [-combat rate](https://kol.coldfront.net/thekolwiki/index.php/Combat_Frequency), [weapon dmg](https://kol.coldfront.net/thekolwiki/index.php/Bonus_Weapon_Damage), [spell damage](https://kol.coldfront.net/thekolwiki/index.php/Bonus_Spell_Damage), [familiar weight](https://kol.coldfront.net/thekolwiki/index.php/Familiar_Weight), [item and booze drop](https://kol.coldfront.net/thekolwiki/index.php/Items_from_Monsters) skill permed (tests are extremely marginal to achieve maximal profits)
 
 ### In Valhalla
 
 - astral six-pack from The Deli Lama
 - astral statuette from Pet Heaven
-- Sauceror class
-- Wallaby moon sign
-- Hardcore
+- any class
+- the corresponding Knoll moon sign (preferably Wallaby, even if you aren't a myst class)
+- Hardcore (Softcore works too, be nothing will be pulled)
 
 ### Required Resources
 
