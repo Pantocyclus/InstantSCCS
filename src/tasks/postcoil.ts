@@ -16,6 +16,7 @@ import {
   mySoulsauce,
   restoreMp,
   retrieveItem,
+  toInt,
   totalFreeRests,
   use,
   useFamiliar,
@@ -44,7 +45,7 @@ import {
 import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
 import Macro, { mainStat } from "../combat";
 import { Quest } from "../engine/task";
-import { getSynthExpBuff, mapMonster } from "../lib";
+import { complexCandies, getSynthExpBuff, mapMonster } from "../lib";
 import { burnLibram, holidayRunawayTask } from "./common";
 
 const statGainBuffs =
@@ -261,6 +262,36 @@ export const PostCoilQuest: Quest = {
       name: "Crimbo Candy",
       completed: () => get("_candySummons", 0) > 0,
       do: () => useSkill($skill`Summon Crimbo Candy`),
+    },
+    {
+      name: "Get Moxie Complex Candies",
+      completed: () =>
+        mainStat !== $stat`Moxie` ||
+        have(synthExpBuff) ||
+        complexCandies.some((candy) => have(candy) && toInt(candy) % 5 === 4),
+      do: (): void => {
+        if (have($familiar`Stocking Mimic`)) {
+          useFamiliar($familiar`Stocking Mimic`);
+          adv1($location`The Dire Warren`, -1);
+        } else {
+          CombatLoversLocket.reminisce($monster`Hobelf`);
+        }
+      },
+      combat: new CombatStrategy().macro(
+        Macro.if_($monster`Hobelf`, Macro.skill($skill`Use the Force`))
+          .trySkill($skill`Reflex Hammer`)
+          .trySkill($skill`Feel Hatred`)
+          .trySkill($skill`Snokebomb`)
+          .abort()
+      ),
+      choices: { 1387: 3 },
+      outfit: {
+        weapon: $item`Fourth of May Cosplay Saber`,
+        pants: $item`designer sweatpants`,
+        acc3: $item`Lil' Doctor™ bag`,
+        familiar: $familiar`Melodramedary`,
+      },
+      limit: { tries: 1 },
     },
     {
       name: "Synth Exp Buff",
@@ -512,6 +543,7 @@ export const PostCoilQuest: Quest = {
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Reflex Hammer`)
+          .trySkill($skill`Feel Hatred`)
           .trySkill($skill`Snokebomb`)
           .abort()
       ),

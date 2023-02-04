@@ -52,7 +52,7 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 2 },
     },
     {
-      name: "Vampyric Cape, Bowling Ball and DSH Buffs (Sauceror)",
+      name: "Vampyric Cape + Bowling Ball + DSH Buffs (Sauceror)",
       completed: () => have($effect`Bat-Adjacent Form`) || myClass() !== $class`Sauceror`,
       do: $location`The X-32-F Combat Training Snowman`,
       combat: new CombatStrategy().macro(
@@ -72,7 +72,7 @@ export const BoozeDropQuest: Quest = {
       },
     },
     {
-      name: "Vampyric Cape, Bowling Ball and DSH Buffs (Non-Sauceror)",
+      name: "Vampyric Cape + Bowling Ball + DSH Buffs (Non-Sauceror)",
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`Black Crayon Elemental`) ||
         have($effect`Bat-Adjacent Form`) ||
@@ -102,8 +102,10 @@ export const BoozeDropQuest: Quest = {
           if (have(it)) ensureEffect(effectModifier(it, "effect"));
         if (myClass() !== $class`Pastamancer`) {
           ensureEffect($effect`Spice Haze`);
+          if (myClass() === $class`Accordion Thief`) ensureEffect($effect`Beer Barrel Polka`);
         } else {
           if (myThrall() !== $thrall`Spice Ghost`) useSkill($skill`Bind Spice Ghost`);
+          ensureEffect($effect`Pork Barrel`);
         }
       },
       completed: () => CommunityService.BoozeDrop.isDone(),

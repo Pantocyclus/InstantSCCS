@@ -58,7 +58,7 @@ export const freeFightPrefs: trackedPref[] = [
 
 export const potentiallyFreeFightPrefs: trackedPref[] = [
   new trackedPref("_backUpUses", "Backup Camera", 11),
-  new trackedPref("_locketMonstersFought", "Locket Reminisces", 5),
+  new trackedPref("_locketMonstersFought", "Locket Reminisces", 3),
   new trackedPref("_photocopyUsed", "Fax Machine", 1),
   new trackedPref("_chateauMonsterFought", "Chateau Painting", 1),
 ];
