@@ -16,8 +16,8 @@ import {
   SongBoom,
 } from "libram";
 import { Quest } from "../engine/task";
-import { CommunityServiceTests, crimboCarols, logTestSetup } from "../lib";
-import { burnLibram, innerElfTask } from "./common";
+import { burnLibram, CommunityServiceTests, crimboCarols, logTestSetup } from "../lib";
+import { innerElfTask } from "./common";
 
 export const WeaponDamageQuest: Quest = {
   name: "Weapon Damage",

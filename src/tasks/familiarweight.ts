@@ -30,8 +30,8 @@ import {
 import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { CommunityServiceTests, logTestSetup } from "../lib";
-import { burnLibram, meteorShowerTask } from "./common";
+import { burnLibram, CommunityServiceTests, logTestSetup } from "../lib";
+import { meteorShowerTask } from "./common";
 
 export const FamiliarWeightQuest: Quest = {
   name: "Familiar Weight",

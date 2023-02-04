@@ -2,8 +2,7 @@ import { cliExecute, getFuel } from "kolmafia";
 import { $effect, $familiar, CommunityService, get, have, uneffect } from "libram";
 import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
 import { Quest } from "../engine/task";
-import { CommunityServiceTests, logTestSetup } from "../lib";
-import { burnLibram } from "./common";
+import { burnLibram, CommunityServiceTests, logTestSetup } from "../lib";
 
 export const NoncombatQuest: Quest = {
   name: "Noncombat",

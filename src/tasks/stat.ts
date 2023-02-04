@@ -10,8 +10,7 @@ import {
   uneffect,
 } from "libram";
 import { Quest } from "../engine/task";
-import { CommunityServiceTests, logTestSetup } from "../lib";
-import { burnLibram } from "./common";
+import { burnLibram, CommunityServiceTests, logTestSetup } from "../lib";
 import { bloodSugarSauceMagic } from "./postcoil";
 
 export const HPQuest: Quest = {

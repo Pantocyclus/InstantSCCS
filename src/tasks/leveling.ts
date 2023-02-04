@@ -43,8 +43,8 @@ import {
 import { fillTo } from "libram/dist/resources/2017/AsdonMartin";
 import Macro, { mainStat } from "../combat";
 import { Quest } from "../engine/task";
-import { mapMonster, tryUse } from "../lib";
-import { burnLibram, innerElfTask } from "./common";
+import { burnLibram, mapMonster, tryUse } from "../lib";
+import { innerElfTask } from "./common";
 
 const lovEquipment: "LOV Eardigan" | "LOV Epaulettes" | "LOV Earring" =
   mainStat === $stat`Muscle`

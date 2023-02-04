@@ -1,14 +1,5 @@
 import { CombatStrategy } from "grimoire-kolmafia";
-import {
-  cliExecute,
-  haveEffect,
-  itemAmount,
-  mpCost,
-  myLevel,
-  myMp,
-  Skill,
-  useSkill,
-} from "kolmafia";
+import { cliExecute, myLevel } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -77,62 +68,3 @@ export const meteorShowerTask: Task = {
   },
   limit: { tries: 1 },
 };
-
-/*
-function mystSynthAttainable(): boolean {
-  if (
-    (have($item`yellow candy heart`) && have($item`Crimbo peppermint bark`)) ||
-    (have($item`orange candy heart`) &&
-      (have($item`Crimbo candied pecan`) || have($item`peppermint sprout`))) ||
-    (have($item`pink candy heart`) &&
-      (have($item`peppermint sprout`) || have($item`peppermint twist`))) ||
-    (have($item`lavender candy heart`) && have($item`Crimbo fudge`))
-  )
-    return true;
-  return false;
-}
-*/
-
-function needBrickos(): boolean {
-  const oysters = itemAmount($item`BRICKO oyster`);
-  const brickContributions = Math.floor(itemAmount($item`BRICKO brick`) / 8);
-  const eyeContributions = itemAmount($item`BRICKO eye brick`);
-  const materials = brickContributions < eyeContributions ? brickContributions : eyeContributions;
-  return have($skill`Summon BRICKOs`) && oysters + materials < 1;
-}
-
-function chooseLibram(useBrickos: boolean): Skill {
-  const needLoveSong =
-    itemAmount($item`love song of icy revenge`) +
-      Math.floor(haveEffect($effect`Cold Hearted`) / 5) <
-    4;
-  if (useBrickos && needBrickos()) {
-    return $skill`Summon BRICKOs`;
-    /*
-  } else if (!have($effect`Synthesis: Smart`) && !mystSynthAttainable()) {
-    return $skill`Summon Candy Heart`;
-    */
-  } else if (
-    (!have($item`resolution: be happier`) && !have($effect`Joyful Resolve`)) ||
-    (!have($item`resolution: be feistier`) && !have($effect`Destructive Resolve`))
-  ) {
-    return $skill`Summon Resolutions`;
-  } else if (
-    (!have($item`green candy heart`) && !have($effect`Heart of Green`)) ||
-    (!have($item`lavender candy heart`) && !have($effect`Heart of Lavender`))
-  ) {
-    return $skill`Summon Candy Heart`;
-  } else if (needLoveSong) {
-    return $skill`Summon Love Song`;
-  } else if (!have($item`resolution: be kinder`) && !have($effect`Kindly Resolve`)) {
-    return $skill`Summon Resolutions`;
-  }
-
-  return $skill`Summon Taffy`;
-}
-
-export function burnLibram(saveMp: number, useBrickos?: boolean): void {
-  while (myMp() >= mpCost(chooseLibram(useBrickos ?? false)) + saveMp) {
-    useSkill(chooseLibram(useBrickos ?? false));
-  }
-}
