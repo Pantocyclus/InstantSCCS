@@ -16,7 +16,7 @@ For those who are interested in using `InstantSCCS` as is, the following section
 
 ### Before Ascending
 
-- Ensure that you have the following items (which will be pulled/used during the run): 1x [one-day ticket to Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/One-day_ticket_to_Dinseylandfill), 1x [Calzone of Legend](https://kol.coldfront.net/thekolwiki/index.php/Calzone_of_Legend), 1x [Pizza of Legend](https://kol.coldfront.net/thekolwiki/index.php/Pizza_of_Legend), 1x [Deep Dish of Legend](https://kol.coldfront.net/thekolwiki/index.php/Deep_Dish_of_Legend) and 10x [cranberries](https://kol.coldfront.net/thekolwiki/index.php/Cranberries).
+- Ensure that you have the following items (which will be pulled/used during the run): 1x [one-day ticket to Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/One-day_ticket_to_Dinseylandfill), 1x [Calzone of Legend](https://kol.coldfront.net/thekolwiki/index.php/Calzone_of_Legend), 1x [Pizza of Legend](https://kol.coldfront.net/thekolwiki/index.php/Pizza_of_Legend), 1x [Deep Dish of Legend](https://kol.coldfront.net/thekolwiki/index.php/Deep_Dish_of_Legend), 1x [borrowed time](https://kol.coldfront.net/thekolwiki/index.php/Borrowed_time) and 10x [cranberries](https://kol.coldfront.net/thekolwiki/index.php/Cranberries).
 - Ensure that you have access to a clan with a fully stocked [VIP lounge](https://kol.coldfront.net/thekolwiki/index.php/VIP_Lounge). Also ensure that the [Clan Floundry](<https://kol.coldfront.net/thekolwiki/index.php/Clan_Floundry_(VIP_Lounge)>) has sufficient stocks of cod to pull a [codpiece](https://kol.coldfront.net/thekolwiki/index.php/Codpiece).
 
 ### In Valhalla
