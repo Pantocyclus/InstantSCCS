@@ -32,19 +32,19 @@ For those who are interested in using `InstantSCCS` as is, the following section
 IoTMs are incredibly expensive, and they tend to increase in price the longer they have existed due to the artificial supply limit. Unfortunately, they are incredibly powerful too, and so we will need to rely on them to enable a 1-day SCCS. There is a hard requirement on the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key), as it is one of the few "IoTMs" that are recurring (and thus are not gated by the same artificial supply limit as mentioned above), and it provides access to >= 30 Mr. A's-worth of IoTMs. <br />
 One of the hardest tasks in CS is levelling, due to the limit resources we have access to and the fact that we aim to cap out all of the stat tests (HP, Mus, Myst, Mox). The 2nd IoTM thus has to provide incredible statgain potential. This either comes in the form of providing a scaling zone (with which we can then save a pull on the Dinsey daypass to pull a [non-Euclidean angle](https://kol.coldfront.net/thekolwiki/index.php/Non-Euclidean_angle) instead), or provide stats directly. It is thus a hard-requirement to have at least one of these few IoTMs.
 
-| IoTM                                                                                                                                  | Use         |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| [GameInformPowerDailyPro subscription card](https://kol.coldfront.net/thekolwiki/index.php/GameInformPowerDailyPro_subscription_card) | Scaler Zone |
-| [Airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)           | Scaler Zone |
-| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)             | Scaler Zone |
-| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)                   | Scaler Zone |
-| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)               | Scaler Zone |
-| [airplane charter: The Glaciest](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_The_Glaciest)                       | Scaler Zone |
-| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope)         | Scaler Zone |
-| [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                                     | Xp          |
-| [cosmic bowling ball](https://kol.coldfront.net/thekolwiki/index.php/Cosmic_bowling_ball)                                             | Xp          |
-| [unbreakable umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella)                                           | Xp          |
-| [model train set](https://kol.coldfront.net/thekolwiki/index.php/Model_train_set)                                                     | Xp          |
+| IoTM                                                                                                                                  | Use     |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| [GameInformPowerDailyPro subscription card](https://kol.coldfront.net/thekolwiki/index.php/GameInformPowerDailyPro_subscription_card) | scalers |
+| [Airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)           | scalers |
+| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)             | scalers |
+| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)                   | scalers |
+| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)               | scalers |
+| [airplane charter: The Glaciest](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_The_Glaciest)                       | scalers |
+| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope)         | scalers |
+| [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                                     | xp      |
+| [cosmic bowling ball](https://kol.coldfront.net/thekolwiki/index.php/Cosmic_bowling_ball)                                             | xp      |
+| [unbreakable umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella)                                           | xp      |
+| [model train set](https://kol.coldfront.net/thekolwiki/index.php/Model_train_set)                                                     | xp      |
 
 ### Required Resources
 
@@ -53,9 +53,9 @@ Because we do not rely heavily on IoTMs to carry us through the SCCS run, we wil
 
 | Familiars                                                                             | Use             |
 | ------------------------------------------------------------------------------------- | --------------- |
-| [Hovering Sombrero](https://kol.coldfront.net/thekolwiki/index.php/Hovering_Sombrero) | Powerlevelling  |
-| [Exotic Parrot](https://kol.coldfront.net/thekolwiki/index.php/Exotic_Parrot)         | Familiar Test   |
-| [Disgeist](<https://kol.coldfront.net/thekolwiki/index.php/Disgeist_(familiar)>)      | Non-combat Test |
+| [Hovering Sombrero](https://kol.coldfront.net/thekolwiki/index.php/Hovering_Sombrero) | powerlevelling  |
+| [Exotic Parrot](https://kol.coldfront.net/thekolwiki/index.php/Exotic_Parrot)         | familiar test   |
+| [Disgeist](<https://kol.coldfront.net/thekolwiki/index.php/Disgeist_(familiar)>)      | non-combat test |
 
 | Skills                                                                                                                            | Use             |
 | --------------------------------------------------------------------------------------------------------------------------------- | --------------- |
