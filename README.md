@@ -7,7 +7,7 @@
 To install the script, use the following command in the KoLMafia CLI.
 
 ```text
-git checkout https://github.com/Loathing-Associates-Scripting-Society/garbage-collector.git release
+git checkout https://github.com/Pantocyclus/InstantSCCS.git release
 ```
 
 ## Usage
