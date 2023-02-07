@@ -1,8 +1,8 @@
 {
-  "name": "InstantHCCS",
+  "name": "InstantSCCS",
   "version": "0.1.0",
-  "description": "A looping resource-optimal HCCS script.",
-  "main": "KoLmafia/scripts/instant-hccs/InstantHCCS.js",
+  "description": "A low shiny SCCS script",
+  "main": "instantsccs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "yarn run build:types && yarn run build:js",
@@ -37,10 +37,7 @@
   },
   "author": "Pantocyclus",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/docrostov/kol-js-starter.git"
-  },
+  "repository": "git+https://github.com/docrostov/kol-js-starter.git",
   "keywords": [
     "KoLMafia",
     "JS",

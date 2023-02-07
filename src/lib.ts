@@ -1,28 +1,15 @@
 import {
+  cliExecute,
   cliExecuteOutput,
+  Effect,
   familiarWeight,
-  haveEffect,
-  Item,
-  itemAmount,
-  Location,
-  Monster,
-  mpCost,
   myFamiliar,
-  myMp,
   print,
-  retrieveItem,
-  retrievePrice,
-  runChoice,
-  Skill,
-  sweetSynthesis,
-  toInt,
-  toUrl,
-  use,
-  useSkill,
+  toItem,
+  toSkill,
   visitUrl,
 } from "kolmafia";
-import { $effect, $effects, $item, $items, $skill, $stat, get, have, set } from "libram";
-import { mainStat } from "./combat";
+import { $effect, have, set } from "libram";
 
 export enum CommunityServiceTests {
   HPTEST = 1,
@@ -66,14 +53,6 @@ export const testNames = new Map([
   [CommunityServiceTests.COILTEST, "Coil Wire"],
 ]);
 
-export function debug(message: string, color?: string): void {
-  if (color) {
-    print(message, color);
-  } else {
-    print(message);
-  }
-}
-
 // From phccs
 export function convertMilliseconds(milliseconds: number): string {
   const seconds = milliseconds / 1000;
@@ -87,25 +66,6 @@ export function convertMilliseconds(milliseconds: number): string {
     (secondsLeft !== 0 ? `${secondsLeft} seconds` : "")
   );
 }
-
-// From phccs
-export function mapMonster(location: Location, monster: Monster): void {
-  useSkill($skill`Map the Monsters`);
-  if (!get("mappingMonsters")) throw new Error(`I am not actually mapping anything. Weird!`);
-  else {
-    while (get("mappingMonsters")) {
-      visitUrl(toUrl(location));
-      runChoice(1, `heyscriptswhatsupwinkwink=${monster.id}`);
-    }
-  }
-}
-
-export function tryUse(item: Item): void {
-  if (have(item)) use(item);
-}
-
-export const crimboCarols = $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`;
-export const shavingsBuffs = $effects`Barbell Moustache, Cowboy Stache, Friendly Chops, Grizzly Beard, Gull-Wing Moustache, Musician's Musician's Moustache, Pointy Wizard Beard, Space Warlord's Beard, Spectacle Moustache, Surrealist's Moustache, Toiletbrush Moustache`;
 
 function replaceAll(str: string, searchValue: string, replaceValue: string): string {
   const newStr = str.replace(searchValue, replaceValue);
@@ -279,110 +239,32 @@ export function logTestSetup(whichTest: number): void {
   set(`_CSTest${whichTest}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
 }
 
-/*
-function mystSynthAttainable(): boolean {
-  if (
-    (have($item`yellow candy heart`) && have($item`Crimbo peppermint bark`)) ||
-    (have($item`orange candy heart`) &&
-      (have($item`Crimbo candied pecan`) || have($item`peppermint sprout`))) ||
-    (have($item`pink candy heart`) &&
-      (have($item`peppermint sprout`) || have($item`peppermint twist`))) ||
-    (have($item`lavender candy heart`) && have($item`Crimbo fudge`))
-  )
-    return true;
-  return false;
-}
-*/
-
-function needBrickos(): boolean {
-  const oysters = itemAmount($item`BRICKO oyster`);
-  const brickContributions = Math.floor(itemAmount($item`BRICKO brick`) / 8);
-  const eyeContributions = itemAmount($item`BRICKO eye brick`);
-  const materials = brickContributions < eyeContributions ? brickContributions : eyeContributions;
-  return have($skill`Summon BRICKOs`) && oysters + materials < 1;
+export function tryAcquiringEffect(ef: Effect): void {
+  // Try acquiring an effect
+  if (have(ef)) return; // If we already have the effect, we're done
+  cliExecute(ef.default);
 }
 
-function chooseLibram(useBrickos: boolean): Skill {
-  const needLoveSong =
-    itemAmount($item`love song of icy revenge`) +
-      Math.floor(haveEffect($effect`Cold Hearted`) / 5) <
-    4;
-  if (useBrickos && needBrickos()) {
-    return $skill`Summon BRICKOs`;
-    /*
-  } else if (!have($effect`Synthesis: Smart`) && !mystSynthAttainable()) {
-    return $skill`Summon Candy Heart`;
-    */
-  } else if (
-    (!have($item`resolution: be happier`) && !have($effect`Joyful Resolve`)) ||
-    (!have($item`resolution: be feistier`) && !have($effect`Destructive Resolve`))
-  ) {
-    return $skill`Summon Resolutions`;
-  } else if (
-    (!have($item`green candy heart`) && !have($effect`Heart of Green`)) ||
-    (!have($item`lavender candy heart`) && !have($effect`Heart of Lavender`))
-  ) {
-    return $skill`Summon Candy Heart`;
-  } else if (needLoveSong) {
-    return $skill`Summon Love Song`;
-  } else if (!have($item`resolution: be kinder`) && !have($effect`Kindly Resolve`)) {
-    return $skill`Summon Resolutions`;
+export function triedAcquiringEffect(ef: Effect): boolean {
+  // Returns false if an effect is acquirable but we don't have it active
+  if (have(ef)) return true; // We have the effect active
+
+  const efDefault = ef.default;
+  if (efDefault.length === 0) return true; // This effect is not acquirable
+  const action = efDefault.split(" ")[0];
+  const target = efDefault.split(" ").slice(2).join(" ");
+  switch (action) {
+    case "eat":
+      return !have(toItem(target)); // No issues if we don't have the food
+    case "drink":
+      return !have(toItem(target)); // No issues if we don't have the booze
+    case "chew":
+      return !have(toItem(target)); // No issues if we don't have the spleen item
+    case "use":
+      return !have(toItem(target)); // No issues if we don't have the item
+    case "cast":
+      return !have(toSkill(target)); // No issues if we don't have the skill
+    default:
+      return true; // Doesn't seem like there's any way to acquire this effect?
   }
-
-  return $skill`Summon Taffy`;
-}
-
-export function burnLibram(saveMp: number, useBrickos?: boolean): void {
-  while (myMp() >= mpCost(chooseLibram(useBrickos ?? false)) + saveMp) {
-    useSkill(chooseLibram(useBrickos ?? false));
-  }
-}
-
-export const complexCandies = $items``.filter((candy) => candy.candyType === "complex");
-const peppermintCandiesCosts = new Map<Item, number>([
-  [$item`peppermint sprout`, 1],
-  [$item`peppermint twist`, 1],
-  [$item`peppermint patty`, 2],
-  [$item`peppermint crook`, 3],
-  [$item`cane-mail pants`, 10],
-  [$item`peppermint rhino baby`, 11],
-  [$item`cane-mail shirt`, 15],
-]);
-const nonPeppermintCandies = complexCandies.filter(
-  (candy) => !Array.from(peppermintCandiesCosts.keys()).includes(candy)
-);
-
-function haveCandies(a: Item, b: Item): boolean {
-  const candiesRequired = new Map<Item, number>();
-  [a, b].forEach((candy) => {
-    const currentAmount = candiesRequired.get(candy) ?? 0;
-    if (nonPeppermintCandies.includes(candy)) candiesRequired.set(candy, currentAmount + 1);
-    else
-      candiesRequired.set(
-        $item`peppermint sprout`,
-        currentAmount + (peppermintCandiesCosts.get(candy) ?? Infinity)
-      );
-  });
-
-  candiesRequired.forEach((amount, candy) => {
-    candiesRequired.set(candy, itemAmount(candy) >= amount ? 1 : 0);
-  });
-
-  return Array.from(candiesRequired.values()).every((val) => val === 1);
-}
-
-export function getSynthExpBuff(): void {
-  const rem = mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4;
-  const pairs = complexCandies.map((a) => complexCandies.map((b) => [a, b])).flat(1);
-  const bestPair = pairs
-    .filter(([a, b]) => (toInt(a) + toInt(b)) % 5 === rem && haveCandies(a, b))
-    .reduce((left, right) =>
-      left.map((it) => retrievePrice(it)).reduce((acc, val) => acc + val) <
-      right.map((it) => retrievePrice(it)).reduce((acc, val) => acc + val)
-        ? left
-        : right
-    );
-  if (bestPair[0] === bestPair[1]) retrieveItem(bestPair[0], 2);
-  else bestPair.forEach((it) => retrieveItem(it));
-  sweetSynthesis(bestPair[0], bestPair[1]);
 }

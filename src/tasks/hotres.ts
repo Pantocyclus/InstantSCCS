@@ -1,16 +1,6 @@
 import { CombatStrategy } from "grimoire-kolmafia";
-import { cliExecute } from "kolmafia";
-import {
-  $effect,
-  $familiar,
-  $item,
-  $location,
-  $skill,
-  CommunityService,
-  get,
-  have,
-  uneffect,
-} from "libram";
+import { buy, cliExecute, faxbot, use } from "kolmafia";
+import { $effect, $familiar, $item, $monster, CommunityService, get, have } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup } from "../lib";
@@ -20,37 +10,27 @@ export const HotResQuest: Quest = {
   completed: () => CommunityService.HotRes.isDone(),
   tasks: [
     {
-      name: "Post-levelling",
-      completed: () =>
-        !(
-          have($effect`Aloysius' Antiphon of Aptitude`) || have($effect`Ur-Kel's Aria of Annoyance`)
-        ),
+      name: "YR Fax Factory Worker",
+      completed: () => get("_photocopyUsed"),
+      prepare: (): void => {
+        if (!have($effect`Everything Looks Yellow`) && !have($item`yellow rocket`))
+          buy($item`yellow rocket`, 1);
+      },
       do: (): void => {
-        uneffect($effect`Aloysius' Antiphon of Aptitude`);
-        uneffect($effect`Ur-Kel's Aria of Annoyance`);
-        cliExecute("refresh all");
+        if (faxbot($monster`factory worker (female)`)) {
+          if (get("photocopyMonster") !== $monster`factory worker (female)`)
+            throw new Error("Failed to fax a factory worker (female)");
+          use($item`photocopied monster`);
+        }
       },
+      outfit: { modifier: "myst, 0.1ML" },
       limit: { tries: 1 },
-    },
-    {
-      name: "Foam Suit",
-      ready: () => get("_fireExtinguisherCharge") >= 10 && get("_saberForceUses") < 5,
-      completed: () => have($effect`Fireproof Foam Suit`),
-      do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
-        Macro.skill($skill`Become a Cloud of Mist`)
-          .skill($skill`Fire Extinguisher: Foam Yourself`)
-          .trySkill($skill`%fn, spit on me!`)
-          .skill($skill`Use the Force`)
+        Macro.externalIf(
+          !have($effect`Everything Looks Yellow`),
+          Macro.tryItem($item`yellow rocket`)
+        ).abort()
       ),
-      choices: { 1387: 3 },
-      outfit: {
-        weapon: $item`Fourth of May Cosplay Saber`,
-        back: $item`vampyric cloake`,
-        offhand: $item`industrial fire extinguisher`,
-        familiar: $familiar`Melodramedary`,
-      },
-      limit: { tries: 1 },
     },
     {
       name: "Test",

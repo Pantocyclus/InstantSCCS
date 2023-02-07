@@ -1,5 +1,4 @@
 import {
-  cliExecute,
   gametimeToInt,
   myAdventures,
   myAscensions,
@@ -14,18 +13,11 @@ import { convertMilliseconds } from "./lib";
 import { $effect, get, have, set } from "libram";
 import { Engine } from "./engine/engine";
 import { Args, getTasks } from "grimoire-kolmafia";
-import { BoozeDropQuest } from "./tasks/boozedrop";
-import { CoilWireQuest } from "./tasks/coilwire";
-import { DonateQuest } from "./tasks/donate";
-import { FamiliarWeightQuest } from "./tasks/familiarweight";
-import { HotResQuest } from "./tasks/hotres";
-import { LevelingQuest } from "./tasks/leveling";
-import { NoncombatQuest } from "./tasks/noncombat";
-import { PostCoilQuest } from "./tasks/postcoil";
-import { RunStartQuest } from "./tasks/runstart";
-import { SpellDamageQuest } from "./tasks/spelldamage";
+import { Task } from "./engine/task";
 import { HPQuest, MoxieQuest, MuscleQuest, MysticalityQuest } from "./tasks/stat";
-import { WeaponDamageQuest } from "./tasks/weapondamage";
+import { LevelingQuest } from "./tasks/leveling";
+import { CoilWireQuest } from "./tasks/coilwire";
+import { RunStartQuest } from "./tasks/runstart";
 
 const timeProperty = "fullday_elapsedTime";
 
@@ -51,28 +43,17 @@ export function main(command?: string): void {
   const setTimeNow = get(timeProperty, -1) === -1;
   if (setTimeNow) set(timeProperty, gametimeToInt());
 
-  const tasks = getTasks([
+  const tasks: Task[] = getTasks([
     RunStartQuest,
     CoilWireQuest,
-    PostCoilQuest,
     LevelingQuest,
-    HotResQuest,
     HPQuest,
     MuscleQuest,
     MysticalityQuest,
     MoxieQuest,
-    NoncombatQuest,
-    WeaponDamageQuest,
-    SpellDamageQuest,
-    FamiliarWeightQuest,
-    BoozeDropQuest,
-    DonateQuest,
   ]);
   const engine = new Engine(tasks);
   setAutoAttack(0);
-  cliExecute("ccs InstantHCCS");
-
-  set("InstantHCCSRunStart", gametimeToInt());
 
   while (!runComplete()) {
     const task = engine.getNextTask();

@@ -878,9 +878,9 @@
     "@babel/plugin-transform-typescript" "^7.15.0"
 
 "@babel/runtime-corejs3@^7.17.2":
-  version "7.20.7"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.20.7.tgz#a1e5ea3d758ba6beb715210142912e3f29981d84"
-  integrity sha512-jr9lCZ4RbRQmCR28Q8U8Fu49zvFqLxTY9AMOUz+iyMohMoAgpEcVxY+wJNay99oXOpOcCTODkk70NDN2aaJEeg==
+  version "7.20.13"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.20.13.tgz#ad012857db412ab0b5ccf184b67be2cfcc2a1dcf"
+  integrity sha512-p39/6rmY9uvlzRiLZBIB3G9/EBr66LBMcYm7fIDeSBNdRjF2AGD3rFZucUyAgGHC2N+7DdLvVi33uTjSE44FIw==
   dependencies:
     core-js-pure "^3.25.1"
     regenerator-runtime "^0.13.11"
@@ -1684,9 +1684,9 @@ core-js-compat@^3.14.0, core-js-compat@^3.16.0:
     semver "7.0.0"
 
 core-js-pure@^3.25.1:
-  version "3.27.0"
-  resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.27.0.tgz#091dce4799a5aad4cfde930ea747b0a1962388c5"
-  integrity sha512-fJml7FM6v1HI3Gkg5/Ifc/7Y2qXcJxaDwSROeZGAZfNykSTvUk94WT55TYzJ2lFHK0voSr/d4nOVChLuNCWNpA==
+  version "3.27.2"
+  resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.27.2.tgz#47e9cc96c639eefc910da03c3ece26c5067c7553"
+  integrity sha512-Cf2jqAbXgWH3VVzjyaaFkY1EBazxugUepGymDoeteyYr9ByX51kD2jdHZlsEF/xnJMyN3Prua7mQuzwMg6Zc9A==
 
 core-js@^3.16.4:
   version "3.16.4"
@@ -1694,9 +1694,9 @@ core-js@^3.16.4:
   integrity sha512-Tq4GVE6XCjE+hcyW6hPy0ofN3hwtLudz5ZRdrlCnsnD/xkm/PWQRudzYHiKgZKUcefV6Q57fhDHjZHJP5dpfSg==
 
 core-js@^3.21.0:
-  version "3.27.0"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.27.0.tgz#a343bc614f29d9dcffa7616e65e10f9001cdd332"
-  integrity sha512-wY6cKosevs430KRkHUIsvepDXHGjlXOZO3hYXNyqpD6JvB0X28aXyv0t1Y1vZMwE7SoKmtfa6IASHCPN52FwBQ==
+  version "3.27.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.27.2.tgz#85b35453a424abdcacb97474797815f4d62ebbf7"
+  integrity sha512-9ashVQskuh5AZEZ1JdQWp1GqSoC1e1G87MzRqg2gIfVAQ7Qn9K+uFj8EcniUFA4P2NLZfV+TOlX1SzoKfo+s7w==
 
 core-util-is@~1.0.0:
   version "1.0.2"
@@ -1840,9 +1840,9 @@ eslint-config-prettier@^8.3.0:
   integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
 
 eslint-plugin-libram@^0.2.17:
-  version "0.2.24"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.2.24.tgz#d041f3c692027c6fdd770b264f5f073bb6a3eccf"
-  integrity sha512-zBcLHPXgk6kMJg8prq6KwPrknOiG7sN9q7chTxeIooY/H16sy3CRh485KhGYjM69dqINl+ENJxKbooXF/Hk30Q==
+  version "0.2.27"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.2.27.tgz#d52085636e6a5de475ec50506aa2c12b62d51c47"
+  integrity sha512-51NQsDJqjfkeBYkoLsYcW5DGyp8BsSGPIsGoLMGxfl2RyYAIIaBaCHbn/pjQI4M0iWQNy+rGtoC0UZuzkwhr8g==
   dependencies:
     html-entities "^2.3.2"
     requireindex "~1.1.0"
@@ -2603,9 +2603,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
 kolmafia@>=1.2.0:
-  version "5.27032.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.27032.0.tgz#08d5b18c9d01ed243de448be97614bc0d783de2a"
-  integrity sha512-u8SC8PYXwcJFwKd9Fumr1UrvqaOlZtqGwK5QQcjgmtkZXaHQn10jxvfZ2Dy1gUrn4PuC4iS/02tDHldECCXdpA==
+  version "5.27160.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.27160.0.tgz#8e284caae1a154ba1c22c6b7fb7e53ec658432ae"
+  integrity sha512-OnizbX95TMgXNEF5xANZGIZyOHpvu/A8qvBLQPtS2+nrPBqhtztfoikYexraloP7kg+VJLqMutJAEHF5wCRkDw==
 
 levn@^0.4.1:
   version "0.4.1"
@@ -2616,9 +2616,9 @@ levn@^0.4.1:
     type-check "~0.4.0"
 
 libram@^0.7.2:
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/libram/-/libram-0.7.6.tgz#e63cff60d4d0ffc54f40280da8e751ce41245d56"
-  integrity sha512-urkfZ/jyk5M3/0Xe503W3GF/Ay8cCXTAivhTx8YwYfdtcW5Y9E+7G3K3GiKjgbKvQ+OFcCb9KMRjc6tAlVSWlQ==
+  version "0.7.10"
+  resolved "https://registry.yarnpkg.com/libram/-/libram-0.7.10.tgz#42f86600af1f11723e6eeed5d83905bebf49311f"
+  integrity sha512-B4pv66ISaWX94MdT6d5JN57LA2Qx4tHjGqcw2fSfN2fs/krfVgOE8SDgTtGDUOxXGhDlBIyhnStu1EsPvl9bIw==
   dependencies:
     "@babel/runtime-corejs3" "^7.17.2"
     core-js "^3.21.0"
