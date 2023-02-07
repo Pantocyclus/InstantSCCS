@@ -51,11 +51,11 @@ One of the hardest tasks in CS is levelling, due to the limit resources we have 
 Because we do not rely heavily on IoTMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. <br />
 <sub><sup>Note that the shinier you are, the easier it becomes to replace these requirements, so they would eventually become soft or even non-requirements.</sup></sub> <br />
 
-| Familiars                                                                             | Use             |
-| ------------------------------------------------------------------------------------- | --------------- |
-| [Hovering Sombrero](https://kol.coldfront.net/thekolwiki/index.php/Hovering_Sombrero) | powerlevelling  |
-| [Exotic Parrot](https://kol.coldfront.net/thekolwiki/index.php/Exotic_Parrot)         | familiar test   |
-| [Disgeist](<https://kol.coldfront.net/thekolwiki/index.php/Disgeist_(familiar)>)      | non-combat test |
+| Familiars                                                                             | Use            |
+| ------------------------------------------------------------------------------------- | -------------- |
+| [Hovering Sombrero](https://kol.coldfront.net/thekolwiki/index.php/Hovering_Sombrero) | powerlevelling |
+| [Exotic Parrot](https://kol.coldfront.net/thekolwiki/index.php/Exotic_Parrot)         | hot test       |
+| [Disgeist](<https://kol.coldfront.net/thekolwiki/index.php/Disgeist_(familiar)>)      | non-combat     |
 
 | Skills                                                                                                                            | Use             |
 | --------------------------------------------------------------------------------------------------------------------------------- | --------------- |
@@ -70,6 +70,13 @@ Because we do not rely heavily on IoTMs to carry us through the SCCS run, we wil
 | [Pride of the Puffin](<https://kol.coldfront.net/thekolwiki/index.php/Pride_of_the_Puffin_(skill)>)                               | ML              |
 | [Drescher's Annoying Noise](<https://kol.coldfront.net/thekolwiki/index.php/Drescher%27s_Annoying_Noise_(skill)>)                 | ML              |
 | [Ur-Kel's Aria of Annoyance](<https://kol.coldfront.net/thekolwiki/index.php/Ur-Kel%27s_Aria_of_Annoyance_(skill)>)               | ML              |
+| [The Sonata of Sneakiness](<https://kol.coldfront.net/thekolwiki/index.php/The_Sonata_of_Sneakiness_(skill)>)                     | non-combat      |
+| [Smooth Movement](https://kol.coldfront.net/thekolwiki/index.php/Smooth_Movement)                                                 | non-combat      |
+| [Asbestos Heart](https://kol.coldfront.net/thekolwiki/index.php/Asbestos_Heart)                                                   | hot resist      |
+| [Elemental Saucesphere](<https://kol.coldfront.net/thekolwiki/index.php/Elemental_Saucesphere_(effect)>)                          | hot resist      |
+| [Tolerance of the Kitchen](https://kol.coldfront.net/thekolwiki/index.php/Tolerance_of_the_Kitchen)                               | hot resist      |
+| [Astral Shell](<https://kol.coldfront.net/thekolwiki/index.php/Astral_Shell_(effect)>)                                            | hot resist      |
+| [Eternal Flame](https://kol.coldfront.net/thekolwiki/index.php/Eternal_Flame)                                                     | hot resist      |
 | [Saucegeyser](https://kol.coldfront.net/thekolwiki/index.php/Saucegeyser)                                                         | attacking spell |
 
 ### Highly-recommended Resources
@@ -79,8 +86,8 @@ Chances are, it's going to be super tight if you only have the resources stated 
 
 | Skills                                                                                            | Use               |
 | ------------------------------------------------------------------------------------------------- | ----------------- |
-| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>) | doubles Wdmg      |
+| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>) | doubles wdmg      |
 | [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>) | doubles item drop |
 | [Shattering Punch](https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch)               | free kill         |
 | [Gingerbread Mob Hit](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Mob_Hit)         | free kill         |
-| Fully upgraded [telescope](https://kol.coldfront.net/thekolwiki/index.php/A_Telescope)            | stat%             |
+| Fully Upgraded [Telescope](https://kol.coldfront.net/thekolwiki/index.php/A_Telescope)            | stat%             |
