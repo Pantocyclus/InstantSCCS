@@ -77,10 +77,10 @@ Because we do not rely heavily on IoTMs to carry us through the SCCS run, we wil
 Chances are, it's going to be super tight if you only have the resources stated above. There are a bunch of potentially cheap-ish (more expensive than 1m, but cheaper than an IoTM) things that can greatly aid your runs. Generally, you want to get anything that aids in leveling (gives more myst% and/or free fights) <br />
 <sub><sup>Note that free fight sources are super useful - this includes NEP, witchess, backup camera etc.</sup></sub> <br />
 
-| Skills                                                                                          | Use               |
-| ----------------------------------------------------------------------------------------------- | ----------------- |
-| (Bow-Legged Swagger)[https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)] | doubles Wdmg      |
-| (Steely-Eyed Squint)[https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)] | doubles item drop |
-| (Shattering Punch)[https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch]             | free kill         |
-| (Gingerbread Mob Hit)[https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Mob_Hit]       | free kill         |
-| Fully upgraded (telescope)[https://kol.coldfront.net/thekolwiki/index.php/A_Telescope]          | stat%             |
+| Skills                                                                                            | Use               |
+| ------------------------------------------------------------------------------------------------- | ----------------- |
+| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>) | doubles Wdmg      |
+| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>) | doubles item drop |
+| [Shattering Punch](https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch)               | free kill         |
+| [Gingerbread Mob Hit](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Mob_Hit)         | free kill         |
+| Fully upgraded [telescope](https://kol.coldfront.net/thekolwiki/index.php/A_Telescope)            | stat%             |
