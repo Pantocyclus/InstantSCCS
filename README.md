@@ -1,6 +1,6 @@
 # InstantSCCS
 
-`InstantSCCS` is a softcore Community Service script for looping in Kingdom of Loathing designed to work for low-shiny accounts (i.e. accounts with minimal expensive items/skills) and mostly requires only cheap resources. Unfortunately, this means that the user is expected to have a bunch of softcore-permed skills, and at least 2 IoTMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
+`InstantSCCS` is a softcore Community Service script for looping in Kingdom of Loathing designed to work for low-shiny accounts (i.e. accounts with minimal expensive items/skills) and mostly requires only cheap resources. Unfortunately, this means that the user is expected to have a bunch of softcore-permed skills, and at least 2 IotMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
 
 ## Installation
 
@@ -27,12 +27,12 @@ For those who are interested in using `InstantSCCS` as is, the following section
 - [The Opposum](https://kol.coldfront.net/thekolwiki/index.php/The_Opossum)
 - [Softcore](https://kol.coldfront.net/thekolwiki/index.php/Ascension#Normal_Difficulty)
 
-### IoTMs
+### IotMs
 
-IoTMs are incredibly expensive, and they tend to increase in price the longer they have existed due to the artificial supply limit. Unfortunately, they are incredibly powerful too, and so we will need to rely on them to enable a 1-day SCCS. There is a hard requirement on the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key), as it is one of the few "IoTMs" that are recurring (and thus are not gated by the same artificial supply limit as mentioned above), and it provides access to >= 30 Mr. A's-worth of IoTMs. <br />
-One of the hardest tasks in CS is levelling, due to the limit resources we have access to and the fact that we aim to cap out all of the stat tests (HP, Mus, Myst, Mox). The 2nd IoTM thus has to provide incredible statgain potential. This either comes in the form of providing a scaling zone (with which we can then save a pull on the Dinsey daypass to pull a [non-Euclidean angle](https://kol.coldfront.net/thekolwiki/index.php/Non-Euclidean_angle) instead), or provide stats directly. It is thus a hard-requirement to have at least one of these few IoTMs.
+IotMs are incredibly expensive, and they tend to increase in price the longer they have existed due to the artificial supply limit. Unfortunately, they are incredibly powerful too, and so we will need to rely on them to enable a 1-day SCCS. There is a hard requirement on the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key), as it is one of the few "IotMs" that are recurring (and thus are not gated by the same artificial supply limit as mentioned above), and it provides access to >= 30 Mr. A's-worth of IotMs. <br />
+One of the hardest tasks in CS is levelling, due to the limit resources we have access to and the fact that we aim to cap out all of the stat tests (HP, Mus, Myst, Mox). The 2nd IotM thus has to provide incredible statgain potential. This either comes in the form of providing a scaling zone (with which we can then save a pull on the Dinsey daypass to pull a [non-Euclidean angle](https://kol.coldfront.net/thekolwiki/index.php/Non-Euclidean_angle) instead), or provide stats directly. It is thus a hard-requirement to have at least one of these few IotMs.
 
-| IoTM                                                                                                                                  | Use     |
+| IotM                                                                                                                                  | Use     |
 | ------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | [GameInformPowerDailyPro subscription card](https://kol.coldfront.net/thekolwiki/index.php/GameInformPowerDailyPro_subscription_card) | scalers |
 | [Airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)           | scalers |
@@ -48,7 +48,7 @@ One of the hardest tasks in CS is levelling, due to the limit resources we have 
 
 ### Required Resources
 
-Because we do not rely heavily on IoTMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. <br />
+Because we do not rely heavily on IotMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. <br />
 <sub><sup>Note that the shinier you are, the easier it becomes to replace these requirements, so they would eventually become soft or even non-requirements.</sup></sub> <br />
 
 | Familiars                                                                             | Use            |
@@ -84,7 +84,7 @@ Because we do not rely heavily on IoTMs to carry us through the SCCS run, we wil
 
 ### Highly-recommended Resources
 
-Chances are, it's going to be super tight if you only have the resources stated above. There are a bunch of potentially cheap-ish (more expensive than 1m, but cheaper than an IoTM) things that can greatly aid your runs. Generally, you want to get anything that aids in leveling (gives more myst% and/or free fights) <br />
+Chances are, it's going to be super tight if you only have the resources stated above. There are a bunch of potentially cheap-ish (more expensive than 1m, but cheaper than an IotM) things that can greatly aid your runs. Generally, you want to get anything that aids in leveling (gives more myst% and/or free fights) <br />
 <sub><sup>Note that free fight sources are super useful - this includes NEP, witchess, backup camera etc.</sup></sub> <br />
 
 | Useful stuff                                                                           | Use   |
@@ -161,7 +161,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 
 - Save the reward <br/>
 - Buy an obsidian nutcracker <br/>
-- Cast simmer (1 turn, 59+ adv remaining, 15/10/0 organs) <br/>
+- Cast simmer (1 turn, 80+ adv remaining, 15/13/0 organs) <br/>
 - You should have +100% from Song of Sauce, +100% from simmer, +50% from pool table, 30% from obsidian nutcracker, 10% from Master Saucier and 10% from Subtle and Quick to Anger (totalling +300%sdmg)<br/>
 - You should also have +50 from codpiece (flat sdmg) <br/>
 
