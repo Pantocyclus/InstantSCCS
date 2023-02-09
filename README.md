@@ -55,7 +55,6 @@ Because we do not rely heavily on IoTMs to carry us through the SCCS run, we wil
 | ------------------------------------------------------------------------------------- | -------------- |
 | [Hovering Sombrero](https://kol.coldfront.net/thekolwiki/index.php/Hovering_Sombrero) | powerlevelling |
 | [Exotic Parrot](https://kol.coldfront.net/thekolwiki/index.php/Exotic_Parrot)         | hot test       |
-| [Disgeist](<https://kol.coldfront.net/thekolwiki/index.php/Disgeist_(familiar)>)      | non-combat     |
 
 | Skills                                                                                                                            | Use               |
 | --------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
@@ -76,7 +75,7 @@ Because we do not rely heavily on IoTMs to carry us through the SCCS run, we wil
 | [Elemental Saucesphere](<https://kol.coldfront.net/thekolwiki/index.php/Elemental_Saucesphere_(effect)>)                          | hot resist        |
 | [Tolerance of the Kitchen](https://kol.coldfront.net/thekolwiki/index.php/Tolerance_of_the_Kitchen)                               | hot resist        |
 | [Astral Shell](<https://kol.coldfront.net/thekolwiki/index.php/Astral_Shell_(effect)>)                                            | hot resist        |
-| [Eternal Flame](https://kol.coldfront.net/thekolwiki/index.php/Eternal_Flame)                                                     | hot resist        |
+| [Crimbo Training: Coal Taster](https://kol.coldfront.net/thekolwiki/index.php/Crimbo_Training:_Coal_Taster)                       | hot resist        |
 | [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                                 | doubles wdmg      |
 | [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                                 | doubles item drop |
 | [Shattering Punch](https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch)                                               | free kill         |
@@ -103,67 +102,92 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Equip codpiece to increase mp limit <br/>
 - Buy toy accordion <br/>
 - Buy chewing gums to get 2 clovers and 1 turtle totem <br/>
-- Use clover and 1adv to get 3 distilled fortified wines (39 adv remaining) <br/>
 - Use free rest to restore at least 20 mp <br/>
 - Cast Inscrutable Gaze (and if mp allows, Ode to Booze) <br/>
-- Buy and eat 5 fire crackers (54 adv remaining, 5/0/0 organs) <br/>
-- Drink 2 distilled fortified wines (64+ adv remaining, 5/2/0 organs) <br/>
+- Buy and eat 5 fire crackers (+5adv from Opposum) (60 adv remaining, 5/0/0 organs) <br/>
 
-> Coil Wire (60 turns, 4+ adv remaining) <br/>
+> Coil Wire (60 turns, 0 adv remaining, 5/0/0 organs) <br/>
 
 - Get 5%mystxp from April Shower <br/>
 - Re-cast Inscrutable Gaze <br/>
 - Use ten-percent bonus <br/>
-- Pull and consume 1 calzone of legend, 1 deep dish of legend and 1 roasted vegetable foccacia (61+ adv remaining, 11/2/0 organs) <br/>
-- Buy and consume a one with everything hotdog (67+ adv remaining, 13/2/0 organs) <br/>
+- Pull and consume 1 calzone of legend, 1 deep dish of legend and 1 roasted vegetable foccacia (57+ adv remaining, 11/2/0 organs) <br/>
+- Buy and consume a one with everything hotdog (63+ adv remaining, 13/0/0 organs) <br/>
 - Buy red and blue rockets <br/>
 - Get fortune teller 100%myst buff <br/>
 - Raise Mind Control Device to 11 <br/>
 - Pull and use a Dinsey daypass <br/>
 - Maximize myst, equip a sombrero and the astral pet sweater <br/>
 - Configure your trainset (if you're using a trainset; start with coal and brain silo) <br/>
-- Spend 1 adventure in Gator's to get red and blue rocket buffs (66+ adv remaining, 13/2/0 organs) <br/>
-- With replenished mp, cast ode and drink 2 Bee's Knees (80+ adv remaining, 13/6/0 organs) <br/>
-- Pull and consume 1 pizza of legend (100+ adv remaining, 15/6/0 organs) <br/>
+- Use snokebomb in Gator's to get red and blue rocket buffs <br/>
+- With replenished mp, cast ode and drink 2 Bee's Knees (79+ adv remaining, 13/4/0 organs) <br/>
+- Pull and consume 1 pizza of legend (99+ adv remaining, 15/4/0 organs) <br/>
 - Cast Prevent Scurvy and Sobriety and saucecraft + use an ointment of the occult <br/>
+- Cast Perfect Freeze, craft and drink a Perfect Dark and Stormy (with ode) (120+ adv remaining, 15/7/0 organs)
 - Cast/acquire all necessary stat, stat%, xp, ML and fam wt buffs (acquire Lyle's buff towards the end so that it helps with the tests) <br/>
-- Spend 39 adventures + 4 free kills in Gator's (reconfigure trainset to get 7 brain silos if necessary), hitting no less than 168 base myst (61+ adv remaining, 15/6/0 organs) <br/>
+- Spend 39 adventures + 4 free kills (shattering punch + mob hit) in Gator's (reconfigure trainset to get 7 brain silos if necessary), hitting no less than 168 base myst (81+ adv remaining, 15/4/0 organs) <br/>
 - Acquire and equip an oversized sparkler the moment you have enough meat <br/>
-- Drink 6 astral pilsners (with ode) while leveling in Gator's as soon as you hit level 11 (127+ adv remaining, 15/12/0 organs) <br/>
+- Drink 6 astral pilsners (with ode) while leveling in Gator's as soon as you hit level 11 (147+ adv remaining, 15/13/0 organs) <br/>
 - Buff up as necessary for the HP test <br/>
 
-> HP Test (1 turn, 126+ adv remaining, 15/12/0 organs) <br/>
+> HP Test (1 turn, 146+ adv remaining, 15/13/0 organs) <br/>
 
 - Save the reward <br/>
 - Buff up as necessary for the Myst test <br/>
 
-> Myst Test (1 turn, 125+ adv remaining, 15/12/0 organs) <br/>
+> Myst Test (1 turn, 145+ adv remaining, 15/13/0 organs) <br/>
 
 - Save the reward <br/>
 - Buff up as necessary for the Mox test <br/>
 
-> Mox Test (1 turn, 124+ adv remaining, 15/12/0 organs) <br/>
+> Mox Test (1 turn, 144+ adv remaining, 15/13/0 organs) <br/>
 
 - Save the reward <br/>
 - Buff up as necessary for the Mus test <br/>
 
-> Mus Test (1 turn, 123+ adv remaining, 15/12/0 organs) <br/>
+> Mus Test (1 turn, 143+ adv remaining, 15/13/0 organs) <br/>
 
 - Save the reward <br/>
-- You should have at least a 20lbs sombrero (after 40adv of +10famxp), +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater, +5lbs from pool table
+- You should have at least a 20lbs sombrero (after 40adv of +10famxp), +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater, +5lbs from pool table <br/>
 
-> Fam Test (47 turns, 76+ adv remaining, 15/12/0 organs) <br/>
+> Fam Test (47 turns, 96+ adv remaining, 15/13/0 organs) <br/>
+
+- Purchase a porkpie-mounted popper <br/>
+- Grab Silent Running from the pool <br/>
+- Equip your Disgeist with your astral pet sweater (base 1lbs, +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater)
+- You should have -20% from Fam Test, -20% from Mox Test, -10% from codpiece, -10% from skills, -5% from the porkpie-mounted popper, -5% from silent running and -5% from your Disgeist (combat freq) <br/>
+
+> NC Test (15 turns, 81+ adv remaining, 15/13/0 organs) <br/>
 
 - Save the reward <br/>
-- Cast simmer (1 turn, 75+ adv remaining, 15/12/0 organs) <br/>
-- You should have +100% from Song of Sauce, +50% from pool table and +50% from Calzone of Legend (sdmg%)
-- You should also have +50 from codpiece (flat sdmg)
+- Buy an obsidian nutcracker <br/>
+- Cast simmer (1 turn, 59+ adv remaining, 15/10/0 organs) <br/>
+- You should have +100% from Song of Sauce, +100% from simmer, +50% from pool table, 30% from obsidian nutcracker, 10% from Master Saucier and 10% from Subtle and Quick to Anger (totalling +300%sdmg)<br/>
+- You should also have +50 from codpiece (flat sdmg) <br/>
 
-> Spell Test (53 turns, 23+ adv remaining, 15/12/0 organs) <br/>
+> Spell Test (53 turns, 27+ adv remaining, 15/13/0 organs) <br/>
 
-- You should have -20% from Fam Test, -20% from Mox Test, -10% from codpiece, -10% from skills (combat freq)
-- Drink a Sockdollager (with ode, this carries over to Weapon Test) (31+ adv remaining, 15/14/0 organs)
+- Yellow rocket a faxed factory worker (female) (1 turn, 26+ adv remaining, 15/13/0 organs)
+- Cast ode and drink an Ish Kabibble (35+ adv remaining, 15/15/0 organs)
+- Cast leash of linguini and empathy
+- Use NC Test reward
+- Use your parrot and equip it with the astral pet sweater (base 1lbs, +15lbs from skills, +10lbs from astral pet sweater, +20lbs from NC Test reward)
+- You should have +3res from Asbestos Heart, +3res from Tolerance of the Kitchen, +2res from Elemental Saucesphere, +1res from Astral Shell, +1res from Crimbo 2023 passive, +3res from Feeling no Pain, +5res from lava-proof pants, +4res from heat-resistance gloves, +3res from parrot and +4res from the Myst Test (totalling +29res)
 
-> NC Test (24 turns, 7+ adv remaining, 15/14/0 organs) <br/>
+> Hot Resist Test (31 turns, 4+ adv remaining, 15/15/0 organs) <br/>
 
-- Cast bow-legged swagger
+- Use a clover to grab a cyclops eyedrops from the Limerick Dungeon (1 turn, 3+ adv remaining, 15/15/0 organs) <br/>
+- Use Mus Test reward and cyclops eyedrops <br/>
+- Summon Spice Ghost <br/>
+- +60%booze from Mus Test reward, +25%booze from Always Never Not Guzzling (totalling +85%booze)
+- +100%item from cyclops eyedrops, +20%item from Phat Loot, +20%item from Mad Looting Skillz, +20%item from oversized sparkler, +10%item from Object Quasi-Permeance, +10%item from Powers of Observatiogn, +10%item from Spice Ghost, +5%item from Thief among the Honorable (totalling 195%item) <br/>
+- Cast Steely-Eyed Squint (+195%item)
+
+> Item Test (42 turns, -39+ adv remaining, 15/15/0 organs) <br/>
+
+- +100% from song of the north, +50% from pool table (totalling +150%) <br/>
+- +12 from Jackasses' Symphony, +10 from Scowl of the Auk, +10 from Rage of the Reindeer, +8 from Tenacity of the Snapper, +7 from Claws of the Walrus and +5 from Disdain of the War Snapper (totalling +52 flat) <br/>
+- Cast bow-legged swagger (+150%wdmg +52flat) <br/>
+
+> Weapon Test (52 turns, -91+ adv remaining, 15/15/0 organs) <br/>
+> Donate your body to science!
