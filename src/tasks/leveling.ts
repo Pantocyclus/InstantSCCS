@@ -7,7 +7,6 @@ import {
   drink,
   eat,
   Effect,
-  fullnessLimit,
   getWorkshed,
   inebrietyLimit,
   myBasestat,
@@ -16,8 +15,8 @@ import {
   myInebriety,
   myLevel,
   myMeat,
+  myMp,
   restoreMp,
-  retrieveItem,
   takeStorage,
   use,
   visitUrl,
@@ -60,6 +59,14 @@ export const LevelingQuest: Quest = {
       do: () => use($item`a ten-percent bonus`, 1),
     },
     {
+      name: "Eat Roasted Vegetable Focaccia",
+      completed: () => myFullness() >= 9,
+      do: (): void => {
+        takeStorage($item`roasted vegetable focaccia`, 1);
+        eat($item`roasted vegetable focaccia`, 1);
+      },
+    },
+    {
       name: "Eat Calzone",
       completed: () => get("calzoneOfLegendEaten"),
       do: (): void => {
@@ -93,8 +100,17 @@ export const LevelingQuest: Quest = {
       },
     },
     {
+      name: "Drink Remaining Distilled Wines",
+      ready: () => myMp() >= 50,
+      completed: () =>
+        inebrietyLimit() - myInebriety() <= 12 || !have($item`distilled fortified wine`),
+      prepare: () => tryAcquiringEffect($effect`Ode to Booze`),
+      do: () => drink($item`distilled fortified wine`, 1),
+    },
+    {
       name: "Drink Bee's Knees",
-      completed: () => get("_speakeasyDrinksDrunk") > 1,
+      ready: () => myMp() >= 50 && myMeat() >= 500,
+      completed: () => get("_speakeasyDrinksDrunk") > 2 || have($effect`On the Trolley`),
       prepare: () => tryAcquiringEffect($effect`Ode to Booze`),
       do: () => visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=5&pwd=${+myHash()}`),
       post: (): void => {
@@ -105,16 +121,6 @@ export const LevelingQuest: Quest = {
       name: "Consult Gorgonzola",
       completed: () => get("_clanFortuneBuffUsed"),
       do: () => cliExecute("fortune myst"),
-    },
-    {
-      name: "Buy Oversized Sparkler",
-      completed: () => get("_fireworksShopEquipmentBought"),
-      do: () => buy($item`oversized sparkler`, 1),
-    },
-    {
-      name: "Get Codpiece",
-      completed: () => get("_floundryItemCreated"),
-      do: () => cliExecute("floundry codpiece"),
     },
     {
       name: "Pull Dinsey pass",
@@ -155,28 +161,15 @@ export const LevelingQuest: Quest = {
       },
     },
     {
-      name: "Chewing Gum",
-      completed: () => myMeat() < 1000 || have($item`turtle totem`),
-      do: (): void => {
-        buy(1, $item`chewing gum on a string`);
-        use(1, $item`chewing gum on a string`);
-      },
-      outfit: { pants: $item`designer sweatpants` },
-      acquire: [{ item: $item`toy accordion` }],
-      limit: { tries: 50 },
-    },
-    {
       name: "Use Mind Control Device",
       completed: () => currentMcd() >= 10,
       do: () => changeMcd(11),
     },
     {
-      name: "Fire Crackers",
-      completed: () => myMeat() <= 300 || fullnessLimit() - myFullness() <= 2,
-      do: (): void => {
-        buy($item`fire crackers`, 1);
-        eat($item`fire crackers`, 1);
-      },
+      name: "Buy Oversized Sparkler",
+      ready: () => have($effect`Everything Looks Red`) && myMeat() >= 1000,
+      completed: () => get("_fireworksShopEquipmentBought"),
+      do: () => buy($item`oversized sparkler`, 1),
     },
     {
       name: "Powerlevel",
@@ -185,12 +178,12 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         // if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
         //   cliExecute("umbrella ml");
-        if (have($item`January's Garbage Tote`)) retrieveItem($item`makeshift garbage shirt`);
+        // if (have($item`January's Garbage Tote`)) retrieveItem($item`makeshift garbage shirt`);
         if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`))
           buy($item`blue rocket`, 1);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`))
           buy($item`red rocket`, 1);
-        restoreMp(150);
+        restoreMp(40);
         // Prefer this over $effects`` so that the list is much more maintainable after linting
         const usefulEffects: Effect[] = [
           // Stats
@@ -236,7 +229,7 @@ export const LevelingQuest: Quest = {
         Macro.externalIf(!have($effect`Everything Looks Blue`), Macro.tryItem($item`blue rocket`))
           .externalIf(!have($effect`Everything Looks Red`), Macro.tryItem($item`red rocket`))
           //.trySkill($skill`Bowl Sideways`)
-          .trySkill($skill`Feel Pride`)
+          //.trySkill($skill`Feel Pride`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
           .default()
