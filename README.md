@@ -59,7 +59,7 @@ If you're looking to modify the script yourself, you may also consider these use
 ### Required Resources
 
 Because we do not rely heavily on too many IotMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. <br />
-<sub><sup>Note that the shinier you are, the easier it becomes to replace these requirements, so they would eventually become soft or even non-requirements.</sup></sub> <br />
+<sub><sup>Note that the shinier you are, the easier it becomes to replace these requirements, so they would eventually become soft or even non-requirements (especially those extremely small contributors).</sup></sub> <br />
 
 | Familiars                                                                        | Use      |
 | -------------------------------------------------------------------------------- | -------- |
@@ -104,13 +104,14 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Subtle and Quick to Anger](https://kol.coldfront.net/thekolwiki/index.php/Subtle_and_Quick_to_Anger)                               | test                  |
 | [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                                   | test                  |
 | [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                                   | test                  |
+| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg)                          | test                  |
 | [Fat Leon's Phat Loot Lyric](<https://kol.coldfront.net/thekolwiki/index.php/Fat_Leon%27s_Phat_Loot_Lyric_(skill)>)                 | test                  |
 | [Mad Looting Skillz](https://kol.coldfront.net/thekolwiki/index.php/Mad_Looting_Skillz)                                             | test                  |
 | [Object Quasi-Permanence](https://kol.coldfront.net/thekolwiki/index.php/Object_Quasi-Permanence)                                   | test                  |
 | [Powers of Observatiogn](https://kol.coldfront.net/thekolwiki/index.php/Powers_of_Observatiogn)                                     | test                  |
 | [Bind Spice Ghost](https://kol.coldfront.net/thekolwiki/index.php/Bind_Spice_Ghost)                                                 | test                  |
 | [Thief Among the Honorable](https://kol.coldfront.net/thekolwiki/index.php/Thief_Among_the_Honorable)                               | test                  |
-| [Natural Born Scrabbler](https://kol.coldfront.net/thekolwiki/index.php/Natural_Born_Scrabbler)                                     | test                  |
+| [20/20 Vision](<https://kol.coldfront.net/thekolwiki/index.php/20/20_Vision_(skill)>)                                               | test                  |
 | [Song of Sauce](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Sauce_(skill)>)                                             | test                  |
 | [Song of the North](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_the_North_(skill)>)                                     | test                  |
 | [Jackasses' Symphony of Destruction](<https://kol.coldfront.net/thekolwiki/index.php/Jackasses%27_Symphony_of_Destruction_(skill)>) | test                  |
@@ -131,7 +132,7 @@ Chances are, it's going to be super tight if you only have the resources stated 
 
 ### Basic Run Plan
 
-This plan tracks the most pessimistic adventure gains from consumables. You should expect more adventures on average.
+This plan tracks the most pessimistic adventure gains from consumables. You should expect more adventures on average (realistically, you should get roughly ~15.5adv more on average).
 
 > Run Start (40 adv remaining) <br/>
 
@@ -222,27 +223,27 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 
 > Spell Test (53 turns, 21+ adv remaining, 14/15/0 organs) <br/>
 
-- Yellow rocket a faxed factory worker (female) (1 turn, 20+ adv remaining, 14/15/0 organs)
+- Use a clover to grab a cyclops eyedrops from the Limerick Dungeon (1 turn, 20+ adv remaining, 14/15/0 organs) <br/>
+- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and yellow rocket a faxed factory worker (female) (1 turn, 19+ adv remaining, 14/15/0 organs)
+- Use Mus Test reward and cyclops eyedrops <br/>
+- Summon Spice Ghost <br/>
+- Craft and eat a roasted vegetable of Jarlsberg (25+ adv remaining, 15/15/0 organs)<br/>
+- +60%booze from Mus Test reward, +25%booze from Always Never Not Guzzling (totalling +85%booze)
+- +100%item from cyclops eyedrops, +100% from wizard sight, +25%item from Cosmic Ball in the Air, +20%item from Phat Loot, +20%item from Mad Looting Skillz, +20%item from oversized sparkler, +10%item from Object Quasi-Permeance, +10%item from Powers of Observatiogn, +10%item from Spice Ghost, +10%item from 20/20 Vision and +5%item from Thief among the Honorable (totalling 330%item) <br/>
+- Cast Steely-Eyed Squint (+330%item)
+
+> Item Test (33 turns, -8+ adv remaining, 15/15/0 organs) <br/>
+
 - Cast leash of linguini and empathy
 - Use NC Test reward
 - Use your parrot and equip it with the astral pet sweater (base 1lbs, +15lbs from skills, +10lbs from astral pet sweater, +20lbs from NC Test reward)
 - You should have +3res from Asbestos Heart, +3res from Tolerance of the Kitchen, +2res from Elemental Saucesphere, +1res from Astral Shell, +1res from Crimbo 2023 passive, +3res from Feeling no Pain, +5res from lava-proof pants, +4res from heat-resistance gloves and +3res from parrot (totalling +29res)
 
-> Hot Resist Test (35 turns, -15+ adv remaining, 14/15/0 organs) <br/>
-
-- Use a clover to grab a cyclops eyedrops from the Limerick Dungeon (1 turn, -16+ adv remaining, 14/15/0 organs) <br/>
-- Use Mus Test reward and cyclops eyedrops <br/>
-- Summon Spice Ghost <br/>
-- Craft and eat a roasted vegetable of Jarlsberg (-12+ adv remaining, 15/15/0 organs)<br/>
-- +60%booze from Mus Test reward, +25%booze from Always Never Not Guzzling (totalling +85%booze)
-- +100%item from cyclops eyedrops, +100% from wizard sight, +20%item from Phat Loot, +20%item from Mad Looting Skillz, +20%item from oversized sparkler, +10%item from Object Quasi-Permeance, +10%item from Powers of Observatiogn, +10%item from Spice Ghost, +5%item from Thief among the Honorable, +5%item from Natural Born Scrabbler (totalling 300%item) <br/>
-- Cast Steely-Eyed Squint (+300%item)
-
-> Item Test (35 turns, -47+ adv remaining, 15/15/0 organs) <br/>
+> Hot Resist Test (35 turns, -43+ adv remaining, 15/15/0 organs) <br/>
 
 - +100% from song of the north, +50% from pool table (totalling +150%) <br/>
 - +12 from Jackasses' Symphony, +10 from Scowl of the Auk, +10 from Rage of the Reindeer, +8 from Tenacity of the Snapper, +7 from Claws of the Walrus and +5 from Disdain of the War Snapper (totalling +52 flat) <br/>
 - Cast bow-legged swagger (+150%wdmg +52flat) <br/>
 
-> Weapon Test (52 turns, -99+ adv remaining, 15/15/0 organs) <br/>
+> Weapon Test (52 turns, -95+ adv remaining, 15/15/0 organs) <br/>
 > Donate your body to science!
