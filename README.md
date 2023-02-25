@@ -63,7 +63,7 @@ If you're looking to modify the script yourself, you may also consider these use
 
 ### Required Resources
 
-Because we do not rely heavily on too many IotMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. <br />
+Because we do not rely heavily on too many IotMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. The small +stat% buffs matter a lot for the offstat tests. <br />
 
 | Familiars                                                                        | Use      |
 | -------------------------------------------------------------------------------- | -------- |
