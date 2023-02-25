@@ -158,7 +158,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Pull and consume 1x Pizza of Legend (+2adv from pizza lover) (28+ adv remaining, 3/0/0 organs) <br/>
 - Buy red and blue rockets <br/>
 - Get fortune teller 100%myst buff <br/>
-- Set Annoy-o-Tron ML to 10 <br/>
+- Set Mind Control Device ML to 11 <br/>
 - (Set mood to) buy and use glittery mascara to always maintain Glittering Eyelashes <br/>
 - Pull and use a Dinsey daypass <br/>
 - Maximize myst and equip your cookbookbat <br/>
@@ -176,46 +176,46 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Acquire and equip an oversized sparkler the moment you have enough meat <br/>
 - Whenever you retrieve your bowling ball, always [Bowl Sideways](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Sideways) when possible<br/>
 - Spend 5 adventures (without free kills) in Gator's to get CBB legendary ingredients (5 turns, 62+ adv remaining, 5/3/0 organs)
-- Craft and eat 1x roasted vegetable of Jarlsberg (68+ adv remaining, 6/3/0 organs)
-- Spend ~42 more adventures + 4x free kills (shattering punch + mob hit) in Gator's (reconfigure trainset to ensure at least 8 brain silos), hitting no less than 190 base myst and ensuring that you have gotten your CBB to drop ingredients 5 times (~42 turns, 26+ adv remaining, 6/3/0 organs) <br/>
-- Drink 6x astral pilsners (with ode) while leveling in Gator's as soon as you hit level 11 (98+ adv remaining, 6/9/0 organs) <br/>
-- Also drink 1x Bee's Knees prior to using your 4x free kills (which should only be done at the end of the adv-taking leveling turns, so as to ensure the buff lasts through all the stat tests) (106+ adv remaining, 6/11/0 organs) <br/>
+- Spend ~42 more adventures + 4x free kills (shattering punch + mob hit) in Gator's (reconfigure trainset to ensure at least 8 brain silos), hitting no less than 185 base myst and ensuring that you have gotten your CBB to drop ingredients 5 times (~42 turns, 20+ adv remaining, 5/3/0 organs) <br/>
+- Drink 6x astral pilsners (with ode) while leveling in Gator's as soon as you hit level 11 (92+ adv remaining, 5/9/0 organs) <br/>
+- Also drink 1x Bee's Knees prior to using your 4x free kills (which should only be done at the end of the adv-taking leveling turns, so as to ensure the buff lasts through all the stat tests) (100+ adv remaining, 5/11/0 organs) <br/>
 - Similarly, use Lyle's buff prior to the 4x free kills<br/>
+- Craft and eat 1x roasted vegetable of Jarlsberg prior to the 4x free kills as well (this can be done earlier than Lyle's buff since we only need it to last through the Myst test, not all the stat tests) (106+ adv remaining, 6/11/0 organs)
 
 - Cook and consume 1x baked veggie ricotta casserole (121+ adv remaining, 8/11/0 organs) <br/>
 - Buff up as necessary for the myst test <br/>
 
-> Myst Test (~9 turns, 112+ adv remaining, 8/11/0 organs) <br/>
+> Myst Test (~3 turns, 118+ adv remaining, 8/11/0 organs) <br/>
 
 - Save the reward <br/>
-- Pull and eat 1x Deep Dish of Legend (+2adv from pizza lover) (132+ adv remaining, 10/11/0 organs)<br/>
+- Pull and eat 1x Deep Dish of Legend (+2adv from pizza lover) (138+ adv remaining, 10/11/0 organs)<br/>
 - Buff up as necessary for the HP test <br/>
 
-> HP Test (1 turn, 131+ adv remaining, 10/11/0 organs) <br/>
+> HP Test (1 turn, 137+ adv remaining, 10/11/0 organs) <br/>
 
 - Save the reward <br/>
 - Buy and use an all-purpose flower (the Gift Shop doesn't require beach access)<br/>
 - Buy and use a hair spray<br/>
-- Craft and consume 1x Petes Rich Ricotta (137+ adv remaining, 11/11/0 organs)<br/>
-- Craft and consume 1x plain calzone (+2adv from pizza lover) (154+ adv remaining, 13/11/0 organs)<br/>
+- Craft and consume 1x Petes Rich Ricotta (143+ adv remaining, 11/11/0 organs)<br/>
+- Craft and consume 1x plain calzone (+2adv from pizza lover) (160+ adv remaining, 13/11/0 organs)<br/>
 - Craft and use an oil of expertise<br/>
-- Use the pocket maze (should save ~9+ turns here, rather than 4 turns on the hot test)<br/>
+- Use the pocket maze (should save ~10+ turns here, rather than 4 turns on the hot test)<br/>
 - Buff up as necessary for the Mox test <br/>
 
-> Mox Test (1 turn, 153+ adv remaining, 13/11/0 organs) <br/>
+> Mox Test (1 turn, 159+ adv remaining, 13/11/0 organs) <br/>
 
 - Save the reward (it should save only ~7 turns here, as compared to the 12 turns on the NC test)<br/>
-- Craft and consume 1x honey bun of Boris (158+ adv remaining, 14/11/0 organs)<br/>
+- Craft and consume 1x honey bun of Boris (164+ adv remaining, 14/11/0 organs)<br/>
 - Craft and use a philter of phorce and an oil of expertise<br/>
 - Buy and use a Ben-Gal™ Balm<br/>
 - Buff up as necessary for the Mus test <br/>
 
-> Mus Test (~8 turns, 150+ adv remaining, 14/11/0 organs) <br/>
+> Mus Test (~8 turns, 156+ adv remaining, 14/11/0 organs) <br/>
 
 - Save the reward <br/>
 - You should have at least a ~5lbs cookbookbat, +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater, +5lbs from pool table <br/>
 
-> Fam Test (50 turns, 100+ adv remaining, 14/11/0 organs) <br/>
+> Fam Test (50 turns, 106+ adv remaining, 14/11/0 organs) <br/>
 
 - Purchase a porkpie-mounted popper <br/>
 - Grab Silent Running from the pool <br/>
@@ -223,41 +223,41 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Equip your Disgeist with your astral pet sweater (base 1lbs, +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater)
 - You should have -20% from Fam Test, -20% from Mox Test, -10% from codpiece, -10% from skills, -5% from the porkpie-mounted popper, -5% from silent running and -5% from your Disgeist (combat freq) <br/>
 
-> NC Test (15 turns, 85+ adv remaining, 14/11/0 organs) <br/>
+> NC Test (15 turns, 91+ adv remaining, 14/11/0 organs) <br/>
 
-- Use a clover to grab a cyclops eyedrops from the Limerick Dungeon (1 turn, 84+ adv remaining, 14/11/0 organs) <br/>
-- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and yellow rocket a faxed factory worker (female) (1 turn, 83+ adv remaining, 14/11/0 organs)
+- Use a clover to grab a cyclops eyedrops from the Limerick Dungeon (1 turn, 90+ adv remaining, 14/11/0 organs) <br/>
+- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and yellow rocket a faxed factory worker (female) (1 turn, 89+ adv remaining, 14/11/0 organs)
 - Use Mus Test reward and cyclops eyedrops <br/>
 - Summon Spice Ghost (non-pastamancer) <br/>
-- Craft and eat a roasted vegetable of Jarlsberg (89+ adv remaining, 15/11/0 organs)<br/>
+- Craft and eat a roasted vegetable of Jarlsberg (95+ adv remaining, 15/11/0 organs)<br/>
 - +60%booze from Mus Test reward, +25%booze from Always Never Not Guzzling (totalling +85%booze)
 - +100%item from cyclops eyedrops, +100% from wizard sight, +25%item from Cosmic Ball in the Air, +20%item from Phat Loot, +20%item from Mad Looting Skillz, +20%item from oversized sparkler, +10%item from Object Quasi-Permeance, +10%item from Powers of Observatiogn, +10%item from 20/20 Vision, +5%item from Spice Ghost, +5%item from Natural Born Scrabbler and +5%item from Thief among the Honorable (totalling 330%item) <br/>
 - Cast Steely-Eyed Squint (+330%item)<br/>
 
-> Item Test (33 turns, 56+ adv remaining, 15/11/0 organs) <br/>
+> Item Test (33 turns, 62+ adv remaining, 15/11/0 organs) <br/>
 
 - Cast leash of linguini and empathy<br/>
 - Use NC Test reward<br/>
 - Use your parrot and equip it with the astral pet sweater (base 1lbs, +15lbs from skills, +10lbs from astral pet sweater, +20lbs from NC Test reward)<br/>
-- Cast ode and drink an Ish Kabibble (64+ adv remaining, 15/13/0 organs)<bre/>
+- Cast ode and drink an Ish Kabibble (70+ adv remaining, 15/13/0 organs)<bre/>
 - You should have +3res from Ish Kabibble, +3res from Asbestos Heart, +3res from Tolerance of the Kitchen, +2res from Elemental Saucesphere, +1res from Astral Shell, +1res from Crimbo 2023 passive, +3res from Feeling no Pain, +5res from lava-proof pants, +4res from heat-resistance gloves and +3res from parrot (totalling +28res)<br/>
 
-> Hot Resist Test (32 turns, 32+ adv remaining, 15/13/0 organs) <br/>
+> Hot Resist Test (32 turns, 38+ adv remaining, 15/13/0 organs) <br/>
 
-- Cast ode and drink a Sockdollager (40+ adv remaining, 15/15/0 organs) <br/>
+- Cast ode and drink a Sockdollager (46+ adv remaining, 15/15/0 organs) <br/>
 - Craft and use a potion of potency <br/>
 - Buy a [goofily-plumed helmet](https://kol.coldfront.net/thekolwiki/index.php/Goofily-plumed_helmet) to get [Weapon of Mass Destruction](https://kol.coldfront.net/thekolwiki/index.php/Weapon_of_Mass_Destruction) from the Mad Hatter<br/>
 - +100% from song of the north, +100% from carol of the bulls, +50% from pool table, +50% from sockdollager, +30% from hatter buff (totalling +330%) <br/>
 - +20 from sockdollager, +12 from Jackasses' Symphony, +10 from Scowl of the Auk, +10 from Rage of the Reindeer, +8 from Tenacity of the Snapper, +7 from Claws of the Walrus, +5 from Disdain of the War Snapper and +5 from potion of potency (totalling +77 flat) <br/>
 - Cast bow-legged swagger (+330%wdmg +77flat) <br/>
 
-> Weapon Test (44 turns, -6+ adv remaining, 15/15/0 organs) <br/>
+> Weapon Test (44 turns, 2+ adv remaining, 15/15/0 organs) <br/>
 
 - Buy an obsidian nutcracker <br/>
-- Cast simmer (1 turn, -7+ adv remaining, 15/15/0 organs) <br/>
+- Cast simmer (1 turn, 1+ adv remaining, 15/15/0 organs) <br/>
 - You should have +100% from Song of Sauce, +100% from simmer, +100% from carol of the hells, +50% from pool table, 30% from obsidian nutcracker, 10% from Master Saucier and 10% from Subtle and Quick to Anger (totalling +400%sdmg)<br/>
 - You should also have +50 from codpiece (flat sdmg) <br/>
 
-> Spell Test (51 turns, -58+ adv remaining, 15/15/0 organs) <br/>
+> Spell Test (51 turns, -50+ adv remaining, 15/15/0 organs) <br/>
 
 > Donate your body to science!<br/>
