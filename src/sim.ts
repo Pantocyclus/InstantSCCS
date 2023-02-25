@@ -108,6 +108,10 @@ function buildIotmList(): Requirement[] {
       optional: true,
     },
     {
+      thing: $item`backup camera`,
+      why: "More fights from locket",
+    },
+    {
       thing: $item`January's Garbage Tote`,
       why: "XP for leveling",
       optional: true,
@@ -313,10 +317,12 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`Master Saucier`,
       why: "Spell Damage",
+      optional: true,
     },
     {
       thing: $skill`Subtle and Quick to Anger`,
       why: "Spell Damage",
+      optional: true,
     },
     {
       thing: $skill`Always Never Not Guzzling`,
@@ -325,30 +331,37 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`Fat Leon's Phat Loot Lyric`,
       why: "Item Drop",
+      optional: true,
     },
     {
       thing: $skill`Mad Looting Skillz`,
       why: "Item Drop",
+      optional: true,
     },
     {
       thing: $skill`Object Quasi-Permanence`,
       why: "Item Drop",
+      optional: true,
     },
     {
       thing: $skill`Powers of Observatiogn`,
       why: "Item Drop",
+      optional: true,
     },
     {
       thing: $skill`Bind Spice Ghost`,
       why: "Item Drop",
+      optional: true,
     },
     {
       thing: $skill`Thief Among the Honorable`,
       why: "Item Drop",
+      optional: true,
     },
     {
       thing: $skill`Natural Born Scrabbler`,
       why: "Item Drop",
+      optional: true,
     },
     {
       thing: $skill`20/20 Vision`,
@@ -373,26 +386,32 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`Jackasses' Symphony of Destruction`,
       why: "Weapon Damage",
+      optional: true,
     },
     {
       thing: $skill`Scowl of the Auk`,
       why: "Weapon Damage",
+      optional: true,
     },
     {
       thing: $skill`Rage of the Reindeer`,
       why: "Weapon Damage",
+      optional: true,
     },
     {
       thing: $skill`Tenacity of the Snapper`,
       why: "Weapon Damage",
+      optional: true,
     },
     {
       thing: $skill`Claws of the Walrus`,
       why: "Weapon Damage",
+      optional: true,
     },
     {
       thing: $skill`Blessing of the War Snapper`,
       why: "Weapon Damage",
+      optional: true,
     },
   ];
 }
