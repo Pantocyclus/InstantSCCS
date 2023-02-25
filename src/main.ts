@@ -18,6 +18,7 @@ import { HPQuest, MoxieQuest, MuscleQuest, MysticalityQuest } from "./tasks/stat
 import { LevelingQuest } from "./tasks/leveling";
 import { CoilWireQuest } from "./tasks/coilwire";
 import { RunStartQuest } from "./tasks/runstart";
+import { checkRequirements } from "./sim";
 
 const timeProperty = "fullday_elapsedTime";
 
@@ -26,12 +27,17 @@ export const args = Args.create("InstantHCCS", "A full-day wrapper script.", {
     help: "If the user must confirm execution of each task.",
     default: false,
   }),
+  sim: Args.flag({ help: "Check if you have the requirements to run this script.", setting: "" }),
 });
 
 export function main(command?: string): void {
   Args.fill(args, command);
   if (args.help) {
     Args.showHelp(args);
+    return;
+  }
+  if (args.sim) {
+    checkRequirements();
     return;
   }
 
