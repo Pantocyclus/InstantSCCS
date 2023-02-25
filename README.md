@@ -1,6 +1,6 @@
 # InstantSCCS
 
-`InstantSCCS` is a softcore Community Service script for looping in Kingdom of Loathing designed to work for low-shiny accounts (i.e. accounts with minimal expensive items/skills) and mostly requires only cheap resources. Unfortunately, this means that the user is expected to have a bunch of softcore-permed skills, and at least 2 IotMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
+`InstantSCCS` is a softcore Community Service script for looping in Kingdom of Loathing designed to work for low-shiny accounts (i.e. accounts with minimal expensive items/skills) and mostly requires only cheap resources. Unfortunately, this means that the user is expected to have a bunch of softcore-permed skills, and at least ~4 IotMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
 
 ## Installation
 
@@ -24,7 +24,7 @@ For those who are interested in using `InstantSCCS` as is, the following section
 
 - [astral six-pack](https://kol.coldfront.net/thekolwiki/index.php/Astral_six-pack) from The Deli Lama
 - [astral pet sweater](https://kol.coldfront.net/thekolwiki/index.php/Astral_pet_sweater) from Pet Heaven
-- [Pastamancer](https://kol.coldfront.net/thekolwiki/index.php/Pastamancer)
+- [Sauceror](https://kol.coldfront.net/thekolwiki/index.php/Sauceror)
 - [The Blender](https://kol.coldfront.net/thekolwiki/index.php/The_Blender)
 - [Softcore](https://kol.coldfront.net/thekolwiki/index.php/Ascension#Normal_Difficulty)
 
@@ -69,6 +69,7 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | Skills                                                                                                                              | Use                   |
 | ----------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
 | [Inscrutable Gaze](<https://kol.coldfront.net/thekolwiki/index.php/Inscrutable_Gaze_(skill)>)                                       | xp%                   |
+| [Song of Bravado](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Bravado_(skill)>)                                         | stat%                 |
 | [Get Big](https://kol.coldfront.net/thekolwiki/index.php/Get_Big)                                                                   | stat%                 |
 | [Stevedave's Shanty of Superiority](<https://kol.coldfront.net/thekolwiki/index.php/Stevedave%27s_Shanty_of_Superiority_(skill)>)   | stat%                 |
 | [The Ode to Booze](https://kol.coldfront.net/thekolwiki/index.php/The_Ode_to_Booze)                                                 | adv                   |
@@ -94,6 +95,7 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Saucegeyser](https://kol.coldfront.net/thekolwiki/index.php/Saucegeyser)                                                           | attacking spell       |
 | [Advanced Saucecrafting](https://kol.coldfront.net/thekolwiki/index.php/Advanced_Saucecrafting)                                     | saucecrafting         |
 | [The Way of Sauce](https://kol.coldfront.net/thekolwiki/index.php/The_Way_of_Sauce)                                                 | saucecrafting         |
+| [Impetuous Sauciness](https://kol.coldfront.net/thekolwiki/index.php/Impetuous_Sauciness)                                           | saucecrafting         |
 | [Expert Corner-Cutter](https://kol.coldfront.net/thekolwiki/index.php/Expert_Corner-Cutter)                                         | saucecrafting         |
 | [Prevent Scurvy and Sobriety](https://kol.coldfront.net/thekolwiki/index.php/Prevent_Scurvy_and_Sobriety)                           | saucecrafting/turngen |
 | [Perfect Freeze](https://kol.coldfront.net/thekolwiki/index.php/Perfect_Freeze)                                                     | turngen               |
@@ -111,7 +113,10 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Powers of Observatiogn](https://kol.coldfront.net/thekolwiki/index.php/Powers_of_Observatiogn)                                     | test                  |
 | [Bind Spice Ghost](https://kol.coldfront.net/thekolwiki/index.php/Bind_Spice_Ghost)                                                 | test                  |
 | [Thief Among the Honorable](https://kol.coldfront.net/thekolwiki/index.php/Thief_Among_the_Honorable)                               | test                  |
+| [Natural Born Scrabbler](https://kol.coldfront.net/thekolwiki/index.php/Natural_Born_Scrabbler)                                     | test                  |
 | [20/20 Vision](<https://kol.coldfront.net/thekolwiki/index.php/20/20_Vision_(skill)>)                                               | test                  |
+| [Carol of the Bulls](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Bulls_(skill)>)                                   | test                  |
+| [Carol of the Hells](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Hells_(skill)>)                                   | test                  |
 | [Song of Sauce](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Sauce_(skill)>)                                             | test                  |
 | [Song of the North](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_the_North_(skill)>)                                     | test                  |
 | [Jackasses' Symphony of Destruction](<https://kol.coldfront.net/thekolwiki/index.php/Jackasses%27_Symphony_of_Destruction_(skill)>) | test                  |
@@ -147,10 +152,11 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Use ten-percent bonus <br/>
 - Top up your clan hot dog stand with 10 cranberries, then eat 1x one with everything (6+ adv remaining, 2/0/0 organs) <br/>
 - Pull and consume 1x roasted vegetable foccacia (+2adv from pizza lover) (23+ adv remaining, 4/0/0 organs) <br/>
-- Free rest 3 times in your newbiesport tent to restore 30mp
 - Cast ode and drink 2x Bee's Knees (+5adv from Blender) (44+ adv remaining, 4/4/0 organs) <br/>
 - Buy red and blue rockets <br/>
 - Get fortune teller 100%myst buff <br/>
+- Cast Prevent Scurvy and Sobriety <br/>
+- Use 1 reagent to craft 3x ointment of the occults and get the mystically oiled buff, which should last for 45turns <br/>
 - Set Annoy-o-Tron ML to 10 <br/>
 - (Set mood to) buy and use glittery mascara to always maintain Glittering Eyelashes <br/>
 - Pull and use a Dinsey daypass <br/>
@@ -158,7 +164,6 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Configure your trainset (coal/brain silo/viewing platform/water bridge/fizzy tower/frozen tower/meat/candy) <br/>
 - Spend 1adv in Gator's to get red and blue rocket buffs (no free kills - adventure needs to be spent to restore mp; ensure you have at least 24mp for saucegeyser) (1 turn, 43+ adv remaining, 4/4/0 organs) <br/>
 - Pull and consume 1x calzone of legend (+2adv from pizza lover) (63+ adv remaining, 6/4/0 organs) <br/>
-- Cast Prevent Scurvy and Sobriety <br/>
 - Cast Perfect Freeze, craft and drink a Perfect Dark and Stormy (with ode) (84+ adv remaining, 6/7/0 organs)
 - Cast/acquire Stevedave's Shanty, Big, Ur-kel's Aria, Pride of the Puffin and Drescher's Annoying Noise (and other stat/stat%/ML buffs) <br/>
 - Purchase a yellow rocket<br/>
@@ -169,82 +174,82 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Whenever you retrieve your bowling ball, always [Bowl Sideways](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Sideways) in the next combat<br/>
 - Spend 5 adventures (without free kills) in Gator's to get CBB legendary ingredients (5 turns, 78+ adv remaining, 6/7/0 organs)
 - Craft and eat 1x roasted vegetable of Jarlsberg (84+ adv remaining, 7/7/0 organs)
-- Spend ~32 adventures + 4 free kills (shattering punch + mob hit) in Gator's (reconfigure trainset to ensure 7 brain silos), hitting no less than 180 base myst and ensuring that you have gotten your CBB to drop ingredients 4 times (~32 turns, 52+ adv remaining, 7/7/0 organs) <br/>
-- Drink 6x astral pilsners (with ode) while leveling in Gator's as soon as you hit level 11 (124+ adv remaining, 7/13/0 organs) <br/>
-- Craft and use as many ointment of the occults (1-2 from Prevent Scurvy and Sobriety, 2 from YRed novelty tropical skeleton) and use them as late as possible, ensuring that you have at least 1 turn left of mystically oiled for the myst test<br/>
+- Spend ~31 adventures + 4 free kills (shattering punch + mob hit) in Gator's (reconfigure trainset to ensure 7 brain silos), hitting no less than 174 base myst and ensuring that you have gotten your CBB to drop ingredients 4 times (~31 turns, 53+ adv remaining, 7/7/0 organs) <br/>
+- Drink 6x astral pilsners (with ode) while leveling in Gator's as soon as you hit level 11 (125+ adv remaining, 7/13/0 organs) <br/>
 - Use Lyle's buff as late as possible, ensuring that you have at least 3 turns left of the buff to last through the myst and hp test<br/>
 
-- Cook and consume 1x baked veggie ricotta casserole (139+ adv remaining, 9/13/0 organs) <br/>
+- Cook and consume 1x baked veggie ricotta casserole (140+ adv remaining, 9/13/0 organs) <br/>
 - Buff up as necessary for the myst test <br/>
 
-> Myst Test (1 turn, 138+ adv remaining, 9/13/0 organs) <br/>
+> Myst Test (1 turn, 139+ adv remaining, 9/13/0 organs) <br/>
 
 - Save the reward <br/>
-- Cast ode and drink 1x Bee's Knees (146+ adv remaining, 9/15/0 organs) <br/>
-- Pull and eat 1x Deep Dish of Legend (+2adv from pizza lover) (166+ adv remaining, 11/15/0 organs)<br/>
+- Cast ode and drink 1x Bee's Knees (147+ adv remaining, 9/15/0 organs) <br/>
+- Pull and eat 1x Deep Dish of Legend (+2adv from pizza lover) (167+ adv remaining, 11/15/0 organs)<br/>
 - Buff up as necessary for the HP test <br/>
 
-> HP Test (1 turn, 165+ adv remaining, 11/15/0 organs) <br/>
+> HP Test (1 turn, 166+ adv remaining, 11/15/0 organs) <br/>
 
 - Save the reward <br/>
 - Buy a desert pass (you should have enough meat from the meat train)<br/>
 - Buy and use an all-purpose flower<br/>
 - Buy and use a hair spray<br/>
-- Craft and consume 2x Pete's Wiley Whey Bar and 1x Petes Rich Ricotta (181+ adv remaining, 14/15/0 organs)<br/>
-- Use the pocket maze (should save ~12 turns here, rather than 4 turns on the hot test)<br/>
+- Craft and consume 2x Pete's Wiley Whey Bar and 1x Petes Rich Ricotta (182+ adv remaining, 14/15/0 organs)<br/>
+- Craft and use an oil of expertise<br/>
+- Use the pocket maze (should save ~11 turns here, rather than 4 turns on the hot test)<br/>
 - Buff up as necessary for the Mox test <br/>
 
-> Mox Test (~18 turns, 163+ adv remaining, 14/15/0 organs) <br/>
+> Mox Test (~19 turns, 163+ adv remaining, 14/15/0 organs) <br/>
 
-- Use the shady shades (should save ~13 turns here, rather than 12 turns on the NC test, and ensures we will have [In the Depths](https://kol.coldfront.net/thekolwiki/index.php/In_the_Depths) from the deep dish pizza lasting till we use our Disgeist for the NC test)<br/>
-- Craft and use a philter of phorce<br/>
+- Use the shady shades (should save ~12 turns here, rather than 12 turns on the NC test, and ensures we will have [In the Depths](https://kol.coldfront.net/thekolwiki/index.php/In_the_Depths) from the deep dish pizza lasting till we use our Disgeist for the NC test)<br/>
+- Craft and use a philter of phorce and an oil of expertise<br/>
 - Buy and use a Ben-Gal™ Balm<br/>
 - Buff up as necessary for the Mus test <br/>
 
-> Mus Test (~14 turns, 149+ adv remaining, 14/15/0 organs) <br/>
+> Mus Test (~15 turns, 148+ adv remaining, 14/15/0 organs) <br/>
 
 - Save the reward <br/>
 - You should have at least a 20lbs cookbookbat (after 40adv of +10famxp), +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater, +5lbs from pool table <br/>
 
-> Fam Test (47 turns, 102+ adv remaining, 14/15/0 organs) <br/>
+> Fam Test (47 turns, 101+ adv remaining, 14/15/0 organs) <br/>
 
 - Purchase a porkpie-mounted popper <br/>
 - Grab Silent Running from the pool <br/>
 - Equip your Disgeist with your astral pet sweater (base 1lbs, +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater)
 - You should have -20% from Fam Test, -10% from codpiece, -10% from skills, -5% from the porkpie-mounted popper, -5% from silent running and -5% from your Disgeist (combat freq) <br/>
 
-> NC Test (27 turns, 75+ adv remaining, 14/15/0 organs) <br/>
+> NC Test (27 turns, 74+ adv remaining, 14/15/0 organs) <br/>
 
 - Save the reward <br/>
 - Buy an obsidian nutcracker <br/>
-- Cast simmer (1 turn, 74+ adv remaining, 14/15/0 organs) <br/>
-- You should have +100% from Song of Sauce, +100% from simmer, +50% from pool table, 30% from obsidian nutcracker, 10% from Master Saucier and 10% from Subtle and Quick to Anger (totalling +300%sdmg)<br/>
+- Cast simmer (1 turn, 73+ adv remaining, 14/15/0 organs) <br/>
+- You should have +100% from Song of Sauce, +100% from simmer, +100% from carol of the hells, +50% from pool table, 30% from obsidian nutcracker, 10% from Master Saucier and 10% from Subtle and Quick to Anger (totalling +400%sdmg)<br/>
 - You should also have +50 from codpiece (flat sdmg) <br/>
 
-> Spell Test (53 turns, 21+ adv remaining, 14/15/0 organs) <br/>
+> Spell Test (51 turns, 22+ adv remaining, 14/15/0 organs) <br/>
 
-- Use a clover to grab a cyclops eyedrops from the Limerick Dungeon (1 turn, 20+ adv remaining, 14/15/0 organs) <br/>
-- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and yellow rocket a faxed factory worker (female) (1 turn, 19+ adv remaining, 14/15/0 organs)
+- Use a clover to grab a cyclops eyedrops from the Limerick Dungeon (1 turn, 21+ adv remaining, 14/15/0 organs) <br/>
+- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and yellow rocket a faxed factory worker (female) (1 turn, 20+ adv remaining, 14/15/0 organs)
 - Use Mus Test reward and cyclops eyedrops <br/>
 - Summon Spice Ghost <br/>
-- Craft and eat a roasted vegetable of Jarlsberg (25+ adv remaining, 15/15/0 organs)<br/>
+- Craft and eat a roasted vegetable of Jarlsberg (26+ adv remaining, 15/15/0 organs)<br/>
 - +60%booze from Mus Test reward, +25%booze from Always Never Not Guzzling (totalling +85%booze)
-- +100%item from cyclops eyedrops, +100% from wizard sight, +25%item from Cosmic Ball in the Air, +20%item from Phat Loot, +20%item from Mad Looting Skillz, +20%item from oversized sparkler, +10%item from Object Quasi-Permeance, +10%item from Powers of Observatiogn, +10%item from Spice Ghost, +10%item from 20/20 Vision and +5%item from Thief among the Honorable (totalling 330%item) <br/>
+- +100%item from cyclops eyedrops, +100% from wizard sight, +25%item from Cosmic Ball in the Air, +20%item from Phat Loot, +20%item from Mad Looting Skillz, +20%item from oversized sparkler, +10%item from Object Quasi-Permeance, +10%item from Powers of Observatiogn, +10%item from 20/20 Vision, +5%item from Spice Ghost, +5%item from Natural Born Scrabbler and +5%item from Thief among the Honorable (totalling 330%item) <br/>
 - Cast Steely-Eyed Squint (+330%item)<br/>
 
-> Item Test (33 turns, -8+ adv remaining, 15/15/0 organs) <br/>
+> Item Test (33 turns, -7+ adv remaining, 15/15/0 organs) <br/>
 
 - Cast leash of linguini and empathy<br/>
 - Use NC Test reward<br/>
 - Use your parrot and equip it with the astral pet sweater (base 1lbs, +15lbs from skills, +10lbs from astral pet sweater, +20lbs from NC Test reward)<br/>
 - You should have +3res from Asbestos Heart, +3res from Tolerance of the Kitchen, +2res from Elemental Saucesphere, +1res from Astral Shell, +1res from Crimbo 2023 passive, +3res from Feeling no Pain, +5res from lava-proof pants, +4res from heat-resistance gloves and +3res from parrot (totalling +29res)<br/>
 
-> Hot Resist Test (35 turns, -43+ adv remaining, 15/15/0 organs) <br/>
+> Hot Resist Test (35 turns, -42+ adv remaining, 15/15/0 organs) <br/>
 
 - Buy a [goofily-plumed helmet](https://kol.coldfront.net/thekolwiki/index.php/Goofily-plumed_helmet) to get [Weapon of Mass Destruction](https://kol.coldfront.net/thekolwiki/index.php/Weapon_of_Mass_Destruction) from the Mad Hatter<br/>
-- +100% from song of the north, +50% from pool table, +30% from hatter buff (totalling +180%) <br/>
+- +100% from song of the north, +100% from carol of the bulls, +50% from pool table, +30% from hatter buff (totalling +280%) <br/>
 - +12 from Jackasses' Symphony, +10 from Scowl of the Auk, +10 from Rage of the Reindeer, +8 from Tenacity of the Snapper, +7 from Claws of the Walrus and +5 from Disdain of the War Snapper (totalling +52 flat) <br/>
-- Cast bow-legged swagger (+180%wdmg +52flat) <br/>
+- Cast bow-legged swagger (+280%wdmg +52flat) <br/>
 
-> Weapon Test (51 turns, -94+ adv remaining, 15/15/0 organs) <br/>
+> Weapon Test (47 turns, -89+ adv remaining, 15/15/0 organs) <br/>
 > Donate your body to science!<br/>
