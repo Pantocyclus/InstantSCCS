@@ -165,8 +165,8 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Configure your trainset (coal/brain silo/viewing platform/water bridge/fizzy tower/frozen tower/meat/candy) <br/>
 - Spend 1adv in Gator's to get red and blue rocket buffs (no free kills - adventure needs to be spent to restore mp; ensure you have at least 32mp for saucegeyser + curse of weaksauce, and always use the curse to restore mp) (1 turn, 27+ adv remaining, 3/0/0 organs) <br/>
 - Pull and consume 1x calzone of legend (+2adv from pizza lover) (47+ adv remaining, 5/0/0 organs) <br/>
-- Cast Prevent Scurvy and Sobriety <br/>
-- Cast Perfect Freeze, craft and drink a Perfect Dark and Stormy (with ode) (68+ adv remaining, 5/3/0 organs)
+- Cast Prevent Scurvy and Sobriety and Perfect Freeze<br/>
+- Craft and drink a Perfect Dark and Stormy (with ode) (68+ adv remaining, 5/3/0 organs)
 - Cast/acquire Stevedave's Shanty, Big, Ur-kel's Aria, Pride of the Puffin and Drescher's Annoying Noise (and other stat/stat%/ML buffs) <br/>
 - Purchase a yellow rocket<br/>
 - Spend up to 3 turns banishing, first with your cosmic bowling ball, then subsequently with snokebomb in [the skeleton store](https://kol.coldfront.net/thekolwiki/index.php/The_Skeleton_Store) until you find a [novelty tropical skeleton](https://kol.coldfront.net/thekolwiki/index.php/Novelty_tropical_skeleton). You should be guaranteed to hit the novelty tropical skeleton by the 3rd try if you have set up your ice house correctly. <br/>
@@ -176,9 +176,9 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Acquire and equip an oversized sparkler the moment you have enough meat <br/>
 - Whenever you retrieve your bowling ball, always [Bowl Sideways](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Sideways) when possible<br/>
 - Spend 5 adventures (without free kills) in Gator's to get CBB legendary ingredients (5 turns, 62+ adv remaining, 5/3/0 organs)
-- Spend ~42 more adventures + 4x free kills (shattering punch + mob hit) in Gator's (reconfigure trainset to ensure at least 8 brain silos), hitting no less than 185 base myst and ensuring that you have gotten your CBB to drop ingredients 5 times (~42 turns, 20+ adv remaining, 5/3/0 organs) <br/>
+- Spend ~42 more adventures + 4x free kills (shattering punch + mob hit, done after the turn-taking fights) in Gator's (reconfigure trainset to ensure at least 8 brain silos), hitting no less than 185 base myst and ensuring that you have gotten your CBB to drop ingredients 5 times (~42 turns, 20+ adv remaining, 5/3/0 organs) <br/>
 - Drink 6x astral pilsners (with ode) while leveling in Gator's as soon as you hit level 11 (92+ adv remaining, 5/9/0 organs) <br/>
-- Also drink 1x Bee's Knees prior to using your 4x free kills (which should only be done at the end of the adv-taking leveling turns, so as to ensure the buff lasts through all the stat tests) (100+ adv remaining, 5/11/0 organs) <br/>
+- Also drink 1x Bee's Knees prior to using your 4x free kills (100+ adv remaining, 5/11/0 organs) <br/>
 - Similarly, use Lyle's buff prior to the 4x free kills<br/>
 - Craft and eat 1x roasted vegetable of Jarlsberg prior to the 4x free kills as well (this can be done earlier than Lyle's buff since we only need it to last through the Myst test, not all the stat tests) (106+ adv remaining, 6/11/0 organs)
 
@@ -213,7 +213,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 > Mus Test (~8 turns, 156+ adv remaining, 14/11/0 organs) <br/>
 
 - Save the reward <br/>
-- You should have at least a ~5lbs cookbookbat, +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater, +5lbs from pool table <br/>
+- You should have at least a ~7lbs cookbookbat, +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater, +5lbs from pool table <br/>
 
 > Fam Test (50 turns, 106+ adv remaining, 14/11/0 organs) <br/>
 
