@@ -106,37 +106,37 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Perfect Freeze](https://kol.coldfront.net/thekolwiki/index.php/Perfect_Freeze)                                                   | turngen                 |
 | [Drinking to Drink](https://kol.coldfront.net/thekolwiki/index.php/Drinking_to_Drink)                                             | turngen                 |
 | [Inner Sauce](https://kol.coldfront.net/thekolwiki/index.php/Inner_Sauce)                                                         | mp regen                |
-| [Double-Fisted Skull Smashing](https://kol.coldfront.net/thekolwiki/index.php/Double-Fisted_Skull_Smashing)                       | test                    |
-| [Carol of the Bulls](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Bulls_(skill)>)                                 | test                    |
-| [Carol of the Hells](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Hells_(skill)>)                                 | test                    |
-| [Song of Sauce](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Sauce_(skill)>)                                           | test                    |
-| [Song of the North](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_the_North_(skill)>)                                   | test                    |
-| [Simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer)                                                                   | test                    |
-| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                                 | test                    |
-| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                                 | test                    |
-| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg)                        | test                    |
+| [Double-Fisted Skull Smashing](https://kol.coldfront.net/thekolwiki/index.php/Double-Fisted_Skull_Smashing)                       | stat test               |
+| [Carol of the Bulls](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Bulls_(skill)>)                                 | wdmg test               |
+| [Carol of the Hells](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Hells_(skill)>)                                 | sdmg test               |
+| [Song of Sauce](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Sauce_(skill)>)                                           | sdmg test               |
+| [Song of the North](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_the_North_(skill)>)                                   | wdmg test               |
+| [Simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer)                                                                   | sdmg test               |
+| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                                 | wdmg test               |
+| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                                 | item test               |
+| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg)                        | item test               |
 
 ### Almost-Required Resources
 
 You are strongly recommended to have these resources. However, none of them provide much turn savings on their own (although together they do make up quite a bit), and these may be easily replaced with shinies.
 
-| Skills                                                                                                                              | Use  |
-| ----------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| [Master Saucier](https://kol.coldfront.net/thekolwiki/index.php/Master_Saucier)                                                     | test |
-| [Subtle and Quick to Anger](https://kol.coldfront.net/thekolwiki/index.php/Subtle_and_Quick_to_Anger)                               | test |
-| [Fat Leon's Phat Loot Lyric](<https://kol.coldfront.net/thekolwiki/index.php/Fat_Leon%27s_Phat_Loot_Lyric_(skill)>)                 | test |
-| [Mad Looting Skillz](https://kol.coldfront.net/thekolwiki/index.php/Mad_Looting_Skillz)                                             | test |
-| [Object Quasi-Permanence](https://kol.coldfront.net/thekolwiki/index.php/Object_Quasi-Permanence)                                   | test |
-| [Powers of Observatiogn](https://kol.coldfront.net/thekolwiki/index.php/Powers_of_Observatiogn)                                     | test |
-| [Bind Spice Ghost](https://kol.coldfront.net/thekolwiki/index.php/Bind_Spice_Ghost)                                                 | test |
-| [Thief Among the Honorable](https://kol.coldfront.net/thekolwiki/index.php/Thief_Among_the_Honorable)                               | test |
-| [Natural Born Scrabbler](https://kol.coldfront.net/thekolwiki/index.php/Natural_Born_Scrabbler)                                     | test |
-| [Jackasses' Symphony of Destruction](<https://kol.coldfront.net/thekolwiki/index.php/Jackasses%27_Symphony_of_Destruction_(skill)>) | test |
-| [Scowl of the Auk](<https://kol.coldfront.net/thekolwiki/index.php/Scowl_of_the_Auk_(skill)>)                                       | test |
-| [Rage of the Reindeer](<https://kol.coldfront.net/thekolwiki/index.php/Rage_of_the_Reindeer_(skill)>)                               | test |
-| [Tenacity of the Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Tenacity_of_the_Snapper_(skill)>)                         | test |
-| [Claws of the Walrus](https://kol.coldfront.net/thekolwiki/index.php/Claws_of_the_Walrus)                                           | test |
-| [Blessing of the War Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Blessing_of_the_War_Snapper_(skill)>)                 | test |
+| Skills                                                                                                                              | Use       |
+| ----------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| [Master Saucier](https://kol.coldfront.net/thekolwiki/index.php/Master_Saucier)                                                     | sdmg test |
+| [Subtle and Quick to Anger](https://kol.coldfront.net/thekolwiki/index.php/Subtle_and_Quick_to_Anger)                               | sdmg test |
+| [Fat Leon's Phat Loot Lyric](<https://kol.coldfront.net/thekolwiki/index.php/Fat_Leon%27s_Phat_Loot_Lyric_(skill)>)                 | item test |
+| [Mad Looting Skillz](https://kol.coldfront.net/thekolwiki/index.php/Mad_Looting_Skillz)                                             | item test |
+| [Object Quasi-Permanence](https://kol.coldfront.net/thekolwiki/index.php/Object_Quasi-Permanence)                                   | item test |
+| [Powers of Observatiogn](https://kol.coldfront.net/thekolwiki/index.php/Powers_of_Observatiogn)                                     | item test |
+| [Bind Spice Ghost](https://kol.coldfront.net/thekolwiki/index.php/Bind_Spice_Ghost)                                                 | item test |
+| [Thief Among the Honorable](https://kol.coldfront.net/thekolwiki/index.php/Thief_Among_the_Honorable)                               | item test |
+| [Natural Born Scrabbler](https://kol.coldfront.net/thekolwiki/index.php/Natural_Born_Scrabbler)                                     | item test |
+| [Jackasses' Symphony of Destruction](<https://kol.coldfront.net/thekolwiki/index.php/Jackasses%27_Symphony_of_Destruction_(skill)>) | wdmg test |
+| [Scowl of the Auk](<https://kol.coldfront.net/thekolwiki/index.php/Scowl_of_the_Auk_(skill)>)                                       | wdmg test |
+| [Rage of the Reindeer](<https://kol.coldfront.net/thekolwiki/index.php/Rage_of_the_Reindeer_(skill)>)                               | wdmg test |
+| [Tenacity of the Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Tenacity_of_the_Snapper_(skill)>)                         | wdmg test |
+| [Claws of the Walrus](https://kol.coldfront.net/thekolwiki/index.php/Claws_of_the_Walrus)                                           | wdmg test |
+| [Blessing of the War Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Blessing_of_the_War_Snapper_(skill)>)                 | wdmg test |
 
 ### Highly-recommended Resources
 
