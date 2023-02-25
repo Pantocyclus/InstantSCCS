@@ -207,7 +207,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Craft and consume 1x Petes Rich Ricotta (145+ adv remaining, 11/11/0 organs)<br/>
 - Craft and consume 1x plain calzone (+2adv from pizza lover) (162+ adv remaining, 13/11/0 organs)<br/>
 - Craft and use an oil of expertise<br/>
-- Save the pocket maze (it should save only ~3 turns here, as compared to 4 turns on the hot test)<br/>
+- Do not use the pocket maze (it should save only ~3 turns here, as compared to 4 turns on the hot test)<br/>
 - Equip the Combat Lover's Locket<br/>
 - Buff up as necessary for the Mox test <br/>
 
@@ -215,7 +215,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 
 - Save the reward (it should save 0 turns here, as compared to 12 turns on the NC test)<br/>
 - Craft and consume 1x honey bun of Boris (163+ adv remaining, 14/11/0 organs)<br/>
-- Craft and use a philter of phorce and an oil of expertise<br/>
+- Craft and use a philter of phorce<br/>
 - Buy and use a Ben-Gal™ Balm<br/>
 - Equip the dented scepter<br/>
 - Buff up as necessary for the Mus test <br/>
