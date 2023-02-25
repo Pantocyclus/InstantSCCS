@@ -253,7 +253,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Use NC and Myst Test reward<br/>
 - Use your parrot and equip it with the astral pet sweater (base 1lbs, +15lbs from skills, +10lbs from astral pet sweater, +20lbs from NC Test reward)<br/>
 - Cast ode and drink an Ish Kabibble (87+ adv remaining, 15/13/0 organs)<bre/>
-- You should have +4res from pocket maze, +3res from Ish Kabibble, +3res from Asbestos Heart, +3res from Tolerance of the Kitchen, +2res from Elemental Saucesphere, +1res from Astral Shell, +1res from Crimbo 2023 passive, +3res from Feeling no Pain, +5res from lava-proof pants, +4res from heat-resistance gloves and +3res from parrot (totalling +32res)<br/>
+- You should have +4res from pocket maze, +3res from Ish Kabibble, +3res from Asbestos Heart, +3res from Tolerance of the Kitchen, +2res from Elemental Saucesphere, +1res from Astral Shell, +1res from Crimbo 2022 passive, +3res from Feeling no Pain, +5res from lava-proof pants, +4res from heat-resistance gloves and +3res from parrot (totalling +32res)<br/>
 
 > Hot Resist Test (28 turns, 59+ adv remaining, 15/13/0 organs) <br/>
 
