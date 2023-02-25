@@ -196,60 +196,60 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Buy and use a hair spray<br/>
 - Craft and consume 2x Pete's Wiley Whey Bar and 1x Petes Rich Ricotta (182+ adv remaining, 14/15/0 organs)<br/>
 - Craft and use an oil of expertise<br/>
-- Use the pocket maze (should save ~11 turns here, rather than 4 turns on the hot test)<br/>
+- Use the pocket maze (should save ~12 turns here, rather than 4 turns on the hot test)<br/>
 - Buff up as necessary for the Mox test <br/>
 
-> Mox Test (~19 turns, 163+ adv remaining, 14/15/0 organs) <br/>
+> Mox Test (~18 turns, 164+ adv remaining, 14/15/0 organs) <br/>
 
 - Use the shady shades (should save ~12 turns here, rather than 12 turns on the NC test, and ensures we will have [In the Depths](https://kol.coldfront.net/thekolwiki/index.php/In_the_Depths) from the deep dish pizza lasting till we use our Disgeist for the NC test)<br/>
 - Craft and use a philter of phorce and an oil of expertise<br/>
 - Buy and use a Ben-Gal™ Balm<br/>
 - Buff up as necessary for the Mus test <br/>
 
-> Mus Test (~15 turns, 148+ adv remaining, 14/15/0 organs) <br/>
+> Mus Test (~15 turns, 149+ adv remaining, 14/15/0 organs) <br/>
 
 - Save the reward <br/>
 - You should have at least a 20lbs cookbookbat (after 40adv of +10famxp), +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater, +5lbs from pool table <br/>
 
-> Fam Test (47 turns, 101+ adv remaining, 14/15/0 organs) <br/>
+> Fam Test (47 turns, 102+ adv remaining, 14/15/0 organs) <br/>
 
 - Purchase a porkpie-mounted popper <br/>
 - Grab Silent Running from the pool <br/>
 - Equip your Disgeist with your astral pet sweater (base 1lbs, +15lbs from skills, +15lbs from Deep Dish of Legend, +10lbs from astral pet sweater)
 - You should have -20% from Fam Test, -10% from codpiece, -10% from skills, -5% from the porkpie-mounted popper, -5% from silent running and -5% from your Disgeist (combat freq) <br/>
 
-> NC Test (27 turns, 74+ adv remaining, 14/15/0 organs) <br/>
+> NC Test (27 turns, 75+ adv remaining, 14/15/0 organs) <br/>
 
 - Save the reward <br/>
 - Buy an obsidian nutcracker <br/>
-- Cast simmer (1 turn, 73+ adv remaining, 14/15/0 organs) <br/>
+- Cast simmer (1 turn, 74+ adv remaining, 14/15/0 organs) <br/>
 - You should have +100% from Song of Sauce, +100% from simmer, +100% from carol of the hells, +50% from pool table, 30% from obsidian nutcracker, 10% from Master Saucier and 10% from Subtle and Quick to Anger (totalling +400%sdmg)<br/>
 - You should also have +50 from codpiece (flat sdmg) <br/>
 
-> Spell Test (51 turns, 22+ adv remaining, 14/15/0 organs) <br/>
+> Spell Test (51 turns, 23+ adv remaining, 14/15/0 organs) <br/>
 
-- Use a clover to grab a cyclops eyedrops from the Limerick Dungeon (1 turn, 21+ adv remaining, 14/15/0 organs) <br/>
-- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and yellow rocket a faxed factory worker (female) (1 turn, 20+ adv remaining, 14/15/0 organs)
+- Use a clover to grab a cyclops eyedrops from the Limerick Dungeon (1 turn, 22+ adv remaining, 14/15/0 organs) <br/>
+- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and yellow rocket a faxed factory worker (female) (1 turn, 21+ adv remaining, 14/15/0 organs)
 - Use Mus Test reward and cyclops eyedrops <br/>
 - Summon Spice Ghost <br/>
-- Craft and eat a roasted vegetable of Jarlsberg (26+ adv remaining, 15/15/0 organs)<br/>
+- Craft and eat a roasted vegetable of Jarlsberg (27+ adv remaining, 15/15/0 organs)<br/>
 - +60%booze from Mus Test reward, +25%booze from Always Never Not Guzzling (totalling +85%booze)
 - +100%item from cyclops eyedrops, +100% from wizard sight, +25%item from Cosmic Ball in the Air, +20%item from Phat Loot, +20%item from Mad Looting Skillz, +20%item from oversized sparkler, +10%item from Object Quasi-Permeance, +10%item from Powers of Observatiogn, +10%item from 20/20 Vision, +5%item from Spice Ghost, +5%item from Natural Born Scrabbler and +5%item from Thief among the Honorable (totalling 330%item) <br/>
 - Cast Steely-Eyed Squint (+330%item)<br/>
 
-> Item Test (33 turns, -7+ adv remaining, 15/15/0 organs) <br/>
+> Item Test (33 turns, -6+ adv remaining, 15/15/0 organs) <br/>
 
 - Cast leash of linguini and empathy<br/>
 - Use NC Test reward<br/>
 - Use your parrot and equip it with the astral pet sweater (base 1lbs, +15lbs from skills, +10lbs from astral pet sweater, +20lbs from NC Test reward)<br/>
 - You should have +3res from Asbestos Heart, +3res from Tolerance of the Kitchen, +2res from Elemental Saucesphere, +1res from Astral Shell, +1res from Crimbo 2023 passive, +3res from Feeling no Pain, +5res from lava-proof pants, +4res from heat-resistance gloves and +3res from parrot (totalling +29res)<br/>
 
-> Hot Resist Test (35 turns, -42+ adv remaining, 15/15/0 organs) <br/>
+> Hot Resist Test (35 turns, -41+ adv remaining, 15/15/0 organs) <br/>
 
 - Buy a [goofily-plumed helmet](https://kol.coldfront.net/thekolwiki/index.php/Goofily-plumed_helmet) to get [Weapon of Mass Destruction](https://kol.coldfront.net/thekolwiki/index.php/Weapon_of_Mass_Destruction) from the Mad Hatter<br/>
 - +100% from song of the north, +100% from carol of the bulls, +50% from pool table, +30% from hatter buff (totalling +280%) <br/>
 - +12 from Jackasses' Symphony, +10 from Scowl of the Auk, +10 from Rage of the Reindeer, +8 from Tenacity of the Snapper, +7 from Claws of the Walrus and +5 from Disdain of the War Snapper (totalling +52 flat) <br/>
 - Cast bow-legged swagger (+280%wdmg +52flat) <br/>
 
-> Weapon Test (47 turns, -89+ adv remaining, 15/15/0 organs) <br/>
+> Weapon Test (47 turns, -88+ adv remaining, 15/15/0 organs) <br/>
 > Donate your body to science!<br/>
