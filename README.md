@@ -49,87 +49,94 @@ One of the hardest tasks in CS is levelling, due to the limited resources we hav
 
 If you're looking to modify the script yourself, you may also consider these useful IotMs. Any IotM that grants access to a scaler zone helps save a pull on the daypass, which may then be used on other useful pulls (e.g. [non-Euclidean angle](https://kol.coldfront.net/thekolwiki/index.php/Non-Euclidean_angle)). Once you start getting more and more [free fight sources](https://kol.coldfront.net/thekolwiki/index.php/Free_Fights), the less reliant you will be on the trainset and bowling ball for xp (they may be swapped out). Shinies that reduce turncount on the tests will then reduce the reliance on the cookbookbat for turngen.
 
-| IotM                                                                                                                                  | Use     |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| [GameInformPowerDailyPro subscription card](https://kol.coldfront.net/thekolwiki/index.php/GameInformPowerDailyPro_subscription_card) | scalers |
-| [Airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)           | scalers |
-| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)             | scalers |
-| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)                   | scalers |
-| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)               | scalers |
-| [airplane charter: The Glaciest](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_The_Glaciest)                       | scalers |
-| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope)         | scalers |
-| [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                                     | xp      |
+| IotM                                                                                                                                  | Use                   |
+| ------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| [GameInformPowerDailyPro subscription card](https://kol.coldfront.net/thekolwiki/index.php/GameInformPowerDailyPro_subscription_card) | scalers               |
+| [Airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)           | scalers               |
+| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)             | scalers               |
+| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)                   | scalers               |
+| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)               | scalers               |
+| [airplane charter: The Glaciest](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_The_Glaciest)                       | scalers               |
+| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope)         | scalers + free fights |
+| [Backup camera](https://kol.coldfront.net/thekolwiki/index.php/Backup_camera)                                                         | free fights           |
+| [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                                     | xp                    |
 
 ### Required Resources
 
 Because we do not rely heavily on too many IotMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. <br />
-<sub><sup>Note that the shinier you are, the easier it becomes to replace these requirements, so they would eventually become soft or even non-requirements (especially those extremely small contributors).</sup></sub> <br />
 
 | Familiars                                                                        | Use      |
 | -------------------------------------------------------------------------------- | -------- |
 | [Disgeist](<https://kol.coldfront.net/thekolwiki/index.php/Disgeist_(familiar)>) | NC test  |
 | [Exotic Parrot](https://kol.coldfront.net/thekolwiki/index.php/Exotic_Parrot)    | hot test |
 
-| Skills                                                                                                                              | Use                     |
-| ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| [Inscrutable Gaze](<https://kol.coldfront.net/thekolwiki/index.php/Inscrutable_Gaze_(skill)>)                                       | xp%                     |
-| [Song of Bravado](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Bravado_(skill)>)                                         | stat%                   |
-| [Get Big](https://kol.coldfront.net/thekolwiki/index.php/Get_Big)                                                                   | stat%                   |
-| [Stevedave's Shanty of Superiority](<https://kol.coldfront.net/thekolwiki/index.php/Stevedave%27s_Shanty_of_Superiority_(skill)>)   | stat%                   |
-| [The Ode to Booze](https://kol.coldfront.net/thekolwiki/index.php/The_Ode_to_Booze)                                                 | adv                     |
-| [Pizza Lover](https://kol.coldfront.net/thekolwiki/index.php/Pizza_Lover)                                                           | adv + xp                |
-| [Empathy of the Newt](https://kol.coldfront.net/thekolwiki/index.php/Empathy_of_the_Newt)                                           | fam wt                  |
-| [Leash of Linguini](<https://kol.coldfront.net/thekolwiki/index.php/Leash_of_Linguini_(skill)>)                                     | fam wt                  |
-| [Amphibian Sympathy](https://kol.coldfront.net/thekolwiki/index.php/Amphibian_Sympathy)                                             | fam wt                  |
-| [Pride of the Puffin](<https://kol.coldfront.net/thekolwiki/index.php/Pride_of_the_Puffin_(skill)>)                                 | ML                      |
-| [Drescher's Annoying Noise](<https://kol.coldfront.net/thekolwiki/index.php/Drescher%27s_Annoying_Noise_(skill)>)                   | ML                      |
-| [Ur-Kel's Aria of Annoyance](<https://kol.coldfront.net/thekolwiki/index.php/Ur-Kel%27s_Aria_of_Annoyance_(skill)>)                 | ML                      |
-| [The Sonata of Sneakiness](<https://kol.coldfront.net/thekolwiki/index.php/The_Sonata_of_Sneakiness_(skill)>)                       | non-combat              |
-| [Smooth Movement](https://kol.coldfront.net/thekolwiki/index.php/Smooth_Movement)                                                   | non-combat              |
-| [Asbestos Heart](https://kol.coldfront.net/thekolwiki/index.php/Asbestos_Heart)                                                     | hot resist              |
-| [Elemental Saucesphere](<https://kol.coldfront.net/thekolwiki/index.php/Elemental_Saucesphere_(effect)>)                            | hot resist              |
-| [Tolerance of the Kitchen](https://kol.coldfront.net/thekolwiki/index.php/Tolerance_of_the_Kitchen)                                 | hot resist              |
-| [Astral Shell](<https://kol.coldfront.net/thekolwiki/index.php/Astral_Shell_(effect)>)                                              | hot resist              |
-| [Crimbo Training: Coal Taster](https://kol.coldfront.net/thekolwiki/index.php/Crimbo_Training:_Coal_Taster)                         | hot resist              |
-| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                                   | doubles wdmg            |
-| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                                   | doubles item drop       |
-| [Shattering Punch](https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch)                                                 | free kill               |
-| [Gingerbread Mob Hit](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Mob_Hit)                                           | free kill               |
-| [Snokebomb](https://kol.coldfront.net/thekolwiki/index.php/Snokebomb)                                                               | free kill               |
-| [Curse of Weaksauce](https://kol.coldfront.net/thekolwiki/index.php/Curse_of_Weaksauce)                                             | attacking spell         |
-| [Saucegeyser](https://kol.coldfront.net/thekolwiki/index.php/Saucegeyser)                                                           | attacking spell         |
-| [Advanced Saucecrafting](https://kol.coldfront.net/thekolwiki/index.php/Advanced_Saucecrafting)                                     | saucecrafting           |
-| [The Way of Sauce](https://kol.coldfront.net/thekolwiki/index.php/The_Way_of_Sauce)                                                 | saucecrafting           |
-| [Impetuous Sauciness](https://kol.coldfront.net/thekolwiki/index.php/Impetuous_Sauciness)                                           | saucecrafting           |
-| [Expert Corner-Cutter](https://kol.coldfront.net/thekolwiki/index.php/Expert_Corner-Cutter)                                         | saucecrafting           |
-| [Prevent Scurvy and Sobriety](https://kol.coldfront.net/thekolwiki/index.php/Prevent_Scurvy_and_Sobriety)                           | saucecrafting + turngen |
-| [Perfect Freeze](https://kol.coldfront.net/thekolwiki/index.php/Perfect_Freeze)                                                     | turngen                 |
-| [Drinking to Drink](https://kol.coldfront.net/thekolwiki/index.php/Drinking_to_Drink)                                               | turngen                 |
-| [Inner Sauce](https://kol.coldfront.net/thekolwiki/index.php/Inner_Sauce)                                                           | mp regen                |
-| [Double-Fisted Skull Smashing](https://kol.coldfront.net/thekolwiki/index.php/Double-Fisted_Skull_Smashing)                         | test                    |
-| [Simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer)                                                                     | test                    |
-| [Master Saucier](https://kol.coldfront.net/thekolwiki/index.php/Master_Saucier)                                                     | test                    |
-| [Subtle and Quick to Anger](https://kol.coldfront.net/thekolwiki/index.php/Subtle_and_Quick_to_Anger)                               | test                    |
-| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                                   | test                    |
-| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                                   | test                    |
-| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg)                          | test                    |
-| [Fat Leon's Phat Loot Lyric](<https://kol.coldfront.net/thekolwiki/index.php/Fat_Leon%27s_Phat_Loot_Lyric_(skill)>)                 | test                    |
-| [Mad Looting Skillz](https://kol.coldfront.net/thekolwiki/index.php/Mad_Looting_Skillz)                                             | test                    |
-| [Object Quasi-Permanence](https://kol.coldfront.net/thekolwiki/index.php/Object_Quasi-Permanence)                                   | test                    |
-| [Powers of Observatiogn](https://kol.coldfront.net/thekolwiki/index.php/Powers_of_Observatiogn)                                     | test                    |
-| [Bind Spice Ghost](https://kol.coldfront.net/thekolwiki/index.php/Bind_Spice_Ghost)                                                 | test                    |
-| [Thief Among the Honorable](https://kol.coldfront.net/thekolwiki/index.php/Thief_Among_the_Honorable)                               | test                    |
-| [Natural Born Scrabbler](https://kol.coldfront.net/thekolwiki/index.php/Natural_Born_Scrabbler)                                     | test                    |
-| [Carol of the Bulls](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Bulls_(skill)>)                                   | test                    |
-| [Carol of the Hells](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Hells_(skill)>)                                   | test                    |
-| [Song of Sauce](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Sauce_(skill)>)                                             | test                    |
-| [Song of the North](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_the_North_(skill)>)                                     | test                    |
-| [Jackasses' Symphony of Destruction](<https://kol.coldfront.net/thekolwiki/index.php/Jackasses%27_Symphony_of_Destruction_(skill)>) | test                    |
-| [Scowl of the Auk](<https://kol.coldfront.net/thekolwiki/index.php/Scowl_of_the_Auk_(skill)>)                                       | test                    |
-| [Rage of the Reindeer](<https://kol.coldfront.net/thekolwiki/index.php/Rage_of_the_Reindeer_(skill)>)                               | test                    |
-| [Tenacity of the Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Tenacity_of_the_Snapper_(skill)>)                         | test                    |
-| [Claws of the Walrus](https://kol.coldfront.net/thekolwiki/index.php/Claws_of_the_Walrus)                                           | test                    |
-| [Blessing of the War Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Blessing_of_the_War_Snapper_(skill)>)                 | test                    |
+| Skills                                                                                                                            | Use                     |
+| --------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| [Inscrutable Gaze](<https://kol.coldfront.net/thekolwiki/index.php/Inscrutable_Gaze_(skill)>)                                     | xp%                     |
+| [Song of Bravado](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Bravado_(skill)>)                                       | stat%                   |
+| [Get Big](https://kol.coldfront.net/thekolwiki/index.php/Get_Big)                                                                 | stat%                   |
+| [Stevedave's Shanty of Superiority](<https://kol.coldfront.net/thekolwiki/index.php/Stevedave%27s_Shanty_of_Superiority_(skill)>) | stat%                   |
+| [The Ode to Booze](https://kol.coldfront.net/thekolwiki/index.php/The_Ode_to_Booze)                                               | adv                     |
+| [Pizza Lover](https://kol.coldfront.net/thekolwiki/index.php/Pizza_Lover)                                                         | adv + xp                |
+| [Empathy of the Newt](https://kol.coldfront.net/thekolwiki/index.php/Empathy_of_the_Newt)                                         | fam wt                  |
+| [Leash of Linguini](<https://kol.coldfront.net/thekolwiki/index.php/Leash_of_Linguini_(skill)>)                                   | fam wt                  |
+| [Amphibian Sympathy](https://kol.coldfront.net/thekolwiki/index.php/Amphibian_Sympathy)                                           | fam wt                  |
+| [Pride of the Puffin](<https://kol.coldfront.net/thekolwiki/index.php/Pride_of_the_Puffin_(skill)>)                               | ML                      |
+| [Drescher's Annoying Noise](<https://kol.coldfront.net/thekolwiki/index.php/Drescher%27s_Annoying_Noise_(skill)>)                 | ML                      |
+| [Ur-Kel's Aria of Annoyance](<https://kol.coldfront.net/thekolwiki/index.php/Ur-Kel%27s_Aria_of_Annoyance_(skill)>)               | ML                      |
+| [The Sonata of Sneakiness](<https://kol.coldfront.net/thekolwiki/index.php/The_Sonata_of_Sneakiness_(skill)>)                     | non-combat              |
+| [Smooth Movement](https://kol.coldfront.net/thekolwiki/index.php/Smooth_Movement)                                                 | non-combat              |
+| [Asbestos Heart](https://kol.coldfront.net/thekolwiki/index.php/Asbestos_Heart)                                                   | hot resist              |
+| [Elemental Saucesphere](<https://kol.coldfront.net/thekolwiki/index.php/Elemental_Saucesphere_(effect)>)                          | hot resist              |
+| [Tolerance of the Kitchen](https://kol.coldfront.net/thekolwiki/index.php/Tolerance_of_the_Kitchen)                               | hot resist              |
+| [Astral Shell](<https://kol.coldfront.net/thekolwiki/index.php/Astral_Shell_(effect)>)                                            | hot resist              |
+| [Crimbo Training: Coal Taster](https://kol.coldfront.net/thekolwiki/index.php/Crimbo_Training:_Coal_Taster)                       | hot resist              |
+| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                                 | doubles wdmg            |
+| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                                 | doubles item drop       |
+| [Shattering Punch](https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch)                                               | free kill               |
+| [Gingerbread Mob Hit](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Mob_Hit)                                         | free kill               |
+| [Snokebomb](https://kol.coldfront.net/thekolwiki/index.php/Snokebomb)                                                             | free banish             |
+| [Curse of Weaksauce](https://kol.coldfront.net/thekolwiki/index.php/Curse_of_Weaksauce)                                           | attacking spell         |
+| [Saucegeyser](https://kol.coldfront.net/thekolwiki/index.php/Saucegeyser)                                                         | attacking spell         |
+| [Advanced Saucecrafting](https://kol.coldfront.net/thekolwiki/index.php/Advanced_Saucecrafting)                                   | saucecrafting           |
+| [The Way of Sauce](https://kol.coldfront.net/thekolwiki/index.php/The_Way_of_Sauce)                                               | saucecrafting           |
+| [Impetuous Sauciness](https://kol.coldfront.net/thekolwiki/index.php/Impetuous_Sauciness)                                         | saucecrafting           |
+| [Expert Corner-Cutter](https://kol.coldfront.net/thekolwiki/index.php/Expert_Corner-Cutter)                                       | saucecrafting           |
+| [Prevent Scurvy and Sobriety](https://kol.coldfront.net/thekolwiki/index.php/Prevent_Scurvy_and_Sobriety)                         | saucecrafting + turngen |
+| [Perfect Freeze](https://kol.coldfront.net/thekolwiki/index.php/Perfect_Freeze)                                                   | turngen                 |
+| [Drinking to Drink](https://kol.coldfront.net/thekolwiki/index.php/Drinking_to_Drink)                                             | turngen                 |
+| [Inner Sauce](https://kol.coldfront.net/thekolwiki/index.php/Inner_Sauce)                                                         | mp regen                |
+| [Double-Fisted Skull Smashing](https://kol.coldfront.net/thekolwiki/index.php/Double-Fisted_Skull_Smashing)                       | test                    |
+| [Carol of the Bulls](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Bulls_(skill)>)                                 | test                    |
+| [Carol of the Hells](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Hells_(skill)>)                                 | test                    |
+| [Song of Sauce](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Sauce_(skill)>)                                           | test                    |
+| [Song of the North](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_the_North_(skill)>)                                   | test                    |
+| [Simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer)                                                                   | test                    |
+| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                                 | test                    |
+| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                                 | test                    |
+| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg)                        | test                    |
+
+### Almost-Required Resources
+
+You are strongly recommended to have these resources. However, none of them provide much turn savings on their own (although together they do make up quite a bit), and these may be easily replaced with shinies.
+
+| Skills                                                                                                                              | Use  |
+| ----------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| [Master Saucier](https://kol.coldfront.net/thekolwiki/index.php/Master_Saucier)                                                     | test |
+| [Subtle and Quick to Anger](https://kol.coldfront.net/thekolwiki/index.php/Subtle_and_Quick_to_Anger)                               | test |
+| [Fat Leon's Phat Loot Lyric](<https://kol.coldfront.net/thekolwiki/index.php/Fat_Leon%27s_Phat_Loot_Lyric_(skill)>)                 | test |
+| [Mad Looting Skillz](https://kol.coldfront.net/thekolwiki/index.php/Mad_Looting_Skillz)                                             | test |
+| [Object Quasi-Permanence](https://kol.coldfront.net/thekolwiki/index.php/Object_Quasi-Permanence)                                   | test |
+| [Powers of Observatiogn](https://kol.coldfront.net/thekolwiki/index.php/Powers_of_Observatiogn)                                     | test |
+| [Bind Spice Ghost](https://kol.coldfront.net/thekolwiki/index.php/Bind_Spice_Ghost)                                                 | test |
+| [Thief Among the Honorable](https://kol.coldfront.net/thekolwiki/index.php/Thief_Among_the_Honorable)                               | test |
+| [Natural Born Scrabbler](https://kol.coldfront.net/thekolwiki/index.php/Natural_Born_Scrabbler)                                     | test |
+| [Jackasses' Symphony of Destruction](<https://kol.coldfront.net/thekolwiki/index.php/Jackasses%27_Symphony_of_Destruction_(skill)>) | test |
+| [Scowl of the Auk](<https://kol.coldfront.net/thekolwiki/index.php/Scowl_of_the_Auk_(skill)>)                                       | test |
+| [Rage of the Reindeer](<https://kol.coldfront.net/thekolwiki/index.php/Rage_of_the_Reindeer_(skill)>)                               | test |
+| [Tenacity of the Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Tenacity_of_the_Snapper_(skill)>)                         | test |
+| [Claws of the Walrus](https://kol.coldfront.net/thekolwiki/index.php/Claws_of_the_Walrus)                                           | test |
+| [Blessing of the War Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Blessing_of_the_War_Snapper_(skill)>)                 | test |
 
 ### Highly-recommended Resources
 
