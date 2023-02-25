@@ -11,8 +11,8 @@ module.exports = {
   entry: {
     // Define files webpack will emit, does not need to correspond 1:1 with every typescript file
     // You need an emitted file for each entrypoint into your code, e.g. the main script and the ccs or ccs consult script it calls
-    InstantHCCS: "./src/main.ts",
-    "InstantHCCS-combat": "./src/combat.ts",
+    InstantSCCS: "./src/main.ts",
+    "InstantSCCS-combat": "./src/combat.ts",
   },
   // Turns on tree-shaking and minification in the default Terser minifier
   // https://webpack.js.org/plugins/terser-webpack-plugin/
