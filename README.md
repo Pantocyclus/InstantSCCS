@@ -108,9 +108,7 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer)                                                                     | test                    |
 | [Master Saucier](https://kol.coldfront.net/thekolwiki/index.php/Master_Saucier)                                                     | test                    |
 | [Subtle and Quick to Anger](https://kol.coldfront.net/thekolwiki/index.php/Subtle_and_Quick_to_Anger)                               | test                    |
-| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                                   | test                    |
-| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                                   | test                    |
-| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg)                          | test                    |
+| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Always_Never_Not_Guzzling)                               | test                    |
 | [Fat Leon's Phat Loot Lyric](<https://kol.coldfront.net/thekolwiki/index.php/Fat_Leon%27s_Phat_Loot_Lyric_(skill)>)                 | test                    |
 | [Mad Looting Skillz](https://kol.coldfront.net/thekolwiki/index.php/Mad_Looting_Skillz)                                             | test                    |
 | [Object Quasi-Permanence](https://kol.coldfront.net/thekolwiki/index.php/Object_Quasi-Permanence)                                   | test                    |
