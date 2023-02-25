@@ -1,6 +1,5 @@
 import {
   Familiar,
-  // getCampground,
   getWorkshed,
   Item,
   Monster,
@@ -9,16 +8,7 @@ import {
   Skill,
   storageAmount,
 } from "kolmafia";
-import {
-  $familiar,
-  $item,
-  // $items,
-  $monster,
-  $skill,
-  CombatLoversLocket,
-  get,
-  have,
-} from "libram";
+import { $familiar, $item, $monster, $skill, CombatLoversLocket, get, have } from "libram";
 
 class Hardcoded {
   have: boolean;
