@@ -305,6 +305,33 @@ function buildMiscList(): Requirement[] {
       why: "Spell Damage",
     },
     {
+      thing: new Hardcoded(
+        // These unknownRecipe properties are false when the user knows the recipe
+        !get("unknownRecipe10981"),
+        "Recipe of Yore: Roasted vegetable of Jarlsberg"
+      ),
+      why: "Food we'll cook in-run",
+    },
+    {
+      thing: new Hardcoded(!get("unknownRecipe10984"), "Recipe of Yore: Pete's rich ricotta"),
+      why: "Food we'll cook in-run",
+    },
+    {
+      thing: new Hardcoded(!get("unknownRecipe10986"), "Recipe of Yore: honey bun of Boris"),
+      why: "Food we'll cook in-run",
+    },
+    {
+      thing: new Hardcoded(!get("unknownRecipe10996"), "Recipe of Yore: plain calzone"),
+      why: "Food we'll cook in-run",
+    },
+    {
+      thing: new Hardcoded(
+        !get("unknownRecipe10997"),
+        "Recipe of Yore: baked veggie ricotta casserole"
+      ),
+      why: "Food we'll cook in-run",
+    },
+    {
       thing: $skill`Master Saucier`,
       why: "Spell Damage",
       optional: true,
