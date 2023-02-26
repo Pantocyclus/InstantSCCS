@@ -20,6 +20,8 @@ For those who are interested in using `InstantSCCS` as is, the following section
 - Ensure that you have access to a clan with a fully stocked [VIP lounge](https://kol.coldfront.net/thekolwiki/index.php/VIP_Lounge). Also ensure that the [Clan Floundry](<https://kol.coldfront.net/thekolwiki/index.php/Clan_Floundry_(VIP_Lounge)>) has sufficient stocks of cod to pull a [codpiece](https://kol.coldfront.net/thekolwiki/index.php/Codpiece).
 - Have any one of the [factory-irregular skeleton](https://kol.coldfront.net/thekolwiki/index.php/Factory-irregular_skeleton), [remaindered skeleton](https://kol.coldfront.net/thekolwiki/index.php/Remaindered_skeleton) or [swarm of skulls](https://kol.coldfront.net/thekolwiki/index.php/Swarm_of_skulls) banished in your [ice house](https://kol.coldfront.net/thekolwiki/index.php/Ice_house).
 - Have an [ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith), [Witchess King](https://kol.coldfront.net/thekolwiki/index.php/Witchess_King) and [Black Crayon Pirate](https://kol.coldfront.net/thekolwiki/index.php/Black_Crayon_Pirate) registered in your [combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket).
+- Have at least 10 ascensions so that you can purchase an [all-purpose flower](https://kol.coldfront.net/thekolwiki/index.php/All-purpose_flower) from [The Gift Shop](https://kol.coldfront.net/thekolwiki/index.php/The_Gift_Shop); this should include at least 5 100% familiar runs so that you have the [astral pet sweater](https://kol.coldfront.net/thekolwiki/index.php/Astral_pet_sweater) unlocked.
+- Have the following cookbookbat recipes read: [honey bun of Boris](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_honey_bun_of_Boris), [Boris's bread](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_Boris%27s_bread), [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_roasted_vegetable_of_J.), [Pete's rich ricotta](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_Pete%27s_rich_ricotta),[plain calzone](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_plain_calzone) and [baked veggie ricotta](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_baked_veggie_ricotta).
 
 ### In Valhalla
 
@@ -34,7 +36,7 @@ Because we rely heavily on the cookbookbat ingredients, (1) this route only work
 ### Required IotMs
 
 IotMs are incredibly expensive, and they tend to increase in price the longer they have existed due to the artificial supply limit. Unfortunately, they are incredibly powerful too, and so we will need to rely on them to enable a 1-day SCCS. There is a hard requirement on the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key), as it is one of the few "IotMs" that are recurring (and thus are not gated by the same artificial supply limit as mentioned above), and it provides access to >= 30 Mr. A's-worth of IotMs. <br />
-One of the hardest tasks in CS is levelling, due to the limited resources we have access to to optimise for the stat tests (HP, Mus, Myst, Mox). The other required IotMs thus have to provide incredible statgain and/or turngen/turnsave potential. The current routing is thus built around the following 5 other IotMs.
+One of the hardest tasks in CS is levelling, due to the limited resources we have access to to optimise for the stat tests (HP, Mus, Myst, Mox). The other required IotMs thus have to provide incredible statgain and/or turngen/turnsave potential. The current routing is built around the following 5 other IotMs.
 
 | IotM                                                                                            | Use         |
 | ----------------------------------------------------------------------------------------------- | ----------- |
@@ -47,19 +49,31 @@ One of the hardest tasks in CS is levelling, due to the limited resources we hav
 
 ### Other Useful IotMs
 
-If you're looking to modify the script yourself, you may also consider these useful IotMs. Any IotM that grants access to a scaler zone helps save a pull on the daypass, which may then be used on other useful pulls (e.g. [non-Euclidean angle](https://kol.coldfront.net/thekolwiki/index.php/Non-Euclidean_angle)). Once you start getting more and more [free fight sources](https://kol.coldfront.net/thekolwiki/index.php/Free_Fights), the less reliant you will be on the trainset and bowling ball for xp (they may be swapped out). Shinies that reduce turncount on the tests will then reduce the reliance on the cookbookbat for turngen.
+If you're looking to modify the script yourself, you may also consider these useful IotMs. Any IotM that grants access to a scaler zone helps save a pull on the daypass, which may then be used on other useful pulls (e.g. [non-Euclidean angle](https://kol.coldfront.net/thekolwiki/index.php/Non-Euclidean_angle) or [SPF 451 lip balm](https://kol.coldfront.net/thekolwiki/index.php/SPF_451_lip_balm)). Once you start getting more and more [free fight sources](https://kol.coldfront.net/thekolwiki/index.php/Free_Fights), the less reliant you will be on the trainset and bowling ball for xp (they may be swapped out). Shinies that reduce turncount on the tests will then reduce the reliance on the cookbookbat for turngen.<br/>
+<sub><sup>Note that the various IotMs may have turnsaves in the same area, so having access to a bunch of them would result in fewer turns saved than the naive sum of the estimates listed here.</sup></sub> <br />
 
-| IotM                                                                                                                                  | Use                   |
-| ------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| [GameInformPowerDailyPro subscription card](https://kol.coldfront.net/thekolwiki/index.php/GameInformPowerDailyPro_subscription_card) | scalers               |
-| [Airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)           | scalers               |
-| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)             | scalers               |
-| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)                   | scalers               |
-| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)               | scalers               |
-| [airplane charter: The Glaciest](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_The_Glaciest)                       | scalers               |
-| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope)         | scalers + free fights |
-| [Backup camera](https://kol.coldfront.net/thekolwiki/index.php/Backup_camera)                                                         | free fights           |
-| [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                                     | xp                    |
+| IotM                                                                                                                                  | Use                                             | Estimated turns saved |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | --------------------- |
+| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope)         | scalers and free fights                         | 19                    |
+| [heart-shaped crate](http://kol.coldfront.net/thekolwiki/index.php/heart-shaped%20crate)                                              | free fights, wdmg, sdmg, xp, fam wt and turngen | 16                    |
+| [mint-in-box Powerful Glove](https://kol.coldfront.net/thekolwiki/index.php/Mint-in-box_Powerful_Glove)                               | stat%, wdmg, sdmg and NC                        | 12\*                  |
+| [Backup camera](https://kol.coldfront.net/thekolwiki/index.php/Backup_camera)                                                         | free fights                                     | 11                    |
+| [GameInformPowerDailyPro subscription card](https://kol.coldfront.net/thekolwiki/index.php/GameInformPowerDailyPro_subscription_card) | scalers                                         | 9                     |
+| [Airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)           | scalers                                         | 9                     |
+| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)             | scalers                                         | 9                     |
+| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)                   | scalers                                         | 9                     |
+| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)               | scalers                                         | 9                     |
+| [airplane charter: The Glaciest](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_The_Glaciest)                       | scalers                                         | 9                     |
+| [emotion chip](https://kol.coldfront.net/thekolwiki/index.php/Emotion_chip)                                                           | item, NC and hot res                            | 9                     |
+| [power seed](https://kol.coldfront.net/thekolwiki/index.php/Power_seed)                                                               | free kill, item and sdmg                        | 7                     |
+| [designer sweatpants (new old stock)](https://kol.coldfront.net/thekolwiki/index.php/Designer_sweatpants)                             | hot res                                         | 6                     |
+| [Fourth of May Cosplay Saber kit](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber_kit)                     | hot res and free YR                             | 6\*\*                 |
+| [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                                     | xp                                              | 4\*                   |
+| [Distant Woods Getaway Brochure](https://kol.coldfront.net/thekolwiki/index.php/Distant_Woods_Getaway_Brochure)                       | xp                                              | 4                     |
+
+\*Enables alternative routing that potentially saves another ~11 turns<br/>
+\*\*The [Fourth of May Cosplay Saber](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber) combos really well with the [industrial fire extinguisher](https://kol.coldfront.net/thekolwiki/index.php/Industrial_fire_extinguisher), saving another ~30 turns (the [factory worker (female)](<https://kol.coldfront.net/thekolwiki/index.php/Factory_worker_(female)>) fax target can be changed to the [red skeleton](https://kol.coldfront.net/thekolwiki/index.php/Red_skeleton) which saves 5 turns on the wdmg test, and potentially another 4 turns if we can carry [cowrruption](https://kol.coldfront.net/thekolwiki/index.php/Cowrruption) over to the sdmg test, for a total of ~39 turns saved); it also enables the [Pocket Meteor Guide](https://kol.coldfront.net/thekolwiki/index.php/Pocket_Meteor_Guide) in saving an additional ~16 (+4 from carrying over cowrruption) turns on the wdmg, sdmg and famwt tests.
+<sub><sup>This is not meant to be an exhaustive list, and the turns saved are only relevant to this particular route. There are many other strong IotMs, including [corked genie bottle](https://kol.coldfront.net/thekolwiki/index.php/Corked_genie_bottle), [Pack of Every Card](https://kol.coldfront.net/thekolwiki/index.php/Pack_of_Every_Card), [Source terminal](https://kol.coldfront.net/thekolwiki/index.php/Source_terminal), [Witchess Set](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Set) and [suspicious package](https://kol.coldfront.net/thekolwiki/index.php/Suspicious_package) just to name a few.</sup></sub> <br />
 
 ### Required Resources
 
@@ -275,5 +289,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - You should also have +50 from codpiece and +25 from umbrella (flat sdmg) <br/>
 
 > Spell Test (51 turns, -21+ adv remaining, 15/15/0 organs) <br/>
+
+This should be a ~1/310 SCCS completed (once we figure out the right turnsaves).
 
 > Donate your body to science!<br/>
