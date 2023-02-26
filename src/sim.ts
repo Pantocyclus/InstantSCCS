@@ -336,6 +336,13 @@ function buildMiscList(): Requirement[] {
       why: "Food we'll cook in-run",
     },
     {
+      thing: new Hardcoded(
+        get("knownAscensions") >= 10,
+        "Access to all-purpose flower in the Gift Shop"
+      ),
+      why: "Muscle test",
+    },
+    {
       thing: $skill`Master Saucier`,
       why: "Spell Damage",
       optional: true,
