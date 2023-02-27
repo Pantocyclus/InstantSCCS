@@ -286,7 +286,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 > HP Test (1 turn, 172+ adv remaining, 14/13/0 organs) <br/>
 
 - Save the [reward](https://kol.coldfront.net/thekolwiki/index.php/Blood-drive_sticker) <br/>
-- Buy and use a [hair spray](https://kol.coldfront.net/thekolwiki/index.php/Hair_spray<br/>
+- Buy and use a [hair spray](https://kol.coldfront.net/thekolwiki/index.php/Hair_spray)<br/>
 - Craft and use an [oil of expertise](https://kol.coldfront.net/thekolwiki/index.php/Oil_of_expertise)<br/>
 - Maximize mox and buff up as necessary for the Mox test <br/>
 
