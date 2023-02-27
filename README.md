@@ -243,7 +243,8 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - (Set mood to) buy and use [glittery mascara](https://kol.coldfront.net/thekolwiki/index.php/Glittery_mascara) to always maintain [Glittering Eyelashes](https://kol.coldfront.net/thekolwiki/index.php/Glittering_Eyelashes) (and other buffs) <br/>
 - Pull and use a [Dinsey daypass](https://kol.coldfront.net/thekolwiki/index.php/One-day_ticket_to_Dinseylandfill) <br/>
 - Maximize your myst <br/>
-- Reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) (coal/brain silo/viewing platform/water bridge/fizzy tower/frozen tower/meat/candy) <br/>
+- Reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set)<br/>
+  - coal/brain silo/viewing platform/water bridge/fizzy tower/frozen tower/meat/candy<br/>
 - Use 2x [scrumptious reagents](https://kol.coldfront.net/thekolwiki/index.php/Scrumptious_reagent) to [craft](https://kol.coldfront.net/thekolwiki/index.php/Advanced_Saucecrafting) 6x [ointment of the occults](https://kol.coldfront.net/thekolwiki/index.php/Ointment_of_the_occult)<br/>
   - Run at least 60 turns of [Mystically Oiled](https://kol.coldfront.net/thekolwiki/index.php/Mystically_Oiled) <br/>
 - Spend 1 turn in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice) to get [red](https://kol.coldfront.net/thekolwiki/index.php/Ready_to_Eat) and [blue rocket buffs](https://kol.coldfront.net/thekolwiki/index.php/Glowing_Blue) (no free kills/banishes - adventure needs to be spent to restore mp; ensure you have at least 32mp for [saucegeyser](https://kol.coldfront.net/thekolwiki/index.php/Saucegeyser) + [curse of weaksauce](https://kol.coldfront.net/thekolwiki/index.php/Curse_of_Weaksauce), and always use the curse to restore mp) (1 turn, 34+ adv remaining, 2/2/0 organs) <br/>
@@ -329,7 +330,8 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 
 > Item Test (32 turns, 83+ adv remaining, 15/13/0 organs) <br/>
 
-- Reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) to (coal/frozen tower/any other 6 stations).
+- Reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set)<br/>
+  - coal/frozen tower/any other 6 stations<br/>
 - [Reminisce](https://kol.coldfront.net/thekolwiki/index.php/Reminiscing_About_Those_Monsters_You_Fought) an [ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith) for the [cowrrupted marrow](https://kol.coldfront.net/thekolwiki/index.php/Corrupted_marrow) (1 turn, 82+ adv remaining, 15/13/0 organs)<br/>
 - Spend a turn in [The Dire Warren](https://kol.coldfront.net/thekolwiki/index.php/The_Dire_Warren) to get [Double Frozen](https://kol.coldfront.net/thekolwiki/index.php/Double_Frozen) from your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) (1 turn, 81+ adv remaining, 15/13/0 organs).
 - Cast [leash of linguini](<https://kol.coldfront.net/thekolwiki/index.php/Leash_of_Linguini_(skill)>) and [empathy](https://kol.coldfront.net/thekolwiki/index.php/Empathy_of_the_Newt)<br/>
