@@ -227,7 +227,6 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
   - Purchase a [yellow rocket](https://kol.coldfront.net/thekolwiki/index.php/Yellow_rocket)<br/>
   - Restore your MP to at least 50 for snokebomb (using [Doc Galaktik's Invigorating Tonic](https://kol.coldfront.net/thekolwiki/index.php/Doc_Galaktik%27s_Invigorating_Tonic) if necessary)
 - Use an [11-leaf clover](https://kol.coldfront.net/thekolwiki/index.php/11-leaf_clover), then grab 3x [distilled fortified wines](https://kol.coldfront.net/thekolwiki/index.php/Distilled_fortified_wine) from [The Sleazy Back Alley](https://kol.coldfront.net/thekolwiki/index.php/The_Sleazy_Back_Alley) (1 turn, 58 adv remaining, 0/0/0 organs)<br/>
-
   - Purchase and use [chewing gum on a string](https://kol.coldfront.net/thekolwiki/index.php/Chewing_gum_on_a_string) until you get a [worthless trinket](https://kol.coldfront.net/thekolwiki/index.php/Worthless_trinket)<br/>
   - You will need a total 2x [worthless trinkets](https://kol.coldfront.net/thekolwiki/index.php/Worthless_trinket), 1x [turtle totem](https://kol.coldfront.net/thekolwiki/index.php/Turtle_totem) and 1x [saucepan](https://kol.coldfront.net/thekolwiki/index.php/Saucepan) from the gums, but the rest can be obtained later <br/>
   - Purchase a [hermit permit](https://kol.coldfront.net/thekolwiki/index.php/Hermit_permit), then purchase an [11-leaf clover](https://kol.coldfront.net/thekolwiki/index.php/11-leaf_clover) from the hermitage.<br/>
