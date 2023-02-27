@@ -73,7 +73,7 @@ Once you start getting more and more [free fight sources](https://kol.coldfront.
 | [designer sweatpants (new old stock)](https://kol.coldfront.net/thekolwiki/index.php/Designer_sweatpants)                             | hot res                                         | 6                     |
 | [Fourth of May Cosplay Saber kit](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber_kit)                     | hot res and free YR                             | 6\*\*                 |
 
-![image](https://user-images.githubusercontent.com/98746573/221615444-7291cdb9-3dee-4af8-a76d-21f84b4914eb.png)<br/>
+![image](https://user-images.githubusercontent.com/98746573/221619260-faa517cf-0a52-4240-ab2f-acb39281b347.png)<br/>
 <sub><sup>Note that the base route grabs CBB ingredients 6 times while the other routes only grab it 5 times (which results in one less epic food turngen from the [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar))</sup></sub> <br />
 \*Enables alternative routing that potentially saves another ~11 turns.<br/>
 \*\*The [Fourth of May Cosplay Saber](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber) combos really well with the [industrial fire extinguisher](https://kol.coldfront.net/thekolwiki/index.php/Industrial_fire_extinguisher), saving an additional ~35 turns (from [Fireproof Foam Suit](https://kol.coldfront.net/thekolwiki/index.php/Fireproof_Foam_Suit) and swapping the [factory worker (female)](<https://kol.coldfront.net/thekolwiki/index.php/Factory_worker_(female)>) fax target to the [red skeleton](https://kol.coldfront.net/thekolwiki/index.php/Red_skeleton)).<br/>
