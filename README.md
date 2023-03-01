@@ -26,7 +26,7 @@ For those who are interested in using `InstantSCCS` as is, the following section
 
 ### In Valhalla
 
-Because we rely heavily on the cookbookbat ingredients, (1) this route only works for Saucerors, and (2) the astral six-pack is the only useful astral consumable since it doesn't compete with the stomach-space required by the CBB. The pet sweater allows us to benefit from the Disgeist in the NC test, while giving us +5 turngen and free +11ML from the [Mind Control Device](https://kol.coldfront.net/thekolwiki/index.php/Mind_control_device).
+Because we rely heavily on the cookbookbat ingredients, (1) this route only works for Saucerors, and (2) the astral six-pack is the only useful astral consumable since it doesn't compete with the stomach-space required by the CBB. The pet sweater allows us to benefit from the Disgeist in the NC test, and the Opossum gives us +5 turngen and free +11ML from the [Mind Control Device](https://kol.coldfront.net/thekolwiki/index.php/Mind_control_device).
 
 - [astral six-pack](https://kol.coldfront.net/thekolwiki/index.php/Astral_six-pack) from The Deli Lama
 - [astral pet sweater](https://kol.coldfront.net/thekolwiki/index.php/Astral_pet_sweater) from Pet Heaven
