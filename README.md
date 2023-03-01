@@ -221,7 +221,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Configure your [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella) to the broken state, then equip it<br/>
 - Pull and use a [borrowed time](https://kol.coldfront.net/thekolwiki/index.php/Borrowed_time) (60 adv remaining, 0/0/0 organs) <br/>
 - Configure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set)<br/>
-  - coal/meat/brain silo/any other 5 stations <br/>
+  - meat/candy/fizzy tower/coal/brain silo/viewing platform/water bridge/frozen tower (in this order, so you will start your leveling cycle on the coal station)<br/>
 - Equip your [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) as your active familiar <br/>
 - Adventure 3 times in [the skeleton store](https://kol.coldfront.net/thekolwiki/index.php/The_Skeleton_Store), using a [yellow rocket](https://kol.coldfront.net/thekolwiki/index.php/Yellow_rocket) on the [novelty tropical skeleton](https://kol.coldfront.net/thekolwiki/index.php/Novelty_tropical_skeleton), [Bowl a Curveball](https://kol.coldfront.net/thekolwiki/index.php/Bowl_a_Curveball) on the first non-novelty skeleton, and [snokebomb](https://kol.coldfront.net/thekolwiki/index.php/Snokebomb) on the second non-novelty skeleton (1 turn, 59 adv remaining, 0/0/0 organs)
   - Purchase a [yellow rocket](https://kol.coldfront.net/thekolwiki/index.php/Yellow_rocket)<br/>
@@ -237,35 +237,40 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 
 - Get 5%mystxp from [April Shower](https://kol.coldfront.net/thekolwiki/index.php/Thaumodynamic) and cast [Inscrutable Gaze](<https://kol.coldfront.net/thekolwiki/index.php/Inscrutable_Gaze_(skill)>) <br/>
 - Use ten-percent bonus <br/>
-- Pull and consume 1x [Pizza of Legend](https://kol.coldfront.net/thekolwiki/index.php/Pizza_of_Legend) (+2adv from [pizza lover](https://kol.coldfront.net/thekolwiki/index.php/Pizza_Lover), +5adv from [Opossum](https://kol.coldfront.net/thekolwiki/index.php/The_Opossum)) (35+ adv remaining, 2/2/0 organs) <br/>
+- Pull and eat 1x [Pizza of Legend](https://kol.coldfront.net/thekolwiki/index.php/Pizza_of_Legend) (+2adv from [pizza lover](https://kol.coldfront.net/thekolwiki/index.php/Pizza_Lover), +5adv from [Opossum](https://kol.coldfront.net/thekolwiki/index.php/The_Opossum)) (35+ adv remaining, 2/2/0 organs) <br/>
 - Get [fortune teller 100%myst buff](https://kol.coldfront.net/thekolwiki/index.php/Everybody_Calls_Him_Gorgon) <br/>
 - Set [Mind Control Device ML](https://kol.coldfront.net/thekolwiki/index.php/The_Super-Secret_Canadian_Mind-Control_Device) to 11 <br/>
-- (Set mood to) buy and use [glittery mascara](https://kol.coldfront.net/thekolwiki/index.php/Glittery_mascara) to always maintain [Glittering Eyelashes](https://kol.coldfront.net/thekolwiki/index.php/Glittering_Eyelashes) (and other buffs) <br/>
+- Buy and use [glittery mascara](https://kol.coldfront.net/thekolwiki/index.php/Glittery_mascara) to always maintain [Glittering Eyelashes](https://kol.coldfront.net/thekolwiki/index.php/Glittering_Eyelashes) (and other buffs) <br/>
+  - You should set a mood to do this<br/>
 - Pull and use a [Dinsey daypass](https://kol.coldfront.net/thekolwiki/index.php/One-day_ticket_to_Dinseylandfill) <br/>
 - Maximize your myst <br/>
-- Reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set)<br/>
-  - coal/brain silo/viewing platform/water bridge/fizzy tower/frozen tower/meat/candy<br/>
 - Use 2x [scrumptious reagents](https://kol.coldfront.net/thekolwiki/index.php/Scrumptious_reagent) to [craft](https://kol.coldfront.net/thekolwiki/index.php/Advanced_Saucecrafting) 6x [ointment of the occults](https://kol.coldfront.net/thekolwiki/index.php/Ointment_of_the_occult)<br/>
   - Run at least 60 turns of [Mystically Oiled](https://kol.coldfront.net/thekolwiki/index.php/Mystically_Oiled) <br/>
-- Spend 1 turn in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice) to get [red](https://kol.coldfront.net/thekolwiki/index.php/Ready_to_Eat) and [blue rocket buffs](https://kol.coldfront.net/thekolwiki/index.php/Glowing_Blue) (no free kills/banishes - adventure needs to be spent to restore mp; ensure you have at least 32mp for [saucegeyser](https://kol.coldfront.net/thekolwiki/index.php/Saucegeyser) + [curse of weaksauce](https://kol.coldfront.net/thekolwiki/index.php/Curse_of_Weaksauce), and always use the curse to restore mp) (1 turn, 34+ adv remaining, 2/2/0 organs) <br/>
+- Spend 1 turn in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice) to get [red](https://kol.coldfront.net/thekolwiki/index.php/Ready_to_Eat) and [blue rocket buffs](https://kol.coldfront.net/thekolwiki/index.php/Glowing_Blue) (1 turn, 34+ adv remaining, 2/2/0 organs) <br/>
+  - No free kills/banishes - adventure needs to be spent to restore mp<br/>
+  - Ensure you have at least 32mp for [saucegeyser](https://kol.coldfront.net/thekolwiki/index.php/Saucegeyser) + [curse of weaksauce](https://kol.coldfront.net/thekolwiki/index.php/Curse_of_Weaksauce), and always use the curse to restore mp<br/>
   - Buy [red](https://kol.coldfront.net/thekolwiki/index.php/Red_rocket) and [blue rockets](https://kol.coldfront.net/thekolwiki/index.php/Blue_rocket) <br/>
 - Pull and consume 1x [Calzone of Legend](https://kol.coldfront.net/thekolwiki/index.php/Calzone_of_Legend) (+2adv from [pizza lover](https://kol.coldfront.net/thekolwiki/index.php/Pizza_Lover)) (54+ adv remaining, 4/2/0 organs) <br/>
 - Craft and drink a [Perfect Dark and Stormy](https://kol.coldfront.net/thekolwiki/index.php/Perfect_dark_and_stormy) (with [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze)) (75+ adv remaining, 4/5/0 organs)
   - Cast [Prevent Scurvy and Sobriety](https://kol.coldfront.net/thekolwiki/index.php/Prevent_Scurvy_and_Sobriety) and [Perfect Freeze](https://kol.coldfront.net/thekolwiki/index.php/Perfect_Freeze)<br/>
 - Cast/acquire [Stevedave's Shanty](<https://kol.coldfront.net/thekolwiki/index.php/Stevedave%27s_Shanty_of_Superiority_(effect)>), [Big](<https://kol.coldfront.net/thekolwiki/index.php/Big_(effect)>), [Song of Bravado](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Bravado_(effect)>), [Ur-kel's Aria](<https://kol.coldfront.net/thekolwiki/index.php/Ur-Kel%27s_Aria_of_Annoyance_(effect)>), [Pride of the Puffin](<https://kol.coldfront.net/thekolwiki/index.php/Pride_of_the_Puffin_(effect)>) and [Drescher's Annoying Noise](<https://kol.coldfront.net/thekolwiki/index.php/Drescher%27s_Annoying_Noise_(effect)>) (and other stat/stat%/ML buffs you may have) <br/>
   - Purchase and use [chewing gums on a string](https://kol.coldfront.net/thekolwiki/index.php/Chewing_gum_on_a_string) to get the [turtle totem](https://kol.coldfront.net/thekolwiki/index.php/Turtle_totem) and [saucepan](https://kol.coldfront.net/thekolwiki/index.php/Saucepan)
+  - You should set a mood for these buffs, and include the [glittery mascara](https://kol.coldfront.net/thekolwiki/index.php/Glittery_mascara)<br/>
 - Spend the remaining 2 [snokebomb](https://kol.coldfront.net/thekolwiki/index.php/Snokebomb) banishes in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice).
 - Spend 12 turns powerleveling in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice) to burn off the remaining turns of [Everything Looks Yellow](https://kol.coldfront.net/thekolwiki/index.php/Everything_Looks_Yellow) (12 turns, 63+ adv remaining, 4/5/0 organs)
   - Acquire and equip an [oversized sparkler](https://kol.coldfront.net/thekolwiki/index.php/Oversized_sparkler) the moment you have enough meat <br/>
   - Whenever you retrieve your [bowling ball](https://kol.coldfront.net/thekolwiki/index.php/Cosmic_bowling_ball), always [Bowl Sideways](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Sideways) immediately in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice)<br/>
 - [Reminisce](https://kol.coldfront.net/thekolwiki/index.php/Reminiscing_About_Those_Monsters_You_Fought) and [yellow rocket](https://kol.coldfront.net/thekolwiki/index.php/Yellow_rocket) a [red skeleton](https://kol.coldfront.net/thekolwiki/index.php/Red_skeleton) for a [red eye](https://kol.coldfront.net/thekolwiki/index.php/Red_eye) (1 turn, 62+ adv remaining, 4/5/0 organs)<br/>
   - Buy a [yellow rocket](https://kol.coldfront.net/thekolwiki/index.php/Yellow_rocket)<br/>
+  - Use the [red box](https://kol.coldfront.net/thekolwiki/index.php/Red_box) after! You might get some useful items, including the [red book](https://kol.coldfront.net/thekolwiki/index.php/Red_book), [red letter](https://kol.coldfront.net/thekolwiki/index.php/Red_letter) or even the [red shoe](https://kol.coldfront.net/thekolwiki/index.php/Red_shoe)<br/>
+  - (For alternative routes, the reminisced [red skeleton](https://kol.coldfront.net/thekolwiki/index.php/Red_skeleton) tunes your [locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket) to +50%mus, which may be helpful in running the Mus test before reminiscing the [Witchess King](https://kol.coldfront.net/thekolwiki/index.php/Witchess_King) for the Mox test)
 - Spend turns and free fights powerleveling until you get the [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) to drop its ingredients 6 times (this can be dropped to 5 if you have additional shinies as shown in the graph above), and a base myst of no less than 195 (which also can be lowered with more stat%-granting shinies). For the minimal route:<br/>
-  - Spend ~41 more adventures in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice) (reconfigure [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) after hitting the 6th brain silo), hitting no less than 185 base myst (~41 turns, 21+ adv remaining, 4/5/0 organs) <br/>
+  - Spend ~41 more adventures in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice), hitting no less than 185 base myst (you need to have 195 base myst by the end of your powerleveling) (~41 turns, 21+ adv remaining, 4/5/0 organs) <br/>
+    - Do not your reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) now even if you can<br/>
     - Drink 6x [astral pilsners](https://kol.coldfront.net/thekolwiki/index.php/Astral_pilsner) (with [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze)) while leveling in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice) as soon as you hit level 11 (92+ adv remaining, 4/11/0 organs) <br/>
   - Consume the following foods/booze and acquire the following effects after the turn-taking adventures, prior to your free kills/fights (you may do this earlier to benefit from the myst% buffs during leveling, but do ensure that the buffs do not run out before you take the relevant tests):
     - Buy and use an [all-purpose flower](https://kol.coldfront.net/thekolwiki/index.php/All-purpose_flower) (the [Gift Shop](https://kol.coldfront.net/thekolwiki/index.php/The_Gift_Shop) doesn't require [beach](https://kol.coldfront.net/thekolwiki/index.php/Desert_Beach) access)<br/>
-    - Use a [wad of dough](https://kol.coldfront.net/thekolwiki/index.php/Wad_of_dough) to create a [flat dough](https://kol.coldfront.net/thekolwiki/index.php/Flat_dough<br/>
+    - Use a [wad of dough](https://kol.coldfront.net/thekolwiki/index.php/Wad_of_dough) to create a [flat dough](https://kol.coldfront.net/thekolwiki/index.php/Flat_dough)<br/>
     - Acquire [Lyle's buff](https://kol.coldfront.net/thekolwiki/index.php/Favored_by_Lyle)<br/>
     - Drink 1x [Bee's Knees](https://kol.coldfront.net/thekolwiki/index.php/Bee%27s_Knees) (with [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze)) (100+ adv remaining, 4/13/0 organs)<br/>
     - Craft and eat 1x [honey bun of Boris](https://kol.coldfront.net/thekolwiki/index.php/Honey_bun_of_Boris) (105+ adv remaining, 5/13/0 organs)<br/>
@@ -277,6 +282,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
   - Spend another 4x free kills ([shattering punch](https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch) + [mob hit](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Mob_Hit) in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice)<br/>
   - [Reminisce](https://kol.coldfront.net/thekolwiki/index.php/Reminiscing_About_Those_Monsters_You_Fought) a [Witchess King](https://kol.coldfront.net/thekolwiki/index.php/Witchess_King) for the [dented scepter](https://kol.coldfront.net/thekolwiki/index.php/Dented_scepter) and tuning your [locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket) to the [Dudes](https://kol.coldfront.net/thekolwiki/index.php/Category:Dudes) phylum<br/>
   - Craft and eat 1x [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar) (174+ adv remaining, 14/13/0 organs)<br/>
+  - Unset all your moods after you're done leveling<br/>
 - Maximise myst and buff up as necessary for the myst test <br/>
 
 > Myst Test (1 turn, 173+ adv remaining, 14/13/0 organs) <br/>
@@ -318,6 +324,8 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 > NC Test (9 turns, 111+ adv remaining, 14/13/0 organs) <br/>
 
 - Use a [clover](https://kol.coldfront.net/thekolwiki/index.php/11-leaf_clover) to grab a [cyclops eyedrops](https://kol.coldfront.net/thekolwiki/index.php/Cyclops_eyedrops) from the [Limerick Dungeon](https://kol.coldfront.net/thekolwiki/index.php/The_Limerick_Dungeon) (1 turn, 110+ adv remaining, 14/13/0 organs) <br/>
+- Reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set)<br/>
+  - coal/frozen tower/any other 6 stations<br/>
 - [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and [yellow rocket](https://kol.coldfront.net/thekolwiki/index.php/Yellow_rocket) a [faxed](https://kol.coldfront.net/thekolwiki/index.php/A_Fax_Machine) [factory worker (female)](<https://kol.coldfront.net/thekolwiki/index.php/Factory_worker_(female)>) (1 turn, 109+ adv remaining, 14/13/0 organs)
 - Configure your [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella) to the bucket state, then equip it<br/>
 - Use Mus Test [reward](https://kol.coldfront.net/thekolwiki/index.php/Bag_of_grain) and [cyclops eyedrops](https://kol.coldfront.net/thekolwiki/index.php/Cyclops_eyedrops) <br/>
@@ -330,19 +338,17 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 
 > Item Test (32 turns, 83+ adv remaining, 15/13/0 organs) <br/>
 
-- Reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set)<br/>
-  - coal/frozen tower/any other 6 stations<br/>
 - [Reminisce](https://kol.coldfront.net/thekolwiki/index.php/Reminiscing_About_Those_Monsters_You_Fought) an [ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith) for the [cowrrupted marrow](https://kol.coldfront.net/thekolwiki/index.php/Corrupted_marrow) (1 turn, 82+ adv remaining, 15/13/0 organs)<br/>
-- Spend a turn in [The Dire Warren](https://kol.coldfront.net/thekolwiki/index.php/The_Dire_Warren) to get [Double Frozen](https://kol.coldfront.net/thekolwiki/index.php/Double_Frozen) from your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) (1 turn, 81+ adv remaining, 15/13/0 organs).
+  - You should also have obtained [Double Frozen](https://kol.coldfront.net/thekolwiki/index.php/Double_Frozen) from your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set).
 - Cast [leash of linguini](<https://kol.coldfront.net/thekolwiki/index.php/Leash_of_Linguini_(skill)>) and [empathy](https://kol.coldfront.net/thekolwiki/index.php/Empathy_of_the_Newt)<br/>
 - Use [NC](https://kol.coldfront.net/thekolwiki/index.php/Silver_face_paint) and [Myst Test rewards](https://kol.coldfront.net/thekolwiki/index.php/Pocket_maze)<br/>
 - Use your [parrot](https://kol.coldfront.net/thekolwiki/index.php/Exotic_Parrot) and equip it with your [astral pet sweater](https://kol.coldfront.net/thekolwiki/index.php/Astral_pet_sweater) (base 1lbs, [+15lbs](https://kol.coldfront.net/thekolwiki/index.php/Amphibian_Sympathy) [from](https://kol.coldfront.net/thekolwiki/index.php/Empathy) [skills](<https://kol.coldfront.net/thekolwiki/index.php/Leash_of_Linguini_(effect)>) +10lbs from [astral pet sweater](https://kol.coldfront.net/thekolwiki/index.php/Astral_pet_sweater), +20lbs from [NC Test reward](https://kol.coldfront.net/thekolwiki/index.php/Robot_Friends))<br/>
 - Maximize hotres and buff up as necessary for the Hot Resist test <br/>
   - You should have +4res from [Double Frozen](https://kol.coldfront.net/thekolwiki/index.php/Double_Frozen), +4res from [pocket maze](https://kol.coldfront.net/thekolwiki/index.php/Amazing), +3res from [Asbestos Heart](https://kol.coldfront.net/thekolwiki/index.php/Asbestos_Heart), +3res from [Tolerance of the Kitchen](https://kol.coldfront.net/thekolwiki/index.php/Tolerance_of_the_Kitchen), +2res from [Elemental Saucesphere](<https://kol.coldfront.net/thekolwiki/index.php/Elemental_Saucesphere_(effect)>), +1res from [Astral Shell](<https://kol.coldfront.net/thekolwiki/index.php/Astral_Shell_(effect)>), +1res from [Crimbo 2022 passive](https://kol.coldfront.net/thekolwiki/index.php/Crimbo_Training:_Coal_Taster), +5res from [lava-proof pants](https://kol.coldfront.net/thekolwiki/index.php/Lava-proof_pants), +4res from [heat-resistant gloves](https://kol.coldfront.net/thekolwiki/index.php/Heat-resistant_gloves) and +3res from [parrot](https://kol.coldfront.net/thekolwiki/index.php/Exotic_Parrot) (totalling +30res)<br/>
 
-> Hot Resist Test (30 turns, 51+ adv remaining, 15/13/0 organs) <br/>
+> Hot Resist Test (30 turns, 52+ adv remaining, 15/13/0 organs) <br/>
 
-- Cast [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze) and drink a [Sockdollager](https://kol.coldfront.net/thekolwiki/index.php/Sockdollager) (59+ adv remaining, 15/15/0 organs) <br/>
+- Cast [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze) and drink a [Sockdollager](https://kol.coldfront.net/thekolwiki/index.php/Sockdollager) (60+ adv remaining, 15/15/0 organs) <br/>
 - Configure your [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella) to the pitchfork state, then equip it<br/>
 - Craft and use a [potion of potency](https://kol.coldfront.net/thekolwiki/index.php/Potion_of_potency) <br/>
 - Buy a [goofily-plumed helmet](https://kol.coldfront.net/thekolwiki/index.php/Goofily-plumed_helmet) to get [Weapon of Mass Destruction](https://kol.coldfront.net/thekolwiki/index.php/Weapon_of_Mass_Destruction) from the [Mad Hatter](https://kol.coldfront.net/thekolwiki/index.php/The_Mad_Tea_Party)<br/>
@@ -351,16 +357,16 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
   - You should also have +25 from [red eye](https://kol.coldfront.net/thekolwiki/index.php/Red_eye), +25 from [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella), +20 from [sockdollager](https://kol.coldfront.net/thekolwiki/index.php/In_a_Lather), +12 from [Jackasses' Symphony](<https://kol.coldfront.net/thekolwiki/index.php/Jackasses%27_Symphony_of_Destruction_(effect)>), +10 from [Scowl of the Auk](<https://kol.coldfront.net/thekolwiki/index.php/Scowl_of_the_Auk_(effect)>), +10 from [Rage of the Reindeer](<https://kol.coldfront.net/thekolwiki/index.php/Rage_of_the_Reindeer_(effect)>), +8 from [Tenacity of the Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Tenacity_of_the_Snapper_(effect)>), +7 from [Claws of the Walrus](https://kol.coldfront.net/thekolwiki/index.php/Claws_of_the_Walrus), +5 from [Disdain of the War Snapper](https://kol.coldfront.net/thekolwiki/index.php/Disdain_of_the_War_Snapper) and +5 from [potion of potency](https://kol.coldfront.net/thekolwiki/index.php/Pronounced_Potency) (totalling +127 flat) <br/>
 - Cast [bow-legged swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(effect)>) (+630%wdmg +127flat) <br/>
 
-> Weapon Test (30 turns, 29+ adv remaining, 15/15/0 organs) <br/>
+> Weapon Test (30 turns, 30+ adv remaining, 15/15/0 organs) <br/>
 
 - Buy an [obsidian nutcracker](https://kol.coldfront.net/thekolwiki/index.php/Obsidian_nutcracker) <br/>
 - Configure your [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella) to the constant twirl state, then equip it<br/>
-- Cast [simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer) (1 turn, 28+ adv remaining, 15/15/0 organs) <br/>
+- Cast [simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer) (1 turn, 29+ adv remaining, 15/15/0 organs) <br/>
 - Maximize sdmg and sdmg% and buff up as necessary for the Spell test <br/>
   - You should have +100% from [Song of Sauce](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Sauce_(effect)>), +100% from [simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmering), +100% from [carol of the hells](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Hells_(effect)>), +50% from [pool table](https://kol.coldfront.net/thekolwiki/index.php/Mental_A-cue-ity), 30% from [obsidian nutcracker](https://kol.coldfront.net/thekolwiki/index.php/Obsidian_nutcracker), 10% from [Master Saucier](https://kol.coldfront.net/thekolwiki/index.php/Master_Saucier) and 10% from [Subtle and Quick to Anger](https://kol.coldfront.net/thekolwiki/index.php/Subtle_and_Quick_to_Anger) (totalling +400%sdmg)<br/>
   - You should also have +50 from [codpiece](https://kol.coldfront.net/thekolwiki/index.php/Codpiece) and +25 from [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella) (flat sdmg) <br/>
 
-> Spell Test (51 turns, -23+ adv remaining, 15/15/0 organs) <br/>
+> Spell Test (51 turns, -22+ adv remaining, 15/15/0 organs) <br/>
 
 This should be a ~1/310 SCCS completed (once we figure out the right turnsaves).
 
