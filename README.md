@@ -82,6 +82,62 @@ It also enables the [Pocket Meteor Guide](https://kol.coldfront.net/thekolwiki/i
 Both benefit from an additional +4 turns saved in enabling [cowrruption](https://kol.coldfront.net/thekolwiki/index.php/Cowrruption) to be carried over to the sdmg test.<br/>
 <sub><sup>This is not meant to be an exhaustive list, and the turns saved are only relevant to this particular route. There are many other strong IotMs, including [corked genie bottle](https://kol.coldfront.net/thekolwiki/index.php/Corked_genie_bottle), [Pack of Every Card](https://kol.coldfront.net/thekolwiki/index.php/Pack_of_Every_Card), [Source terminal](https://kol.coldfront.net/thekolwiki/index.php/Source_terminal), [Witchess Set](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Set) and [suspicious package](https://kol.coldfront.net/thekolwiki/index.php/Suspicious_package) just to name a few.</sup></sub> <br />
 
+### List of Supported IotMs
+
+The following is a list of currently supported IotMs. Note that because this is a generalist script, we may not be able to eke out every last bit of value from extremely niche uses of these IotMs. In fact, when you have a significant amount of shinies, we might use resources inefficiently in a manner that may overcap the tests (e.g. for leveling, hot resist, wdmg etc).
+
+| IotM                                                                                                                            | Use |
+| ------------------------------------------------------------------------------------------------------------------------------- | --- |
+| [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)                                       |     |
+| [Sorcerers of the Shore Grimoire](https://kol.coldfront.net/thekolwiki/index.php/Sorcerers_of_the_Shore_Grimoire)               |     |
+| [Tome of Clip Art](https://kol.coldfront.net/thekolwiki/index.php/Tome_of_Clip_Art)                                             |     |
+| [airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)     |     |
+| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)       |     |
+| [Chateau Mantegna room key](https://kol.coldfront.net/thekolwiki/index.php/Chateau_Mantegna_room_key)                           |     |
+| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)             |     |
+| [Pack of Every Card](https://kol.coldfront.net/thekolwiki/index.php/Pack_of_Every_Card)                                         |     |
+| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)         |     |
+| [shrine to the Barrel god](https://kol.coldfront.net/thekolwiki/index.php/Shrine_to_the_Barrel_god)                             |     |
+| [machine elf capsule](https://kol.coldfront.net/thekolwiki/index.php/Machine_elf_capsule)                                       |     |
+| [X-32-F snowman crate](https://kol.coldfront.net/thekolwiki/index.php/X-32-F_snowman_crate)                                     |     |
+| [LT&T telegraph office deed](https://kol.coldfront.net/thekolwiki/index.php/LT%26T_telegraph_office_deed)                       |     |
+| [Witchess Set](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Set)                                                     |     |
+| [Source terminal](https://kol.coldfront.net/thekolwiki/index.php/Source_terminal)                                               |     |
+| [detective school application](https://kol.coldfront.net/thekolwiki/index.php/Detective_school_application)                     |     |
+| [heart-shaped crate](https://kol.coldfront.net/thekolwiki/index.php/Heart-shaped_crate)                                         |     |
+| [suspicious package](https://kol.coldfront.net/thekolwiki/index.php/Suspicious_package)                                         |     |
+| [Pocket Meteor Guide](https://kol.coldfront.net/thekolwiki/index.php/Pocket_Meteor_Guide)                                       |     |
+| [corked genie bottle](https://kol.coldfront.net/thekolwiki/index.php/Corked_genie_bottle)                                       |     |
+| [pantogram](https://kol.coldfront.net/thekolwiki/index.php/Pantogram)                                                           |     |
+| [locked mumming trunk](https://kol.coldfront.net/thekolwiki/index.php/Locked_mumming_trunk)                                     |     |
+| [January's Garbage Tote (unopened)](<https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote_(unopened)>)       |     |
+| [God Lobster Egg](https://kol.coldfront.net/thekolwiki/index.php/God_Lobster_Egg)                                               |     |
+| [SongBoom™ BoomBox Box](https://kol.coldfront.net/thekolwiki/index.php/SongBoom%E2%84%A2_BoomBox_Box)                           |     |
+| [Bastille Battalion control rig crate](https://kol.coldfront.net/thekolwiki/index.php/Bastille_Battalion_control_rig_crate)     |     |
+| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope)   |     |
+| [voter registration form](https://kol.coldfront.net/thekolwiki/index.php/Voter_registration_form)                               |     |
+| [Boxing Day care package](https://kol.coldfront.net/thekolwiki/index.php/Boxing_Day_care_package)                               |     |
+| [Kramco Industries packing carton](https://kol.coldfront.net/thekolwiki/index.php/Kramco_Industries_packing_carton)             |     |
+| [mint condition Lil' Doctor™ bag](https://kol.coldfront.net/thekolwiki/index.php/Mint_condition_Lil%27_Doctor%E2%84%A2_bag)     |     |
+| [vampyric cloake pattern](https://kol.coldfront.net/thekolwiki/index.php/Vampyric_cloake_pattern)                               |     |
+| [Fourth of May Cosplay Saber kit](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber_kit)               |     |
+| [Distant Woods Getaway Brochure](https://kol.coldfront.net/thekolwiki/index.php/Distant_Woods_Getaway_Brochure)                 |     |
+| [Unopened Eight Days a Week Pill Keeper](https://kol.coldfront.net/thekolwiki/index.php/Unopened_Eight_Days_a_Week_Pill_Keeper) |     |
+| [unopened Bird-a-Day calendar](https://kol.coldfront.net/thekolwiki/index.php/Unopened_Bird-a-Day_calendar)                     |     |
+| [mint-in-box Powerful Glove](https://kol.coldfront.net/thekolwiki/index.php/Mint-in-box_Powerful_Glove)                         |     |
+| [packaged SpinMaster™ lathe](https://kol.coldfront.net/thekolwiki/index.php/Packaged_SpinMaster%E2%84%A2_lathe)                 |     |
+| [Bagged Cargo Cultist Shorts](https://kol.coldfront.net/thekolwiki/index.php/Bagged_Cargo_Cultist_Shorts)                       |     |
+| [emotion chip](https://kol.coldfront.net/thekolwiki/index.php/Emotion_chip)                                                     |     |
+| [power seed](https://kol.coldfront.net/thekolwiki/index.php/Power_seed)                                                         |     |
+| [packaged industrial fire extinguisher](https://kol.coldfront.net/thekolwiki/index.php/Packaged_industrial_fire_extinguisher)   |     |
+| [undrilled cosmic bowling ball](https://kol.coldfront.net/thekolwiki/index.php/Undrilled_cosmic_bowling_ball)                   |     |
+| [combat lover's locket lockbox](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket_lockbox)                 |     |
+| [undamaged Unbreakable Umbrella](https://kol.coldfront.net/thekolwiki/index.php/Undamaged_Unbreakable_Umbrella)                 |     |
+| [MayDay™ contract](https://kol.coldfront.net/thekolwiki/index.php/MayDay%E2%84%A2_contract)                                     |     |
+| [boxed autumn-aton](https://kol.coldfront.net/thekolwiki/index.php/Boxed_autumn-aton)                                           |     |
+| [mummified entombed cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Mummified_entombed_cookbookbat)                 |     |
+| [packaged model train set](https://kol.coldfront.net/thekolwiki/index.php/Packaged_model_train_set)                             |     |
+
 ### Required Resources
 
 Because we do not rely heavily on too many IotMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. The small +stat% buffs matter a lot for the offstat tests, and each of these resources will save 1 or more turns in your run. <br />

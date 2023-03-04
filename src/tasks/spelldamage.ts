@@ -45,6 +45,7 @@ export const SpellDamageQuest: Quest = {
           $effect`Song of Sauce`,
           $effect`Spirit of Peppermint`,
           $effect`The Magic of LOV`,
+          $effect`Warlock, Warstock, and Warbarrel`,
           $effect`We're All Made of Starfish`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
