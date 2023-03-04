@@ -138,6 +138,10 @@ export const LevelingQuest: Quest = {
           takeStorage($item`non-Euclidean angle`, 1);
           chew($item`non-Euclidean angle`, 1);
         }
+        if (get("_roninStoragePulls").split(",").length <= 4) {
+          takeStorage($item`abstraction: category`, 1);
+          chew($item`abstraction: category`);
+        }
       },
     },
     {
