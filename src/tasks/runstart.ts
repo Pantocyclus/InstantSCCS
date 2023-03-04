@@ -119,7 +119,7 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "KGB",
-      completed: () => get("_kgbClicksUsed") >= 0 || !have($item`Kremlin's Greatest Briefcase`),
+      completed: () => get("_kgbClicksUsed") > 0 || !have($item`Kremlin's Greatest Briefcase`),
       do: () => cliExecute("briefcase e ml"),
     },
     {
