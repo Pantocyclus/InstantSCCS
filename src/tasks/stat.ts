@@ -1,5 +1,14 @@
-import { Effect, useSkill } from "kolmafia";
-import { $effect, $effects, $skill, CommunityService, uneffect } from "libram";
+import { create, Effect, useSkill } from "kolmafia";
+import {
+  $effect,
+  $effects,
+  $item,
+  $skill,
+  CommunityService,
+  ensureEffect,
+  have,
+  uneffect,
+} from "libram";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 
@@ -10,8 +19,8 @@ export const HPQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.HP.isDone(),
       prepare: (): void => {
-        $effects`Ur-Kel's Aria of Annoyance, Aloysius' Antiphon of Aptitude`.forEach((ef) =>
-          uneffect(ef)
+        $effects`Ur-Kel's Aria of Annoyance, Aloysius' Antiphon of Aptitude, Ode to Booze`.forEach(
+          (ef) => uneffect(ef)
         );
         const usefulEffects: Effect[] = [
           $effect`A Few Extra Pounds`,
@@ -40,7 +49,10 @@ export const MuscleQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Muscle.isDone(),
       prepare: (): void => {
-        useSkill($skill`Bind Undead Elbow Macaroni`);
+        if (!have($effect`Expert Oiliness`) && !have($item`oil of expertise`)) {
+          create($item`oil of expertise`, 1);
+        }
+        ensureEffect($effect`Expert Oiliness`);
         const usefulEffects: Effect[] = [
           $effect`Go Get 'Em, Tiger!`,
           $effect`Quiet Determination`,
@@ -50,7 +62,7 @@ export const MuscleQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
       },
-      do: () => CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), 1),
+      do: () => CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), 2),
       outfit: { modifier: "Muscle" },
       post: (): void => {
         uneffect($effect`Power Ballad of the Arrowsmith`);
@@ -73,6 +85,7 @@ export const MysticalityQuest: Quest = {
           $effect`The Magical Mojomuscular Melody`,
           $effect`Pasta Oneness`,
           $effect`Quiet Judgement`,
+          $effect`Song of Bravado`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
       },
@@ -94,9 +107,12 @@ export const MoxieQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Moxie.isDone(),
       prepare: (): void => {
-        useSkill($skill`Bind Undead Elbow Macaroni`);
+        if (!have($effect`Expert Oiliness`) && !have($item`oil of expertise`)) {
+          create($item`oil of expertise`, 1);
+        }
+        ensureEffect($effect`Expert Oiliness`);
         const usefulEffects: Effect[] = [
-          $effect`Amazing`,
+          // $effect`Amazing`,
           $effect`Blubbered Up`,
           $effect`Butt-Rock Hair`,
           $effect`Disco Fever`,
@@ -104,10 +120,12 @@ export const MoxieQuest: Quest = {
           $effect`The Moxious Madrigal`,
           $effect`Pomp & Circumsands`,
           $effect`Quiet Desperation`,
+          $effect`Song of Bravado`,
+          $effect`Blessing of the Bird`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
       },
-      do: () => CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), 1),
+      do: () => CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), 5),
       outfit: { modifier: "Moxie" },
       limit: { tries: 1 },
     },

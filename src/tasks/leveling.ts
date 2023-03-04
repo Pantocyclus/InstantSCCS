@@ -1,46 +1,117 @@
 import { Quest } from "../engine/task";
 import {
+  adv1,
   buy,
-  changeMcd,
+  chew,
   cliExecute,
-  currentMcd,
+  create,
   drink,
   eat,
   Effect,
-  getWorkshed,
+  effectModifier,
+  equip,
   inebrietyLimit,
+  Item,
+  itemAmount,
+  Location,
   myBasestat,
   myFullness,
   myHash,
   myInebriety,
   myLevel,
+  myMaxmp,
   myMeat,
   myMp,
+  mySoulsauce,
+  numericModifier,
   restoreMp,
+  retrieveItem,
+  runChoice,
   takeStorage,
+  totalFreeRests,
   use,
+  useSkill,
   visitUrl,
 } from "kolmafia";
 import {
   $effect,
   $familiar,
   $item,
+  $items,
   $location,
+  $monster,
   $skill,
+  $slot,
   $stat,
+  CombatLoversLocket,
   ensureEffect,
   get,
+  getKramcoWandererChance,
   have,
+  SongBoom,
+  TunnelOfLove,
+  Witchess,
 } from "libram";
-import { Cycle, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 import { tryAcquiringEffect } from "../lib";
+
+const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
+const usefulEffects: Effect[] = [
+  // Stats
+  $effect`Big`,
+  $effect`Pasta Oneness`,
+  $effect`Saucemastery`,
+  $effect`Blessing of She-Who-Was`,
+  $effect`Glittering Eyelashes`,
+  $effect`Feeling Excited`,
+  $effect`Triple-Sized`,
+  $effect`stats.enq`,
+  $effect`Hulkien`,
+  $effect`Uncucumbered`,
+  $effect`We're All Made of Starfish`,
+  $effect`Broad-Spectrum Vaccine`,
+  $effect`Think Win-Lose`,
+  $effect`Confidence of the Votive`,
+  $effect`Song of Bravado`,
+
+  // ML
+  $effect`Pride of the Puffin`,
+  $effect`Drescher's Annoying Noise`,
+  $effect`Ur-Kel's Aria of Annoyance`,
+
+  // Xp
+  $effect`Carol of the Thrills`,
+
+  // Songs
+  $effect`Stevedave's Shanty of Superiority`,
+  $effect`Ur-Kel's Aria of Annoyance`,
+  $effect`Aloysius' Antiphon of Aptitude`,
+];
+
+function powerlevelingLocation(): Location {
+  if (get("neverendingPartyAlways")) return $location`The Neverending Party`;
+  else if (get("stenchAirportAlways") || get("_stenchAirportToday"))
+    return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`;
+  else if (get("spookyAirportAlways")) return $location`The Deep Dark Jungle`;
+  else if (get("hotAirportAlways")) return $location`The SMOOCH Army HQ`;
+  else if (get("coldAirportAlways")) return $location`VYKEA`;
+  else if (get("sleazeAirportAlways")) return $location`Sloppy Seconds Diner`;
+  return $location.none;
+}
 
 export const LevelingQuest: Quest = {
   name: "Leveling",
   completed: () => get("csServicesPerformed").split(",").length > 1,
   tasks: [
+    {
+      name: "Soul Food",
+      ready: () => mySoulsauce() >= 5,
+      completed: () => mySoulsauce() < 5 || myMp() > myMaxmp() - 15 || !have($skill`Soul Food`),
+      do: (): void => {
+        while (mySoulsauce() >= 5 && myMp() <= myMaxmp() - 15) useSkill($skill`Soul Food`);
+      },
+    },
     {
       name: "Clan Shower",
       completed: () => get("_aprilShower"),
@@ -54,33 +125,108 @@ export const LevelingQuest: Quest = {
       do: (): void => ensureEffect($effect`Inscrutable Gaze`),
     },
     {
+      name: "Pulls",
+      completed: () => get("_roninStoragePulls").split(",").length >= 5,
+      do: (): void => {
+        takeStorage($item`Deep Dish of Legend`, 1);
+        takeStorage($item`Calzone of Legend`, 1);
+        takeStorage($item`Pizza of Legend`, 1);
+        if (powerlevelingLocation() === $location.none) {
+          takeStorage($item`one-day ticket to Dinseylandfill`, 1);
+          use($item`one-day ticket to Dinseylandfill`, 1);
+        } else {
+          takeStorage($item`non-Euclidean angle`, 1);
+          chew($item`non-Euclidean angle`, 1);
+        }
+      },
+    },
+    {
       name: "Use Ten-Percent Bonus",
+      prepare: (): void => {
+        if (get("getawayCampsiteUnlocked"))
+          visitUrl("place.php?whichplace=campaway&action=campaway_sky");
+      },
       completed: () => !have($item`a ten-percent bonus`),
       do: () => use($item`a ten-percent bonus`, 1),
     },
     {
-      name: "Eat Roasted Vegetable Focaccia",
-      completed: () => myFullness() >= 9,
+      name: "Bastille",
+      completed: () => get("_bastilleGames") > 0 || !have($item`Bastille Battalion control rig`),
+      do: () => cliExecute("bastille.ash mainstat brutalist"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Restore mp",
+      completed: () => get("timesRested") >= totalFreeRests() || myMp() >= myMaxmp(),
+      prepare: (): void => {
+        if (have($item`Newbiesport™ tent`)) use($item`Newbiesport™ tent`);
+      },
       do: (): void => {
-        takeStorage($item`roasted vegetable focaccia`, 1);
-        eat($item`roasted vegetable focaccia`, 1);
+        if (get("chateauAvailable")) {
+          visitUrl("place.php?whichplace=chateau&action=chateau_restbox");
+        } else if (get("getawayCampsiteUnlocked")) {
+          visitUrl("place.php?whichplace=campaway&action=campaway_tentclick");
+        } else {
+          visitUrl("campground.php?action=rest");
+        }
+      },
+      outfit: { modifier: "myst, mp" },
+    },
+    {
+      name: "Alice Army",
+      completed: () => get("grimoire3Summons") > 0 || !have($skill`Summon Alice's Army Cards`),
+      do: () => useSkill($skill`Summon Alice's Army Cards`),
+    },
+    {
+      name: "Confiscator's Grimoire",
+      completed: () =>
+        get("_grimoireConfiscatorSummons") > 0 || !have($skill`Summon Confiscated Things`),
+      do: () => useSkill($skill`Summon Confiscated Things`),
+    },
+    {
+      name: "Detective School",
+      completed: () => get("_detectiveCasesCompleted", 0) >= 3 || !get("hasDetectiveSchool"),
+      do: () => cliExecute("Detective Solver"),
+    },
+    {
+      name: "Breakfast",
+      completed: () => get("lastAnticheeseDay") > 0,
+      do: (): void => {
+        cliExecute("breakfast");
+        cliExecute("refresh all");
       },
     },
     {
       name: "Eat Calzone",
       completed: () => get("calzoneOfLegendEaten"),
+      do: () => eat($item`Calzone of Legend`, 1),
+    },
+    {
+      name: "Consult Gorgonzola",
+      completed: () => get("_clanFortuneBuffUsed"),
+      do: () => cliExecute("fortune myst"),
+    },
+    {
+      name: "Use Glittery Mascara",
+      completed: () => have($effect`Glittering Eyelashes`),
+      do: () => ensureEffect($effect`Glittering Eyelashes`),
+    },
+    {
+      name: "Use Ointment of the Occult",
+      completed: () => have($effect`Mystically Oiled`),
       do: (): void => {
-        takeStorage($item`Calzone of Legend`, 1);
-        eat($item`Calzone of Legend`, 1);
+        if (!have($item`ointment of the occult`)) {
+          if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
+          create($item`ointment of the occult`, 1);
+        }
+        ensureEffect($effect`Mystically Oiled`);
       },
     },
     {
-      name: "Eat Deep Dish",
-      completed: () => get("deepDishOfLegendEaten"),
-      do: (): void => {
-        takeStorage($item`Deep Dish of Legend`, 1);
-        eat($item`Deep Dish of Legend`, 1);
-      },
+      name: "Buy Oversized Sparkler",
+      ready: () => have($effect`Everything Looks Blue`) && myMeat() >= 1000,
+      completed: () => have($item`oversized sparkler`),
+      do: () => buy($item`oversized sparkler`, 1),
     },
     {
       name: "Eat Pizza",
@@ -89,45 +235,6 @@ export const LevelingQuest: Quest = {
       do: (): void => {
         takeStorage($item`Pizza of Legend`, 1);
         eat($item`Pizza of Legend`, 1);
-      },
-    },
-    {
-      name: "Eat One With Everything",
-      completed: () => get("_fancyHotDogEaten"),
-      do: (): void => {
-        visitUrl("clan_viplounge.php?preaction=hotdogsupply&hagnks=1&whichdog=-94&quantity=10");
-        visitUrl("clan_viplounge.php?preaction=eathotdog&whichdog=-94");
-      },
-    },
-    {
-      name: "Drink Remaining Distilled Wines",
-      ready: () => myMp() >= 50,
-      completed: () =>
-        inebrietyLimit() - myInebriety() <= 12 || !have($item`distilled fortified wine`),
-      prepare: () => tryAcquiringEffect($effect`Ode to Booze`),
-      do: () => drink($item`distilled fortified wine`, 1),
-    },
-    {
-      name: "Drink Bee's Knees",
-      ready: () => myMp() >= 50 && myMeat() >= 500,
-      completed: () => get("_speakeasyDrinksDrunk") > 2 || have($effect`On the Trolley`),
-      prepare: () => tryAcquiringEffect($effect`Ode to Booze`),
-      do: () => visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=5&pwd=${+myHash()}`),
-      post: (): void => {
-        if (have($effect`Ode to Booze`)) cliExecute("shrug ode");
-      },
-    },
-    {
-      name: "Consult Gorgonzola",
-      completed: () => get("_clanFortuneBuffUsed"),
-      do: () => cliExecute("fortune myst"),
-    },
-    {
-      name: "Pull Dinsey pass",
-      completed: () => get("_stenchAirportToday") || get("stenchAirportAlways"),
-      do: (): void => {
-        takeStorage($item`one-day ticket to Dinseylandfill`, 1);
-        use($item`one-day ticket to Dinseylandfill`);
       },
     },
     {
@@ -143,97 +250,454 @@ export const LevelingQuest: Quest = {
       },
     },
     {
-      name: "Configure Trainset",
-      completed: () => !have($item`model train set`) || getWorkshed() === $item`model train set`,
+      name: "Shadow Rift",
+      prepare: (): void => {
+        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`))
+          buy($item`red rocket`, 1);
+        if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`))
+          buy($item`blue rocket`, 1);
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        // TODO: If we have not gotten the Shadow Affinity Effect for the day, grab it
+      },
+      // eslint-disable-next-line libram/verify-constants
+      completed: () => have($item`Rufus's shadow lodestone`),
+      // eslint-disable-next-line libram/verify-constants
       do: (): void => {
-        use($item`model train set`);
-        const stations = [
-          Station.COAL_HOPPER, // double myst gain
-          Station.BRAIN_SILO, // myst stats
-          Station.VIEWING_PLATFORM, // all stats
-          Station.WATER_BRIDGE, // +ML
-          Station.TOWER_FIZZY, // mp regen
-          Station.TOWER_FROZEN, // hot resist (useful)
-          Station.GAIN_MEAT, // meat
-          Station.CANDY_FACTORY, // candies
-        ] as Cycle;
-        setConfiguration(stations);
+        visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
+        // TODO: Figure out how to get the right NC choice
+        // if (lastChoice() === 69420) runChoice(4);
+      },
+      combat: new CombatStrategy().macro(
+        Macro.tryItem($item`red rocket`)
+          .tryItem($item`blue rocket`)
+          .default()
+      ),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      post: (): void => {
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
+      limit: { tries: 12 },
+    },
+    {
+      name: "Snojo",
+      prepare: (): void => {
+        if (get("snojoSetting") === null) {
+          visitUrl("place.php?whichplace=snojo&action=snojo_controller");
+          runChoice(1);
+        }
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+      },
+      completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
+      do: $location`The X-32-F Combat Training Snowman`,
+      combat: new CombatStrategy().macro(Macro.default()),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      limit: { tries: 10 },
+      post: (): void => {
+        if (get("_snojoFreeFights") >= 10) cliExecute("hottub");
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
       },
     },
     {
-      name: "Use Mind Control Device",
-      completed: () => currentMcd() >= 10,
-      do: () => changeMcd(11),
+      name: "Snokebomb",
+      prepare: (): void => {
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+      },
+      completed: () => get("_snokebombUsed") >= 3,
+      do: () => powerlevelingLocation(),
+      combat: new CombatStrategy().macro(Macro.trySkill($skill`Snokebomb`).abort()),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      post: (): void => {
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
     },
     {
-      name: "Buy Oversized Sparkler",
-      ready: () => have($effect`Everything Looks Red`) && myMeat() >= 1000,
-      completed: () => get("_fireworksShopEquipmentBought"),
-      do: () => buy($item`oversized sparkler`, 1),
+      name: "Kramco",
+      ready: () => getKramcoWandererChance() >= 1.0,
+      completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
+      do: () => $location`Noob Cave`,
+      outfit: {
+        offhand: $item`Kramco Sausage-o-Matic™`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      post: (): void => {
+        eat(
+          itemAmount($item`magical sausage`) + itemAmount($item`magical sausage casing`),
+          $item`magical sausage`
+        );
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
+    },
+    {
+      name: "BoomBox Meat",
+      ready: () => have($item`Punching Potion`),
+      completed: () =>
+        SongBoom.song() === "Total Eclipse of Your Meat" || !have($item`SongBoom™ BoomBox`),
+      do: () => SongBoom.setSong("Total Eclipse of Your Meat"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Red Skeleton",
+      ready: () => !have($effect`Everything Looks Yellow`),
+      prepare: (): void => {
+        if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+      },
+      completed: () => CombatLoversLocket.monstersReminisced().includes($monster`red skeleton`),
+      do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
+      combat: new CombatStrategy().macro(Macro.tryItem($item`yellow rocket`).abort()),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      post: (): void => {
+        use($item`red box`, 1);
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "LOV Tunnel",
+      prepare: (): void => {
+        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+      },
+      completed: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
+      do: () =>
+        TunnelOfLove.fightAll(
+          "LOV Epaulettes",
+          "Open Heart Surgery",
+          "LOV Extraterrestrial Chocolate"
+        ),
+      combat: new CombatStrategy().macro(
+        Macro.if_($monster`LOV Enforcer`, Macro.attack().repeat())
+          .if_($monster`LOV Engineer`, Macro.default())
+          .if_($monster`LOV Equivocator`, Macro.default())
+      ),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      limit: { tries: 1 },
+      post: (): void => {
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
+    },
+    {
+      name: "Oliver's Place",
+      prepare: (): void => {
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
+      },
+      completed: () => get("_speakeasyFreeFights", 0) >= 3 || !get("ownsSpeakeasy"),
+      do: $location`An Unusually Quiet Barroom Brawl`,
+      combat: new CombatStrategy().macro(Macro.default()),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        famequip: $items`God Lobster's Ring, God Lobster's Scepter, none`,
+        familiar: $familiar`God Lobster`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      limit: { tries: 3 },
+      post: (): void => {
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
+    },
+    {
+      name: "God Lobster",
+      prepare: (): void => {
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+      },
+      completed: () => get("_godLobsterFights") >= 3 || !have($familiar`God Lobster`),
+      do: () => visitUrl("main.php?fightgodlobster=1"),
+      combat: new CombatStrategy().macro(Macro.default()),
+      choices: { 1310: () => (have($item`God Lobster's Ring`) ? 2 : 1) }, // Get -combat on last fight
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        famequip: $items`God Lobster's Ring, God Lobster's Scepter, none`,
+        familiar: $familiar`God Lobster`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      acquire: [{ item: $item`makeshift garbage shirt` }],
+      limit: { tries: 3 },
+      post: (): void => {
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
+    },
+    {
+      name: "Eldritch Tentacle",
+      prepare: (): void => {
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+      },
+      completed: () => get("_eldritchHorrorEvoked") || !have($skill`Evoke Eldritch Horror`),
+      do: () => useSkill($skill`Evoke Eldritch Horror`),
+      post: (): void => {
+        if (have($effect`Beaten Up`)) cliExecute("hottub");
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
+      combat: new CombatStrategy().macro(Macro.default()),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Witchess Bishop",
+      prepare: (): void => {
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+      },
+      completed: () => get("_witchessFights") >= 5 || !Witchess.have(),
+      do: () => Witchess.fightPiece($monster`Witchess Bishop`),
+      combat: new CombatStrategy().macro(Macro.default()),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      post: (): void => {
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
+      limit: { tries: 5 },
+    },
+    {
+      name: "DMT",
+      prepare: (): void => {
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+      },
+      completed: () => get("_machineTunnelsAdv") >= 5 || !have($familiar`Machine Elf`),
+      do: () => adv1($location`The Deep Machine Tunnels`, -1),
+      combat: new CombatStrategy().macro(Macro.default()),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Machine Elf`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      limit: { tries: 5 },
+      post: (): void => {
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
     },
     {
       name: "Powerlevel",
-      completed: () => myBasestat($stat`Mysticality`) >= 170,
-      do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
+      ready: () => numericModifier("Mysticality Percent") >= 705,
+      completed: () =>
+        myBasestat($stat`Mysticality`) >= 180 &&
+        ((itemAmount($item`Yeast of Boris`) >= 3 &&
+          itemAmount($item`Vegetable of Jarlsberg`) >= 3 &&
+          itemAmount($item`St. Sneaky Pete's Whey`) >= 6) ||
+          craftedCBBFoods.every((it) => have(it) || have(effectModifier(it, "effect")))),
+      do: () => powerlevelingLocation(),
       prepare: (): void => {
-        // if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-        //   cliExecute("umbrella ml");
-        // if (have($item`January's Garbage Tote`)) retrieveItem($item`makeshift garbage shirt`);
-        if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`))
-          buy($item`blue rocket`, 1);
-        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`))
-          buy($item`red rocket`, 1);
-        restoreMp(40);
-        // Prefer this over $effects`` so that the list is much more maintainable after linting
-        const usefulEffects: Effect[] = [
-          // Stats
-          $effect`Big`,
-          $effect`Pasta Oneness`,
-          $effect`Saucemastery`,
-          $effect`Blessing of She-Who-Was`,
-          $effect`Glittering Eyelashes`,
-          $effect`Favored by Lyle`,
-          $effect`Starry-Eyed`,
-          // $effect`Feeling Excited`,
-          // $effect`Triple-Sized`,
-          // $effect`stats.enq`,
-          // $effect`Hulkien`,
-          // $effect`Uncucumbered`,
-          // $effect`We're All Made of Starfish`,
-          // $effect`Broad-Spectrum Vaccine`,
-          // $effect`Think Win-Lose`,
-          // $effect`Confidence of the Votive`,
-
-          // ML
-          $effect`Pride of the Puffin`,
-          $effect`Drescher's Annoying Noise`,
-
-          // Fam wt
-          $effect`Empathy`,
-          $effect`Leash of Linguini`,
-          $effect`Blood Bond`,
-
-          // Xp
-          $effect`Carol of the Thrills`,
-
-          // Songs
-          $effect`Stevedave's Shanty of Superiority`,
-          $effect`Ur-Kel's Aria of Annoyance`,
-          $effect`Aloysius' Antiphon of Aptitude`,
-        ];
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (
+          have($item`January's Garbage Tote`) &&
+          get("garbageShirtCharge") > 0 &&
+          have($skill`Torso Awareness`)
+        ) {
+          retrieveItem($item`makeshift garbage shirt`);
+          equip($slot`shirt`, $item`makeshift garbage shirt`);
+        }
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
       },
-      outfit: { familiar: $familiar`Hovering Sombrero`, modifier: "myst, 0.1 ML" },
-      limit: { tries: 50 },
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      limit: { tries: 60 },
+      choices: {
+        1094: 5,
+        1115: 6,
+        1322: 2,
+        1324: 5,
+      },
+      combat: new CombatStrategy().macro(Macro.default()),
+      post: (): void => {
+        if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
+    },
+    {
+      name: "Pre-free-fights consumption",
+      after: ["Powerlevel"],
+      completed: () => myFullness() >= 13 && myInebriety() >= 13,
+      do: (): void => {
+        if (itemAmount($item`wad of dough`) < 2) {
+          buy($item`all-purpose flower`, 1);
+          use($item`all-purpose flower`, 1);
+        }
+
+        if (get("_speakeasyDrinksDrunk") === 0) {
+          tryAcquiringEffect($effect`Ode to Booze`);
+          visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=5&pwd=${+myHash()}`); // Bee's Knees
+        }
+
+        [...craftedCBBFoods, $item`Deep Dish of Legend`].forEach((it) => {
+          if (!have(effectModifier(it, "effect"))) {
+            if (!have(it)) create(it, 1);
+            eat(it, 1);
+          }
+        });
+
+        if (itemAmount($item`Vegetable of Jarlsberg`) >= 4 && !have($effect`Wizard Sight`)) {
+          if (!have($item`baked veggie ricotta casserole`))
+            create($item`baked veggie ricotta casserole`, 1);
+          eat($item`baked veggie ricotta casserole`, 1);
+        }
+      },
+      post: (): void => {
+        tryAcquiringEffect($effect`Favored by Lyle`);
+        tryAcquiringEffect($effect`Starry-Eyed`);
+      },
+    },
+    {
+      name: "Witchess King",
+      prepare: (): void => {
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (
+          have($item`January's Garbage Tote`) &&
+          get("garbageShirtCharge") > 0 &&
+          have($skill`Torso Awareness`)
+        ) {
+          retrieveItem($item`makeshift garbage shirt`);
+          equip($slot`shirt`, $item`makeshift garbage shirt`);
+        }
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+      },
+      completed: () => CombatLoversLocket.monstersReminisced().includes($monster`Witchess King`),
+      do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
+      combat: new CombatStrategy().macro(Macro.default()),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Free Kills and More Fights",
+      after: ["Pre-free-fights consumption"],
+      prepare: (): void => {
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (
+          have($item`January's Garbage Tote`) &&
+          get("garbageShirtCharge") > 0 &&
+          have($skill`Torso Awareness`)
+        ) {
+          retrieveItem($item`makeshift garbage shirt`);
+          equip($slot`shirt`, $item`makeshift garbage shirt`);
+        }
+        if (have($item`Lil' Doctor™ bag`)) equip($slot`acc3`, $item`Lil' Doctor™ bag`);
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+      },
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      completed: () =>
+        get("_shatteringPunchUsed") >= 3 &&
+        get("_gingerbreadMobHitUsed") &&
+        have($effect`Wizard Sight`) &&
+        (have($effect`Awfully Wily`) || myBasestat($stat`Mysticality`) >= 190),
+      do: () => powerlevelingLocation(),
       combat: new CombatStrategy().macro(
-        Macro.externalIf(!have($effect`Everything Looks Blue`), Macro.tryItem($item`blue rocket`))
-          .externalIf(!have($effect`Everything Looks Red`), Macro.tryItem($item`red rocket`))
-          //.trySkill($skill`Bowl Sideways`)
-          //.trySkill($skill`Feel Pride`)
+        Macro.trySkill($skill`Feel Pride`)
+          .trySkill($skill`Chest X-Ray`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
           .default()
       ),
+      choices: {
+        1094: 5,
+        1115: 6,
+        1322: 2,
+        1324: 5,
+      },
+      post: (): void => {
+        if (itemAmount($item`Vegetable of Jarlsberg`) >= 4 && !have($effect`Wizard Sight`)) {
+          if (!have($item`baked veggie ricotta casserole`))
+            create($item`baked veggie ricotta casserole`, 1);
+          eat($item`baked veggie ricotta casserole`, 1);
+        }
+        if (itemAmount($item`St. Sneaky Pete's Whey`) >= 1 && !have($effect`Awfully Wily`)) {
+          create($item`Pete's wiley whey bar`, 1);
+          eat($item`Pete's wiley whey bar`, 1);
+        }
+        if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
+        if (have($item`autumn-aton`))
+          cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+      },
+      limit: { tries: 11 },
     },
   ],
 };

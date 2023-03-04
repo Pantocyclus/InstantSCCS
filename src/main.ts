@@ -10,7 +10,7 @@ import {
   userConfirm,
 } from "kolmafia";
 import { convertMilliseconds } from "./lib";
-import { $effect, get, have, set } from "libram";
+import { get, set } from "libram";
 import { Engine } from "./engine/engine";
 import { Args, getTasks } from "grimoire-kolmafia";
 import { Task } from "./engine/task";
@@ -18,10 +18,17 @@ import { HPQuest, MoxieQuest, MuscleQuest, MysticalityQuest } from "./tasks/stat
 import { LevelingQuest } from "./tasks/leveling";
 import { CoilWireQuest } from "./tasks/coilwire";
 import { RunStartQuest } from "./tasks/runstart";
+import { FamiliarWeightQuest } from "./tasks/familiarweight";
+import { NoncombatQuest } from "./tasks/noncombat";
+import { BoozeDropQuest } from "./tasks/boozedrop";
+import { HotResQuest } from "./tasks/hotres";
+import { WeaponDamageQuest } from "./tasks/weapondamage";
+import { DonateQuest } from "./tasks/donate";
+import { SpellDamageQuest } from "./tasks/spelldamage";
 
 const timeProperty = "fullday_elapsedTime";
 
-export const args = Args.create("InstantHCCS", "A full-day wrapper script.", {
+export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS script.", {
   confirm: Args.boolean({
     help: "If the user must confirm execution of each task.",
     default: false,
@@ -47,10 +54,17 @@ export function main(command?: string): void {
     RunStartQuest,
     CoilWireQuest,
     LevelingQuest,
-    HPQuest,
-    MuscleQuest,
     MysticalityQuest,
+    HPQuest,
     MoxieQuest,
+    MuscleQuest,
+    FamiliarWeightQuest,
+    NoncombatQuest,
+    BoozeDropQuest,
+    HotResQuest,
+    WeaponDamageQuest,
+    SpellDamageQuest,
+    DonateQuest,
   ]);
   const engine = new Engine(tasks);
   setAutoAttack(0);
@@ -65,10 +79,10 @@ export function main(command?: string): void {
     engine.execute(task);
   }
 
-  set("InstantHCCSTurncount", myTurncount());
-  set("InstantHCCSRunEnd", gametimeToInt());
-  set("InstantHCCSDaycount", myDaycount());
-  set("_InstantHCCSClanFortuneAttempts", get("_clanFortuneConsultUses", 0));
+  set("InstantSCCSTurncount", myTurncount());
+  set("InstantSCCSRunEnd", gametimeToInt());
+  set("InstantSCCSDaycount", myDaycount());
+  set("_InstantSCCSClanFortuneAttempts", get("_clanFortuneConsultUses", 0));
   print("Community Service complete!", "purple");
   print(`Adventures used: ${turnsPlayed()}`, "purple");
   print(`Adventures remaining: ${myAdventures()}`, "purple");
@@ -82,10 +96,5 @@ export function main(command?: string): void {
 }
 
 function runComplete(): boolean {
-  return (
-    get("kingLiberated") &&
-    get("lastEmptiedStorage") === myAscensions() &&
-    !have($effect`Feeling Lost`) &&
-    !have($effect`Cowrruption`)
-  );
+  return get("kingLiberated") && get("lastEmptiedStorage") === myAscensions();
 }
