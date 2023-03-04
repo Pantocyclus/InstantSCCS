@@ -84,7 +84,7 @@ Both benefit from an additional +4 turns saved in enabling [cowrruption](https:/
 
 ### Required Resources
 
-Because we do not rely heavily on too many IotMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. The small +stat% buffs matter a lot for the offstat tests. <br />
+Because we do not rely heavily on too many IotMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. The small +stat% buffs matter a lot for the offstat tests, and each of these resources will save 1 or more turns in your run. <br />
 
 | Familiars                                                                        | Use      |
 | -------------------------------------------------------------------------------- | -------- |
@@ -130,8 +130,6 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Song of Sauce](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Sauce_(skill)>)                                           | sdmg test               |
 | [Song of the North](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_the_North_(skill)>)                                   | wdmg test               |
 | [Simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer)                                                                   | sdmg test               |
-| [Bow-Legged Swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(skill)>)                                 | wdmg test               |
-| [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(skill)>)                                 | item test               |
 | [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg)                        | item test               |
 
 ### Almost-Required Resources
