@@ -1,3 +1,4 @@
+import { CombatStrategy } from "grimoire-kolmafia";
 import {
   buy,
   cliExecute,
@@ -9,7 +10,17 @@ import {
   retrieveItem,
   visitUrl,
 } from "kolmafia";
-import { $effect, $item, CommunityService, get, have, SongBoom } from "libram";
+import {
+  $effect,
+  $item,
+  $location,
+  $skill,
+  CommunityService,
+  get,
+  have,
+  Macro,
+  SongBoom,
+} from "libram";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 
@@ -40,6 +51,22 @@ export const WeaponDamageQuest: Quest = {
         visitUrl("inventory.php?action=pocket");
         visitUrl("choice.php?whichchoice=1420&option=1&pocket=284");
       },
+    },
+    {
+      name: "Meteor Shower",
+      completed: () =>
+        have($effect`Meteor Showered`) ||
+        !have($item`Fourth of May Cosplay Saber`) ||
+        !have($skill`Meteor Lore`) ||
+        get("_saberForceUses") >= 5,
+      do: () => $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Meteor Shower`)
+          .trySkill($skill`Use the Force`)
+          .abort()
+      ),
+      choices: { 1387: 3 },
+      limit: { tries: 1 },
     },
     {
       name: "Test",
