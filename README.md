@@ -74,7 +74,7 @@ Once you start getting more and more [free fight sources](https://kol.coldfront.
 | [designer sweatpants (new old stock)](https://kol.coldfront.net/thekolwiki/index.php/Designer_sweatpants)                             | hot res                                         | 6                     |
 | [Fourth of May Cosplay Saber kit](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber_kit)                     | hot res and free YR                             | 6\*\*                 |
 
-![image](https://user-images.githubusercontent.com/98746573/222875782-b9638d80-0f89-4182-a162-e5ed7cbb0d06.png)<br/>
+![image](https://user-images.githubusercontent.com/98746573/222919119-1d34363c-e712-4413-8ff2-bbc9b6f1aace.png)<br/>
 <sub><sup>Note that the base route grabs [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) ingredients 6 times while the other routes only grab it 5 times (which results in one less epic food turngen from the [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar))</sup></sub> <br />
 \*Enables alternative routing that potentially saves another ~11 turns.<br/>
 \*\*The [Fourth of May Cosplay Saber](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber) combos really well with the [industrial fire extinguisher](https://kol.coldfront.net/thekolwiki/index.php/Industrial_fire_extinguisher), saving an additional ~35 turns (from [Fireproof Foam Suit](https://kol.coldfront.net/thekolwiki/index.php/Fireproof_Foam_Suit) and swapping the [factory worker (female)](<https://kol.coldfront.net/thekolwiki/index.php/Factory_worker_(female)>) fax target to the [red skeleton](https://kol.coldfront.net/thekolwiki/index.php/Red_skeleton)).<br/>
@@ -311,7 +311,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 
 > Mus Test (1 turn, 175+ adv remaining, 14/13/0 organs) <br/>
 
-![image](https://user-images.githubusercontent.com/98746573/222875766-8594bbfa-91a8-4800-9494-5f56b9ec655b.png)<br/>
+![image](https://user-images.githubusercontent.com/98746573/222919154-863e5119-17e8-4611-8c56-4aab880015b6.png)<br/>
 
 - Save the [reward](https://kol.coldfront.net/thekolwiki/index.php/Bag_of_grain) <br/>
 - You should have at least a ~7lbs cookbookbat, [+15lbs](https://kol.coldfront.net/thekolwiki/index.php/Amphibian_Sympathy) [from](https://kol.coldfront.net/thekolwiki/index.php/Empathy) [skills](<https://kol.coldfront.net/thekolwiki/index.php/Leash_of_Linguini_(effect)>), +15lbs from [Deep Dish of Legend](https://kol.coldfront.net/thekolwiki/index.php/In_the_Depths), +10lbs from [astral pet sweater](https://kol.coldfront.net/thekolwiki/index.php/Astral_pet_sweater), +5lbs from [pool table](https://kol.coldfront.net/thekolwiki/index.php/Billiards_Belligerence) <br/>
