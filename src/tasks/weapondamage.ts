@@ -6,6 +6,7 @@ import {
   inebrietyLimit,
   myHash,
   myInebriety,
+  retrieveItem,
   visitUrl,
 } from "kolmafia";
 import { $effect, $item, CommunityService, get, have, SongBoom } from "libram";
@@ -45,6 +46,7 @@ export const WeaponDamageQuest: Quest = {
       prepare: (): void => {
         if (have($item`SongBoom™ BoomBox`)) SongBoom.setSong("These Fists Were Made for Punchin'");
         if (!have($item`goofily-plumed helmet`)) buy($item`goofily-plumed helmet`, 1);
+        if (have($item`Ye Wizard's Shack snack voucher`)) retrieveItem($item`wasabi marble soda`);
         const usefulEffects: Effect[] = [
           $effect`Billiards Belligerence`,
           $effect`Bow-Legged Swagger`,
@@ -65,6 +67,7 @@ export const WeaponDamageQuest: Quest = {
           $effect`Song of the North`,
           $effect`Tenacity of the Snapper`,
           $effect`The Power of LOV`,
+          $effect`Wasabi With You`,
           $effect`Weapon of Mass Destruction`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
