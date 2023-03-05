@@ -1,6 +1,16 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import { buy, Effect, useSkill } from "kolmafia";
-import { $effect, $item, $location, $skill, CommunityService, get, have, Macro } from "libram";
+import {
+  $effect,
+  $familiar,
+  $item,
+  $location,
+  $skill,
+  CommunityService,
+  get,
+  have,
+  Macro,
+} from "libram";
 import { Quest } from "../engine/task";
 import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 
@@ -26,6 +36,10 @@ export const SpellDamageQuest: Quest = {
           .trySkill($skill`Use the Force`)
           .abort()
       ),
+      outfit: {
+        weapon: $item`Fourth of May Cosplay Saber`,
+        familiar: $familiar`Cookbookbat`,
+      },
       choices: { 1387: 3 },
       limit: { tries: 1 },
     },

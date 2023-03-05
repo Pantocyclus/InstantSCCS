@@ -42,7 +42,7 @@ export const HotResQuest: Quest = {
       },
       completed: () => CombatLoversLocket.monstersReminisced().includes($monster`ungulith`),
       do: () => CombatLoversLocket.reminisce($monster`ungulith`),
-      outfit: { modifier: "myst" },
+      outfit: { modifier: "myst", familiar: $familiar`Cookbookbat` },
       limit: { tries: 1 },
       choices: { 1387: 3 },
       combat: new CombatStrategy().macro(

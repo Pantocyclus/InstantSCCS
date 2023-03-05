@@ -12,6 +12,7 @@ import {
 } from "kolmafia";
 import {
   $effect,
+  $familiar,
   $item,
   $location,
   $skill,
@@ -65,6 +66,10 @@ export const WeaponDamageQuest: Quest = {
           .trySkill($skill`Use the Force`)
           .abort()
       ),
+      outfit: {
+        weapon: $item`Fourth of May Cosplay Saber`,
+        familiar: $familiar`Cookbookbat`,
+      },
       choices: { 1387: 3 },
       limit: { tries: 1 },
     },

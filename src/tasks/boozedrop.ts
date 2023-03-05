@@ -17,6 +17,7 @@ import {
 } from "kolmafia";
 import {
   $effect,
+  $familiar,
   $item,
   $location,
   $monster,
@@ -89,6 +90,9 @@ export const BoozeDropQuest: Quest = {
         ) {
           use($item`photocopied monster`);
         }
+      },
+      outfit: {
+        familiar: $familiar`Cookbookbat`,
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Bowl Straight Up`)
