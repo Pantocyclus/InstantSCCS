@@ -41,6 +41,7 @@ export const FamiliarWeightQuest: Quest = {
         const usefulEffects: Effect[] = [
           $effect`Billiards Belligerence`,
           $effect`Blood Bond`,
+          $effect`Boxing Day Glow`,
           $effect`Do I Know You From Somewhere?`,
           $effect`Empathy`,
           $effect`Fidoxene`,

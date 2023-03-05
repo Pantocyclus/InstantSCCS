@@ -185,7 +185,7 @@ export const RunStartQuest: Quest = {
           "Hot Resistance: 2",
           "Maximum HP: 40",
           "Combat Rate: -5",
-          "Spell Damage Percent: 20"
+          "Weapon Damage: 20"
         );
       },
       limit: { tries: 1 },

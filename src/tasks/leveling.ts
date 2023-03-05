@@ -409,6 +409,8 @@ export const LevelingQuest: Quest = {
       },
       limit: { tries: 1 },
       post: (): void => {
+        if (have($item`LOV Extraterrestrial Chocolate`))
+          use($item`LOV Extraterrestrial Chocolate`, 1);
         if (have($item`autumn-aton`))
           cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
       },
@@ -449,7 +451,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_godLobsterFights") >= 3 || !have($familiar`God Lobster`),
       do: () => visitUrl("main.php?fightgodlobster=1"),
       combat: new CombatStrategy().macro(Macro.default()),
-      choices: { 1310: () => (have($item`God Lobster's Ring`) ? 2 : 1) }, // Get -combat on last fight
+      choices: { 1310: () => (have($item`God Lobster's Ring`) ? 2 : 3) }, // Get xp on last fight
       outfit: {
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
@@ -541,7 +543,7 @@ export const LevelingQuest: Quest = {
       name: "Powerlevel",
       ready: () => numericModifier("Mysticality Percent") >= 705,
       completed: () =>
-        myBasestat($stat`Mysticality`) >= 180 &&
+        myBasestat($stat`Mysticality`) >= 175 &&
         ((itemAmount($item`Yeast of Boris`) >= 3 &&
           itemAmount($item`Vegetable of Jarlsberg`) >= 3 &&
           itemAmount($item`St. Sneaky Pete's Whey`) >= 6) ||
@@ -638,6 +640,43 @@ export const LevelingQuest: Quest = {
       outfit: {
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML",
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Backups",
+      ready: () => get("lastCopyableMonster") === $monster`Witchess King`,
+      prepare: (): void => {
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (
+          have($item`January's Garbage Tote`) &&
+          get("garbageShirtCharge") > 0 &&
+          have($skill`Torso Awareness`)
+        ) {
+          retrieveItem($item`makeshift garbage shirt`);
+          equip($slot`shirt`, $item`makeshift garbage shirt`);
+        }
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+      },
+      completed: () =>
+        !have($item`backup camera`) ||
+        get("lastCopyableMonster") !== $monster`Witchess King` ||
+        get("_backUpUses") >= 11,
+      do: () => $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Back-Up to your Last Enemy`)
+          .if_($monster`Witchess King`, Macro.default())
+          .abort()
+      ),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        acc3: $item`backup camera`,
         familiar: $familiar`Cookbookbat`,
         modifier: "0.25 mys, 0.33 ML",
       },

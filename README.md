@@ -17,6 +17,8 @@ For those who are interested in using `InstantSCCS` as is, the following section
 ### Before Ascending
 
 - Ensure that you have the following items (which will be pulled/used during the run): 1x [one-day ticket to Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/One-day_ticket_to_Dinseylandfill), 1x [Calzone of Legend](https://kol.coldfront.net/thekolwiki/index.php/Calzone_of_Legend), 1x [Deep Dish of Legend](https://kol.coldfront.net/thekolwiki/index.php/Deep_Dish_of_Legend), 1x [Pizza of Legend](https://kol.coldfront.net/thekolwiki/index.php/Pizza_of_Legend) and 1x [borrowed time](https://kol.coldfront.net/thekolwiki/index.php/Borrowed_time).
+  - If you have [any](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope) [one](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach) [of](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island) [the](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill) [scaler](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano) ]zones](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_The_Glaciest) or a [Tome of Clip Art](https://kol.coldfront.net/thekolwiki/index.php/Tome_of_Clip_Art), ensure that you have a [non-Euclidean angle](https://kol.coldfront.net/thekolwiki/index.php/Non-Euclidean_angle) before ascending.
+  - If you have both a scaler zone and a [Tome of Clip Art](https://kol.coldfront.net/thekolwiki/index.php/Tome_of_Clip_Art), ensure that you have both a [non-Euclidean angle](https://kol.coldfront.net/thekolwiki/index.php/Non-Euclidean_angle) and an [Abstraction: Category](https://kol.coldfront.net/thekolwiki/index.php/Abstraction:_category) before ascending.
 - Ensure that you have access to a clan with a fully stocked [VIP lounge](https://kol.coldfront.net/thekolwiki/index.php/VIP_Lounge). Also ensure that the [Clan Floundry](<https://kol.coldfront.net/thekolwiki/index.php/Clan_Floundry_(VIP_Lounge)>) has sufficient stocks of cod to pull a [codpiece](https://kol.coldfront.net/thekolwiki/index.php/Codpiece).
 - Have any one of the [factory-irregular skeleton](https://kol.coldfront.net/thekolwiki/index.php/Factory-irregular_skeleton), [remaindered skeleton](https://kol.coldfront.net/thekolwiki/index.php/Remaindered_skeleton) or [swarm of skulls](https://kol.coldfront.net/thekolwiki/index.php/Swarm_of_skulls) banished in your [ice house](https://kol.coldfront.net/thekolwiki/index.php/Ice_house).
 - Have an [ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith), [Witchess King](https://kol.coldfront.net/thekolwiki/index.php/Witchess_King) and [red skeleton](https://kol.coldfront.net/thekolwiki/index.php/Red_skeleton) registered in your [combat lover's locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket).
@@ -55,24 +57,23 @@ If you're looking to modify the script yourself, you may also consider these use
 Once you start getting more and more [free fight sources](https://kol.coldfront.net/thekolwiki/index.php/Free_Fights), the less reliant you will be on the [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_train_set) and [bowling ball](https://kol.coldfront.net/thekolwiki/index.php/Cosmic_bowling_ball) for xp (they may be swapped out). Shinies that reduce turncount on the tests will then reduce the reliance on the [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) for turngen.<br/>
 <sub><sup>Note that the various IotMs may have turnsaves in the same area, so having access to a bunch of them would result in fewer turns saved than the naive sum of the estimates listed here.</sup></sub> <br />
 
-| IotM                                                                                                                                  | Use                                             | Estimated turns saved |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | --------------------- |
-| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope)         | scalers and free fights                         | 25                    |
-| [heart-shaped crate](http://kol.coldfront.net/thekolwiki/index.php/heart-shaped%20crate)                                              | free fights, wdmg, sdmg, xp, fam wt and turngen | 16                    |
-| [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                                     | xp                                              | 19\*                  |
-| [mint-in-box Powerful Glove](https://kol.coldfront.net/thekolwiki/index.php/Mint-in-box_Powerful_Glove)                               | stat%, wdmg, sdmg and NC                        | 18\*                  |
-| [Backup camera](https://kol.coldfront.net/thekolwiki/index.php/Backup_camera)                                                         | free fights                                     | 11                    |
-| [GameInformPowerDailyPro subscription card](https://kol.coldfront.net/thekolwiki/index.php/GameInformPowerDailyPro_subscription_card) | scalers                                         | 12                    |
-| [airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)           | scalers                                         | 12                    |
-| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)             | scalers                                         | 12                    |
-| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)                   | scalers                                         | 12                    |
-| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)               | scalers                                         | 12                    |
-| [airplane charter: The Glaciest](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_The_Glaciest)                       | scalers                                         | 12                    |
-| [emotion chip](https://kol.coldfront.net/thekolwiki/index.php/Emotion_chip)                                                           | item, NC and hot res                            | 9                     |
-| [Distant Woods Getaway Brochure](https://kol.coldfront.net/thekolwiki/index.php/Distant_Woods_Getaway_Brochure)                       | xp                                              | 9                     |
-| [power seed](https://kol.coldfront.net/thekolwiki/index.php/Power_seed)                                                               | free kill, item and sdmg                        | 7                     |
-| [designer sweatpants (new old stock)](https://kol.coldfront.net/thekolwiki/index.php/Designer_sweatpants)                             | hot res                                         | 6                     |
-| [Fourth of May Cosplay Saber kit](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber_kit)                     | hot res and free YR                             | 6\*\*                 |
+| IotM                                                                                                                          | Use                                             | Estimated turns saved |
+| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | --------------------- |
+| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope) | scalers and free fights                         | 25                    |
+| [heart-shaped crate](http://kol.coldfront.net/thekolwiki/index.php/heart-shaped%20crate)                                      | free fights, wdmg, sdmg, xp, fam wt and turngen | 16                    |
+| [January's Garbage Tote](https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote)                             | xp                                              | 19\*                  |
+| [mint-in-box Powerful Glove](https://kol.coldfront.net/thekolwiki/index.php/Mint-in-box_Powerful_Glove)                       | stat%, wdmg, sdmg and NC                        | 18\*                  |
+| [Backup camera](https://kol.coldfront.net/thekolwiki/index.php/Backup_camera)                                                 | free fights                                     | 11                    |
+| [airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)   | scalers                                         | 12                    |
+| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)     | scalers                                         | 12                    |
+| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)           | scalers                                         | 12                    |
+| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)       | scalers                                         | 12                    |
+| [airplane charter: The Glaciest](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_The_Glaciest)               | scalers                                         | 12                    |
+| [emotion chip](https://kol.coldfront.net/thekolwiki/index.php/Emotion_chip)                                                   | item, NC and hot res                            | 9                     |
+| [Distant Woods Getaway Brochure](https://kol.coldfront.net/thekolwiki/index.php/Distant_Woods_Getaway_Brochure)               | xp                                              | 9                     |
+| [power seed](https://kol.coldfront.net/thekolwiki/index.php/Power_seed)                                                       | free kill, item and sdmg                        | 7                     |
+| [designer sweatpants (new old stock)](https://kol.coldfront.net/thekolwiki/index.php/Designer_sweatpants)                     | hot res                                         | 6                     |
+| [Fourth of May Cosplay Saber kit](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber_kit)             | hot res and free YR                             | 6\*\*                 |
 
 ![image](https://user-images.githubusercontent.com/98746573/222919119-1d34363c-e712-4413-8ff2-bbc9b6f1aace.png)<br/>
 <sub><sup>Note that the base route grabs [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) ingredients 6 times while the other routes only grab it 5 times (which results in one less epic food turngen from the [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar))</sup></sub> <br />
@@ -86,57 +87,58 @@ Both benefit from an additional +4 turns saved in enabling [cowrruption](https:/
 
 The following is a list of currently supported IotMs. Note that because this is a generalist script, we may not be able to eke out every last bit of value from extremely niche uses of these IotMs. In fact, when you have a significant amount of shinies, we might use resources inefficiently in a manner that may overcap the tests (e.g. for leveling, hot resist, wdmg etc).
 
-| IotM                                                                                                                            | Use |
-| ------------------------------------------------------------------------------------------------------------------------------- | --- |
-| [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)                                       |     |
-| [Sorcerers of the Shore Grimoire](https://kol.coldfront.net/thekolwiki/index.php/Sorcerers_of_the_Shore_Grimoire)               |     |
-| [Tome of Clip Art](https://kol.coldfront.net/thekolwiki/index.php/Tome_of_Clip_Art)                                             |     |
-| [airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)     |     |
-| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)       |     |
-| [Chateau Mantegna room key](https://kol.coldfront.net/thekolwiki/index.php/Chateau_Mantegna_room_key)                           |     |
-| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)             |     |
-| [Pack of Every Card](https://kol.coldfront.net/thekolwiki/index.php/Pack_of_Every_Card)                                         |     |
-| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)         |     |
-| [shrine to the Barrel god](https://kol.coldfront.net/thekolwiki/index.php/Shrine_to_the_Barrel_god)                             |     |
-| [machine elf capsule](https://kol.coldfront.net/thekolwiki/index.php/Machine_elf_capsule)                                       |     |
-| [X-32-F snowman crate](https://kol.coldfront.net/thekolwiki/index.php/X-32-F_snowman_crate)                                     |     |
-| [LT&T telegraph office deed](https://kol.coldfront.net/thekolwiki/index.php/LT%26T_telegraph_office_deed)                       |     |
-| [Witchess Set](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Set)                                                     |     |
-| [Source terminal](https://kol.coldfront.net/thekolwiki/index.php/Source_terminal)                                               |     |
-| [detective school application](https://kol.coldfront.net/thekolwiki/index.php/Detective_school_application)                     |     |
-| [heart-shaped crate](https://kol.coldfront.net/thekolwiki/index.php/Heart-shaped_crate)                                         |     |
-| [suspicious package](https://kol.coldfront.net/thekolwiki/index.php/Suspicious_package)                                         |     |
-| [Pocket Meteor Guide](https://kol.coldfront.net/thekolwiki/index.php/Pocket_Meteor_Guide)                                       |     |
-| [corked genie bottle](https://kol.coldfront.net/thekolwiki/index.php/Corked_genie_bottle)                                       |     |
-| [pantogram](https://kol.coldfront.net/thekolwiki/index.php/Pantogram)                                                           |     |
-| [locked mumming trunk](https://kol.coldfront.net/thekolwiki/index.php/Locked_mumming_trunk)                                     |     |
-| [January's Garbage Tote (unopened)](<https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote_(unopened)>)       |     |
-| [God Lobster Egg](https://kol.coldfront.net/thekolwiki/index.php/God_Lobster_Egg)                                               |     |
-| [SongBoom™ BoomBox Box](https://kol.coldfront.net/thekolwiki/index.php/SongBoom%E2%84%A2_BoomBox_Box)                           |     |
-| [Bastille Battalion control rig crate](https://kol.coldfront.net/thekolwiki/index.php/Bastille_Battalion_control_rig_crate)     |     |
-| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope)   |     |
-| [voter registration form](https://kol.coldfront.net/thekolwiki/index.php/Voter_registration_form)                               |     |
-| [Boxing Day care package](https://kol.coldfront.net/thekolwiki/index.php/Boxing_Day_care_package)                               |     |
-| [Kramco Industries packing carton](https://kol.coldfront.net/thekolwiki/index.php/Kramco_Industries_packing_carton)             |     |
-| [mint condition Lil' Doctor™ bag](https://kol.coldfront.net/thekolwiki/index.php/Mint_condition_Lil%27_Doctor%E2%84%A2_bag)     |     |
-| [vampyric cloake pattern](https://kol.coldfront.net/thekolwiki/index.php/Vampyric_cloake_pattern)                               |     |
-| [Fourth of May Cosplay Saber kit](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber_kit)               |     |
-| [Distant Woods Getaway Brochure](https://kol.coldfront.net/thekolwiki/index.php/Distant_Woods_Getaway_Brochure)                 |     |
-| [Unopened Eight Days a Week Pill Keeper](https://kol.coldfront.net/thekolwiki/index.php/Unopened_Eight_Days_a_Week_Pill_Keeper) |     |
-| [unopened Bird-a-Day calendar](https://kol.coldfront.net/thekolwiki/index.php/Unopened_Bird-a-Day_calendar)                     |     |
-| [mint-in-box Powerful Glove](https://kol.coldfront.net/thekolwiki/index.php/Mint-in-box_Powerful_Glove)                         |     |
-| [packaged SpinMaster™ lathe](https://kol.coldfront.net/thekolwiki/index.php/Packaged_SpinMaster%E2%84%A2_lathe)                 |     |
-| [Bagged Cargo Cultist Shorts](https://kol.coldfront.net/thekolwiki/index.php/Bagged_Cargo_Cultist_Shorts)                       |     |
-| [emotion chip](https://kol.coldfront.net/thekolwiki/index.php/Emotion_chip)                                                     |     |
-| [power seed](https://kol.coldfront.net/thekolwiki/index.php/Power_seed)                                                         |     |
-| [packaged industrial fire extinguisher](https://kol.coldfront.net/thekolwiki/index.php/Packaged_industrial_fire_extinguisher)   |     |
-| [undrilled cosmic bowling ball](https://kol.coldfront.net/thekolwiki/index.php/Undrilled_cosmic_bowling_ball)                   |     |
-| [combat lover's locket lockbox](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket_lockbox)                 |     |
-| [undamaged Unbreakable Umbrella](https://kol.coldfront.net/thekolwiki/index.php/Undamaged_Unbreakable_Umbrella)                 |     |
-| [MayDay™ contract](https://kol.coldfront.net/thekolwiki/index.php/MayDay%E2%84%A2_contract)                                     |     |
-| [boxed autumn-aton](https://kol.coldfront.net/thekolwiki/index.php/Boxed_autumn-aton)                                           |     |
-| [mummified entombed cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Mummified_entombed_cookbookbat)                 |     |
-| [packaged model train set](https://kol.coldfront.net/thekolwiki/index.php/Packaged_model_train_set)                             |     |
+| IotM                                                                                                                            | Use                                                                    | Unused Potential |
+| ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------- |
+| [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)                                       | many things                                                            | hotdogs          |
+| [Sorcerers of the Shore Grimoire](https://kol.coldfront.net/thekolwiki/index.php/Sorcerers_of_the_Shore_Grimoire)               | wasabi marble soda                                                     |                  |
+| [Tome of Clip Art](https://kol.coldfront.net/thekolwiki/index.php/Tome_of_Clip_Art)                                             | borrowed time, familiar jacks                                          |                  |
+| [airplane charter: Spring Break Beach](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach)     | scaler zone                                                            |                  |
+| [airplane charter: Conspiracy Island](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island)       | scaler zone                                                            |                  |
+| [Chateau Mantegna room key](https://kol.coldfront.net/thekolwiki/index.php/Chateau_Mantegna_room_key)                           | free rests                                                             | painting         |
+| [airplane charter: Dinseylandfill](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill)             | scaler zone                                                            |                  |
+| [Pack of Every Card](https://kol.coldfront.net/thekolwiki/index.php/Pack_of_Every_Card)                                         | wrench, candlestick, fortune                                           |                  |
+| [airplane charter: That 70s Volcano](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano)         | scaler zone                                                            |                  |
+| [shrine to the Barrel god](https://kol.coldfront.net/thekolwiki/index.php/Shrine_to_the_Barrel_god)                             | Warlock, Warstock, and Warbarrel                                       |                  |
+| [machine elf capsule](https://kol.coldfront.net/thekolwiki/index.php/Machine_elf_capsule)                                       | free fights in DMT                                                     | Inner Elf        |
+| [X-32-F snowman crate](https://kol.coldfront.net/thekolwiki/index.php/X-32-F_snowman_crate)                                     | free fights in snojo                                                   |                  |
+| [LT&T telegraph office deed](https://kol.coldfront.net/thekolwiki/index.php/LT%26T_telegraph_office_deed)                       | cowboy boots                                                           |                  |
+| [Witchess Set](https://kol.coldfront.net/thekolwiki/index.php/Witchess_Set)                                                     | Witchess Bishops, sacramento wine                                      | Witchess Witch   |
+| [Source terminal](https://kol.coldfront.net/thekolwiki/index.php/Source_terminal)                                               | items.enh                                                              |                  |
+| [detective school application](https://kol.coldfront.net/thekolwiki/index.php/Detective_school_application)                     | shoe gum                                                               |                  |
+| [heart-shaped crate](https://kol.coldfront.net/thekolwiki/index.php/Heart-shaped_crate)                                         | free fights, LOV epaulettes                                            |                  |
+| [suspicious package](https://kol.coldfront.net/thekolwiki/index.php/Suspicious_package)                                         | wdmg%, sdmg%, hotres, -combat% enchantments                            | item% buff       |
+| [Pocket Meteor Guide](https://kol.coldfront.net/thekolwiki/index.php/Pocket_Meteor_Guide)                                       | meteor shower (with saber)                                             |                  |
+| [corked genie bottle](https://kol.coldfront.net/thekolwiki/index.php/Corked_genie_bottle)                                       | outer wolf                                                             |                  |
+| [pantogram](https://kol.coldfront.net/thekolwiki/index.php/Pantogram)                                                           | myst, hotres, -combat, wdmg pants                                      |                  |
+| [locked mumming trunk](https://kol.coldfront.net/thekolwiki/index.php/Locked_mumming_trunk)                                     | xp                                                                     |                  |
+| [January's Garbage Tote (unopened)](<https://kol.coldfront.net/thekolwiki/index.php/January%27s_Garbage_Tote_(unopened)>)       | garbage shirt, broken champagne bottle                                 |                  |
+| [God Lobster Egg](https://kol.coldfront.net/thekolwiki/index.php/God_Lobster_Egg)                                               | free fights                                                            |                  |
+| [SongBoom™ BoomBox Box](https://kol.coldfront.net/thekolwiki/index.php/SongBoom%E2%84%A2_BoomBox_Box)                           | meat, punching potion                                                  |                  |
+| [Bastille Battalion control rig crate](https://kol.coldfront.net/thekolwiki/index.php/Bastille_Battalion_control_rig_crate)     | brutal brogues                                                         |                  |
+| [Neverending Party invitation envelope](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope)   | scaler zone                                                            | xp%              |
+| [voter registration form](https://kol.coldfront.net/thekolwiki/index.php/Voter_registration_form)                               | xp                                                                     | free fights      |
+| [Boxing Day care package](https://kol.coldfront.net/thekolwiki/index.php/Boxing_Day_care_package)                               | uncucumbered, body spradium (sometimes)                                |                  |
+| [Kramco Industries packing carton](https://kol.coldfront.net/thekolwiki/index.php/Kramco_Industries_packing_carton)             | sausage goblins                                                        |                  |
+| [mint condition Lil' Doctor™ bag](https://kol.coldfront.net/thekolwiki/index.php/Mint_condition_Lil%27_Doctor%E2%84%A2_bag)     | chest X-ray                                                            | free banish      |
+| [vampyric cloake pattern](https://kol.coldfront.net/thekolwiki/index.php/Vampyric_cloake_pattern)                               | Misty Form, Bat-Adjacent Form                                          | Wolfish Form     |
+| [Fourth of May Cosplay Saber kit](https://kol.coldfront.net/thekolwiki/index.php/Fourth_of_May_Cosplay_Saber_kit)               | famwt, foam suit (with extinguisher), meteor shower (with meteor lore) |                  |
+| [Distant Woods Getaway Brochure](https://kol.coldfront.net/thekolwiki/index.php/Distant_Woods_Getaway_Brochure)                 | That's Just Cloud-Talk, Man, free rests                                |                  |
+| [Unopened Eight Days a Week Pill Keeper](https://kol.coldfront.net/thekolwiki/index.php/Unopened_Eight_Days_a_Week_Pill_Keeper) | Hulkien, Rainbowlin, Fidoxene                                          | sneakisol        |
+| [unopened Bird-a-Day calendar](https://kol.coldfront.net/thekolwiki/index.php/Unopened_Bird-a-Day_calendar)                     | mox%, item% bird                                                       | favorite bird    |
+| [mint-in-box Powerful Glove](https://kol.coldfront.net/thekolwiki/index.php/Mint-in-box_Powerful_Glove)                         | Triple Size, Invisible Avatar                                          | Replace Enemy    |
+| [packaged SpinMaster™ lathe](https://kol.coldfront.net/thekolwiki/index.php/Packaged_SpinMaster%E2%84%A2_lathe)                 | weeping willow wand                                                    |                  |
+| [Bagged Cargo Cultist Shorts](https://kol.coldfront.net/thekolwiki/index.php/Bagged_Cargo_Cultist_Shorts)                       | Yeg's Motel toothbrush                                                 |                  |
+| [emotion chip](https://kol.coldfront.net/thekolwiki/index.php/Emotion_chip)                                                     | Feel Peaceful, Feel Lonely                                             | Feel Lost        |
+| [power seed](https://kol.coldfront.net/thekolwiki/index.php/Power_seed)                                                         | Battery (AAA), Battery (Lantern)                                       |                  |
+| [Backup camera](https://kol.coldfront.net/thekolwiki/index.php/Backup_camera)                                                   | backup Witchess Kings                                                  |                  |
+| [packaged industrial fire extinguisher](https://kol.coldfront.net/thekolwiki/index.php/Packaged_industrial_fire_extinguisher)   | foam suit (with saber), polar vortex ungulith                          |                  |
+| [undrilled cosmic bowling ball](https://kol.coldfront.net/thekolwiki/index.php/Undrilled_cosmic_bowling_ball)                   | bowl straight up, bowl a curveball, bowl sideways                      |                  |
+| [combat lover's locket lockbox](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket_lockbox)                 | ungulith, Witchess King, red skeleton                                  |                  |
+| [undamaged Unbreakable Umbrella](https://kol.coldfront.net/thekolwiki/index.php/Undamaged_Unbreakable_Umbrella)                 | ML%, item%, wdmg, sdmg, -combat%                                       |                  |
+| [MayDay™ contract](https://kol.coldfront.net/thekolwiki/index.php/MayDay%E2%84%A2_contract)                                     | space blanket                                                          |                  |
+| [boxed autumn-aton](https://kol.coldfront.net/thekolwiki/index.php/Boxed_autumn-aton)                                           | autumn leaf, CBB ingredients                                           |                  |
+| [mummified entombed cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Mummified_entombed_cookbookbat)                 | CBB ingredients                                                        |                  |
+| [packaged model train set](https://kol.coldfront.net/thekolwiki/index.php/Packaged_model_train_set)                             | xp, meat, mp regen, Boris's Beer (sometimes)                           |                  |
 
 ### Required Resources
 
@@ -192,26 +194,27 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 
 You are strongly recommended to have these resources. However, none of them provide much turngen/turn savings on their own (unlike the required resources above, although together they do make up quite a bit), and these may be easily replaced with shinies.
 
-| Skills                                                                                                                              | Use       |
-| ----------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| [Pride of the Puffin](<https://kol.coldfront.net/thekolwiki/index.php/Pride_of_the_Puffin_(skill)>)                                 | ML        |
-| [Drescher's Annoying Noise](<https://kol.coldfront.net/thekolwiki/index.php/Drescher%27s_Annoying_Noise_(skill)>)                   | ML        |
-| [Ur-Kel's Aria of Annoyance](<https://kol.coldfront.net/thekolwiki/index.php/Ur-Kel%27s_Aria_of_Annoyance_(skill)>)                 | ML        |
-| [Master Saucier](https://kol.coldfront.net/thekolwiki/index.php/Master_Saucier)                                                     | sdmg test |
-| [Subtle and Quick to Anger](https://kol.coldfront.net/thekolwiki/index.php/Subtle_and_Quick_to_Anger)                               | sdmg test |
-| [Fat Leon's Phat Loot Lyric](<https://kol.coldfront.net/thekolwiki/index.php/Fat_Leon%27s_Phat_Loot_Lyric_(skill)>)                 | item test |
-| [Mad Looting Skillz](https://kol.coldfront.net/thekolwiki/index.php/Mad_Looting_Skillz)                                             | item test |
-| [Object Quasi-Permanence](https://kol.coldfront.net/thekolwiki/index.php/Object_Quasi-Permanence)                                   | item test |
-| [Powers of Observatiogn](https://kol.coldfront.net/thekolwiki/index.php/Powers_of_Observatiogn)                                     | item test |
-| [Singer's Faithful Ocelot](<https://kol.coldfront.net/thekolwiki/index.php/Singer%27s_Faithful_Ocelot_(effect)>)                    | item test |
-| [Thief Among the Honorable](https://kol.coldfront.net/thekolwiki/index.php/Thief_Among_the_Honorable)                               | item test |
-| [Natural Born Scrabbler](https://kol.coldfront.net/thekolwiki/index.php/Natural_Born_Scrabbler)                                     | item test |
-| [Jackasses' Symphony of Destruction](<https://kol.coldfront.net/thekolwiki/index.php/Jackasses%27_Symphony_of_Destruction_(skill)>) | wdmg test |
-| [Scowl of the Auk](<https://kol.coldfront.net/thekolwiki/index.php/Scowl_of_the_Auk_(skill)>)                                       | wdmg test |
-| [Rage of the Reindeer](<https://kol.coldfront.net/thekolwiki/index.php/Rage_of_the_Reindeer_(skill)>)                               | wdmg test |
-| [Tenacity of the Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Tenacity_of_the_Snapper_(skill)>)                         | wdmg test |
-| [Claws of the Walrus](https://kol.coldfront.net/thekolwiki/index.php/Claws_of_the_Walrus)                                           | wdmg test |
-| [Blessing of the War Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Blessing_of_the_War_Snapper_(skill)>)                 | wdmg test |
+| Skills                                                                                                                              | Use        |
+| ----------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| [Pride of the Puffin](<https://kol.coldfront.net/thekolwiki/index.php/Pride_of_the_Puffin_(skill)>)                                 | ML         |
+| [Drescher's Annoying Noise](<https://kol.coldfront.net/thekolwiki/index.php/Drescher%27s_Annoying_Noise_(skill)>)                   | ML         |
+| [Ur-Kel's Aria of Annoyance](<https://kol.coldfront.net/thekolwiki/index.php/Ur-Kel%27s_Aria_of_Annoyance_(skill)>)                 | ML         |
+| [Master Saucier](https://kol.coldfront.net/thekolwiki/index.php/Master_Saucier)                                                     | sdmg test  |
+| [Subtle and Quick to Anger](https://kol.coldfront.net/thekolwiki/index.php/Subtle_and_Quick_to_Anger)                               | sdmg test  |
+| [Fat Leon's Phat Loot Lyric](<https://kol.coldfront.net/thekolwiki/index.php/Fat_Leon%27s_Phat_Loot_Lyric_(skill)>)                 | item test  |
+| [Mad Looting Skillz](https://kol.coldfront.net/thekolwiki/index.php/Mad_Looting_Skillz)                                             | item test  |
+| [Object Quasi-Permanence](https://kol.coldfront.net/thekolwiki/index.php/Object_Quasi-Permanence)                                   | item test  |
+| [Powers of Observatiogn](https://kol.coldfront.net/thekolwiki/index.php/Powers_of_Observatiogn)                                     | item test  |
+| [Singer's Faithful Ocelot](<https://kol.coldfront.net/thekolwiki/index.php/Singer%27s_Faithful_Ocelot_(effect)>)                    | item test  |
+| [Thief Among the Honorable](https://kol.coldfront.net/thekolwiki/index.php/Thief_Among_the_Honorable)                               | item test  |
+| [Natural Born Scrabbler](https://kol.coldfront.net/thekolwiki/index.php/Natural_Born_Scrabbler)                                     | item test  |
+| [Jackasses' Symphony of Destruction](<https://kol.coldfront.net/thekolwiki/index.php/Jackasses%27_Symphony_of_Destruction_(skill)>) | wdmg test  |
+| [Scowl of the Auk](<https://kol.coldfront.net/thekolwiki/index.php/Scowl_of_the_Auk_(skill)>)                                       | wdmg test  |
+| [Rage of the Reindeer](<https://kol.coldfront.net/thekolwiki/index.php/Rage_of_the_Reindeer_(skill)>)                               | wdmg test  |
+| [Tenacity of the Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Tenacity_of_the_Snapper_(skill)>)                         | wdmg test  |
+| [Claws of the Walrus](https://kol.coldfront.net/thekolwiki/index.php/Claws_of_the_Walrus)                                           | wdmg test  |
+| [Blessing of the War Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Blessing_of_the_War_Snapper_(skill)>)                 | wdmg test  |
+| [Evoke Eldritch Horror](https://kol.coldfront.net/thekolwiki/index.php/Evoke_Eldritch_Horror)                                       | free fight |
 
 ### Highly-recommended Resources
 
