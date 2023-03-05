@@ -2603,9 +2603,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
 kolmafia@>=1.2.0:
-  version "5.27160.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.27160.0.tgz#8e284caae1a154ba1c22c6b7fb7e53ec658432ae"
-  integrity sha512-OnizbX95TMgXNEF5xANZGIZyOHpvu/A8qvBLQPtS2+nrPBqhtztfoikYexraloP7kg+VJLqMutJAEHF5wCRkDw==
+  version "5.27256.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.27256.0.tgz#d398acf3e0abbdaef1ee6ce7175663e9fe4c3fe4"
+  integrity sha512-CzWALzSsTWjBc88AtX97t4ueOPARAcbU0Jpt5dVguR88s2SzImO4Gco/cj3lx4Svp8y/ChFSqTlPRpPLSAIHrQ==
 
 levn@^0.4.1:
   version "0.4.1"

@@ -13,6 +13,7 @@ import {
   inebrietyLimit,
   Item,
   itemAmount,
+  lastChoice,
   Location,
   myBasestat,
   myFullness,
@@ -262,6 +263,13 @@ export const LevelingQuest: Quest = {
           buy($item`blue rocket`, 1);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         // TODO: If we have not gotten the Shadow Affinity Effect for the day, grab it
+        // eslint-disable-next-line libram/verify-constants
+        if (!have($effect`Shadow Affinity`)) {
+          // eslint-disable-next-line libram/verify-constants
+          use($item`closed-circuit pay phone`);
+          if (lastChoice() === 1497) runChoice(2);
+          else runChoice(1);
+        }
       },
       // eslint-disable-next-line libram/verify-constants
       completed: () => have($item`Rufus's shadow lodestone`),
@@ -269,7 +277,7 @@ export const LevelingQuest: Quest = {
       do: (): void => {
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
         // TODO: Figure out how to get the right NC choice
-        // if (lastChoice() === 69420) runChoice(4);
+        if (lastChoice() === 1499) runChoice(5);
       },
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`red rocket`)
@@ -283,6 +291,13 @@ export const LevelingQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML",
       },
       post: (): void => {
+        // eslint-disable-next-line libram/verify-constants
+        if (!have($effect`Shadow Affinity`)) {
+          // eslint-disable-next-line libram/verify-constants
+          use($item`closed-circuit pay phone`);
+          if (lastChoice() === 1497) runChoice(4);
+          else runChoice(1);
+        }
         if (have($item`autumn-aton`))
           cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
       },
@@ -345,10 +360,9 @@ export const LevelingQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML",
       },
       post: (): void => {
-        eat(
-          itemAmount($item`magical sausage`) + itemAmount($item`magical sausage casing`),
-          $item`magical sausage`
-        );
+        if (have($item`magical sausage casing`))
+          create($item`magical sausage`, itemAmount($item`magical sausage casing`));
+        eat(itemAmount($item`magical sausage`), $item`magical sausage`);
         if (have($item`autumn-aton`))
           cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
       },
