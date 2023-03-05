@@ -24,6 +24,8 @@ export const HPQuest: Quest = {
         );
         const usefulEffects: Effect[] = [
           $effect`A Few Extra Pounds`,
+          $effect`Big`,
+          $effect`Hulkien`,
           $effect`Mariachi Mood`,
           $effect`Patience of the Tortoise`,
           $effect`Power Ballad of the Arrowsmith`,
@@ -32,6 +34,8 @@ export const HPQuest: Quest = {
           $effect`Saucemastery`,
           $effect`Seal Clubbing Frenzy`,
           $effect`Song of Starch`,
+          $effect`Stevedave's Shanty of Superiority`,
+          $effect`Triple-Sized`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
       },
@@ -54,11 +58,15 @@ export const MuscleQuest: Quest = {
         }
         ensureEffect($effect`Expert Oiliness`);
         const usefulEffects: Effect[] = [
+          $effect`Big`,
           $effect`Go Get 'Em, Tiger!`,
+          $effect`Hulkien`,
           $effect`Quiet Determination`,
           $effect`Power Ballad of the Arrowsmith`,
           $effect`Rage of the Reindeer`,
           $effect`Song of Bravado`,
+          $effect`Stevedave's Shanty of Superiority`,
+          $effect`Triple-Sized`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
       },
@@ -81,11 +89,15 @@ export const MysticalityQuest: Quest = {
       prepare: (): void => {
         useSkill($skill`Bind Undead Elbow Macaroni`);
         const usefulEffects: Effect[] = [
+          $effect`Big`,
           $effect`Glittering Eyelashes`,
+          $effect`Hulkien`,
           $effect`The Magical Mojomuscular Melody`,
+          $effect`Triple-Sized`,
           $effect`Pasta Oneness`,
           $effect`Quiet Judgement`,
           $effect`Song of Bravado`,
+          $effect`Stevedave's Shanty of Superiority`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
       },
@@ -113,15 +125,19 @@ export const MoxieQuest: Quest = {
         ensureEffect($effect`Expert Oiliness`);
         const usefulEffects: Effect[] = [
           // $effect`Amazing`,
+          $effect`Big`,
+          $effect`Blessing of the Bird`,
           $effect`Blubbered Up`,
           $effect`Butt-Rock Hair`,
           $effect`Disco Fever`,
           $effect`Disco State of Mind`,
+          $effect`Hulkien`,
           $effect`The Moxious Madrigal`,
+          $effect`Triple-Sized`,
           $effect`Pomp & Circumsands`,
           $effect`Quiet Desperation`,
           $effect`Song of Bravado`,
-          $effect`Blessing of the Bird`,
+          $effect`Stevedave's Shanty of Superiority`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
       },

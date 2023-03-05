@@ -67,7 +67,7 @@ const usefulEffects: Effect[] = [
   $effect`Glittering Eyelashes`,
   $effect`Feeling Excited`,
   $effect`Triple-Sized`,
-  $effect`stats.enq`,
+  $effect`substats.enh`,
   $effect`Hulkien`,
   $effect`Uncucumbered`,
   $effect`We're All Made of Starfish`,
@@ -754,7 +754,7 @@ export const LevelingQuest: Quest = {
         if (have($item`autumn-aton`))
           cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
       },
-      limit: { tries: 11 },
+      limit: { tries: 20 },
     },
   ],
 };
