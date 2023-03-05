@@ -139,6 +139,8 @@ The following is a list of currently supported IotMs. Note that because this is 
 | [boxed autumn-aton](https://kol.coldfront.net/thekolwiki/index.php/Boxed_autumn-aton)                                           | autumn leaf, CBB ingredients                                           |                  |
 | [mummified entombed cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Mummified_entombed_cookbookbat)                 | CBB ingredients                                                        |                  |
 | [packaged model train set](https://kol.coldfront.net/thekolwiki/index.php/Packaged_model_train_set)                             | xp, meat, mp regen, Boris's Beer (sometimes)                           |                  |
+| [Horsery contract](https://kol.coldfront.net/thekolwiki/index.php/Horsery_contract)                                             | dark horse, pale horse                                                 | crazy horse      |
+| [deed to Oliver's Place](https://kol.coldfront.net/thekolwiki/index.php/Deed_to_Oliver%27s_Place)                               | free fights, imported taffy (sometimes)                                |                  |
 
 ### Required Resources
 
