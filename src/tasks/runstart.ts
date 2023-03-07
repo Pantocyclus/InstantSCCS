@@ -32,20 +32,21 @@ import {
   $location,
   $monster,
   $skill,
+  CommunityService,
   get,
   getKramcoWandererChance,
   have,
-  Macro,
   Pantogram,
   SongBoom,
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
 import { tryAcquiringEffect } from "../lib";
+import Macro from "../combat";
 
 export const RunStartQuest: Quest = {
   name: "Run Start",
-  completed: () => get("csServicesPerformed").split(",").length > 0,
+  completed: () => CommunityService.CoilWire.isDone(),
   tasks: [
     {
       name: "Council",
@@ -177,8 +178,13 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Detective School",
+      completed: () => get("_detectiveCasesCompleted", 0) >= 3 || !get("hasDetectiveSchool"),
+      do: () => cliExecute("Detective Solver"),
+    },
+    {
       name: "Pantogramming",
-      completed: () => Pantogram.havePants() || !have($item`pantogram`),
+      completed: () => Pantogram.havePants() || !have($item`portable pantogram`),
       do: (): void => {
         Pantogram.makePants(
           "Mysticality",
@@ -193,7 +199,7 @@ export const RunStartQuest: Quest = {
     {
       name: "Mummery",
       completed: () =>
-        get("_mummeryMods").includes(`Experience (Mysticallity)`) || !have($item`mumming trunk`),
+        get("_mummeryMods").includes(`Experience (Mysticality)`) || !have($item`mumming trunk`),
       do: () => cliExecute("mummery myst"),
       outfit: { familiar: $familiar`Cookbookbat` },
       limit: { tries: 1 },
@@ -296,7 +302,7 @@ export const RunStartQuest: Quest = {
       },
       completed: () =>
         have($item`cherry`) && !have($item`cosmic bowling ball`) && get("_snokebombUsed") >= 1,
-      do: () => $location`The Skeleton Store`,
+      do: $location`The Skeleton Store`,
       combat: new CombatStrategy().macro(
         Macro.if_($monster`novelty tropical skeleton`, Macro.tryItem($item`yellow rocket`))
           .trySkill($skill`Bowl a Curveball`)
@@ -313,7 +319,7 @@ export const RunStartQuest: Quest = {
         if (have($item`MayDay™ supply package`)) use($item`MayDay™ supply package`, 1);
         if (have($item`space blanket`)) autosell($item`space blanket`, 1);
       },
-      limit: { tries: 3 },
+      limit: { tries: 4 },
     },
     {
       name: "Chewing Gum",
@@ -331,7 +337,7 @@ export const RunStartQuest: Quest = {
     {
       name: "Get Distilled Fortified Wine",
       ready: () => have($item`11-leaf clover`) || have($effect`Lucky!`),
-      completed: () => myInebriety() >= 2,
+      completed: () => myInebriety() >= 1,
       do: (): void => {
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);
         if (!have($item`distilled fortified wine`)) adv1($location`The Sleazy Back Alley`, -1);
@@ -345,13 +351,14 @@ export const RunStartQuest: Quest = {
       name: "Kramco",
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
-      do: () => $location`Noob Cave`,
+      do: $location`Noob Cave`,
       outfit: {
         offhand: $item`Kramco Sausage-o-Matic™`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
         modifier: "0.25 mys, 0.33 ML",
       },
+      combat: new CombatStrategy().macro(Macro.default()),
       post: () =>
         eat(
           itemAmount($item`magical sausage`) + itemAmount($item`magical sausage casing`),

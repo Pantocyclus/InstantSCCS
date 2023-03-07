@@ -60,7 +60,7 @@ export const WeaponDamageQuest: Quest = {
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
         get("_saberForceUses") >= 5,
-      do: () => $location`The Dire Warren`,
+      do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Meteor Shower`)
           .trySkill($skill`Use the Force`)

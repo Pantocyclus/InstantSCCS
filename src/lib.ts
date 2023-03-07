@@ -368,7 +368,8 @@ export function triedAcquiringEffect(ef: Effect): boolean {
   const efDefault = ef.default;
   if (efDefault.length === 0) return true; // This effect is not acquirable
   const action = efDefault.split(" ")[0];
-  const target = efDefault.split(" ").slice(2).join(" ");
+  let target = efDefault.split(" ").slice(2).join(" ");
+  if (target[0] === "1" && target[1] === " ") target = target.split(" ").slice(1).join(" ");
   switch (action) {
     case "eat":
       return !have(toItem(target)); // No issues if we don't have the food

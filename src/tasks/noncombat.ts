@@ -1,5 +1,5 @@
 import { Quest } from "../engine/task";
-import { buy, cliExecute, Effect, visitUrl } from "kolmafia";
+import { buy, cliExecute, Effect, runChoice, visitUrl } from "kolmafia";
 import { $effect, $familiar, $item, CommunityService, get, have, Macro, uneffect } from "libram";
 import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
@@ -22,6 +22,7 @@ export const NoncombatQuest: Quest = {
       do: (): void => {
         // eslint-disable-next-line libram/verify-constants
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
+        runChoice(2);
       },
       choices: {
         1500: 2,

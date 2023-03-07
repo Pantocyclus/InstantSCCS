@@ -287,6 +287,10 @@ function buildMiscList(): Requirement[] {
       why: "Turngen",
     },
     {
+      thing: $skill`Cannelloni Cocoon`,
+      why: "HP Regen",
+    },
+    {
       thing: $skill`Inner Sauce`,
       why: "MP Regen",
     },

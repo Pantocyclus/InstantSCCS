@@ -183,6 +183,7 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Prevent Scurvy and Sobriety](https://kol.coldfront.net/thekolwiki/index.php/Prevent_Scurvy_and_Sobriety)                         | saucecrafting + turngen |
 | [Perfect Freeze](https://kol.coldfront.net/thekolwiki/index.php/Perfect_Freeze)                                                   | turngen                 |
 | [Drinking to Drink](https://kol.coldfront.net/thekolwiki/index.php/Drinking_to_Drink)                                             | turngen                 |
+| [Cannelloni Cocoon](https://kol.coldfront.net/thekolwiki/index.php/Cannelloni_Cocoon)                                             | hp regen                |
 | [Inner Sauce](https://kol.coldfront.net/thekolwiki/index.php/Inner_Sauce)                                                         | mp regen                |
 | [Double-Fisted Skull Smashing](https://kol.coldfront.net/thekolwiki/index.php/Double-Fisted_Skull_Smashing)                       | stat test               |
 | [Carol of the Bulls](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Bulls_(skill)>)                                 | wdmg test               |
