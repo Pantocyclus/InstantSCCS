@@ -67,9 +67,7 @@ export const farmingResourcePrefs: trackedPref[] = [
   new trackedPref("_deckCardsDrawn", "Deck Draws", 15),
   new trackedPref("_macrometeoriteUses", "Macrometeorites", 10),
   new trackedPref("_AAABatteriesUsed", "Batteries (AAA)", 7),
-  new trackedPref("_coldMedicineConsults", "CMC Consults", 5),
   new trackedPref("tomeSummons", "Tome Summons", 3),
-  new trackedPref("_sproutsUsed", "Peppermint Sprouts", 3), // Assumes garden is peppermint
   new trackedPref("_genieWishesUsed", "Genie Wishes", 3),
   new trackedPref("_pottedTeaTreeUsed", "Tea Tree", 3),
   new trackedPref("_favoriteBirdVisited", "Favorite Bird", 1),

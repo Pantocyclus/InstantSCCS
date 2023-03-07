@@ -88,6 +88,9 @@ const usefulEffects: Effect[] = [
   $effect`Stevedave's Shanty of Superiority`,
   $effect`Ur-Kel's Aria of Annoyance`,
   $effect`Aloysius' Antiphon of Aptitude`,
+
+  // Spell dmg
+  $effect`Carol of the Hells`,
 ];
 
 function powerlevelingLocation(): Location {

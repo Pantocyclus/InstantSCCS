@@ -5,6 +5,7 @@ import {
   drink,
   Effect,
   equip,
+  faxbot,
   inebrietyLimit,
   myInebriety,
   use,
@@ -17,7 +18,6 @@ import {
   $monster,
   $skill,
   $slot,
-  CombatLoversLocket,
   CommunityService,
   get,
   have,
@@ -32,7 +32,7 @@ export const HotResQuest: Quest = {
   completed: () => CommunityService.HotRes.isDone(),
   tasks: [
     {
-      name: "Reminisce Ungulith",
+      name: "Fax Ungulith",
       prepare: (): void => {
         if (have($item`Fourth of May Cosplay Saber`))
           equip($slot`weapon`, $item`Fourth of May Cosplay Saber`);
@@ -40,8 +40,15 @@ export const HotResQuest: Quest = {
           equip($slot`offhand`, $item`industrial fire extinguisher`);
         if (have($item`vampyric cloake`)) equip($slot`back`, $item`vampyric cloake`);
       },
-      completed: () => CombatLoversLocket.monstersReminisced().includes($monster`ungulith`),
-      do: () => CombatLoversLocket.reminisce($monster`ungulith`),
+      completed: () => get("_photocopyUsed"),
+      do: (): void => {
+        if (
+          (have($item`photocopied monster`) || faxbot($monster`ungulith`)) &&
+          get("photocopyMonster") === $monster`ungulith`
+        ) {
+          use($item`photocopied monster`);
+        }
+      },
       outfit: { modifier: "myst", familiar: $familiar`Cookbookbat` },
       limit: { tries: 1 },
       choices: { 1387: 3 },

@@ -8,7 +8,6 @@ import {
   eat,
   Effect,
   equip,
-  faxbot,
   getWorkshed,
   inebrietyLimit,
   itemAmount,
@@ -23,6 +22,7 @@ import {
   $monster,
   $skill,
   $slot,
+  CombatLoversLocket,
   CommunityService,
   get,
   have,
@@ -76,21 +76,15 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Fax Factory Worker (female)",
+      name: "Reminisce Factory Worker (female)",
       ready: () => !have($effect`Everything Looks Yellow`),
       prepare: (): void => {
         if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
         if (have($item`vampyric cloake`)) equip($slot`back`, $item`vampyric cloake`);
       },
-      completed: () => get("_photocopyUsed"),
-      do: (): void => {
-        if (
-          (have($item`photocopied monster`) || faxbot($monster`factory worker (female)`)) &&
-          get("photocopyMonster") === $monster`factory worker (female)`
-        ) {
-          use($item`photocopied monster`);
-        }
-      },
+      completed: () =>
+        CombatLoversLocket.monstersReminisced().includes($monster`factory worker (female)`),
+      do: () => CombatLoversLocket.reminisce($monster`factory worker (female)`),
       outfit: {
         familiar: $familiar`Cookbookbat`,
       },
