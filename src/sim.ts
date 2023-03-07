@@ -63,9 +63,9 @@ function buildIotmList(): Requirement[] {
       why: "Various leveling and test improvements",
     },
     {
-      thing: $item`GameInformPowerDailyPro subscription card`,
-      why: "Scalers for leveling",
-      optional: true,
+      // eslint-disable-next-line libram/verify-constants
+      thing: $item`closed-circuit pay phone`,
+      why: "Free fights, Non-combat, Item Drop",
     },
     {
       thing: $item`airplane charter: Spring Break Beach`,
@@ -112,13 +112,16 @@ function buildIotmList(): Requirement[] {
 function buildLocketList(): Requirement[] {
   return [
     {
-      thing: $monster`ungulith`,
-      why: "Weapon Damage + Spell Damage",
-      optional: true,
+      thing: $monster`red skeleton`,
+      why: "Weapon Damage",
     },
     {
       thing: $monster`factory worker (female)`,
       why: "Hot Resistance",
+    },
+    {
+      thing: $monster`ungulith`,
+      why: "Weapon Damage + Spell Damage",
       optional: true,
     },
     {
@@ -139,7 +142,6 @@ function buildLocketList(): Requirement[] {
     {
       thing: $monster`Witchess King`,
       why: "Weapon Damage, Muscle %",
-      optional: true,
     },
     {
       thing: $monster`Witchess Queen`,
@@ -199,18 +201,6 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`Amphibian Sympathy`,
       why: "Familiar weight",
-    },
-    {
-      thing: $skill`Pride of the Puffin`,
-      why: "Monster Level",
-    },
-    {
-      thing: $skill`Drescher's Annoying Noise`,
-      why: "Monster Level",
-    },
-    {
-      thing: $skill`Ur-Kel's Aria of Annoyance`,
-      why: "Monster Level",
     },
     {
       thing: $skill`The Sonata of Sneakiness`,
@@ -301,8 +291,8 @@ function buildMiscList(): Requirement[] {
       why: "MP Regen",
     },
     {
-      thing: $skill`Simmer`,
-      why: "Spell Damage",
+      thing: $skill`Double-Fisted Skull Smashing`,
+      why: "Stat test",
     },
     {
       thing: new Hardcoded(
@@ -313,8 +303,19 @@ function buildMiscList(): Requirement[] {
       why: "Food we'll cook in-run",
     },
     {
+      thing: new Hardcoded(
+        !get("unknownRecipe10974"),
+        "Recipe of Yore: Pete's Pete's wily whey bar"
+      ),
+      why: "Food we'll cook in-run",
+    },
+    {
       thing: new Hardcoded(!get("unknownRecipe10975"), "Recipe of Yore: Pete's rich ricotta"),
       why: "Food we'll cook in-run",
+    },
+    {
+      thing: new Hardcoded(!get("unknownRecipe10976"), "Recipe of Before Yore: Boris's beer"),
+      why: "Booze we'll brew in-run",
     },
     {
       thing: new Hardcoded(!get("unknownRecipe10977"), "Recipe of Yore: honey bun of Boris"),
@@ -343,6 +344,21 @@ function buildMiscList(): Requirement[] {
       why: "Muscle test",
     },
     {
+      thing: $skill`Pride of the Puffin`,
+      why: "Monster Level",
+      optional: true,
+    },
+    {
+      thing: $skill`Drescher's Annoying Noise`,
+      why: "Monster Level",
+      optional: true,
+    },
+    {
+      thing: $skill`Ur-Kel's Aria of Annoyance`,
+      why: "Monster Level",
+      optional: true,
+    },
+    {
       thing: $skill`Master Saucier`,
       why: "Spell Damage",
       optional: true,
@@ -351,6 +367,10 @@ function buildMiscList(): Requirement[] {
       thing: $skill`Subtle and Quick to Anger`,
       why: "Spell Damage",
       optional: true,
+    },
+    {
+      thing: $skill`Simmer`,
+      why: "Spell Damage",
     },
     {
       thing: $skill`Always Never Not Guzzling`,
@@ -394,6 +414,7 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`20/20 Vision`,
       why: "Item Drop",
+      optional: true,
     },
     {
       thing: $skill`Carol of the Bulls`,
@@ -439,6 +460,41 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`Blessing of the War Snapper`,
       why: "Weapon Damage",
+      optional: true,
+    },
+    {
+      thing: $skill`Evoke Eldritch Horror`,
+      why: "Free Fight",
+      optional: true,
+    },
+    {
+      thing: $item`one-day ticket to Dinseylandfill`,
+      why: "Scalers for leveling",
+    },
+    {
+      thing: $item`Calzone of Legend`,
+      why: "Turngen + Stat %",
+    },
+    {
+      thing: $item`Deep Dish of Legend`,
+      why: "Turngen + Stat %",
+    },
+    {
+      thing: $item`Pizza of Legend`,
+      why: "Turngen + Stat %",
+    },
+    {
+      thing: $item`borrowed time`,
+      why: "Turngen",
+    },
+    {
+      thing: $item`non-Euclidean angle`,
+      why: "XP %",
+      optional: true,
+    },
+    {
+      thing: $item`abstraction: category`,
+      why: "XP %",
       optional: true,
     },
   ];
