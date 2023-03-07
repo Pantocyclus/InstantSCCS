@@ -1,5 +1,5 @@
 import { Quest } from "../engine/task";
-import { buy, cliExecute, Effect, lastChoice, runChoice, use, visitUrl } from "kolmafia";
+import { buy, cliExecute, Effect, visitUrl } from "kolmafia";
 import { $effect, $familiar, $item, CommunityService, get, have, Macro, uneffect } from "libram";
 import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
@@ -16,12 +16,15 @@ export const NoncombatQuest: Quest = {
     {
       name: "Use Shadow Lodestone",
       // eslint-disable-next-line libram/verify-constants
+      ready: () => have($item`Rufus's shadow lodestone`),
+      // eslint-disable-next-line libram/verify-constants
       completed: () => have($effect`Shadow Waters`),
       do: (): void => {
         // eslint-disable-next-line libram/verify-constants
-        use($item`Rufus's shadow lodestone`, 1);
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
-        if (lastChoice() === 1500) runChoice(2);
+      },
+      choices: {
+        1500: 2,
       },
       combat: new CombatStrategy().macro(Macro.abort()),
       limit: { tries: 1 },

@@ -138,7 +138,7 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Test",
-      after: ["Fax Factory Worker (female)"],
+      after: ["Reminisce Factory Worker (female)"],
       prepare: (): void => {
         const usefulEffects: Effect[] = [
           $effect`Blessing of the Bird`,

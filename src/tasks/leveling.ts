@@ -1,6 +1,7 @@
 import { Quest } from "../engine/task";
 import {
   adv1,
+  availableChoiceOptions,
   buy,
   chew,
   cliExecute,
@@ -29,6 +30,7 @@ import {
   retrieveItem,
   runChoice,
   takeStorage,
+  toItem,
   totalFreeRests,
   use,
   useSkill,
@@ -49,13 +51,14 @@ import {
   get,
   getKramcoWandererChance,
   have,
+  set,
   SongBoom,
   TunnelOfLove,
   Witchess,
 } from "libram";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
-import { tryAcquiringEffect } from "../lib";
+import { labyrinthAdjectives, tryAcquiringEffect } from "../lib";
 
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
 const usefulEffects: Effect[] = [
@@ -258,29 +261,61 @@ export const LevelingQuest: Quest = {
       },
     },
     {
+      name: "Get Shadow Affinity",
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        have($effect`Shadow Affinity`) ||
+        // eslint-disable-next-line libram/verify-constants
+        have($item`Rufus's shadow lodestone`) ||
+        toItem(get("rufusArtifact", "")) !== $item.none,
+      do: (): void => {
+        // eslint-disable-next-line libram/verify-constants
+        use($item`closed-circuit pay phone`);
+      },
+      choices: {
+        1497: 2,
+        1498: 6,
+      },
+      post: (): void => {
+        const artifact =
+          visitUrl("questlog.php")
+            .match(/Rufus wants you to go into a Shadow Rift and find a ([\w ]+)\./)
+            ?.at(1) ?? "";
+        set("_rufusArtifact", artifact);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Shadow Rift",
+      // eslint-disable-next-line libram/verify-constants
+      ready: () => have($effect`Shadow Affinity`),
       prepare: (): void => {
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`))
           buy($item`red rocket`, 1);
         if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`))
           buy($item`blue rocket`, 1);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
-        // TODO: If we have not gotten the Shadow Affinity Effect for the day, grab it
-        // eslint-disable-next-line libram/verify-constants
-        if (!have($effect`Shadow Affinity`)) {
-          // eslint-disable-next-line libram/verify-constants
-          use($item`closed-circuit pay phone`);
-          if (lastChoice() === 1497) runChoice(2);
-          else runChoice(1);
-        }
       },
-      // eslint-disable-next-line libram/verify-constants
-      completed: () => have($item`Rufus's shadow lodestone`),
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        have($item`Rufus's shadow lodestone`),
       // eslint-disable-next-line libram/verify-constants
       do: (): void => {
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
         // TODO: Figure out how to get the right NC choice
-        if (lastChoice() === 1499) runChoice(5);
+        if (lastChoice() === 1499) {
+          let NCChoice = 6;
+          const adjectives = labyrinthAdjectives.get(get("_rufusArtifact", "")) ?? [];
+          while (NCChoice === 6) {
+            const availableChoices = availableChoiceOptions();
+            const currentChoice = [2, 3, 4].filter((n) =>
+              adjectives.some((s) => availableChoices[n].includes(s))
+            );
+            if (currentChoice.length > 0) NCChoice = currentChoice[0];
+            else runChoice(5);
+          }
+          runChoice(NCChoice);
+        }
       },
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`red rocket`)
@@ -293,18 +328,16 @@ export const LevelingQuest: Quest = {
         familiar: $familiar`Cookbookbat`,
         modifier: "0.25 mys, 0.33 ML",
       },
+      choices: {
+        1498: 1,
+      },
       post: (): void => {
-        // eslint-disable-next-line libram/verify-constants
-        if (!have($effect`Shadow Affinity`)) {
-          // eslint-disable-next-line libram/verify-constants
-          use($item`closed-circuit pay phone`);
-          if (lastChoice() === 1497) runChoice(4);
-          else runChoice(1);
-        }
         if (have($item`autumn-aton`))
           cliExecute("autumnaton send Shadow Rift (The Right Side of the Tracks)");
+        // eslint-disable-next-line libram/verify-constants
+        if (have(toItem(get("_rufusArtifact", "")))) use($item`closed-circuit pay phone`);
       },
-      limit: { tries: 12 },
+      limit: { tries: 11 },
     },
     {
       name: "Snojo",
