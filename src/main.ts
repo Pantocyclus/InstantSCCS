@@ -25,6 +25,7 @@ import { HotResQuest } from "./tasks/hotres";
 import { WeaponDamageQuest } from "./tasks/weapondamage";
 import { DonateQuest } from "./tasks/donate";
 import { SpellDamageQuest } from "./tasks/spelldamage";
+import { checkRequirements } from "./sim";
 
 const timeProperty = "fullday_elapsedTime";
 
@@ -33,12 +34,17 @@ export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS scri
     help: "If the user must confirm execution of each task.",
     default: false,
   }),
+  sim: Args.flag({ help: "Check if you have the requirements to run this script.", setting: "" }),
 });
 
 export function main(command?: string): void {
   Args.fill(args, command);
   if (args.help) {
     Args.showHelp(args);
+    return;
+  }
+  if (args.sim) {
+    checkRequirements();
     return;
   }
 
