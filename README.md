@@ -447,11 +447,11 @@ This should be a ~1/310 SCCS completed (assuming you don't roll the lowest turng
 
 ### Does this work in HC?
 
-No. This script is hardcoded to eat the 3x T4 cookbookbat foods, and it is highly unlikely that you will be able to generate enough ingredients to cook up all of them.
+No. This script is hardcoded to eat the 3x T4 cookbookbat foods (which are all pulled), and it is highly unlikely that you will be able to generate enough ingredients to cook all of them in HC (without any pulls).
 
 ### Does this script work for other classes?
 
-No. The completion criteria for the powerleveling task is hardcoded/tuned to the seeded cookbookbat ingredient drops for Saucerors. We will not be able to satisfy this criteria if you run any other class.
+No. The completion criteria for the powerleveling task is hardcoded/tuned to the seeded cookbookbat ingredient drops for Saucerors. We will likely not be able to satisfy this criteria if you run any other class.
 
 ### I'm pretty shiny - can I get the script to save certain resources?
 
