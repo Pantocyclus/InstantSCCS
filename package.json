@@ -1,5 +1,5 @@
 {
-  "name": "InstantSCCS",
+  "name": "instantsccs",
   "version": "0.9.0",
   "description": "A low shiny SCCS script",
   "main": "instantsccs",

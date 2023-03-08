@@ -7,7 +7,7 @@
 To install the script, use the following command in the KoLMafia CLI.
 
 ```text
-git checkout https://github.com/Pantocyclus/InstantSCCS.git release
+git checkout https://github.com/Pantocyclus/InstantSCCS.git main
 ```
 
 ## Usage
