@@ -453,9 +453,17 @@ No. This script is hardcoded to eat the 3x T4 cookbookbat foods (which are all p
 
 No. The completion criteria for the powerleveling task is hardcoded/tuned to the seeded cookbookbat ingredient drops for Saucerors. We will likely not be able to satisfy this criteria if you run any other class.
 
+### Why Sauceror?
+
+There is currently only 1 facial expression that gives xp% - Inscrutable Gaze (for myst xp%). For low shinies, this can make or break the run, so this limits us to only myst classes.<br/>
+We will also need to craft both the offstat T3 cookbookbat foods for the stat% they give (to clear the stat tests), which necessitates having all the different ingredients dropping before our powerleveling ends in ~55 turns (excess turns result in increased turncount, requiring more turngen). This rules out Pastamancer and Disco Bandit. <br/>
+We will also need 2 Vegetable of Jarlsberg drops in those same ~55 turns in order to craft the myst T2 (for item%; on top of the T3 foods we're crafting above), and this additionally rules out Turtle Tamer and Accordion Thief.<br/>
+A Seal Clubber route might be viable for mid-to-high shiny, but the MP regen from curse of weaksauce and soul food from being a Sauceror tends to be invaluable to low shiny accounts.<br/>
+
 ### I'm pretty shiny - can I get the script to save certain resources?
 
-Not at the moment. For example, we will pull a non-Euclidean angle if you have it in storage, even if you don't need it. We will also fill your organs regardless of whether you need the turngen or (lack of) turnsaves from the buff. The plan is for certain preferences to be supported somewhere down the line to allow users to blacklist usage of certain items/consumption of certain consumables.
+Not at the moment. For example, we will pull a non-Euclidean angle if you have it in storage, even if you don't need it. We will also fill your organs regardless of whether you need the turngen or (lack of) turnsaves from the buff. <br/>
+The plan is for certain preferences to be supported somewhere down the line to allow users to blacklist usage of certain items/consumption of certain consumables.
 
 ### I don't have all the required skills. Will this script still work for me?
 
