@@ -244,22 +244,22 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Bird Calendar",
-      completed: () => have($skill`Seek out a Bird`) || have($item`Bird-a-Day calendar`),
+      completed: () => have($skill`Seek out a Bird`) || !have($item`Bird-a-Day calendar`),
       do: () => use($item`Bird-a-Day calendar`),
       limit: { tries: 1 },
     },
     {
       name: "Lathe",
-      prepare: () => visitUrl("shop.php?whichshop=lathe") || have($item`SpinMaster™ lathe`),
-      completed: () => have($item`weeping willow wand`),
+      prepare: () => visitUrl("shop.php?whichshop=lathe"),
+      completed: () => have($item`weeping willow wand`) || !have($item`SpinMaster™ lathe`),
       do: () => retrieveItem($item`weeping willow wand`),
       limit: { tries: 1 },
     },
     {
       name: "Backup Camera",
       completed: () =>
+        !have($item`backup camera`) ||
         get("backupCameraMode") === "ml" ||
-        have($item`backup camera`) ||
         !get("backupCameraReverserEnabled"),
       do: () => cliExecute("backupcamera ml"),
       post: (): void => {
