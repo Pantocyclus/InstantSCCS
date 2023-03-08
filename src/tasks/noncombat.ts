@@ -57,7 +57,7 @@ export const NoncombatQuest: Quest = {
         cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
       },
       do: () =>
-        CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), 3),
+        CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), 12),
       outfit: {
         familiar: $familiar`Disgeist`,
         modifier: "-combat",
