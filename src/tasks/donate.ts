@@ -10,7 +10,7 @@ import {
   spleenLimit,
   turnsPlayed,
 } from "kolmafia";
-import { $effect, $effects, CommunityService, get, have, uneffect } from "libram";
+import { $effect, $effects, CommunityService, get, have, sumNumbers, uneffect } from "libram";
 import {
   farmingResourcePrefs,
   freeBanishPrefs,
@@ -78,7 +78,7 @@ function logResourceUsage(): void {
   // Adventures Used
   print("");
   print("Test Summary:");
-  for (const test of Array<number>(
+  const tests = Array<number>(
     CommunityServiceTests.COILTEST,
     CommunityServiceTests.HOTTEST,
     CommunityServiceTests.HPTEST,
@@ -90,8 +90,11 @@ function logResourceUsage(): void {
     CommunityServiceTests.SPELLTEST,
     CommunityServiceTests.FAMTEST,
     CommunityServiceTests.ITEMTEST
-  ))
-    print(`${testNames.get(test) ?? "Unknown Test"}: ${get(`_CSTest${test}`, "?")}`);
+  );
+  tests.forEach((test) =>
+    print(`${testNames.get(test) ?? "Unknown Test"}: ${get(`_CSTest${test}`, "?")}`)
+  );
+  print(`Leveling: ${turnsPlayed() - sumNumbers(tests.map((test) => get(`_CSTest${test}`, 0)))}`);
   print(`Adventures used: ${turnsPlayed()}`);
 
   print("");

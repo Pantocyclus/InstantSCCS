@@ -9,7 +9,7 @@ import {
   toSkill,
   visitUrl,
 } from "kolmafia";
-import { $effect, have, set } from "libram";
+import { $effect, $item, get, have, set } from "libram";
 
 export enum CommunityServiceTests {
   HPTEST = 1,
@@ -355,33 +355,43 @@ export function logTestSetup(whichTest: number): void {
   set(`_CSTest${whichTest}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
 }
 
-export function tryAcquiringEffect(ef: Effect): void {
+export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   // Try acquiring an effect
   if (have(ef)) return; // If we already have the effect, we're done
-  cliExecute(ef.default);
+  if (tryRegardless || canAcquireEffect(ef)) {
+    if (ef.default === "cast 1 Seek out a Bird") cliExecute("cast Seek out a Bird");
+    else cliExecute(ef.default);
+  }
 }
 
-export function triedAcquiringEffect(ef: Effect): boolean {
-  // Returns false if an effect is acquirable but we don't have it active
-  if (have(ef)) return true; // We have the effect active
+export function canAcquireEffect(ef: Effect): boolean {
+  // This will not attempt to craft items to acquire the effect, which is the behaviour of ef.default
+  // You will need to have the item beforehand for this to return true
+  return ef.all
+    .map((defaultAction) => {
+      if (defaultAction.length === 0) return false; // This effect is not acquirable
+      const splitString = defaultAction.split(" ");
+      const action = splitString[0];
+      const target = splitString.slice(2).join(" ");
 
-  const efDefault = ef.default;
-  if (efDefault.length === 0) return true; // This effect is not acquirable
-  const action = efDefault.split(" ")[0];
-  let target = efDefault.split(" ").slice(2).join(" ");
-  if (target[0] === "1" && target[1] === " ") target = target.split(" ").slice(1).join(" ");
-  switch (action) {
-    case "eat":
-      return !have(toItem(target)); // No issues if we don't have the food
-    case "drink":
-      return !have(toItem(target)); // No issues if we don't have the booze
-    case "chew":
-      return !have(toItem(target)); // No issues if we don't have the spleen item
-    case "use":
-      return !have(toItem(target)); // No issues if we don't have the item
-    case "cast":
-      return !have(toSkill(target)); // No issues if we don't have the skill
-    default:
-      return true; // Doesn't seem like there's any way to acquire this effect?
-  }
+      switch (action) {
+        case "eat":
+          return have(toItem(target)); // We have the food
+        case "drink":
+          return have(toItem(target)); // We have the booze
+        case "chew":
+          return have(toItem(target)); // We have the spleen item
+        case "use":
+          return have(toItem(target)); // We have the item
+        case "cast":
+          return have(toSkill(target)); // We have the skill
+        case "cargo":
+          return have($item`Cargo Cultist Shorts`) && !get("_cargoPocketEmptied"); // We can grab it from our cargo pants
+        case "synthesize":
+          return false; // We currently don't support sweet synthesis
+        default:
+          return false; // Doesn't seem like there's any way to acquire this effect?
+      }
+    })
+    .some((b) => b);
 }

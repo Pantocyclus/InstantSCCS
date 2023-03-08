@@ -116,7 +116,7 @@ export const HotResQuest: Quest = {
           $effect`Empathy`,
           $effect`Leash of Linguini`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         cliExecute("maximize hot res");
       },
       completed: () => CommunityService.HotRes.isDone(),

@@ -11,11 +11,13 @@ import {
   Effect,
   effectModifier,
   equip,
+  equippedItem,
   inebrietyLimit,
   Item,
   itemAmount,
   lastChoice,
   Location,
+  Monster,
   myBasestat,
   myFullness,
   myHash,
@@ -30,6 +32,7 @@ import {
   restoreHp,
   restoreMp,
   runChoice,
+  storageAmount,
   takeStorage,
   toItem,
   totalFreeRests,
@@ -44,6 +47,7 @@ import {
   $items,
   $location,
   $monster,
+  $monsters,
   $skill,
   $slot,
   $stat,
@@ -62,6 +66,7 @@ import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 import { labyrinthAdjectives, tryAcquiringEffect } from "../lib";
 
+const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
 const usefulEffects: Effect[] = [
   // Stats
@@ -135,7 +140,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Pulls",
-      completed: () => get("_roninStoragePulls").split(",").length >= 5,
+      completed: () => get("_roninStoragePulls").split(",").length >= 3,
       do: (): void => {
         takeStorage($item`Deep Dish of Legend`, 1);
         takeStorage($item`Calzone of Legend`, 1);
@@ -143,13 +148,27 @@ export const LevelingQuest: Quest = {
         if (powerlevelingLocation() === $location.none) {
           takeStorage($item`one-day ticket to Dinseylandfill`, 1);
           use($item`one-day ticket to Dinseylandfill`, 1);
-        } else {
-          takeStorage($item`non-Euclidean angle`, 1);
-          chew($item`non-Euclidean angle`, 1);
         }
-        if (get("_roninStoragePulls").split(",").length <= 4) {
-          takeStorage($item`abstraction: category`, 1);
-          chew($item`abstraction: category`);
+        if (
+          have($item`Deep Dish of Legend`) &&
+          have($item`Calzone of Legend`) &&
+          have($item`Pizza of Legend`) &&
+          powerlevelingLocation() !== $location.none
+        ) {
+          if (
+            storageAmount($item`non-Euclidean angle`) > 0 &&
+            get("_roninStoragePulls").split(",").length <= 4
+          ) {
+            takeStorage($item`non-Euclidean angle`, 1);
+            chew($item`non-Euclidean angle`, 1);
+          }
+          if (
+            storageAmount($item`abstraction: category`) > 0 &&
+            get("_roninStoragePulls").split(",").length <= 4
+          ) {
+            takeStorage($item`abstraction: category`, 1);
+            chew($item`abstraction: category`);
+          }
         }
       },
     },
@@ -211,7 +230,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Drink Perfect Dark and Stormy",
-      completed: () => get("_preventScurvy") && get("_perfectFreezeUsed"),
+      completed: () => (get("_preventScurvy") && get("_perfectFreezeUsed")) || myInebriety() >= 3,
       do: (): void => {
         useSkill($skill`Perfect Freeze`);
         useSkill($skill`Prevent Scurvy and Sobriety`);
@@ -252,7 +271,6 @@ export const LevelingQuest: Quest = {
       ready: () => have($effect`Ready to Eat`), // only eat this after we red rocket
       completed: () => get("pizzaOfLegendEaten"),
       do: (): void => {
-        takeStorage($item`Pizza of Legend`, 1);
         eat($item`Pizza of Legend`, 1);
       },
     },
@@ -397,9 +415,72 @@ export const LevelingQuest: Quest = {
       },
     },
     {
+      name: "Backups",
+      ready: () => freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none),
+      prepare: (): void => {
+        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (
+          have($item`January's Garbage Tote`) &&
+          get("garbageShirtCharge") > 0 &&
+          have($skill`Torso Awareness`)
+        ) {
+          if (get("garbageShirtCharge") === 1) {
+            if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
+              equip($slot`shirt`, $item.none);
+          } else {
+            if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
+            equip($slot`shirt`, $item`makeshift garbage shirt`);
+          }
+        }
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+      },
+      completed: () =>
+        !have($item`backup camera`) ||
+        !freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none) ||
+        get("_backUpUses") >= 11,
+      do: $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Back-Up to your Last Enemy`).default()
+      ),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        acc3: $item`backup camera`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+      },
+      post: (): void => {
+        if (!freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none))
+          throw new Error("Fought unexpected monster");
+      },
+      limit: { tries: 11 },
+    },
+    {
       name: "Kramco",
       prepare: (): void => {
         restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
+        if (
+          have($item`January's Garbage Tote`) &&
+          get("garbageShirtCharge") > 0 &&
+          have($skill`Torso Awareness`)
+        ) {
+          if (get("garbageShirtCharge") === 1) {
+            if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
+              equip($slot`shirt`, $item.none);
+          } else {
+            if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
+            equip($slot`shirt`, $item`makeshift garbage shirt`);
+          }
+        }
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        restoreMp(50);
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
       },
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
@@ -455,6 +536,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffect($effect`Comic Violence`);
       },
       completed: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
       do: () =>
@@ -613,7 +695,9 @@ export const LevelingQuest: Quest = {
         ((itemAmount($item`Yeast of Boris`) >= 3 &&
           itemAmount($item`Vegetable of Jarlsberg`) >= 3 &&
           itemAmount($item`St. Sneaky Pete's Whey`) >= 6) ||
-          craftedCBBFoods.every((it) => have(it) || have(effectModifier(it, "effect")))),
+          craftedCBBFoods.every((it) => have(it) || have(effectModifier(it, "effect")))) &&
+        (powerlevelingLocation() !== $location`The Neverending Party` ||
+          get("_neverendingPartyFreeTurns") >= 10),
       do: powerlevelingLocation(),
       prepare: (): void => {
         restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
@@ -624,8 +708,13 @@ export const LevelingQuest: Quest = {
           get("garbageShirtCharge") > 0 &&
           have($skill`Torso Awareness`)
         ) {
-          if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-          equip($slot`shirt`, $item`makeshift garbage shirt`);
+          if (get("garbageShirtCharge") === 1) {
+            if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
+              equip($slot`shirt`, $item.none);
+          } else {
+            if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
+            equip($slot`shirt`, $item`makeshift garbage shirt`);
+          }
         }
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
         restoreMp(50);
@@ -694,8 +783,13 @@ export const LevelingQuest: Quest = {
           get("garbageShirtCharge") > 0 &&
           have($skill`Torso Awareness`)
         ) {
-          if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-          equip($slot`shirt`, $item`makeshift garbage shirt`);
+          if (get("garbageShirtCharge") === 1) {
+            if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
+              equip($slot`shirt`, $item.none);
+          } else {
+            if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
+            equip($slot`shirt`, $item`makeshift garbage shirt`);
+          }
         }
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
         restoreMp(50);
@@ -713,44 +807,6 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Backups",
-      ready: () => get("lastCopyableMonster") === $monster`Witchess King`,
-      prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (
-          have($item`January's Garbage Tote`) &&
-          get("garbageShirtCharge") > 0 &&
-          have($skill`Torso Awareness`)
-        ) {
-          if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-          equip($slot`shirt`, $item`makeshift garbage shirt`);
-        }
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
-        restoreMp(50);
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
-      },
-      completed: () =>
-        !have($item`backup camera`) ||
-        get("lastCopyableMonster") !== $monster`Witchess King` ||
-        get("_backUpUses") >= 11,
-      do: $location`The Dire Warren`,
-      combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Back-Up to your Last Enemy`)
-          .if_($monster`Witchess King`, Macro.default())
-          .abort()
-      ),
-      outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        acc3: $item`backup camera`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
-      limit: { tries: 11 },
-    },
-    {
       name: "Free Kills and More Fights",
       after: ["Pre-free-fights consumption"],
       prepare: (): void => {
@@ -762,8 +818,13 @@ export const LevelingQuest: Quest = {
           get("garbageShirtCharge") > 0 &&
           have($skill`Torso Awareness`)
         ) {
-          if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-          equip($slot`shirt`, $item`makeshift garbage shirt`);
+          if (get("garbageShirtCharge") === 1) {
+            if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
+              equip($slot`shirt`, $item.none);
+          } else {
+            if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
+            equip($slot`shirt`, $item`makeshift garbage shirt`);
+          }
         }
         if (have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3)
           equip($slot`acc3`, $item`Lil' Doctor™ bag`);

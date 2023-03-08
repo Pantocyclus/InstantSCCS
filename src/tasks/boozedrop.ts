@@ -152,13 +152,14 @@ export const BoozeDropQuest: Quest = {
           $effect`Steely-Eyed Squint`,
           $effect`Uncucumbered`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: () =>
         CommunityService.BoozeDrop.run(() => logTestSetup(CommunityServiceTests.ITEMTEST), 30),
       outfit: {
-        modifier: "Item Drop, -equip broken champagne bottle",
+        modifier:
+          "Item Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man",
       },
       limit: { tries: 1 },
     },

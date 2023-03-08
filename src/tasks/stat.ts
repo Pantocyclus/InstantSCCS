@@ -37,10 +37,10 @@ export const HPQuest: Quest = {
           $effect`Stevedave's Shanty of Superiority`,
           $effect`Triple-Sized`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       do: () => CommunityService.HP.run(() => logTestSetup(CommunityServiceTests.HPTEST), 1),
-      outfit: { modifier: "HP" },
+      outfit: { modifier: "HP, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },
     },
   ],
@@ -68,10 +68,10 @@ export const MuscleQuest: Quest = {
           $effect`Stevedave's Shanty of Superiority`,
           $effect`Triple-Sized`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       do: () => CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), 2),
-      outfit: { modifier: "Muscle" },
+      outfit: { modifier: "Muscle, switch disembodied hand, -switch left-hand man" },
       post: (): void => {
         uneffect($effect`Power Ballad of the Arrowsmith`);
       },
@@ -99,11 +99,11 @@ export const MysticalityQuest: Quest = {
           $effect`Song of Bravado`,
           $effect`Stevedave's Shanty of Superiority`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       do: () =>
         CommunityService.Mysticality.run(() => logTestSetup(CommunityServiceTests.MYSTTEST), 1),
-      outfit: { modifier: "Mysticality" },
+      outfit: { modifier: "Mysticality, switch disembodied hand, -switch left-hand man" },
       post: (): void => {
         uneffect($effect`The Magical Mojomuscular Melody`);
       },
@@ -139,10 +139,10 @@ export const MoxieQuest: Quest = {
           $effect`Song of Bravado`,
           $effect`Stevedave's Shanty of Superiority`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       do: () => CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), 5),
-      outfit: { modifier: "Moxie" },
+      outfit: { modifier: "Moxie, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },
     },
   ],

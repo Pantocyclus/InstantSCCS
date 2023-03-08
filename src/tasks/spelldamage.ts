@@ -62,12 +62,12 @@ export const SpellDamageQuest: Quest = {
           $effect`Warlock, Warstock, and Warbarrel`,
           $effect`We're All Made of Starfish`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       completed: () => CommunityService.SpellDamage.isDone(),
       do: () =>
         CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 51),
-      outfit: { modifier: "spell dmg" },
+      outfit: { modifier: "spell dmg, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },
     },
   ],

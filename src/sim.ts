@@ -68,38 +68,39 @@ function buildIotmList(): Requirement[] {
       why: "Free fights, Non-combat, Item Drop",
     },
     {
-      thing: $item`airplane charter: Spring Break Beach`,
+      thing: new Hardcoded(get("sleazeAirportAlways"), "airplane charter: Spring Break Beach"),
       why: "Scalers for leveling",
       optional: true,
     },
     {
-      thing: $item`airplane charter: Conspiracy Island`,
+      thing: new Hardcoded(get("spookyAirportAlways"), "airplane charter: Conspiracy Island"),
       why: "Scalers for leveling",
       optional: true,
     },
     {
-      thing: $item`airplane charter: Dinseylandfill`,
+      thing: new Hardcoded(get("stenchAirportAlways"), "airplane charter: Dinseylandfill"),
       why: "Scalers for leveling",
       optional: true,
     },
     {
-      thing: $item`airplane charter: That 70s Volcano`,
+      thing: new Hardcoded(get("hotAirportAlways"), "airplane charter: That 70s Volcano"),
       why: "Scalers for leveling",
       optional: true,
     },
     {
-      thing: $item`airplane charter: The Glaciest`,
+      thing: new Hardcoded(get("coldAirportAlways"), "airplane charter: The Glaciest"),
       why: "Scalers for leveling",
       optional: true,
     },
     {
-      thing: $item`Neverending Party invitation envelope`,
+      thing: new Hardcoded(get("neverendingPartyAlways"), "Neverending Party invitation envelope"),
       why: "Free fights, best scalers for leveling",
       optional: true,
     },
     {
       thing: $item`backup camera`,
       why: "More fights from locket",
+      optional: true,
     },
     {
       thing: $item`January's Garbage Tote`,
@@ -472,7 +473,10 @@ function buildMiscList(): Requirement[] {
       optional: true,
     },
     {
-      thing: $item`one-day ticket to Dinseylandfill`,
+      thing: new Hardcoded(
+        have($item`one-day ticket to Dinseylandfill`) || get("stenchAirportAlways"),
+        "one-day ticket to Dinseylandfill"
+      ),
       why: "Scalers for leveling",
     },
     {

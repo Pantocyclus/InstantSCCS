@@ -52,7 +52,7 @@ export const FamiliarWeightQuest: Quest = {
           $effect`Leash of Linguini`,
           $effect`Puzzle Champ`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
 
         if (have($skill`Summon Clip Art`)) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);

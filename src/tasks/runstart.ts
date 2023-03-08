@@ -13,9 +13,11 @@ import {
   hermit,
   itemAmount,
   myInebriety,
+  myMaxhp,
   myMaxmp,
   myMeat,
   myMp,
+  restoreHp,
   restoreMp,
   retrieveItem,
   reverseNumberology,
@@ -32,6 +34,7 @@ import {
   $location,
   $monster,
   $skill,
+  clamp,
   CommunityService,
   get,
   getKramcoWandererChance,
@@ -102,7 +105,7 @@ export const RunStartQuest: Quest = {
       name: "Get Codpiece",
       completed: () => get("_floundryItemCreated"),
       do: (): void => {
-        cliExecute("floundry codpiece");
+        retrieveItem($item`codpiece`, 1);
         use($item`codpiece`, 1);
         create($item`oil cap`, 1);
         autosell($item`oil cap`, 1);
@@ -125,7 +128,7 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Restore mp",
-      completed: () => get("timesRested") >= totalFreeRests() || myMp() >= myMaxmp(),
+      completed: () => get("timesRested") >= totalFreeRests() || myMp() >= Math.min(200, myMaxmp()),
       prepare: (): void => {
         if (have($item`Newbiesport™ tent`)) use($item`Newbiesport™ tent`);
       },
@@ -254,7 +257,10 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Backup Camera",
-      completed: () => get("backupCameraMode") === "ml" || have($item`backup camera`),
+      completed: () =>
+        get("backupCameraMode") === "ml" ||
+        have($item`backup camera`) ||
+        !get("backupCameraReverserEnabled"),
       do: () => cliExecute("backupcamera ml"),
       post: (): void => {
         if (!get("backupCameraReverserEnabled")) cliExecute("backupcamera reverser");
@@ -313,7 +319,7 @@ export const RunStartQuest: Quest = {
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML",
+        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       post: (): void => {
         if (have($item`MayDay™ supply package`)) use($item`MayDay™ supply package`, 1);
@@ -349,6 +355,9 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Kramco",
+      prepare: (): void => {
+        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+      },
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
       do: $location`Noob Cave`,
@@ -356,7 +365,7 @@ export const RunStartQuest: Quest = {
         offhand: $item`Kramco Sausage-o-Matic™`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML",
+        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       combat: new CombatStrategy().macro(Macro.default()),
       post: () =>

@@ -53,7 +53,7 @@ export const NoncombatQuest: Quest = {
           $effect`Empathy`,
           $effect`Puzzle Champ`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
       },
       do: () =>

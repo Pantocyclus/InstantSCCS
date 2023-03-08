@@ -102,7 +102,7 @@ export const WeaponDamageQuest: Quest = {
           $effect`Wasabi With You`,
           $effect`Weapon of Mass Destruction`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
 
         if (!have($effect`Outer Wolf™`) && have($item`genie bottle`))
           cliExecute("genie effect outer wolf");
@@ -110,7 +110,7 @@ export const WeaponDamageQuest: Quest = {
       completed: () => CommunityService.WeaponDamage.isDone(),
       do: () =>
         CommunityService.WeaponDamage.run(() => logTestSetup(CommunityServiceTests.WPNTEST), 35),
-      outfit: { modifier: "weapon dmg" },
+      outfit: { modifier: "weapon dmg, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },
     },
   ],
