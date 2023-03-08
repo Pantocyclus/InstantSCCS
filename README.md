@@ -442,3 +442,21 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 This should be a ~1/310 SCCS completed (assuming you don't roll the lowest turngen on all your consumables).
 
 > Donate your body to science!<br/>
+
+## FAQ
+
+### Does this work in HC?
+
+No. This script is hardcoded to eat the 3x T4 cookbookbat foods, and it is highly unlikely that you will be able to generate enough ingredients to cook up all of them.
+
+### Does this script work for other classes?
+
+No. The completion criteria for the powerleveling task is hardcoded/tuned to the seeded cookbookbat ingredient drops for Saucerors. We will not be able to satisfy this criteria if you run any other class.
+
+### I'm pretty shiny - can I get the script to save certain resources?
+
+Not at the moment. For example, we will pull a non-Euclidean angle if you have it in storage, even if you don't need it. We will also fill your organs regardless of whether you need the turngen or (lack of) turnsaves from the buff. The plan is for certain preferences to be supported somewhere down the line to allow users to blacklist usage of certain items/consumption of certain consumables.
+
+### I don't have all the required skills. Will this script still work for me?
+
+Probably. The script only hardcodes for the IotMs and familiars, and does not hardcode for the skills. The script might still work if you have enough IotMs to make up for the loss in turgen + turnsaves from lacking the skills.
