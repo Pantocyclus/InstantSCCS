@@ -296,7 +296,7 @@ export const LevelingQuest: Quest = {
         if (have($item`astral six-pack`)) use($item`astral six-pack`, 1);
         drink($item`astral pilsner`, 1);
       },
-      limit: { tries: 1 },
+      limit: { tries: 6 },
     },
     {
       name: "Get Shadow Affinity",
@@ -783,7 +783,7 @@ export const LevelingQuest: Quest = {
           }
         });
 
-        if (itemAmount($item`Vegetable of Jarlsberg`) >= 4 && !have($effect`Wizard Sight`)) {
+        if (itemAmount($item`Vegetable of Jarlsberg`) >= 4 && !have($effect`Pretty Delicious`)) {
           if (!have($item`baked veggie ricotta casserole`))
             create($item`baked veggie ricotta casserole`, 1);
           eat($item`baked veggie ricotta casserole`, 1);
@@ -863,7 +863,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         get("_shatteringPunchUsed") >= 3 &&
         get("_gingerbreadMobHitUsed") &&
-        have($effect`Wizard Sight`) &&
+        have($effect`Pretty Delicious`) &&
         (have($effect`Awfully Wily`) || myBasestat($stat`Mysticality`) >= 190),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
@@ -880,7 +880,7 @@ export const LevelingQuest: Quest = {
         1324: 5,
       },
       post: (): void => {
-        if (itemAmount($item`Vegetable of Jarlsberg`) >= 4 && !have($effect`Wizard Sight`)) {
+        if (itemAmount($item`Vegetable of Jarlsberg`) >= 4 && !have($effect`Pretty Delicious`)) {
           if (!have($item`baked veggie ricotta casserole`))
             create($item`baked veggie ricotta casserole`, 1);
           eat($item`baked veggie ricotta casserole`, 1);
