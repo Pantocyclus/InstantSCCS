@@ -36,6 +36,7 @@ export const WeaponDamageQuest: Quest = {
         tryAcquiringEffect($effect`Ode to Booze`);
         visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=6&pwd=${+myHash()}`); // Sockdollager
       },
+      limit: { tries: 1 },
     },
     {
       name: "Potion of Potency",
@@ -44,6 +45,7 @@ export const WeaponDamageQuest: Quest = {
         have($effect`Pronounced Potency`) ||
         !have($item`scrumptious reagent`),
       do: () => create($item`potion of potency`, 1),
+      limit: { tries: 1 },
     },
     {
       name: "Cargo Shorts",
@@ -52,6 +54,7 @@ export const WeaponDamageQuest: Quest = {
         visitUrl("inventory.php?action=pocket");
         visitUrl("choice.php?whichchoice=1420&option=1&pocket=284");
       },
+      limit: { tries: 1 },
     },
     {
       name: "Meteor Shower",

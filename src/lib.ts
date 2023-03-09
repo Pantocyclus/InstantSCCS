@@ -7,6 +7,7 @@ import {
   myFamiliar,
   myMp,
   print,
+  restoreMp,
   toItem,
   toSkill,
   visitUrl,
@@ -361,6 +362,7 @@ export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   // Try acquiring an effect
   if (have(ef)) return; // If we already have the effect, we're done
   if (tryRegardless || canAcquireEffect(ef)) {
+    if (ef === $effect`Ode to Booze`) restoreMp(50);
     if (ef.default === "cast 1 Seek out a Bird") cliExecute("cast Seek out a Bird");
     else cliExecute(ef.default);
   }

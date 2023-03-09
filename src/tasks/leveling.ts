@@ -60,6 +60,7 @@ import {
   set,
   SongBoom,
   TunnelOfLove,
+  uneffect,
   Witchess,
 } from "libram";
 import { CombatStrategy } from "grimoire-kolmafia";
@@ -296,6 +297,10 @@ export const LevelingQuest: Quest = {
         if (have($item`astral six-pack`)) use($item`astral six-pack`, 1);
         drink($item`astral pilsner`, 1);
       },
+      post: (): void => {
+        if (!have($item`astral six-pack`) && !have($item`astral pilsner`))
+          uneffect($effect`Ode to Booze`);
+      },
       limit: { tries: 6 },
     },
     {
@@ -456,7 +461,7 @@ export const LevelingQuest: Quest = {
             equip($slot`shirt`, $item`makeshift garbage shirt`);
           }
         }
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);        
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },

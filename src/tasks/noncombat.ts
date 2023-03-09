@@ -12,6 +12,7 @@ export const NoncombatQuest: Quest = {
       name: "Buy Porkpie-mounted Popper",
       completed: () => have($item`porkpie-mounted popper`),
       do: () => buy($item`porkpie-mounted popper`, 1),
+      limit: { tries: 1 },
     },
     {
       name: "Use Shadow Lodestone",

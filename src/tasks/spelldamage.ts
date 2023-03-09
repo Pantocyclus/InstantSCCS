@@ -22,6 +22,7 @@ export const SpellDamageQuest: Quest = {
       name: "Simmer",
       completed: () => have($effect`Simmering`) || !have($skill`Simmer`),
       do: () => useSkill($skill`Simmer`),
+      limit: { tries: 1 },
     },
     {
       name: "Meteor Shower",

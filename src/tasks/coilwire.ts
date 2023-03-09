@@ -12,6 +12,7 @@ export const CoilWireQuest: Quest = {
       ready: () => myAdventures() >= 60,
       completed: () => CommunityService.CoilWire.isDone(),
       do: () => CommunityService.CoilWire.run(() => logTestSetup(CommunityServiceTests.COILTEST)),
+      limit: { tries: 1 },
     },
   ],
 };

@@ -65,6 +65,7 @@ export const BoozeDropQuest: Quest = {
         }
         setConfiguration(newStations as Cycle);
       },
+      limit: { tries: 1 },
     },
     {
       name: "Get Cyclops Eyedrops",
@@ -104,6 +105,7 @@ export const BoozeDropQuest: Quest = {
           create($item`roasted vegetable of Jarlsberg`, 1);
         eat($item`roasted vegetable of Jarlsberg`, 1);
       },
+      limit: { tries: 1 },
     },
     {
       name: "Drink Sacramento Wine",
@@ -135,6 +137,7 @@ export const BoozeDropQuest: Quest = {
         if (itemAmount($item`battery (AAA)`) >= 5) create($item`battery (lantern)`, 1);
         use($item`battery (lantern)`, 1);
       },
+      limit: { tries: 1 },
     },
     {
       name: "Test",
