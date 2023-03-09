@@ -323,6 +323,7 @@ export const LevelingQuest: Quest = {
         if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`))
           buy($item`blue rocket`, 1);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        restoreMp(50);
       },
       completed: () =>
         // eslint-disable-next-line libram/verify-constants
@@ -379,6 +380,7 @@ export const LevelingQuest: Quest = {
         }
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
+        restoreMp(50);
       },
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
       do: $location`The X-32-F Combat Training Snowman`,
@@ -400,6 +402,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        restoreMp(50);
       },
       completed: () => get("_snokebombUsed") >= 3,
       do: powerlevelingLocation(),
@@ -409,6 +412,12 @@ export const LevelingQuest: Quest = {
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+      },
+      choices: {
+        1094: 5,
+        1115: 6,
+        1322: 2,
+        1324: 5,
       },
       post: (): void => {
         if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
