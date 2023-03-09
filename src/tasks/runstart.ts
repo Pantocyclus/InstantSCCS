@@ -306,7 +306,7 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Novelty Tropical Skeleton",
-      ready: () => !have($effect`Everything Looks Yellow`),
+      ready: () => !have($effect`Everything Looks Yellow`) || have($item`cherry`),
       prepare: (): void => {
         if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");

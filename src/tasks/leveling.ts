@@ -28,7 +28,6 @@ import {
   myMeat,
   myMp,
   mySoulsauce,
-  numericModifier,
   restoreHp,
   restoreMp,
   runChoice,
@@ -716,7 +715,6 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Powerlevel",
-      ready: () => numericModifier("Mysticality Percent") >= 705,
       completed: () =>
         myBasestat($stat`Mysticality`) >= 175 &&
         ((itemAmount($item`Yeast of Boris`) >= 3 &&

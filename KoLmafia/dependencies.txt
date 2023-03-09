@@ -1,0 +1,4 @@
+https://github.com/Ezandora/Bastille/branches/Release/
+https://github.com/Ezandora/Briefcase/branches/Release/
+https://github.com/Ezandora/Voting-Booth/trunk/Release/
+https://github.com/Ezandora/Detective-Solver/branches/Release/
