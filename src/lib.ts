@@ -3,7 +3,9 @@ import {
   cliExecuteOutput,
   Effect,
   familiarWeight,
+  mpCost,
   myFamiliar,
+  myMp,
   print,
   toItem,
   toSkill,
@@ -384,7 +386,7 @@ export function canAcquireEffect(ef: Effect): boolean {
         case "use":
           return have(toItem(target)); // We have the item
         case "cast":
-          return have(toSkill(target)); // We have the skill
+          return have(toSkill(target)) && myMp() >= mpCost(toSkill(target)); // We have the skill and can cast it
         case "cargo":
           return have($item`Cargo Cultist Shorts`) && !get("_cargoPocketEmptied"); // We can grab it from our cargo pants
         case "synthesize":
