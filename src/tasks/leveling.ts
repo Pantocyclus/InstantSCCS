@@ -132,6 +132,7 @@ export const LevelingQuest: Quest = {
       do: (): void => {
         ensureEffect($effect`Thaumodynamic`);
       },
+      limit: { tries: 1 },
     },
     {
       name: "Inscrutable Gaze",
@@ -171,6 +172,7 @@ export const LevelingQuest: Quest = {
           }
         }
       },
+      limit: { tries: 1 },
     },
     {
       name: "Use Ten-Percent Bonus",
@@ -180,6 +182,7 @@ export const LevelingQuest: Quest = {
       },
       completed: () => !have($item`a ten-percent bonus`),
       do: () => use($item`a ten-percent bonus`, 1),
+      limit: { tries: 1 },
     },
     {
       name: "Bastille",
@@ -208,12 +211,14 @@ export const LevelingQuest: Quest = {
       name: "Alice Army",
       completed: () => get("grimoire3Summons") > 0 || !have($skill`Summon Alice's Army Cards`),
       do: () => useSkill($skill`Summon Alice's Army Cards`),
+      limit: { tries: 1 },
     },
     {
       name: "Confiscator's Grimoire",
       completed: () =>
         get("_grimoireConfiscatorSummons") > 0 || !have($skill`Summon Confiscated Things`),
       do: () => useSkill($skill`Summon Confiscated Things`),
+      limit: { tries: 1 },
     },
     {
       name: "Breakfast",
@@ -222,11 +227,13 @@ export const LevelingQuest: Quest = {
         cliExecute("breakfast");
         cliExecute("refresh all");
       },
+      limit: { tries: 1 },
     },
     {
       name: "Eat Calzone",
       completed: () => get("calzoneOfLegendEaten"),
       do: () => eat($item`Calzone of Legend`, 1),
+      limit: { tries: 1 },
     },
     {
       name: "Drink Perfect Dark and Stormy",
@@ -238,11 +245,13 @@ export const LevelingQuest: Quest = {
         tryAcquiringEffect($effect`Ode to Booze`);
         drink($item`perfect dark and stormy`, 1);
       },
+      limit: { tries: 1 },
     },
     {
       name: "Consult Gorgonzola",
       completed: () => get("_clanFortuneBuffUsed"),
       do: () => cliExecute("fortune buff mys"),
+      limit: { tries: 1 },
     },
     {
       name: "Use Glittery Mascara",
@@ -265,6 +274,7 @@ export const LevelingQuest: Quest = {
       ready: () => have($effect`Everything Looks Blue`) && myMeat() >= 1000,
       completed: () => have($item`oversized sparkler`),
       do: () => buy($item`oversized sparkler`, 1),
+      limit: { tries: 1 },
     },
     {
       name: "Eat Pizza",
@@ -273,6 +283,7 @@ export const LevelingQuest: Quest = {
       do: (): void => {
         eat($item`Pizza of Legend`, 1);
       },
+      limit: { tries: 1 },
     },
     {
       name: "Drink Astral Pilsners",
@@ -285,6 +296,7 @@ export const LevelingQuest: Quest = {
         if (have($item`astral six-pack`)) use($item`astral six-pack`, 1);
         drink($item`astral pilsner`, 1);
       },
+      limit: { tries: 1 },
     },
     {
       name: "Get Shadow Affinity",
@@ -422,6 +434,7 @@ export const LevelingQuest: Quest = {
       post: (): void => {
         if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
       },
+      limit: { tries: 4 },
     },
     {
       name: "Backups",
