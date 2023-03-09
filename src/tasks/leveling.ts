@@ -456,9 +456,9 @@ export const LevelingQuest: Quest = {
             equip($slot`shirt`, $item`makeshift garbage shirt`);
           }
         }
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
-        restoreMp(50);
+        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);        
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
       },
       completed: () =>
         !have($item`backup camera`) ||
@@ -501,8 +501,8 @@ export const LevelingQuest: Quest = {
           }
         }
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
-        restoreMp(50);
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
       },
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
@@ -616,8 +616,8 @@ export const LevelingQuest: Quest = {
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
-        restoreMp(50);
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
       },
       completed: () => get("_godLobsterFights") >= 3 || !have($familiar`God Lobster`),
       do: () => visitUrl("main.php?fightgodlobster=1"),
@@ -643,8 +643,8 @@ export const LevelingQuest: Quest = {
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
-        restoreMp(50);
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
       },
       completed: () => get("_eldritchHorrorEvoked") || !have($skill`Evoke Eldritch Horror`),
       do: () => useSkill($skill`Evoke Eldritch Horror`),
@@ -668,8 +668,8 @@ export const LevelingQuest: Quest = {
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
-        restoreMp(50);
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
       },
       completed: () => get("_witchessFights") >= 5 || !Witchess.have(),
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
@@ -692,8 +692,8 @@ export const LevelingQuest: Quest = {
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
-        restoreMp(50);
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
       },
       completed: () => get("_machineTunnelsAdv") >= 5 || !have($familiar`Machine Elf`),
       do: () => adv1($location`The Deep Machine Tunnels`, -1),
@@ -739,8 +739,8 @@ export const LevelingQuest: Quest = {
           }
         }
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
-        restoreMp(50);
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
       },
       outfit: {
         offhand: $item`unbreakable umbrella`,
@@ -814,8 +814,8 @@ export const LevelingQuest: Quest = {
           }
         }
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
-        restoreMp(50);
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
       },
       completed: () => CombatLoversLocket.monstersReminisced().includes($monster`Witchess King`),
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
