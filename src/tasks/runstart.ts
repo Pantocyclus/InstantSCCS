@@ -100,6 +100,7 @@ export const RunStartQuest: Quest = {
         autosell($item`baconstone`, itemAmount($item`baconstone`));
         autosell($item`porquoise`, itemAmount($item`porquoise`));
       },
+      limit: { tries: 1 },
     },
     {
       name: "Get Codpiece",
@@ -110,6 +111,7 @@ export const RunStartQuest: Quest = {
         create($item`oil cap`, 1);
         autosell($item`oil cap`, 1);
       },
+      limit: { tries: 1 },
     },
     {
       name: "Deck",
@@ -125,6 +127,7 @@ export const RunStartQuest: Quest = {
       name: "KGB",
       completed: () => get("_kgbClicksUsed") > 0 || !have($item`Kremlin's Greatest Briefcase`),
       do: () => cliExecute("briefcase e ml"),
+      limit: { tries: 1 },
     },
     {
       name: "Restore mp",
@@ -153,6 +156,7 @@ export const RunStartQuest: Quest = {
       },
       completed: () => get("_borrowedTimeUsed"),
       do: () => use($item`borrowed time`, 1),
+      limit: { tries: 1 },
     },
     {
       name: "Numberology",
@@ -184,6 +188,7 @@ export const RunStartQuest: Quest = {
       name: "Detective School",
       completed: () => get("_detectiveCasesCompleted", 0) >= 3 || !get("hasDetectiveSchool"),
       do: () => cliExecute("Detective Solver"),
+      limit: { tries: 3 },
     },
     {
       name: "Pantogramming",
@@ -292,11 +297,13 @@ export const RunStartQuest: Quest = {
           Station.CANDY_FACTORY, // candies
         ]);
       },
+      limit: { tries: 1 },
     },
     {
       name: "Use Mind Control Device",
       completed: () => currentMcd() >= 10,
       do: () => changeMcd(11),
+      limit: { tries: 1 },
     },
     {
       name: "Novelty Tropical Skeleton",
@@ -352,6 +359,7 @@ export const RunStartQuest: Quest = {
           drink($item`distilled fortified wine`, 1);
         }
       },
+      limit: { tries: 1 },
     },
     {
       name: "Kramco",
