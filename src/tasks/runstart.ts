@@ -264,10 +264,9 @@ export const RunStartQuest: Quest = {
       name: "Backup Camera",
       completed: () =>
         !have($item`backup camera`) ||
-        get("backupCameraMode") === "ml" ||
-        !get("backupCameraReverserEnabled"),
-      do: () => cliExecute("backupcamera ml"),
-      post: (): void => {
+        (get("backupCameraMode") === "ml" && get("backupCameraReverserEnabled")),
+      do: (): void => {
+        cliExecute("backupcamera ml")
         if (!get("backupCameraReverserEnabled")) cliExecute("backupcamera reverser");
       },
       limit: { tries: 1 },
