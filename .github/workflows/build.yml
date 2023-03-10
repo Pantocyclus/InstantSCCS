@@ -52,8 +52,6 @@ jobs:
 
     - name: Synchronize & push into release branch
       run: |
-        GIT_COMMIT=$(git rev-parse --short HEAD)
-        
         mkdir RELEASE
         mv .git RELEASE/.git
         echo "Checking out release"
@@ -63,8 +61,7 @@ jobs:
         mv ./.git ../.git
         cd ..
 
-      # Push build into the release branch
-        echo "Pushing build $GIT_COMMIT to release"
+        # Push build into the release branch                
         mv .git BUILD/.git
         cd BUILD
         git add -A
