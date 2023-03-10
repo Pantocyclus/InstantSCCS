@@ -23,20 +23,20 @@ jobs:
 
       - name: Build
         run: |
-          yarn install
-          echo "export const lastCommitHash: string | undefined = \"$(git rev-parse --short HEAD)\";" > src/_git_commit.ts
+          yarn install          
           yarn run build
       - run: |
           git config user.name "Build Script"
           git config user.email "<>"
+          echo "export const lastCommitHash: string | undefined = \"$(git rev-parse --short HEAD)\";" > src/_git_commit.ts
       - run: |
-          git fetch --all
-          SHA=$(git rev-parse --short HEAD)          
+          git fetch --all               
           git switch release          
           rm -rf scripts/                
           mv KoLmafia/* ./
           rm -rf KoLmafia
       - run: |
-          git add scripts/                   
+          git add scripts/  
+          git add dependencies.txt                 
           git commit -m "Build Mafia files for commit $SHA"
           git push origin release
