@@ -270,6 +270,18 @@ export const LevelingQuest: Quest = {
       },
     },
     {
+      name: "Use Oil of Expertise",
+      completed: () => !have($item`cherry`),
+      do: (): void => {
+        if (!have($item`oil of expertise`)) {
+          if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
+          create($item`oil of expertise`, 1);
+        }
+        if (itemAmount($item`oil of expertise`) > 1)
+          use($item`oil of expertise`, itemAmount($item`oil of expertise`) - 1);
+      },
+    },
+    {
       name: "Buy Oversized Sparkler",
       ready: () => have($effect`Everything Looks Blue`) && myMeat() >= 1000,
       completed: () => have($item`oversized sparkler`),
@@ -333,7 +345,7 @@ export const LevelingQuest: Quest = {
       // eslint-disable-next-line libram/verify-constants
       ready: () => have($effect`Shadow Affinity`) || get("_shadowRiftCombats", 0) % 11 === 0,
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`))
           buy($item`red rocket`, 1);
         if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`))
@@ -389,7 +401,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Snojo",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (get("snojoSetting") === null) {
           visitUrl("place.php?whichplace=snojo&action=snojo_controller");
           runChoice(1);
@@ -416,7 +428,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Snokebomb",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         restoreMp(50);
       },
@@ -444,7 +456,7 @@ export const LevelingQuest: Quest = {
       name: "Backups",
       ready: () => freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none),
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (
@@ -488,7 +500,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Kramco",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (
@@ -537,7 +549,7 @@ export const LevelingQuest: Quest = {
       name: "Red Skeleton",
       ready: () => !have($effect`Everything Looks Yellow`),
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
       },
@@ -559,7 +571,7 @@ export const LevelingQuest: Quest = {
     {
       name: "LOV Tunnel",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         tryAcquiringEffect($effect`Comic Violence`);
@@ -593,7 +605,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Oliver's Place",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
@@ -616,7 +628,7 @@ export const LevelingQuest: Quest = {
     {
       name: "God Lobster",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
@@ -643,7 +655,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Eldritch Tentacle",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
@@ -668,7 +680,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Bishop",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
@@ -692,7 +704,7 @@ export const LevelingQuest: Quest = {
     {
       name: "DMT",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
@@ -725,7 +737,7 @@ export const LevelingQuest: Quest = {
           get("_neverendingPartyFreeTurns") >= 10),
       do: powerlevelingLocation(),
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (
@@ -758,7 +770,7 @@ export const LevelingQuest: Quest = {
         1322: 2,
         1324: 5,
       },
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.trySkill($skill`Bowl Sideways`).default()),
       post: (): void => {
         if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
         if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
@@ -800,7 +812,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess King",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (
@@ -835,7 +847,7 @@ export const LevelingQuest: Quest = {
       name: "Free Kills and More Fights",
       after: ["Pre-free-fights consumption"],
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (
@@ -874,6 +886,7 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Chest X-Ray`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
+          .trySkill($skill`Bowl Sideways`)
           .default()
       ),
       choices: {
