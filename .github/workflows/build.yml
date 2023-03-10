@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ env.node-version }}
 
       - name: Build
-      - run: |
+        run: |
           yarn install          
           yarn run build
       - run: |
