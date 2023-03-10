@@ -325,6 +325,8 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Pull and consume 1x [Pizza of Legend](https://kol.coldfront.net/thekolwiki/index.php/Pizza_of_Legend) (+2adv from [pizza lover](https://kol.coldfront.net/thekolwiki/index.php/Pizza_Lover)) (54+ adv remaining, 4/2/0 organs) <br/>
 - Craft and drink a [Perfect Dark and Stormy](https://kol.coldfront.net/thekolwiki/index.php/Perfect_dark_and_stormy) (with [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze)) (75+ adv remaining, 4/5/0 organs)
   - Cast [Prevent Scurvy and Sobriety](https://kol.coldfront.net/thekolwiki/index.php/Prevent_Scurvy_and_Sobriety) and [Perfect Freeze](https://kol.coldfront.net/thekolwiki/index.php/Perfect_Freeze)<br/>
+- Craft and use 2 (out of your 3) [oils of expertise](https://kol.coldfront.net/thekolwiki/index.php/Oil_of_expertise) to buff up your hp for survivability in the early leveling stages <br/>
+  - Save one for the offstat tests! <br/>
 - Cast/acquire [Stevedave's Shanty](<https://kol.coldfront.net/thekolwiki/index.php/Stevedave%27s_Shanty_of_Superiority_(effect)>), [Big](<https://kol.coldfront.net/thekolwiki/index.php/Big_(effect)>), [Song of Bravado](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Bravado_(effect)>), [Ur-kel's Aria](<https://kol.coldfront.net/thekolwiki/index.php/Ur-Kel%27s_Aria_of_Annoyance_(effect)>), [Pride of the Puffin](<https://kol.coldfront.net/thekolwiki/index.php/Pride_of_the_Puffin_(effect)>) and [Drescher's Annoying Noise](<https://kol.coldfront.net/thekolwiki/index.php/Drescher%27s_Annoying_Noise_(effect)>) (and other stat/stat%/ML buffs you may have) <br/>
   - Purchase and use [chewing gums on a string](https://kol.coldfront.net/thekolwiki/index.php/Chewing_gum_on_a_string) to get the [turtle totem](https://kol.coldfront.net/thekolwiki/index.php/Turtle_totem) and [saucepan](https://kol.coldfront.net/thekolwiki/index.php/Saucepan)
   - You should set a mood for these buffs, and include the [glittery mascara](https://kol.coldfront.net/thekolwiki/index.php/Glittery_mascara)<br/>
@@ -364,7 +366,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 
 - Save the [reward](https://kol.coldfront.net/thekolwiki/index.php/Blood-drive_sticker) <br/>
 - Buy and use a [hair spray](https://kol.coldfront.net/thekolwiki/index.php/Hair_spray)<br/>
-- Craft and use an [oil of expertise](https://kol.coldfront.net/thekolwiki/index.php/Oil_of_expertise)<br/>
+- Use your remaining [oil of expertise](https://kol.coldfront.net/thekolwiki/index.php/Oil_of_expertise)<br/>
 - Maximize mox and buff up as necessary for the Mox test <br/>
 
 > Mox Test (1 turns, 177+ adv remaining, 14/13/0 organs) <br/>
