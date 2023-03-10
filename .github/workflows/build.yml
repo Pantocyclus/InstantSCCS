@@ -1,7 +1,10 @@
 name: Release instantsccs
 
-on:
-  workflow_dispatch:
+on:  
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -9,13 +12,10 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [10.x, 12.x, 14.x, 15.x]
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: "instantsccs"
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -25,21 +25,20 @@ jobs:
         run: |
           yarn install
           echo "export const lastCommitHash: string | undefined = \"$(git rev-parse --short HEAD)\";" > src/_git_commit.ts
-          yarn run build
-          git checkout src/_git_commit.ts
-          git checkout yarn.lock
+          yarn run build                    
       - run: |
           git config user.name "Build Script"
-          git config user.email "<>"
+          git config user.email "<>"                    
+      - run: |
           git fetch --all
-          SHA=$(git rev-parse --short HEAD)
+          SHA=$(git rev-parse --short HEAD)          
           git switch release
           rm -rf scripts/
-          rm -rf ccs/
-          rm -rf relay/
+          rm -rf ccs/          
           mv KoLmafia/* ./
           rm -rf KoLmafia
-          git add scripts/
-          git add relay/
+      - run: |
+          git add scripts/         
+          git add dependencies.txt
           git commit -m "Build Mafia files for commit $SHA"
           git push origin release
