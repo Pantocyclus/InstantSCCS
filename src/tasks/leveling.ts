@@ -487,6 +487,9 @@ export const LevelingQuest: Quest = {
       post: (): void => {
         if (!freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none))
           throw new Error("Fought unexpected monster");
+        if (have($item`magical sausage casing`) && myMeat() >= 3000)
+          create($item`magical sausage`, itemAmount($item`magical sausage casing`));
+        eat(itemAmount($item`magical sausage`), $item`magical sausage`);
       },
       limit: { tries: 11 },
     },
@@ -524,7 +527,7 @@ export const LevelingQuest: Quest = {
       },
       combat: new CombatStrategy().macro(Macro.default()),
       post: (): void => {
-        if (have($item`magical sausage casing`))
+        if (have($item`magical sausage casing`) && myMeat() >= 3000)
           create($item`magical sausage`, itemAmount($item`magical sausage casing`));
         eat(itemAmount($item`magical sausage`), $item`magical sausage`);
         if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
