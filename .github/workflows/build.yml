@@ -21,18 +21,18 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ env.node-version }}
-
-      - name: Build
-        run: |
-          yarn install          
-          yarn run build
+      
+      - run: yarn install --frozen-lockfile
+      - run: yarn run build
+      - run: ls
       - run: |
           git config user.name "Build Script"
           git config user.email "<>"
           echo "export const lastCommitHash: string | undefined = \"$(git rev-parse --short HEAD)\";" > src/_git_commit.ts
       - run: |
           git fetch --all               
-          git switch release          
+          git switch release
+          ls
           rm -rf scripts/                
           mv KoLmafia/* ./
           rm -rf KoLmafia
