@@ -471,6 +471,6 @@ The plan is for certain preferences to be supported somewhere down the line to a
 
 ### I don't have all the required skills. Will this script still work for me?
 
-Probably. The script only hardcodes for the saucecrafting/turngen skills (and otherwise only hardcodes for IotMs and familiars), so most skills aren't actually truly required. The script might still work if you have enough IotMs to make up for the loss in turnsaves from lacking various skills (i.e. most skills are only "required" in the sense that if you have nothing else, you'll need these in order to be able to complete the run).<br/>
+Probably. The script only hardcodes for the saucecrafting, turngen and free kill skills (and otherwise only hardcodes for IotMs and familiars), so most skills aren't actually truly required. The script might still work if you have enough IotMs to make up for the loss in turnsaves from lacking various skills (i.e. most skills are only "required" in the sense that if you have nothing else, you'll need these in order to be able to complete the run).<br/>
 
 Note that we are already filling up all our organs in this route, so you shouldn't expect to have additional turngen (e.g. from locketed + backed up witchess bishops and knights; sausage goblins still work and are supported). Your IotMs will have to make up for the missing skills purely in turnsaves.
