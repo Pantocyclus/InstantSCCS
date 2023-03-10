@@ -53,8 +53,8 @@ jobs:
     - name: Synchronize & push into release branch
       run: |        
         git fetch --all
-        echo "Checking out release"
-        git checkout -b release        
+        echo "Switching into release"
+        git switch release        
         
         # Push build into the release branch                        
         mv BUILD/scripts scripts
