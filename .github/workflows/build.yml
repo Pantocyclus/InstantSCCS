@@ -54,8 +54,7 @@ jobs:
       run: |        
         git fetch --all
         echo "Checking out release"
-        git checkout -b release
-        git stash && git stash drop        
+        git checkout -b release        
         
         # Push build into the release branch                        
         mv BUILD/scripts scripts
