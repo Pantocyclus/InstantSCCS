@@ -37,7 +37,6 @@ jobs:
           mv KoLmafia/* ./
           rm -rf KoLmafia
       - run: |
-          git add scripts/         
-          git add dependencies.txt
+          git add scripts/                   
           git commit -m "Build Mafia files for commit $SHA"
           git push origin release
