@@ -62,4 +62,4 @@ jobs:
         git add scripts
         git add dependencies.txt
         git commit -m "Automated build"
-        git push origin release        
+        git push -f origin release        
