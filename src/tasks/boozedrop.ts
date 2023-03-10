@@ -78,13 +78,13 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Reminisce Factory Worker (female)",
-      ready: () => !have($effect`Everything Looks Yellow`),
       prepare: (): void => {
         if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
         if (have($item`vampyric cloake`)) equip($slot`back`, $item`vampyric cloake`);
       },
       completed: () =>
-        CombatLoversLocket.monstersReminisced().includes($monster`factory worker (female)`),
+        CombatLoversLocket.monstersReminisced().includes($monster`factory worker (female)`) ||
+        have($effect`Everything Looks Yellow`),
       do: () => CombatLoversLocket.reminisce($monster`factory worker (female)`),
       outfit: {
         familiar: $familiar`Cookbookbat`,

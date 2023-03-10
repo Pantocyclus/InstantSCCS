@@ -64,7 +64,7 @@ import {
 } from "libram";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
-import { labyrinthAdjectives, tryAcquiringEffect } from "../lib";
+import { rufusTargetString, tryAcquiringEffect } from "../lib";
 
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
@@ -315,35 +315,24 @@ export const LevelingQuest: Quest = {
       limit: { tries: 6 },
     },
     {
-      name: "Get Shadow Affinity",
+      name: "Get Rufus Quest",
       completed: () =>
         // eslint-disable-next-line libram/verify-constants
-        have($effect`Shadow Affinity`) ||
+        have($item`Rufus's shadow lodestone`) || toItem(get("rufusQuestTarget", "")) !== $item.none,
+      do: () =>
         // eslint-disable-next-line libram/verify-constants
-        have($item`Rufus's shadow lodestone`) ||
-        toItem(get("_rufusArtifact", "")) !== $item.none,
-      do: (): void => {
-        // eslint-disable-next-line libram/verify-constants
-        use($item`closed-circuit pay phone`);
-      },
+        use($item`closed-circuit pay phone`),
       choices: {
         1497: 2,
         1498: 6,
-      },
-      post: (): void => {
-        const artifact = Array.from(
-          visitUrl("questlog.php")
-            .match(/Rufus wants you to go into a Shadow Rift and find a ([\w ]+)\./)
-            ?.values() ?? []
-        )[1];
-        set("_rufusArtifact", artifact);
       },
       limit: { tries: 1 },
     },
     {
       name: "Shadow Rift",
-      // eslint-disable-next-line libram/verify-constants
-      ready: () => have($effect`Shadow Affinity`) || get("_shadowRiftCombats", 0) % 11 === 0,
+      ready: () =>
+        // eslint-disable-next-line libram/verify-constants
+        have($effect`Shadow Affinity`) && toItem(get("rufusQuestTarget", "")) !== $item.none,
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`))
@@ -362,11 +351,12 @@ export const LevelingQuest: Quest = {
         // TODO: Figure out how to get the right NC choice
         if (lastChoice() === 1499) {
           let NCChoice = 6;
-          const adjectives = labyrinthAdjectives.get(get("_rufusArtifact", "")) ?? [];
           while (NCChoice === 6) {
-            const availableChoices = availableChoiceOptions();
-            const currentChoice = [2, 3, 4].filter((n) =>
-              adjectives.some((s) => availableChoices[n].includes(s))
+            const availableChoices = availableChoiceOptions(true);
+            const currentChoice = [2, 3, 4].filter((choice) =>
+              availableChoices[choice].includes(
+                rufusTargetString.get(get("rufusQuestTarget", "")) ?? ""
+              )
             );
             if (currentChoice.length > 0) NCChoice = currentChoice[0];
             else runChoice(5);
