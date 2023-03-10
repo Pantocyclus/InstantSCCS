@@ -54,6 +54,7 @@ jobs:
       run: |        
         git fetch --all
         echo "Switching into release"
+        git stash && git drop stash
         git switch release        
         
         # Push build into the release branch                        
