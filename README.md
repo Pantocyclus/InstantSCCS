@@ -477,3 +477,7 @@ The plan is for certain preferences to be supported somewhere down the line to a
 Probably. The script only hardcodes for the saucecrafting, turngen and free kill skills (and otherwise only hardcodes for IotMs and familiars), so most skills aren't actually truly required. The script might still work if you have enough IotMs to make up for the loss in turnsaves from lacking various skills (i.e. most skills are only "required" in the sense that if you have nothing else, you'll need these in order to be able to complete the run).<br/>
 
 Note that we are already filling up all our organs in this route, so you shouldn't expect to have additional turngen (e.g. from locketed + backed up witchess bishops and knights; sausage goblins still work and are supported). Your IotMs will have to make up for the missing skills purely in turnsaves.
+
+### I can't survive the early fights! What do I do?
+
+Try eating the Deep Dish of Legend early. It gives +100%hp and +300%mus, which should help you survive a few more hits from the monsters. However, this does come at the cost of possibly not carrying this buff over to the NC test to buff your Disgeist, thus losing you 5%NC (increasing your turncount by 3).
