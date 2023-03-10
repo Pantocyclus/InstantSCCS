@@ -11,61 +11,63 @@ env:
   node-version: "14"
 
 jobs:
-  build:
+  build-push:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
     steps:
-      # Checkout source code
-      - name: Checkout
-        uses: actions/checkout@v3
-      
-      # Setup Nodejs
-      - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.node-version }}
-          cache: 'npm'
-      
-      # Setup Yarn
-      - name: Install yarn
-        run: npm install -g yarn
 
-      # Install dependencies
-      - name: Install build dependencies      
-        run: yarn install --frozen-lockfile
+    # Checkout source code
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    # Setup Nodejs
+    - name: Use Node.js ${{ env.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.node-version }}
+        cache: 'npm'
+    
+    # Setup Yarn
+    - name: Install yarn
+      run: npm install -g yarn
 
-      # Build application into BUILD directory
-      - run: |
-          yarn build
-          mkdir BUILD
-          cp -r KoLmafia/scripts BUILD/scripts
-          cp -r KoLmafia/dependencies.txt BUILD/dependencies.txt 
+    # Install dependencies
+    - name: Install build dependencies      
+      run: yarn install --frozen-lockfile
 
-      # Synchronise & push BUILD directory to release branch     
-      - name: Configure Git information
-        run: |
-          git config --global user.name "Build Script"
-          git config --global user.email "<>"          
+    # Build application into BUILD directory
+    - run: |
+        yarn build
+        mkdir BUILD
+        cp -r KoLmafia/scripts BUILD/scripts
+        cp -r KoLmafia/dependencies.txt BUILD/dependencies.txt 
 
-      - name: Synchronise & push to release branch
-        run: |
-          GIT_COMMIT=$(git rev-parse --short HEAD)
-          
-          mkdir RELEASE
-          mv .git RELEASE/.git
-          echo "Checking out release"
-          git checkout -b release
-          git stash && git stash drop
-          (git pull --depth 1 origin release --rebase -X theirs --allow-unrelated-histories) || (echo release branch synced")
-          mv ./.git ../.git
-          cd ..
+    # Synchronise & push BUILD directory to release branch     
+    - name: Configure Git information
+      run: |
+        git config --global user.name "Build Script"
+        git config --global user.email "<>"          
 
-        # Push build into the deployment branch
-          echo "Pushing build $GIT_COMMIT to release"
-          mv .git BUILD/.git
-          cd BUILD
-          git add -A
-          git commit -m "Automated build $GIT_COMMIT"
-          git push origin release
-          cd ..
+
+    - name: Synchronize & push into release branch
+      run: |
+        GIT_COMMIT=$(git rev-parse --short HEAD)
+        
+        mkdir RELEASE
+        mv .git RELEASE/.git
+        echo "Checking out release"
+        git checkout -b release
+        git stash && git stash drop
+        (git pull --depth 1 origin release --rebase -X theirs --allow-unrelated-histories) || (echo release branch synced")
+        mv ./.git ../.git
+        cd ..
+
+      # Push build into the release branch
+        echo "Pushing build $GIT_COMMIT to release"
+        mv .git BUILD/.git
+        cd BUILD
+        git add -A
+        git commit -m "Automated build $GIT_COMMIT"
+        git push origin release
+        cd ..
