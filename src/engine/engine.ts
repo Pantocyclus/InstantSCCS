@@ -20,7 +20,7 @@ export const freeBanishPrefs: trackedPref[] = [
   new trackedPref("_reflexHammerUsed", "Reflex Hammer", 3),
   new trackedPref("_latteRefillsUsed", "Latte Refills", 3),
   new trackedPref("_kgbTranquilizerDartUses", "KGB Tranquilizers", 3),
-  new trackedPref("_snokebombUsed", "Snokebomb", 1),
+  new trackedPref("_snokebombUsed", "Snokebomb", 3),
 ];
 
 export const freeKillPrefs: trackedPref[] = [

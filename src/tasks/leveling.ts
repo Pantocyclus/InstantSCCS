@@ -335,7 +335,7 @@ export const LevelingQuest: Quest = {
       name: "Shadow Rift",
       ready: () =>
         // eslint-disable-next-line libram/verify-constants
-        have($effect`Shadow Affinity`) && toItem(get("rufusQuestTarget", "")) !== $item.none,
+        toItem(get("rufusQuestTarget", "")) !== $item.none,
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`))
@@ -347,7 +347,7 @@ export const LevelingQuest: Quest = {
       },
       completed: () =>
         // eslint-disable-next-line libram/verify-constants
-        have($item`Rufus's shadow lodestone`),
+        have($item`Rufus's shadow lodestone`) || get("_shadowRiftCombats", 0) >= 12,
       // eslint-disable-next-line libram/verify-constants
       do: (): void => {
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
