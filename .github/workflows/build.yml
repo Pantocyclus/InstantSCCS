@@ -57,7 +57,8 @@ jobs:
         git stash && git stash drop
         git switch release        
         
-        # Push build into the release branch                        
+        # Push build into the release branch
+        rm -r scripts/
         mv BUILD/scripts scripts
         mv BUILD/dependencies.txt dependencies.txt
         git add scripts
