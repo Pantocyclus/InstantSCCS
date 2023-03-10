@@ -194,6 +194,7 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Song of the North](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_the_North_(skill)>)                                   | wdmg test               |
 | [Simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer)                                                                   | sdmg test               |
 | [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg)                        | item test               |
+| [Crimbo Training: Bartender](https://kol.coldfront.net/thekolwiki/index.php/Crimbo_Training:_Bartender)                           | item test               |
 
 ### Almost-Required Resources
 
@@ -336,51 +337,51 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Spend turns and free fights powerleveling until you get the [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) to drop its ingredients 6 times (this can be dropped to 5 if you have additional shinies as shown in the graph above), and a base myst of no less than 195 (which also can be lowered with more stat%-granting shinies). For the minimal route:<br/>
   - Spend ~36 more adventures in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice), hitting no less than 185 base myst (you need to have 195 base myst by the end of your powerleveling) (~36 turns, 26+ adv remaining, 4/5/0 organs) <br/>
     - Do not your reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) now even if you can<br/>
-    - Drink 6x [astral pilsners](https://kol.coldfront.net/thekolwiki/index.php/Astral_pilsner) (with [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze)) while leveling in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice) as soon as you hit level 11 (97+ adv remaining, 4/11/0 organs) <br/>
+    - Drink 6x [astral pilsners](https://kol.coldfront.net/thekolwiki/index.php/Astral_pilsner) (with [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze)) while leveling in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice) as soon as you hit level 11 (98+ adv remaining, 4/11/0 organs) <br/>
   - Consume the following foods/booze and acquire the following effects after the turn-taking adventures, prior to your free kills/fights (you may do this earlier to benefit from the myst% buffs during leveling, but do ensure that the buffs do not run out before you take the relevant tests):
     - Buy and use an [all-purpose flower](https://kol.coldfront.net/thekolwiki/index.php/All-purpose_flower) (the [Gift Shop](https://kol.coldfront.net/thekolwiki/index.php/The_Gift_Shop) doesn't require [beach](https://kol.coldfront.net/thekolwiki/index.php/Desert_Beach) access)<br/>
     - Use a [wad of dough](https://kol.coldfront.net/thekolwiki/index.php/Wad_of_dough) to create a [flat dough](https://kol.coldfront.net/thekolwiki/index.php/Flat_dough)<br/>
     - Acquire [Lyle's buff](https://kol.coldfront.net/thekolwiki/index.php/Favored_by_Lyle)<br/>
-    - Drink 1x [Bee's Knees](https://kol.coldfront.net/thekolwiki/index.php/Bee%27s_Knees) (with [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze)) (105+ adv remaining, 4/13/0 organs)<br/>
-    - Craft and eat 1x [honey bun of Boris](https://kol.coldfront.net/thekolwiki/index.php/Honey_bun_of_Boris) (110+ adv remaining, 5/13/0 organs)<br/>
-    - Craft and eat 1x [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg) (116+ adv remaining, 6/13/0 organs)<br/>
-    - Craft and eat 1x [Petes Rich Ricotta](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_rich_ricotta) (122+ adv remaining, 7/13/0 organs)<br/>
-    - Craft and eat 1x [plain calzone](https://kol.coldfront.net/thekolwiki/index.php/Plain_calzone) (+2adv from [pizza lover](https://kol.coldfront.net/thekolwiki/index.php/Pizza_Lover)) (139+ adv remaining, 9/11/0 organs)<br/>
-    - Craft and eat 1x [baked veggie ricotta casserole](https://kol.coldfront.net/thekolwiki/index.php/Baked_veggie_ricotta_casserole) (154+ adv remaining, 11/13/0 organs)<br/>
-    - Pull and eat 1x [Deep Dish of Legend](https://kol.coldfront.net/thekolwiki/index.php/Deep_Dish_of_Legend) (+2adv from [pizza lover](https://kol.coldfront.net/thekolwiki/index.php/Pizza_Lover)) (174+ adv remaining, 13/13/0 organs)<br/>
+    - Drink 1x [Bee's Knees](https://kol.coldfront.net/thekolwiki/index.php/Bee%27s_Knees) (with [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze)) (106+ adv remaining, 4/13/0 organs)<br/>
+    - Craft and eat 1x [honey bun of Boris](https://kol.coldfront.net/thekolwiki/index.php/Honey_bun_of_Boris) (111+ adv remaining, 5/13/0 organs)<br/>
+    - Craft and eat 1x [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg) (117+ adv remaining, 6/13/0 organs)<br/>
+    - Craft and eat 1x [Petes Rich Ricotta](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_rich_ricotta) (123+ adv remaining, 7/13/0 organs)<br/>
+    - Craft and eat 1x [plain calzone](https://kol.coldfront.net/thekolwiki/index.php/Plain_calzone) (+2adv from [pizza lover](https://kol.coldfront.net/thekolwiki/index.php/Pizza_Lover)) (140+ adv remaining, 9/11/0 organs)<br/>
+    - Craft and eat 1x [baked veggie ricotta casserole](https://kol.coldfront.net/thekolwiki/index.php/Baked_veggie_ricotta_casserole) (155+ adv remaining, 11/13/0 organs)<br/>
+    - Pull and eat 1x [Deep Dish of Legend](https://kol.coldfront.net/thekolwiki/index.php/Deep_Dish_of_Legend) (+2adv from [pizza lover](https://kol.coldfront.net/thekolwiki/index.php/Pizza_Lover)) (175+ adv remaining, 13/13/0 organs)<br/>
   - Spend another 4x free kills ([shattering punch](https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch) + [mob hit](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Mob_Hit)) in [Gator's](https://kol.coldfront.net/thekolwiki/index.php/Uncle_Gator%27s_Country_Fun-Time_Liquid_Waste_Sluice)<br/>
   - [Reminisce](https://kol.coldfront.net/thekolwiki/index.php/Reminiscing_About_Those_Monsters_You_Fought) a [Witchess King](https://kol.coldfront.net/thekolwiki/index.php/Witchess_King) for the [dented scepter](https://kol.coldfront.net/thekolwiki/index.php/Dented_scepter) and tuning your [locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket) to the [Dudes](https://kol.coldfront.net/thekolwiki/index.php/Category:Dudes) phylum<br/>
-  - Craft and eat 1x [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar) (179+ adv remaining, 14/13/0 organs)<br/>
+  - Craft and eat 1x [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar) (180+ adv remaining, 14/13/0 organs)<br/>
   - Unset all your moods after you're done leveling<br/>
 - Maximise myst and buff up as necessary for the myst test <br/>
 
-> Myst Test (1 turn, 178+ adv remaining, 14/13/0 organs) <br/>
+> Myst Test (1 turn, 179+ adv remaining, 14/13/0 organs) <br/>
 
 - Save the [reward](https://kol.coldfront.net/thekolwiki/index.php/Pocket_maze) <br/>
 - Maximise HP and buff up as necessary for the HP test <br/>
 
-> HP Test (1 turn, 177+ adv remaining, 14/13/0 organs) <br/>
+> HP Test (1 turn, 178+ adv remaining, 14/13/0 organs) <br/>
 
 - Save the [reward](https://kol.coldfront.net/thekolwiki/index.php/Blood-drive_sticker) <br/>
 - Buy and use a [hair spray](https://kol.coldfront.net/thekolwiki/index.php/Hair_spray)<br/>
 - Craft and use an [oil of expertise](https://kol.coldfront.net/thekolwiki/index.php/Oil_of_expertise)<br/>
 - Maximize mox and buff up as necessary for the Mox test <br/>
 
-> Mox Test (1 turns, 176+ adv remaining, 14/13/0 organs) <br/>
+> Mox Test (1 turns, 177+ adv remaining, 14/13/0 organs) <br/>
 
 - Save the [reward](https://kol.coldfront.net/thekolwiki/index.php/Shady_shades)
 - Craft and use a [philter of phorce](https://kol.coldfront.net/thekolwiki/index.php/Philter_of_phorce)<br/>
 - Buy and use a [Ben-Gal™ Balm](https://kol.coldfront.net/thekolwiki/index.php/Ben-Gal%E2%84%A2_Balm)<br/>
 - Maximise mus and buff up as necessary for the Mus test <br/>
 
-> Mus Test (1 turn, 175+ adv remaining, 14/13/0 organs) <br/>
+> Mus Test (1 turn, 176+ adv remaining, 14/13/0 organs) <br/>
 
 ![image](https://user-images.githubusercontent.com/98746573/222919154-863e5119-17e8-4611-8c56-4aab880015b6.png)<br/>
 
 - Save the [reward](https://kol.coldfront.net/thekolwiki/index.php/Bag_of_grain) <br/>
 - You should have at least a ~7lbs cookbookbat, [+15lbs](https://kol.coldfront.net/thekolwiki/index.php/Amphibian_Sympathy) [from](https://kol.coldfront.net/thekolwiki/index.php/Empathy) [skills](<https://kol.coldfront.net/thekolwiki/index.php/Leash_of_Linguini_(effect)>), +15lbs from [Deep Dish of Legend](https://kol.coldfront.net/thekolwiki/index.php/In_the_Depths), +10lbs from [astral pet sweater](https://kol.coldfront.net/thekolwiki/index.php/Astral_pet_sweater), +5lbs from [pool table](https://kol.coldfront.net/thekolwiki/index.php/Billiards_Belligerence) <br/>
 
-> Fam Test (50 turns, 125+ adv remaining, 14/13/0 organs) <br/>
+> Fam Test (50 turns, 126+ adv remaining, 14/13/0 organs) <br/>
 
 - Grab [Shadow Waters](https://kol.coldfront.net/thekolwiki/index.php/Shadow_Waters) from the [Rufus's shadow lodestone](https://kol.coldfront.net/thekolwiki/index.php/Rufus%27s_shadow_lodestone)<br/>
   - Use the [Rufus's shadow lodestone](https://kol.coldfront.net/thekolwiki/index.php/Rufus%27s_shadow_lodestone) and adventure in any accessible [shadow](<https://kol.coldfront.net/thekolwiki/index.php/Shadow_Rift_(The_Nearby_Plains)>) [rift](<https://kol.coldfront.net/thekolwiki/index.php/Shadow_Rift_(The_Right_Side_of_the_Tracks)>) for a [free NC](https://kol.coldfront.net/thekolwiki/index.php/Like_a_Loded_Stone)<br/>
@@ -393,23 +394,23 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Maximize famwt and buff up as necessary for the Fam test <br/>
   - You should have -20% from [Fam Test](https://kol.coldfront.net/thekolwiki/index.php/A_Rose_by_Any_Other_Material), -20% from [Mox Test](https://kol.coldfront.net/thekolwiki/index.php/Throwing_Some_Shade), -10% from [Shadow Waters](https://kol.coldfront.net/thekolwiki/index.php/Shadow_Waters), -10% from [codpiece](https://kol.coldfront.net/thekolwiki/index.php/Codpiece), -10% [from](<https://kol.coldfront.net/thekolwiki/index.php/The_Sonata_of_Sneakiness_(effect)>) [skills](https://kol.coldfront.net/thekolwiki/index.php/Smooth_Movements), -10% from the unbreakable [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella), -5% from the [porkpie-mounted popper](https://kol.coldfront.net/thekolwiki/index.php/Porkpie-mounted_popper), -5% from [Silent Running](https://kol.coldfront.net/thekolwiki/index.php/Silent_Running) and -5% from your [Disgeist](<https://kol.coldfront.net/thekolwiki/index.php/Disgeist_(familiar)>) (combat freq) <br/>
 
-> NC Test (3 turns, 122+ adv remaining, 14/13/0 organs) <br/>
+> NC Test (3 turns, 123+ adv remaining, 14/13/0 organs) <br/>
 
-- Use a [clover](https://kol.coldfront.net/thekolwiki/index.php/11-leaf_clover) to grab a [cyclops eyedrops](https://kol.coldfront.net/thekolwiki/index.php/Cyclops_eyedrops) from the [Limerick Dungeon](https://kol.coldfront.net/thekolwiki/index.php/The_Limerick_Dungeon) (1 turn, 121+ adv remaining, 14/13/0 organs) <br/>
+- Use a [clover](https://kol.coldfront.net/thekolwiki/index.php/11-leaf_clover) to grab a [cyclops eyedrops](https://kol.coldfront.net/thekolwiki/index.php/Cyclops_eyedrops) from the [Limerick Dungeon](https://kol.coldfront.net/thekolwiki/index.php/The_Limerick_Dungeon) (1 turn, 122+ adv remaining, 14/13/0 organs) <br/>
 - Reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set)<br/>
   - coal/frozen tower/any other 6 stations (in this specific order)<br/>
-- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and [yellow rocket](https://kol.coldfront.net/thekolwiki/index.php/Yellow_rocket) a [faxed](https://kol.coldfront.net/thekolwiki/index.php/A_Fax_Machine) [ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith) (1 turn, 120+ adv remaining, 14/13/0 organs)
+- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and [yellow rocket](https://kol.coldfront.net/thekolwiki/index.php/Yellow_rocket) a [faxed](https://kol.coldfront.net/thekolwiki/index.php/A_Fax_Machine) [ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith) (1 turn, 121+ adv remaining, 14/13/0 organs)
 - Configure your [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella) to the bucket state, then equip it<br/>
 - Use Mus Test [reward](https://kol.coldfront.net/thekolwiki/index.php/Bag_of_grain) and [cyclops eyedrops](https://kol.coldfront.net/thekolwiki/index.php/Cyclops_eyedrops) <br/>
-- Craft and eat a [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg) (126+ adv remaining, 15/13/0 organs)<br/>
+- Craft and eat a [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg) (127+ adv remaining, 15/13/0 organs)<br/>
 - Maximize item% and booze% and buff up as necessary for the Item test <br/>
-  - You should have +60%booze from [Mus Test reward](https://kol.coldfront.net/thekolwiki/index.php/Nearly_All-Natural), +25%booze from [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Always_Never_Not_Guzzling) (totalling +85%booze)
+  - You should have +60%booze from [Mus Test reward](https://kol.coldfront.net/thekolwiki/index.php/Nearly_All-Natural), +25%booze from [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Always_Never_Not_Guzzling), +15%booze from [Crimbo Training: Bartender](https://kol.coldfront.net/thekolwiki/index.php/Crimbo_Training:_Bartender) (totalling +100%booze)
   - You should also have +100%item from [Shadow Waters](https://kol.coldfront.net/thekolwiki/index.php/Shadow_Waters), +100%item from [cyclops eyedrops](https://kol.coldfront.net/thekolwiki/index.php/One_Very_Clear_Eye), +100% from [wizard sight](https://kol.coldfront.net/thekolwiki/index.php/Wizard_Sight), +25%item from [Cosmic Ball in the Air](https://kol.coldfront.net/thekolwiki/index.php/Cosmic_Ball_in_the_Air), +25% from unbreakable [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella), +20%item from [Phat Loot](<https://kol.coldfront.net/thekolwiki/index.php/Fat_Leon%27s_Phat_Loot_Lyric_(effect)>), +20%item from [Mad Looting Skillz](https://kol.coldfront.net/thekolwiki/index.php/Mad_Looting_Skillz), +20%item from [oversized sparkler](https://kol.coldfront.net/thekolwiki/index.php/Oversized_sparkler), +10%item from [Object Quasi-Permeance](https://kol.coldfront.net/thekolwiki/index.php/Object_Quasi-Permanence), +10%item from [Powers of Observatiogn](https://kol.coldfront.net/thekolwiki/index.php/Powers_of_Observatiogn), +10%item from [Singer's Faithful Ocelot](<https://kol.coldfront.net/thekolwiki/index.php/Singer%27s_Faithful_Ocelot_(effect)>), +5%item from [Natural Born Scrabbler](https://kol.coldfront.net/thekolwiki/index.php/Natural_Born_Scrabbler) and +5%item from [Thief among the Honorable](https://kol.coldfront.net/thekolwiki/index.php/Thief_Among_the_Honorable) (totalling 450%item) <br/>
 - Cast [Steely-Eyed Squint](<https://kol.coldfront.net/thekolwiki/index.php/Steely-Eyed_Squint_(effect)>) (+450%item)<br/>
 
-> Item Test (25 turns, 101+ adv remaining, 15/13/0 organs) <br/>
+> Item Test (24 turns, 103+ adv remaining, 15/13/0 organs) <br/>
 
-- [Reminisce](https://kol.coldfront.net/thekolwiki/index.php/Reminiscing_About_Those_Monsters_You_Fought) an [factory worker (female)](<https://kol.coldfront.net/thekolwiki/index.php/Factory_worker_(female)>) for the [cowrrupted marrow](https://kol.coldfront.net/thekolwiki/index.php/Corrupted_marrow) (1 turn, 100+ adv remaining, 15/13/0 organs)<br/>
+- [Reminisce](https://kol.coldfront.net/thekolwiki/index.php/Reminiscing_About_Those_Monsters_You_Fought) an [factory worker (female)](<https://kol.coldfront.net/thekolwiki/index.php/Factory_worker_(female)>) for the [cowrrupted marrow](https://kol.coldfront.net/thekolwiki/index.php/Corrupted_marrow) (1 turn, 102+ adv remaining, 15/13/0 organs)<br/>
   - You should also have obtained [Double Frozen](https://kol.coldfront.net/thekolwiki/index.php/Double_Frozen) from your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set).
 - Cast [leash of linguini](<https://kol.coldfront.net/thekolwiki/index.php/Leash_of_Linguini_(skill)>) and [empathy](https://kol.coldfront.net/thekolwiki/index.php/Empathy_of_the_Newt)<br/>
 - Use [NC](https://kol.coldfront.net/thekolwiki/index.php/Silver_face_paint) and [Myst Test rewards](https://kol.coldfront.net/thekolwiki/index.php/Pocket_maze)<br/>
@@ -417,9 +418,9 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Maximize hotres and buff up as necessary for the Hot Resist test <br/>
   - You should have +4res from [Double Frozen](https://kol.coldfront.net/thekolwiki/index.php/Double_Frozen), +4res from [pocket maze](https://kol.coldfront.net/thekolwiki/index.php/Amazing), +3res from [Asbestos Heart](https://kol.coldfront.net/thekolwiki/index.php/Asbestos_Heart), +3res from [Tolerance of the Kitchen](https://kol.coldfront.net/thekolwiki/index.php/Tolerance_of_the_Kitchen), +2res from [Elemental Saucesphere](<https://kol.coldfront.net/thekolwiki/index.php/Elemental_Saucesphere_(effect)>), +1res from [Astral Shell](<https://kol.coldfront.net/thekolwiki/index.php/Astral_Shell_(effect)>), +1res from [Crimbo 2022 passive](https://kol.coldfront.net/thekolwiki/index.php/Crimbo_Training:_Coal_Taster), +5res from [lava-proof pants](https://kol.coldfront.net/thekolwiki/index.php/Lava-proof_pants), +4res from [heat-resistant gloves](https://kol.coldfront.net/thekolwiki/index.php/Heat-resistant_gloves) and +3res from [parrot](https://kol.coldfront.net/thekolwiki/index.php/Exotic_Parrot) (totalling +30res)<br/>
 
-> Hot Resist Test (30 turns, 70+ adv remaining, 15/13/0 organs) <br/>
+> Hot Resist Test (30 turns, 72+ adv remaining, 15/13/0 organs) <br/>
 
-- Cast [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze) and drink a [Sockdollager](https://kol.coldfront.net/thekolwiki/index.php/Sockdollager) (78+ adv remaining, 15/15/0 organs) <br/>
+- Cast [ode](https://kol.coldfront.net/thekolwiki/index.php/Ode_to_Booze) and drink a [Sockdollager](https://kol.coldfront.net/thekolwiki/index.php/Sockdollager) (80+ adv remaining, 15/15/0 organs) <br/>
 - Configure your [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella) to the pitchfork state, then equip it<br/>
 - Craft and use a [potion of potency](https://kol.coldfront.net/thekolwiki/index.php/Potion_of_potency) <br/>
 - Buy a [goofily-plumed helmet](https://kol.coldfront.net/thekolwiki/index.php/Goofily-plumed_helmet) to get [Weapon of Mass Destruction](https://kol.coldfront.net/thekolwiki/index.php/Weapon_of_Mass_Destruction) from the [Mad Hatter](https://kol.coldfront.net/thekolwiki/index.php/The_Mad_Tea_Party)<br/>
@@ -428,16 +429,16 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
   - You should also have +25 from [red eye](https://kol.coldfront.net/thekolwiki/index.php/Red_eye), +25 from [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella), +20 from [sockdollager](https://kol.coldfront.net/thekolwiki/index.php/In_a_Lather), +12 from [Jackasses' Symphony](<https://kol.coldfront.net/thekolwiki/index.php/Jackasses%27_Symphony_of_Destruction_(effect)>), +10 from [Scowl of the Auk](<https://kol.coldfront.net/thekolwiki/index.php/Scowl_of_the_Auk_(effect)>), +10 from [Rage of the Reindeer](<https://kol.coldfront.net/thekolwiki/index.php/Rage_of_the_Reindeer_(effect)>), +8 from [Tenacity of the Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Tenacity_of_the_Snapper_(effect)>), +7 from [Claws of the Walrus](https://kol.coldfront.net/thekolwiki/index.php/Claws_of_the_Walrus), +5 from [Disdain of the War Snapper](https://kol.coldfront.net/thekolwiki/index.php/Disdain_of_the_War_Snapper) and +5 from [potion of potency](https://kol.coldfront.net/thekolwiki/index.php/Pronounced_Potency) (totalling +127 flat) <br/>
 - Cast [bow-legged swagger](<https://kol.coldfront.net/thekolwiki/index.php/Bow-Legged_Swagger_(effect)>) (+630%wdmg +127flat) <br/>
 
-> Weapon Test (30 turns, 48+ adv remaining, 15/15/0 organs) <br/>
+> Weapon Test (30 turns, 50+ adv remaining, 15/15/0 organs) <br/>
 
 - Buy an [obsidian nutcracker](https://kol.coldfront.net/thekolwiki/index.php/Obsidian_nutcracker) <br/>
 - Configure your [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella) to the constant twirl state, then equip it<br/>
-- Cast [simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer) (1 turn, 47+ adv remaining, 15/15/0 organs) <br/>
+- Cast [simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer) (1 turn, 49+ adv remaining, 15/15/0 organs) <br/>
 - Maximize sdmg and sdmg% and buff up as necessary for the Spell test <br/>
   - You should have +100% from [Song of Sauce](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Sauce_(effect)>), +100% from [simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmering), +100% from [carol of the hells](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Hells_(effect)>), +50% from [pool table](https://kol.coldfront.net/thekolwiki/index.php/Mental_A-cue-ity), 30% from [obsidian nutcracker](https://kol.coldfront.net/thekolwiki/index.php/Obsidian_nutcracker), 10% from [Master Saucier](https://kol.coldfront.net/thekolwiki/index.php/Master_Saucier) and 10% from [Subtle and Quick to Anger](https://kol.coldfront.net/thekolwiki/index.php/Subtle_and_Quick_to_Anger) (totalling +400%sdmg)<br/>
   - You should also have +50 from [codpiece](https://kol.coldfront.net/thekolwiki/index.php/Codpiece) and +25 from [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella) (flat sdmg) <br/>
 
-> Spell Test (51 turns, -4+ adv remaining, 15/15/0 organs) <br/>
+> Spell Test (51 turns, -2+ adv remaining, 15/15/0 organs) <br/>
 
 This should be a ~1/310 SCCS completed (assuming you don't roll the lowest turngen on all your consumables).
 
