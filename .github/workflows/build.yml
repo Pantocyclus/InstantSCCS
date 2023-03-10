@@ -1,10 +1,10 @@
-name: Release instantsccs
+name: Build instantsccs
 
-on:  
+on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -25,16 +25,15 @@ jobs:
         run: |
           yarn install
           echo "export const lastCommitHash: string | undefined = \"$(git rev-parse --short HEAD)\";" > src/_git_commit.ts
-          yarn run build                    
+          yarn run build
       - run: |
           git config user.name "Build Script"
-          git config user.email "<>"                    
+          git config user.email "<>"
       - run: |
           git fetch --all
           SHA=$(git rev-parse --short HEAD)          
-          git switch release
-          rm -rf scripts/
-          rm -rf ccs/          
+          git switch release          
+          rm -rf scripts/                
           mv KoLmafia/* ./
           rm -rf KoLmafia
       - run: |
