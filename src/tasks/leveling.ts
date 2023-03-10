@@ -271,7 +271,9 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Use Oil of Expertise",
-      completed: () => !have($item`cherry`),
+      completed: () =>
+        (!have($item`cherry`) && itemAmount($item`oil of expertise`) <= 1) ||
+        have($effect`Expert Oiliness`),
       do: (): void => {
         if (!have($item`oil of expertise`)) {
           if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
@@ -280,6 +282,7 @@ export const LevelingQuest: Quest = {
         if (itemAmount($item`oil of expertise`) > 1)
           use($item`oil of expertise`, itemAmount($item`oil of expertise`) - 1);
       },
+      limit: { tries: 1 },
     },
     {
       name: "Buy Oversized Sparkler",
