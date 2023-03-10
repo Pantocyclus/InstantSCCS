@@ -36,7 +36,7 @@ jobs:
     - name: Install build dependencies      
       run: yarn install --frozen-lockfile
 
-    # Build application into BUILD directory
+    # Build script
     - run: |
         yarn build
         mkdir BUILD
@@ -51,20 +51,16 @@ jobs:
 
 
     - name: Synchronize & push into release branch
-      run: |
-        mkdir RELEASE
-        mv .git RELEASE/.git
+      run: |        
+        git fetch --all
         echo "Checking out release"
         git checkout -b release
-        git stash && git stash drop
-        (git pull --depth 1 origin release --rebase -X theirs --allow-unrelated-histories) || (echo release branch synced")
-        mv ./.git ../.git
-        cd ..
-
-        # Push build into the release branch                
-        mv .git BUILD/.git
-        cd BUILD
-        git add -A
-        git commit -m "Automated build $GIT_COMMIT"
-        git push origin release
-        cd ..
+        git stash && git stash drop        
+        
+        # Push build into the release branch                        
+        mv BUILD/scripts scripts
+        mv BUILD/dependencies.txt dependencies.txt
+        git add scripts
+        git add dependencies.txt
+        git commit -m "Automated build"
+        git push origin release        
