@@ -9389,9 +9389,9 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
         if (spec instanceof Outfit) {
           var badSlots = Array.from(spec.equips.entries()).filter(_ref2 => {
             var _ref3 = engine_slicedToArray(_ref2, 2),
-                i = _ref3[1];
+                it = _ref3[1];
 
-            return !have(i);
+            return !have(it) && it !== null;
           }).map(_ref4 => {
             var _ref5 = engine_slicedToArray(_ref4, 1),
                 s = _ref5[0];
@@ -9415,13 +9415,13 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
 
               if (itemOrItems) {
                 if (itemOrItems instanceof external_kolmafia_namespaceObject.Item) {
-                  if (!have(itemOrItems)) {
+                  if (!have(itemOrItems) && itemOrItems !== null) {
                     (0,external_kolmafia_namespaceObject.print)("Ignoring slot ".concat(slotName, " because we don't have ").concat(itemOrItems), "red");
                     spec[slotName] = undefined;
                   }
                 } else {
-                  if (!itemOrItems.some(it => have(it))) {
-                    (0,external_kolmafia_namespaceObject.print)("Ignoring slot ".concat(slotName, " because we don't have ").concat(itemOrItems.map(it => it.name).join(",")), "red");
+                  if (!itemOrItems.some(it => have(it) && it !== null)) {
+                    (0,external_kolmafia_namespaceObject.print)("Ignoring slot ".concat(slotName, " because we don't have ").concat(itemOrItems.map(it => it.name).join(", ")), "red");
                     spec[slotName] = undefined;
                   }
                 }
@@ -11020,7 +11020,7 @@ var LevelingQuest = {
     outfit: {
       offhand: template_string_$item(_templateObject212 || (_templateObject212 = leveling_taggedTemplateLiteral(["unbreakable umbrella"]))),
       acc1: template_string_$item(_templateObject213 || (_templateObject213 = leveling_taggedTemplateLiteral(["codpiece"]))),
-      famequip: template_string_$items(_templateObject214 || (_templateObject214 = leveling_taggedTemplateLiteral(["God Lobster's Ring, God Lobster's Scepter, none"]))),
+      famequip: template_string_$items(_templateObject214 || (_templateObject214 = leveling_taggedTemplateLiteral(["God Lobster's Ring, God Lobster's Scepter"]))),
       familiar: template_string_$familiar(_templateObject215 || (_templateObject215 = leveling_taggedTemplateLiteral(["God Lobster"]))),
       modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape"
     },
