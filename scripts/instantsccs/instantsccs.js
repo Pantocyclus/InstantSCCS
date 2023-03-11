@@ -10774,10 +10774,9 @@ var LevelingQuest = {
     post: () => {
       if (have(template_string_$item(_templateObject110 || (_templateObject110 = leveling_taggedTemplateLiteral(["autumn-aton"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("autumnaton send Shadow Rift");
 
-      if (have((0,external_kolmafia_namespaceObject.toItem)(property_get("_rufusArtifact", "")))) {
+      if (have((0,external_kolmafia_namespaceObject.toItem)(property_get("rufusQuestTarget", "")))) {
         // eslint-disable-next-line libram/verify-constants
         (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject111 || (_templateObject111 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"]))));
-        _set("_rufusArtifact", "");
       }
     },
     limit: {
