@@ -638,7 +638,7 @@ export const LevelingQuest: Quest = {
       outfit: {
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
-        famequip: $items`God Lobster's Ring, God Lobster's Scepter, none`,
+        famequip: $items`God Lobster's Ring, God Lobster's Scepter`,
         familiar: $familiar`God Lobster`,
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },

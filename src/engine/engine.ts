@@ -104,7 +104,7 @@ export class Engine extends BaseEngine {
     if (spec !== undefined) {
       if (spec instanceof Outfit) {
         const badSlots = Array.from(spec.equips.entries())
-          .filter(([, i]) => !have(i))
+          .filter(([, it]) => !have(it) && it !== null)
           .map(([s]) => s);
         badSlots.forEach((s) => {
           print(`Ignoring slot ${s} because we don't have ${spec.equips.get(s) ?? ""}`, "red");
@@ -115,16 +115,16 @@ export class Engine extends BaseEngine {
           const itemOrItems = spec[slotName];
           if (itemOrItems) {
             if (itemOrItems instanceof Item) {
-              if (!have(itemOrItems)) {
+              if (!have(itemOrItems) && itemOrItems !== null) {
                 print(`Ignoring slot ${slotName} because we don't have ${itemOrItems}`, "red");
                 spec[slotName] = undefined;
               }
             } else {
-              if (!itemOrItems.some((it) => have(it))) {
+              if (!itemOrItems.some((it) => have(it) && it !== null)) {
                 print(
                   `Ignoring slot ${slotName} because we don't have ${itemOrItems
                     .map((it) => it.name)
-                    .join(",")}`,
+                    .join(", ")}`,
                   "red"
                 );
                 spec[slotName] = undefined;
