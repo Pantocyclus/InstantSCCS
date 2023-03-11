@@ -1,7 +1,7 @@
 import { Task } from "./task";
-import { Engine as BaseEngine, Outfit } from "grimoire-kolmafia";
+import { Engine as BaseEngine, Outfit, outfitSlots, undelay } from "grimoire-kolmafia";
 import { $effect, $skill, get, have, PropertiesManager, set, uneffect } from "libram";
-import { myHp, myMaxhp, print, useSkill } from "kolmafia";
+import { Item, myHp, myMaxhp, print, useSkill } from "kolmafia";
 
 export class trackedPref {
   pref: string;
@@ -97,6 +97,45 @@ export class Engine extends BaseEngine {
   public execute(task: Task): void {
     const originalValues = trackedPreferences.map(({ pref }) => [pref, get(pref).toString()]);
     this.checkLimits(task, undefined);
+
+    // Handle unequippables in outfit here
+    const outfit = task.outfit;
+    const spec = undelay(outfit);
+    if (spec !== undefined) {
+      if (spec instanceof Outfit) {
+        const badSlots = Array.from(spec.equips.entries())
+          .filter(([, i]) => !have(i))
+          .map(([s]) => s);
+        badSlots.forEach((s) => {
+          print(`Ignoring slot ${s} because we don't have ${spec.equips.get(s) ?? ""}`, "red");
+          spec.equips.delete(s);
+        });
+      } else {
+        for (const slotName of outfitSlots) {
+          const itemOrItems = spec[slotName];
+          if (itemOrItems) {
+            if (itemOrItems instanceof Item) {
+              if (!have(itemOrItems)) {
+                print(`Ignoring slot ${slotName} because we don't have ${itemOrItems}`, "red");
+                spec[slotName] = undefined;
+              }
+            } else {
+              if (!itemOrItems.some((it) => have(it))) {
+                print(
+                  `Ignoring slot ${slotName} because we don't have ${itemOrItems
+                    .map((it) => it.name)
+                    .join(",")}`,
+                  "red"
+                );
+                spec[slotName] = undefined;
+              }
+            }
+          }
+        }
+      }
+      task.outfit = spec;
+    }
+
     super.execute(task);
     if (have($effect`Beaten Up`)) {
       if (get("lastEncounter") === "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl")
@@ -119,10 +158,6 @@ export class Engine extends BaseEngine {
   }
 
   dress(task: Task, outfit: Outfit): void {
-    const badSlots = Array.from(outfit.equips.entries())
-      .filter(([, i]) => !have(i))
-      .map(([s]) => s);
-    badSlots.forEach((s) => outfit.equips.delete(s));
     super.dress(task, outfit);
   }
 
