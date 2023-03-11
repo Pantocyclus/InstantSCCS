@@ -56,15 +56,6 @@ export const testNames = new Map([
   [CommunityServiceTests.COILTEST, "Coil Wire"],
 ]);
 
-export const rufusTargetString = new Map([
-  ["shadow snowflake", "Shadow's Chill"],
-  ["shadow heart", "Shadow's Heart"],
-  ["shadow wave", "Shadow's Thickness"],
-  ["shadow lighter", "Muscle"],
-  ["shadow heptahedron", "Mysticality"],
-  ["shadow bucket", "Moxie"],
-]);
-
 // From phccs
 export function convertMilliseconds(milliseconds: number): string {
   const seconds = milliseconds / 1000;

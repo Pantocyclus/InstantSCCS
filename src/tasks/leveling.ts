@@ -64,7 +64,7 @@ import {
 } from "libram";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
-import { rufusTargetString, tryAcquiringEffect } from "../lib";
+import { tryAcquiringEffect } from "../lib";
 
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
@@ -358,9 +358,7 @@ export const LevelingQuest: Quest = {
           while (NCChoice === 6) {
             const availableChoices = availableChoiceOptions(true);
             const currentChoice = [2, 3, 4].filter((choice) =>
-              availableChoices[choice].includes(
-                rufusTargetString.get(get("rufusQuestTarget", "")) ?? ""
-              )
+              availableChoices[choice].includes(get("rufusQuestTarget", ""))
             );
             if (currentChoice.length > 0) NCChoice = currentChoice[0];
             else runChoice(5);
