@@ -10,8 +10,6 @@ import {
   eat,
   Effect,
   effectModifier,
-  equip,
-  equippedItem,
   inebrietyLimit,
   Item,
   itemAmount,
@@ -33,6 +31,7 @@ import {
   runChoice,
   storageAmount,
   takeStorage,
+  toInt,
   toItem,
   totalFreeRests,
   use,
@@ -48,7 +47,6 @@ import {
   $monster,
   $monsters,
   $skill,
-  $slot,
   $stat,
   clamp,
   CombatLoversLocket,
@@ -64,6 +62,7 @@ import {
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 import { tryAcquiringEffect } from "../lib";
+import { docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
 
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
@@ -113,6 +112,10 @@ function powerlevelingLocation(): Location {
   return $location.none;
 }
 
+function sendAutumnaton(): void {
+  if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+}
+
 export const LevelingQuest: Quest = {
   name: "Leveling",
   completed: () => get("csServicesPerformed").split(",").length > 1,
@@ -128,9 +131,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Clan Shower",
       completed: () => get("_aprilShower"),
-      do: (): void => {
-        ensureEffect($effect`Thaumodynamic`);
-      },
+      do: () => ensureEffect($effect`Thaumodynamic`),
       limit: { tries: 1 },
     },
     {
@@ -139,37 +140,61 @@ export const LevelingQuest: Quest = {
       do: (): void => ensureEffect($effect`Inscrutable Gaze`),
     },
     {
-      name: "Pulls",
-      completed: () => get("_roninStoragePulls").split(",").length >= 3,
+      name: "Pull Deep Dish of Legend",
+      completed: () => have($item`Deep Dish of Legend`) || have($effect`In the Depths`),
+      do: () => takeStorage($item`Deep Dish of Legend`, 1),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Pull Calzone of Legend",
+      completed: () => have($item`Calzone of Legend`) || have($effect`In the 'zone zone!`),
+      do: () => takeStorage($item`Calzone of Legend`, 1),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Pull Pizza of Legend",
+      completed: () => have($item`Pizza of Legend`) || have($effect`Endless Drool`),
+      do: () => takeStorage($item`Pizza of Legend`, 1),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Pull Daypass",
+      completed: () => powerlevelingLocation() !== $location.none,
       do: (): void => {
-        takeStorage($item`Deep Dish of Legend`, 1);
-        takeStorage($item`Calzone of Legend`, 1);
-        takeStorage($item`Pizza of Legend`, 1);
-        if (powerlevelingLocation() === $location.none) {
-          takeStorage($item`one-day ticket to Dinseylandfill`, 1);
-          use($item`one-day ticket to Dinseylandfill`, 1);
-        }
-        if (
-          have($item`Deep Dish of Legend`) &&
-          have($item`Calzone of Legend`) &&
-          have($item`Pizza of Legend`) &&
-          powerlevelingLocation() !== $location.none
-        ) {
-          if (
-            storageAmount($item`non-Euclidean angle`) > 0 &&
-            get("_roninStoragePulls").split(",").length <= 4
-          ) {
-            takeStorage($item`non-Euclidean angle`, 1);
-            chew($item`non-Euclidean angle`, 1);
-          }
-          if (
-            storageAmount($item`abstraction: category`) > 0 &&
-            get("_roninStoragePulls").split(",").length <= 4
-          ) {
-            takeStorage($item`abstraction: category`, 1);
-            chew($item`abstraction: category`);
-          }
-        }
+        takeStorage($item`one-day ticket to Dinseylandfill`, 1);
+        use($item`one-day ticket to Dinseylandfill`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Pull Non-Euclidean Angle",
+      completed: () =>
+        get("_roninStoragePulls").split(",").length >= 5 ||
+        get("_roninStoragePulls")
+          .split(",")
+          .includes(toInt($item`non-Euclidean angle`).toString()) ||
+        have($item`non-Euclidean angle`) ||
+        have($effect`Different Way of Seeing Things`) ||
+        storageAmount($item`non-Euclidean angle`) === 0,
+      do: (): void => {
+        takeStorage($item`non-Euclidean angle`, 1);
+        chew($item`non-Euclidean angle`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Pull Abstraction: Category",
+      completed: () =>
+        get("_roninStoragePulls").split(",").length >= 5 ||
+        get("_roninStoragePulls")
+          .split(",")
+          .includes(toInt($item`abstraction: category`).toString()) ||
+        have($item`abstraction: category`) ||
+        have($effect`Category`) ||
+        storageAmount($item`abstraction: category`) === 0,
+      do: (): void => {
+        takeStorage($item`abstraction: category`, 1);
+        chew($item`abstraction: category`, 1);
       },
       limit: { tries: 1 },
     },
@@ -220,15 +245,6 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Breakfast",
-      completed: () => get("breakfastCompleted"),
-      do: (): void => {
-        cliExecute("breakfast");
-        cliExecute("refresh all");
-      },
-      limit: { tries: 1 },
-    },
-    {
       name: "Eat Calzone",
       completed: () => get("calzoneOfLegendEaten"),
       do: () => eat($item`Calzone of Legend`, 1),
@@ -243,6 +259,15 @@ export const LevelingQuest: Quest = {
         create($item`perfect dark and stormy`, 1);
         tryAcquiringEffect($effect`Ode to Booze`);
         drink($item`perfect dark and stormy`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Breakfast",
+      completed: () => get("breakfastCompleted"),
+      do: (): void => {
+        cliExecute("breakfast");
+        cliExecute("refresh all");
       },
       limit: { tries: 1 },
     },
@@ -294,9 +319,7 @@ export const LevelingQuest: Quest = {
       name: "Eat Pizza",
       ready: () => have($effect`Ready to Eat`), // only eat this after we red rocket
       completed: () => get("pizzaOfLegendEaten"),
-      do: (): void => {
-        eat($item`Pizza of Legend`, 1);
-      },
+      do: () => eat($item`Pizza of Legend`, 1),
       limit: { tries: 1 },
     },
     {
@@ -315,6 +338,14 @@ export const LevelingQuest: Quest = {
           uneffect($effect`Ode to Booze`);
       },
       limit: { tries: 6 },
+    },
+    {
+      name: "BoomBox Meat",
+      ready: () => have($item`Punching Potion`),
+      completed: () =>
+        SongBoom.song() === "Total Eclipse of Your Meat" || !have($item`SongBoom™ BoomBox`),
+      do: () => SongBoom.setSong("Total Eclipse of Your Meat"),
+      limit: { tries: 1 },
     },
     {
       name: "Get Rufus Quest",
@@ -341,8 +372,7 @@ export const LevelingQuest: Quest = {
           buy($item`red rocket`, 1);
         if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`))
           buy($item`blue rocket`, 1);
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
+        unbreakableUmbrella();
         restoreMp(50);
       },
       completed: () =>
@@ -351,7 +381,6 @@ export const LevelingQuest: Quest = {
       // eslint-disable-next-line libram/verify-constants
       do: (): void => {
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
-        // TODO: Figure out how to get the right NC choice
         if (lastChoice() === 1499) {
           let NCChoice = 6;
           while (NCChoice === 6) {
@@ -380,7 +409,6 @@ export const LevelingQuest: Quest = {
         1498: 1,
       },
       post: (): void => {
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
         if (have(toItem(get("rufusQuestTarget", "")))) {
           // eslint-disable-next-line libram/verify-constants
           use($item`closed-circuit pay phone`);
@@ -396,8 +424,7 @@ export const LevelingQuest: Quest = {
           visitUrl("place.php?whichplace=snojo&action=snojo_controller");
           runChoice(1);
         }
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
+        unbreakableUmbrella();
         restoreMp(50);
       },
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
@@ -412,15 +439,14 @@ export const LevelingQuest: Quest = {
       limit: { tries: 10 },
       post: (): void => {
         if (get("_snojoFreeFights") >= 10) cliExecute("hottub");
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
     },
     {
       name: "Snokebomb",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
+        unbreakableUmbrella();
         restoreMp(50);
       },
       completed: () => get("_snokebombUsed") >= 3,
@@ -439,7 +465,7 @@ export const LevelingQuest: Quest = {
         1324: 5,
       },
       post: (): void => {
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
       limit: { tries: 4 },
     },
@@ -448,22 +474,8 @@ export const LevelingQuest: Quest = {
       ready: () => freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (
-          have($item`January's Garbage Tote`) &&
-          get("garbageShirtCharge") > 0 &&
-          have($skill`Torso Awareness`)
-        ) {
-          if (get("garbageShirtCharge") === 1) {
-            if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
-              equip($slot`shirt`, $item.none);
-          } else {
-            if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-            equip($slot`shirt`, $item`makeshift garbage shirt`);
-          }
-        }
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        unbreakableUmbrella();
+        garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
@@ -476,6 +488,7 @@ export const LevelingQuest: Quest = {
         Macro.trySkill($skill`Back-Up to your Last Enemy`).default()
       ),
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         acc3: $item`backup camera`,
@@ -495,22 +508,8 @@ export const LevelingQuest: Quest = {
       name: "Kramco",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (
-          have($item`January's Garbage Tote`) &&
-          get("garbageShirtCharge") > 0 &&
-          have($skill`Torso Awareness`)
-        ) {
-          if (get("garbageShirtCharge") === 1) {
-            if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
-              equip($slot`shirt`, $item.none);
-          } else {
-            if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-            equip($slot`shirt`, $item`makeshift garbage shirt`);
-          }
-        }
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        unbreakableUmbrella();
+        garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
@@ -518,6 +517,7 @@ export const LevelingQuest: Quest = {
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
       do: $location`Noob Cave`,
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`Kramco Sausage-o-Matic™`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
@@ -528,16 +528,8 @@ export const LevelingQuest: Quest = {
         if (have($item`magical sausage casing`) && myMeat() >= 3000)
           create($item`magical sausage`, itemAmount($item`magical sausage casing`));
         eat(itemAmount($item`magical sausage`), $item`magical sausage`);
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
-    },
-    {
-      name: "BoomBox Meat",
-      ready: () => have($item`Punching Potion`),
-      completed: () =>
-        SongBoom.song() === "Total Eclipse of Your Meat" || !have($item`SongBoom™ BoomBox`),
-      do: () => SongBoom.setSong("Total Eclipse of Your Meat"),
-      limit: { tries: 1 },
     },
     {
       name: "Red Skeleton",
@@ -545,13 +537,13 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
+        unbreakableUmbrella();
       },
       completed: () => CombatLoversLocket.monstersReminisced().includes($monster`red skeleton`),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
       combat: new CombatStrategy().macro(Macro.tryItem($item`yellow rocket`).abort()),
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
@@ -559,7 +551,7 @@ export const LevelingQuest: Quest = {
       },
       post: (): void => {
         use($item`red box`, 1);
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
       limit: { tries: 1 },
     },
@@ -567,8 +559,7 @@ export const LevelingQuest: Quest = {
       name: "LOV Tunnel",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
+        unbreakableUmbrella();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         tryAcquiringEffect($effect`Comic Violence`);
       },
@@ -595,22 +586,21 @@ export const LevelingQuest: Quest = {
         if (have($effect`Beaten Up`)) cliExecute("hottub");
         if (have($item`LOV Extraterrestrial Chocolate`))
           use($item`LOV Extraterrestrial Chocolate`, 1);
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
     },
     {
       name: "Oliver's Place",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        unbreakableUmbrella();
         restoreMp(50);
       },
       completed: () => get("_speakeasyFreeFights", 0) >= 3 || !get("ownsSpeakeasy"),
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
@@ -618,16 +608,14 @@ export const LevelingQuest: Quest = {
       },
       limit: { tries: 3 },
       post: (): void => {
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
     },
     {
       name: "God Lobster",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        unbreakableUmbrella();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
@@ -636,6 +624,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.default()),
       choices: { 1310: () => (have($item`God Lobster's Ring`) ? 2 : 3) }, // Get xp on last fight
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         famequip: $items`God Lobster's Ring, God Lobster's Scepter`,
@@ -645,16 +634,14 @@ export const LevelingQuest: Quest = {
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 3 },
       post: (): void => {
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
     },
     {
       name: "Eldritch Tentacle",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        unbreakableUmbrella();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
@@ -662,10 +649,11 @@ export const LevelingQuest: Quest = {
       do: () => useSkill($skill`Evoke Eldritch Horror`),
       post: (): void => {
         if (have($effect`Beaten Up`)) cliExecute("hottub");
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
@@ -677,9 +665,7 @@ export const LevelingQuest: Quest = {
       name: "Witchess Bishop",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        unbreakableUmbrella();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
@@ -687,13 +673,14 @@ export const LevelingQuest: Quest = {
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       post: (): void => {
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
       limit: { tries: 5 },
     },
@@ -701,9 +688,7 @@ export const LevelingQuest: Quest = {
       name: "DMT",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        unbreakableUmbrella();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
@@ -711,6 +696,7 @@ export const LevelingQuest: Quest = {
       do: () => adv1($location`The Deep Machine Tunnels`, -1),
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Machine Elf`,
@@ -718,7 +704,7 @@ export const LevelingQuest: Quest = {
       },
       limit: { tries: 5 },
       post: (): void => {
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
     },
     {
@@ -734,26 +720,13 @@ export const LevelingQuest: Quest = {
       do: powerlevelingLocation(),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (
-          have($item`January's Garbage Tote`) &&
-          get("garbageShirtCharge") > 0 &&
-          have($skill`Torso Awareness`)
-        ) {
-          if (get("garbageShirtCharge") === 1) {
-            if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
-              equip($slot`shirt`, $item.none);
-          } else {
-            if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-            equip($slot`shirt`, $item`makeshift garbage shirt`);
-          }
-        }
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        unbreakableUmbrella();
+        garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
@@ -769,13 +742,13 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Bowl Sideways`).default()),
       post: (): void => {
         if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
     },
     {
       name: "Pre-free-fights consumption",
       after: ["Powerlevel"],
-      completed: () => myFullness() >= 11 && myInebriety() >= 12,
+      completed: () => myFullness() >= 11 && myInebriety() >= 11,
       do: (): void => {
         if (itemAmount($item`wad of dough`) < 2) {
           buy($item`all-purpose flower`, 1);
@@ -809,22 +782,8 @@ export const LevelingQuest: Quest = {
       name: "Witchess King",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (
-          have($item`January's Garbage Tote`) &&
-          get("garbageShirtCharge") > 0 &&
-          have($skill`Torso Awareness`)
-        ) {
-          if (get("garbageShirtCharge") === 1) {
-            if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
-              equip($slot`shirt`, $item.none);
-          } else {
-            if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-            equip($slot`shirt`, $item`makeshift garbage shirt`);
-          }
-        }
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
+        unbreakableUmbrella();
+        garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
@@ -832,6 +791,7 @@ export const LevelingQuest: Quest = {
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
@@ -844,28 +804,14 @@ export const LevelingQuest: Quest = {
       after: ["Pre-free-fights consumption"],
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
-        if (
-          have($item`January's Garbage Tote`) &&
-          get("garbageShirtCharge") > 0 &&
-          have($skill`Torso Awareness`)
-        ) {
-          if (get("garbageShirtCharge") === 1) {
-            if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
-              equip($slot`shirt`, $item.none);
-          } else {
-            if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-            equip($slot`shirt`, $item`makeshift garbage shirt`);
-          }
-        }
-        if (have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3)
-          equip($slot`acc3`, $item`Lil' Doctor™ bag`);
-        if (have($item`LOV Epaulettes`)) equip($slot`back`, $item`LOV Epaulettes`);
-        restoreMp(50);
+        unbreakableUmbrella();
+        garbageShirt();
+        docBag();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
       },
       outfit: {
+        back: $item`LOV Epaulettes`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
@@ -902,7 +848,7 @@ export const LevelingQuest: Quest = {
           eat($item`Pete's wiley whey bar`, 1);
         }
         if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
-        if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+        sendAutumnaton();
       },
       limit: { tries: 20 },
     },
