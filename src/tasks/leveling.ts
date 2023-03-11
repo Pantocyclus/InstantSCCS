@@ -56,7 +56,6 @@ import {
   get,
   getKramcoWandererChance,
   have,
-  set,
   SongBoom,
   TunnelOfLove,
   uneffect,
@@ -382,10 +381,9 @@ export const LevelingQuest: Quest = {
       },
       post: (): void => {
         if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
-        if (have(toItem(get("_rufusArtifact", "")))) {
+        if (have(toItem(get("rufusQuestTarget", "")))) {
           // eslint-disable-next-line libram/verify-constants
           use($item`closed-circuit pay phone`);
-          set("_rufusArtifact", "");
         }
       },
       limit: { tries: 12 },
