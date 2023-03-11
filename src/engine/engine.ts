@@ -120,7 +120,7 @@ export class Engine extends BaseEngine {
 
   dress(task: Task, outfit: Outfit): void {
     const badSlots = Array.from(outfit.equips.entries())
-      .filter(([, i]) => have(i))
+      .filter(([, i]) => !have(i))
       .map(([s]) => s);
     badSlots.forEach((s) => outfit.equips.delete(s));
     super.dress(task, outfit);
