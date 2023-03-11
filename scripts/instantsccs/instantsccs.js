@@ -4122,8 +4122,7 @@ var CommunityServiceTests;
 })(CommunityServiceTests || (CommunityServiceTests = {}));
 
 var testModifiers = new Map([[CommunityServiceTests.HPTEST, ["Maximum HP", "Maximum HP Percent"]], [CommunityServiceTests.MUSTEST, ["Muscle", "Muscle Percent"]], [CommunityServiceTests.MYSTTEST, ["Mysticality", "Mysticality Percent"]], [CommunityServiceTests.MOXTEST, ["Moxie", "Moxie Percent"]], [CommunityServiceTests.FAMTEST, ["Familiar Weight"]], [CommunityServiceTests.WPNTEST, ["Weapon Damage", "Weapon Damage Percent"]], [CommunityServiceTests.SPELLTEST, ["Spell Damage", "Spell Damage Percent"]], [CommunityServiceTests.COMTEST, ["Combat Rate"]], [CommunityServiceTests.ITEMTEST, ["Item Drop", "Booze Drop"]], [CommunityServiceTests.HOTTEST, ["Hot Resistance"]], [CommunityServiceTests.COILTEST, []]]);
-var testNames = new Map([[CommunityServiceTests.HPTEST, "HP Test"], [CommunityServiceTests.MUSTEST, "Muscle Test"], [CommunityServiceTests.MYSTTEST, "Mysticality Test"], [CommunityServiceTests.MOXTEST, "Moxie Test"], [CommunityServiceTests.FAMTEST, "Familiar Weight Test"], [CommunityServiceTests.WPNTEST, "Weapon Damage Test"], [CommunityServiceTests.SPELLTEST, "Spell Damage Test"], [CommunityServiceTests.COMTEST, "Noncombat Test"], [CommunityServiceTests.ITEMTEST, "Item Drop Test"], [CommunityServiceTests.HOTTEST, "Hot Resistance Test"], [CommunityServiceTests.COILTEST, "Coil Wire"]]);
-var rufusTargetString = new Map([["shadow snowflake", "Shadow's Chill"], ["shadow heart", "Shadow's Heart"], ["shadow wave", "Shadow's Thickness"], ["shadow lighter", "Muscle"], ["shadow heptahedron", "Mysticality"], ["shadow bucket", "Moxie"]]); // From phccs
+var testNames = new Map([[CommunityServiceTests.HPTEST, "HP Test"], [CommunityServiceTests.MUSTEST, "Muscle Test"], [CommunityServiceTests.MYSTTEST, "Mysticality Test"], [CommunityServiceTests.MOXTEST, "Moxie Test"], [CommunityServiceTests.FAMTEST, "Familiar Weight Test"], [CommunityServiceTests.WPNTEST, "Weapon Damage Test"], [CommunityServiceTests.SPELLTEST, "Spell Damage Test"], [CommunityServiceTests.COMTEST, "Noncombat Test"], [CommunityServiceTests.ITEMTEST, "Item Drop Test"], [CommunityServiceTests.HOTTEST, "Hot Resistance Test"], [CommunityServiceTests.COILTEST, "Coil Wire"]]); // From phccs
 
 function convertMilliseconds(milliseconds) {
   var seconds = milliseconds / 1000;
@@ -10751,11 +10750,7 @@ var LevelingQuest = {
 
         var _loop = function _loop() {
           var availableChoices = (0,external_kolmafia_namespaceObject.availableChoiceOptions)(true);
-          var currentChoice = [2, 3, 4].filter(choice => {
-            var _rufusTargetString$ge;
-
-            return availableChoices[choice].includes((_rufusTargetString$ge = rufusTargetString.get(property_get("rufusQuestTarget", ""))) !== null && _rufusTargetString$ge !== void 0 ? _rufusTargetString$ge : "");
-          });
+          var currentChoice = [2, 3, 4].filter(choice => availableChoices[choice].includes(property_get("rufusQuestTarget", "")));
           if (currentChoice.length > 0) NCChoice = currentChoice[0];else (0,external_kolmafia_namespaceObject.runChoice)(5);
         };
 
