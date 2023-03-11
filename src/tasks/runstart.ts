@@ -309,7 +309,8 @@ export const RunStartQuest: Quest = {
       ready: () => !have($effect`Everything Looks Yellow`) || have($item`cherry`),
       prepare: (): void => {
         if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
-        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
         if (get("_snokebombUsed") === 0) restoreMp(50);
       },
       completed: () =>

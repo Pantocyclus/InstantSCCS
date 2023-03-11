@@ -342,7 +342,8 @@ export const LevelingQuest: Quest = {
           buy($item`red rocket`, 1);
         if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`))
           buy($item`blue rocket`, 1);
-        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
         restoreMp(50);
       },
       completed: () =>
@@ -422,7 +423,8 @@ export const LevelingQuest: Quest = {
       name: "Snokebomb",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
         restoreMp(50);
       },
       completed: () => get("_snokebombUsed") >= 3,
@@ -547,7 +549,8 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
-        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
       },
       completed: () => CombatLoversLocket.monstersReminisced().includes($monster`red skeleton`),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
@@ -568,7 +571,8 @@ export const LevelingQuest: Quest = {
       name: "LOV Tunnel",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (get("umbrellaState") !== "broken") cliExecute("umbrella ml");
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
+          cliExecute("umbrella ml");
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         tryAcquiringEffect($effect`Comic Violence`);
       },
