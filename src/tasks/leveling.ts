@@ -607,9 +607,7 @@ export const LevelingQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       limit: { tries: 3 },
-      post: (): void => {
-        sendAutumnaton();
-      },
+      post: () => sendAutumnaton(),
     },
     {
       name: "God Lobster",
@@ -633,9 +631,7 @@ export const LevelingQuest: Quest = {
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 3 },
-      post: (): void => {
-        sendAutumnaton();
-      },
+      post: () => sendAutumnaton(),
     },
     {
       name: "Eldritch Tentacle",
@@ -679,9 +675,7 @@ export const LevelingQuest: Quest = {
         familiar: $familiar`Cookbookbat`,
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
-      post: (): void => {
-        sendAutumnaton();
-      },
+      post: () => sendAutumnaton(),
       limit: { tries: 5 },
     },
     {
@@ -703,9 +697,7 @@ export const LevelingQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       limit: { tries: 5 },
-      post: (): void => {
-        sendAutumnaton();
-      },
+      post: () => sendAutumnaton(),
     },
     {
       name: "Powerlevel",
@@ -719,6 +711,8 @@ export const LevelingQuest: Quest = {
           get("_neverendingPartyFreeTurns") >= 10),
       do: powerlevelingLocation(),
       prepare: (): void => {
+        if (myMaxhp() < 700 && !have($effect`In the Depths`) && have($item`Deep Dish of Legend`))
+          eat($item`Deep Dish of Legend`, 1);
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();

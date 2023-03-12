@@ -9,7 +9,9 @@ import {
   currentMcd,
   drink,
   eat,
+  equip,
   getWorkshed,
+  haveEquipped,
   hermit,
   itemAmount,
   myInebriety,
@@ -34,6 +36,7 @@ import {
   $location,
   $monster,
   $skill,
+  $slot,
   clamp,
   CommunityService,
   get,
@@ -312,6 +315,7 @@ export const RunStartQuest: Quest = {
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (get("_snokebombUsed") === 0) restoreMp(50);
+        if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
       completed: () =>
         have($item`cherry`) && !have($item`cosmic bowling ball`) && get("_snokebombUsed") >= 1,
@@ -326,7 +330,8 @@ export const RunStartQuest: Quest = {
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+        modifier:
+          "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball",
       },
       post: (): void => {
         if (have($item`MayDay™ supply package`)) use($item`MayDay™ supply package`, 1);
