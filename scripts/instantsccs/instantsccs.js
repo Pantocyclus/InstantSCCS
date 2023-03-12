@@ -12546,6 +12546,7 @@ function sim_defineProperty(obj, key, value) { if (key in obj) { Object.definePr
 
 
 
+
 var Hardcoded = function Hardcoded(have, name) {
   sim_classCallCheck(this, Hardcoded);
 
@@ -12786,6 +12787,17 @@ function buildMiscList() {
   }, {
     thing: new Hardcoded(!property_get("unknownRecipe10989"), "Recipe of Yore: plain calzone"),
     why: "Food we'll cook in-run"
+  }, {
+    thing: new Hardcoded((() => {
+      var banishes = property_get("banishedMonsters").split(":");
+      var iceHouseIndex = banishes.map(string => string.toLowerCase()).indexOf("ice house");
+      if (iceHouseIndex === -1) return false;
+      return ["remaindered skeleton", "factory-irregular skeleton", "swarm of skulls"].includes(banishes[iceHouseIndex - 1]);
+    })(), "Ice Housed Skeleton Store Monster"),
+    why: "Ensures Novelty Tropical Skeleton"
+  }, {
+    thing: new Hardcoded(!nextConfigurable(), "Configurable Trainset"),
+    why: "XP and meat during Powerleveling"
   }, {
     thing: new Hardcoded(property_get("knownAscensions") >= 10, "Access to all-purpose flower in the Gift Shop"),
     why: "Muscle test"
