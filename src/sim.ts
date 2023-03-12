@@ -9,6 +9,7 @@ import {
   storageAmount,
 } from "kolmafia";
 import { $familiar, $item, $monster, $skill, CombatLoversLocket, get, have } from "libram";
+import { nextConfigurable } from "libram/dist/resources/2022/TrainSet";
 
 class Hardcoded {
   have: boolean;
@@ -340,6 +341,24 @@ function buildMiscList(): Requirement[] {
     {
       thing: new Hardcoded(!get("unknownRecipe10989"), "Recipe of Yore: plain calzone"),
       why: "Food we'll cook in-run",
+    },
+    {
+      thing: new Hardcoded(
+        (() => {
+          const banishes = get("banishedMonsters").split(":");
+          const iceHouseIndex = banishes.map((string) => string.toLowerCase()).indexOf("ice house");
+          if (iceHouseIndex === -1) return false;
+          return ["remaindered skeleton", "factory-irregular skeleton", "swarm of skulls"].includes(
+            banishes[iceHouseIndex - 1]
+          );
+        })(),
+        "Ice Housed Skeleton Store Monster"
+      ),
+      why: "Ensures Novelty Tropical Skeleton",
+    },
+    {
+      thing: new Hardcoded(!nextConfigurable(), "Configurable Trainset"),
+      why: "XP and meat during Powerleveling",
     },
     {
       thing: new Hardcoded(
