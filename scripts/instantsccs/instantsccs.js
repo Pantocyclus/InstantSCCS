@@ -11131,12 +11131,17 @@ var LevelingQuest = {
     completed: () => (0,external_kolmafia_namespaceObject.myBasestat)($stat(_templateObject206 || (_templateObject206 = leveling_taggedTemplateLiteral(["Mysticality"])))) >= 175 && ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject207 || (_templateObject207 = leveling_taggedTemplateLiteral(["Yeast of Boris"])))) >= 3 && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject208 || (_templateObject208 = leveling_taggedTemplateLiteral(["Vegetable of Jarlsberg"])))) >= 3 && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject209 || (_templateObject209 = leveling_taggedTemplateLiteral(["St. Sneaky Pete's Whey"])))) >= 6 || craftedCBBFoods.every(it => have(it) || have((0,external_kolmafia_namespaceObject.effectModifier)(it, "effect")))) && (powerlevelingLocation() !== $location(_templateObject210 || (_templateObject210 = leveling_taggedTemplateLiteral(["The Neverending Party"]))) || property_get("_neverendingPartyFreeTurns") >= 10),
     do: powerlevelingLocation(),
     prepare: () => {
-      if ((0,external_kolmafia_namespaceObject.myMaxhp)() < 700 && !have($effect(_templateObject211 || (_templateObject211 = leveling_taggedTemplateLiteral(["In the Depths"])))) && have(template_string_$item(_templateObject212 || (_templateObject212 = leveling_taggedTemplateLiteral(["Deep Dish of Legend"]))))) (0,external_kolmafia_namespaceObject.eat)(template_string_$item(_templateObject213 || (_templateObject213 = leveling_taggedTemplateLiteral(["Deep Dish of Legend"]))), 1);
       (0,external_kolmafia_namespaceObject.restoreHp)(clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
       unbreakableUmbrella();
       garbageShirt();
       usefulEffects.forEach(ef => tryAcquiringEffect(ef));
       (0,external_kolmafia_namespaceObject.restoreMp)(50);
+
+      if ((0,external_kolmafia_namespaceObject.myMaxhp)() < 700 && !have($effect(_templateObject211 || (_templateObject211 = leveling_taggedTemplateLiteral(["In the Depths"])))) && have(template_string_$item(_templateObject212 || (_templateObject212 = leveling_taggedTemplateLiteral(["Deep Dish of Legend"]))))) {
+        (0,external_kolmafia_namespaceObject.eat)(template_string_$item(_templateObject213 || (_templateObject213 = leveling_taggedTemplateLiteral(["Deep Dish of Legend"]))), 1);
+        (0,external_kolmafia_namespaceObject.restoreHp)(clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
+        (0,external_kolmafia_namespaceObject.restoreMp)(50);
+      }
     },
     outfit: {
       back: template_string_$item(_templateObject214 || (_templateObject214 = leveling_taggedTemplateLiteral(["LOV Epaulettes"]))),
