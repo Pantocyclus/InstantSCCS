@@ -347,7 +347,7 @@ export const RunStartQuest: Quest = {
       do: (): void => {
         buy(1, $item`chewing gum on a string`);
         use(1, $item`chewing gum on a string`);
-        hermit($item`11-leaf clover`, 1);
+        if (get("_cloversPurchased") < 3) hermit($item`11-leaf clover`, 1);
       },
       acquire: [{ item: $item`toy accordion` }],
       limit: { tries: 50 },
