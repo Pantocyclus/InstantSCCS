@@ -711,13 +711,16 @@ export const LevelingQuest: Quest = {
           get("_neverendingPartyFreeTurns") >= 10),
       do: powerlevelingLocation(),
       prepare: (): void => {
-        if (myMaxhp() < 700 && !have($effect`In the Depths`) && have($item`Deep Dish of Legend`))
-          eat($item`Deep Dish of Legend`, 1);
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
+        if (myMaxhp() < 700 && !have($effect`In the Depths`) && have($item`Deep Dish of Legend`)) {
+          eat($item`Deep Dish of Legend`, 1);
+          restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+          restoreMp(50);
+        }
       },
       outfit: {
         back: $item`LOV Epaulettes`,
