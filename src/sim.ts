@@ -251,11 +251,7 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`Snokebomb`,
       why: "Banish",
-    },
-    {
-      thing: $skill`Curse of Weaksauce`,
-      why: "Combat spell",
-    },
+    },    
     {
       thing: $skill`Saucegeyser`,
       why: "Combat spell",
@@ -291,6 +287,14 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`Cannelloni Cocoon`,
       why: "HP Regen",
+    },
+    {
+      thing: $skill`Soul Saucery`,
+      why: "MP Regen",
+    },
+    {
+      thing: $skill`Curse of Weaksauce`,
+      why: "MP Regen",
     },
     {
       thing: $skill`Inner Sauce`,
