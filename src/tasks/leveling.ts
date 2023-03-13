@@ -141,19 +141,34 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Pull Deep Dish of Legend",
-      completed: () => have($item`Deep Dish of Legend`) || have($effect`In the Depths`),
+      completed: () =>
+        have($item`Deep Dish of Legend`) ||
+        have($effect`In the Depths`) ||
+        get("_roninStoragePulls")
+          .split(",")
+          .includes(toInt($item`Deep Dish of Legend`).toString()),
       do: () => takeStorage($item`Deep Dish of Legend`, 1),
       limit: { tries: 1 },
     },
     {
       name: "Pull Calzone of Legend",
-      completed: () => have($item`Calzone of Legend`) || have($effect`In the 'zone zone!`),
+      completed: () =>
+        have($item`Calzone of Legend`) ||
+        have($effect`In the 'zone zone!`) ||
+        get("_roninStoragePulls")
+          .split(",")
+          .includes(toInt($item`Calzone of Legend`).toString()),
       do: () => takeStorage($item`Calzone of Legend`, 1),
       limit: { tries: 1 },
     },
     {
       name: "Pull Pizza of Legend",
-      completed: () => have($item`Pizza of Legend`) || have($effect`Endless Drool`),
+      completed: () =>
+        have($item`Pizza of Legend`) ||
+        have($effect`Endless Drool`) ||
+        get("_roninStoragePulls")
+          .split(",")
+          .includes(toInt($item`Pizza of Legend`).toString()),
       do: () => takeStorage($item`Pizza of Legend`, 1),
       limit: { tries: 1 },
     },
@@ -248,6 +263,12 @@ export const LevelingQuest: Quest = {
       name: "Eat Calzone",
       completed: () => get("calzoneOfLegendEaten"),
       do: () => eat($item`Calzone of Legend`, 1),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Eat Deep Dish",
+      completed: () => get("deepDishOfLegendEaten"),
+      do: () => eat($item`Deep Dish of Legend`, 1),
       limit: { tries: 1 },
     },
     {
@@ -716,11 +737,6 @@ export const LevelingQuest: Quest = {
         garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
-        if (myMaxhp() < 700 && !have($effect`In the Depths`) && have($item`Deep Dish of Legend`)) {
-          eat($item`Deep Dish of Legend`, 1);
-          restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-          restoreMp(50);
-        }
       },
       outfit: {
         back: $item`LOV Epaulettes`,
