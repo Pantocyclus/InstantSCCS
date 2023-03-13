@@ -447,6 +447,7 @@ export const LevelingQuest: Quest = {
           // eslint-disable-next-line libram/verify-constants
           use($item`closed-circuit pay phone`);
         }
+        sendAutumnaton();
       },
       limit: { tries: 12 },
     },
