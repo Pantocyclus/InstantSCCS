@@ -831,7 +831,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Free Kills and More Fights",
-      after: ["Pre-free-fights consumption"],
+      after: ["Craft and Eat CBB Foods", "Drink Bee's Knees"],
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
