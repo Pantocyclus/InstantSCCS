@@ -109,7 +109,10 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Drink Sacramento Wine",
-      completed: () => myInebriety() >= inebrietyLimit() - 2 || !have($item`Sacramento wine`),
+      completed: () =>
+        have($effect`Sacré Mental`) ||
+        !have($item`Sacramento wine`) ||
+        myInebriety() >= inebrietyLimit(),
       do: (): void => {
         if (myInebriety() < inebrietyLimit()) {
           tryAcquiringEffect($effect`Ode to Booze`);

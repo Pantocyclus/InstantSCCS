@@ -72,17 +72,18 @@ export const HotResQuest: Quest = {
       ),
     },
     {
-      name: "Drink Booze",
-      completed: () => myInebriety() >= inebrietyLimit() - 2,
+      name: "Drink Boris Beer",
+      completed: () =>
+        have($effect`Beery Cool`) ||
+        ((!have($item`bowl of cottage cheese`) || !have($item`Yeast of Boris`)) &&
+          !have($item`Boris's beer`)) ||
+        myInebriety() >= inebrietyLimit(),
       do: (): void => {
-        if (myInebriety() < inebrietyLimit()) {
-          tryAcquiringEffect($effect`Ode to Booze`);
-          if (have($item`Yeast of Boris`) && have($item`bowl of cottage cheese`))
-            create($item`Boris's beer`, 1);
-          if (have($item`Boris's beer`)) drink($item`Boris's beer`, 1);
-          else if (have($item`distilled fortified wine`)) drink($item`distilled fortified wine`, 1);
-          uneffect($effect`Ode to Booze`);
-        }
+        tryAcquiringEffect($effect`Ode to Booze`);
+        if (have($item`Yeast of Boris`) && have($item`bowl of cottage cheese`))
+          create($item`Boris's beer`, 1);
+        if (have($item`Boris's beer`)) drink($item`Boris's beer`, 1);
+        uneffect($effect`Ode to Booze`);
       },
       limit: { tries: 1 },
     },

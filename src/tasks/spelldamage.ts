@@ -1,9 +1,10 @@
 import { CombatStrategy } from "grimoire-kolmafia";
-import { buy, Effect, useSkill } from "kolmafia";
+import { buy, drink, Effect, inebrietyLimit, myAdventures, myInebriety, useSkill } from "kolmafia";
 import {
   $effect,
   $familiar,
   $item,
+  $items,
   $location,
   $skill,
   CommunityService,
@@ -12,7 +13,7 @@ import {
   Macro,
 } from "libram";
 import { Quest } from "../engine/task";
-import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 
 export const SpellDamageQuest: Quest = {
   name: "Spell Damage",
@@ -64,6 +65,16 @@ export const SpellDamageQuest: Quest = {
           $effect`We're All Made of Starfish`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+
+        const wines = $items`Sacramento wine, distilled fortified wine`;
+        while (
+          advCost(CommunityServiceTests.SPELLTEST) > myAdventures() &&
+          myInebriety() < inebrietyLimit() &&
+          wines.some((booze) => have(booze))
+        ) {
+          tryAcquiringEffect($effect`Ode to Booze`);
+          drink(wines.filter((booze) => have(booze))[0], 1);
+        }
       },
       completed: () => CommunityService.SpellDamage.isDone(),
       do: () =>

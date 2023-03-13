@@ -212,7 +212,7 @@ function printModtrace(modifiers: string | string[], baseModifier?: string): voi
   }
 }
 
-function advCost(whichTest: number): number {
+export function advCost(whichTest: number): number {
   // Adapted from AutoHCCS
   const page = visitUrl("council.php");
   const testStr = `name=option value=${whichTest}>`;
