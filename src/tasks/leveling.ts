@@ -848,8 +848,8 @@ export const LevelingQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       completed: () =>
-        get("_shatteringPunchUsed") >= 3 &&
-        get("_gingerbreadMobHitUsed") &&
+        (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
+        (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         have($effect`Pretty Delicious`) &&
         (have($effect`Awfully Wily`) || myBasestat($stat`Mysticality`) >= 190),
       do: powerlevelingLocation(),
