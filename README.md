@@ -380,7 +380,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 
 > Mus Test (1 turn, 176+ adv remaining, 14/13/0 organs) <br/>
 
-![image](https://user-images.githubusercontent.com/98746573/222919154-863e5119-17e8-4611-8c56-4aab880015b6.png)<br/>
+![image](https://user-images.githubusercontent.com/98746573/224719326-4764caf7-e7e9-429b-802a-b11cca806624.png)<br/>
 
 - Save the [reward](https://kol.coldfront.net/thekolwiki/index.php/Bag_of_grain) <br/>
 - You should have at least a ~7lbs cookbookbat, [+15lbs](https://kol.coldfront.net/thekolwiki/index.php/Amphibian_Sympathy) [from](https://kol.coldfront.net/thekolwiki/index.php/Empathy) [skills](<https://kol.coldfront.net/thekolwiki/index.php/Leash_of_Linguini_(effect)>), +15lbs from [Deep Dish of Legend](https://kol.coldfront.net/thekolwiki/index.php/In_the_Depths), +10lbs from [astral pet sweater](https://kol.coldfront.net/thekolwiki/index.php/Astral_pet_sweater), +5lbs from [pool table](https://kol.coldfront.net/thekolwiki/index.php/Billiards_Belligerence) <br/>
