@@ -272,7 +272,6 @@ export const RunStartQuest: Quest = {
         cliExecute("backupcamera ml");
         if (!get("backupCameraReverserEnabled")) cliExecute("backupcamera reverser");
       },
-      limit: { tries: 1 },
     },
     {
       name: "Autumnaton",
