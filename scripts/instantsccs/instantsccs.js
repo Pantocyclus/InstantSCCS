@@ -11840,9 +11840,6 @@ var RunStartQuest = {
     do: () => {
       (0,external_kolmafia_namespaceObject.cliExecute)("backupcamera ml");
       if (!property_get("backupCameraReverserEnabled")) (0,external_kolmafia_namespaceObject.cliExecute)("backupcamera reverser");
-    },
-    limit: {
-      tries: 1
     }
   }, {
     name: "Autumnaton",
