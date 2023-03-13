@@ -10839,6 +10839,8 @@ var LevelingQuest = {
         // eslint-disable-next-line libram/verify-constants
         (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject131 || (_templateObject131 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"]))));
       }
+
+      sendAutumnaton();
     },
     limit: {
       tries: 12
