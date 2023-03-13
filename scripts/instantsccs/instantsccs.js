@@ -11227,7 +11227,7 @@ var LevelingQuest = {
     }
   }, {
     name: "Free Kills and More Fights",
-    after: ["Pre-free-fights consumption"],
+    after: ["Craft and Eat CBB Foods", "Drink Bee's Knees"],
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
       unbreakableUmbrella();
