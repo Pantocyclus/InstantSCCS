@@ -16,8 +16,8 @@ import {
   lastChoice,
   Location,
   Monster,
+  mpCost,
   myBasestat,
-  myFullness,
   myHash,
   myInebriety,
   myLevel,
@@ -272,11 +272,24 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Cast Prevent Scurvy",
+      completed: () => !have($skill`Prevent Scurvy and Sobriety`) || get("_preventScurvy"),
+      prepare: () => restoreMp(mpCost($skill`Prevent Scurvy and Sobriety`)),
+      do: () => useSkill($skill`Prevent Scurvy and Sobriety`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Cast Perfect Freeze",
+      completed: () => !have($skill`Perfect Freeze`) || get("_perfectFreezeUsed"),
+      prepare: () => restoreMp(mpCost($skill`Perfect Freeze`)),
+      do: () => useSkill($skill`Perfect Freeze`),
+      limit: { tries: 1 },
+    },
+    {
       name: "Drink Perfect Dark and Stormy",
-      completed: () => (get("_preventScurvy") && get("_perfectFreezeUsed")) || myInebriety() >= 3,
+      completed: () =>
+        myInebriety() >= 3 || !have($item`perfect ice cube`) || !have($item`bottle of rum`),
       do: (): void => {
-        useSkill($skill`Perfect Freeze`);
-        useSkill($skill`Prevent Scurvy and Sobriety`);
         create($item`perfect dark and stormy`, 1);
         tryAcquiringEffect($effect`Ode to Booze`);
         drink($item`perfect dark and stormy`, 1);
@@ -759,21 +772,16 @@ export const LevelingQuest: Quest = {
       },
     },
     {
-      name: "Pre-free-fights consumption",
+      name: "Craft and Eat CBB Foods",
       after: ["Powerlevel"],
-      completed: () => myFullness() >= 11 && myInebriety() >= 11,
+      completed: () => craftedCBBFoods.every((it) => have(effectModifier(it, "effect"))),
       do: (): void => {
         if (itemAmount($item`wad of dough`) < 2) {
           buy($item`all-purpose flower`, 1);
           use($item`all-purpose flower`, 1);
         }
 
-        if (get("_speakeasyDrinksDrunk") === 0) {
-          tryAcquiringEffect($effect`Ode to Booze`);
-          visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=5&pwd=${+myHash()}`); // Bee's Knees
-        }
-
-        [...craftedCBBFoods, $item`Deep Dish of Legend`].forEach((it) => {
+        craftedCBBFoods.forEach((it) => {
           if (!have(effectModifier(it, "effect"))) {
             if (!have(it)) create(it, 1);
             eat(it, 1);
@@ -786,10 +794,16 @@ export const LevelingQuest: Quest = {
           eat($item`baked veggie ricotta casserole`, 1);
         }
       },
-      post: (): void => {
-        tryAcquiringEffect($effect`Favored by Lyle`);
-        tryAcquiringEffect($effect`Starry-Eyed`);
+    },
+    {
+      name: "Drink Bee's Knees",
+      after: ["Powerlevel"],
+      completed: () => get("_speakeasyDrinksDrunk") >= 1,
+      do: (): void => {
+        tryAcquiringEffect($effect`Ode to Booze`);
+        visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=5&pwd=${+myHash()}`); // Bee's Knees
       },
+      limit: { tries: 1 },
     },
     {
       name: "Witchess King",
@@ -798,6 +812,8 @@ export const LevelingQuest: Quest = {
         unbreakableUmbrella();
         garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffect($effect`Favored by Lyle`);
+        tryAcquiringEffect($effect`Starry-Eyed`);
         restoreMp(50);
       },
       completed: () => CombatLoversLocket.monstersReminisced().includes($monster`Witchess King`),
@@ -810,6 +826,7 @@ export const LevelingQuest: Quest = {
         familiar: $familiar`Cookbookbat`,
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
+      post: () => sendAutumnaton(),
       limit: { tries: 1 },
     },
     {

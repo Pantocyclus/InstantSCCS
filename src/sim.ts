@@ -251,7 +251,7 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`Snokebomb`,
       why: "Banish",
-    },    
+    },
     {
       thing: $skill`Saucegeyser`,
       why: "Combat spell",
