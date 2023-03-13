@@ -403,7 +403,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 - Use a [clover](https://kol.coldfront.net/thekolwiki/index.php/11-leaf_clover) to grab a [cyclops eyedrops](https://kol.coldfront.net/thekolwiki/index.php/Cyclops_eyedrops) from the [Limerick Dungeon](https://kol.coldfront.net/thekolwiki/index.php/The_Limerick_Dungeon) (1 turn, 122+ adv remaining, 14/13/0 organs) <br/>
 - Reconfigure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set)<br/>
   - coal/frozen tower/any other 6 stations (in this specific order)<br/>
-- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) and [yellow rocket](https://kol.coldfront.net/thekolwiki/index.php/Yellow_rocket) a [faxed](https://kol.coldfront.net/thekolwiki/index.php/A_Fax_Machine) [ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith) (1 turn, 121+ adv remaining, 14/13/0 organs)
+- [Bowl Straight Up](https://kol.coldfront.net/thekolwiki/index.php/Bowl_Straight_Up) on an [faxed](https://kol.coldfront.net/thekolwiki/index.php/A_Fax_Machine) [ungulith](https://kol.coldfront.net/thekolwiki/index.php/Ungulith) and grab a [cowrrupted marrow](https://kol.coldfront.net/thekolwiki/index.php/Corrupted_marrow)(1 turn, 121+ adv remaining, 14/13/0 organs)
 - Configure your [umbrella](https://kol.coldfront.net/thekolwiki/index.php/Unbreakable_umbrella) to the bucket state, then equip it<br/>
 - Use Mus Test [reward](https://kol.coldfront.net/thekolwiki/index.php/Bag_of_grain) and [cyclops eyedrops](https://kol.coldfront.net/thekolwiki/index.php/Cyclops_eyedrops) <br/>
 - Craft and eat a [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg) (127+ adv remaining, 15/13/0 organs)<br/>
@@ -414,7 +414,7 @@ This plan tracks the most pessimistic adventure gains from consumables. You shou
 
 > Item Test (24 turns, 103+ adv remaining, 15/13/0 organs) <br/>
 
-- [Reminisce](https://kol.coldfront.net/thekolwiki/index.php/Reminiscing_About_Those_Monsters_You_Fought) an [factory worker (female)](<https://kol.coldfront.net/thekolwiki/index.php/Factory_worker_(female)>) for the [cowrrupted marrow](https://kol.coldfront.net/thekolwiki/index.php/Corrupted_marrow) (1 turn, 102+ adv remaining, 15/13/0 organs)<br/>
+- [Reminisce](https://kol.coldfront.net/thekolwiki/index.php/Reminiscing_About_Those_Monsters_You_Fought) and [yellow rocket](https://kol.coldfront.net/thekolwiki/index.php/Yellow_rocket) a [factory worker (female)](<https://kol.coldfront.net/thekolwiki/index.php/Factory_worker_(female)>) for some [hot-resist](https://kol.coldfront.net/thekolwiki/index.php/Heat-resistant_gloves) [gear](https://kol.coldfront.net/thekolwiki/index.php/Lava-proof_pants)(1 turn, 102+ adv remaining, 15/13/0 organs)<br/>
   - You should also have obtained [Double Frozen](https://kol.coldfront.net/thekolwiki/index.php/Double_Frozen) from your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set).
 - Cast [leash of linguini](<https://kol.coldfront.net/thekolwiki/index.php/Leash_of_Linguini_(skill)>) and [empathy](https://kol.coldfront.net/thekolwiki/index.php/Empathy_of_the_Newt)<br/>
 - Use [NC](https://kol.coldfront.net/thekolwiki/index.php/Silver_face_paint) and [Myst Test rewards](https://kol.coldfront.net/thekolwiki/index.php/Pocket_maze)<br/>
