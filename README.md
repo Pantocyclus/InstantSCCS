@@ -176,7 +176,6 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Shattering Punch](https://kol.coldfront.net/thekolwiki/index.php/Shattering_Punch)                                               | free kill               |
 | [Gingerbread Mob Hit](https://kol.coldfront.net/thekolwiki/index.php/Gingerbread_Mob_Hit)                                         | free kill               |
 | [Snokebomb](https://kol.coldfront.net/thekolwiki/index.php/Snokebomb)                                                             | free banish             |
-| [Curse of Weaksauce](https://kol.coldfront.net/thekolwiki/index.php/Curse_of_Weaksauce)                                           | attacking spell         |
 | [Saucegeyser](https://kol.coldfront.net/thekolwiki/index.php/Saucegeyser)                                                         | attacking spell         |
 | [Advanced Saucecrafting](https://kol.coldfront.net/thekolwiki/index.php/Advanced_Saucecrafting)                                   | saucecrafting           |
 | [The Way of Sauce](https://kol.coldfront.net/thekolwiki/index.php/The_Way_of_Sauce)                                               | saucecrafting           |
@@ -187,6 +186,8 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Drinking to Drink](https://kol.coldfront.net/thekolwiki/index.php/Drinking_to_Drink)                                             | turngen                 |
 | [Cannelloni Cocoon](https://kol.coldfront.net/thekolwiki/index.php/Cannelloni_Cocoon)                                             | hp regen                |
 | [Inner Sauce](https://kol.coldfront.net/thekolwiki/index.php/Inner_Sauce)                                                         | mp regen                |
+| [Soul Saucery](https://kol.coldfront.net/thekolwiki/index.php/Soul_Saucery)                                                       | mp regen                |
+| [Curse of Weaksauce](https://kol.coldfront.net/thekolwiki/index.php/Curse_of_Weaksauce)                                           | mp regen                |
 | [Double-Fisted Skull Smashing](https://kol.coldfront.net/thekolwiki/index.php/Double-Fisted_Skull_Smashing)                       | stat test               |
 | [Carol of the Bulls](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Bulls_(skill)>)                                 | wdmg test               |
 | [Carol of the Hells](<https://kol.coldfront.net/thekolwiki/index.php/Carol_of_the_Hells_(skill)>)                                 | sdmg test               |
