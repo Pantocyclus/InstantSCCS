@@ -782,7 +782,7 @@ export const LevelingQuest: Quest = {
       name: "Acquire Wad of Dough",
       completed: () => have($item`wad of dough`),
       do: (): void => {
-        if (!have($item`all-purpose flower`)) buy($item`all-purpose flower, 1);
+        if (!have($item`all-purpose flower`)) buy($item`all-purpose flower`, 1);
         use($item`all-purpose flower`, 1);
       },
       post: (): void => {
