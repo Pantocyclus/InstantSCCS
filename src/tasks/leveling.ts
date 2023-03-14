@@ -580,7 +580,9 @@ export const LevelingQuest: Quest = {
         if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
         unbreakableUmbrella();
       },
-      completed: () => CombatLoversLocket.monstersReminisced().includes($monster`red skeleton`),
+      completed: () => 
+        CombatLoversLocket.monstersReminisced().includes($monster`red skeleton`) ||
+        !CombatLoversLocket.availableLocketMonsters().includes($monster`red skeleton`),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
       combat: new CombatStrategy().macro(Macro.tryItem($item`yellow rocket`).abort()),
       outfit: {
@@ -831,7 +833,9 @@ export const LevelingQuest: Quest = {
         tryAcquiringEffect($effect`Starry-Eyed`);
         restoreMp(50);
       },
-      completed: () => CombatLoversLocket.monstersReminisced().includes($monster`Witchess King`),
+      completed: () => 
+        CombatLoversLocket.monstersReminisced().includes($monster`Witchess King`) ||
+        !CombatLoversLocket.availableLocketMonsters().includes($monster`Witchess King`),
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
