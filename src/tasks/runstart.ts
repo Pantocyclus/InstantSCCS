@@ -368,7 +368,8 @@ export const RunStartQuest: Quest = {
     {
       name: "Kramco",
       prepare: (): void => {
-        restoreHp(clamp(500, myMaxhp() / 2, myMaxhp()));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        restoreMp(50);
       },
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
@@ -380,11 +381,11 @@ export const RunStartQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       combat: new CombatStrategy().macro(Macro.default()),
-      post: () =>
-        eat(
-          itemAmount($item`magical sausage`) + itemAmount($item`magical sausage casing`),
-          $item`magical sausage`
-        ),
+      post: (): void => {
+        if (have($item`magical sausage casing`) && myMeat() >= 500)
+            create($item`magical sausage`, 1);
+        eat($item`magical sausage`, itemAmount($item`magical sausage`));
+      },
     },
   ],
 };
