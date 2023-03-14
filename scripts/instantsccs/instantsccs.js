@@ -12543,7 +12543,7 @@ var SpellDamageQuest = {
       }
     },
     completed: () => CommunityService.SpellDamage.isDone(),
-    do: () => CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 51),
+    do: () => CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 55),
     outfit: {
       modifier: "spell dmg, switch disembodied hand, -switch left-hand man"
     },
