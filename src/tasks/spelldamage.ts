@@ -78,7 +78,7 @@ export const SpellDamageQuest: Quest = {
       },
       completed: () => CommunityService.SpellDamage.isDone(),
       do: () =>
-        CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 51),
+        CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 55),
       outfit: { modifier: "spell dmg, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },
     },
