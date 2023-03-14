@@ -1,6 +1,7 @@
 import { Quest } from "../engine/task";
 import {
   adv1,
+  autosell,
   availableChoiceOptions,
   buy,
   chew,
@@ -374,6 +375,18 @@ export const LevelingQuest: Quest = {
       limit: { tries: 6 },
     },
     {
+      name: "Eat Magical Sausages",
+      completed: () => 
+        (!have($item`magical sausage`) && !have($item`magical sausage casing`)) ||
+        myMeat() <= 3000,
+      do: (): void => {
+        if (have($item`magical sausage casing`)) create($item`magical sausage`, 1);
+        eat($item`magical sausage`, itemAmount($item`magical sausage`));
+      },
+      post: () => autosell($item`meat stack`, itemAmount($item`meat stack`)),
+      limit: { tries: 23 },
+    },
+    {
       name: "BoomBox Meat",
       ready: () => have($item`Punching Potion`),
       completed: () =>
@@ -533,9 +546,7 @@ export const LevelingQuest: Quest = {
       post: (): void => {
         if (!freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none))
           throw new Error("Fought unexpected monster");
-        if (have($item`magical sausage casing`) && myMeat() >= 3000)
-          create($item`magical sausage`, itemAmount($item`magical sausage casing`));
-        eat(itemAmount($item`magical sausage`), $item`magical sausage`);
+        sendAutumnaton();
       },
       limit: { tries: 11 },
     },
@@ -559,12 +570,7 @@ export const LevelingQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       combat: new CombatStrategy().macro(Macro.default()),
-      post: (): void => {
-        if (have($item`magical sausage casing`) && myMeat() >= 3000)
-          create($item`magical sausage`, itemAmount($item`magical sausage casing`));
-        eat(itemAmount($item`magical sausage`), $item`magical sausage`);
-        sendAutumnaton();
-      },
+      post: () => sendAutumnaton(),
     },
     {
       name: "Red Skeleton",
@@ -741,7 +747,7 @@ export const LevelingQuest: Quest = {
         ((itemAmount($item`Yeast of Boris`) >= 3 &&
           itemAmount($item`Vegetable of Jarlsberg`) >= 3 &&
           itemAmount($item`St. Sneaky Pete's Whey`) >= 6) ||
-          craftedCBBFoods.every((it) => have(it) || have(effectModifier(it, "effect")))) &&
+          craftedCBBFoods.some((it) => have(effectModifier(it, "effect")))) &&
         (powerlevelingLocation() !== $location`The Neverending Party` ||
           get("_neverendingPartyFreeTurns") >= 10),
       do: powerlevelingLocation(),
@@ -773,15 +779,22 @@ export const LevelingQuest: Quest = {
       },
     },
     {
+      name: "Acquire Wad of Dough",
+      completed: () => have($item`wad of dough`),
+      do: (): void => {
+        if (!have($item`all-purpose flower`)) buy($item`all-purpose flower, 1);
+        use($item`all-purpose flower`, 1);
+      },
+      post: (): void => {
+        if (!have($item`flat dough`)) use($item`wad of dough`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Craft and Eat CBB Foods",
       after: ["Powerlevel"],
       completed: () => craftedCBBFoods.every((it) => have(effectModifier(it, "effect"))),
       do: (): void => {
-        if (itemAmount($item`wad of dough`) < 2) {
-          buy($item`all-purpose flower`, 1);
-          use($item`all-purpose flower`, 1);
-        }
-
         craftedCBBFoods.forEach((it) => {
           if (!have(effectModifier(it, "effect"))) {
             if (!have(it)) create(it, 1);
@@ -795,6 +808,7 @@ export const LevelingQuest: Quest = {
           eat($item`baked veggie ricotta casserole`, 1);
         }
       },
+      limit: { tries: 1 },
     },
     {
       name: "Drink Bee's Knees",
