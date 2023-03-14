@@ -40,6 +40,7 @@ export const NoncombatQuest: Quest = {
         if (get("_kgbClicksUsed") < 22 && have($item`Kremlin's Greatest Briefcase`))
           cliExecute("briefcase e -combat");
         const usefulEffects: Effect[] = [
+          $effect`A Rose by Any Other Material`,
           $effect`Feeling Lonely`,
           $effect`Gummed Shoes`,
           $effect`Invisible Avatar`,
