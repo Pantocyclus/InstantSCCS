@@ -106,6 +106,7 @@ export const HotResQuest: Quest = {
           use($item`box of Familiar Jacks`, 1);
         }
         const usefulEffects: Effect[] = [
+          $effect`Amazing`,
           $effect`Astral Shell`,
           $effect`Elemental Saucesphere`,
           $effect`Feeling Peaceful`,
@@ -116,6 +117,7 @@ export const HotResQuest: Quest = {
           $effect`Blood Bond`,
           $effect`Empathy`,
           $effect`Leash of Linguini`,
+          $effect`Robot Friends`
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         cliExecute("maximize hot res");
