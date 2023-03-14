@@ -9998,7 +9998,18 @@ var HPQuest = {
       var usefulEffects = [$effect(stat_templateObject2 || (stat_templateObject2 = stat_taggedTemplateLiteral(["A Few Extra Pounds"]))), $effect(stat_templateObject3 || (stat_templateObject3 = stat_taggedTemplateLiteral(["Big"]))), $effect(stat_templateObject4 || (stat_templateObject4 = stat_taggedTemplateLiteral(["Hulkien"]))), $effect(stat_templateObject5 || (stat_templateObject5 = stat_taggedTemplateLiteral(["Mariachi Mood"]))), $effect(stat_templateObject6 || (stat_templateObject6 = stat_taggedTemplateLiteral(["Patience of the Tortoise"]))), $effect(stat_templateObject7 || (stat_templateObject7 = stat_taggedTemplateLiteral(["Power Ballad of the Arrowsmith"]))), $effect(stat_templateObject8 || (stat_templateObject8 = stat_taggedTemplateLiteral(["Quiet Determination"]))), $effect(stat_templateObject9 || (stat_templateObject9 = stat_taggedTemplateLiteral(["Reptilian Fortitude"]))), $effect(stat_templateObject10 || (stat_templateObject10 = stat_taggedTemplateLiteral(["Saucemastery"]))), $effect(stat_templateObject11 || (stat_templateObject11 = stat_taggedTemplateLiteral(["Seal Clubbing Frenzy"]))), $effect(stat_templateObject12 || (stat_templateObject12 = stat_taggedTemplateLiteral(["Song of Starch"]))), $effect(stat_templateObject13 || (stat_templateObject13 = stat_taggedTemplateLiteral(["Stevedave's Shanty of Superiority"]))), $effect(stat_templateObject14 || (stat_templateObject14 = stat_taggedTemplateLiteral(["Triple-Sized"])))];
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
     },
-    do: () => CommunityService.HP.run(() => logTestSetup(CommunityServiceTests.HPTEST), 1),
+    do: () => {
+      var maxTurns = 1;
+      var testTurns = advCost(CommunityServiceTests.HPTEST);
+
+      if (testTurns > maxTurns) {
+        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+      }
+
+      CommunityService.HP.run(() => logTestSetup(CommunityServiceTests.HPTEST), maxTurns);
+    },
     outfit: {
       modifier: "HP, switch disembodied hand, -switch left-hand man"
     },
@@ -10021,7 +10032,18 @@ var MuscleQuest = {
       var usefulEffects = [$effect(stat_templateObject19 || (stat_templateObject19 = stat_taggedTemplateLiteral(["Big"]))), $effect(stat_templateObject20 || (stat_templateObject20 = stat_taggedTemplateLiteral(["Go Get 'Em, Tiger!"]))), $effect(stat_templateObject21 || (stat_templateObject21 = stat_taggedTemplateLiteral(["Hulkien"]))), $effect(stat_templateObject22 || (stat_templateObject22 = stat_taggedTemplateLiteral(["Quiet Determination"]))), $effect(stat_templateObject23 || (stat_templateObject23 = stat_taggedTemplateLiteral(["Power Ballad of the Arrowsmith"]))), $effect(stat_templateObject24 || (stat_templateObject24 = stat_taggedTemplateLiteral(["Rage of the Reindeer"]))), $effect(stat_templateObject25 || (stat_templateObject25 = stat_taggedTemplateLiteral(["Song of Bravado"]))), $effect(stat_templateObject26 || (stat_templateObject26 = stat_taggedTemplateLiteral(["Stevedave's Shanty of Superiority"]))), $effect(stat_templateObject27 || (stat_templateObject27 = stat_taggedTemplateLiteral(["Triple-Sized"])))];
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
     },
-    do: () => CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), 2),
+    do: () => {
+      var maxTurns = 2;
+      var testTurns = advCost(CommunityServiceTests.MUSTEST);
+
+      if (testTurns > maxTurns) {
+        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+      }
+
+      CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), maxTurns);
+    },
     outfit: {
       modifier: "Muscle, switch disembodied hand, -switch left-hand man"
     },
@@ -10043,7 +10065,18 @@ var MysticalityQuest = {
       var usefulEffects = [$effect(stat_templateObject30 || (stat_templateObject30 = stat_taggedTemplateLiteral(["Big"]))), $effect(stat_templateObject31 || (stat_templateObject31 = stat_taggedTemplateLiteral(["Glittering Eyelashes"]))), $effect(stat_templateObject32 || (stat_templateObject32 = stat_taggedTemplateLiteral(["Hulkien"]))), $effect(stat_templateObject33 || (stat_templateObject33 = stat_taggedTemplateLiteral(["The Magical Mojomuscular Melody"]))), $effect(stat_templateObject34 || (stat_templateObject34 = stat_taggedTemplateLiteral(["Triple-Sized"]))), $effect(stat_templateObject35 || (stat_templateObject35 = stat_taggedTemplateLiteral(["Pasta Oneness"]))), $effect(stat_templateObject36 || (stat_templateObject36 = stat_taggedTemplateLiteral(["Quiet Judgement"]))), $effect(stat_templateObject37 || (stat_templateObject37 = stat_taggedTemplateLiteral(["Song of Bravado"]))), $effect(stat_templateObject38 || (stat_templateObject38 = stat_taggedTemplateLiteral(["Stevedave's Shanty of Superiority"])))];
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
     },
-    do: () => CommunityService.Mysticality.run(() => logTestSetup(CommunityServiceTests.MYSTTEST), 1),
+    do: () => {
+      var maxTurns = 1;
+      var testTurns = advCost(CommunityServiceTests.MYSTTEST);
+
+      if (testTurns > maxTurns) {
+        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+      }
+
+      CommunityService.Mysticality.run(() => logTestSetup(CommunityServiceTests.MYSTTEST), maxTurns);
+    },
     outfit: {
       modifier: "Mysticality, switch disembodied hand, -switch left-hand man"
     },
@@ -10070,7 +10103,18 @@ var MoxieQuest = {
       $effect(stat_templateObject44 || (stat_templateObject44 = stat_taggedTemplateLiteral(["Big"]))), $effect(stat_templateObject45 || (stat_templateObject45 = stat_taggedTemplateLiteral(["Blessing of the Bird"]))), $effect(stat_templateObject46 || (stat_templateObject46 = stat_taggedTemplateLiteral(["Blubbered Up"]))), $effect(stat_templateObject47 || (stat_templateObject47 = stat_taggedTemplateLiteral(["Butt-Rock Hair"]))), $effect(stat_templateObject48 || (stat_templateObject48 = stat_taggedTemplateLiteral(["Disco Fever"]))), $effect(stat_templateObject49 || (stat_templateObject49 = stat_taggedTemplateLiteral(["Disco State of Mind"]))), $effect(stat_templateObject50 || (stat_templateObject50 = stat_taggedTemplateLiteral(["Hulkien"]))), $effect(stat_templateObject51 || (stat_templateObject51 = stat_taggedTemplateLiteral(["The Moxious Madrigal"]))), $effect(stat_templateObject52 || (stat_templateObject52 = stat_taggedTemplateLiteral(["Triple-Sized"]))), $effect(stat_templateObject53 || (stat_templateObject53 = stat_taggedTemplateLiteral(["Pomp & Circumsands"]))), $effect(stat_templateObject54 || (stat_templateObject54 = stat_taggedTemplateLiteral(["Quiet Desperation"]))), $effect(stat_templateObject55 || (stat_templateObject55 = stat_taggedTemplateLiteral(["Song of Bravado"]))), $effect(stat_templateObject56 || (stat_templateObject56 = stat_taggedTemplateLiteral(["Stevedave's Shanty of Superiority"])))];
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
     },
-    do: () => CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), 5),
+    do: () => {
+      var maxTurns = 5;
+      var testTurns = advCost(CommunityServiceTests.MOXTEST);
+
+      if (testTurns > maxTurns) {
+        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+      }
+
+      CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), maxTurns);
+    },
     outfit: {
       modifier: "Moxie, switch disembodied hand, -switch left-hand man"
     },
@@ -12022,7 +12066,18 @@ var FamiliarWeightQuest = {
         (0,external_kolmafia_namespaceObject.cliExecute)("maximize familiar weight");
       }
     },
-    do: () => CommunityService.FamiliarWeight.run(() => logTestSetup(CommunityServiceTests.FAMTEST), 50),
+    do: () => {
+      var maxTurns = 50;
+      var testTurns = advCost(CommunityServiceTests.FAMTEST);
+
+      if (testTurns > maxTurns) {
+        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+      }
+
+      CommunityService.FamiliarWeight.run(() => logTestSetup(CommunityServiceTests.FAMTEST), maxTurns);
+    },
     outfit: {
       modifier: "familiar weight",
       familiar: template_string_$familiar(familiarweight_templateObject24 || (familiarweight_templateObject24 = familiarweight_taggedTemplateLiteral(["Cookbookbat"])))
@@ -12080,7 +12135,18 @@ var NoncombatQuest = {
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
       (0,external_kolmafia_namespaceObject.cliExecute)("maximize -combat"); // To avoid maximizer bug, we invoke this once more
     },
-    do: () => CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), 12),
+    do: () => {
+      var maxTurns = 12;
+      var testTurns = advCost(CommunityServiceTests.COMTEST);
+
+      if (testTurns > maxTurns) {
+        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+      }
+
+      CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), maxTurns);
+    },
     outfit: {
       familiar: template_string_$familiar(noncombat_templateObject19 || (noncombat_templateObject19 = noncombat_taggedTemplateLiteral(["Disgeist"]))),
       modifier: "-combat"
@@ -12209,7 +12275,18 @@ var BoozeDropQuest = {
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
     },
     completed: () => CommunityService.BoozeDrop.isDone(),
-    do: () => CommunityService.BoozeDrop.run(() => logTestSetup(CommunityServiceTests.ITEMTEST), 30),
+    do: () => {
+      var maxTurns = 30;
+      var testTurns = advCost(CommunityServiceTests.ITEMTEST);
+
+      if (testTurns > maxTurns) {
+        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+      }
+
+      CommunityService.BoozeDrop.run(() => logTestSetup(CommunityServiceTests.ITEMTEST), maxTurns);
+    },
     outfit: {
       modifier: "Item Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man"
     },
@@ -12295,7 +12372,18 @@ var HotResQuest = {
       (0,external_kolmafia_namespaceObject.cliExecute)("maximize hot res");
     },
     completed: () => CommunityService.HotRes.isDone(),
-    do: () => CommunityService.HotRes.run(() => logTestSetup(CommunityServiceTests.HOTTEST), 35),
+    do: () => {
+      var maxTurns = 35;
+      var testTurns = advCost(CommunityServiceTests.HOTTEST);
+
+      if (testTurns > maxTurns) {
+        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+      }
+
+      CommunityService.HotRes.run(() => logTestSetup(CommunityServiceTests.HOTTEST), maxTurns);
+    },
     outfit: {
       modifier: "hot res",
       familiar: template_string_$familiar(hotres_templateObject51 || (hotres_templateObject51 = hotres_taggedTemplateLiteral(["Exotic Parrot"])))
@@ -12370,7 +12458,18 @@ var WeaponDamageQuest = {
       if (!have($effect(weapondamage_templateObject41 || (weapondamage_templateObject41 = weapondamage_taggedTemplateLiteral(["Outer Wolf\u2122"])))) && have(template_string_$item(weapondamage_templateObject42 || (weapondamage_templateObject42 = weapondamage_taggedTemplateLiteral(["genie bottle"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("genie effect outer wolf");
     },
     completed: () => CommunityService.WeaponDamage.isDone(),
-    do: () => CommunityService.WeaponDamage.run(() => logTestSetup(CommunityServiceTests.WPNTEST), 35),
+    do: () => {
+      var maxTurns = 35;
+      var testTurns = advCost(CommunityServiceTests.WPNTEST);
+
+      if (testTurns > maxTurns) {
+        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+      }
+
+      CommunityService.WeaponDamage.run(() => logTestSetup(CommunityServiceTests.WPNTEST), maxTurns);
+    },
     outfit: {
       modifier: "weapon dmg, switch disembodied hand, -switch left-hand man"
     },
@@ -12547,7 +12646,18 @@ var SpellDamageQuest = {
       }
     },
     completed: () => CommunityService.SpellDamage.isDone(),
-    do: () => CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 55),
+    do: () => {
+      var maxTurns = 55;
+      var testTurns = advCost(CommunityServiceTests.SPELLTEST);
+
+      if (testTurns > maxTurns) {
+        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+      }
+
+      CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), maxTurns);
+    },
     outfit: {
       modifier: "spell dmg, switch disembodied hand, -switch left-hand man"
     },
