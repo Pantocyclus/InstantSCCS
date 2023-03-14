@@ -10862,6 +10862,7 @@ var LevelingQuest = {
     have(template_string_$item(_templateObject136 || (_templateObject136 = leveling_taggedTemplateLiteral(["Rufus's shadow lodestone"])))) || property_get("_shadowRiftCombats", 0) >= 12,
     // eslint-disable-next-line libram/verify-constants
     do: () => {
+      var target = property_get("rufusQuestTarget", "");
       (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=town_right&action=townright_shadowrift");
 
       if ((0,external_kolmafia_namespaceObject.lastChoice)() === 1499) {
@@ -10870,11 +10871,11 @@ var LevelingQuest = {
 
         var _loop = function _loop() {
           var availableChoices = (0,external_kolmafia_namespaceObject.availableChoiceOptions)(true);
-          (0,external_kolmafia_namespaceObject.print)("Try #".concat(tries + 1, " - Target = ").concat(property_get("rufusQuestTarget", ""), "; Choices available:"), "blue");
-          [2, 3, 4].forEach(choice => (0,external_kolmafia_namespaceObject.print)("Choice ".concat(choice, ": ").concat(availableChoices[choice], " (").concat(availableChoices[choice].includes(property_get("rufusQuestTarget", "")) ? "" : "no ", "match)"), "".concat(availableChoices[choice].includes(property_get("rufusQuestTarget", "")) ? "green" : "red")));
-          var currentChoice = [2, 3, 4].filter(choice => availableChoices[choice].includes(property_get("rufusQuestTarget", "")));
+          (0,external_kolmafia_namespaceObject.print)("Try #".concat(tries + 1, " - Target = ").concat(target, "; Choices available:"), "blue");
+          [2, 3, 4].forEach(choice => (0,external_kolmafia_namespaceObject.print)("Choice ".concat(choice, ": ").concat(availableChoices[choice], " (").concat(availableChoices[choice].includes(target) ? "" : "no ", "match)"), "".concat(availableChoices[choice].includes(target) ? "green" : "red")));
+          var currentChoice = [2, 3, 4].filter(choice => availableChoices[choice].includes(target));
           tries += 1;
-          if (currentChoice.length > 0) NCChoice = currentChoice[0];else if (tries >= 10) throw new Error("Did not find ".concat(property_get("rufusQuestTarget", ""), " after 10 tries!"));else (0,external_kolmafia_namespaceObject.runChoice)(5);
+          if (currentChoice.length > 0) NCChoice = currentChoice[0];else if (tries >= 10) throw new Error("Did not find ".concat(target, " after 10 tries!"));else (0,external_kolmafia_namespaceObject.runChoice)(5);
         };
 
         while (NCChoice === 6) {
