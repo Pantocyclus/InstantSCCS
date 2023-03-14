@@ -383,7 +383,7 @@ export const RunStartQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.default()),
       post: (): void => {
         if (have($item`magical sausage casing`) && myMeat() >= 500)
-            create($item`magical sausage`, 1);
+          create($item`magical sausage`, 1);
         eat($item`magical sausage`, itemAmount($item`magical sausage`));
       },
     },

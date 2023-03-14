@@ -27,6 +27,7 @@ import {
   myMeat,
   myMp,
   mySoulsauce,
+  print,
   putCloset,
   restoreHp,
   restoreMp,
@@ -379,9 +380,8 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Eat Magical Sausages",
-      completed: () => 
-        (!have($item`magical sausage`) && !have($item`magical sausage casing`)) ||
-        myMeat() <= 3000,
+      completed: () =>
+        (!have($item`magical sausage`) && !have($item`magical sausage casing`)) || myMeat() <= 3000,
       do: (): void => {
         if (have($item`magical sausage casing`)) create($item`magical sausage`, 1);
         eat($item`magical sausage`, itemAmount($item`magical sausage`));
@@ -399,9 +399,8 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Get Rufus Quest",
-      completed: () =>
-        // eslint-disable-next-line libram/verify-constants
-        have($item`Rufus's shadow lodestone`) || toItem(get("rufusQuestTarget", "")) !== $item.none,
+      // eslint-disable-next-line libram/verify-constants
+      completed: () => get("_shadowAffinityToday", false),
       do: () =>
         // eslint-disable-next-line libram/verify-constants
         use($item`closed-circuit pay phone`),
@@ -433,12 +432,32 @@ export const LevelingQuest: Quest = {
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
         if (lastChoice() === 1499) {
           let NCChoice = 6;
+          let tries = 0;
           while (NCChoice === 6) {
             const availableChoices = availableChoiceOptions(true);
+
+            print(
+              `Try #${tries + 1} - Target = ${get("rufusQuestTarget", "")}; Choices available:`,
+              "blue"
+            );
+            [2, 3, 4].forEach((choice) =>
+              print(
+                `Choice ${choice}: ${availableChoices[choice]} (${
+                  availableChoices[choice].includes(get("rufusQuestTarget", "")) ? "" : "no "
+                }match)`,
+                `${
+                  availableChoices[choice].includes(get("rufusQuestTarget", "")) ? "green" : "red"
+                }`
+              )
+            );
+
             const currentChoice = [2, 3, 4].filter((choice) =>
               availableChoices[choice].includes(get("rufusQuestTarget", ""))
             );
+            tries += 1;
             if (currentChoice.length > 0) NCChoice = currentChoice[0];
+            else if (tries >= 10)
+              throw new Error(`Did not find ${get("rufusQuestTarget", "")} after 10 tries!`);
             else runChoice(5);
           }
           runChoice(NCChoice);
@@ -583,7 +602,7 @@ export const LevelingQuest: Quest = {
         if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
         unbreakableUmbrella();
       },
-      completed: () => 
+      completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`red skeleton`) ||
         !CombatLoversLocket.availableLocketMonsters().includes($monster`red skeleton`),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
@@ -836,7 +855,7 @@ export const LevelingQuest: Quest = {
         tryAcquiringEffect($effect`Starry-Eyed`);
         restoreMp(50);
       },
-      completed: () => 
+      completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`Witchess King`) ||
         !CombatLoversLocket.availableLocketMonsters().includes($monster`Witchess King`),
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
