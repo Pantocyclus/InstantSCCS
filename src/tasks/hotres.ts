@@ -8,6 +8,7 @@ import {
   faxbot,
   inebrietyLimit,
   myInebriety,
+  print,
   use,
   useFamiliar,
 } from "kolmafia";
@@ -25,7 +26,7 @@ import {
 } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 
 export const HotResQuest: Quest = {
   name: "Hot Res",
@@ -123,7 +124,16 @@ export const HotResQuest: Quest = {
         cliExecute("maximize hot res");
       },
       completed: () => CommunityService.HotRes.isDone(),
-      do: () => CommunityService.HotRes.run(() => logTestSetup(CommunityServiceTests.HOTTEST), 35),
+      do: (): void => {
+        const maxTurns = 35;
+        const testTurns = advCost(CommunityServiceTests.HOTTEST);
+        if (testTurns > maxTurns) {
+          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
+          print("Either there was a bug, or you are under-prepared for this test", "red");
+          print("Manually complete the test if you think this is fine.", "red");
+        }
+        CommunityService.HotRes.run(() => logTestSetup(CommunityServiceTests.HOTTEST), maxTurns);
+      },
       outfit: {
         modifier: "hot res",
         familiar: $familiar`Exotic Parrot`,

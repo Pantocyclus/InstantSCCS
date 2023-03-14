@@ -1,5 +1,5 @@
 import { CombatStrategy } from "grimoire-kolmafia";
-import { cliExecute, create, Effect, use, useFamiliar } from "kolmafia";
+import { cliExecute, create, Effect, print, use, useFamiliar } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -12,7 +12,7 @@ import {
   Macro,
 } from "libram";
 import { Quest } from "../engine/task";
-import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 
 export const FamiliarWeightQuest: Quest = {
   name: "Familiar Weight",
@@ -62,8 +62,19 @@ export const FamiliarWeightQuest: Quest = {
           cliExecute("maximize familiar weight");
         }
       },
-      do: () =>
-        CommunityService.FamiliarWeight.run(() => logTestSetup(CommunityServiceTests.FAMTEST), 50),
+      do: (): void => {
+        const maxTurns = 50;
+        const testTurns = advCost(CommunityServiceTests.FAMTEST);
+        if (testTurns > maxTurns) {
+          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
+          print("Either there was a bug, or you are under-prepared for this test", "red");
+          print("Manually complete the test if you think this is fine.", "red");
+        }
+        CommunityService.FamiliarWeight.run(
+          () => logTestSetup(CommunityServiceTests.FAMTEST),
+          maxTurns
+        );
+      },
       outfit: { modifier: "familiar weight", familiar: $familiar`Cookbookbat` },
       limit: { tries: 1 },
     },

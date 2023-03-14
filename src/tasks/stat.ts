@@ -1,4 +1,4 @@
-import { create, Effect, useSkill } from "kolmafia";
+import { create, Effect, print, useSkill } from "kolmafia";
 import {
   $effect,
   $effects,
@@ -10,7 +10,7 @@ import {
   uneffect,
 } from "libram";
 import { Quest } from "../engine/task";
-import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 
 export const HPQuest: Quest = {
   name: "HP",
@@ -39,7 +39,16 @@ export const HPQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
-      do: () => CommunityService.HP.run(() => logTestSetup(CommunityServiceTests.HPTEST), 1),
+      do: (): void => {
+        const maxTurns = 1;
+        const testTurns = advCost(CommunityServiceTests.HPTEST);
+        if (testTurns > maxTurns) {
+          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
+          print("Either there was a bug, or you are under-prepared for this test", "red");
+          print("Manually complete the test if you think this is fine.", "red");
+        }
+        CommunityService.HP.run(() => logTestSetup(CommunityServiceTests.HPTEST), maxTurns);
+      },
       outfit: { modifier: "HP, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },
     },
@@ -70,7 +79,16 @@ export const MuscleQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
-      do: () => CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), 2),
+      do: (): void => {
+        const maxTurns = 2;
+        const testTurns = advCost(CommunityServiceTests.MUSTEST);
+        if (testTurns > maxTurns) {
+          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
+          print("Either there was a bug, or you are under-prepared for this test", "red");
+          print("Manually complete the test if you think this is fine.", "red");
+        }
+        CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), maxTurns);
+      },
       outfit: { modifier: "Muscle, switch disembodied hand, -switch left-hand man" },
       post: (): void => {
         uneffect($effect`Power Ballad of the Arrowsmith`);
@@ -101,8 +119,19 @@ export const MysticalityQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
-      do: () =>
-        CommunityService.Mysticality.run(() => logTestSetup(CommunityServiceTests.MYSTTEST), 1),
+      do: (): void => {
+        const maxTurns = 1;
+        const testTurns = advCost(CommunityServiceTests.MYSTTEST);
+        if (testTurns > maxTurns) {
+          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
+          print("Either there was a bug, or you are under-prepared for this test", "red");
+          print("Manually complete the test if you think this is fine.", "red");
+        }
+        CommunityService.Mysticality.run(
+          () => logTestSetup(CommunityServiceTests.MYSTTEST),
+          maxTurns
+        );
+      },
       outfit: { modifier: "Mysticality, switch disembodied hand, -switch left-hand man" },
       post: (): void => {
         uneffect($effect`The Magical Mojomuscular Melody`);
@@ -141,7 +170,16 @@ export const MoxieQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
-      do: () => CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), 5),
+      do: (): void => {
+        const maxTurns = 5;
+        const testTurns = advCost(CommunityServiceTests.MOXTEST);
+        if (testTurns > maxTurns) {
+          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
+          print("Either there was a bug, or you are under-prepared for this test", "red");
+          print("Manually complete the test if you think this is fine.", "red");
+        }
+        CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), maxTurns);
+      },
       outfit: { modifier: "Moxie, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },
     },

@@ -1,7 +1,7 @@
 import { Quest } from "../engine/task";
-import { buy, cliExecute, Effect, runChoice, visitUrl } from "kolmafia";
+import { buy, cliExecute, Effect, print, runChoice, visitUrl } from "kolmafia";
 import { $effect, $familiar, $item, CommunityService, get, have, Macro, uneffect } from "libram";
-import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 
 export const NoncombatQuest: Quest = {
@@ -58,8 +58,16 @@ export const NoncombatQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
       },
-      do: () =>
-        CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), 12),
+      do: (): void => {
+        const maxTurns = 12;
+        const testTurns = advCost(CommunityServiceTests.COMTEST);
+        if (testTurns > maxTurns) {
+          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
+          print("Either there was a bug, or you are under-prepared for this test", "red");
+          print("Manually complete the test if you think this is fine.", "red");
+        }
+        CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), maxTurns);
+      },
       outfit: {
         familiar: $familiar`Disgeist`,
         modifier: "-combat",

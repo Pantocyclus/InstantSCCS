@@ -12,6 +12,7 @@ import {
   inebrietyLimit,
   itemAmount,
   myInebriety,
+  print,
   use,
 } from "kolmafia";
 import {
@@ -36,7 +37,7 @@ import {
   setConfiguration,
   Station,
 } from "libram/dist/resources/2022/TrainSet";
-import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 
 export const BoozeDropQuest: Quest = {
@@ -162,8 +163,19 @@ export const BoozeDropQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
-      do: () =>
-        CommunityService.BoozeDrop.run(() => logTestSetup(CommunityServiceTests.ITEMTEST), 30),
+      do: (): void => {
+        const maxTurns = 30;
+        const testTurns = advCost(CommunityServiceTests.ITEMTEST);
+        if (testTurns > maxTurns) {
+          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
+          print("Either there was a bug, or you are under-prepared for this test", "red");
+          print("Manually complete the test if you think this is fine.", "red");
+        }
+        CommunityService.BoozeDrop.run(
+          () => logTestSetup(CommunityServiceTests.ITEMTEST),
+          maxTurns
+        );
+      },
       outfit: {
         modifier:
           "Item Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man",

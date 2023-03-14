@@ -1,5 +1,14 @@
 import { CombatStrategy } from "grimoire-kolmafia";
-import { buy, drink, Effect, inebrietyLimit, myAdventures, myInebriety, useSkill } from "kolmafia";
+import {
+  buy,
+  drink,
+  Effect,
+  inebrietyLimit,
+  myAdventures,
+  myInebriety,
+  print,
+  useSkill,
+} from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -77,8 +86,19 @@ export const SpellDamageQuest: Quest = {
         }
       },
       completed: () => CommunityService.SpellDamage.isDone(),
-      do: () =>
-        CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), 55),
+      do: (): void => {
+        const maxTurns = 55;
+        const testTurns = advCost(CommunityServiceTests.SPELLTEST);
+        if (testTurns > maxTurns) {
+          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
+          print("Either there was a bug, or you are under-prepared for this test", "red");
+          print("Manually complete the test if you think this is fine.", "red");
+        }
+        CommunityService.SpellDamage.run(
+          () => logTestSetup(CommunityServiceTests.SPELLTEST),
+          maxTurns
+        );
+      },
       outfit: { modifier: "spell dmg, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },
     },

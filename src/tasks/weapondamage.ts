@@ -7,6 +7,7 @@ import {
   inebrietyLimit,
   myHash,
   myInebriety,
+  print,
   retrieveItem,
   visitUrl,
 } from "kolmafia";
@@ -23,7 +24,7 @@ import {
   SongBoom,
 } from "libram";
 import { Quest } from "../engine/task";
-import { CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 
 export const WeaponDamageQuest: Quest = {
   name: "Weapon Damage",
@@ -111,8 +112,19 @@ export const WeaponDamageQuest: Quest = {
           cliExecute("genie effect outer wolf");
       },
       completed: () => CommunityService.WeaponDamage.isDone(),
-      do: () =>
-        CommunityService.WeaponDamage.run(() => logTestSetup(CommunityServiceTests.WPNTEST), 35),
+      do: (): void => {
+        const maxTurns = 35;
+        const testTurns = advCost(CommunityServiceTests.WPNTEST);
+        if (testTurns > maxTurns) {
+          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
+          print("Either there was a bug, or you are under-prepared for this test", "red");
+          print("Manually complete the test if you think this is fine.", "red");
+        }
+        CommunityService.WeaponDamage.run(
+          () => logTestSetup(CommunityServiceTests.WPNTEST),
+          maxTurns
+        );
+      },
       outfit: { modifier: "weapon dmg, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },
     },
