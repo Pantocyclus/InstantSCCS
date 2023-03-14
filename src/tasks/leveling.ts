@@ -429,6 +429,7 @@ export const LevelingQuest: Quest = {
         have($item`Rufus's shadow lodestone`) || get("_shadowRiftCombats", 0) >= 12,
       // eslint-disable-next-line libram/verify-constants
       do: (): void => {
+        const target = get("rufusQuestTarget", "");
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
         if (lastChoice() === 1499) {
           let NCChoice = 6;
@@ -436,28 +437,22 @@ export const LevelingQuest: Quest = {
           while (NCChoice === 6) {
             const availableChoices = availableChoiceOptions(true);
 
-            print(
-              `Try #${tries + 1} - Target = ${get("rufusQuestTarget", "")}; Choices available:`,
-              "blue"
-            );
+            print(`Try #${tries + 1} - Target = ${target}; Choices available:`, "blue");
             [2, 3, 4].forEach((choice) =>
               print(
                 `Choice ${choice}: ${availableChoices[choice]} (${
-                  availableChoices[choice].includes(get("rufusQuestTarget", "")) ? "" : "no "
+                  availableChoices[choice].includes(target) ? "" : "no "
                 }match)`,
-                `${
-                  availableChoices[choice].includes(get("rufusQuestTarget", "")) ? "green" : "red"
-                }`
+                `${availableChoices[choice].includes(target) ? "green" : "red"}`
               )
             );
 
             const currentChoice = [2, 3, 4].filter((choice) =>
-              availableChoices[choice].includes(get("rufusQuestTarget", ""))
+              availableChoices[choice].includes(target)
             );
             tries += 1;
             if (currentChoice.length > 0) NCChoice = currentChoice[0];
-            else if (tries >= 10)
-              throw new Error(`Did not find ${get("rufusQuestTarget", "")} after 10 tries!`);
+            else if (tries >= 10) throw new Error(`Did not find ${target} after 10 tries!`);
             else runChoice(5);
           }
           runChoice(NCChoice);
