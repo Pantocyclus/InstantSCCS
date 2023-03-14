@@ -27,6 +27,7 @@ import {
   myMeat,
   myMp,
   mySoulsauce,
+  putCloset,
   restoreHp,
   restoreMp,
   runChoice,
@@ -340,6 +341,8 @@ export const LevelingQuest: Quest = {
         }
         if (itemAmount($item`oil of expertise`) > 1)
           use($item`oil of expertise`, itemAmount($item`oil of expertise`) - 1);
+        if (have($item`cherry`) && have($effect`Expert Oiliness`))
+          putCloset(itemAmount($item`cherry`), $item`cherry`);
       },
       limit: { tries: 1 },
     },
