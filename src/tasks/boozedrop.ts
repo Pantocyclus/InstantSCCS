@@ -84,6 +84,7 @@ export const BoozeDropQuest: Quest = {
       },
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`factory worker (female)`) ||
+        !CombatLoversLocket.availableLocketMonsters().includes($monster`factory worker (female)`) ||
         have($effect`Everything Looks Yellow`),
       do: () => CombatLoversLocket.reminisce($monster`factory worker (female)`),
       outfit: {
