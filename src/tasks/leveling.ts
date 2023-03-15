@@ -430,7 +430,7 @@ export const LevelingQuest: Quest = {
       // eslint-disable-next-line libram/verify-constants
       do: (): void => {
         const target = get("rufusQuestTarget", "");
-        visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
+        visitUrl("place.php?whichplace=town_right&action=townright_shadowrift_free");
         if (lastChoice() === 1499) {
           let NCChoice = 6;
           let tries = 0;
