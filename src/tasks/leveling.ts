@@ -11,6 +11,7 @@ import {
   eat,
   Effect,
   effectModifier,
+  haveEffect,
   inebrietyLimit,
   Item,
   itemAmount,
@@ -452,10 +453,7 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Shadow Rift",
-      ready: () =>
-        // eslint-disable-next-line libram/verify-constants
-        toItem(get("rufusQuestTarget", "")) !== $item.none,
+      name: "Restore MP with Glowing Blue",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
@@ -466,6 +464,62 @@ export const LevelingQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
           buy($item`blue rocket`, 1);
         }
+        unbreakableUmbrella();
+        restoreMp(50);
+      },
+      completed: () => have($effect`Everything Looks Blue`),
+      do: powerlevelingLocation(), // if your powerleveling location is the NEP you don't immediately get the MP regen
+      combat: new CombatStrategy().macro(
+        Macro.tryItem($item`red rocket`)
+          .tryItem($item`blue rocket`)
+          .default()
+      ),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+      },
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Restore MP with Glowing Blue (continued)",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        restoreMp(50);
+      },
+      // We need to spend at least 1adv to get the mp regen from Glowing Blue
+      // This is only an issue if our powerleveling zone is the NEP, since the previous fight would be free
+      completed: () =>
+        powerlevelingLocation() !== $location`The Neverending Party` ||
+        haveEffect($effect`Glowing Blue`) !== 10 ||
+        myMp() >= 500,
+      do: $location`The Dire Warren`,
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+      },
+      combat: new CombatStrategy().macro(Macro.attack().repeat()),
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Shadow Rift",
+      ready: () =>
+        // eslint-disable-next-line libram/verify-constants
+        toItem(get("rufusQuestTarget", "")) !== $item.none,
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         restoreMp(50);
       },
@@ -507,11 +561,7 @@ export const LevelingQuest: Quest = {
           runChoice(NCChoice);
         }
       },
-      combat: new CombatStrategy().macro(
-        Macro.tryItem($item`red rocket`)
-          .tryItem($item`blue rocket`)
-          .default()
-      ),
+      combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
