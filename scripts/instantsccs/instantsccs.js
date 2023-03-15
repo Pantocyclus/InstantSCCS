@@ -10863,7 +10863,7 @@ var LevelingQuest = {
     // eslint-disable-next-line libram/verify-constants
     do: () => {
       var target = property_get("rufusQuestTarget", "");
-      (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=town_right&action=townright_shadowrift");
+      (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=town_right&action=townright_shadowrift_free");
 
       if ((0,external_kolmafia_namespaceObject.lastChoice)() === 1499) {
         var NCChoice = 6;
