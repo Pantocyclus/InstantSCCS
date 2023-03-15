@@ -13210,10 +13210,6 @@ function main_main(command) {
     engine.execute(task);
   }
 
-  _set("InstantSCCSTurncount", (0,external_kolmafia_namespaceObject.myTurncount)());
-  _set("InstantSCCSRunEnd", (0,external_kolmafia_namespaceObject.gametimeToInt)());
-  _set("InstantSCCSDaycount", (0,external_kolmafia_namespaceObject.myDaycount)());
-  _set("_InstantSCCSClanFortuneAttempts", property_get("_clanFortuneConsultUses", 0));
   (0,external_kolmafia_namespaceObject.print)("Community Service complete!", "purple");
   (0,external_kolmafia_namespaceObject.print)("Adventures used: ".concat((0,external_kolmafia_namespaceObject.turnsPlayed)()), "purple");
   (0,external_kolmafia_namespaceObject.print)("Adventures remaining: ".concat((0,external_kolmafia_namespaceObject.myAdventures)()), "purple");
