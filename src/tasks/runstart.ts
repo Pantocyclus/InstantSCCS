@@ -310,7 +310,8 @@ export const RunStartQuest: Quest = {
       name: "Novelty Tropical Skeleton",
       ready: () => !have($effect`Everything Looks Yellow`) || have($item`cherry`),
       prepare: (): void => {
-        if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
+        if (!have($item`yellow rocket`) && !(have($effect`Everything Looks Yellow`)))
+          buy($item`yellow rocket`, 1);
         if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
           cliExecute("umbrella ml");
         if (get("_snokebombUsed") === 0) restoreMp(50);
