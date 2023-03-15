@@ -150,6 +150,7 @@ export const BoozeDropQuest: Quest = {
       prepare: (): void => {
         const usefulEffects: Effect[] = [
           $effect`Blessing of the Bird`,
+          $effect`Crunching Leaves`,
           $effect`Fat Leon's Phat Loot Lyric`,
           // $effect`Feeling Lost`,
           $effect`items.enh`,
