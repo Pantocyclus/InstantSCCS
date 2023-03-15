@@ -85,10 +85,6 @@ export function main(command?: string): void {
     engine.execute(task);
   }
 
-  set("InstantSCCSTurncount", myTurncount());
-  set("InstantSCCSRunEnd", gametimeToInt());
-  set("InstantSCCSDaycount", myDaycount());
-  set("_InstantSCCSClanFortuneAttempts", get("_clanFortuneConsultUses", 0));
   print("Community Service complete!", "purple");
   print(`Adventures used: ${turnsPlayed()}`, "purple");
   print(`Adventures remaining: ${myAdventures()}`, "purple");
