@@ -247,7 +247,7 @@ export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   if (have(ef)) return; // If we already have the effect, we're done
   if (tryRegardless || canAcquireEffect(ef)) {
     if (ef === $effect`Ode to Booze`) restoreMp(50);
-    cliExecute(efDefaults.replace(/cast 1 /g, "cast "));
+    cliExecute(ef.default.replace(/cast 1 /g, "cast "));
   }
 }
 
