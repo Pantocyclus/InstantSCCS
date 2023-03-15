@@ -1,18 +1,9 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import { cliExecute, create, Effect, print, use, useFamiliar } from "kolmafia";
-import {
-  $effect,
-  $familiar,
-  $item,
-  $location,
-  $skill,
-  CommunityService,
-  get,
-  have,
-  Macro,
-} from "libram";
+import { $effect, $familiar, $item, $location, $skill, CommunityService, get, have } from "libram";
 import { Quest } from "../engine/task";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import Macro from "../combat";
 
 export const FamiliarWeightQuest: Quest = {
   name: "Familiar Weight",

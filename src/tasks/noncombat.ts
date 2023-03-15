@@ -1,8 +1,9 @@
 import { Quest } from "../engine/task";
 import { buy, cliExecute, Effect, print, runChoice, visitUrl } from "kolmafia";
-import { $effect, $familiar, $item, CommunityService, get, have, Macro, uneffect } from "libram";
+import { $effect, $familiar, $item, CommunityService, get, have, uneffect } from "libram";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
+import Macro from "../combat";
 
 export const NoncombatQuest: Quest = {
   name: "Noncombat",

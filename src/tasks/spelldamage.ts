@@ -19,10 +19,10 @@ import {
   CommunityService,
   get,
   have,
-  Macro,
 } from "libram";
 import { Quest } from "../engine/task";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import Macro from "../combat";
 
 export const SpellDamageQuest: Quest = {
   name: "Spell Damage",

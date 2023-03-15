@@ -1,13 +1,13 @@
 import { Quest } from "../engine/task";
 import {
   adv1,
-  buy,
   cliExecute,
   create,
   drink,
   eat,
   Effect,
   equip,
+  faxbot,
   getWorkshed,
   inebrietyLimit,
   itemAmount,
@@ -23,11 +23,9 @@ import {
   $monster,
   $skill,
   $slot,
-  CombatLoversLocket,
   CommunityService,
   get,
   have,
-  Macro,
   TrainSet,
   uneffect,
 } from "libram";
@@ -39,6 +37,7 @@ import {
 } from "libram/dist/resources/2022/TrainSet";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
+import Macro from "../combat";
 
 export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
@@ -78,25 +77,34 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Reminisce Factory Worker (female)",
+      name: "Fax Ungulith",
       prepare: (): void => {
-        if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`))
-          buy($item`yellow rocket`, 1);
+        if (have($item`industrial fire extinguisher`))
+          equip($slot`offhand`, $item`industrial fire extinguisher`);
         if (have($item`vampyric cloake`)) equip($slot`back`, $item`vampyric cloake`);
       },
-      completed: () =>
-        CombatLoversLocket.monstersReminisced().includes($monster`factory worker (female)`) ||
-        !CombatLoversLocket.availableLocketMonsters().includes($monster`factory worker (female)`),
-      do: () => CombatLoversLocket.reminisce($monster`factory worker (female)`),
+      completed: () => get("_photocopyUsed"),
+      do: (): void => {
+        cliExecute("chat");
+        if (
+          (have($item`photocopied monster`) || faxbot($monster`ungulith`)) &&
+          get("photocopyMonster") === $monster`ungulith`
+        ) {
+          use($item`photocopied monster`);
+        }
+      },
       outfit: {
         familiar: $familiar`Cookbookbat`,
-        modifier: "Item Drop",
+        modifier: "myst",
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Become a Bat`)
-          .tryItem($item`yellow rocket`)
-          .abort()
+          .externalIf(
+            have($item`industrial fire extinguisher`),
+            Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`)
+          )
+          .default()
       ),
       limit: { tries: 1 },
     },
@@ -147,7 +155,6 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Test",
-      after: ["Reminisce Factory Worker (female)"],
       prepare: (): void => {
         const usefulEffects: Effect[] = [
           $effect`Blessing of the Bird`,

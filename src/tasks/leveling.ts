@@ -63,9 +63,9 @@ import {
   Witchess,
 } from "libram";
 import { CombatStrategy } from "grimoire-kolmafia";
-import Macro from "../combat";
 import { tryAcquiringEffect } from "../lib";
 import { docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
+import Macro from "../combat";
 
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;

@@ -21,9 +21,9 @@ import {
   CommunityService,
   get,
   have,
-  Macro,
   SongBoom,
 } from "libram";
+import Macro from "../combat";
 import { Quest } from "../engine/task";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 

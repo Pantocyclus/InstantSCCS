@@ -1,11 +1,11 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
+  buy,
   cliExecute,
   create,
   drink,
   Effect,
   equip,
-  faxbot,
   inebrietyLimit,
   myInebriety,
   print,
@@ -19,40 +19,39 @@ import {
   $monster,
   $skill,
   $slot,
+  CombatLoversLocket,
   CommunityService,
   get,
   have,
   uneffect,
 } from "libram";
-import Macro from "../combat";
 import { Quest } from "../engine/task";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import Macro from "../combat";
 
 export const HotResQuest: Quest = {
   name: "Hot Res",
   completed: () => CommunityService.HotRes.isDone(),
   tasks: [
     {
-      name: "Fax Ungulith",
+      name: "Reminisce Factory Worker (female)",
       prepare: (): void => {
+        if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`))
+          buy($item`yellow rocket`, 1);
         if (have($item`Fourth of May Cosplay Saber`))
           equip($slot`weapon`, $item`Fourth of May Cosplay Saber`);
         if (have($item`industrial fire extinguisher`))
           equip($slot`offhand`, $item`industrial fire extinguisher`);
         if (have($item`vampyric cloake`)) equip($slot`back`, $item`vampyric cloake`);
       },
-      completed: () => get("_photocopyUsed"),
-      do: (): void => {
-        cliExecute("chat");
-        if (
-          (have($item`photocopied monster`) || faxbot($monster`ungulith`)) &&
-          get("photocopyMonster") === $monster`ungulith`
-        ) {
-          use($item`photocopied monster`);
-        }
+      completed: () =>
+        CombatLoversLocket.monstersReminisced().includes($monster`factory worker (female)`) ||
+        !CombatLoversLocket.availableLocketMonsters().includes($monster`factory worker (female)`),
+      do: () => CombatLoversLocket.reminisce($monster`factory worker (female)`),
+      outfit: {
+        familiar: $familiar`Cookbookbat`,
+        modifier: "Item Drop",
       },
-      outfit: { modifier: "myst", familiar: $familiar`Cookbookbat` },
-      limit: { tries: 1 },
       choices: { 1387: 3 },
       combat: new CombatStrategy().macro(
         Macro.externalIf(
@@ -60,17 +59,17 @@ export const HotResQuest: Quest = {
           Macro.trySkill($skill`Become a Cloud of Mist`)
         )
           .externalIf(
-            have($item`industrial fire extinguisher`),
-            Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`).externalIf(
-              have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5,
-              Macro.trySkill($skill`Fire Extinguisher: Foam Yourself`).trySkill(
-                $skill`Use the Force`
-              )
-            )
+            have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5,
+            Macro.externalIf(
+              have($item`industrial fire extinguisher`),
+              Macro.trySkill($skill`Fire Extinguisher: Foam Yourself`)
+            ).trySkill($skill`Use the Force`)
           )
           .trySkill($skill`Shocking Lick`)
+          .tryItem($item`yellow rocket`)
           .default()
       ),
+      limit: { tries: 1 },
     },
     {
       name: "Drink Boris Beer",
