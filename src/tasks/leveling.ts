@@ -86,6 +86,7 @@ const usefulEffects: Effect[] = [
   // $effect`Think Win-Lose`,
   // $effect`Confidence of the Votive`,
   $effect`Song of Bravado`,
+  $effect`Sparkling Consciousness`,
 
   // ML
   $effect`Pride of the Puffin`,
@@ -117,6 +118,46 @@ function powerlevelingLocation(): Location {
 
 function sendAutumnaton(): void {
   if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+}
+
+function sellMiscellaneousItems(): void {
+  const items: Item[] = [
+    $item`cardboard ore`,
+    $item`hot buttered roll`,
+    $item`toast`,
+    $item`bottle of gin`,
+    $item`bottle of rum`,
+    $item`bottle of tequila`,
+    $item`bottle of vodka`,
+    $item`bottle of whiskey`,
+    $item`boxed wine`,
+    $item`meat paste`,
+    $item`meat stack`,
+    $item`jar of swamp honey`,
+    $item`turtle voicebox`,
+    $item`grody jug`,
+    $item`gas can`,
+    $item`Middle of the Road™ brand whiskey`,
+    $item`neverending wallet chain`,
+    $item`pentagram bandana`,
+    $item`denim jacket`,
+    $item`ratty knitted cap`,
+    $item`jam band bootleg`,
+    $item`Purple Beast energy drink`,
+    $item`cosmetic football`,
+    $item`shoe ad T-shirt`,
+    $item`pump-up high-tops`,
+    $item`noticeable pumps`,
+    $item`surprisingly capacious handbag`,
+    $item`electronics kit`,
+    $item`PB&J with the crusts cut off`,
+    $item`dorky glasses`,
+    $item`ponytail clip`,
+    $item`paint palette`,
+  ];
+  items.forEach((it) => {
+    if (itemAmount(it) > 1) autosell(it, itemAmount(it) - 1);
+  });
 }
 
 export const LevelingQuest: Quest = {
@@ -417,10 +458,14 @@ export const LevelingQuest: Quest = {
         toItem(get("rufusQuestTarget", "")) !== $item.none,
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`))
+        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
+          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase red rocket!");
           buy($item`red rocket`, 1);
-        if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`))
+        }
+        if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`)) {
+          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
           buy($item`blue rocket`, 1);
+        }
         unbreakableUmbrella();
         restoreMp(50);
       },
@@ -430,10 +475,11 @@ export const LevelingQuest: Quest = {
       // eslint-disable-next-line libram/verify-constants
       do: (): void => {
         const target = get("rufusQuestTarget", "");
+        // eslint-disable-next-line libram/verify-constants
         if (have($effect`Shadow Affinity`))
           visitUrl("place.php?whichplace=town_right&action=townright_shadowrift_free");
         else visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
-        
+
         if (lastChoice() === 1499) {
           let NCChoice = 6;
           let tries = 0;
@@ -481,6 +527,7 @@ export const LevelingQuest: Quest = {
           use($item`closed-circuit pay phone`);
         }
         sendAutumnaton();
+        sellMiscellaneousItems();
       },
       limit: { tries: 12 },
     },
@@ -508,6 +555,7 @@ export const LevelingQuest: Quest = {
       post: (): void => {
         if (get("_snojoFreeFights") >= 10) cliExecute("hottub");
         sendAutumnaton();
+        sellMiscellaneousItems();
       },
     },
     {
@@ -534,6 +582,7 @@ export const LevelingQuest: Quest = {
       },
       post: (): void => {
         sendAutumnaton();
+        sellMiscellaneousItems();
       },
       limit: { tries: 4 },
     },
@@ -567,6 +616,7 @@ export const LevelingQuest: Quest = {
         if (!freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none))
           throw new Error("Fought unexpected monster");
         sendAutumnaton();
+        sellMiscellaneousItems();
       },
       limit: { tries: 11 },
     },
@@ -590,14 +640,20 @@ export const LevelingQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       combat: new CombatStrategy().macro(Macro.default()),
-      post: () => sendAutumnaton(),
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
     },
     {
       name: "Red Skeleton",
       ready: () => !have($effect`Everything Looks Yellow`),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (!have($item`yellow rocket`)) buy($item`yellow rocket`, 1);
+        if (!have($item`yellow rocket`)) {
+          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
+          buy($item`yellow rocket`, 1);
+        }
         unbreakableUmbrella();
       },
       completed: () =>
@@ -615,6 +671,7 @@ export const LevelingQuest: Quest = {
       post: (): void => {
         use($item`red box`, 1);
         sendAutumnaton();
+        sellMiscellaneousItems();
       },
       limit: { tries: 1 },
     },
@@ -650,6 +707,7 @@ export const LevelingQuest: Quest = {
         if (have($item`LOV Extraterrestrial Chocolate`))
           use($item`LOV Extraterrestrial Chocolate`, 1);
         sendAutumnaton();
+        sellMiscellaneousItems();
       },
     },
     {
@@ -670,7 +728,10 @@ export const LevelingQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       limit: { tries: 3 },
-      post: () => sendAutumnaton(),
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
     },
     {
       name: "God Lobster",
@@ -694,7 +755,10 @@ export const LevelingQuest: Quest = {
       },
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 3 },
-      post: () => sendAutumnaton(),
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
     },
     {
       name: "Eldritch Tentacle",
@@ -709,6 +773,7 @@ export const LevelingQuest: Quest = {
       post: (): void => {
         if (have($effect`Beaten Up`)) cliExecute("hottub");
         sendAutumnaton();
+        sellMiscellaneousItems();
       },
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
@@ -738,7 +803,10 @@ export const LevelingQuest: Quest = {
         familiar: $familiar`Cookbookbat`,
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
-      post: () => sendAutumnaton(),
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
       limit: { tries: 5 },
     },
     {
@@ -760,7 +828,10 @@ export const LevelingQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       limit: { tries: 5 },
-      post: () => sendAutumnaton(),
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
     },
     {
       name: "Powerlevel",
@@ -798,12 +869,14 @@ export const LevelingQuest: Quest = {
       post: (): void => {
         if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
         sendAutumnaton();
+        sellMiscellaneousItems();
       },
     },
     {
       name: "Acquire Wad of Dough",
       completed: () => have($item`wad of dough`),
       do: (): void => {
+        if (myMeat() < 100) throw new Error("Insufficient Meat to purchase all-purpose flower!");
         if (!have($item`all-purpose flower`)) buy($item`all-purpose flower`, 1);
         use($item`all-purpose flower`, 1);
       },
@@ -837,6 +910,7 @@ export const LevelingQuest: Quest = {
       after: ["Powerlevel"],
       completed: () => get("_speakeasyDrinksDrunk") >= 1,
       do: (): void => {
+        if (myMeat() < 500) throw new Error("Insufficient Meat to purchase Bee's Knees!");
         tryAcquiringEffect($effect`Ode to Booze`);
         visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=5&pwd=${+myHash()}`); // Bee's Knees
       },
@@ -865,7 +939,10 @@ export const LevelingQuest: Quest = {
         familiar: $familiar`Cookbookbat`,
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
-      post: () => sendAutumnaton(),
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
       limit: { tries: 1 },
     },
     {
@@ -918,6 +995,7 @@ export const LevelingQuest: Quest = {
         }
         if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
         sendAutumnaton();
+        sellMiscellaneousItems();
       },
       limit: { tries: 20 },
     },

@@ -167,6 +167,7 @@ export const MoxieQuest: Quest = {
           $effect`Quiet Desperation`,
           $effect`Song of Bravado`,
           $effect`Stevedave's Shanty of Superiority`,
+          $effect`Unrunnable Face`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },

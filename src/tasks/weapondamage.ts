@@ -7,6 +7,7 @@ import {
   inebrietyLimit,
   myHash,
   myInebriety,
+  myMeat,
   print,
   retrieveItem,
   visitUrl,
@@ -32,7 +33,7 @@ export const WeaponDamageQuest: Quest = {
   tasks: [
     {
       name: "Drink Sockdollager",
-      completed: () => myInebriety() >= inebrietyLimit() - 1,
+      completed: () => myInebriety() >= inebrietyLimit() - 1 || myMeat() < 500,
       do: (): void => {
         tryAcquiringEffect($effect`Ode to Booze`);
         visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=6&pwd=${+myHash()}`); // Sockdollager

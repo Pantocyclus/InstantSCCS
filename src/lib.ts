@@ -262,22 +262,48 @@ export function canAcquireEffect(ef: Effect): boolean {
       const target = splitString.slice(2).join(" ");
 
       switch (action) {
-        case "eat":
-          return have(toItem(target)); // We have the food
-        case "drink":
-          return have(toItem(target)); // We have the booze
-        case "chew":
-          return have(toItem(target)); // We have the spleen item
-        case "use":
-          return have(toItem(target)); // We have the item
+        case "eat": // We have the food
+        case "drink": // We have the booze
+        case "chew": // We have the spleen item
+        case "use": // We have the item
+          if (ef === $effect`Sparkling Consciousness` && get("_fireworkUsed")) return false;
+          return have(toItem(target));
         case "cast":
           return have(toSkill(target)) && myMp() >= mpCost(toSkill(target)); // We have the skill and can cast it
         case "cargo":
           return have($item`Cargo Cultist Shorts`) && !get("_cargoPocketEmptied"); // We can grab it from our cargo pants
         case "synthesize":
           return false; // We currently don't support sweet synthesis
+        case "barrelprayer":
+          return get("barrelShrineUnlocked") && !get("_barrelPrayer");
+        case "witchess":
+          return get("puzzleChampBonus") === 20 && !get("_witchessBuff");
+        case "telescope":
+          return get("telescopeUpgrades") > 0 && !get("telescopeLookedHigh");
+        case "beach":
+          return have($item`Beach Comb`); // need to check if specific beach head has been taken
+        case "spacegate":
+          return get("spacegateAlways") && !get("_spacegateVaccine");
+        case "pillkeeper":
+          return have($item`Eight Days a Week Pill Keeper`);
+        case "pool":
+          return get("_poolGames") < 3;
+        case "swim":
+          return !get("_olympicSwimmingPool");
+        case "shower":
+          return !get("_aprilShower");
+        case "terminal":
+          return (
+            get("_sourceTerminalEnhanceUses") <
+            1 +
+              get("sourceTerminalChips")
+                .split(",")
+                .filter((s) => s.includes("CRAM")).length
+          );
+        case "daycare":
+          return get("daycareOpen") && !get("_daycareSpa");
         default:
-          return false; // Doesn't seem like there's any way to acquire this effect?
+          return true; // Whatever edge cases we have not handled yet, just try to acquire it
       }
     })
     .some((b) => b);
