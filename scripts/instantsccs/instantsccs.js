@@ -10976,7 +10976,7 @@ var LevelingQuest = {
           [2, 3, 4].forEach(choice => (0,external_kolmafia_namespaceObject.print)("Choice ".concat(choice, ": ").concat(availableChoices[choice], " (").concat(availableChoices[choice].includes(target) ? "" : "no ", "match)"), "".concat(availableChoices[choice].includes(target) ? "green" : "red")));
           var currentChoice = [2, 3, 4].filter(choice => availableChoices[choice].includes(target));
           tries += 1;
-          if (currentChoice.length > 0) NCChoice = currentChoice[0];else if (tries >= 10) throw new Error("Did not find ".concat(target, " after 10 tries!"));else (0,external_kolmafia_namespaceObject.runChoice)(5);
+          if (currentChoice.length > 1) throw new Error("We found more than 1 valid solution!");else if (currentChoice.length == 1) NCChoice = currentChoice[0];else if (tries >= 10) throw new Error("Did not find ".concat(target, " after 10 tries!"));else (0,external_kolmafia_namespaceObject.runChoice)(5);
         };
 
         while (NCChoice === 6) {
