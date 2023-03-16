@@ -8,6 +8,7 @@ import {
   myMp,
   print,
   restoreMp,
+  retrieveItem,
   toItem,
   toSkill,
   use,
