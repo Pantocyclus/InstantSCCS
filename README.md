@@ -27,6 +27,7 @@ For those who are interested in using `InstantSCCS` as is, the following section
 - Ensure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) has not been reconfigured in the past 40 turns prior to ascending (we will need to reconfigure it immediately upon ascension). <br/>
 - You should run `instantsccs sim` to check if you have all the necessary requirements. <br/>
   - Note that while not a lot of requirements are listed as necessary, you are highly encouraged to have most, if not all, of the highly recommended resources (or have shinies to make up for whichever is lacking). The script will not break if you are lacking any particular non-necessary requirement, but it will also not guarantee you success for a one-day ascension. <br/>
+    ![image](https://user-images.githubusercontent.com/98746573/225634734-8792246c-cea1-4f4a-81c5-315b252500d6.png)
 
 ### In Valhalla
 
@@ -487,7 +488,7 @@ Not at the moment. For example, we will pull a non-Euclidean angle if you have i
 
 The plan is for certain preferences to be supported somewhere down the line to allow users to blacklist usage of certain items/consumption of certain consumables.
 
-### I don't have a lot of the required skills. Will this script still work for me?
+### I don't have a lot of the recommended skills. Will this script still work for me?
 
 If you are decently shiny, probably. The list of skills is meant to give a rough gauge of what is required to prevent the script from failing in general, which could happen for various reasons, including <br/>
 
@@ -497,7 +498,7 @@ If you are decently shiny, probably. The list of skills is meant to give a rough
 
 The script might still work if you have enough IotMs to make up for the loss in turnsaves from lacking various skills (i.e. the skills are listed to indicate that if you have nothing else, you'll need these in order to be able to complete the run).<br/>
 
-If you meet all of the hardcoded requirements, and have a few of the recent IotMs which are supported (newer IotMs tend to be stronger due to powercreep), it's highly possible that this script will work for you (since many powerful IotMs tend to do a lot for turnsaving, which is the sole purpose for many of the other "required" skills). <br/>
+If you meet all of the hardcoded requirements, and have a few of the recent IotMs which are supported (newer IotMs tend to be stronger due to powercreep), it's highly possible that this script will work for you (since many powerful IotMs tend to do a lot for turnsaving, which is the sole purpose for many of the other "highly-recommended" skills). <br/>
 
 Note that we are already filling up all our organs in this route, so you shouldn't expect to have additional turngen (e.g. from locketed + backed up witchess bishops and knights; sausage goblins still work and are supported). Your IotMs will have to make up for the missing skills purely in turnsaves. <br/>
 
