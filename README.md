@@ -500,7 +500,7 @@ Probably. The script only explicitly hardcodes for the following: <br/>
 If you are missing any of the above, then the script is guaranteed to crash since certain task completion conditions will not be met. Every other requirement - skill and IotM (e.g. umbrella and locket), or even astral consumables (e.g. moon sign and astral pet sweater), is listed there to give a rough gauge of what is required to prevent the script from failing in general, which could happen for various reasons, including <br/>
 - Running out of HP (cannelloni cocoon) <br/>
 - Running out of MP (inner sauce, curse of weaksauce, soul saucery <br/>
-- Running out of turns, either from turngen or high turn-taking tests/leveling tasks (almost everything else)
+- Running out of turns, either from turngen or high turn-taking tests/leveling tasks (almost everything else) <br/>
 so most skills (and resources) aren't actually truly required. The script might still work if you have enough IotMs to make up for the loss in turnsaves from lacking various skills (i.e. most skills are only "required" in the sense that if you have nothing else, you'll need these in order to be able to complete the run).<br/>
 
 If you meet all of the hardcoded requirements, and have a few of the recent IotMs which are supported (newer IotMs tend to be stronger due to powercreep), it's highly possible that this script will work for you (since many powerful IotMs tend to do a lot for turnsaving, which is the sole purpose for many of the other "required" skills). <br/>
