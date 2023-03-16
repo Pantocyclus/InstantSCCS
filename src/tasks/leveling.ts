@@ -423,7 +423,9 @@ export const LevelingQuest: Quest = {
     {
       name: "Eat Magical Sausages",
       completed: () =>
-        (!have($item`magical sausage`) && !have($item`magical sausage casing`)) || myMeat() <= 3000,
+        (!have($item`magical sausage`) && !have($item`magical sausage casing`)) ||
+        myMeat() <= 3000 ||
+        get("_sausagesMade") >= 3,
       do: (): void => {
         if (have($item`magical sausage casing`)) create($item`magical sausage`, 1);
         eat($item`magical sausage`, itemAmount($item`magical sausage`));
@@ -438,7 +440,7 @@ export const LevelingQuest: Quest = {
         SongBoom.song() === "Total Eclipse of Your Meat" || !have($item`SongBoom™ BoomBox`),
       do: () => SongBoom.setSong("Total Eclipse of Your Meat"),
       limit: { tries: 1 },
-    },    
+    },
     {
       name: "Restore MP with Glowing Blue",
       prepare: (): void => {
@@ -471,7 +473,13 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
-      limit: { tries: 1 },
+      choices: {
+        1094: 5,
+        1115: 6,
+        1322: 2,
+        1324: 5,
+      },
+      limit: { tries: 2 },
     },
     {
       name: "Restore MP with Glowing Blue (continued)",
@@ -554,13 +562,14 @@ export const LevelingQuest: Quest = {
               )
             );
 
-            const currentChoice = [2, 3, 4].filter((choice) =>
-              availableChoices[choice].includes(target) &&
-              !(target === "shadow snowflake" && availableChoices[choice].includes("spectral")) // if target is snowflake, ensure our choice doesn't match the term "spectral"
+            const currentChoice = [2, 3, 4].filter(
+              (choice) =>
+                availableChoices[choice].includes(target) &&
+                !(target === "shadow snowflake" && availableChoices[choice].includes("spectral")) // if target is snowflake, ensure our choice doesn't match the term "spectral"
             );
             tries += 1;
             if (currentChoice.length > 1) throw new Error("We found more than 1 valid solution!");
-            else if (currentChoice.length == 1) NCChoice = currentChoice[0];
+            else if (currentChoice.length === 1) NCChoice = currentChoice[0];
             else if (tries >= 10) throw new Error(`Did not find ${target} after 10 tries!`);
             else runChoice(5);
           }

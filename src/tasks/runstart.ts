@@ -8,7 +8,6 @@ import {
   create,
   currentMcd,
   drink,
-  eat,
   equip,
   getWorkshed,
   haveEquipped,
@@ -384,11 +383,6 @@ export const RunStartQuest: Quest = {
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
       combat: new CombatStrategy().macro(Macro.default()),
-      post: (): void => {
-        if (have($item`magical sausage casing`) && myMeat() >= 500)
-          create($item`magical sausage`, 1);
-        eat($item`magical sausage`, itemAmount($item`magical sausage`));
-      },
     },
   ],
 };
