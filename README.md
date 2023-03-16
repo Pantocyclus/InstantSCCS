@@ -476,10 +476,37 @@ The plan is for certain preferences to be supported somewhere down the line to a
 
 ### I don't have all the required skills. Will this script still work for me?
 
-Probably. The script only hardcodes for the saucecrafting, turngen and free kill skills (and otherwise only hardcodes for IotMs and familiars), so most skills aren't actually truly required. The script might still work if you have enough IotMs to make up for the loss in turnsaves from lacking various skills (i.e. most skills are only "required" in the sense that if you have nothing else, you'll need these in order to be able to complete the run).<br/>
+Probably. The script only explicitly hardcodes for the following: <br/>
+- VIP lounge key <br/>
+- Trainset <br/>
+- Cosmic bowling ball <br/>
+- Cookbookbat <br/>
+- Closed-circuit pay phone <br/>
+- Advanced Saucecrafting <br/>
+- Saucegeyser <br/>
+- Snokebomb <br/>
+- Disgeist <br/>
+- Exotic Parrot <br/>
+- Pizza of Legend <br/>
+- Deep Dish of Legend <br/>
+- Calzone of Legend <br/>
+- Access to a scaler zone <br/>
+- Astral six-pack <br/>
+- Being a Sauceror <br/>
+- Being in softcore <br/>
+- Having a skeleton store monster in your ice house <br/>
+- Having at least 10 ascensions (to be able to purchase the all-purpose flower)<br/>
 
-Note that we are already filling up all our organs in this route, so you shouldn't expect to have additional turngen (e.g. from locketed + backed up witchess bishops and knights; sausage goblins still work and are supported). Your IotMs will have to make up for the missing skills purely in turnsaves.
+If you are missing any of the above, then the script is guaranteed to crash since certain task completion conditions will not be met. Every other requirement - skill and IotM (e.g. umbrella and locket), or even astral consumables (e.g. moon sign and astral pet sweater), is listed there to give a rough gauge of what is required to prevent the script from failing in general, which could happen for various reasons, including <br/>
+- Running out of HP (cannelloni cocoon) <br/>
+- Running out of MP (inner sauce, curse of weaksauce, soul saucery <br/>
+- Running out of turns, either from turngen or high turn-taking tests/leveling tasks (almost everything else)
+so most skills (and resources) aren't actually truly required. The script might still work if you have enough IotMs to make up for the loss in turnsaves from lacking various skills (i.e. most skills are only "required" in the sense that if you have nothing else, you'll need these in order to be able to complete the run).<br/>
+
+If you meet all of the hardcoded requirements, and have a few of the recent IotMs which are supported (newer IotMs tend to be stronger due to powercreep), it's highly possible that this script will work for you (since many powerful IotMs tend to do a lot for turnsaving, which is the sole purpose for many of the other "required" skills). <br/>
+
+Note that we are already filling up all our organs in this route, so you shouldn't expect to have additional turngen (e.g. from locketed + backed up witchess bishops and knights; sausage goblins still work and are supported). Your IotMs will have to make up for the missing skills purely in turnsaves. <br/>
 
 ### I can't survive the early fights! What do I do?
 
-Try eating the Deep Dish of Legend early. It gives +100%hp and +300%mus, which should help you survive a few more hits from the monsters. However, this does come at the cost of possibly not carrying this buff over to the NC test to buff your Disgeist, thus losing you 5%NC (increasing your turncount by 3).
+If you're scripting your own run, try eating the Deep Dish of Legend early (this is already done in the script above). It gives +100%hp and +300%mus, which should help you survive a few more hits from the monsters. However, this does come at the cost of possibly not carrying this buff over to the NC test to buff your Disgeist, thus losing you 5%NC (increasing your turncount by 3).
