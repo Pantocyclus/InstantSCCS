@@ -10958,7 +10958,13 @@ var LevelingQuest = {
     do: () => {
       var target = property_get("rufusQuestTarget", ""); // eslint-disable-next-line libram/verify-constants
 
-      if (have($effect(_templateObject182 || (_templateObject182 = leveling_taggedTemplateLiteral(["Shadow Affinity"]))))) (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=town_right&action=townright_shadowrift_free");else (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=town_right&action=townright_shadowrift");
+      if (have($effect(_templateObject182 || (_templateObject182 = leveling_taggedTemplateLiteral(["Shadow Affinity"]))))) {
+        (0,external_kolmafia_namespaceObject.print)("Entering rift with Shadow Affinity!");
+        (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=town_right&action=townright_shadowrift_free");
+      } else {
+        (0,external_kolmafia_namespaceObject.print)("Entering rift without Shadow Affinity!");
+        (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=town_right&action=townright_shadowrift");
+      }
 
       if ((0,external_kolmafia_namespaceObject.lastChoice)() === 1499) {
         var NCChoice = 6;
