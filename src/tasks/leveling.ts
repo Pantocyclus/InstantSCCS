@@ -555,7 +555,8 @@ export const LevelingQuest: Quest = {
             );
 
             const currentChoice = [2, 3, 4].filter((choice) =>
-              availableChoices[choice].includes(target)
+              availableChoices[choice].includes(target) &&
+              !(target === "shadow snowflake" && availableChoices[choice].includes("spectral")) // if target is snowflake, ensure our choice doesn't match the term "spectral"
             );
             tries += 1;
             if (currentChoice.length > 1) throw new Error("We found more than 1 valid solution!");
