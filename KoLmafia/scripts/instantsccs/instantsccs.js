@@ -13286,7 +13286,7 @@ function buildMiscList() {
 function checkThing(thing) {
   if (thing instanceof Hardcoded) return [thing.have, thing.name];
   if (thing instanceof external_kolmafia_namespaceObject.Familiar) return [have(thing), thing.hatchling.name];
-  if (thing instanceof external_kolmafia_namespaceObject.Skill) return [have(thing), thing.name];
+  if (thing instanceof external_kolmafia_namespaceObject.Skill) return [(0,external_kolmafia_namespaceObject.getPermedSkills)()[thing.name], thing.name];
   if (thing instanceof external_kolmafia_namespaceObject.Monster) return [new Set(unlockedLocketMonsters()).has(thing), thing.name];
   return [have(thing) || (0,external_kolmafia_namespaceObject.storageAmount)(thing) > 0, thing.name];
 }

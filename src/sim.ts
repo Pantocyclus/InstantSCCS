@@ -1,5 +1,6 @@
 import {
   Familiar,
+  getPermedSkills,
   getWorkshed,
   Item,
   Monster,
@@ -578,7 +579,7 @@ function buildMiscList(): Requirement[] {
 function checkThing(thing: Thing): [boolean, string] {
   if (thing instanceof Hardcoded) return [thing.have, thing.name];
   if (thing instanceof Familiar) return [have(thing), thing.hatchling.name];
-  if (thing instanceof Skill) return [have(thing), thing.name];
+  if (thing instanceof Skill) return [getPermedSkills()[thing.name], thing.name];
   if (thing instanceof Monster)
     return [new Set(CombatLoversLocket.unlockedLocketMonsters()).has(thing), thing.name];
   return [have(thing) || storageAmount(thing) > 0, thing.name];
