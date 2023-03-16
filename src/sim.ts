@@ -1,6 +1,5 @@
 import {
   Familiar,
-  getPermedSkills,
   getWorkshed,
   Item,
   Monster,
@@ -9,7 +8,17 @@ import {
   Skill,
   storageAmount,
 } from "kolmafia";
-import { $familiar, $item, $monster, $skill, CombatLoversLocket, get, have } from "libram";
+import {
+  $familiar,
+  $item,
+  $monster,
+  $skill,
+  CombatLoversLocket,
+  get,
+  have,
+  Lifestyle,
+  permedSkills,
+} from "libram";
 import { nextConfigurable } from "libram/dist/resources/2022/TrainSet";
 
 class Hardcoded {
@@ -579,7 +588,13 @@ function buildMiscList(): Requirement[] {
 function checkThing(thing: Thing): [boolean, string] {
   if (thing instanceof Hardcoded) return [thing.have, thing.name];
   if (thing instanceof Familiar) return [have(thing), thing.hatchling.name];
-  if (thing instanceof Skill) return [getPermedSkills()[thing.name], thing.name];
+  if (thing instanceof Skill)
+    return [
+      [Lifestyle.softcore, Lifestyle.hardcore].some(
+        (lifestyle) => lifestyle === permedSkills().get(thing)
+      ),
+      thing.name,
+    ];
   if (thing instanceof Monster)
     return [new Set(CombatLoversLocket.unlockedLocketMonsters()).has(thing), thing.name];
   return [have(thing) || storageAmount(thing) > 0, thing.name];
