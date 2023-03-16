@@ -615,8 +615,8 @@ export function checkRequirements(): void {
       "Miscellany (Highly Recommended)",
       buildMiscList().filter((req) => req.optional && req.recommended),
     ],
+    ["Combat Lover's Locket Monsters (Highly Recommended)", buildLocketList()],
     ["IoTMs (Optional)", buildIotmList().filter((req) => req.optional && !req.recommended)],
-    ["Combat Lover's Locket Monsters (Optional)", buildLocketList()],
     ["Miscellany (Optional)", buildMiscList().filter((req) => req.optional && !req.recommended)],
   ];
   printHtml(
