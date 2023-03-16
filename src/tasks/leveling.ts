@@ -438,20 +438,7 @@ export const LevelingQuest: Quest = {
         SongBoom.song() === "Total Eclipse of Your Meat" || !have($item`SongBoom™ BoomBox`),
       do: () => SongBoom.setSong("Total Eclipse of Your Meat"),
       limit: { tries: 1 },
-    },
-    {
-      name: "Get Rufus Quest",
-      // eslint-disable-next-line libram/verify-constants
-      completed: () => get("_shadowAffinityToday", false),
-      do: () =>
-        // eslint-disable-next-line libram/verify-constants
-        use($item`closed-circuit pay phone`),
-      choices: {
-        1497: 2,
-        1498: 6,
-      },
-      limit: { tries: 1 },
-    },
+    },    
     {
       name: "Restore MP with Glowing Blue",
       prepare: (): void => {
@@ -510,6 +497,19 @@ export const LevelingQuest: Quest = {
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Get Rufus Quest",
+      // eslint-disable-next-line libram/verify-constants
+      completed: () => get("_shadowAffinityToday", false),
+      do: () =>
+        // eslint-disable-next-line libram/verify-constants
+        use($item`closed-circuit pay phone`),
+      choices: {
+        1497: 2,
+        1498: 6,
       },
       limit: { tries: 1 },
     },
