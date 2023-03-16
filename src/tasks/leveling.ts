@@ -68,6 +68,7 @@ import { tryAcquiringEffect } from "../lib";
 import { docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
 import Macro from "../combat";
 
+const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
 const usefulEffects: Effect[] = [
@@ -126,12 +127,6 @@ function sellMiscellaneousItems(): void {
     $item`cardboard ore`,
     $item`hot buttered roll`,
     $item`toast`,
-    $item`bottle of gin`,
-    $item`bottle of rum`,
-    $item`bottle of tequila`,
-    $item`bottle of vodka`,
-    $item`bottle of whiskey`,
-    $item`boxed wine`,
     $item`meat paste`,
     $item`meat stack`,
     $item`jar of swamp honey`,
@@ -155,6 +150,7 @@ function sellMiscellaneousItems(): void {
     $item`dorky glasses`,
     $item`ponytail clip`,
     $item`paint palette`,
+    ...baseBoozes,
   ];
   items.forEach((it) => {
     if (itemAmount(it) > 1) autosell(it, itemAmount(it) - 1);
@@ -331,13 +327,39 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Drink Perfect Dark and Stormy",
+      name: "Drink Perfect Drink",
       completed: () =>
-        myInebriety() >= 3 || !have($item`perfect ice cube`) || !have($item`bottle of rum`),
+        myInebriety() >= 3 || !have($item`perfect ice cube`) || !baseBoozes.some((it) => have(it)),
       do: (): void => {
-        create($item`perfect dark and stormy`, 1);
         tryAcquiringEffect($effect`Ode to Booze`);
-        drink($item`perfect dark and stormy`, 1);
+        const baseBooze = baseBoozes.filter((it) => have(it))[0];
+        let booze;
+        switch (baseBooze) {
+          case $item`bottle of vodka`:
+            booze = $item`perfect cosmopolitan`;
+            break;
+          case $item`bottle of whiskey`:
+            booze = $item`perfect old-fashioned`;
+            break;
+          case $item`boxed wine`:
+            booze = $item`perfect mimosa`;
+            break;
+          case $item`bottle of rum`:
+            booze = $item`perfect dark and stormy`;
+            break;
+          case $item`bottle of tequila`:
+            booze = $item`perfect paloma`;
+            break;
+          case $item`bottle of gin`:
+            booze = $item`perfect negroni`;
+            break;
+          default:
+            break;
+        }
+        if (booze) {
+          create(booze, 1);
+          drink(booze, 1);
+        }
       },
       limit: { tries: 1 },
     },
