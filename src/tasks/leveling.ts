@@ -511,7 +511,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Get Rufus Quest",
       // eslint-disable-next-line libram/verify-constants
-      completed: () => get("_shadowAffinityToday", false),
+      completed: () => get("_shadowAffinityToday", false) || !have($item`closed-circuit pay phone`),
       do: () =>
         // eslint-disable-next-line libram/verify-constants
         use($item`closed-circuit pay phone`),
@@ -533,7 +533,10 @@ export const LevelingQuest: Quest = {
       },
       completed: () =>
         // eslint-disable-next-line libram/verify-constants
-        have($item`Rufus's shadow lodestone`) || get("_shadowRiftCombats", 0) >= 12,
+        have($item`Rufus's shadow lodestone`) ||
+        get("_shadowRiftCombats", 0) >= 12 ||
+        // eslint-disable-next-line libram/verify-constants
+        !have($item`closed-circuit pay phone`),
       // eslint-disable-next-line libram/verify-constants
       do: (): void => {
         const target = get("rufusQuestTarget", "");

@@ -26,6 +26,7 @@ interface Requirement {
   thing: Thing | Thing[];
   why: string;
   optional?: boolean;
+  recommended?: boolean;
 }
 
 /**
@@ -58,45 +59,28 @@ function buildIotmList(): Requirement[] {
     {
       thing: $item`combat lover's locket`,
       why: "Summons for various tests",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $item`unbreakable umbrella`,
       why: "Various leveling and test improvements",
+      optional: true,
+      recommended: true,
     },
     {
       // eslint-disable-next-line libram/verify-constants
       thing: $item`closed-circuit pay phone`,
       why: "Free fights, Non-combat, Item Drop",
+      optional: true,
+      recommended: true,
     },
     {
-      thing: new Hardcoded(get("sleazeAirportAlways"), "airplane charter: Spring Break Beach"),
+      thing: new Hardcoded(
+        have($item`one-day ticket to Dinseylandfill`) || get("stenchAirportAlways"),
+        "Scaler Zone Access"
+      ),
       why: "Scalers for leveling",
-      optional: true,
-    },
-    {
-      thing: new Hardcoded(get("spookyAirportAlways"), "airplane charter: Conspiracy Island"),
-      why: "Scalers for leveling",
-      optional: true,
-    },
-    {
-      thing: new Hardcoded(get("stenchAirportAlways"), "airplane charter: Dinseylandfill"),
-      why: "Scalers for leveling",
-      optional: true,
-    },
-    {
-      thing: new Hardcoded(get("hotAirportAlways"), "airplane charter: That 70s Volcano"),
-      why: "Scalers for leveling",
-      optional: true,
-    },
-    {
-      thing: new Hardcoded(get("coldAirportAlways"), "airplane charter: The Glaciest"),
-      why: "Scalers for leveling",
-      optional: true,
-    },
-    {
-      thing: new Hardcoded(get("neverendingPartyAlways"), "Neverending Party invitation envelope"),
-      why: "Free fights, best scalers for leveling",
-      optional: true,
     },
     {
       thing: $item`backup camera`,
@@ -108,6 +92,11 @@ function buildIotmList(): Requirement[] {
       why: "XP for leveling",
       optional: true,
     },
+    {
+      thing: $item`Kramco Sausage-o-Matic™`,
+      why: "Free fights, Turngen",
+      optional: true,
+    },
   ];
 }
 
@@ -116,44 +105,20 @@ function buildLocketList(): Requirement[] {
     {
       thing: $monster`red skeleton`,
       why: "Weapon Damage",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $monster`factory worker (female)`,
       why: "Hot Resistance",
-    },
-    {
-      thing: $monster`ungulith`,
-      why: "Weapon Damage + Spell Damage",
       optional: true,
-    },
-    {
-      thing: $monster`novelty tropical skeleton`,
-      why: "Saucecrafting",
-      optional: true,
-    },
-    {
-      thing: $monster`ice concierge`,
-      why: "+XP% in exotic destinations",
-      optional: true,
-    },
-    {
-      thing: $monster`Witchess Bishop`,
-      why: "Item Drop",
-      optional: true,
+      recommended: true,
     },
     {
       thing: $monster`Witchess King`,
       why: "Weapon Damage, Muscle %",
-    },
-    {
-      thing: $monster`Witchess Queen`,
-      why: "Moxie %, Non-combat",
       optional: true,
-    },
-    {
-      thing: $monster`Witchess Witch`,
-      why: "Myst %, Spell Damage",
-      optional: true,
+      recommended: true,
     },
   ];
 }
@@ -163,90 +128,134 @@ function buildMiscList(): Requirement[] {
     {
       thing: $familiar`Disgeist`,
       why: "Non-combat",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $familiar`Exotic Parrot`,
       why: "Hot test",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Inscrutable Gaze`,
       why: "Leveling",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Song of Bravado`,
       why: "Stat %",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Get Big`,
       why: "Stat %",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Stevedave's Shanty of Superiority`,
       why: "Stat %",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`The Ode to Booze`,
       why: "Adventures",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Pizza Lover`,
       why: "Adventures + XP",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Empathy of the Newt`,
       why: "Familiar weight",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Leash of Linguini`,
       why: "Familiar weight",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Amphibian Sympathy`,
       why: "Familiar weight",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`The Sonata of Sneakiness`,
       why: "Non-combat",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Smooth Movement`,
       why: "Non-combat",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Asbestos Heart`,
       why: "Hot Resistance",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Elemental Saucesphere`,
       why: "Hot Resistance",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Tolerance of the Kitchen`,
       why: "Hot Resistance",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Astral Shell`,
       why: "Hot Resistance",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Crimbo Training: Coal Taster`,
       why: "Hot Resistance",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Bow-Legged Swagger`,
       why: "Weapon Damage",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Steely-Eyed Squint`,
       why: "Item Drop",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Shattering Punch`,
       why: "Free kill",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Gingerbread Mob Hit`,
       why: "Free kill",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Snokebomb`,
@@ -263,46 +272,68 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`The Way of Sauce`,
       why: "Saucecrafting",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Impetuous Sauciness`,
       why: "Saucecrafting",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Expert Corner-Cutter`,
       why: "Saucecrafting",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Prevent Scurvy and Sobriety`,
       why: "Saucecrafting + turngen",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Perfect Freeze`,
       why: "Turngen",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Drinking to Drink`,
       why: "Turngen",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Cannelloni Cocoon`,
       why: "HP Regen",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Soul Saucery`,
       why: "MP Regen",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Curse of Weaksauce`,
       why: "MP Regen",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Inner Sauce`,
       why: "MP Regen",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Double-Fisted Skull Smashing`,
       why: "Stat test",
+      optional: true,
+      recommended: true,
     },
     {
       thing: new Hardcoded(
@@ -361,7 +392,10 @@ function buildMiscList(): Requirement[] {
       why: "Ensures Novelty Tropical Skeleton",
     },
     {
-      thing: new Hardcoded(!nextConfigurable(), "Configurable Trainset"),
+      thing: new Hardcoded(
+        have($item`model train set`) && !nextConfigurable(),
+        "Configurable Trainset"
+      ),
       why: "XP and meat during Powerleveling",
     },
     {
@@ -399,10 +433,14 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`Simmer`,
       why: "Spell Damage",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Always Never Not Guzzling`,
       why: "Item Drop",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Fat Leon's Phat Loot Lyric`,
@@ -447,18 +485,26 @@ function buildMiscList(): Requirement[] {
     {
       thing: $skill`Carol of the Bulls`,
       why: "Weapon Damage",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Carol of the Hells`,
       why: "Spell Damage",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Song of Sauce`,
       why: "Spell Damage",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Song of the North`,
       why: "Weapon Damage",
+      optional: true,
+      recommended: true,
     },
     {
       thing: $skill`Jackasses' Symphony of Destruction`,
@@ -494,14 +540,9 @@ function buildMiscList(): Requirement[] {
       thing: $skill`Evoke Eldritch Horror`,
       why: "Free Fight",
       optional: true,
+      recommended: true,
     },
-    {
-      thing: new Hardcoded(
-        have($item`one-day ticket to Dinseylandfill`) || get("stenchAirportAlways"),
-        "one-day ticket to Dinseylandfill"
-      ),
-      why: "Scalers for leveling",
-    },
+
     {
       thing: $item`Calzone of Legend`,
       why: "Turngen + Stat %",
@@ -515,7 +556,10 @@ function buildMiscList(): Requirement[] {
       why: "Turngen + Stat %",
     },
     {
-      thing: $item`borrowed time`,
+      thing: new Hardcoded(
+        have($item`borrowed time`) || have($skill`Summon Clip Art`),
+        "borrowed time"
+      ),
       why: "Turngen",
     },
     {
@@ -560,11 +604,19 @@ export function checkRequirements(): void {
   let missing = 0;
 
   const categories: [string, Requirement[]][] = [
-    ["IoTMs", buildIotmList().filter((req) => !req.optional)],
-    ["Miscellany", buildMiscList().filter((req) => !req.optional)],
-    ["IoTMs (Optional)", buildIotmList().filter((req) => req.optional)],
+    ["IoTMs (Necessary)", buildIotmList().filter((req) => !req.optional)],
+    ["Miscellany (Necessary)", buildMiscList().filter((req) => !req.optional)],
+    [
+      "IoTMs (Highly Recommended)",
+      buildIotmList().filter((req) => req.optional && req.recommended),
+    ],
+    [
+      "Miscellany (Highly Recommended)",
+      buildMiscList().filter((req) => req.optional && req.recommended),
+    ],
+    ["IoTMs (Optional)", buildIotmList().filter((req) => req.optional && !req.recommended)],
     ["Combat Lover's Locket Monsters (Optional)", buildLocketList()],
-    ["Miscellany (Optional)", buildMiscList().filter((req) => req.optional)],
+    ["Miscellany (Optional)", buildMiscList().filter((req) => req.optional && !req.recommended)],
   ];
   printHtml(
     "Checking your character... Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional"

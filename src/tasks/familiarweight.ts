@@ -1,6 +1,16 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import { cliExecute, create, Effect, print, use, useFamiliar } from "kolmafia";
-import { $effect, $familiar, $item, $location, $skill, CommunityService, get, have } from "libram";
+import {
+  $effect,
+  $familiar,
+  $familiars,
+  $item,
+  $location,
+  $skill,
+  CommunityService,
+  get,
+  have,
+} from "libram";
 import { Quest } from "../engine/task";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
@@ -45,7 +55,10 @@ export const FamiliarWeightQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
 
-        if (have($skill`Summon Clip Art`)) {
+        if (
+          have($skill`Summon Clip Art`) &&
+          $familiars`Mini-Crimbot, Exotic Parrot`.some((fam) => have(fam))
+        ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
           if (have($familiar`Mini-Crimbot`)) useFamiliar($familiar`Mini-Crimbot`);
           else useFamiliar($familiar`Exotic Parrot`);

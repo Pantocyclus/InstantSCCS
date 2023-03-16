@@ -1,6 +1,6 @@
 # InstantSCCS
 
-`InstantSCCS` is a softcore Community Service script for looping in Kingdom of Loathing designed to work for low-shiny accounts (i.e. accounts with minimal expensive items/skills) and mostly requires only cheap resources. Unfortunately, this means that the user is expected to have a bunch of softcore-permed skills, and at least ~7 IotMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
+`InstantSCCS` is a softcore one-day Community Service script for looping in Kingdom of Loathing designed to work for low-shiny accounts (i.e. accounts with minimal expensive items/skills) and mostly requires only cheap resources. Unfortunately, this means that the user is expected to have a bunch of softcore-permed skills, and at least ~7 IotMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
 
 ## Installation
 
@@ -25,7 +25,8 @@ For those who are interested in using `InstantSCCS` as is, the following section
 - Have at least 10 ascensions so that you can purchase an [all-purpose flower](https://kol.coldfront.net/thekolwiki/index.php/All-purpose_flower) from [The Gift Shop](https://kol.coldfront.net/thekolwiki/index.php/The_Gift_Shop); this should include at least 5 100% familiar runs so that you have the [astral pet sweater](https://kol.coldfront.net/thekolwiki/index.php/Astral_pet_sweater) unlocked.
 - Have the following [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) recipes read: [honey bun of Boris](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_honey_bun_of_Boris), [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar), [Boris's bread](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_Boris%27s_bread), [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_roasted_vegetable_of_J.), [Pete's rich ricotta](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_Pete%27s_rich_ricotta), [plain calzone](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_plain_calzone) and [baked veggie ricotta](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_baked_veggie_ricotta).
 - Ensure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) has not been reconfigured in the past 40 turns prior to ascending (we will need to reconfigure it immediately upon ascension). <br/>
-- You may run `instantsccs sim` to check if you have all the necessary requirements. <br/>
+- You should run `instantsccs sim` to check if you have all the necessary requirements. <br/>
+  - Note that while not a lot of requirements are listed as necessary, you are highly encouraged to have most, if not all, of the highly recommended resources (or have shinies to make up for whichever is lacking). The script will not break if you are lacking any particular non-necessary requirement, but it will also not guarantee you success for a one-day ascension. <br/>
 
 ### In Valhalla
 
@@ -145,9 +146,25 @@ The following is a list of currently supported IotMs. Note that because this is 
 | [Horsery contract](https://kol.coldfront.net/thekolwiki/index.php/Horsery_contract)                                                        | [dark horse, pale horse](https://kol.coldfront.net/thekolwiki/index.php/A_Horsery)                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | [crazy horse](https://kol.coldfront.net/thekolwiki/index.php/A_Horsery)                                                                                                                                                                                                                                                                                     |
 | [deed to Oliver's Place](https://kol.coldfront.net/thekolwiki/index.php/Deed_to_Oliver%27s_Place)                                          | free fights in [Barroom Brawl](https://kol.coldfront.net/thekolwiki/index.php/An_Unusually_Quiet_Barroom_Brawl), [imported taffy](https://kol.coldfront.net/thekolwiki/index.php/Imported_taffy) (sometimes)                                                                                                                                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                                                             |
 
-### Required Resources
+### Absolutely Non-Negotiable Requirements
 
-Because we do not rely heavily on too many IotMs to carry us through the SCCS run, we will have certain hard requirements on a bunch of skills and familiars that will enable this run. The small +stat% buffs matter a lot for the offstat tests, and each of these resources will save 1 or more turns in your run. <br />
+Following the routing laid out below, this script will definitely fail if you do not meet all of the following requirements, as the task completion conditions are hardcoded to depend on them: <br/>
+
+- [Ascend](https://kol.coldfront.net/thekolwiki/index.php/Ascend) as a [Sauceror](https://kol.coldfront.net/thekolwiki/index.php/Sauceror) into [softcore](https://kol.coldfront.net/thekolwiki/index.php/Ascension#Normal_Difficulty) [Community Service](https://kol.coldfront.net/thekolwiki/index.php/Community_Service) <br/>
+- Own a [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key), [model train set](https://kol.coldfront.net/thekolwiki/index.php/Model_train_set), [cosmic bowling ball](https://kol.coldfront.net/thekolwiki/index.php/Cosmic_bowling_ball) and [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) <br/>
+- Have [Advanced Saucecrafting](https://kol.coldfront.net/thekolwiki/index.php/Advanced_Saucecrafting), [Saucegeyser](https://kol.coldfront.net/thekolwiki/index.php/Saucegeyser) and [Snokebomb](https://kol.coldfront.net/thekolwiki/index.php/Snokebomb) softcore permed <br/>
+- Have a [Pizza of Legend](https://kol.coldfront.net/thekolwiki/index.php/Pizza_of_Legend), [Deep Dish of Legend](https://kol.coldfront.net/thekolwiki/index.php/Deep_Dish_of_Legend) and [Calzone of Legend](https://kol.coldfront.net/thekolwiki/index.php/Calzone_of_Legend) available in [Hagnk's](https://kol.coldfront.net/thekolwiki/index.php/Hagnk%27s_Ancestral_Mini-Storage) <br/>
+- Have access to [any](https://kol.coldfront.net/thekolwiki/index.php/Neverending_Party_invitation_envelope) [one](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Spring_Break_Beach) [of](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Conspiracy_Island) [the](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_Dinseylandfill) [scaler](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_That_70s_Volcano) [zones](https://kol.coldfront.net/thekolwiki/index.php/Airplane_charter:_The_Glaciest), either by owning the charters or a [daypass](https://kol.coldfront.net/thekolwiki/index.php/One-day_ticket_to_Dinseylandfill) <br/>
+- Have either the [factory-irregular skeleton](https://kol.coldfront.net/thekolwiki/index.php/Factory-irregular_skeleton), [remaindered skeleton](https://kol.coldfront.net/thekolwiki/index.php/Remaindered_skeleton) or [swarm of skulls](https://kol.coldfront.net/thekolwiki/index.php/Swarm_of_skulls) banished in your [ice house](https://kol.coldfront.net/thekolwiki/index.php/Ice_house)
+- Have at least 10 ascensions <br/>
+- Know all of the following [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) recipes: [honey bun of Boris](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_honey_bun_of_Boris), [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar), [Boris's bread](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_Boris%27s_bread), [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_roasted_vegetable_of_J.), [Pete's rich ricotta](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_Pete%27s_rich_ricotta), [plain calzone](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_plain_calzone) and [baked veggie ricotta](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_baked_veggie_ricotta).
+- Have your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) be reconfigurable. <br/>
+
+### Highly-Recommended Resources
+
+Merely satisfying all of the above likely leaves you miles away from being able to complete a one-day run. Because we do not rely heavily on too many IotMs to carry us through the SCCS run, you are highly recommended to have the following bunch of skills and familiars to enable this run. The small +stat% buffs matter a lot for the offstat tests, and each of these resources will save 1 or more turns in your run. <br />
+
+If you're missing any of the skills, do take a look at the list of supported IotMs to see if said IotMs can make up for the deficiencies. <br/>
 
 | Familiars                                                                        | Use      |
 | -------------------------------------------------------------------------------- | -------- |
@@ -198,9 +215,9 @@ Because we do not rely heavily on too many IotMs to carry us through the SCCS ru
 | [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg)                        | item test               |
 | [Crimbo Training: Bartender](https://kol.coldfront.net/thekolwiki/index.php/Crimbo_Training:_Bartender)                           | item test               |
 
-### Almost-Required Resources
+### Other Recommendations
 
-You are strongly recommended to have these resources. However, none of them provide much turngen/turn savings on their own (unlike the required resources above, although together they do make up quite a bit), and these may be easily replaced with shinies.
+You are also strongly recommended to have the following resources. However, unlike the resources above, none of them provide much turngen/turn savings individually (although together they do make up quite a bit), and these may also be easily replaced with more shinies.
 
 | Skills                                                                                                                              | Use        |
 | ----------------------------------------------------------------------------------------------------------------------------------- | ---------- |
@@ -223,10 +240,6 @@ You are strongly recommended to have these resources. However, none of them prov
 | [Claws of the Walrus](https://kol.coldfront.net/thekolwiki/index.php/Claws_of_the_Walrus)                                           | wdmg test  |
 | [Blessing of the War Snapper](<https://kol.coldfront.net/thekolwiki/index.php/Blessing_of_the_War_Snapper_(skill)>)                 | wdmg test  |
 | [Evoke Eldritch Horror](https://kol.coldfront.net/thekolwiki/index.php/Evoke_Eldritch_Horror)                                       | free fight |
-
-### Highly-recommended Resources
-
-Chances are, it's going to be super tight if you only have the resources stated above. There are a bunch of potentially cheap-ish (more expensive than 1m, but cheaper than an IotM) things that can greatly aid your runs. Generally, you want to get anything that aids in leveling (gives more myst% and/or free fights) <br />
 
 | Useful stuff                                                                           | Use   |
 | -------------------------------------------------------------------------------------- | ----- |
@@ -474,35 +487,15 @@ Not at the moment. For example, we will pull a non-Euclidean angle if you have i
 
 The plan is for certain preferences to be supported somewhere down the line to allow users to blacklist usage of certain items/consumption of certain consumables.
 
-### I don't have all the required skills. Will this script still work for me?
+### I don't have a lot of the required skills. Will this script still work for me?
 
-Probably. The script only explicitly hardcodes for the following: <br/>
-- VIP lounge key <br/>
-- Trainset <br/>
-- Cosmic bowling ball <br/>
-- Cookbookbat <br/>
-- Closed-circuit pay phone <br/>
-- Advanced Saucecrafting <br/>
-- Saucegeyser <br/>
-- Snokebomb <br/>
-- Disgeist <br/>
-- Exotic Parrot <br/>
-- Pizza of Legend <br/>
-- Deep Dish of Legend <br/>
-- Calzone of Legend <br/>
-- Access to a scaler zone <br/>
-- Astral six-pack <br/>
-- Being a Sauceror <br/>
-- Being in softcore <br/>
-- Having a skeleton store monster in your ice house <br/>
-- Having at least 10 ascensions (to be able to purchase the all-purpose flower)<br/>
+If you are decently shiny, probably. The list of skills is meant to give a rough gauge of what is required to prevent the script from failing in general, which could happen for various reasons, including <br/>
 
-If you are missing any of the above, then the script is guaranteed to crash since certain task completion conditions will not be met. Every other requirement - skill and IotM (e.g. umbrella and locket), or even astral consumables (e.g. moon sign and astral pet sweater), is listed there to give a rough gauge of what is required to prevent the script from failing in general, which could happen for various reasons, including <br/>
 - Running out of HP (cannelloni cocoon) <br/>
-- Running out of MP (inner sauce, curse of weaksauce, soul saucery <br/>
+- Running out of MP (inner sauce, curse of weaksauce, soul saucery) <br/>
 - Running out of turns, either from turngen or high turn-taking tests/leveling tasks (almost everything else) <br/>
 
-so most skills (and resources) aren't actually truly required. The script might still work if you have enough IotMs to make up for the loss in turnsaves from lacking various skills (i.e. most skills are only "required" in the sense that if you have nothing else, you'll need these in order to be able to complete the run).<br/>
+The script might still work if you have enough IotMs to make up for the loss in turnsaves from lacking various skills (i.e. the skills are listed to indicate that if you have nothing else, you'll need these in order to be able to complete the run).<br/>
 
 If you meet all of the hardcoded requirements, and have a few of the recent IotMs which are supported (newer IotMs tend to be stronger due to powercreep), it's highly possible that this script will work for you (since many powerful IotMs tend to do a lot for turnsaving, which is the sole purpose for many of the other "required" skills). <br/>
 

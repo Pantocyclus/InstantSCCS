@@ -100,7 +100,11 @@ export const HotResQuest: Quest = {
         if (get("parkaMode") !== "pterodactyl") cliExecute("parka pterodactyl");
         if (get("_kgbClicksUsed") < 22 && have($item`Kremlin's Greatest Briefcase`))
           cliExecute("briefcase e hot");
-        if (have($skill`Summon Clip Art`) && !have($item`cracker`)) {
+        if (
+          have($skill`Summon Clip Art`) &&
+          have($familiar`Exotic Parrot`) &&
+          !have($item`cracker`)
+        ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
           useFamiliar($familiar`Exotic Parrot`);
           use($item`box of Familiar Jacks`, 1);

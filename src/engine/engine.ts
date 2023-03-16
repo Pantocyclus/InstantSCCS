@@ -1,6 +1,6 @@
 import { Task } from "./task";
 import { Engine as BaseEngine, Outfit, outfitSlots, undelay } from "grimoire-kolmafia";
-import { $effect, $skill, get, have, PropertiesManager, set, uneffect } from "libram";
+import { $effect, $familiar, $skill, get, have, PropertiesManager, set, uneffect } from "libram";
 import { Item, myHp, myMaxhp, print, useSkill } from "kolmafia";
 
 export class trackedPref {
@@ -102,6 +102,7 @@ export class Engine extends BaseEngine {
     const outfit = task.outfit;
     const spec = undelay(outfit);
     if (spec !== undefined) {
+      if (!have(spec.familiar ?? $familiar.none)) spec.familiar = $familiar.none;
       if (spec instanceof Outfit) {
         const badSlots = Array.from(spec.equips.entries())
           .filter(([, it]) => !have(it) && it !== null)
