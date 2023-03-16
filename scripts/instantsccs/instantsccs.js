@@ -10871,44 +10871,31 @@ var LevelingQuest = {
       tries: 1
     }
   }, {
-    name: "Get Rufus Quest",
-    // eslint-disable-next-line libram/verify-constants
-    completed: () => property_get("_shadowAffinityToday", false),
-    do: () => // eslint-disable-next-line libram/verify-constants
-    (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject162 || (_templateObject162 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"])))),
-    choices: {
-      1497: 2,
-      1498: 6
-    },
-    limit: {
-      tries: 1
-    }
-  }, {
     name: "Restore MP with Glowing Blue",
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
 
-      if (!have($effect(_templateObject163 || (_templateObject163 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !have(template_string_$item(_templateObject164 || (_templateObject164 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
+      if (!have($effect(_templateObject162 || (_templateObject162 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !have(template_string_$item(_templateObject163 || (_templateObject163 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
         if ((0,external_kolmafia_namespaceObject.myMeat)() < 250) throw new Error("Insufficient Meat to purchase red rocket!");
-        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject165 || (_templateObject165 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
+        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject164 || (_templateObject164 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
       }
 
-      if (!have($effect(_templateObject166 || (_templateObject166 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) && !have(template_string_$item(_templateObject167 || (_templateObject167 = leveling_taggedTemplateLiteral(["blue rocket"]))))) {
+      if (!have($effect(_templateObject165 || (_templateObject165 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) && !have(template_string_$item(_templateObject166 || (_templateObject166 = leveling_taggedTemplateLiteral(["blue rocket"]))))) {
         if ((0,external_kolmafia_namespaceObject.myMeat)() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
-        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject168 || (_templateObject168 = leveling_taggedTemplateLiteral(["blue rocket"]))), 1);
+        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject167 || (_templateObject167 = leveling_taggedTemplateLiteral(["blue rocket"]))), 1);
       }
 
       unbreakableUmbrella();
       (0,external_kolmafia_namespaceObject.restoreMp)(50);
     },
-    completed: () => have($effect(_templateObject169 || (_templateObject169 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))),
+    completed: () => have($effect(_templateObject168 || (_templateObject168 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))),
     do: powerlevelingLocation(),
     // if your powerleveling location is the NEP you don't immediately get the MP regen
-    combat: new CombatStrategy().macro(combat_Macro.tryItem(template_string_$item(_templateObject170 || (_templateObject170 = leveling_taggedTemplateLiteral(["red rocket"])))).tryItem(template_string_$item(_templateObject171 || (_templateObject171 = leveling_taggedTemplateLiteral(["blue rocket"])))).default()),
+    combat: new CombatStrategy().macro(combat_Macro.tryItem(template_string_$item(_templateObject169 || (_templateObject169 = leveling_taggedTemplateLiteral(["red rocket"])))).tryItem(template_string_$item(_templateObject170 || (_templateObject170 = leveling_taggedTemplateLiteral(["blue rocket"])))).default()),
     outfit: {
-      offhand: template_string_$item(_templateObject172 || (_templateObject172 = leveling_taggedTemplateLiteral(["unbreakable umbrella"]))),
-      acc1: template_string_$item(_templateObject173 || (_templateObject173 = leveling_taggedTemplateLiteral(["codpiece"]))),
-      familiar: template_string_$familiar(_templateObject174 || (_templateObject174 = leveling_taggedTemplateLiteral(["Cookbookbat"]))),
+      offhand: template_string_$item(_templateObject171 || (_templateObject171 = leveling_taggedTemplateLiteral(["unbreakable umbrella"]))),
+      acc1: template_string_$item(_templateObject172 || (_templateObject172 = leveling_taggedTemplateLiteral(["codpiece"]))),
+      familiar: template_string_$familiar(_templateObject173 || (_templateObject173 = leveling_taggedTemplateLiteral(["Cookbookbat"]))),
       modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape"
     },
     post: () => {
@@ -10927,18 +10914,31 @@ var LevelingQuest = {
     },
     // We need to spend at least 1adv to get the mp regen from Glowing Blue
     // This is only an issue if our powerleveling zone is the NEP, since the previous fight would be free
-    completed: () => powerlevelingLocation() !== $location(_templateObject175 || (_templateObject175 = leveling_taggedTemplateLiteral(["The Neverending Party"]))) || (0,external_kolmafia_namespaceObject.haveEffect)($effect(_templateObject176 || (_templateObject176 = leveling_taggedTemplateLiteral(["Glowing Blue"])))) !== 10 || (0,external_kolmafia_namespaceObject.myMp)() >= 500,
-    do: $location(_templateObject177 || (_templateObject177 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
+    completed: () => powerlevelingLocation() !== $location(_templateObject174 || (_templateObject174 = leveling_taggedTemplateLiteral(["The Neverending Party"]))) || (0,external_kolmafia_namespaceObject.haveEffect)($effect(_templateObject175 || (_templateObject175 = leveling_taggedTemplateLiteral(["Glowing Blue"])))) !== 10 || (0,external_kolmafia_namespaceObject.myMp)() >= 500,
+    do: $location(_templateObject176 || (_templateObject176 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
     outfit: {
-      offhand: template_string_$item(_templateObject178 || (_templateObject178 = leveling_taggedTemplateLiteral(["unbreakable umbrella"]))),
-      acc1: template_string_$item(_templateObject179 || (_templateObject179 = leveling_taggedTemplateLiteral(["codpiece"]))),
-      familiar: template_string_$familiar(_templateObject180 || (_templateObject180 = leveling_taggedTemplateLiteral(["Cookbookbat"]))),
+      offhand: template_string_$item(_templateObject177 || (_templateObject177 = leveling_taggedTemplateLiteral(["unbreakable umbrella"]))),
+      acc1: template_string_$item(_templateObject178 || (_templateObject178 = leveling_taggedTemplateLiteral(["codpiece"]))),
+      familiar: template_string_$familiar(_templateObject179 || (_templateObject179 = leveling_taggedTemplateLiteral(["Cookbookbat"]))),
       modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape"
     },
     combat: new CombatStrategy().macro(combat_Macro.attack().repeat()),
     post: () => {
       sendAutumnaton();
       sellMiscellaneousItems();
+    },
+    limit: {
+      tries: 1
+    }
+  }, {
+    name: "Get Rufus Quest",
+    // eslint-disable-next-line libram/verify-constants
+    completed: () => property_get("_shadowAffinityToday", false),
+    do: () => // eslint-disable-next-line libram/verify-constants
+    (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject180 || (_templateObject180 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"])))),
+    choices: {
+      1497: 2,
+      1498: 6
     },
     limit: {
       tries: 1
