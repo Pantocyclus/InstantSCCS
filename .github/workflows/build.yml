@@ -52,8 +52,7 @@ jobs:
       - name: Synchronize & push into release branch
         run: |
           git fetch --all
-          echo "Switching into release"
-          git stash && git stash drop
+          echo "Switching into release"          
           git switch release        
 
           # Push build into the release branch
