@@ -19,7 +19,7 @@ import {
   Lifestyle,
   permedSkills,
 } from "libram";
-import { nextConfigurable } from "libram/dist/resources/2022/TrainSet";
+import { have as haveTrainSet, nextConfigurable } from "libram/dist/resources/2022/TrainSet";
 
 class Hardcoded {
   have: boolean;
@@ -49,10 +49,7 @@ function buildIotmList(): Requirement[] {
       why: "Many test improvements",
     },
     {
-      thing: new Hardcoded(
-        have($item`model train set`) || getWorkshed() === $item`model train set`,
-        "Model train set"
-      ),
+      thing: new Hardcoded(haveTrainSet(), "Model train set"),
       why: "Leveling",
     },
     {
@@ -402,10 +399,7 @@ function buildMiscList(): Requirement[] {
       why: "Ensures Novelty Tropical Skeleton",
     },
     {
-      thing: new Hardcoded(
-        have($item`model train set`) && !nextConfigurable(),
-        "Configurable Trainset"
-      ),
+      thing: new Hardcoded(haveTrainSet() && !nextConfigurable(), "Configurable Trainset"),
       why: "XP and meat during Powerleveling",
     },
     {
