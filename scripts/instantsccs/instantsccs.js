@@ -4092,7 +4092,7 @@ function telescope() {
   };
 }
 ;// CONCATENATED MODULE: ./src/lib.ts
-var lib_templateObject, lib_templateObject2, lib_templateObject3, lib_templateObject4, lib_templateObject5, lib_templateObject6, lib_templateObject7, lib_templateObject8;
+var lib_templateObject, lib_templateObject2, lib_templateObject3, lib_templateObject4, lib_templateObject5, lib_templateObject6, lib_templateObject7, lib_templateObject8, lib_templateObject9, lib_templateObject10, lib_templateObject11;
 
 function lib_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -4338,8 +4338,16 @@ function tryAcquiringEffect(ef) {
   // Try acquiring an effect
   if (have(ef)) return; // If we already have the effect, we're done
 
+  if (ef === $effect(lib_templateObject4 || (lib_templateObject4 = lib_taggedTemplateLiteral(["Sparkling Consciousness"])))) {
+    // This has no ef.default for some reason
+    if (!property_get("_fireworkUsed") && (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(lib_templateObject5 || (lib_templateObject5 = lib_taggedTemplateLiteral(["sparkler"]))), 1)) (0,external_kolmafia_namespaceObject.use)(template_string_$item(lib_templateObject6 || (lib_templateObject6 = lib_taggedTemplateLiteral(["sparkler"]))), 1);
+    return;
+  }
+
+  if (!ef.default) return; // No way to acquire?
+
   if (tryRegardless || canAcquireEffect(ef)) {
-    if (ef === $effect(lib_templateObject4 || (lib_templateObject4 = lib_taggedTemplateLiteral(["Ode to Booze"])))) (0,external_kolmafia_namespaceObject.restoreMp)(50);
+    if (ef === $effect(lib_templateObject7 || (lib_templateObject7 = lib_taggedTemplateLiteral(["Ode to Booze"])))) (0,external_kolmafia_namespaceObject.restoreMp)(50);
     (0,external_kolmafia_namespaceObject.cliExecute)(ef.default.replace(/cast 1 /g, "cast "));
   }
 }
@@ -4362,7 +4370,7 @@ function canAcquireEffect(ef) {
 
       case "use":
         // We have the item
-        if (ef === $effect(lib_templateObject5 || (lib_templateObject5 = lib_taggedTemplateLiteral(["Sparkling Consciousness"]))) && property_get("_fireworkUsed")) return false;
+        if (ef === $effect(lib_templateObject8 || (lib_templateObject8 = lib_taggedTemplateLiteral(["Sparkling Consciousness"]))) && property_get("_fireworkUsed")) return false;
         return have((0,external_kolmafia_namespaceObject.toItem)(target));
 
       case "cast":
@@ -4370,7 +4378,7 @@ function canAcquireEffect(ef) {
       // We have the skill and can cast it
 
       case "cargo":
-        return have(template_string_$item(lib_templateObject6 || (lib_templateObject6 = lib_taggedTemplateLiteral(["Cargo Cultist Shorts"])))) && !property_get("_cargoPocketEmptied");
+        return have(template_string_$item(lib_templateObject9 || (lib_templateObject9 = lib_taggedTemplateLiteral(["Cargo Cultist Shorts"])))) && !property_get("_cargoPocketEmptied");
       // We can grab it from our cargo pants
 
       case "synthesize":
@@ -4387,14 +4395,14 @@ function canAcquireEffect(ef) {
         return property_get("telescopeUpgrades") > 0 && !property_get("telescopeLookedHigh");
 
       case "beach":
-        return have(template_string_$item(lib_templateObject7 || (lib_templateObject7 = lib_taggedTemplateLiteral(["Beach Comb"]))));
+        return have(template_string_$item(lib_templateObject10 || (lib_templateObject10 = lib_taggedTemplateLiteral(["Beach Comb"]))));
       // need to check if specific beach head has been taken
 
       case "spacegate":
         return property_get("spacegateAlways") && !property_get("_spacegateVaccine");
 
       case "pillkeeper":
-        return have(template_string_$item(lib_templateObject8 || (lib_templateObject8 = lib_taggedTemplateLiteral(["Eight Days a Week Pill Keeper"]))));
+        return have(template_string_$item(lib_templateObject11 || (lib_templateObject11 = lib_taggedTemplateLiteral(["Eight Days a Week Pill Keeper"]))));
 
       case "pool":
         return property_get("_poolGames") < 3;
