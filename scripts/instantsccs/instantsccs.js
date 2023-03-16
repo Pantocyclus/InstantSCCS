@@ -11727,7 +11727,7 @@ function installed() {
   return (0,external_kolmafia_namespaceObject.getWorkshed)() === TrainSet_item;
 }
 function TrainSet_have() {
-  return installed() || have_(TrainSet_item);
+  return installed() || have(TrainSet_item);
 }
 var Station;
 
@@ -13334,7 +13334,7 @@ function prepareAscension() {
   }
 }
 ;// CONCATENATED MODULE: ./src/sim.ts
-var sim_templateObject, sim_templateObject2, sim_templateObject3, sim_templateObject4, sim_templateObject5, sim_templateObject6, sim_templateObject7, sim_templateObject8, sim_templateObject9, sim_templateObject10, sim_templateObject11, sim_templateObject12, sim_templateObject13, sim_templateObject14, sim_templateObject15, sim_templateObject16, sim_templateObject17, sim_templateObject18, sim_templateObject19, sim_templateObject20, sim_templateObject21, sim_templateObject22, sim_templateObject23, sim_templateObject24, sim_templateObject25, sim_templateObject26, sim_templateObject27, sim_templateObject28, sim_templateObject29, sim_templateObject30, sim_templateObject31, sim_templateObject32, sim_templateObject33, sim_templateObject34, sim_templateObject35, sim_templateObject36, sim_templateObject37, sim_templateObject38, sim_templateObject39, sim_templateObject40, sim_templateObject41, sim_templateObject42, sim_templateObject43, sim_templateObject44, sim_templateObject45, sim_templateObject46, sim_templateObject47, sim_templateObject48, sim_templateObject49, sim_templateObject50, sim_templateObject51, sim_templateObject52, sim_templateObject53, sim_templateObject54, sim_templateObject55, sim_templateObject56, sim_templateObject57, sim_templateObject58, sim_templateObject59, sim_templateObject60, sim_templateObject61, sim_templateObject62, sim_templateObject63, sim_templateObject64, sim_templateObject65, sim_templateObject66, sim_templateObject67, sim_templateObject68, sim_templateObject69, sim_templateObject70, sim_templateObject71, sim_templateObject72, sim_templateObject73, sim_templateObject74, sim_templateObject75, sim_templateObject76, sim_templateObject77, sim_templateObject78, sim_templateObject79, sim_templateObject80, sim_templateObject81, sim_templateObject82, sim_templateObject83, sim_templateObject84, sim_templateObject85;
+var sim_templateObject, sim_templateObject2, sim_templateObject3, sim_templateObject4, sim_templateObject5, sim_templateObject6, sim_templateObject7, sim_templateObject8, sim_templateObject9, sim_templateObject10, sim_templateObject11, sim_templateObject12, sim_templateObject13, sim_templateObject14, sim_templateObject15, sim_templateObject16, sim_templateObject17, sim_templateObject18, sim_templateObject19, sim_templateObject20, sim_templateObject21, sim_templateObject22, sim_templateObject23, sim_templateObject24, sim_templateObject25, sim_templateObject26, sim_templateObject27, sim_templateObject28, sim_templateObject29, sim_templateObject30, sim_templateObject31, sim_templateObject32, sim_templateObject33, sim_templateObject34, sim_templateObject35, sim_templateObject36, sim_templateObject37, sim_templateObject38, sim_templateObject39, sim_templateObject40, sim_templateObject41, sim_templateObject42, sim_templateObject43, sim_templateObject44, sim_templateObject45, sim_templateObject46, sim_templateObject47, sim_templateObject48, sim_templateObject49, sim_templateObject50, sim_templateObject51, sim_templateObject52, sim_templateObject53, sim_templateObject54, sim_templateObject55, sim_templateObject56, sim_templateObject57, sim_templateObject58, sim_templateObject59, sim_templateObject60, sim_templateObject61, sim_templateObject62, sim_templateObject63, sim_templateObject64, sim_templateObject65, sim_templateObject66, sim_templateObject67, sim_templateObject68, sim_templateObject69, sim_templateObject70, sim_templateObject71, sim_templateObject72, sim_templateObject73, sim_templateObject74, sim_templateObject75, sim_templateObject76, sim_templateObject77, sim_templateObject78, sim_templateObject79, sim_templateObject80, sim_templateObject81, sim_templateObject82;
 
 function sim_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = sim_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -13379,43 +13379,43 @@ function buildIotmList() {
     thing: template_string_$item(sim_templateObject || (sim_templateObject = sim_taggedTemplateLiteral(["Clan VIP Lounge key"]))),
     why: "Many test improvements"
   }, {
-    thing: new Hardcoded(have(template_string_$item(sim_templateObject2 || (sim_templateObject2 = sim_taggedTemplateLiteral(["model train set"])))) || (0,external_kolmafia_namespaceObject.getWorkshed)() === template_string_$item(sim_templateObject3 || (sim_templateObject3 = sim_taggedTemplateLiteral(["model train set"]))), "Model train set"),
+    thing: new Hardcoded(TrainSet_have(), "Model train set"),
     why: "Leveling"
   }, {
-    thing: new Hardcoded(have(template_string_$item(sim_templateObject4 || (sim_templateObject4 = sim_taggedTemplateLiteral(["cosmic bowling ball"])))) || property_get("cosmicBowlingBallReturnCombats", -1) >= 0, "Cosmic bowling ball"),
+    thing: new Hardcoded(have(template_string_$item(sim_templateObject2 || (sim_templateObject2 = sim_taggedTemplateLiteral(["cosmic bowling ball"])))) || property_get("cosmicBowlingBallReturnCombats", -1) >= 0, "Cosmic bowling ball"),
     why: "Leveling + banish"
   }, {
-    thing: template_string_$familiar(sim_templateObject5 || (sim_templateObject5 = sim_taggedTemplateLiteral(["Cookbookbat"]))),
+    thing: template_string_$familiar(sim_templateObject3 || (sim_templateObject3 = sim_taggedTemplateLiteral(["Cookbookbat"]))),
     why: "Turngen, stat tests"
   }, {
-    thing: template_string_$item(sim_templateObject6 || (sim_templateObject6 = sim_taggedTemplateLiteral(["combat lover's locket"]))),
+    thing: template_string_$item(sim_templateObject4 || (sim_templateObject4 = sim_taggedTemplateLiteral(["combat lover's locket"]))),
     why: "Summons for various tests",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$item(sim_templateObject7 || (sim_templateObject7 = sim_taggedTemplateLiteral(["unbreakable umbrella"]))),
+    thing: template_string_$item(sim_templateObject5 || (sim_templateObject5 = sim_taggedTemplateLiteral(["unbreakable umbrella"]))),
     why: "Various leveling and test improvements",
     optional: true,
     recommended: true
   }, {
     // eslint-disable-next-line libram/verify-constants
-    thing: template_string_$item(sim_templateObject8 || (sim_templateObject8 = sim_taggedTemplateLiteral(["closed-circuit pay phone"]))),
+    thing: template_string_$item(sim_templateObject6 || (sim_templateObject6 = sim_taggedTemplateLiteral(["closed-circuit pay phone"]))),
     why: "Free fights, Non-combat, Item Drop",
     optional: true,
     recommended: true
   }, {
-    thing: new Hardcoded(have(template_string_$item(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))) || property_get("stenchAirportAlways"), "Scaler Zone Access"),
+    thing: new Hardcoded(have(template_string_$item(sim_templateObject7 || (sim_templateObject7 = sim_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))) || property_get("stenchAirportAlways"), "Scaler Zone Access"),
     why: "Scalers for leveling"
   }, {
-    thing: template_string_$item(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["backup camera"]))),
+    thing: template_string_$item(sim_templateObject8 || (sim_templateObject8 = sim_taggedTemplateLiteral(["backup camera"]))),
     why: "More fights from locket",
     optional: true
   }, {
-    thing: template_string_$item(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["January's Garbage Tote"]))),
+    thing: template_string_$item(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["January's Garbage Tote"]))),
     why: "XP for leveling",
     optional: true
   }, {
-    thing: template_string_$item(sim_templateObject12 || (sim_templateObject12 = sim_taggedTemplateLiteral(["Kramco Sausage-o-Matic\u2122"]))),
+    thing: template_string_$item(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["Kramco Sausage-o-Matic\u2122"]))),
     why: "Free fights, Turngen",
     optional: true
   }];
@@ -13423,17 +13423,17 @@ function buildIotmList() {
 
 function buildLocketList() {
   return [{
-    thing: $monster(sim_templateObject13 || (sim_templateObject13 = sim_taggedTemplateLiteral(["red skeleton"]))),
+    thing: $monster(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["red skeleton"]))),
     why: "Weapon Damage",
     optional: true,
     recommended: true
   }, {
-    thing: $monster(sim_templateObject14 || (sim_templateObject14 = sim_taggedTemplateLiteral(["factory worker (female)"]))),
+    thing: $monster(sim_templateObject12 || (sim_templateObject12 = sim_taggedTemplateLiteral(["factory worker (female)"]))),
     why: "Hot Resistance",
     optional: true,
     recommended: true
   }, {
-    thing: $monster(sim_templateObject15 || (sim_templateObject15 = sim_taggedTemplateLiteral(["Witchess King"]))),
+    thing: $monster(sim_templateObject13 || (sim_templateObject13 = sim_taggedTemplateLiteral(["Witchess King"]))),
     why: "Weapon Damage, Muscle %",
     optional: true,
     recommended: true
@@ -13442,176 +13442,176 @@ function buildLocketList() {
 
 function buildMiscList() {
   return [{
-    thing: template_string_$familiar(sim_templateObject16 || (sim_templateObject16 = sim_taggedTemplateLiteral(["Disgeist"]))),
+    thing: template_string_$familiar(sim_templateObject14 || (sim_templateObject14 = sim_taggedTemplateLiteral(["Disgeist"]))),
     why: "Non-combat",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$familiar(sim_templateObject17 || (sim_templateObject17 = sim_taggedTemplateLiteral(["Exotic Parrot"]))),
+    thing: template_string_$familiar(sim_templateObject15 || (sim_templateObject15 = sim_taggedTemplateLiteral(["Exotic Parrot"]))),
     why: "Hot test",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject18 || (sim_templateObject18 = sim_taggedTemplateLiteral(["Inscrutable Gaze"]))),
+    thing: template_string_$skill(sim_templateObject16 || (sim_templateObject16 = sim_taggedTemplateLiteral(["Inscrutable Gaze"]))),
     why: "Leveling",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject19 || (sim_templateObject19 = sim_taggedTemplateLiteral(["Song of Bravado"]))),
+    thing: template_string_$skill(sim_templateObject17 || (sim_templateObject17 = sim_taggedTemplateLiteral(["Song of Bravado"]))),
     why: "Stat %",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject20 || (sim_templateObject20 = sim_taggedTemplateLiteral(["Get Big"]))),
+    thing: template_string_$skill(sim_templateObject18 || (sim_templateObject18 = sim_taggedTemplateLiteral(["Get Big"]))),
     why: "Stat %",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject21 || (sim_templateObject21 = sim_taggedTemplateLiteral(["Stevedave's Shanty of Superiority"]))),
+    thing: template_string_$skill(sim_templateObject19 || (sim_templateObject19 = sim_taggedTemplateLiteral(["Stevedave's Shanty of Superiority"]))),
     why: "Stat %",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject22 || (sim_templateObject22 = sim_taggedTemplateLiteral(["The Ode to Booze"]))),
+    thing: template_string_$skill(sim_templateObject20 || (sim_templateObject20 = sim_taggedTemplateLiteral(["The Ode to Booze"]))),
     why: "Adventures",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject23 || (sim_templateObject23 = sim_taggedTemplateLiteral(["Pizza Lover"]))),
+    thing: template_string_$skill(sim_templateObject21 || (sim_templateObject21 = sim_taggedTemplateLiteral(["Pizza Lover"]))),
     why: "Adventures + XP",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject24 || (sim_templateObject24 = sim_taggedTemplateLiteral(["Empathy of the Newt"]))),
+    thing: template_string_$skill(sim_templateObject22 || (sim_templateObject22 = sim_taggedTemplateLiteral(["Empathy of the Newt"]))),
     why: "Familiar weight",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject25 || (sim_templateObject25 = sim_taggedTemplateLiteral(["Leash of Linguini"]))),
+    thing: template_string_$skill(sim_templateObject23 || (sim_templateObject23 = sim_taggedTemplateLiteral(["Leash of Linguini"]))),
     why: "Familiar weight",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject26 || (sim_templateObject26 = sim_taggedTemplateLiteral(["Amphibian Sympathy"]))),
+    thing: template_string_$skill(sim_templateObject24 || (sim_templateObject24 = sim_taggedTemplateLiteral(["Amphibian Sympathy"]))),
     why: "Familiar weight",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject27 || (sim_templateObject27 = sim_taggedTemplateLiteral(["The Sonata of Sneakiness"]))),
+    thing: template_string_$skill(sim_templateObject25 || (sim_templateObject25 = sim_taggedTemplateLiteral(["The Sonata of Sneakiness"]))),
     why: "Non-combat",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject28 || (sim_templateObject28 = sim_taggedTemplateLiteral(["Smooth Movement"]))),
+    thing: template_string_$skill(sim_templateObject26 || (sim_templateObject26 = sim_taggedTemplateLiteral(["Smooth Movement"]))),
     why: "Non-combat",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject29 || (sim_templateObject29 = sim_taggedTemplateLiteral(["Asbestos Heart"]))),
+    thing: template_string_$skill(sim_templateObject27 || (sim_templateObject27 = sim_taggedTemplateLiteral(["Asbestos Heart"]))),
     why: "Hot Resistance",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject30 || (sim_templateObject30 = sim_taggedTemplateLiteral(["Elemental Saucesphere"]))),
+    thing: template_string_$skill(sim_templateObject28 || (sim_templateObject28 = sim_taggedTemplateLiteral(["Elemental Saucesphere"]))),
     why: "Hot Resistance",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject31 || (sim_templateObject31 = sim_taggedTemplateLiteral(["Tolerance of the Kitchen"]))),
+    thing: template_string_$skill(sim_templateObject29 || (sim_templateObject29 = sim_taggedTemplateLiteral(["Tolerance of the Kitchen"]))),
     why: "Hot Resistance",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject32 || (sim_templateObject32 = sim_taggedTemplateLiteral(["Astral Shell"]))),
+    thing: template_string_$skill(sim_templateObject30 || (sim_templateObject30 = sim_taggedTemplateLiteral(["Astral Shell"]))),
     why: "Hot Resistance",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject33 || (sim_templateObject33 = sim_taggedTemplateLiteral(["Crimbo Training: Coal Taster"]))),
+    thing: template_string_$skill(sim_templateObject31 || (sim_templateObject31 = sim_taggedTemplateLiteral(["Crimbo Training: Coal Taster"]))),
     why: "Hot Resistance",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject34 || (sim_templateObject34 = sim_taggedTemplateLiteral(["Bow-Legged Swagger"]))),
+    thing: template_string_$skill(sim_templateObject32 || (sim_templateObject32 = sim_taggedTemplateLiteral(["Bow-Legged Swagger"]))),
     why: "Weapon Damage",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject35 || (sim_templateObject35 = sim_taggedTemplateLiteral(["Steely-Eyed Squint"]))),
+    thing: template_string_$skill(sim_templateObject33 || (sim_templateObject33 = sim_taggedTemplateLiteral(["Steely-Eyed Squint"]))),
     why: "Item Drop",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject36 || (sim_templateObject36 = sim_taggedTemplateLiteral(["Shattering Punch"]))),
+    thing: template_string_$skill(sim_templateObject34 || (sim_templateObject34 = sim_taggedTemplateLiteral(["Shattering Punch"]))),
     why: "Free kill",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject37 || (sim_templateObject37 = sim_taggedTemplateLiteral(["Gingerbread Mob Hit"]))),
+    thing: template_string_$skill(sim_templateObject35 || (sim_templateObject35 = sim_taggedTemplateLiteral(["Gingerbread Mob Hit"]))),
     why: "Free kill",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject38 || (sim_templateObject38 = sim_taggedTemplateLiteral(["Snokebomb"]))),
+    thing: template_string_$skill(sim_templateObject36 || (sim_templateObject36 = sim_taggedTemplateLiteral(["Snokebomb"]))),
     why: "Banish"
   }, {
-    thing: template_string_$skill(sim_templateObject39 || (sim_templateObject39 = sim_taggedTemplateLiteral(["Saucegeyser"]))),
+    thing: template_string_$skill(sim_templateObject37 || (sim_templateObject37 = sim_taggedTemplateLiteral(["Saucegeyser"]))),
     why: "Combat spell"
   }, {
-    thing: template_string_$skill(sim_templateObject40 || (sim_templateObject40 = sim_taggedTemplateLiteral(["Advanced Saucecrafting"]))),
+    thing: template_string_$skill(sim_templateObject38 || (sim_templateObject38 = sim_taggedTemplateLiteral(["Advanced Saucecrafting"]))),
     why: "Saucecrafting"
   }, {
-    thing: template_string_$skill(sim_templateObject41 || (sim_templateObject41 = sim_taggedTemplateLiteral(["The Way of Sauce"]))),
+    thing: template_string_$skill(sim_templateObject39 || (sim_templateObject39 = sim_taggedTemplateLiteral(["The Way of Sauce"]))),
     why: "Saucecrafting",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject42 || (sim_templateObject42 = sim_taggedTemplateLiteral(["Impetuous Sauciness"]))),
+    thing: template_string_$skill(sim_templateObject40 || (sim_templateObject40 = sim_taggedTemplateLiteral(["Impetuous Sauciness"]))),
     why: "Saucecrafting",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject43 || (sim_templateObject43 = sim_taggedTemplateLiteral(["Expert Corner-Cutter"]))),
+    thing: template_string_$skill(sim_templateObject41 || (sim_templateObject41 = sim_taggedTemplateLiteral(["Expert Corner-Cutter"]))),
     why: "Saucecrafting",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject44 || (sim_templateObject44 = sim_taggedTemplateLiteral(["Prevent Scurvy and Sobriety"]))),
+    thing: template_string_$skill(sim_templateObject42 || (sim_templateObject42 = sim_taggedTemplateLiteral(["Prevent Scurvy and Sobriety"]))),
     why: "Saucecrafting + turngen",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject45 || (sim_templateObject45 = sim_taggedTemplateLiteral(["Perfect Freeze"]))),
+    thing: template_string_$skill(sim_templateObject43 || (sim_templateObject43 = sim_taggedTemplateLiteral(["Perfect Freeze"]))),
     why: "Turngen",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject46 || (sim_templateObject46 = sim_taggedTemplateLiteral(["Drinking to Drink"]))),
+    thing: template_string_$skill(sim_templateObject44 || (sim_templateObject44 = sim_taggedTemplateLiteral(["Drinking to Drink"]))),
     why: "Turngen",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject47 || (sim_templateObject47 = sim_taggedTemplateLiteral(["Cannelloni Cocoon"]))),
+    thing: template_string_$skill(sim_templateObject45 || (sim_templateObject45 = sim_taggedTemplateLiteral(["Cannelloni Cocoon"]))),
     why: "HP Regen",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject48 || (sim_templateObject48 = sim_taggedTemplateLiteral(["Soul Saucery"]))),
+    thing: template_string_$skill(sim_templateObject46 || (sim_templateObject46 = sim_taggedTemplateLiteral(["Soul Saucery"]))),
     why: "MP Regen",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject49 || (sim_templateObject49 = sim_taggedTemplateLiteral(["Curse of Weaksauce"]))),
+    thing: template_string_$skill(sim_templateObject47 || (sim_templateObject47 = sim_taggedTemplateLiteral(["Curse of Weaksauce"]))),
     why: "MP Regen",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject50 || (sim_templateObject50 = sim_taggedTemplateLiteral(["Inner Sauce"]))),
+    thing: template_string_$skill(sim_templateObject48 || (sim_templateObject48 = sim_taggedTemplateLiteral(["Inner Sauce"]))),
     why: "MP Regen",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject51 || (sim_templateObject51 = sim_taggedTemplateLiteral(["Double-Fisted Skull Smashing"]))),
+    thing: template_string_$skill(sim_templateObject49 || (sim_templateObject49 = sim_taggedTemplateLiteral(["Double-Fisted Skull Smashing"]))),
     why: "Stat test",
     optional: true,
     recommended: true
@@ -13649,140 +13649,140 @@ function buildMiscList() {
     })(), "Ice Housed Skeleton Store Monster"),
     why: "Ensures Novelty Tropical Skeleton"
   }, {
-    thing: new Hardcoded(have(template_string_$item(sim_templateObject52 || (sim_templateObject52 = sim_taggedTemplateLiteral(["model train set"])))) && !nextConfigurable(), "Configurable Trainset"),
+    thing: new Hardcoded(TrainSet_have() && !nextConfigurable(), "Configurable Trainset"),
     why: "XP and meat during Powerleveling"
   }, {
     thing: new Hardcoded(property_get("knownAscensions") >= 10, "Access to all-purpose flower in the Gift Shop"),
     why: "Muscle test"
   }, {
-    thing: template_string_$skill(sim_templateObject53 || (sim_templateObject53 = sim_taggedTemplateLiteral(["Pride of the Puffin"]))),
+    thing: template_string_$skill(sim_templateObject50 || (sim_templateObject50 = sim_taggedTemplateLiteral(["Pride of the Puffin"]))),
     why: "Monster Level",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject54 || (sim_templateObject54 = sim_taggedTemplateLiteral(["Drescher's Annoying Noise"]))),
+    thing: template_string_$skill(sim_templateObject51 || (sim_templateObject51 = sim_taggedTemplateLiteral(["Drescher's Annoying Noise"]))),
     why: "Monster Level",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject55 || (sim_templateObject55 = sim_taggedTemplateLiteral(["Ur-Kel's Aria of Annoyance"]))),
+    thing: template_string_$skill(sim_templateObject52 || (sim_templateObject52 = sim_taggedTemplateLiteral(["Ur-Kel's Aria of Annoyance"]))),
     why: "Monster Level",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject56 || (sim_templateObject56 = sim_taggedTemplateLiteral(["Master Saucier"]))),
+    thing: template_string_$skill(sim_templateObject53 || (sim_templateObject53 = sim_taggedTemplateLiteral(["Master Saucier"]))),
     why: "Spell Damage",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject57 || (sim_templateObject57 = sim_taggedTemplateLiteral(["Subtle and Quick to Anger"]))),
+    thing: template_string_$skill(sim_templateObject54 || (sim_templateObject54 = sim_taggedTemplateLiteral(["Subtle and Quick to Anger"]))),
     why: "Spell Damage",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject58 || (sim_templateObject58 = sim_taggedTemplateLiteral(["Simmer"]))),
-    why: "Spell Damage",
-    optional: true,
-    recommended: true
-  }, {
-    thing: template_string_$skill(sim_templateObject59 || (sim_templateObject59 = sim_taggedTemplateLiteral(["Always Never Not Guzzling"]))),
-    why: "Item Drop",
-    optional: true,
-    recommended: true
-  }, {
-    thing: template_string_$skill(sim_templateObject60 || (sim_templateObject60 = sim_taggedTemplateLiteral(["Fat Leon's Phat Loot Lyric"]))),
-    why: "Item Drop",
-    optional: true
-  }, {
-    thing: template_string_$skill(sim_templateObject61 || (sim_templateObject61 = sim_taggedTemplateLiteral(["Mad Looting Skillz"]))),
-    why: "Item Drop",
-    optional: true
-  }, {
-    thing: template_string_$skill(sim_templateObject62 || (sim_templateObject62 = sim_taggedTemplateLiteral(["Object Quasi-Permanence"]))),
-    why: "Item Drop",
-    optional: true
-  }, {
-    thing: template_string_$skill(sim_templateObject63 || (sim_templateObject63 = sim_taggedTemplateLiteral(["Powers of Observatiogn"]))),
-    why: "Item Drop",
-    optional: true
-  }, {
-    thing: template_string_$skill(sim_templateObject64 || (sim_templateObject64 = sim_taggedTemplateLiteral(["Bind Spice Ghost"]))),
-    why: "Item Drop",
-    optional: true
-  }, {
-    thing: template_string_$skill(sim_templateObject65 || (sim_templateObject65 = sim_taggedTemplateLiteral(["Thief Among the Honorable"]))),
-    why: "Item Drop",
-    optional: true
-  }, {
-    thing: template_string_$skill(sim_templateObject66 || (sim_templateObject66 = sim_taggedTemplateLiteral(["Natural Born Scrabbler"]))),
-    why: "Item Drop",
-    optional: true
-  }, {
-    thing: template_string_$skill(sim_templateObject67 || (sim_templateObject67 = sim_taggedTemplateLiteral(["20/20 Vision"]))),
-    why: "Item Drop",
-    optional: true
-  }, {
-    thing: template_string_$skill(sim_templateObject68 || (sim_templateObject68 = sim_taggedTemplateLiteral(["Carol of the Bulls"]))),
-    why: "Weapon Damage",
-    optional: true,
-    recommended: true
-  }, {
-    thing: template_string_$skill(sim_templateObject69 || (sim_templateObject69 = sim_taggedTemplateLiteral(["Carol of the Hells"]))),
+    thing: template_string_$skill(sim_templateObject55 || (sim_templateObject55 = sim_taggedTemplateLiteral(["Simmer"]))),
     why: "Spell Damage",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject70 || (sim_templateObject70 = sim_taggedTemplateLiteral(["Song of Sauce"]))),
+    thing: template_string_$skill(sim_templateObject56 || (sim_templateObject56 = sim_taggedTemplateLiteral(["Always Never Not Guzzling"]))),
+    why: "Item Drop",
+    optional: true,
+    recommended: true
+  }, {
+    thing: template_string_$skill(sim_templateObject57 || (sim_templateObject57 = sim_taggedTemplateLiteral(["Fat Leon's Phat Loot Lyric"]))),
+    why: "Item Drop",
+    optional: true
+  }, {
+    thing: template_string_$skill(sim_templateObject58 || (sim_templateObject58 = sim_taggedTemplateLiteral(["Mad Looting Skillz"]))),
+    why: "Item Drop",
+    optional: true
+  }, {
+    thing: template_string_$skill(sim_templateObject59 || (sim_templateObject59 = sim_taggedTemplateLiteral(["Object Quasi-Permanence"]))),
+    why: "Item Drop",
+    optional: true
+  }, {
+    thing: template_string_$skill(sim_templateObject60 || (sim_templateObject60 = sim_taggedTemplateLiteral(["Powers of Observatiogn"]))),
+    why: "Item Drop",
+    optional: true
+  }, {
+    thing: template_string_$skill(sim_templateObject61 || (sim_templateObject61 = sim_taggedTemplateLiteral(["Bind Spice Ghost"]))),
+    why: "Item Drop",
+    optional: true
+  }, {
+    thing: template_string_$skill(sim_templateObject62 || (sim_templateObject62 = sim_taggedTemplateLiteral(["Thief Among the Honorable"]))),
+    why: "Item Drop",
+    optional: true
+  }, {
+    thing: template_string_$skill(sim_templateObject63 || (sim_templateObject63 = sim_taggedTemplateLiteral(["Natural Born Scrabbler"]))),
+    why: "Item Drop",
+    optional: true
+  }, {
+    thing: template_string_$skill(sim_templateObject64 || (sim_templateObject64 = sim_taggedTemplateLiteral(["20/20 Vision"]))),
+    why: "Item Drop",
+    optional: true
+  }, {
+    thing: template_string_$skill(sim_templateObject65 || (sim_templateObject65 = sim_taggedTemplateLiteral(["Carol of the Bulls"]))),
+    why: "Weapon Damage",
+    optional: true,
+    recommended: true
+  }, {
+    thing: template_string_$skill(sim_templateObject66 || (sim_templateObject66 = sim_taggedTemplateLiteral(["Carol of the Hells"]))),
     why: "Spell Damage",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject71 || (sim_templateObject71 = sim_taggedTemplateLiteral(["Song of the North"]))),
+    thing: template_string_$skill(sim_templateObject67 || (sim_templateObject67 = sim_taggedTemplateLiteral(["Song of Sauce"]))),
+    why: "Spell Damage",
+    optional: true,
+    recommended: true
+  }, {
+    thing: template_string_$skill(sim_templateObject68 || (sim_templateObject68 = sim_taggedTemplateLiteral(["Song of the North"]))),
     why: "Weapon Damage",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$skill(sim_templateObject72 || (sim_templateObject72 = sim_taggedTemplateLiteral(["Jackasses' Symphony of Destruction"]))),
+    thing: template_string_$skill(sim_templateObject69 || (sim_templateObject69 = sim_taggedTemplateLiteral(["Jackasses' Symphony of Destruction"]))),
     why: "Weapon Damage",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject73 || (sim_templateObject73 = sim_taggedTemplateLiteral(["Scowl of the Auk"]))),
+    thing: template_string_$skill(sim_templateObject70 || (sim_templateObject70 = sim_taggedTemplateLiteral(["Scowl of the Auk"]))),
     why: "Weapon Damage",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject74 || (sim_templateObject74 = sim_taggedTemplateLiteral(["Rage of the Reindeer"]))),
+    thing: template_string_$skill(sim_templateObject71 || (sim_templateObject71 = sim_taggedTemplateLiteral(["Rage of the Reindeer"]))),
     why: "Weapon Damage",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject75 || (sim_templateObject75 = sim_taggedTemplateLiteral(["Tenacity of the Snapper"]))),
+    thing: template_string_$skill(sim_templateObject72 || (sim_templateObject72 = sim_taggedTemplateLiteral(["Tenacity of the Snapper"]))),
     why: "Weapon Damage",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject76 || (sim_templateObject76 = sim_taggedTemplateLiteral(["Claws of the Walrus"]))),
+    thing: template_string_$skill(sim_templateObject73 || (sim_templateObject73 = sim_taggedTemplateLiteral(["Claws of the Walrus"]))),
     why: "Weapon Damage",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject77 || (sim_templateObject77 = sim_taggedTemplateLiteral(["Blessing of the War Snapper"]))),
+    thing: template_string_$skill(sim_templateObject74 || (sim_templateObject74 = sim_taggedTemplateLiteral(["Blessing of the War Snapper"]))),
     why: "Weapon Damage",
     optional: true
   }, {
-    thing: template_string_$skill(sim_templateObject78 || (sim_templateObject78 = sim_taggedTemplateLiteral(["Evoke Eldritch Horror"]))),
+    thing: template_string_$skill(sim_templateObject75 || (sim_templateObject75 = sim_taggedTemplateLiteral(["Evoke Eldritch Horror"]))),
     why: "Free Fight",
     optional: true,
     recommended: true
   }, {
-    thing: template_string_$item(sim_templateObject79 || (sim_templateObject79 = sim_taggedTemplateLiteral(["Calzone of Legend"]))),
+    thing: template_string_$item(sim_templateObject76 || (sim_templateObject76 = sim_taggedTemplateLiteral(["Calzone of Legend"]))),
     why: "Turngen + Stat %"
   }, {
-    thing: template_string_$item(sim_templateObject80 || (sim_templateObject80 = sim_taggedTemplateLiteral(["Deep Dish of Legend"]))),
+    thing: template_string_$item(sim_templateObject77 || (sim_templateObject77 = sim_taggedTemplateLiteral(["Deep Dish of Legend"]))),
     why: "Turngen + Stat %"
   }, {
-    thing: template_string_$item(sim_templateObject81 || (sim_templateObject81 = sim_taggedTemplateLiteral(["Pizza of Legend"]))),
+    thing: template_string_$item(sim_templateObject78 || (sim_templateObject78 = sim_taggedTemplateLiteral(["Pizza of Legend"]))),
     why: "Turngen + Stat %"
   }, {
-    thing: new Hardcoded(have(template_string_$item(sim_templateObject82 || (sim_templateObject82 = sim_taggedTemplateLiteral(["borrowed time"])))) || have(template_string_$skill(sim_templateObject83 || (sim_templateObject83 = sim_taggedTemplateLiteral(["Summon Clip Art"])))), "borrowed time"),
+    thing: new Hardcoded(have(template_string_$item(sim_templateObject79 || (sim_templateObject79 = sim_taggedTemplateLiteral(["borrowed time"])))) || have(template_string_$skill(sim_templateObject80 || (sim_templateObject80 = sim_taggedTemplateLiteral(["Summon Clip Art"])))), "borrowed time"),
     why: "Turngen"
   }, {
-    thing: template_string_$item(sim_templateObject84 || (sim_templateObject84 = sim_taggedTemplateLiteral(["non-Euclidean angle"]))),
+    thing: template_string_$item(sim_templateObject81 || (sim_templateObject81 = sim_taggedTemplateLiteral(["non-Euclidean angle"]))),
     why: "XP %",
     optional: true
   }, {
-    thing: template_string_$item(sim_templateObject85 || (sim_templateObject85 = sim_taggedTemplateLiteral(["abstraction: category"]))),
+    thing: template_string_$item(sim_templateObject82 || (sim_templateObject82 = sim_taggedTemplateLiteral(["abstraction: category"]))),
     why: "XP %",
     optional: true
   }];
