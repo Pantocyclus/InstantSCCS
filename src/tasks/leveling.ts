@@ -530,9 +530,13 @@ export const LevelingQuest: Quest = {
       do: (): void => {
         const target = get("rufusQuestTarget", "");
         // eslint-disable-next-line libram/verify-constants
-        if (have($effect`Shadow Affinity`))
+        if (have($effect`Shadow Affinity`)) {
+          print("Entering rift with Shadow Affinity!");
           visitUrl("place.php?whichplace=town_right&action=townright_shadowrift_free");
-        else visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
+        } else {
+          print("Entering rift without Shadow Affinity!");
+          visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
+        }
 
         if (lastChoice() === 1499) {
           let NCChoice = 6;
