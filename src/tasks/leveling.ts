@@ -558,7 +558,8 @@ export const LevelingQuest: Quest = {
               availableChoices[choice].includes(target)
             );
             tries += 1;
-            if (currentChoice.length > 0) NCChoice = currentChoice[0];
+            if (currentChoice.length > 1) throw new Error("We found more than 1 valid solution!");
+            else if (currentChoice.length == 1) NCChoice = currentChoice[0];
             else if (tries >= 10) throw new Error(`Did not find ${target} after 10 tries!`);
             else runChoice(5);
           }
