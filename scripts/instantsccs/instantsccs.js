@@ -10861,7 +10861,7 @@ var LevelingQuest = {
     }
   }, {
     name: "Eat Magical Sausages",
-    completed: () => !have(template_string_$item(_templateObject152 || (_templateObject152 = leveling_taggedTemplateLiteral(["magical sausage"])))) && !have(template_string_$item(_templateObject153 || (_templateObject153 = leveling_taggedTemplateLiteral(["magical sausage casing"])))) || (0,external_kolmafia_namespaceObject.myMeat)() <= 3000,
+    completed: () => !have(template_string_$item(_templateObject152 || (_templateObject152 = leveling_taggedTemplateLiteral(["magical sausage"])))) && !have(template_string_$item(_templateObject153 || (_templateObject153 = leveling_taggedTemplateLiteral(["magical sausage casing"])))) || (0,external_kolmafia_namespaceObject.myMeat)() <= 3000 || property_get("_sausagesMade") >= 3,
     do: () => {
       if (have(template_string_$item(_templateObject154 || (_templateObject154 = leveling_taggedTemplateLiteral(["magical sausage casing"]))))) (0,external_kolmafia_namespaceObject.create)(template_string_$item(_templateObject155 || (_templateObject155 = leveling_taggedTemplateLiteral(["magical sausage"]))), 1);
       (0,external_kolmafia_namespaceObject.eat)(template_string_$item(_templateObject156 || (_templateObject156 = leveling_taggedTemplateLiteral(["magical sausage"]))), (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject157 || (_templateObject157 = leveling_taggedTemplateLiteral(["magical sausage"])))));
@@ -10910,8 +10910,14 @@ var LevelingQuest = {
       sendAutumnaton();
       sellMiscellaneousItems();
     },
+    choices: {
+      1094: 5,
+      1115: 6,
+      1322: 2,
+      1324: 5
+    },
     limit: {
-      tries: 1
+      tries: 2
     }
   }, {
     name: "Restore MP with Glowing Blue (continued)",
@@ -10985,7 +10991,7 @@ var LevelingQuest = {
           var currentChoice = [2, 3, 4].filter(choice => availableChoices[choice].includes(target) && !(target === "shadow snowflake" && availableChoices[choice].includes("spectral")) // if target is snowflake, ensure our choice doesn't match the term "spectral"
           );
           tries += 1;
-          if (currentChoice.length > 1) throw new Error("We found more than 1 valid solution!");else if (currentChoice.length == 1) NCChoice = currentChoice[0];else if (tries >= 10) throw new Error("Did not find ".concat(target, " after 10 tries!"));else (0,external_kolmafia_namespaceObject.runChoice)(5);
+          if (currentChoice.length > 1) throw new Error("We found more than 1 valid solution!");else if (currentChoice.length === 1) NCChoice = currentChoice[0];else if (tries >= 10) throw new Error("Did not find ".concat(target, " after 10 tries!"));else (0,external_kolmafia_namespaceObject.runChoice)(5);
         };
 
         while (NCChoice === 6) {
@@ -11819,7 +11825,7 @@ function next() {
   return cycle()[get("trainsetPosition") % 8];
 }
 ;// CONCATENATED MODULE: ./src/tasks/runstart.ts
-var runstart_templateObject, runstart_templateObject2, runstart_templateObject3, runstart_templateObject4, runstart_templateObject5, runstart_templateObject6, runstart_templateObject7, runstart_templateObject8, runstart_templateObject9, runstart_templateObject10, runstart_templateObject11, runstart_templateObject12, runstart_templateObject13, runstart_templateObject14, runstart_templateObject15, runstart_templateObject16, runstart_templateObject17, runstart_templateObject18, runstart_templateObject19, runstart_templateObject20, runstart_templateObject21, runstart_templateObject22, runstart_templateObject23, runstart_templateObject24, runstart_templateObject25, runstart_templateObject26, runstart_templateObject27, runstart_templateObject28, runstart_templateObject29, runstart_templateObject30, runstart_templateObject31, runstart_templateObject32, runstart_templateObject33, runstart_templateObject34, runstart_templateObject35, runstart_templateObject36, runstart_templateObject37, runstart_templateObject38, runstart_templateObject39, runstart_templateObject40, runstart_templateObject41, runstart_templateObject42, runstart_templateObject43, runstart_templateObject44, runstart_templateObject45, runstart_templateObject46, runstart_templateObject47, runstart_templateObject48, runstart_templateObject49, runstart_templateObject50, runstart_templateObject51, runstart_templateObject52, runstart_templateObject53, runstart_templateObject54, runstart_templateObject55, runstart_templateObject56, runstart_templateObject57, runstart_templateObject58, runstart_templateObject59, runstart_templateObject60, runstart_templateObject61, runstart_templateObject62, runstart_templateObject63, runstart_templateObject64, runstart_templateObject65, runstart_templateObject66, runstart_templateObject67, runstart_templateObject68, runstart_templateObject69, runstart_templateObject70, runstart_templateObject71, runstart_templateObject72, runstart_templateObject73, runstart_templateObject74, runstart_templateObject75, runstart_templateObject76, runstart_templateObject77, runstart_templateObject78, runstart_templateObject79, runstart_templateObject80, runstart_templateObject81, runstart_templateObject82, runstart_templateObject83, runstart_templateObject84, runstart_templateObject85, runstart_templateObject86, runstart_templateObject87, runstart_templateObject88, runstart_templateObject89, runstart_templateObject90;
+var runstart_templateObject, runstart_templateObject2, runstart_templateObject3, runstart_templateObject4, runstart_templateObject5, runstart_templateObject6, runstart_templateObject7, runstart_templateObject8, runstart_templateObject9, runstart_templateObject10, runstart_templateObject11, runstart_templateObject12, runstart_templateObject13, runstart_templateObject14, runstart_templateObject15, runstart_templateObject16, runstart_templateObject17, runstart_templateObject18, runstart_templateObject19, runstart_templateObject20, runstart_templateObject21, runstart_templateObject22, runstart_templateObject23, runstart_templateObject24, runstart_templateObject25, runstart_templateObject26, runstart_templateObject27, runstart_templateObject28, runstart_templateObject29, runstart_templateObject30, runstart_templateObject31, runstart_templateObject32, runstart_templateObject33, runstart_templateObject34, runstart_templateObject35, runstart_templateObject36, runstart_templateObject37, runstart_templateObject38, runstart_templateObject39, runstart_templateObject40, runstart_templateObject41, runstart_templateObject42, runstart_templateObject43, runstart_templateObject44, runstart_templateObject45, runstart_templateObject46, runstart_templateObject47, runstart_templateObject48, runstart_templateObject49, runstart_templateObject50, runstart_templateObject51, runstart_templateObject52, runstart_templateObject53, runstart_templateObject54, runstart_templateObject55, runstart_templateObject56, runstart_templateObject57, runstart_templateObject58, runstart_templateObject59, runstart_templateObject60, runstart_templateObject61, runstart_templateObject62, runstart_templateObject63, runstart_templateObject64, runstart_templateObject65, runstart_templateObject66, runstart_templateObject67, runstart_templateObject68, runstart_templateObject69, runstart_templateObject70, runstart_templateObject71, runstart_templateObject72, runstart_templateObject73, runstart_templateObject74, runstart_templateObject75, runstart_templateObject76, runstart_templateObject77, runstart_templateObject78, runstart_templateObject79, runstart_templateObject80, runstart_templateObject81, runstart_templateObject82, runstart_templateObject83, runstart_templateObject84, runstart_templateObject85, runstart_templateObject86;
 
 function runstart_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -12167,11 +12173,7 @@ var RunStartQuest = {
       familiar: template_string_$familiar(runstart_templateObject86 || (runstart_templateObject86 = runstart_taggedTemplateLiteral(["Cookbookbat"]))),
       modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape"
     },
-    combat: new CombatStrategy().macro(combat_Macro["default"]()),
-    post: () => {
-      if (have(template_string_$item(runstart_templateObject87 || (runstart_templateObject87 = runstart_taggedTemplateLiteral(["magical sausage casing"])))) && (0,external_kolmafia_namespaceObject.myMeat)() >= 500) (0,external_kolmafia_namespaceObject.create)(template_string_$item(runstart_templateObject88 || (runstart_templateObject88 = runstart_taggedTemplateLiteral(["magical sausage"]))), 1);
-      (0,external_kolmafia_namespaceObject.eat)(template_string_$item(runstart_templateObject89 || (runstart_templateObject89 = runstart_taggedTemplateLiteral(["magical sausage"]))), (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(runstart_templateObject90 || (runstart_templateObject90 = runstart_taggedTemplateLiteral(["magical sausage"])))));
-    }
+    combat: new CombatStrategy().macro(combat_Macro["default"]())
   }]
 };
 ;// CONCATENATED MODULE: ./src/tasks/familiarweight.ts
