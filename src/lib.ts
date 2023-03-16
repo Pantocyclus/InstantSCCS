@@ -10,6 +10,7 @@ import {
   restoreMp,
   toItem,
   toSkill,
+  use,
   visitUrl,
 } from "kolmafia";
 import { $effect, $item, get, have, set } from "libram";
@@ -247,7 +248,7 @@ export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   if (have(ef)) return; // If we already have the effect, we're done
   if (ef === $effect`Sparkling Consciousness`) { // This has no ef.default for some reason
     if (!get("_fireworkUsed") && retrieveItem($item`sparkler`, 1))
-      use($item`sparkler`);
+      use($item`sparkler`, 1);
     return;
   }
   if (!ef.default) return; // No way to acquire?
