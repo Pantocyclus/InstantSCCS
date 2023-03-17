@@ -4278,10 +4278,8 @@ function tryAcquiringEffect(ef) {
 
   if (!ef.default) return; // No way to acquire?
 
-  if (tryRegardless || canAcquireEffect(ef)) {
-    if (ef === $effect(lib_templateObject7 || (lib_templateObject7 = lib_taggedTemplateLiteral(["Ode to Booze"])))) (0,external_kolmafia_namespaceObject.restoreMp)(60);
-    (0,external_kolmafia_namespaceObject.cliExecute)(ef.default.replace(/cast 1 /g, "cast "));
-  }
+  if (ef === $effect(lib_templateObject7 || (lib_templateObject7 = lib_taggedTemplateLiteral(["Ode to Booze"])))) (0,external_kolmafia_namespaceObject.restoreMp)(60);
+  if (tryRegardless || canAcquireEffect(ef)) (0,external_kolmafia_namespaceObject.cliExecute)(ef.default.replace(/cast 1 /g, "cast "));
 }
 function canAcquireEffect(ef) {
   // This will not attempt to craft items to acquire the effect, which is the behaviour of ef.default
