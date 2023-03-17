@@ -10,7 +10,7 @@ import {
   userConfirm,
 } from "kolmafia";
 import { convertMilliseconds } from "./lib";
-import { get, set } from "libram";
+import { get, set, sinceKolmafiaRevision } from "libram";
 import { Engine } from "./engine/engine";
 import { Args, getTasks } from "grimoire-kolmafia";
 import { Task } from "./engine/task";
@@ -52,6 +52,8 @@ export function main(command?: string): void {
     print("Community Service complete!", "purple");
     return;
   }
+  
+  sinceKolmafiaRevision(27291);
 
   const setTimeNow = get(timeProperty, -1) === -1;
   if (setTimeNow) set(timeProperty, gametimeToInt());
