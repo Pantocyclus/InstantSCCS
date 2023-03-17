@@ -4055,8 +4055,7 @@ function checkResources() {
   resources.forEach(resource => {
     var prefOn = property_get(resource.pref, false);
     var color = prefOn ? "black" : "#888888";
-    (0,external_kolmafia_namespaceObject.print)("".concat(resource.pref, ": ").concat(prefOn), color);
-    (0,external_kolmafia_namespaceObject.print)(" - ".concat(resource.help), color);
+    (0,external_kolmafia_namespaceObject.print)("".concat(resource.pref, " (").concat(prefOn, ") - ").concat(resource.help), color);
   });
 }
 ;// CONCATENATED MODULE: ./src/lib.ts
