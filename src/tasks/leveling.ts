@@ -11,6 +11,7 @@ import {
   eat,
   Effect,
   effectModifier,
+  handlingChoice,
   haveEffect,
   inebrietyLimit,
   Item,
@@ -571,7 +572,7 @@ export const LevelingQuest: Quest = {
           visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
         }
 
-        if (lastChoice() === 1499) {
+        if (handlingChoice() && lastChoice() === 1499) {
           let NCChoice = 6;
           let tries = 0;
           while (NCChoice === 6) {
@@ -587,10 +588,8 @@ export const LevelingQuest: Quest = {
               )
             );
 
-            const currentChoice = [2, 3, 4].filter(
-              (choice) =>
-                availableChoices[choice].includes(target) &&
-                !(target === "shadow snowflake" && availableChoices[choice].includes("spectral")) // if target is snowflake, ensure our choice doesn't match the term "spectral"
+            const currentChoice = [2, 3, 4].filter((choice) =>
+              availableChoices[choice].includes(target)
             );
             tries += 1;
             if (currentChoice.length > 1) throw new Error("We found more than 1 valid solution!");

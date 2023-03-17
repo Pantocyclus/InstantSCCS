@@ -247,16 +247,15 @@ export function logTestSetup(whichTest: number): void {
 export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   // Try acquiring an effect
   if (have(ef)) return; // If we already have the effect, we're done
-  if (ef === $effect`Sparkling Consciousness`) { // This has no ef.default for some reason
-    if (!get("_fireworkUsed") && retrieveItem($item`sparkler`, 1))
-      use($item`sparkler`, 1);
+  if (ef === $effect`Sparkling Consciousness`) {
+    // This has no ef.default for some reason
+    if (!get("_fireworkUsed") && retrieveItem($item`sparkler`, 1)) use($item`sparkler`, 1);
     return;
   }
   if (!ef.default) return; // No way to acquire?
-  
-  if (ef === $effect`Ode to Booze`) restoreMp(60);  
-  if (tryRegardless || canAcquireEffect(ef))
-    cliExecute(ef.default.replace(/cast 1 /g, "cast "));
+
+  if (ef === $effect`Ode to Booze`) restoreMp(60);
+  if (tryRegardless || canAcquireEffect(ef)) cliExecute(ef.default.replace(/cast 1 /g, "cast "));
 }
 
 export function canAcquireEffect(ef: Effect): boolean {
