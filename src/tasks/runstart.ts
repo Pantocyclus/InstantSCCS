@@ -100,13 +100,14 @@ export const RunStartQuest: Quest = {
         use($item`pork elf goodies sack`);
         autosell($item`hamethyst`, itemAmount($item`hamethyst`));
         autosell($item`baconstone`, itemAmount($item`baconstone`));
-        autosell($item`porquoise`, itemAmount($item`porquoise`));
+        if (!get("instant_savePorquoise", false))
+          autosell($item`porquoise`, itemAmount($item`porquoise`));
       },
       limit: { tries: 1 },
     },
     {
       name: "Get Codpiece",
-      completed: () => get("_floundryItemCreated"),
+      completed: () => get("_floundryItemCreated") || get("instant_saveFloundry", false),
       do: (): void => {
         retrieveItem($item`codpiece`, 1);
         use($item`codpiece`, 1);
@@ -118,7 +119,10 @@ export const RunStartQuest: Quest = {
     {
       name: "Deck",
       ready: () => get("_deckCardsDrawn") === 0,
-      completed: () => get("_deckCardsDrawn") >= 10 || !have($item`Deck of Every Card`),
+      completed: () =>
+        get("_deckCardsDrawn") >= 10 ||
+        !have($item`Deck of Every Card`) ||
+        get("instant_saveDeck", false),
       do: (): void => {
         cliExecute("cheat wrench");
         cliExecute("cheat candlestick");
@@ -127,7 +131,10 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "KGB",
-      completed: () => get("_kgbClicksUsed") > 0 || !have($item`Kremlin's Greatest Briefcase`),
+      completed: () =>
+        get("_kgbClicksUsed") > 0 ||
+        !have($item`Kremlin's Greatest Briefcase`) ||
+        get("instant_saveKGBClicks", false),
       do: () => cliExecute("briefcase e ml"),
       limit: { tries: 1 },
     },
@@ -194,7 +201,10 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Pantogramming",
-      completed: () => Pantogram.havePants() || !have($item`portable pantogram`),
+      completed: () =>
+        Pantogram.havePants() ||
+        !have($item`portable pantogram`) ||
+        get("instant_savePantogram", false),
       do: (): void => {
         Pantogram.makePants(
           "Mysticality",
@@ -209,7 +219,9 @@ export const RunStartQuest: Quest = {
     {
       name: "Mummery",
       completed: () =>
-        get("_mummeryMods").includes(`Experience (Mysticality)`) || !have($item`mumming trunk`),
+        get("_mummeryMods").includes(`Experience (Mysticality)`) ||
+        !have($item`mumming trunk`) ||
+        get("instant_saveMummingTrunk", false),
       do: () => cliExecute("mummery myst"),
       outfit: { familiar: $familiar`Cookbookbat` },
       limit: { tries: 1 },
@@ -335,7 +347,8 @@ export const RunStartQuest: Quest = {
           "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball",
       },
       post: (): void => {
-        if (have($item`MayDay™ supply package`)) use($item`MayDay™ supply package`, 1);
+        if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
+          use($item`MayDay™ supply package`, 1);
         if (have($item`space blanket`)) autosell($item`space blanket`, 1);
       },
       limit: { tries: 4 },

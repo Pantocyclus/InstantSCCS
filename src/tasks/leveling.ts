@@ -232,7 +232,8 @@ export const LevelingQuest: Quest = {
           .includes(toInt($item`non-Euclidean angle`).toString()) ||
         have($item`non-Euclidean angle`) ||
         have($effect`Different Way of Seeing Things`) ||
-        storageAmount($item`non-Euclidean angle`) === 0,
+        storageAmount($item`non-Euclidean angle`) === 0 ||
+        get("instant_saveEuclideanAngle", false),
       do: (): void => {
         takeStorage($item`non-Euclidean angle`, 1);
         chew($item`non-Euclidean angle`, 1);
@@ -248,7 +249,8 @@ export const LevelingQuest: Quest = {
           .includes(toInt($item`abstraction: category`).toString()) ||
         have($item`abstraction: category`) ||
         have($effect`Category`) ||
-        storageAmount($item`abstraction: category`) === 0,
+        storageAmount($item`abstraction: category`) === 0 ||
+        get("instant_saveAbstraction", false),
       do: (): void => {
         takeStorage($item`abstraction: category`, 1);
         chew($item`abstraction: category`, 1);
@@ -322,7 +324,10 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Cast Perfect Freeze",
-      completed: () => !have($skill`Perfect Freeze`) || get("_perfectFreezeUsed"),
+      completed: () =>
+        !have($skill`Perfect Freeze`) ||
+        get("_perfectFreezeUsed") ||
+        get("instant_savePerfectFreeze", false),
       prepare: () => restoreMp(mpCost($skill`Perfect Freeze`)),
       do: () => useSkill($skill`Perfect Freeze`),
       limit: { tries: 1 },
@@ -330,7 +335,10 @@ export const LevelingQuest: Quest = {
     {
       name: "Drink Perfect Drink",
       completed: () =>
-        myInebriety() >= 3 || !have($item`perfect ice cube`) || !baseBoozes.some((it) => have(it)),
+        myInebriety() >= 3 ||
+        !have($item`perfect ice cube`) ||
+        !baseBoozes.some((it) => have(it)) ||
+        get("instant_savePerfectFreeze", false),
       do: (): void => {
         tryAcquiringEffect($effect`Ode to Booze`);
         const baseBooze = baseBoozes.filter((it) => have(it))[0];
@@ -375,7 +383,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Consult Gorgonzola",
-      completed: () => get("_clanFortuneBuffUsed"),
+      completed: () => get("_clanFortuneBuffUsed") || get("instant_saveFortuneTeller", false),
       do: () => cliExecute("fortune buff mys"),
       limit: { tries: 1 },
     },
@@ -688,7 +696,8 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !have($item`backup camera`) ||
         !freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none) ||
-        get("_backUpUses") >= 11,
+        get("_backUpUses") >= 11 ||
+        get("instant_saveBackups", false),
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Back-Up to your Last Enemy`).default()
@@ -882,7 +891,8 @@ export const LevelingQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
-      completed: () => get("_witchessFights") >= 5 || !Witchess.have(),
+      completed: () =>
+        get("_witchessFights") >= 5 || !Witchess.have() || get("instant_saveWitchess", false),
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
@@ -997,7 +1007,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Drink Bee's Knees",
       after: ["Powerlevel"],
-      completed: () => get("_speakeasyDrinksDrunk") >= 1,
+      completed: () => have($effect`On the Trolley`) || get("instant_saveBeesKnees", false),
       do: (): void => {
         if (myMeat() < 500) throw new Error("Insufficient Meat to purchase Bee's Knees!");
         tryAcquiringEffect($effect`Ode to Booze`);

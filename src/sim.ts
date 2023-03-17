@@ -1,13 +1,4 @@
-import {
-  Familiar,
-  getWorkshed,
-  Item,
-  Monster,
-  print,
-  printHtml,
-  Skill,
-  storageAmount,
-} from "kolmafia";
+import { Familiar, Item, Monster, print, printHtml, Skill, storageAmount } from "kolmafia";
 import {
   $familiar,
   $item,

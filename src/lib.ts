@@ -15,6 +15,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import { $effect, $item, get, have, set } from "libram";
+import { forbiddenEffects } from "./resources";
 
 export enum CommunityServiceTests {
   HPTEST = 1,
@@ -246,7 +247,10 @@ export function logTestSetup(whichTest: number): void {
 
 export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   // Try acquiring an effect
-  if (have(ef)) return; // If we already have the effect, we're done
+  if (have(ef)) return;
+  // If we already have the effect, we're done
+  else if (forbiddenEffects.includes(ef)) return; // Don't acquire the effect if we are saving it
+
   if (ef === $effect`Sparkling Consciousness`) {
     // This has no ef.default for some reason
     if (!get("_fireworkUsed") && retrieveItem($item`sparkler`, 1)) use($item`sparkler`, 1);

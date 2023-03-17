@@ -33,7 +33,10 @@ export const WeaponDamageQuest: Quest = {
   tasks: [
     {
       name: "Drink Sockdollager",
-      completed: () => myInebriety() >= inebrietyLimit() - 1 || myMeat() < 500,
+      completed: () =>
+        myInebriety() >= inebrietyLimit() - 1 ||
+        myMeat() < 500 ||
+        get("instant_saveSockdollager", false),
       do: (): void => {
         tryAcquiringEffect($effect`Ode to Booze`);
         visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=6&pwd=${+myHash()}`); // Sockdollager
@@ -51,7 +54,10 @@ export const WeaponDamageQuest: Quest = {
     },
     {
       name: "Cargo Shorts",
-      completed: () => get("_cargoPocketEmptied") || !have($item`Cargo Cultist Shorts`),
+      completed: () =>
+        get("_cargoPocketEmptied") ||
+        !have($item`Cargo Cultist Shorts`) ||
+        get("instant_saveCargoShorts", false),
       do: (): void => {
         visitUrl("inventory.php?action=pocket");
         visitUrl("choice.php?whichchoice=1420&option=1&pocket=284");

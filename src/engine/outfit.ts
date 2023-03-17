@@ -23,6 +23,10 @@ export function unbreakableUmbrella(): void {
 }
 
 export function docBag(): void {
-  if (have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3)
+  if (
+    have($item`Lil' Doctor™ bag`) &&
+    get("_chestXRayUsed") < 3 &&
+    !get("instant_saveDocBag", false)
+  )
     equip($slot`acc3`, $item`Lil' Doctor™ bag`);
 }

@@ -98,10 +98,15 @@ export const HotResQuest: Quest = {
       prepare: (): void => {
         cliExecute("retrocape vampire hold");
         if (get("parkaMode") !== "pterodactyl") cliExecute("parka pterodactyl");
-        if (get("_kgbClicksUsed") < 22 && have($item`Kremlin's Greatest Briefcase`))
+        if (
+          get("_kgbClicksUsed") < 22 &&
+          have($item`Kremlin's Greatest Briefcase`) &&
+          !get("instant_saveKGBClicks", false)
+        )
           cliExecute("briefcase e hot");
         if (
           have($skill`Summon Clip Art`) &&
+          !get("instant_saveClipArt", false) &&
           have($familiar`Exotic Parrot`) &&
           !have($item`cracker`)
         ) {

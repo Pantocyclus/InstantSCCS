@@ -2,8 +2,6 @@ import {
   gametimeToInt,
   myAdventures,
   myAscensions,
-  myDaycount,
-  myTurncount,
   print,
   setAutoAttack,
   turnsPlayed,
@@ -26,6 +24,7 @@ import { WeaponDamageQuest } from "./tasks/weapondamage";
 import { DonateQuest } from "./tasks/donate";
 import { SpellDamageQuest } from "./tasks/spelldamage";
 import { checkRequirements } from "./sim";
+import { checkResources } from "./resources";
 
 const timeProperty = "fullday_elapsedTime";
 
@@ -35,6 +34,10 @@ export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS scri
     default: false,
   }),
   sim: Args.flag({ help: "Check if you have the requirements to run this script.", setting: "" }),
+  savedresources: Args.flag({
+    help: "Check which resources you have current set to be saved.",
+    setting: "",
+  }),
 });
 
 export function main(command?: string): void {
@@ -47,12 +50,16 @@ export function main(command?: string): void {
     checkRequirements();
     return;
   }
+  if (args.savedresources) {
+    checkResources();
+    return;
+  }
 
   if (runComplete()) {
     print("Community Service complete!", "purple");
     return;
   }
-  
+
   sinceKolmafiaRevision(27291);
 
   const setTimeNow = get(timeProperty, -1) === -1;

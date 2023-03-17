@@ -136,7 +136,10 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Deck Wheel of Fortune",
       ready: () => get("_deckCardsDrawn") <= 10,
-      completed: () => get("_deckCardsDrawn") >= 15 || !have($item`Deck of Every Card`),
+      completed: () =>
+        get("_deckCardsDrawn") >= 15 ||
+        !have($item`Deck of Every Card`) ||
+        get("instant_saveDeck", false),
       do: (): void => {
         cliExecute("cheat fortune");
       },
@@ -146,7 +149,8 @@ export const BoozeDropQuest: Quest = {
       name: "Power Seed",
       completed: () =>
         !have($item`potted power plant`) ||
-        (itemAmount($item`battery (AAA)`) < 5 && !have($item`battery (lantern)`)),
+        (itemAmount($item`battery (AAA)`) < 5 && !have($item`battery (lantern)`)) ||
+        get("instant_savePowerSeed", false),
       do: (): void => {
         if (itemAmount($item`battery (AAA)`) >= 5) create($item`battery (lantern)`, 1);
         use($item`battery (lantern)`, 1);

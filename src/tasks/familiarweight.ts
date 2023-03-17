@@ -57,6 +57,7 @@ export const FamiliarWeightQuest: Quest = {
 
         if (
           have($skill`Summon Clip Art`) &&
+          !get("instant_saveClipArt", false) &&
           $familiars`Mini-Crimbot, Exotic Parrot`.some((fam) => have(fam))
         ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
