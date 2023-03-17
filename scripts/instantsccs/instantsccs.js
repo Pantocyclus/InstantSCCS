@@ -11116,7 +11116,7 @@ var LevelingQuest = {
         (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=town_right&action=townright_shadowrift");
       }
 
-      if ((0,external_kolmafia_namespaceObject.lastChoice)() === 1499) {
+      if ((0,external_kolmafia_namespaceObject.handlingChoice)() && (0,external_kolmafia_namespaceObject.lastChoice)() === 1499) {
         var NCChoice = 6;
         var tries = 0;
 
@@ -11124,8 +11124,7 @@ var LevelingQuest = {
           var availableChoices = (0,external_kolmafia_namespaceObject.availableChoiceOptions)(true);
           (0,external_kolmafia_namespaceObject.print)("Try #".concat(tries + 1, " - Target = ").concat(target, "; Choices available:"), "blue");
           [2, 3, 4].forEach(choice => (0,external_kolmafia_namespaceObject.print)("Choice ".concat(choice, ": ").concat(availableChoices[choice], " (").concat(availableChoices[choice].includes(target) ? "" : "no ", "match)"), "".concat(availableChoices[choice].includes(target) ? "green" : "red")));
-          var currentChoice = [2, 3, 4].filter(choice => availableChoices[choice].includes(target) && !(target === "shadow snowflake" && availableChoices[choice].includes("spectral")) // if target is snowflake, ensure our choice doesn't match the term "spectral"
-          );
+          var currentChoice = [2, 3, 4].filter(choice => availableChoices[choice].includes(target));
           tries += 1;
           if (currentChoice.length > 1) throw new Error("We found more than 1 valid solution!");else if (currentChoice.length === 1) NCChoice = currentChoice[0];else if (tries >= 10) throw new Error("Did not find ".concat(target, " after 10 tries!"));else (0,external_kolmafia_namespaceObject.runChoice)(5);
         };
