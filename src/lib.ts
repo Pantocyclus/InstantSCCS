@@ -253,10 +253,10 @@ export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
     return;
   }
   if (!ef.default) return; // No way to acquire?
-  if (tryRegardless || canAcquireEffect(ef)) {
-    if (ef === $effect`Ode to Booze`) restoreMp(60);    
+  
+  if (ef === $effect`Ode to Booze`) restoreMp(60);  
+  if (tryRegardless || canAcquireEffect(ef))
     cliExecute(ef.default.replace(/cast 1 /g, "cast "));
-  }
 }
 
 export function canAcquireEffect(ef: Effect): boolean {
