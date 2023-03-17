@@ -79,7 +79,6 @@ export function checkResources(): void {
   resources.forEach((resource) => {
     const prefOn = get(resource.pref, false);
     const color = prefOn ? "black" : "#888888";
-    print(`${resource.pref}: ${prefOn}`, color);
-    print(` - ${resource.help}`, color);
+    print(`${resource.pref} (${prefOn}) - ${resource.help}`, color);
   });
 }
