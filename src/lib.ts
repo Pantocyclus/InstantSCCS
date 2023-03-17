@@ -254,7 +254,7 @@ export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   }
   if (!ef.default) return; // No way to acquire?
   if (tryRegardless || canAcquireEffect(ef)) {
-    if (ef === $effect`Ode to Booze`) restoreMp(50);    
+    if (ef === $effect`Ode to Booze`) restoreMp(60);    
     cliExecute(ef.default.replace(/cast 1 /g, "cast "));
   }
 }
