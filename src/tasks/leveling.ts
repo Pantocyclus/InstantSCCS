@@ -110,19 +110,16 @@ const usefulEffects: Effect[] = [
   $effect`Carol of the Hells`,
 ];
 
-let _powerlevelingLocation: Location | null = null;
 export function powerlevelingLocation(): Location {
-  if (!_powerlevelingLocation) {
-    if (get("neverendingPartyAlways")) _powerlevelingLocation = $location`The Neverending Party`;
-    else if (get("stenchAirportAlways") || get("_stenchAirportToday"))
-      _powerlevelingLocation = $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`;
-    else if (get("spookyAirportAlways")) _powerlevelingLocation = $location`The Deep Dark Jungle`;
-    else if (get("hotAirportAlways")) _powerlevelingLocation = $location`The SMOOCH Army HQ`;
-    else if (get("coldAirportAlways")) _powerlevelingLocation = $location`VYKEA`;
-    else if (get("sleazeAirportAlways")) _powerlevelingLocation = $location`Sloppy Seconds Diner`;
-    _powerlevelingLocation = $location.none;
-  }
-  return _powerlevelingLocation;
+  if (get("neverendingPartyAlways")) return $location`The Neverending Party`;
+  else if (get("stenchAirportAlways") || get("_stenchAirportToday"))
+    return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`;
+  else if (get("spookyAirportAlways")) return $location`The Deep Dark Jungle`;
+  else if (get("hotAirportAlways")) return $location`The SMOOCH Army HQ`;
+  else if (get("coldAirportAlways")) return $location`VYKEA`;
+  else if (get("sleazeAirportAlways")) return $location`Sloppy Seconds Diner`;
+
+  return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`; // Default location
 }
 
 function haveCBBIngredients(): boolean {
@@ -241,7 +238,9 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Pull Daypass",
-      completed: () => powerlevelingLocation() !== $location.none,
+      completed: () =>
+        powerlevelingLocation() === $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice` &&
+        !(get("stenchAirportAlways") || get("_stenchAirportToday")),
       do: (): void => {
         takeStorage($item`one-day ticket to Dinseylandfill`, 1);
         use($item`one-day ticket to Dinseylandfill`, 1);
