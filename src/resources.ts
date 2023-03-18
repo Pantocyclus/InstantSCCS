@@ -1,4 +1,4 @@
-import { Effect, print } from "kolmafia";
+import { Effect, print, printHtml } from "kolmafia";
 import { $effect, $effects, get } from "libram";
 
 class Resource {
@@ -114,9 +114,14 @@ const resources: Resource[] = [
 export const forbiddenEffects = resources.map((resource) => resource.effects).flat();
 
 export function checkResources(): void {
+  printHtml(
+    "Legend: <font color='black'>✓ Saved Resource</font> / <font color='#888888'>X Usable Resource"
+  );
+  print("  pref - helptext", "blue");
   resources.forEach((resource) => {
     const prefOn = get(resource.pref, false);
+    const symbol = prefOn ? "✓" : "X";
     const color = prefOn ? "black" : "#888888";
-    print(`${resource.pref} (${prefOn}) - ${resource.help}`, color);
+    print(`${symbol} ${resource.pref} - ${resource.help}`, color);
   });
 }
