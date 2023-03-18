@@ -125,6 +125,25 @@ function powerlevelingLocation(): Location {
   return _powerlevelingLocation;
 }
 
+function haveCBBIngredients(): boolean {
+  let yeast = 0,
+    vegetable = 0,
+    whey = 0;
+  if (!get("instant_saveHoneyBun", false) && !have($effect`Motherly Loved`)) yeast += 1;
+  if (!get("instant_saveRoastedVegetableStats", false) && !have($effect`Wizard Sight`))
+    vegetable += 2;
+  if (!get("instant_saveRichRicotta", false) && !have($effect`Rippin' Ricotta`)) whey += 2;
+  if (!get("instant_savePlainCalzone", false) && !have($effect`Angering Pizza Purists`)) {
+    yeast += 2;
+    whey += 2;
+  }
+  return (
+    itemAmount($item`Yeast of Boris`) >= yeast &&
+    itemAmount($item`Vegetable of Jarlsberg`) >= vegetable &&
+    itemAmount($item`St. Sneaky Pete's Whey`) >= whey
+  );
+}
+
 function sendAutumnaton(): void {
   if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
 }
@@ -942,9 +961,7 @@ export const LevelingQuest: Quest = {
       name: "Powerlevel",
       completed: () =>
         myBasestat($stat`Mysticality`) >= 175 &&
-        ((itemAmount($item`Yeast of Boris`) >= 3 &&
-          itemAmount($item`Vegetable of Jarlsberg`) >= 3 &&
-          itemAmount($item`St. Sneaky Pete's Whey`) >= 6) ||
+        (haveCBBIngredients() ||
           craftedCBBEffects.some((ef) => have(ef)) ||
           craftedCBBEffects.every((ef) => forbiddenEffects.includes(ef))) &&
         (powerlevelingLocation() !== $location`The Neverending Party` ||
@@ -1004,7 +1021,7 @@ export const LevelingQuest: Quest = {
         });
 
         if (
-          itemAmount($item`Vegetable of Jarlsberg`) >= 4 &&
+          itemAmount($item`Vegetable of Jarlsberg`) >= 2 &&
           !have($effect`Pretty Delicious`) &&
           !get("instant_saveRicottaCasserole", false)
         ) {
