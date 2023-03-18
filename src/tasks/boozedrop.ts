@@ -6,7 +6,6 @@ import {
   drink,
   eat,
   Effect,
-  equip,
   faxbot,
   getWorkshed,
   inebrietyLimit,
@@ -22,7 +21,6 @@ import {
   $location,
   $monster,
   $skill,
-  $slot,
   CommunityService,
   get,
   have,
@@ -78,11 +76,6 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Fax Ungulith",
-      prepare: (): void => {
-        if (have($item`industrial fire extinguisher`))
-          equip($slot`offhand`, $item`industrial fire extinguisher`);
-        if (have($item`vampyric cloake`)) equip($slot`back`, $item`vampyric cloake`);
-      },
       completed: () => get("_photocopyUsed"),
       do: (): void => {
         cliExecute("chat");
@@ -94,16 +87,15 @@ export const BoozeDropQuest: Quest = {
         }
       },
       outfit: {
+        back: $item`vampyric cloake`,
+        weapon: $item`industrial fire extinguisher`,
         familiar: $familiar`Cookbookbat`,
         modifier: "myst",
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Become a Bat`)
-          .externalIf(
-            have($item`industrial fire extinguisher`),
-            Macro.trySkill($skill`Fire Extinguisher: Polar Vortex`)
-          )
+          .trySkill($skill`Fire Extinguisher: Polar Vortex`)
           .default()
       ),
       limit: { tries: 1 },

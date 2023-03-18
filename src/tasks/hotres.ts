@@ -28,6 +28,7 @@ import {
 import { Quest } from "../engine/task";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
+import { powerlevelingLocation } from "./leveling";
 
 export const HotResQuest: Quest = {
   name: "Hot Res",
@@ -38,36 +39,59 @@ export const HotResQuest: Quest = {
       prepare: (): void => {
         if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`))
           buy($item`yellow rocket`, 1);
-        if (have($item`Fourth of May Cosplay Saber`))
-          equip($slot`weapon`, $item`Fourth of May Cosplay Saber`);
-        if (have($item`industrial fire extinguisher`))
+        if (have($skill`Double-Fisted Skull Smashing`) && have($item`industrial fire extinguisher`))
           equip($slot`offhand`, $item`industrial fire extinguisher`);
-        if (have($item`vampyric cloake`)) equip($slot`back`, $item`vampyric cloake`);
       },
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`factory worker (female)`) ||
-        !CombatLoversLocket.availableLocketMonsters().includes($monster`factory worker (female)`),
+        !CombatLoversLocket.availableLocketMonsters().includes($monster`factory worker (female)`) ||
+        get("instant_saveLocketFactoryWorker", false),
       do: () => CombatLoversLocket.reminisce($monster`factory worker (female)`),
       outfit: {
+        back: $item`vampyric cloake`,
+        weapon: $item`Fourth of May Cosplay Saber`,
         familiar: $familiar`Cookbookbat`,
         modifier: "Item Drop",
       },
       choices: { 1387: 3 },
       combat: new CombatStrategy().macro(
-        Macro.externalIf(
-          have($item`vampyric cloake`),
-          Macro.trySkill($skill`Become a Cloud of Mist`)
-        )
-          .externalIf(
-            have($item`Fourth of May Cosplay Saber`) && get("_saberForceUses") < 5,
-            Macro.externalIf(
-              have($item`industrial fire extinguisher`),
-              Macro.trySkill($skill`Fire Extinguisher: Foam Yourself`)
-            ).trySkill($skill`Use the Force`)
-          )
+        Macro.trySkill($skill`Become a Cloud of Mist`)
+          .trySkill($skill`Fire Extinguisher: Foam Yourself`)
+          .trySkill($skill`Use the Force`)
           .trySkill($skill`Shocking Lick`)
           .tryItem($item`yellow rocket`)
           .default()
+      ),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Grab Foam Suit",
+      completed: () =>
+        have($effect`Fireproof Foam Suit`) ||
+        !have($item`Fourth of May Cosplay Saber`) ||
+        get("_saberForceUses") >= 5 ||
+        !have($item`industrial fire extinguisher`) ||
+        !have($skill`Double-Fisted Skull Smashing`),
+      do: () => powerlevelingLocation(),
+      outfit: {
+        back: $item`vampyric cloake`,
+        weapon: $item`Fourth of May Cosplay Saber`,
+        offhand: $item`industrial fire extinguisher`,
+        familiar: $familiar`Cookbookbat`,
+        modifier: "Item Drop",
+      },
+      choices: {
+        1094: 5,
+        1115: 6,
+        1322: 2,
+        1324: 5,
+        1387: 3,
+      },
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Become a Cloud of Mist`)
+          .skill($skill`Fire Extinguisher: Foam Yourself`)
+          .skill($skill`Use the Force`)
+          .abort()
       ),
       limit: { tries: 1 },
     },

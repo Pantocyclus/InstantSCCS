@@ -106,6 +106,9 @@ const resources: Resource[] = [
   new Resource("instant_savePowerSeed", "Do not use any batteries", $effects`AAA-Charged`),
   new Resource("instant_saveBackups", "Do not use any backups"),
   new Resource("instant_saveMayday", "Do not use your Mayday survival package"),
+  new Resource("instant_saveLocketRedSkeleton", "Do not reminisce a Red Skeleton"),
+  new Resource("instant_saveLocketWitchessKing", "Do not reminisce a Witchess King"),
+  new Resource("instant_saveLocketFactoryWorker", "Do not reminisce a Factory Worker (female)"),
 ];
 
 export const forbiddenEffects = resources.map((resource) => resource.effects).flat();

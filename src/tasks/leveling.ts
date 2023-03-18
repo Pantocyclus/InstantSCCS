@@ -111,7 +111,7 @@ const usefulEffects: Effect[] = [
 ];
 
 let _powerlevelingLocation: Location | null = null;
-function powerlevelingLocation(): Location {
+export function powerlevelingLocation(): Location {
   if (!_powerlevelingLocation) {
     if (get("neverendingPartyAlways")) _powerlevelingLocation = $location`The Neverending Party`;
     else if (get("stenchAirportAlways") || get("_stenchAirportToday"))
@@ -781,7 +781,8 @@ export const LevelingQuest: Quest = {
       },
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`red skeleton`) ||
-        !CombatLoversLocket.availableLocketMonsters().includes($monster`red skeleton`),
+        !CombatLoversLocket.availableLocketMonsters().includes($monster`red skeleton`) ||
+        get("instant_saveLocketRedSkeleton", false),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
       combat: new CombatStrategy().macro(Macro.tryItem($item`yellow rocket`).abort()),
       outfit: {
@@ -1056,7 +1057,8 @@ export const LevelingQuest: Quest = {
       },
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`Witchess King`) ||
-        !CombatLoversLocket.availableLocketMonsters().includes($monster`Witchess King`),
+        !CombatLoversLocket.availableLocketMonsters().includes($monster`Witchess King`) ||
+        get("instant_saveLocketWitchessKing", false),
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: {
