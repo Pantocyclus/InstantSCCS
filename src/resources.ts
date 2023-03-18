@@ -115,7 +115,7 @@ export const forbiddenEffects = resources.map((resource) => resource.effects).fl
 
 export function checkResources(): void {
   printHtml(
-    "Legend <font color='black'>(prefname - helptext): <font color='black'>✓ Saved Resource</font> / <font color='#888888'>X Usable Resource"
+    "Legend (prefname - helptext): <font color='black'>✓ Saved Resource</font> / <font color='#888888'>X Usable Resource"
   );
   resources.forEach((resource) => {
     const prefOn = get(resource.pref, false);
