@@ -161,6 +161,8 @@ Following the routing laid out below, this script will definitely fail if you do
 - Know all of the following [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) recipes: [honey bun of Boris](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_honey_bun_of_Boris), [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar), [Boris's bread](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_Boris%27s_bread), [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_roasted_vegetable_of_J.), [Pete's rich ricotta](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_Pete%27s_rich_ricotta), [plain calzone](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_plain_calzone) and [baked veggie ricotta](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_baked_veggie_ricotta).
 - Have your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) be reconfigurable. <br/>
 
+Run `instantsccs sim` to ensure you have all the necessary requirements before you ascend! <br/>
+
 ### Highly-Recommended Resources
 
 Merely satisfying all of the above likely leaves you miles away from being able to complete a one-day run. Because we do not rely heavily on too many IotMs to carry us through the SCCS run, you are highly recommended to have the following bunch of skills and familiars to enable this run. The small +stat% buffs matter a lot for the offstat tests, and each of these resources will save 1 or more turns in your run. <br />
