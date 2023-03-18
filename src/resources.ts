@@ -115,7 +115,7 @@ export const forbiddenEffects = resources.map((resource) => resource.effects).fl
 
 export function checkResources(): void {
   printHtml(
-    "Legend: <font color='black'>✓ Saved Resource</font> / <font color='#888888'>X Usable Resource <font color='black'>(prefname - helptext)"
+    "Legend <font color='black'>(prefname - helptext): <font color='black'>✓ Saved Resource</font> / <font color='#888888'>X Usable Resource"
   );
   resources.forEach((resource) => {
     const prefOn = get(resource.pref, false);
@@ -124,5 +124,6 @@ export function checkResources(): void {
     print(`${symbol} ${resource.pref} - ${resource.help}`, color);
   });
   print();
-  print("(Type 'set <prefname>=<true/false>' in the CLI to set your preferences)");
+  print("Type 'set <prefname>=<true/false>' in the CLI to set your preferences");
+  print("Type 'ash remove_property(\"<prefname>\")' to delete a preference");
 }
