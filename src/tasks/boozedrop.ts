@@ -110,7 +110,8 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Eat roasted vegetable of Jarlsberg",
-      completed: () => have($effect`Wizard Sight`),
+      completed: () =>
+        have($effect`Wizard Sight`) || get("instant_saveRoastedVegetableItem", false),
       do: (): void => {
         if (!have($item`roasted vegetable of Jarlsberg`))
           create($item`roasted vegetable of Jarlsberg`, 1);
@@ -123,7 +124,8 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         have($effect`Sacré Mental`) ||
         !have($item`Sacramento wine`) ||
-        myInebriety() >= inebrietyLimit(),
+        myInebriety() >= inebrietyLimit() ||
+        get("instant_saveSacramentoWine", false),
       do: (): void => {
         if (myInebriety() < inebrietyLimit()) {
           tryAcquiringEffect($effect`Ode to Booze`);

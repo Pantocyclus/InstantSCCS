@@ -34,6 +34,7 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Drink Sockdollager",
       completed: () =>
+        have($effect`In a Lather`) ||
         myInebriety() >= inebrietyLimit() - 1 ||
         myMeat() < 500 ||
         get("instant_saveSockdollager", false),

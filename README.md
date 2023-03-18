@@ -258,7 +258,7 @@ The following is a summary of the resources used in the run.
 | [plain calzone](https://kol.coldfront.net/thekolwiki/index.php/Plain_calzone)                                   | 2        | 1      | 15 + 2              | mus test                                    |
 | [baked veggie ricotta casserole](https://kol.coldfront.net/thekolwiki/index.php/Baked_veggie_ricotta_casserole) | 2        | 1      | 15                  | mox test                                    |
 | [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg) | 1        | 2      | 12                  | myst test, item test                        |
-| [Petes Rich Ricotta](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_rich_ricotta)                      | 1        | 1      | 6                   | mox test                                    |
+| [Pete's Rich Ricotta](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_rich_ricotta)                     | 1        | 1      | 6                   | mox test                                    |
 | [honey bun of Boris](https://kol.coldfront.net/thekolwiki/index.php/Honey_bun_of_Boris)                         | 1        | 1      | 5                   | mus test                                    |
 | [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar)                 | 1        | 1      | 5                   | mox test                                    |
 

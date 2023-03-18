@@ -77,7 +77,8 @@ export const HotResQuest: Quest = {
         have($effect`Beery Cool`) ||
         ((!have($item`bowl of cottage cheese`) || !have($item`Yeast of Boris`)) &&
           !have($item`Boris's beer`)) ||
-        myInebriety() >= inebrietyLimit(),
+        myInebriety() >= inebrietyLimit() ||
+        get("instant_saveBorisBeer", false),
       do: (): void => {
         tryAcquiringEffect($effect`Ode to Booze`);
         if (have($item`Yeast of Boris`) && have($item`bowl of cottage cheese`))

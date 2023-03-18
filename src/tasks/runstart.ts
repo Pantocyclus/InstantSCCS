@@ -369,7 +369,7 @@ export const RunStartQuest: Quest = {
     {
       name: "Get Distilled Fortified Wine",
       ready: () => have($item`11-leaf clover`) || have($effect`Lucky!`),
-      completed: () => myInebriety() >= 1,
+      completed: () => myInebriety() >= 1 || get("instant_skipDistilledFortifiedWine", false),
       do: (): void => {
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);
         if (!have($item`distilled fortified wine`)) adv1($location`The Sleazy Back Alley`, -1);

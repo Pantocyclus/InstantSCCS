@@ -15,11 +15,46 @@ class Resource {
 
 const resources: Resource[] = [
   new Resource("instant_savePorquoise", "Do not autosell your porquoise"),
+  new Resource(
+    "instant_skipDistilledFortifiedWine",
+    "Do not grab the DFW lucky adventure (if you have numberology)"
+  ),
   new Resource("instant_saveEuclideanAngle", "Do not pull a non-Euclidean Angle"),
   new Resource("instant_saveAbstraction", "Do not pull an Abstraction: Category"),
   new Resource("instant_savePerfectFreeze", "Do not craft and drink a perfect drink"),
+  new Resource(
+    "instant_saveHoneyBun",
+    "Do not eat a Honey Bun of Boris stat test",
+    $effects`Motherly Loved`
+  ),
+  new Resource(
+    "instant_saveRoastedVegetableStats",
+    "Do not eat a Roasted Vegetable of Jarlsberg for the stat test",
+    $effects`Wizard Sight`
+  ),
+  new Resource(
+    "instant_saveRichRicotta",
+    "Do not eat a Pete's Rich Ricotta for the stats test",
+    $effects`Rippin' Ricotta`
+  ),
+  new Resource("instant_saveWileyWheyBar", "Do not eat a Pete's Wiley Whey Bar for the stats test"),
+  new Resource(
+    "instant_saveRicottaCasserole",
+    "Do not eat a Bake Veggie Ricotta Casserole for the stats test"
+  ),
+  new Resource(
+    "instant_savePlainCalzone",
+    "Do not eat a Plain Calzone",
+    $effects`Angering Pizza Purists`
+  ),
   new Resource("instant_saveBeesKnees", "Do not buy and drink Bee's Knees"),
   new Resource("instant_saveSockdollager", "Do not buy and drink a sockdollager"),
+  new Resource("instant_saveBorisBeer", "Do not drink a Boris's Beer for the hot test"),
+  new Resource(
+    "instant_saveRoastedVegetableItem",
+    "Do not eat a Roasted Vegetable of Jarlsberg for the item test"
+  ),
+  new Resource("instant_saveSacramentoWine", "Do not drink a Sacramento Wine for the item test"),
   new Resource("instant_saveFloundry", "Do not create a codpiece"),
   new Resource("instant_saveFortuneTeller", "Do not consult Zatara for the myst buff"),
   new Resource(

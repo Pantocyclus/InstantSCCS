@@ -68,10 +68,12 @@ import { CombatStrategy } from "grimoire-kolmafia";
 import { tryAcquiringEffect } from "../lib";
 import { docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
 import Macro from "../combat";
+import { forbiddenEffects } from "../resources";
 
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
+const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
 const usefulEffects: Effect[] = [
   // Stats
   $effect`Big`,
@@ -108,15 +110,19 @@ const usefulEffects: Effect[] = [
   $effect`Carol of the Hells`,
 ];
 
+let _powerlevelingLocation: Location | null = null;
 function powerlevelingLocation(): Location {
-  if (get("neverendingPartyAlways")) return $location`The Neverending Party`;
-  else if (get("stenchAirportAlways") || get("_stenchAirportToday"))
-    return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`;
-  else if (get("spookyAirportAlways")) return $location`The Deep Dark Jungle`;
-  else if (get("hotAirportAlways")) return $location`The SMOOCH Army HQ`;
-  else if (get("coldAirportAlways")) return $location`VYKEA`;
-  else if (get("sleazeAirportAlways")) return $location`Sloppy Seconds Diner`;
-  return $location.none;
+  if (!_powerlevelingLocation) {
+    if (get("neverendingPartyAlways")) _powerlevelingLocation = $location`The Neverending Party`;
+    else if (get("stenchAirportAlways") || get("_stenchAirportToday"))
+      _powerlevelingLocation = $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`;
+    else if (get("spookyAirportAlways")) _powerlevelingLocation = $location`The Deep Dark Jungle`;
+    else if (get("hotAirportAlways")) _powerlevelingLocation = $location`The SMOOCH Army HQ`;
+    else if (get("coldAirportAlways")) _powerlevelingLocation = $location`VYKEA`;
+    else if (get("sleazeAirportAlways")) _powerlevelingLocation = $location`Sloppy Seconds Diner`;
+    _powerlevelingLocation = $location.none;
+  }
+  return _powerlevelingLocation;
 }
 
 function sendAutumnaton(): void {
@@ -939,7 +945,8 @@ export const LevelingQuest: Quest = {
         ((itemAmount($item`Yeast of Boris`) >= 3 &&
           itemAmount($item`Vegetable of Jarlsberg`) >= 3 &&
           itemAmount($item`St. Sneaky Pete's Whey`) >= 6) ||
-          craftedCBBFoods.some((it) => have(effectModifier(it, "effect")))) &&
+          craftedCBBEffects.some((ef) => have(ef)) ||
+          craftedCBBEffects.every((ef) => forbiddenEffects.includes(ef))) &&
         (powerlevelingLocation() !== $location`The Neverending Party` ||
           get("_neverendingPartyFreeTurns") >= 10),
       do: powerlevelingLocation(),
@@ -987,7 +994,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Craft and Eat CBB Foods",
       after: ["Powerlevel"],
-      completed: () => craftedCBBFoods.every((it) => have(effectModifier(it, "effect"))),
+      completed: () => craftedCBBEffects.every((ef) => have(ef) || forbiddenEffects.includes(ef)),
       do: (): void => {
         craftedCBBFoods.forEach((it) => {
           if (!have(effectModifier(it, "effect"))) {
@@ -996,7 +1003,11 @@ export const LevelingQuest: Quest = {
           }
         });
 
-        if (itemAmount($item`Vegetable of Jarlsberg`) >= 4 && !have($effect`Pretty Delicious`)) {
+        if (
+          itemAmount($item`Vegetable of Jarlsberg`) >= 4 &&
+          !have($effect`Pretty Delicious`) &&
+          !get("instant_saveRicottaCasserole", false)
+        ) {
           if (!have($item`baked veggie ricotta casserole`))
             create($item`baked veggie ricotta casserole`, 1);
           eat($item`baked veggie ricotta casserole`, 1);
@@ -1065,8 +1076,10 @@ export const LevelingQuest: Quest = {
       completed: () =>
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
-        have($effect`Pretty Delicious`) &&
-        (have($effect`Awfully Wily`) || myBasestat($stat`Mysticality`) >= 190),
+        (have($effect`Pretty Delicious`) || get("instant_saveRicottaCasserole", false)) &&
+        (have($effect`Awfully Wily`) ||
+          get("instant_saveWileyWheyBar", false) ||
+          myBasestat($stat`Mysticality`) >= 190),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Pride`)
@@ -1083,12 +1096,20 @@ export const LevelingQuest: Quest = {
         1324: 5,
       },
       post: (): void => {
-        if (itemAmount($item`Vegetable of Jarlsberg`) >= 4 && !have($effect`Pretty Delicious`)) {
+        if (
+          itemAmount($item`Vegetable of Jarlsberg`) >= 4 &&
+          !have($effect`Pretty Delicious`) &&
+          !get("instant_saveRicottaCasserole", false)
+        ) {
           if (!have($item`baked veggie ricotta casserole`))
             create($item`baked veggie ricotta casserole`, 1);
           eat($item`baked veggie ricotta casserole`, 1);
         }
-        if (itemAmount($item`St. Sneaky Pete's Whey`) >= 1 && !have($effect`Awfully Wily`)) {
+        if (
+          itemAmount($item`St. Sneaky Pete's Whey`) >= 1 &&
+          !have($effect`Awfully Wily`) &&
+          !get("instant_saveWileyWheyBar", false)
+        ) {
           create($item`Pete's wiley whey bar`, 1);
           eat($item`Pete's wiley whey bar`, 1);
         }
