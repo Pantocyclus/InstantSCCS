@@ -1,6 +1,6 @@
 # InstantSCCS
 
-`InstantSCCS` is a softcore one-day Community Service script for looping in Kingdom of Loathing designed to work for low-shiny accounts (i.e. accounts with minimal expensive items/skills) and mostly requires only cheap resources. Unfortunately, this means that the user is expected to have a bunch of softcore-permed skills, and at least ~7 IotMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
+`InstantSCCS` is a softcore one-day Community Service script meant for looping in Kingdom of Loathing, and designed to work for low-to-mid-shiny accounts (i.e. accounts with minimal expensive items/skills). Unfortunately, this means that the user is expected to have a bunch of softcore-permed skills, and at least ~7 IotMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
 
 ## Installation
 
@@ -26,7 +26,7 @@ For those who are interested in using `InstantSCCS` as is, the following section
 - Have the following [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) recipes read: [honey bun of Boris](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_honey_bun_of_Boris), [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar), [Boris's bread](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_Boris%27s_bread), [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_roasted_vegetable_of_J.), [Pete's rich ricotta](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_Pete%27s_rich_ricotta), [plain calzone](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_plain_calzone) and [baked veggie ricotta](https://kol.coldfront.net/thekolwiki/index.php/Recipe_of_Before_Yore:_baked_veggie_ricotta).
 - Ensure your [trainset](https://kol.coldfront.net/thekolwiki/index.php/Model_Train_Set) has not been reconfigured in the past 40 turns prior to ascending (we will need to reconfigure it immediately upon ascension). <br/>
 - You should run `instantsccs sim` to check if you have all the necessary requirements. <br/>
-  - Note that while not a lot of requirements are listed as necessary, you are highly encouraged to have most, if not all, of the highly recommended resources (or have shinies to make up for whichever is lacking). The script will not break if you are lacking any particular non-necessary requirement, but it will also not guarantee you success for a one-day ascension. <br/>
+  - Note that while not a lot of requirements are listed as necessary, you are highly encouraged to have most, if not all, of the highly recommended resources (or have shinies to make up for whichever is lacking). The script will not break if you are lacking any particular non-necessary requirement, but it will also not guarantee you success for a one-day ascension if all you have are the necessary requirements. <br/>
     ![image](https://user-images.githubusercontent.com/98746573/225634734-8792246c-cea1-4f4a-81c5-315b252500d6.png)
 
 ### In Valhalla
@@ -149,7 +149,7 @@ The following is a list of currently supported IotMs. Note that because this is 
 
 ### Absolutely Non-Negotiable Requirements
 
-Following the routing laid out below, this script will definitely fail if you do not meet all of the following requirements, as the task completion conditions are hardcoded to depend on them: <br/>
+Following the routing laid out below in the Basic Run Plan, this script will definitely fail if you do not meet all of the following requirements, as various task completion conditions are hardcoded to depend on them: <br/>
 
 - [Ascend](https://kol.coldfront.net/thekolwiki/index.php/Ascend) as a [Sauceror](https://kol.coldfront.net/thekolwiki/index.php/Sauceror) into [softcore](https://kol.coldfront.net/thekolwiki/index.php/Ascension#Normal_Difficulty) [Community Service](https://kol.coldfront.net/thekolwiki/index.php/Community_Service) <br/>
 - Own a [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key), [model train set](https://kol.coldfront.net/thekolwiki/index.php/Model_train_set), [cosmic bowling ball](https://kol.coldfront.net/thekolwiki/index.php/Cosmic_bowling_ball) and [cookbookbat](https://kol.coldfront.net/thekolwiki/index.php/Cookbookbat) <br/>
