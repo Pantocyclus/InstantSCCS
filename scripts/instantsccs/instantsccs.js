@@ -4078,8 +4078,9 @@ function checkResources() {
   forbiddenEffects.forEach(ef => (0,external_kolmafia_namespaceObject.print)("- ".concat(ef.name)));
   (0,external_kolmafia_namespaceObject.print)();
   (0,external_kolmafia_namespaceObject.print)("Type 'set <prefname>=<true/false>' in the CLI to set your preferences");
-  (0,external_kolmafia_namespaceObject.print)("Type 'set instant_explicitlyExcludedBuffs=<effect1_id>,<effect2_id>,...,<effectn_id>' to exclude getting specific effects");
-  (0,external_kolmafia_namespaceObject.print)("(e.g. 'set instant_explicitlyExcludedBuffs=2106' to exclude substats.enh (id = 2106) without excluding acquiring items.enh from the Source Terminal)");
+  (0,external_kolmafia_namespaceObject.print)("Type 'set instant_explicitlyExcludedBuffs=<effect_id1>,...,<effect_idn>' to exclude getting specific effects");
+  (0,external_kolmafia_namespaceObject.print)("(e.g. 'set instant_explicitlyExcludedBuffs=2106' to exclude substats.enh (id = 2106)");
+  (0,external_kolmafia_namespaceObject.print)("without excluding acquiring items.enh from the Source Terminal)");
   (0,external_kolmafia_namespaceObject.print)("Type 'ash remove_property(\"<prefname>\")' to delete a preference");
 }
 ;// CONCATENATED MODULE: ./src/lib.ts
@@ -11601,7 +11602,9 @@ var LevelingQuest = {
     completed: () => craftedCBBEffects.every(ef => have(ef) || forbiddenEffects.includes(ef)),
     do: () => {
       craftedCBBFoods.forEach(it => {
-        if (!have((0,external_kolmafia_namespaceObject.effectModifier)(it, "effect"))) {
+        var ef = (0,external_kolmafia_namespaceObject.effectModifier)(it, "effect");
+
+        if (!have(ef) && !forbiddenEffects.includes(ef)) {
           if (!have(it)) (0,external_kolmafia_namespaceObject.create)(it, 1);
           (0,external_kolmafia_namespaceObject.eat)(it, 1);
         }
