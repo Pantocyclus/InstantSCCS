@@ -9570,7 +9570,10 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
       if (spec !== undefined) {
         var _spec$familiar;
 
-        if (!have((_spec$familiar = spec.familiar) !== null && _spec$familiar !== void 0 ? _spec$familiar : template_string_$familiar.none)) spec.familiar = template_string_$familiar.none;
+        if (!have((_spec$familiar = spec.familiar) !== null && _spec$familiar !== void 0 ? _spec$familiar : template_string_$familiar.none)) {
+          if (spec.familiar) (0,external_kolmafia_namespaceObject.print)("Ignoring using a familiar because we don't have ".concat(spec.familiar), "red");
+          spec.familiar = template_string_$familiar.none;
+        }
 
         if (spec instanceof Outfit) {
           var badSlots = Array.from(spec.equips.entries()).filter(_ref2 => {
