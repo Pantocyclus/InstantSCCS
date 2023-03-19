@@ -102,7 +102,11 @@ export class Engine extends BaseEngine {
     const outfit = task.outfit;
     const spec = undelay(outfit);
     if (spec !== undefined) {
-      if (!have(spec.familiar ?? $familiar.none)) spec.familiar = $familiar.none;
+      if (!have(spec.familiar ?? $familiar.none)) {
+        if (spec.familiar)
+          print(`Ignoring using a familiar because we don't have ${spec.familiar}`, "red");
+        spec.familiar = $familiar.none;
+      }
       if (spec instanceof Outfit) {
         const badSlots = Array.from(spec.equips.entries())
           .filter(([, it]) => !have(it) && it !== null)
