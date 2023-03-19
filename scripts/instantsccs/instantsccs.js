@@ -9568,10 +9568,8 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
       var spec = undelay(outfit);
 
       if (spec !== undefined) {
-        var _spec$familiar;
-
-        if (!have((_spec$familiar = spec.familiar) !== null && _spec$familiar !== void 0 ? _spec$familiar : template_string_$familiar.none)) {
-          if (spec.familiar) (0,external_kolmafia_namespaceObject.print)("Ignoring using a familiar because we don't have ".concat(spec.familiar), "red");
+        if (spec.familiar && !have(spec.familiar)) {
+          (0,external_kolmafia_namespaceObject.print)("Ignoring using a familiar because we don't have ".concat(spec.familiar), "red");
           spec.familiar = template_string_$familiar.none;
         }
 
