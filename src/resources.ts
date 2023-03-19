@@ -1,4 +1,4 @@
-import { Effect, print, printHtml } from "kolmafia";
+import { Effect, print, printHtml, toEffect } from "kolmafia";
 import { $effect, $effects, get } from "libram";
 
 class Resource {
@@ -111,7 +111,15 @@ const resources: Resource[] = [
   new Resource("instant_saveLocketFactoryWorker", "Do not reminisce a Factory Worker (female)"),
 ];
 
-export const forbiddenEffects = resources.map((resource) => resource.effects).flat();
+const automaticallyExcludedBuffs = resources.map((resource) => resource.effects).flat();
+const manuallyExcludedBuffs = get("instant_explicitlyExcludedBuffs", "")
+  .split(",")
+  .filter((s) => s.length > 0)
+  .map((s) => toEffect(s));
+export const forbiddenEffects = [
+  ...automaticallyExcludedBuffs,
+  ...manuallyExcludedBuffs.filter((ef) => !automaticallyExcludedBuffs.includes(ef)),
+];
 
 export function checkResources(): void {
   printHtml(
@@ -124,6 +132,15 @@ export function checkResources(): void {
     print(`${symbol} ${resource.pref} - ${resource.help}`, color);
   });
   print();
+  print("The following are all the buffs we will not acquire in run:");
+  forbiddenEffects.forEach((ef) => print(`- ${ef.name}`));
+  print();
   print("Type 'set <prefname>=<true/false>' in the CLI to set your preferences");
+  print(
+    "Type 'set instant_explicitlyExcludedBuffs=<effect1_id>,<effect2_id>,...,<effectn_id>' to exclude getting specific effects"
+  );
+  print(
+    "(e.g. 'set instant_explicitlyExcludedBuffs=2106' to exclude substats.enh (id = 2106) without excluding acquiring items.enh from the Source Terminal)"
+  );
   print("Type 'ash remove_property(\"<prefname>\")' to delete a preference");
 }
