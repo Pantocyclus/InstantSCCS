@@ -181,12 +181,12 @@ export const RunStartQuest: Quest = {
       completed: () => get("_chateauDeskHarvested") || !get("chateauAvailable"),
       do: (): void => {
         visitUrl("place.php?whichplace=chateau&action=chateau_desk");
-        const juice_bar_items: Item[] = [
+        const juiceBarItems: Item[] = [
           $item`clove-flavored lip balm`,
           $item`ectoplasm <i>au jus</i>`,
           $item`gremlin juice`,
         ];
-        juice_bar_items.forEach((it) => {
+        juiceBarItems.forEach((it) => {
           autosell(it, itemAmount(it));
         });
       },
