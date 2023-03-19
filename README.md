@@ -488,8 +488,9 @@ A Seal Clubber route might be viable for mid-to-high shiny, but the MP regen fro
 
 ### I'm pretty shiny - can I get the script to save certain resources?
 
-Run `instantsccs savedresources` to see a list of preferences you can set to save specific resources.<br/>
-![image](https://user-images.githubusercontent.com/98746573/226081351-6d2887e6-dc06-4625-9fee-b265df71c949.png) <br/>
+Run `instantsccs savedresources` to see a list of preferences you can set to save specific resources. You may also explicitly exclude acquiring certain buffs by typing `set instant_explicitlyExcludedBuffs=<comma-separated effect IDs>` (and confirming that the correct buffs have been excluded in the savedresources printout). <br/>
+
+![image](https://user-images.githubusercontent.com/98746573/226190266-089eda2e-61f9-4c26-bf46-d6501e9dc082.png) <br/>
 
 ### I don't have a lot of the recommended skills. Will this script still work for me?
 

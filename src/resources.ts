@@ -24,7 +24,7 @@ const resources: Resource[] = [
   new Resource("instant_savePerfectFreeze", "Do not craft and drink a perfect drink"),
   new Resource(
     "instant_saveHoneyBun",
-    "Do not eat a Honey Bun of Boris stat test",
+    "Do not eat a Honey Bun of Boris for the stat test",
     $effects`Motherly Loved`
   ),
   new Resource(
