@@ -12,6 +12,7 @@ import {
   getWorkshed,
   haveEquipped,
   hermit,
+  Item,
   itemAmount,
   myInebriety,
   myMaxhp,
@@ -189,7 +190,18 @@ export const RunStartQuest: Quest = {
     {
       name: "Chateau Desk",
       completed: () => get("_chateauDeskHarvested") || !get("chateauAvailable"),
-      do: () => visitUrl("place.php?whichplace=chateau&action=chateau_desk"),
+      do: (): void => {
+        visitUrl("place.php?whichplace=chateau&action=chateau_desk");
+        const juiceBarItems: Item[] = [
+          $item`clove-flavored lip balm`,
+          $item`ectoplasm <i>au jus</i>`,
+        ];
+        if (get("_loveTunnelUsed") || !get("loveTunnelAvailable"))
+          juiceBarItems.push($item`gremlin juice`);
+        juiceBarItems.forEach((it) => {
+          autosell(it, itemAmount(it));
+        });
+      },
       limit: { tries: 1 },
     },
     {
