@@ -184,8 +184,9 @@ export const RunStartQuest: Quest = {
         const juiceBarItems: Item[] = [
           $item`clove-flavored lip balm`,
           $item`ectoplasm <i>au jus</i>`,
-          $item`gremlin juice`,
         ];
+        if (get("_loveTunnelUsed") || !get("loveTunnelAvailable"))
+          juiceBarItems.push($item`gremlin juice`);
         juiceBarItems.forEach((it) => {
           autosell(it, itemAmount(it));
         });
