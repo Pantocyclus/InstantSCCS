@@ -137,10 +137,9 @@ export function checkResources(): void {
   print();
   print("Type 'set <prefname>=<true/false>' in the CLI to set your preferences");
   print(
-    "Type 'set instant_explicitlyExcludedBuffs=<effect1_id>,<effect2_id>,...,<effectn_id>' to exclude getting specific effects"
+    "Type 'set instant_explicitlyExcludedBuffs=<effect_id1>,...,<effect_idn>' to exclude getting specific effects"
   );
-  print(
-    "(e.g. 'set instant_explicitlyExcludedBuffs=2106' to exclude substats.enh (id = 2106) without excluding acquiring items.enh from the Source Terminal)"
-  );
+  print("(e.g. 'set instant_explicitlyExcludedBuffs=2106' to exclude substats.enh (id = 2106)");
+  print("without excluding acquiring items.enh from the Source Terminal)");
   print("Type 'ash remove_property(\"<prefname>\")' to delete a preference");
 }

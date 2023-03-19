@@ -1015,7 +1015,8 @@ export const LevelingQuest: Quest = {
       completed: () => craftedCBBEffects.every((ef) => have(ef) || forbiddenEffects.includes(ef)),
       do: (): void => {
         craftedCBBFoods.forEach((it) => {
-          if (!have(effectModifier(it, "effect"))) {
+          const ef = effectModifier(it, "effect");
+          if (!have(ef) && !forbiddenEffects.includes(ef)) {
             if (!have(it)) create(it, 1);
             eat(it, 1);
           }
