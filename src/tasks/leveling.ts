@@ -239,8 +239,9 @@ export const LevelingQuest: Quest = {
     {
       name: "Pull Daypass",
       completed: () =>
-        powerlevelingLocation() === $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice` &&
-        !(get("stenchAirportAlways") || get("_stenchAirportToday")),
+        powerlevelingLocation() !== $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice` ||
+        get("stenchAirportAlways") ||
+        get("_stenchAirportToday"),
       do: (): void => {
         takeStorage($item`one-day ticket to Dinseylandfill`, 1);
         use($item`one-day ticket to Dinseylandfill`, 1);
