@@ -10822,7 +10822,7 @@ var LevelingQuest = {
     }
   }, {
     name: "Pull Daypass",
-    completed: () => powerlevelingLocation() === $location(_templateObject85 || (_templateObject85 = leveling_taggedTemplateLiteral(["Uncle Gator's Country Fun-Time Liquid Waste Sluice"]))) && !(property_get("stenchAirportAlways") || property_get("_stenchAirportToday")),
+    completed: () => powerlevelingLocation() !== $location(_templateObject85 || (_templateObject85 = leveling_taggedTemplateLiteral(["Uncle Gator's Country Fun-Time Liquid Waste Sluice"]))) || property_get("stenchAirportAlways") || property_get("_stenchAirportToday"),
     do: () => {
       (0,external_kolmafia_namespaceObject.takeStorage)(template_string_$item(_templateObject86 || (_templateObject86 = leveling_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))), 1);
       (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject87 || (_templateObject87 = leveling_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))), 1);
