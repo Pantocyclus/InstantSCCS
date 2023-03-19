@@ -174,12 +174,16 @@ export const BoozeDropQuest: Quest = {
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: (): void => {
-        const maxTurns = 30;
+        const maxTurns = get("instant_boozeTestTurnLimit", 30);
         const testTurns = advCost(CommunityServiceTests.ITEMTEST);
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
           print("Manually complete the test if you think this is fine.", "red");
+          print(
+            "You may also increase the turn limit by typing 'set instant_boozeTestTurnLimit=<new limit>'",
+            "red"
+          );
         }
         CommunityService.BoozeDrop.run(
           () => logTestSetup(CommunityServiceTests.ITEMTEST),

@@ -64,12 +64,16 @@ export const NoncombatQuest: Quest = {
         cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
       },
       do: (): void => {
-        const maxTurns = 12;
+        const maxTurns = get("instant_comTestTurnLimit", 12);
         const testTurns = advCost(CommunityServiceTests.COMTEST);
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
           print("Manually complete the test if you think this is fine.", "red");
+          print(
+            "You may also increase the turn limit by typing 'set instant_comTestTurnLimit=<new limit>'",
+            "red"
+          );
         }
         CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), maxTurns);
       },

@@ -6,6 +6,7 @@ import {
   $skill,
   CommunityService,
   ensureEffect,
+  get,
   have,
   uneffect,
 } from "libram";
@@ -40,12 +41,16 @@ export const HPQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       do: (): void => {
-        const maxTurns = 1;
+        const maxTurns = get("instant_hpTestTurnLimit", 1);
         const testTurns = advCost(CommunityServiceTests.HPTEST);
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
           print("Manually complete the test if you think this is fine.", "red");
+          print(
+            "You may also increase the turn limit by typing 'set instant_hpTestTurnLimit=<new limit>'",
+            "red"
+          );
         }
         CommunityService.HP.run(() => logTestSetup(CommunityServiceTests.HPTEST), maxTurns);
       },
@@ -80,12 +85,16 @@ export const MuscleQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       do: (): void => {
-        const maxTurns = 2;
+        const maxTurns = get("instant_musTestTurnLimit", 2);
         const testTurns = advCost(CommunityServiceTests.MUSTEST);
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
           print("Manually complete the test if you think this is fine.", "red");
+          print(
+            "You may also increase the turn limit by typing 'set instant_musTestTurnLimit=<new limit>'",
+            "red"
+          );
         }
         CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), maxTurns);
       },
@@ -120,12 +129,16 @@ export const MysticalityQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       do: (): void => {
-        const maxTurns = 1;
+        const maxTurns = get("instant_mystTestTurnLimit", 1);
         const testTurns = advCost(CommunityServiceTests.MYSTTEST);
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
           print("Manually complete the test if you think this is fine.", "red");
+          print(
+            "You may also increase the turn limit by typing 'set instant_mystTestTurnLimit=<new limit>'",
+            "red"
+          );
         }
         CommunityService.Mysticality.run(
           () => logTestSetup(CommunityServiceTests.MYSTTEST),
@@ -172,12 +185,16 @@ export const MoxieQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       do: (): void => {
-        const maxTurns = 5;
+        const maxTurns = get("instant_moxTestTurnLimit", 5);
         const testTurns = advCost(CommunityServiceTests.MOXTEST);
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
           print("Manually complete the test if you think this is fine.", "red");
+          print(
+            "You may also increase the turn limit by typing 'set instant_moxTestTurnLimit=<new limit>'",
+            "red"
+          );
         }
         CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), maxTurns);
       },

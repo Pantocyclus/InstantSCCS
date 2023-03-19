@@ -210,8 +210,19 @@ export const LevelingQuest: Quest = {
         have($effect`In the Depths`) ||
         get("_roninStoragePulls")
           .split(",")
-          .includes(toInt($item`Deep Dish of Legend`).toString()),
-      do: () => takeStorage($item`Deep Dish of Legend`, 1),
+          .includes(toInt($item`Deep Dish of Legend`).toString()) ||
+        get("_instant_skipDeepDishOfLegend", false),
+      do: (): void => {
+        if (storageAmount($item`Deep Dish of Legend`) === 0) {
+          print("Uh oh! You do not seem to have a Deep Dish of Legend in Hagnk's", "red");
+          print("Consider pulling something to make up for the turngen and 300%mus,", "red");
+          print(
+            "then type 'set _instant_skipDeepDishOfLegend=true' before re-running instantsccs",
+            "red"
+          );
+        }
+        takeStorage($item`Deep Dish of Legend`, 1);
+      },
       limit: { tries: 1 },
     },
     {
@@ -221,8 +232,22 @@ export const LevelingQuest: Quest = {
         have($effect`In the 'zone zone!`) ||
         get("_roninStoragePulls")
           .split(",")
-          .includes(toInt($item`Calzone of Legend`).toString()),
-      do: () => takeStorage($item`Calzone of Legend`, 1),
+          .includes(toInt($item`Calzone of Legend`).toString()) ||
+        get("_instant_skipCalzoneOfLegend", false),
+      do: (): void => {
+        if (storageAmount($item`Calzone of Legend`) === 0) {
+          print("Uh oh! You do not seem to have a Calzone of Legend in Hagnk's", "red");
+          print(
+            "Consider pulling something to make up for the turngen and 300%myst (e.g. a roasted vegetable focaccia),",
+            "red"
+          );
+          print(
+            "then type 'set _instant_skipCalzoneOfLegend=true' before re-running instantsccs",
+            "red"
+          );
+        }
+        takeStorage($item`Calzone of Legend`, 1);
+      },
       limit: { tries: 1 },
     },
     {
@@ -232,8 +257,19 @@ export const LevelingQuest: Quest = {
         have($effect`Endless Drool`) ||
         get("_roninStoragePulls")
           .split(",")
-          .includes(toInt($item`Pizza of Legend`).toString()),
-      do: () => takeStorage($item`Pizza of Legend`, 1),
+          .includes(toInt($item`Pizza of Legend`).toString()) ||
+        get("_instant_skipPizzaOfLegend", false),
+      do: (): void => {
+        if (storageAmount($item`Pizza of Legend`) === 0) {
+          print("Uh oh! You do not seem to have a Pizza of Legend in Hagnk's", "red");
+          print("Consider pulling something to make up for the turngen and 300%mox,", "red");
+          print(
+            "then type 'set _instant_skipPizzaOfLegend=true' before re-running instantsccs",
+            "red"
+          );
+        }
+        takeStorage($item`Pizza of Legend`, 1);
+      },
       limit: { tries: 1 },
     },
     {
@@ -243,6 +279,16 @@ export const LevelingQuest: Quest = {
         get("stenchAirportAlways") ||
         get("_stenchAirportToday"),
       do: (): void => {
+        if (storageAmount($item`one-day ticket to Dinseylandfill`) === 0) {
+          print(
+            "Uh oh! You do not seem to have a one-day ticket to Dinseylandfill in Hagnk's",
+            "red"
+          );
+          print(
+            "Try to purchase one from the mall with your meat from Hagnk's before re-running instantsccs",
+            "red"
+          );
+        }
         takeStorage($item`one-day ticket to Dinseylandfill`, 1);
         use($item`one-day ticket to Dinseylandfill`, 1);
       },
@@ -330,13 +376,13 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Eat Calzone",
-      completed: () => get("calzoneOfLegendEaten"),
+      completed: () => get("calzoneOfLegendEaten") || !have($item`Calzone of Legend`),
       do: () => eat($item`Calzone of Legend`, 1),
       limit: { tries: 1 },
     },
     {
       name: "Eat Deep Dish",
-      completed: () => get("deepDishOfLegendEaten"),
+      completed: () => get("deepDishOfLegendEaten") || !have($item`Deep Dish of Legend`),
       do: () => eat($item`Deep Dish of Legend`, 1),
       limit: { tries: 1 },
     },
@@ -455,7 +501,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Eat Pizza",
       ready: () => have($effect`Ready to Eat`), // only eat this after we red rocket
-      completed: () => get("pizzaOfLegendEaten"),
+      completed: () => get("pizzaOfLegendEaten") || !have($item`Pizza of Legend`),
       do: () => eat($item`Pizza of Legend`, 1),
       limit: { tries: 1 },
     },

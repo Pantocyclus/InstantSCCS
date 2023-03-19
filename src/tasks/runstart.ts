@@ -18,11 +18,13 @@ import {
   myMaxmp,
   myMeat,
   myMp,
+  print,
   restoreHp,
   restoreMp,
   retrieveItem,
   reverseNumberology,
   runChoice,
+  storageAmount,
   takeStorage,
   totalFreeRests,
   use,
@@ -164,7 +166,16 @@ export const RunStartQuest: Quest = {
         else takeStorage($item`borrowed time`, 1);
       },
       completed: () => get("_borrowedTimeUsed"),
-      do: () => use($item`borrowed time`, 1),
+      do: (): void => {
+        if (storageAmount($item`borrowed time`) === 0) {
+          print("Uh oh! You do not seem to have a borrowed time in Hagnk's", "red");
+          print(
+            "Try to purchase one from the mall with your meat from Hagnk's before re-running instantsccs",
+            "red"
+          );
+        }
+        use($item`borrowed time`, 1);
+      },
       limit: { tries: 1 },
     },
     {
