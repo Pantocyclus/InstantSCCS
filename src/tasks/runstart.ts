@@ -11,6 +11,7 @@ import {
   equip,
   getWorkshed,
   haveEquipped,
+  haveSkill,
   hermit,
   Item,
   itemAmount,
@@ -29,12 +30,14 @@ import {
   takeStorage,
   totalFreeRests,
   use,
+  useSkill,
   visitUrl,
 } from "kolmafia";
 import {
   $effect,
   $familiar,
   $item,
+  $items,
   $location,
   $monster,
   $skill,
@@ -186,6 +189,27 @@ export const RunStartQuest: Quest = {
         get("_universeCalculated") >= (get("skillLevel144") > 3 ? 3 : get("skillLevel144")),
       do: () => cliExecute("numberology 69"),
       limit: { tries: 3 },
+    },
+    {
+      name: "Summon Sugar Sheets",
+      ready: () => haveSkill($skill`Summon Sugar Sheets`) && get("_sugarSummons") !== 3,
+      completed: () => have($item`sugar sheet`, 3),
+      do: () => {
+        restoreMp(6);
+        useSkill($skill`Summon Sugar Sheets`, 3);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Fold Sugar Sheets",
+      ready: () => have($item`sugar sheet`, 3),
+      completed: () =>
+        $items`sugar shorts, sugar chapeau, sugar shank`.filter((it) => have(it)).length === 3,
+      do: () => {
+        $items`sugar shorts, sugar chapeau, sugar shank`.forEach((it) => {
+          create(it);
+        });
+      },
     },
     {
       name: "Chateau Desk",
