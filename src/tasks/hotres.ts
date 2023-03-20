@@ -72,7 +72,7 @@ export const HotResQuest: Quest = {
         get("_saberForceUses") >= 5 ||
         !have($item`industrial fire extinguisher`) ||
         !have($skill`Double-Fisted Skull Smashing`),
-      do: () => powerlevelingLocation(),
+      do: () => $location`The Dire Warren`,
       outfit: {
         back: $item`vampyric cloake`,
         weapon: $item`Fourth of May Cosplay Saber`,
@@ -80,13 +80,7 @@ export const HotResQuest: Quest = {
         familiar: $familiar`Cookbookbat`,
         modifier: "Item Drop",
       },
-      choices: {
-        1094: 5,
-        1115: 6,
-        1322: 2,
-        1324: 5,
-        1387: 3,
-      },
+      choices: { 1387: 3 },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Become a Cloud of Mist`)
           .skill($skill`Fire Extinguisher: Foam Yourself`)
