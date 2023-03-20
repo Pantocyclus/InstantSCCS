@@ -755,7 +755,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !have($item`backup camera`) ||
         !freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none) ||
-        get("_backUpUses") >= 11 - get("instant_saveBackups", 0) ||
+        get("_backUpUses") >= 11 - clamp(get("instant_saveBackups", 0), 0, 11) ||
         myBasestat($stat`Mysticality`) >= 190, // no longer need to back up Witchess Kings
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
