@@ -15,9 +15,10 @@ class Resource {
   ) {
     this.pref = pref;
     this.help = help;
-    this.effects = get(pref, false) && effects ? effects : [];
-    this.default_value = default_value ?? 1;
-    if (default_value && isNaN(Number(get(pref, "")))) set(pref, default_value);
+    const prefIsNumber = !isNaN(Number(get(pref, ""))) && get(pref, "").length > 0;
+    this.effects = (!prefIsNumber ? get(pref, false) : true) && effects ? effects : [];
+    this.default_value = default_value === undefined ? 1 : default_value;
+    if (default_value !== undefined && !prefIsNumber) set(pref, default_value);
   }
 }
 
@@ -118,7 +119,12 @@ const resources: Resource[] = [
   ),
   new Resource("instant_saveCargoShorts", () => "Do not use a pull from your Cargo Shorts"),
   new Resource("instant_savePowerSeed", () => "Do not use any batteries", $effects`AAA-Charged`),
-  new Resource("instant_saveBackups", (n) => `Save ${n}/11 backups (set a number)`, [], 0),
+  new Resource(
+    "instant_saveBackups",
+    (n) => `Save ${n}/11 backups (set a number)`,
+    [],
+    get("instant_saveBackups", false) ? 11 : 0
+  ),
   new Resource("instant_saveMayday", () => "Do not use your Mayday survival package"),
   new Resource("instant_saveLocketRedSkeleton", () => "Do not reminisce a Red Skeleton"),
   new Resource("instant_saveLocketWitchessKing", () => "Do not reminisce a Witchess King"),
@@ -128,7 +134,9 @@ const resources: Resource[] = [
   ),
 ];
 
-const automaticallyExcludedBuffs = resources.map((resource) => resource.effects).flat();
+const automaticallyExcludedBuffs = Array.from(
+  resources.map((resource) => resource.effects).filter((efs) => efs.length > 0)
+).reduce((acc, val) => acc.concat(val), []);
 const manuallyExcludedBuffs = get("instant_explicitlyExcludedBuffs", "")
   .split(",")
   .filter((s) => s.length > 0)
@@ -144,7 +152,9 @@ export function checkResources(): void {
   );
   resources.forEach((resource) => {
     const prefValue = get(resource.pref, "");
-    const prefOn = get(resource.pref, false);
+    const prefOn =
+      get(resource.pref, false) ||
+      (!isNaN(Number(get(resource.pref, ""))) && Number(get(resource.pref, "")) > 0);
     const symbol = prefOn ? "✓" : "X";
     const color = prefOn ? "black" : "#888888";
     print(`${symbol} ${resource.pref} - ${resource.help(prefValue)}`, color);
