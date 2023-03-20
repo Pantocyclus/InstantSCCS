@@ -14,7 +14,7 @@ import {
   use,
   visitUrl,
 } from "kolmafia";
-import { $effect, $item, get, have, set } from "libram";
+import { $effect, $item, get, have, set, sum } from "libram";
 import { forbiddenEffects } from "./resources";
 
 export enum CommunityServiceTests {
@@ -73,148 +73,6 @@ export function convertMilliseconds(milliseconds: number): string {
   );
 }
 
-function replaceAll(str: string, searchValue: string, replaceValue: string): string {
-  const newStr = str.replace(searchValue, replaceValue);
-  if (newStr === str) return newStr;
-  return replaceAll(newStr, searchValue, replaceValue);
-}
-
-function printModtrace(modifiers: string | string[], baseModifier?: string): void {
-  if (typeof modifiers === "string") {
-    return printModtrace([modifiers], modifiers);
-  } else {
-    if (modifiers.length === 0) return;
-    if (!baseModifier) {
-      const baseModifiers = new Map(
-        modifiers.map((key) => {
-          return [key, 1];
-        })
-      );
-
-      modifiers.forEach((keyThis) => {
-        for (const keyNext of modifiers) {
-          if (keyThis === keyNext) continue;
-          if (keyThis.includes(keyNext)) {
-            baseModifiers.set(keyThis, 0);
-            break;
-          }
-        }
-      });
-
-      modifiers.forEach((keyThis) => {
-        if (baseModifiers.get(keyThis) ?? 0 !== 0) {
-          const modifiersSubset = [keyThis];
-
-          for (const keyNext of modifiers) {
-            if (keyThis === keyNext) continue;
-            if (keyNext.includes(keyThis)) modifiersSubset.push(keyNext);
-          }
-          printModtrace(modifiersSubset, keyThis);
-        }
-      });
-    } else {
-      let htmlOutput = cliExecuteOutput(`modtrace ${baseModifier}`);
-      let htmlHeader = htmlOutput.substring(
-        htmlOutput.indexOf("<tr>") + 4,
-        htmlOutput.indexOf("</tr>")
-      );
-      let headers = [] as string[];
-      let headerMatches = htmlHeader.match("(>)(.*?)(</td>)");
-      while (headerMatches) {
-        const header = headerMatches[2];
-        headers.push(header);
-
-        const idx = headerMatches[0].length + htmlHeader.search("(>)(.*?)(</td>)");
-        htmlHeader = htmlHeader.substring(idx);
-        headerMatches = htmlHeader.match("(>)(.*?)(</td>)");
-      }
-      headers = headers.slice(2);
-
-      const exactModifierColIdx = headers.findIndex(
-        (header) => header.toLowerCase() === baseModifier.toLowerCase()
-      );
-
-      if (exactModifierColIdx === -1) {
-        print(
-          `Could not find exact string match of ${baseModifier} in ${modifiers.toString()}`,
-          "red"
-        );
-        return;
-      }
-
-      let totalVal = 0.0;
-      // Maps modifier name to its value
-      const modifierVals = new Map(
-        headers.map((header) => {
-          return [header, 0];
-        })
-      );
-
-      const lowerCaseModifiers = modifiers.map((modifier) => modifier.toLowerCase());
-
-      if (baseModifier.toLowerCase() === "familiar weight") {
-        totalVal += familiarWeight(myFamiliar());
-        print(`[Familiar Weight] Base weight (${totalVal})`);
-      }
-
-      htmlOutput = htmlOutput.substring(
-        htmlOutput.indexOf("</tr>") + 5,
-        htmlOutput.indexOf("</table>")
-      );
-
-      while (htmlOutput.length > 0) {
-        const idxStart = htmlOutput.indexOf("<tr>");
-        const idxEnd = htmlOutput.indexOf("</tr>");
-        if (idxStart === -1) break;
-
-        let row = replaceAll(htmlOutput.substring(idxStart + 4, idxEnd), "></td>", ">0</td>");
-        const rowArr = [] as string[];
-        let rowMatches = row.match("(>)(.*?)(</td>)");
-        while (rowMatches) {
-          rowArr.push(rowMatches[2]);
-          row = row.replace(rowMatches[0], "");
-          rowMatches = row.match("(>)(.*?)(</td>)");
-        }
-        rowArr
-          .slice(2)
-          .filter((e, idx) => idx % 2 === 0)
-          .forEach((e, idx) => {
-            const val = parseInt(e);
-            modifierVals.set(headers[idx], (modifierVals.get(headers[idx]) ?? 0) + val);
-            if (val !== 0 && lowerCaseModifiers.includes(headers[idx].toLowerCase())) {
-              print(`[${headers[idx]}] ${rowArr[1]} (${val.toFixed(1)})`);
-            }
-          });
-
-        htmlOutput = htmlOutput.substring(idxEnd + 5);
-      }
-
-      let total = 0.0;
-      for (const modifier of headers) {
-        if (lowerCaseModifiers.includes(modifier.toLowerCase())) {
-          let totalVal = modifierVals.get(modifier) ?? 0;
-          if (modifier.toLowerCase() === "weapon damage") {
-            if (have($effect`Bow-Legged Swagger`)) {
-              print(`[Weapon Damage] Bow-Legged Swagger (${totalVal.toFixed(1)})`);
-              totalVal += totalVal;
-            }
-          } else if (modifier.toLowerCase() === "weapon damage percent") {
-            if (have($effect`Bow-Legged Swagger`)) {
-              print(`[Weapon Damage Percent] Bow-Legged Swagger (${totalVal.toFixed(1)})`);
-              totalVal += totalVal;
-            }
-          }
-          print(`${modifier} => ${totalVal.toFixed(1)}`, "purple");
-
-          total += totalVal;
-        }
-      }
-
-      print(`Total ${baseModifier}: ${total.toFixed(1)}`, "blue");
-    }
-  }
-}
-
 export function advCost(whichTest: number): number {
   // Adapted from AutoHCCS
   const page = visitUrl("council.php");
@@ -231,6 +89,90 @@ export function advCost(whichTest: number): number {
     print("Didn't find specified test on the council page. Already done?");
     return 99999;
   }
+}
+
+// TODO: Replace with the libram function after it has been merged
+function printModtrace(
+  inputModifiers: string | string[], // the user's list of modifiers to look up
+  baseModifier?: string,
+  componentColor = "purple",
+  totalColor = "blue"
+): void {
+  if (typeof inputModifiers === "string") return printModtrace([inputModifiers], inputModifiers);
+  else if (inputModifiers.length === 0) return;
+  else if (!baseModifier) {
+    return inputModifiers
+      .filter((mod1) => !inputModifiers.some((mod2) => mod2 !== mod1 && mod1.includes(mod2)))
+      .forEach((baseMod) =>
+        printModtrace(
+          inputModifiers.filter((mod) => mod.includes(baseMod)),
+          baseMod
+        )
+      );
+  }
+
+  const htmlOutput = cliExecuteOutput(`modtrace ${baseModifier}`);
+  // The list of matched modifiers that mafia returns
+  const modtraceModifiers = Array.from(htmlOutput.match(RegExp(/(>)(.*?)(<\/td>)/g)) ?? [])
+    .map((s) => s.slice(1, -5))
+    .slice(2);
+
+  if (
+    !modtraceModifiers.some((modifier) => modifier.toLowerCase() === baseModifier.toLowerCase())
+  ) {
+    return print(
+      `Could not find exact string match of ${baseModifier} in ${inputModifiers.toString()}`,
+      "red"
+    );
+  }
+
+  const initialVal =
+    baseModifier.toLowerCase() === "familiar weight"
+      ? (() => {
+          const wt = familiarWeight(myFamiliar());
+          print(`[Familiar Weight] Base weight (${wt})`);
+          return wt;
+        })()
+      : 0;
+  const modifierVals = new Map(modtraceModifiers.map((modifier) => [modifier, initialVal])); // Maps modifier name to its value
+  const lowerCaseModifiers = inputModifiers.map((modifier) => modifier.toLowerCase());
+
+  Array.from(htmlOutput.match(RegExp(/<tr>(.*?)<\/tr>/g)) ?? [])
+    .slice(1)
+    .map((s) => s.slice(4, -5))
+    .forEach((s) => {
+      const rowArr = Array.from(
+        s.replace(RegExp(/><\/td>/g), ">0</td>").match(RegExp(/(>)(.*?)(<\/td>)/g)) ?? []
+      ).map((s) => s.slice(1, -5));
+      const rowName = rowArr[1];
+      rowArr
+        .slice(2)
+        .filter((e, idx) => idx % 2 === 0)
+        .forEach((e, idx) => {
+          const val = parseFloat(e);
+          modifierVals.set(
+            modtraceModifiers[idx],
+            (modifierVals.get(modtraceModifiers[idx]) ?? 0) + val
+          );
+          if (val !== 0 && lowerCaseModifiers.includes(modtraceModifiers[idx].toLowerCase())) {
+            print(`[${modtraceModifiers[idx]}] ${rowName} (${val.toFixed(1)})`);
+          }
+        });
+    });
+
+  const total = sum(modtraceModifiers, (modifier) => {
+    if (lowerCaseModifiers.includes(modifier.toLowerCase())) {
+      let modVal = modifierVals.get(modifier) ?? 0;
+      if (have($effect`Bow-Legged Swagger`) && modifier.includes("Weapon Damage")) {
+        print(`[${modifier}] Bow-Legged Swagger (${modVal.toFixed(1)})`);
+        modVal *= 2;
+      }
+      print(`${modifier} => ${modVal.toFixed(1)}`, componentColor);
+      return modVal;
+    } else return 0;
+  });
+
+  print(`Total ${baseModifier}: ${total.toFixed(1)}`, totalColor);
 }
 
 export function logTestSetup(whichTest: number): void {

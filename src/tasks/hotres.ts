@@ -29,7 +29,6 @@ import {
 import { Quest } from "../engine/task";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
-import { powerlevelingLocation } from "./leveling";
 
 export const HotResQuest: Quest = {
   name: "Hot Res",

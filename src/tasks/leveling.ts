@@ -612,11 +612,8 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Get Rufus Quest",
-      // eslint-disable-next-line libram/verify-constants
       completed: () => get("_shadowAffinityToday", false) || !have($item`closed-circuit pay phone`),
-      do: () =>
-        // eslint-disable-next-line libram/verify-constants
-        use($item`closed-circuit pay phone`),
+      do: () => use($item`closed-circuit pay phone`),
       choices: {
         1497: 2,
         1498: 6,
@@ -625,24 +622,18 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Shadow Rift",
-      ready: () =>
-        // eslint-disable-next-line libram/verify-constants
-        toItem(get("rufusQuestTarget", "")) !== $item.none,
+      ready: () => toItem(get("rufusQuestTarget", "")) !== $item.none,
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         restoreMp(50);
       },
       completed: () =>
-        // eslint-disable-next-line libram/verify-constants
         have($item`Rufus's shadow lodestone`) ||
         get("_shadowRiftCombats", 0) >= 12 ||
-        // eslint-disable-next-line libram/verify-constants
         !have($item`closed-circuit pay phone`),
-      // eslint-disable-next-line libram/verify-constants
       do: (): void => {
         const target = get("rufusQuestTarget", "");
-        // eslint-disable-next-line libram/verify-constants
         if (have($effect`Shadow Affinity`)) {
           print("Entering rift with Shadow Affinity!");
           visitUrl("place.php?whichplace=town_right&action=townright_shadowrift_free");
@@ -690,10 +681,7 @@ export const LevelingQuest: Quest = {
         1498: 1,
       },
       post: (): void => {
-        if (have(toItem(get("rufusQuestTarget", "")))) {
-          // eslint-disable-next-line libram/verify-constants
-          use($item`closed-circuit pay phone`);
-        }
+        if (have(toItem(get("rufusQuestTarget", "")))) use($item`closed-circuit pay phone`);
         sendAutumnaton();
         sellMiscellaneousItems();
       },
@@ -767,8 +755,8 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !have($item`backup camera`) ||
         !freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none) ||
-        get("_backUpUses") >= 11 ||
-        get("instant_saveBackups", false),
+        get("_backUpUses") >= 11 - get("instant_saveBackups", 0) ||
+        myBasestat($stat`Mysticality`) >= 190, // no longer need to back up Witchess Kings
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Back-Up to your Last Enemy`).default()

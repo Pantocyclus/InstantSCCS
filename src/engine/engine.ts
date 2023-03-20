@@ -42,6 +42,7 @@ export const notableSkillPrefs: trackedPref[] = [
 ];
 
 export const freeFightPrefs: trackedPref[] = [
+  new trackedPref("_shadowAffinityToday", "Shadow Rift", 11),
   new trackedPref("_snojoFreeFights", "Snojo", 10),
   new trackedPref("_neverendingPartyFreeTurns", "NEP", 10),
   new trackedPref("_witchessFights", "Witchess", 5),

@@ -23,7 +23,7 @@
     "babel-loader": "^8.2.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-libram": "^0.2.17",
+    "eslint-plugin-libram": "^0.2.29",
     "prettier": "^2.3.2",
     "typescript": "^4.4.2",
     "webpack": "^5.61.0",
@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "core-js": "^3.16.4",
-    "grimoire-kolmafia": "^0.3.11",
-    "kolmafia": "^5.26781.0",
-    "libram": "^0.7.6"
+    "grimoire-kolmafia": "^0.3.15",
+    "kolmafia": "^5.27295.0",
+    "libram": "^0.7.13"
   },
   "author": "Pantocyclus",
   "license": "MIT",

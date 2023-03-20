@@ -17,12 +17,9 @@ export const NoncombatQuest: Quest = {
     },
     {
       name: "Use Shadow Lodestone",
-      // eslint-disable-next-line libram/verify-constants
       ready: () => have($item`Rufus's shadow lodestone`),
-      // eslint-disable-next-line libram/verify-constants
       completed: () => have($effect`Shadow Waters`),
       do: (): void => {
-        // eslint-disable-next-line libram/verify-constants
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
         runChoice(2);
       },
