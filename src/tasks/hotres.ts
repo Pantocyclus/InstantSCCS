@@ -16,6 +16,7 @@ import {
   $effect,
   $familiar,
   $item,
+  $location,
   $monster,
   $skill,
   $slot,
