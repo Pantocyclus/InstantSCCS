@@ -12239,7 +12239,7 @@ var LevelingQuest = {
     completed: () => {
       var _get2;
 
-      return !have(template_string_$item(_templateObject217 || (_templateObject217 = leveling_taggedTemplateLiteral(["backup camera"])))) || !freeFightMonsters.includes((_get2 = property_get("lastCopyableMonster")) !== null && _get2 !== void 0 ? _get2 : $monster.none) || property_get("_backUpUses") >= 11 - property_get("instant_saveBackups", 0) || (0,external_kolmafia_namespaceObject.myBasestat)(template_string_$stat(_templateObject218 || (_templateObject218 = leveling_taggedTemplateLiteral(["Mysticality"])))) >= 190;
+      return !have(template_string_$item(_templateObject217 || (_templateObject217 = leveling_taggedTemplateLiteral(["backup camera"])))) || !freeFightMonsters.includes((_get2 = property_get("lastCopyableMonster")) !== null && _get2 !== void 0 ? _get2 : $monster.none) || property_get("_backUpUses") >= 11 - clamp(property_get("instant_saveBackups", 0), 0, 11) || (0,external_kolmafia_namespaceObject.myBasestat)(template_string_$stat(_templateObject218 || (_templateObject218 = leveling_taggedTemplateLiteral(["Mysticality"])))) >= 190;
     },
     // no longer need to back up Witchess Kings
     do: $location(_templateObject219 || (_templateObject219 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
