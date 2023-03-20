@@ -510,14 +510,19 @@ export const LevelingQuest: Quest = {
       ready: () => myLevel() >= 11,
       completed: () =>
         myInebriety() >= inebrietyLimit() ||
-        (!have($item`astral six-pack`) && !have($item`astral pilsner`)),
+        (!have($item`astral six-pack`) &&
+          itemAmount($item`astral pilsner`) <= get("instant_saveAstralPilsners", 0)),
       prepare: () => tryAcquiringEffect($effect`Ode to Booze`),
       do: (): void => {
         if (have($item`astral six-pack`)) use($item`astral six-pack`, 1);
-        drink($item`astral pilsner`, 1);
+        if (itemAmount($item`astral pilsner`) > get("instant_saveAstralPilsners", 0))
+          drink($item`astral pilsner`, 1);
       },
       post: (): void => {
-        if (!have($item`astral six-pack`) && !have($item`astral pilsner`))
+        if (
+          !have($item`astral six-pack`) &&
+          itemAmount($item`astral pilsner`) <= get("instant_saveAstralPilsners", 0)
+        )
           uneffect($effect`Ode to Booze`);
       },
       limit: { tries: 6 },

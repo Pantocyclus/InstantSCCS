@@ -28,6 +28,12 @@ const resources: Resource[] = [
     "instant_skipDistilledFortifiedWine",
     () => "Do not grab the DFW lucky adventure (if you have numberology)"
   ),
+  new Resource(
+    "instant_saveAstralPilsners",
+    (n) => `Save ${n}/6 astral pilsners (set a number)`,
+    [],
+    get("instant_saveAstralPilsners", false) ? 6 : 0
+  ),
   new Resource("instant_saveEuclideanAngle", () => "Do not pull a non-Euclidean Angle"),
   new Resource("instant_saveAbstraction", () => "Do not pull an Abstraction: Category"),
   new Resource("instant_savePerfectFreeze", () => "Do not craft and drink a perfect drink"),
