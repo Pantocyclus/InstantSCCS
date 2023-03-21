@@ -1137,7 +1137,7 @@ export const LevelingQuest: Quest = {
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         (have($effect`Pretty Delicious`) || get("instant_saveRicottaCasserole", false)) &&
-        (!get("instant_saveRoastedVegetableItem", false) ||
+        (get("instant_saveRoastedVegetableItem", false) ||
           itemAmount($item`Vegetable of Jarlsberg`) >= 2) &&
         (have($effect`Awfully Wily`) ||
           get("instant_saveWileyWheyBar", false) ||
