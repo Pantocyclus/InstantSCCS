@@ -6,6 +6,7 @@ import {
   drink,
   eat,
   Effect,
+  equip,
   faxbot,
   getWorkshed,
   inebrietyLimit,
@@ -13,6 +14,7 @@ import {
   myInebriety,
   print,
   use,
+  useFamiliar,
 } from "kolmafia";
 import {
   $effect,
@@ -21,6 +23,7 @@ import {
   $location,
   $monster,
   $skill,
+  $slot,
   CommunityService,
   get,
   have,
@@ -36,6 +39,7 @@ import {
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
+import { forbiddenEffects } from "../resources";
 
 export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
@@ -88,14 +92,17 @@ export const BoozeDropQuest: Quest = {
       },
       outfit: {
         back: $item`vampyric cloake`,
-        weapon: $item`industrial fire extinguisher`,
+        weapon: $item`Fourth of May Cosplay Saber`,
+        offhand: $item`industrial fire extinguisher`,
         familiar: $familiar`Cookbookbat`,
         modifier: "myst",
       },
+      choices: { 1387: 3 },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Become a Bat`)
           .trySkill($skill`Fire Extinguisher: Polar Vortex`)
+          .trySkill($skill`Use the Force`)
           .default()
       ),
       limit: { tries: 1 },
@@ -105,7 +112,8 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         have($effect`Wizard Sight`) ||
         get("instant_saveRoastedVegetableItem", false) ||
-        (!have($item`roasted vegetable of Jarlsberg`) && itemAmount($item`Vegetable of Jarlsberg`) < 2),
+        (!have($item`roasted vegetable of Jarlsberg`) &&
+          itemAmount($item`Vegetable of Jarlsberg`) < 2),
       do: (): void => {
         if (
           itemAmount($item`Vegetable of Jarlsberg`) >= 2 &&
@@ -183,6 +191,20 @@ export const BoozeDropQuest: Quest = {
           $effect`Uncucumbered`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+
+        if (
+          !have($effect`Infernal Thirst`) &&
+          have($item`genie bottle`) &&
+          get("_genieWishesUsed") < 3 &&
+          !get("instant_saveWishes", false) &&
+          !forbiddenEffects.includes($effect`Infernal Thirst`)
+        )
+          cliExecute("genie effect infernal thirst");
+
+        if (have($familiar`Trick-or-Treating Tot`) && have($item`li'l ninja costume`)) {
+          useFamiliar($familiar`Trick-or-Treating Tot`);
+          equip($slot`familiar`, $item`li'l ninja costume`);
+        }
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: (): void => {

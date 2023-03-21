@@ -69,6 +69,7 @@ import { tryAcquiringEffect } from "../lib";
 import { docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
 import Macro from "../combat";
 import { forbiddenEffects } from "../resources";
+import { mapMonster } from "libram/dist/resources/2020/Cartography";
 
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
@@ -616,6 +617,35 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Map Amateur Ninja",
+      ready: () => have($item`cosmic bowling ball`), // Grab this in between rift free fights (since we aren't using the bowling ball there)
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        restoreMp(50);
+      },
+      completed: () =>
+        !have($skill`Map the Monsters`) ||
+        get("_monstersMapped") >= 3 ||
+        have($item`li'l ninja costume`) ||
+        !have($familiar`Trick-or-Treating Tot`),
+      do: () => mapMonster($location`The Haiku Dungeon`, $monster`amateur ninja`),
+      combat: new CombatStrategy().macro(
+        Macro.if_($monster`amateur ninja`, Macro.trySkill($skill`Bowl a Curveball`)).abort()
+      ),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Trick-or-Treating Tot`,
+        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+      },
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Get Rufus Quest",
       completed: () => get("_shadowAffinityToday", false) || !have($item`closed-circuit pay phone`),
       do: () => use($item`closed-circuit pay phone`),
@@ -1137,7 +1167,7 @@ export const LevelingQuest: Quest = {
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         (have($effect`Pretty Delicious`) || get("instant_saveRicottaCasserole", false)) &&
-        (!get("instant_saveRoastedVegetableItem", false) ||
+        (get("instant_saveRoastedVegetableItem", false) ||
           itemAmount($item`Vegetable of Jarlsberg`) >= 2) &&
         (have($effect`Awfully Wily`) ||
           get("instant_saveWileyWheyBar", false) ||
