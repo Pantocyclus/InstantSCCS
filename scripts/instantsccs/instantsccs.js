@@ -13745,7 +13745,7 @@ var HotResQuest = {
   }, {
     name: "Grab Foam Suit",
     completed: () => have($effect(hotres_templateObject19 || (hotres_templateObject19 = hotres_taggedTemplateLiteral(["Fireproof Foam Suit"])))) || !have(template_string_$item(hotres_templateObject20 || (hotres_templateObject20 = hotres_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) || property_get("_saberForceUses") >= 5 || !have(template_string_$item(hotres_templateObject21 || (hotres_templateObject21 = hotres_taggedTemplateLiteral(["industrial fire extinguisher"])))) || !have(template_string_$skill(hotres_templateObject22 || (hotres_templateObject22 = hotres_taggedTemplateLiteral(["Double-Fisted Skull Smashing"])))),
-    do: () => $location(hotres_templateObject23 || (hotres_templateObject23 = hotres_taggedTemplateLiteral(["The Dire Warren"]))),
+    do: $location(hotres_templateObject23 || (hotres_templateObject23 = hotres_taggedTemplateLiteral(["The Dire Warren"]))),
     outfit: {
       back: template_string_$item(hotres_templateObject24 || (hotres_templateObject24 = hotres_taggedTemplateLiteral(["vampyric cloake"]))),
       weapon: template_string_$item(hotres_templateObject25 || (hotres_templateObject25 = hotres_taggedTemplateLiteral(["Fourth of May Cosplay Saber"]))),
