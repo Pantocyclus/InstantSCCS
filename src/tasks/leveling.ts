@@ -786,11 +786,11 @@ export const LevelingQuest: Quest = {
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
       do: $location`Noob Cave`,
-      outfit: {
+      outfit: () => ({
         ...baseOutfit(),
         back: $item`LOV Epaulettes`,
         offhand: $item`Kramco Sausage-o-Matic™`,
-      },
+      }),
       combat: new CombatStrategy().macro(Macro.default()),
       post: (): void => {
         sendAutumnaton();
@@ -814,10 +814,10 @@ export const LevelingQuest: Quest = {
         get("instant_saveLocketRedSkeleton", false),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
       combat: new CombatStrategy().macro(Macro.tryItem($item`yellow rocket`).abort()),
-      outfit: {
+      outfit: () => ({
         ...baseOutfit(),
         back: $item`LOV Epaulettes`,
-      },
+      }),
       post: (): void => {
         use($item`red box`, 1);
         sendAutumnaton();
