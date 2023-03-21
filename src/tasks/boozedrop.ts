@@ -39,6 +39,7 @@ import {
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
+import { forbiddenEffects } from "../resources";
 
 export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
@@ -180,6 +181,16 @@ export const BoozeDropQuest: Quest = {
           $effect`Uncucumbered`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+
+        if (
+          !have($effect`Infernal Thirst`) &&
+          have($item`genie bottle`) &&
+          get("_genieWishesUsed") < 3 &&
+          !get("instant_saveWishes", false) &&
+          !forbiddenEffects.includes($effect`Infernal Thirst`)
+        )
+          cliExecute("genie effect infernal thirst");
+
         if (have($familiar`Trick-or-Treating Tot`) && have($item`li'l ninja costume`)) {
           useFamiliar($familiar`Trick-or-Treating Tot`);
           equip($slot`familiar`, $item`li'l ninja costume`);

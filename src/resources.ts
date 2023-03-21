@@ -39,12 +39,12 @@ const resources: Resource[] = [
   new Resource("instant_savePerfectFreeze", () => "Do not craft and drink a perfect drink"),
   new Resource(
     "instant_saveHoneyBun",
-    () => "Do not eat a Honey Bun of Boris for the stat test",
+    () => "Do not eat a Honey Bun of Boris for the stats test",
     $effects`Motherly Loved`
   ),
   new Resource(
     "instant_saveRoastedVegetableStats",
-    () => "Do not eat a Roasted Vegetable of Jarlsberg for the stat test",
+    () => "Do not eat a Roasted Vegetable of Jarlsberg for the stats test",
     $effects`Wizard Sight`
   ),
   new Resource(
