@@ -138,6 +138,7 @@ const resources: Resource[] = [
     "instant_saveLocketFactoryWorker",
     () => "Do not reminisce a Factory Worker (female)"
   ),
+  new Resource("instant_savePumpkins", () => "Do not use harvested pumpkins"),
 ];
 
 const automaticallyExcludedBuffs = Array.from(
