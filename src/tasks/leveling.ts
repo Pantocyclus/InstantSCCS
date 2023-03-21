@@ -1063,6 +1063,7 @@ export const LevelingQuest: Quest = {
 
         if (
           itemAmount($item`Vegetable of Jarlsberg`) >= 2 &&
+          itemAmount($item`St. Sneaky Pete's Whey`) >= 2 &&
           !have($effect`Pretty Delicious`) &&
           !get("instant_saveRicottaCasserole", false)
         ) {
@@ -1136,6 +1137,8 @@ export const LevelingQuest: Quest = {
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         (have($effect`Pretty Delicious`) || get("instant_saveRicottaCasserole", false)) &&
+        (!get("instant_saveRoastedVegetableItem", false) ||
+          itemAmount($item`Vegetable of Jarlsberg`) >= 2) &&
         (have($effect`Awfully Wily`) ||
           get("instant_saveWileyWheyBar", false) ||
           myBasestat($stat`Mysticality`) >= 190),
@@ -1156,7 +1159,8 @@ export const LevelingQuest: Quest = {
       },
       post: (): void => {
         if (
-          itemAmount($item`Vegetable of Jarlsberg`) >= 4 &&
+          itemAmount($item`Vegetable of Jarlsberg`) >= 2 &&
+          itemAmount($item`St. Sneaky Pete's Whey`) >= 2 &&
           !have($effect`Pretty Delicious`) &&
           !get("instant_saveRicottaCasserole", false)
         ) {
