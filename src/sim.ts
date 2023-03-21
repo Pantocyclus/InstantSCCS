@@ -45,7 +45,9 @@ function buildIotmList(): Requirement[] {
     },
     {
       thing: new Hardcoded(
-        have($item`cosmic bowling ball`) || get("cosmicBowlingBallReturnCombats", -1) >= 0,
+        have($item`cosmic bowling ball`) ||
+          storageAmount($item`cosmic bowling ball`) > 0 ||
+          get("cosmicBowlingBallReturnCombats", -1) >= 0,
         "Cosmic bowling ball"
       ),
       why: "Leveling + banish",
@@ -75,7 +77,9 @@ function buildIotmList(): Requirement[] {
     },
     {
       thing: new Hardcoded(
-        have($item`one-day ticket to Dinseylandfill`) || get("stenchAirportAlways"),
+        have($item`one-day ticket to Dinseylandfill`) ||
+          storageAmount($item`one-day ticket to Dinseylandfill`) > 0 ||
+          get("stenchAirportAlways"),
         "Scaler Zone Access"
       ),
       why: "Scalers for leveling",
@@ -552,7 +556,9 @@ function buildMiscList(): Requirement[] {
     },
     {
       thing: new Hardcoded(
-        have($item`borrowed time`) || have($skill`Summon Clip Art`),
+        have($item`borrowed time`) ||
+          storageAmount($item`borrowed time`) > 0 ||
+          have($skill`Summon Clip Art`),
         "borrowed time"
       ),
       why: "Turngen",

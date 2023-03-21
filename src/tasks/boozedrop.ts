@@ -105,7 +105,8 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         have($effect`Wizard Sight`) ||
         get("instant_saveRoastedVegetableItem", false) ||
-        (!have($item`roasted vegetable of Jarlsberg`) && itemAmount($item`Vegetable of Jarlsberg`) < 2),
+        (!have($item`roasted vegetable of Jarlsberg`) &&
+          itemAmount($item`Vegetable of Jarlsberg`) < 2),
       do: (): void => {
         if (
           itemAmount($item`Vegetable of Jarlsberg`) >= 2 &&
