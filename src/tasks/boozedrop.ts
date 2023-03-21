@@ -157,6 +157,16 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Pumpkin Juice",
+      completed: () =>
+        have($effect`Juiced and Jacked`) || (!have($item`pumpkin`) && !have($item`pumpkin juice`)),
+      do: (): void => {
+        if (!have($item`pumpkin juice`)) create($item`pumpkin juice`, 1);
+        use($item`pumpkin juice`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Test",
       prepare: (): void => {
         const usefulEffects: Effect[] = [
