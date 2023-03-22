@@ -889,6 +889,7 @@ export const LevelingQuest: Quest = {
           .if_($monster`LOV Equivocator`, Macro.default())
       ),
       outfit: {
+        weapon: $item`Fourth of May Cosplay Saber`,
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
