@@ -13459,11 +13459,15 @@ var RunStartQuest = {
     name: "Grab Trainset Meat",
     completed: () => property_get("trainsetPosition") > 0 || (0,external_kolmafia_namespaceObject.turnsPlayed)() > 0 || property_get("hasMaydayContract") || property_get("instant_skipEarlyTrainsetMeat", false),
     do: $location(runstart_templateObject50 || (runstart_templateObject50 = runstart_taggedTemplateLiteral(["The Dire Warren"]))),
+    combat: new CombatStrategy().macro(combat_Macro.attack()),
     outfit: {
       offhand: template_string_$item(runstart_templateObject51 || (runstart_templateObject51 = runstart_taggedTemplateLiteral(["unbreakable umbrella"]))),
       acc1: template_string_$item(runstart_templateObject52 || (runstart_templateObject52 = runstart_taggedTemplateLiteral(["codpiece"]))),
       familiar: template_string_$familiar(runstart_templateObject53 || (runstart_templateObject53 = runstart_taggedTemplateLiteral(["Cookbookbat"]))),
       modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball"
+    },
+    limit: {
+      tries: 1
     }
   }, {
     name: "Soul Food",
