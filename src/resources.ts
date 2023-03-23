@@ -28,17 +28,23 @@ const resources: Resource[] = [
     "instant_skipDistilledFortifiedWine",
     () => "Do not grab the DFW lucky adventure (if you have numberology)"
   ),
+  new Resource(
+    "instant_saveAstralPilsners",
+    (n) => `Save ${n}/6 astral pilsners (set a number)`,
+    [],
+    get("instant_saveAstralPilsners", false) ? 6 : 0
+  ),
   new Resource("instant_saveEuclideanAngle", () => "Do not pull a non-Euclidean Angle"),
   new Resource("instant_saveAbstraction", () => "Do not pull an Abstraction: Category"),
   new Resource("instant_savePerfectFreeze", () => "Do not craft and drink a perfect drink"),
   new Resource(
     "instant_saveHoneyBun",
-    () => "Do not eat a Honey Bun of Boris for the stat test",
+    () => "Do not eat a Honey Bun of Boris for the stats test",
     $effects`Motherly Loved`
   ),
   new Resource(
     "instant_saveRoastedVegetableStats",
-    () => "Do not eat a Roasted Vegetable of Jarlsberg for the stat test",
+    () => "Do not eat a Roasted Vegetable of Jarlsberg for the stats test",
     $effects`Wizard Sight`
   ),
   new Resource(
@@ -132,6 +138,7 @@ const resources: Resource[] = [
     "instant_saveLocketFactoryWorker",
     () => "Do not reminisce a Factory Worker (female)"
   ),
+  new Resource("instant_savePumpkins", () => "Do not use harvested pumpkins"),
 ];
 
 const automaticallyExcludedBuffs = Array.from(
@@ -150,15 +157,17 @@ export function checkResources(): void {
   printHtml(
     "Legend (prefname - helptext): <font color='black'>✓ Saved Resource</font> / <font color='#888888'>X Usable Resource"
   );
-  resources.forEach((resource) => {
-    const prefValue = get(resource.pref, "");
-    const prefOn =
-      get(resource.pref, false) ||
-      (!isNaN(Number(get(resource.pref, ""))) && Number(get(resource.pref, "")) > 0);
-    const symbol = prefOn ? "✓" : "X";
-    const color = prefOn ? "black" : "#888888";
-    print(`${symbol} ${resource.pref} - ${resource.help(prefValue)}`, color);
-  });
+  resources
+    .sort((a, b) => (a.pref < b.pref ? -1 : 1))
+    .forEach((resource) => {
+      const prefValue = get(resource.pref, "");
+      const prefOn =
+        get(resource.pref, false) ||
+        (!isNaN(Number(get(resource.pref, ""))) && Number(get(resource.pref, "")) > 0);
+      const symbol = prefOn ? "✓" : "X";
+      const color = prefOn ? "black" : "#888888";
+      print(`${symbol} ${resource.pref} - ${resource.help(prefValue)}`, color);
+    });
   print();
   print("The following are all the buffs we will not acquire in run:");
   forbiddenEffects.forEach((ef) => print(`- ${ef.name}`));

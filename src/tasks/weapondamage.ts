@@ -27,6 +27,7 @@ import Macro from "../combat";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
 import { Quest } from "../engine/task";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { forbiddenEffects } from "../resources";
 
 export const WeaponDamageQuest: Quest = {
   name: "Weapon Damage",
@@ -118,7 +119,13 @@ export const WeaponDamageQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
 
-        if (!have($effect`Outer Wolf™`) && have($item`genie bottle`))
+        if (
+          !have($effect`Outer Wolf™`) &&
+          have($item`genie bottle`) &&
+          get("_genieWishesUsed") < 3 &&
+          !get("instant_saveWishes", false) &&
+          !forbiddenEffects.includes($effect`Outer Wolf™`)
+        )
           cliExecute("genie effect outer wolf");
       },
       completed: () => CommunityService.WeaponDamage.isDone(),

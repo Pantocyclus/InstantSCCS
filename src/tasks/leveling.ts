@@ -74,6 +74,7 @@ import {
 } from "../engine/outfit";
 import Macro from "../combat";
 import { forbiddenEffects } from "../resources";
+import { mapMonster } from "libram/dist/resources/2020/Cartography";
 
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
@@ -525,14 +526,19 @@ export const LevelingQuest: Quest = {
       ready: () => myLevel() >= 11,
       completed: () =>
         myInebriety() >= inebrietyLimit() ||
-        (!have($item`astral six-pack`) && !have($item`astral pilsner`)),
+        (!have($item`astral six-pack`) &&
+          itemAmount($item`astral pilsner`) <= get("instant_saveAstralPilsners", 0)),
       prepare: () => tryAcquiringEffect($effect`Ode to Booze`),
       do: (): void => {
         if (have($item`astral six-pack`)) use($item`astral six-pack`, 1);
-        drink($item`astral pilsner`, 1);
+        if (itemAmount($item`astral pilsner`) > get("instant_saveAstralPilsners", 0))
+          drink($item`astral pilsner`, 1);
       },
       post: (): void => {
-        if (!have($item`astral six-pack`) && !have($item`astral pilsner`))
+        if (
+          !have($item`astral six-pack`) &&
+          itemAmount($item`astral pilsner`) <= get("instant_saveAstralPilsners", 0)
+        )
           uneffect($effect`Ode to Booze`);
       },
       limit: { tries: 6 },
@@ -609,6 +615,35 @@ export const LevelingQuest: Quest = {
       do: $location`The Dire Warren`,
       outfit: baseOutfit,
       combat: new CombatStrategy().macro(Macro.attack().repeat()),
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Map Amateur Ninja",
+      ready: () => have($item`cosmic bowling ball`), // Grab this in between rift free fights (since we aren't using the bowling ball there)
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        restoreMp(50);
+      },
+      completed: () =>
+        !have($skill`Map the Monsters`) ||
+        get("_monstersMapped") >= 3 ||
+        have($item`li'l ninja costume`) ||
+        !have($familiar`Trick-or-Treating Tot`),
+      do: () => mapMonster($location`The Haiku Dungeon`, $monster`amateur ninja`),
+      combat: new CombatStrategy().macro(
+        Macro.if_($monster`amateur ninja`, Macro.trySkill($skill`Bowl a Curveball`)).abort()
+      ),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Trick-or-Treating Tot`,
+        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+      },
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -835,7 +870,10 @@ export const LevelingQuest: Quest = {
           .if_($monster`LOV Engineer`, Macro.default())
           .if_($monster`LOV Equivocator`, Macro.default())
       ),
-      outfit: baseOutfit,
+      outfit: () => ({
+        ...baseOutfit(),
+        weapon: $item`Fourth of May Cosplay Saber`,
+      )},
       limit: { tries: 1 },
       post: (): void => {
         if (have($effect`Beaten Up`)) cliExecute("hottub");
@@ -1019,6 +1057,7 @@ export const LevelingQuest: Quest = {
 
         if (
           itemAmount($item`Vegetable of Jarlsberg`) >= 2 &&
+          itemAmount($item`St. Sneaky Pete's Whey`) >= 2 &&
           !have($effect`Pretty Delicious`) &&
           !get("instant_saveRicottaCasserole", false)
         ) {
@@ -1086,6 +1125,8 @@ export const LevelingQuest: Quest = {
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         (have($effect`Pretty Delicious`) || get("instant_saveRicottaCasserole", false)) &&
+        (get("instant_saveRoastedVegetableItem", false) ||
+          itemAmount($item`Vegetable of Jarlsberg`) >= 2) &&
         (have($effect`Awfully Wily`) ||
           get("instant_saveWileyWheyBar", false) ||
           myBasestat($stat`Mysticality`) >= 190),
@@ -1106,7 +1147,8 @@ export const LevelingQuest: Quest = {
       },
       post: (): void => {
         if (
-          itemAmount($item`Vegetable of Jarlsberg`) >= 4 &&
+          itemAmount($item`Vegetable of Jarlsberg`) >= 2 &&
+          itemAmount($item`St. Sneaky Pete's Whey`) >= 2 &&
           !have($effect`Pretty Delicious`) &&
           !get("instant_saveRicottaCasserole", false)
         ) {

@@ -54,6 +54,8 @@ import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2
 import { Quest } from "../engine/task";
 import { tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
+import { mapMonster } from "libram/dist/resources/2020/Cartography";
+import { unbreakableUmbrella } from "../engine/outfit";
 
 export const RunStartQuest: Quest = {
   name: "Run Start",
@@ -171,7 +173,7 @@ export const RunStartQuest: Quest = {
       },
       completed: () => get("_borrowedTimeUsed"),
       do: (): void => {
-        if (storageAmount($item`borrowed time`) === 0) {
+        if (storageAmount($item`borrowed time`) === 0 && !have($item`borrowed time`)) {
           print("Uh oh! You do not seem to have a borrowed time in Hagnk's", "red");
           print(
             "Try to purchase one from the mall with your meat from Hagnk's before re-running instantsccs",
@@ -349,14 +351,14 @@ export const RunStartQuest: Quest = {
       do: (): void => {
         use($item`model train set`);
         setConfiguration([
-          Station.GAIN_MEAT, // meat
+          Station.TOWER_FROZEN, // hot resist (useful)
           Station.TOWER_FIZZY, // mp regen
           Station.COAL_HOPPER, // double myst gain
           Station.BRAIN_SILO, // myst stats
           Station.VIEWING_PLATFORM, // all stats
           Station.WATER_BRIDGE, // +ML
-          Station.TOWER_FROZEN, // hot resist (useful)
-          Station.CANDY_FACTORY, // candies
+          Station.GAIN_MEAT, // meat (we don't gain meat during free banishes)
+          Station.CANDY_FACTORY, // candies (we don't get items during free banishes)
         ]);
       },
       limit: { tries: 1 },
@@ -368,15 +370,54 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Novelty Tropical Skeleton",
-      ready: () => !have($effect`Everything Looks Yellow`) || have($item`cherry`),
+      name: "Map Novelty Tropical Skeleton",
       prepare: (): void => {
         if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
-        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-          cliExecute("umbrella ml");
+        unbreakableUmbrella();
+        if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
+      },
+      completed: () =>
+        !have($skill`Map the Monsters`) ||
+        get("_monstersMapped") >= 3 ||
+        have($item`cherry`) ||
+        (() => {
+          // if we have another skeleton in the ice house, we don't need to map a novelty skeleton
+          const banishes = get("banishedMonsters").split(":");
+          const iceHouseIndex = banishes.map((string) => string.toLowerCase()).indexOf("ice house");
+          if (iceHouseIndex === -1) return false;
+          return ["remaindered skeleton", "factory-irregular skeleton", "swarm of skulls"].includes(
+            banishes[iceHouseIndex - 1]
+          );
+        })(),
+      do: () => mapMonster($location`The Skeleton Store`, $monster`novelty tropical skeleton`),
+      combat: new CombatStrategy().macro(
+        Macro.if_($monster`novelty tropical skeleton`, Macro.tryItem($item`yellow rocket`)).abort()
+      ),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier:
+          "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball",
+      },
+      post: (): void => {
+        if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
+          use($item`MayDay™ supply package`, 1);
+        if (have($item`space blanket`)) autosell($item`space blanket`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Novelty Tropical Skeleton",
+      prepare: (): void => {
+        if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
+          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
+          buy($item`yellow rocket`, 1);
+        }
+        unbreakableUmbrella();
         if (get("_snokebombUsed") === 0) restoreMp(50);
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
