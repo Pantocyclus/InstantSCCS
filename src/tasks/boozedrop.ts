@@ -52,8 +52,8 @@ export const BoozeDropQuest: Quest = {
         const offset = get("trainsetPosition") % 8;
         const newStations: TrainSet.Station[] = [];
         const stations = [
-          Station.COAL_HOPPER, // double myst gain
-          Station.TOWER_FROZEN, // hot resist (useful)
+          Station.COAL_HOPPER, // double hot resist
+          Station.TOWER_FROZEN, // hot resist
           Station.GAIN_MEAT, // meat
           Station.TOWER_FIZZY, // mp regen
           Station.BRAIN_SILO, // myst stats

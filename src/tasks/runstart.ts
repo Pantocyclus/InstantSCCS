@@ -324,8 +324,8 @@ export const RunStartQuest: Quest = {
       do: (): void => {
         use($item`model train set`);
         setConfiguration([
-          Station.TOWER_FROZEN, // hot resist (useful)
           Station.TOWER_FIZZY, // mp regen
+          Station.TOWER_FROZEN, // hot resist (useful)
           Station.COAL_HOPPER, // double myst gain
           Station.BRAIN_SILO, // myst stats
           Station.VIEWING_PLATFORM, // all stats
