@@ -28,6 +28,7 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { sugarItemsAboutToBreak } from "../engine/outfit";
 import Macro from "../combat";
 
 export const HotResQuest: Quest = {
@@ -47,12 +48,13 @@ export const HotResQuest: Quest = {
         !CombatLoversLocket.availableLocketMonsters().includes($monster`factory worker (female)`) ||
         get("instant_saveLocketFactoryWorker", false),
       do: () => CombatLoversLocket.reminisce($monster`factory worker (female)`),
-      outfit: {
+      outfit: () => ({
         back: $item`vampyric cloake`,
         weapon: $item`Fourth of May Cosplay Saber`,
         familiar: $familiar`Cookbookbat`,
         modifier: "Item Drop",
-      },
+        avoid: sugarItemsAboutToBreak(),
+      }),
       choices: { 1387: 3 },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Become a Cloud of Mist`)

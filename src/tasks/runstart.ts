@@ -192,9 +192,12 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Summon Sugar Sheets",
-      ready: () => haveSkill($skill`Summon Sugar Sheets`) && get("_sugarSummons") !== 3,
+      ready: () =>
+        haveSkill($skill`Summon Sugar Sheets`) &&
+        get("_sugarSummons") !== 3 &&
+        (!haveSkill($skill`Summon Clip Art`) || get("instant_saveClipArt", false)),
       completed: () => have($item`sugar sheet`, 3),
-      do: () => {
+      do: (): void => {
         restoreMp(6);
         useSkill($skill`Summon Sugar Sheets`, 3);
       },
@@ -205,7 +208,7 @@ export const RunStartQuest: Quest = {
       ready: () => have($item`sugar sheet`, 3),
       completed: () =>
         $items`sugar shorts, sugar chapeau, sugar shank`.filter((it) => have(it)).length === 3,
-      do: () => {
+      do: (): void => {
         $items`sugar shorts, sugar chapeau, sugar shank`.forEach((it) => {
           create(it);
         });

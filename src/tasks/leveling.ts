@@ -66,7 +66,12 @@ import {
 } from "libram";
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import { tryAcquiringEffect } from "../lib";
-import { docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
+import {
+  docBag,
+  garbageShirt,
+  sugarItemsAboutToBreak,
+  unbreakableUmbrella,
+} from "../engine/outfit";
 import Macro from "../combat";
 import { forbiddenEffects } from "../resources";
 
@@ -110,31 +115,6 @@ const usefulEffects: Effect[] = [
   $effect`Carol of the Hells`,
 ];
 
-const sugarItemsAboutToBreak: () => Item[] = () => {
-  const sugarItems = [
-    { id: 4181, item: $item`sugar chapeau` },
-    { id: 4182, item: $item`sugar shorts` },
-  ];
-  const results = sugarItems
-    .map((entry) => {
-      const { id, item } = entry;
-      const itemAboutToBreak = parseInt(get(`sugarCounter${id.toString()}`), 10) >= 30;
-      print(`Is ${item.name} about to break? ${itemAboutToBreak}`);
-      return itemAboutToBreak ? [item] : [];
-    })
-    .reduce((a, b) => a.concat(b));
-  print(`Sugar items about to break: ${results.map((it) => it.name).join(", ")}`);
-  return results;
-};
-
-const baseOutfit: () => OutfitSpec = () => ({
-  offhand: $item`unbreakable umbrella`,
-  acc1: $item`codpiece`,
-  familiar: $familiar`Cookbookbat`,
-  modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-  avoid: [...sugarItemsAboutToBreak()],
-});
-
 export function powerlevelingLocation(): Location {
   if (get("neverendingPartyAlways")) return $location`The Neverending Party`;
   else if (get("stenchAirportAlways") || get("_stenchAirportToday"))
@@ -145,6 +125,16 @@ export function powerlevelingLocation(): Location {
   else if (get("sleazeAirportAlways")) return $location`Sloppy Seconds Diner`;
 
   return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`; // Default location
+}
+
+function baseOutfit(): OutfitSpec {
+  return {
+    offhand: $item`unbreakable umbrella`,
+    acc1: $item`codpiece`,
+    familiar: $familiar`Cookbookbat`,
+    modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+    avoid: sugarItemsAboutToBreak(),
+  };
 }
 
 function haveCBBIngredients(): boolean {

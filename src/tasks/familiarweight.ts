@@ -14,6 +14,7 @@ import {
 import { Quest } from "../engine/task";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
+import { sugarItemsAboutToBreak } from "../engine/outfit";
 
 export const FamiliarWeightQuest: Quest = {
   name: "Familiar Weight",
@@ -32,10 +33,11 @@ export const FamiliarWeightQuest: Quest = {
           .trySkill($skill`Use the Force`)
           .abort()
       ),
-      outfit: {
+      outfit: () => ({
         weapon: $item`Fourth of May Cosplay Saber`,
         familiar: $familiar`Cookbookbat`,
-      },
+        avoid: sugarItemsAboutToBreak(),
+      }),
       choices: { 1387: 3 },
       limit: { tries: 1 },
     },
