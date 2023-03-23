@@ -131,6 +131,7 @@ export function powerlevelingLocation(): Location {
 function baseOutfit(): OutfitSpec {
   return {
     offhand: $item`unbreakable umbrella`,
+    back: $item`LOV Epaulettes`,
     acc1: $item`codpiece`,
     familiar: $familiar`Cookbookbat`,
     modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
@@ -790,7 +791,6 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
         acc3: $item`backup camera`,
       }),
       post: (): void => {
@@ -815,7 +815,6 @@ export const LevelingQuest: Quest = {
       do: $location`Noob Cave`,
       outfit: () => ({
         ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
         offhand: $item`Kramco Sausage-o-Matic™`,
       }),
       combat: new CombatStrategy().macro(Macro.default()),
@@ -841,10 +840,7 @@ export const LevelingQuest: Quest = {
         get("instant_saveLocketRedSkeleton", false),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
       combat: new CombatStrategy().macro(Macro.tryItem($item`yellow rocket`).abort()),
-      outfit: () => ({
-        ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
-      }),
+      outfit: baseOutfit,
       post: (): void => {
         use($item`red box`, 1);
         sendAutumnaton();
@@ -895,10 +891,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_speakeasyFreeFights", 0) >= 3 || !get("ownsSpeakeasy"),
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: () => ({
-        ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
-      }),
+      outfit: baseOutfit,
       limit: { tries: 3 },
       post: (): void => {
         sendAutumnaton();
@@ -919,7 +912,6 @@ export const LevelingQuest: Quest = {
       choices: { 1310: () => (have($item`God Lobster's Ring`) ? 2 : 3) }, // Get xp on last fight
       outfit: () => ({
         ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
         famequip: $items`God Lobster's Ring, God Lobster's Scepter`,
         familiar: $familiar`God Lobster`,
       }),
@@ -946,10 +938,7 @@ export const LevelingQuest: Quest = {
         sellMiscellaneousItems();
       },
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: () => ({
-        ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
-      }),
+      outfit: baseOutfit,
       limit: { tries: 1 },
     },
     {
@@ -964,10 +953,7 @@ export const LevelingQuest: Quest = {
         get("_witchessFights") >= 5 || !Witchess.have() || get("instant_saveWitchess", false),
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: () => ({
-        ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
-      }),
+      outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -987,7 +973,6 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: () => ({
         ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
         familiar: $familiar`Machine Elf`,
       }),
       limit: { tries: 5 },
@@ -1016,10 +1001,7 @@ export const LevelingQuest: Quest = {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
         }
       },
-      outfit: () => ({
-        ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
-      }),
+      outfit: baseOutfit,
       limit: { tries: 60 },
       choices: {
         1094: 5,
@@ -1105,10 +1087,7 @@ export const LevelingQuest: Quest = {
         get("instant_saveLocketWitchessKing", false),
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: () => ({
-        ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
-      }),
+      outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -1126,10 +1105,7 @@ export const LevelingQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
-      outfit: () => ({
-        ...baseOutfit(),
-        back: $item`LOV Epaulettes`,
-      }),
+      outfit: baseOutfit,
       completed: () =>
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
