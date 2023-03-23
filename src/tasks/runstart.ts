@@ -340,13 +340,11 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Use Mind Control Device",
-      completed: () => currentMcd() >= 10,
-      do: () => changeMcd(11),
-      limit: { tries: 1 },
-    },
-    {
       name: "Grab Trainset Meat",
+      prepare: (): void => {
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "pitchfork style")
+          cliExecute("umbrella weapon");
+      },
       completed: () =>
         get("trainsetPosition") > 0 ||
         turnsPlayed() > 0 ||
@@ -359,7 +357,7 @@ export const RunStartQuest: Quest = {
         acc1: $item`codpiece`,
         familiar: $familiar`Cookbookbat`,
         modifier:
-          "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball",
+          "0.25 mys, -1 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball, -equip backup camera",
       },
       limit: { tries: 1 },
     },
@@ -370,6 +368,12 @@ export const RunStartQuest: Quest = {
       do: (): void => {
         while (mySoulsauce() >= 5 && myMp() <= myMaxmp() - 15) useSkill($skill`Soul Food`);
       },
+    },
+    {
+      name: "Use Mind Control Device",
+      completed: () => currentMcd() >= 10,
+      do: () => changeMcd(11),
+      limit: { tries: 1 },
     },
     {
       name: "Map Novelty Tropical Skeleton",
