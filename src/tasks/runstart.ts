@@ -207,14 +207,15 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Fold Sugar Sheets",
-      ready: () => have($item`sugar sheet`, 3),
+      ready: () => have($item`sugar sheet`),
       completed: () =>
         $items`sugar shorts, sugar chapeau, sugar shank`.filter((it) => have(it)).length === 3,
       do: (): void => {
-        $items`sugar shorts, sugar chapeau, sugar shank`.forEach((it) => {
-          create(it);
-        });
+        const nextMissingSugarItem =
+          $items`sugar shorts, sugar chapeau, sugar shank`.find((it) => !have(it)) || $item`none`;
+        create(nextMissingSugarItem);
       },
+      limit: { tries: 3 },
     },
     {
       name: "Chateau Desk",
