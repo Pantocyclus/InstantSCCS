@@ -353,6 +353,7 @@ export const RunStartQuest: Quest = {
         get("hasMaydayContract") ||
         get("instant_skipEarlyTrainsetMeat", false),
       do: $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(Macro.attack()),
       outfit: {
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
@@ -360,6 +361,7 @@ export const RunStartQuest: Quest = {
         modifier:
           "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball",
       },
+      limit: { tries: 1 },
     },
     {
       name: "Soul Food",
