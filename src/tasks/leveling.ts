@@ -780,6 +780,15 @@ export const LevelingQuest: Quest = {
       limit: { tries: 4 },
     },
     {
+      name: "Get Totem and Saucepan",
+      completed: () => have($item`turtle totem`) && have($item`saucepan`),
+      do: (): void => {
+        buy(1, $item`chewing gum on a string`);
+        use(1, $item`chewing gum on a string`);
+      },
+      limit: { tries: 50 },
+    },
+    {
       name: "Backups",
       ready: () => freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none),
       prepare: (): void => {
