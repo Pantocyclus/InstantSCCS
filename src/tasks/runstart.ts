@@ -351,8 +351,8 @@ export const RunStartQuest: Quest = {
       do: (): void => {
         use($item`model train set`);
         setConfiguration([
-          Station.TOWER_FROZEN, // hot resist (useful)
           Station.TOWER_FIZZY, // mp regen
+          Station.TOWER_FROZEN, // hot resist (useful)
           Station.COAL_HOPPER, // double myst gain
           Station.BRAIN_SILO, // myst stats
           Station.VIEWING_PLATFORM, // all stats
@@ -448,7 +448,7 @@ export const RunStartQuest: Quest = {
       name: "Chewing Gum",
       completed: () =>
         myMeat() <= 600 ||
-        (have($item`turtle totem`) && have($item`saucepan`) && get("_cloversPurchased") >= 2),
+        (have($item`turtle totem`) && have($item`saucepan`) && get("_cloversPurchased") >= 1),
       do: (): void => {
         buy(1, $item`chewing gum on a string`);
         use(1, $item`chewing gum on a string`);

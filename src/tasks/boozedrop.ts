@@ -1,6 +1,7 @@
 import { Quest } from "../engine/task";
 import {
   adv1,
+  buy,
   cliExecute,
   create,
   drink,
@@ -9,6 +10,7 @@ import {
   equip,
   faxbot,
   getWorkshed,
+  hermit,
   inebrietyLimit,
   itemAmount,
   myInebriety,
@@ -53,8 +55,8 @@ export const BoozeDropQuest: Quest = {
         const offset = get("trainsetPosition") % 8;
         const newStations: TrainSet.Station[] = [];
         const stations = [
-          Station.COAL_HOPPER, // double myst gain
-          Station.TOWER_FROZEN, // hot resist (useful)
+          Station.COAL_HOPPER, // double hot resist
+          Station.TOWER_FROZEN, // hot resist
           Station.GAIN_MEAT, // meat
           Station.TOWER_FIZZY, // mp regen
           Station.BRAIN_SILO, // myst stats
@@ -69,6 +71,16 @@ export const BoozeDropQuest: Quest = {
         setConfiguration(newStations as Cycle);
       },
       limit: { tries: 1 },
+    },
+    {
+      name: "Acquire Clover",
+      completed: () => have($item`11-leaf clover`) || get("_cloversPurchased") >= 2,
+      do: (): void => {
+        buy(1, $item`chewing gum on a string`);
+        use(1, $item`chewing gum on a string`);
+        hermit($item`11-leaf clover`, 1);
+      },
+      limit: { tries: 50 },
     },
     {
       name: "Get Cyclops Eyedrops",

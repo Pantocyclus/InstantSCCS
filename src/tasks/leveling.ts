@@ -568,22 +568,21 @@ export const LevelingQuest: Quest = {
       name: "Restore MP with Glowing Blue",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
-          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase red rocket!");
-          buy($item`red rocket`, 1);
-        }
         if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`)) {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
           buy($item`blue rocket`, 1);
         }
         unbreakableUmbrella();
         restoreMp(50);
+        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
+          if (myMeat() >= 250) buy($item`red rocket`, 1);
+        }
       },
       completed: () => have($effect`Everything Looks Blue`),
       do: powerlevelingLocation(), // if your powerleveling location is the NEP you don't immediately get the MP regen
       combat: new CombatStrategy().macro(
-        Macro.tryItem($item`red rocket`)
-          .tryItem($item`blue rocket`)
+        Macro.tryItem($item`blue rocket`)
+          .tryItem($item`red rocket`)
           .default()
       ),
       outfit: baseOutfit,
@@ -667,6 +666,9 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         restoreMp(50);
+        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
+          if (myMeat() >= 250) buy($item`red rocket`, 1);
+        }
       },
       completed: () =>
         have($item`Rufus's shadow lodestone`) ||
@@ -710,7 +712,7 @@ export const LevelingQuest: Quest = {
           runChoice(NCChoice);
         }
       },
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.tryItem($item`red rocket`).default()),
       outfit: baseOutfit,
       choices: {
         1498: 1,
@@ -1010,6 +1012,9 @@ export const LevelingQuest: Quest = {
         garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
+        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
+          if (myMeat() >= 250) buy($item`red rocket`, 1);
+        }
       },
       outfit: () => ({
         ...baseOutfit(),
@@ -1022,7 +1027,11 @@ export const LevelingQuest: Quest = {
         1322: 2,
         1324: 5,
       },
-      combat: new CombatStrategy().macro(Macro.trySkill($skill`Bowl Sideways`).default()),
+      combat: new CombatStrategy().macro(
+        Macro.tryItem($item`red rocket`)
+          .trySkill($skill`Bowl Sideways`)
+          .default()
+      ),
       post: (): void => {
         if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
         sendAutumnaton();
