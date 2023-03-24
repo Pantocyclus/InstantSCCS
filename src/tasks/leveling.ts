@@ -871,7 +871,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(),
         weapon: $item`Fourth of May Cosplay Saber`,
-      )},
+      }),
       limit: { tries: 1 },
       post: (): void => {
         if (have($effect`Beaten Up`)) cliExecute("hottub");
