@@ -179,10 +179,13 @@ export class Engine extends BaseEngine {
 
   initPropertiesManager(manager: PropertiesManager): void {
     super.initPropertiesManager(manager);
+    const tonic = "doc galaktik's invigorating tonic";
+    const mpItems = get("mpAutoRecoveryItems");
     manager.set({
       hpAutoRecovery: -0.05,
       mpAutoRecovery: -0.05,
       maximizerCombinationLimit: 0,
+      mpAutoRecoveryItems: `${mpItems}${mpItems.split(";").includes(tonic) ? "" : `;${tonic}`}`,
     });
   }
 }

@@ -1,10 +1,7 @@
 import {
   cliExecute,
-  cliExecuteOutput,
   Effect,
-  familiarWeight,
   mpCost,
-  myFamiliar,
   myMp,
   print,
   restoreMp,
@@ -14,7 +11,8 @@ import {
   use,
   visitUrl,
 } from "kolmafia";
-import { $effect, $item, get, have, set, sum } from "libram";
+import { $effect, $item, get, have, set } from "libram";
+import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
 
 export enum CommunityServiceTests {
@@ -89,90 +87,6 @@ export function advCost(whichTest: number): number {
     print("Didn't find specified test on the council page. Already done?");
     return 99999;
   }
-}
-
-// TODO: Replace with the libram function after it has been merged
-function printModtrace(
-  inputModifiers: string | string[], // the user's list of modifiers to look up
-  baseModifier?: string,
-  componentColor = "purple",
-  totalColor = "blue"
-): void {
-  if (typeof inputModifiers === "string") return printModtrace([inputModifiers], inputModifiers);
-  else if (inputModifiers.length === 0) return;
-  else if (!baseModifier) {
-    return inputModifiers
-      .filter((mod1) => !inputModifiers.some((mod2) => mod2 !== mod1 && mod1.includes(mod2)))
-      .forEach((baseMod) =>
-        printModtrace(
-          inputModifiers.filter((mod) => mod.includes(baseMod)),
-          baseMod
-        )
-      );
-  }
-
-  const htmlOutput = cliExecuteOutput(`modtrace ${baseModifier}`);
-  // The list of matched modifiers that mafia returns
-  const modtraceModifiers = Array.from(htmlOutput.match(RegExp(/(>)(.*?)(<\/td>)/g)) ?? [])
-    .map((s) => s.slice(1, -5))
-    .slice(2);
-
-  if (
-    !modtraceModifiers.some((modifier) => modifier.toLowerCase() === baseModifier.toLowerCase())
-  ) {
-    return print(
-      `Could not find exact string match of ${baseModifier} in ${inputModifiers.toString()}`,
-      "red"
-    );
-  }
-
-  const initialVal =
-    baseModifier.toLowerCase() === "familiar weight"
-      ? (() => {
-          const wt = familiarWeight(myFamiliar());
-          print(`[Familiar Weight] Base weight (${wt})`);
-          return wt;
-        })()
-      : 0;
-  const modifierVals = new Map(modtraceModifiers.map((modifier) => [modifier, initialVal])); // Maps modifier name to its value
-  const lowerCaseModifiers = inputModifiers.map((modifier) => modifier.toLowerCase());
-
-  Array.from(htmlOutput.match(RegExp(/<tr>(.*?)<\/tr>/g)) ?? [])
-    .slice(1)
-    .map((s) => s.slice(4, -5))
-    .forEach((s) => {
-      const rowArr = Array.from(
-        s.replace(RegExp(/><\/td>/g), ">0</td>").match(RegExp(/(>)(.*?)(<\/td>)/g)) ?? []
-      ).map((s) => s.slice(1, -5));
-      const rowName = rowArr[1];
-      rowArr
-        .slice(2)
-        .filter((e, idx) => idx % 2 === 0)
-        .forEach((e, idx) => {
-          const val = parseFloat(e);
-          modifierVals.set(
-            modtraceModifiers[idx],
-            (modifierVals.get(modtraceModifiers[idx]) ?? 0) + val
-          );
-          if (val !== 0 && lowerCaseModifiers.includes(modtraceModifiers[idx].toLowerCase())) {
-            print(`[${modtraceModifiers[idx]}] ${rowName} (${val.toFixed(1)})`);
-          }
-        });
-    });
-
-  const total = sum(modtraceModifiers, (modifier) => {
-    if (lowerCaseModifiers.includes(modifier.toLowerCase())) {
-      let modVal = modifierVals.get(modifier) ?? 0;
-      if (have($effect`Bow-Legged Swagger`) && modifier.includes("Weapon Damage")) {
-        print(`[${modifier}] Bow-Legged Swagger (${modVal.toFixed(1)})`);
-        modVal *= 2;
-      }
-      print(`${modifier} => ${modVal.toFixed(1)}`, componentColor);
-      return modVal;
-    } else return 0;
-  });
-
-  print(`Total ${baseModifier}: ${total.toFixed(1)}`, totalColor);
 }
 
 export function logTestSetup(whichTest: number): void {
