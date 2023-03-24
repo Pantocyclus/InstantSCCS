@@ -207,9 +207,7 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Fold Sugar Sheets",
-      ready: () => have($item`sugar sheet`),
-      completed: () =>
-        $items`sugar shorts, sugar chapeau, sugar shank`.filter((it) => have(it)).length === 3,
+      completed: () => !have($item`sugar sheet`),
       do: (): void => {
         const nextMissingSugarItem =
           $items`sugar shorts, sugar chapeau, sugar shank`.find((it) => !have(it)) || $item`none`;
