@@ -20,6 +20,7 @@ import {
   myMaxmp,
   myMeat,
   myMp,
+  mySoulsauce,
   print,
   restoreHp,
   restoreMp,
@@ -29,6 +30,7 @@ import {
   storageAmount,
   takeStorage,
   totalFreeRests,
+  turnsPlayed,
   use,
   useSkill,
   visitUrl,
@@ -351,17 +353,47 @@ export const RunStartQuest: Quest = {
       do: (): void => {
         use($item`model train set`);
         setConfiguration([
+          Station.GAIN_MEAT, // meat (we don't gain meat during free banishes)
           Station.TOWER_FIZZY, // mp regen
           Station.TOWER_FROZEN, // hot resist (useful)
           Station.COAL_HOPPER, // double myst gain
           Station.BRAIN_SILO, // myst stats
           Station.VIEWING_PLATFORM, // all stats
           Station.WATER_BRIDGE, // +ML
-          Station.GAIN_MEAT, // meat (we don't gain meat during free banishes)
           Station.CANDY_FACTORY, // candies (we don't get items during free banishes)
         ]);
       },
       limit: { tries: 1 },
+    },
+    {
+      name: "Grab Trainset Meat",
+      prepare: (): void => {
+        if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "pitchfork style")
+          cliExecute("umbrella weapon");
+      },
+      completed: () =>
+        get("trainsetPosition") > 0 ||
+        turnsPlayed() > 0 ||
+        get("hasMaydayContract") ||
+        get("instant_skipEarlyTrainsetMeat", false),
+      do: $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(Macro.attack()),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Cookbookbat`,
+        modifier:
+          "0.25 mys, -1 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball, -equip backup camera",
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Soul Food",
+      ready: () => mySoulsauce() >= 5,
+      completed: () => mySoulsauce() < 5 || myMp() > myMaxmp() - 15 || !have($skill`Soul Food`),
+      do: (): void => {
+        while (mySoulsauce() >= 5 && myMp() <= myMaxmp() - 15) useSkill($skill`Soul Food`);
+      },
     },
     {
       name: "Use Mind Control Device",
@@ -446,9 +478,7 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Chewing Gum",
-      completed: () =>
-        myMeat() <= 600 ||
-        (have($item`turtle totem`) && have($item`saucepan`) && get("_cloversPurchased") >= 1),
+      completed: () => myMeat() <= 600 || get("_cloversPurchased") >= 1,
       do: (): void => {
         buy(1, $item`chewing gum on a string`);
         use(1, $item`chewing gum on a string`);

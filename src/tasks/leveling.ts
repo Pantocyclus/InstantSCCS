@@ -481,36 +481,8 @@ export const LevelingQuest: Quest = {
       do: () => ensureEffect($effect`Glittering Eyelashes`),
     },
     {
-      name: "Use Ointment of the Occult",
-      completed: () => have($effect`Mystically Oiled`),
-      do: (): void => {
-        if (!have($item`ointment of the occult`)) {
-          if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
-          create($item`ointment of the occult`, 1);
-        }
-        ensureEffect($effect`Mystically Oiled`);
-      },
-    },
-    {
-      name: "Use Oil of Expertise",
-      completed: () =>
-        (!have($item`cherry`) && itemAmount($item`oil of expertise`) <= 1) ||
-        have($effect`Expert Oiliness`),
-      do: (): void => {
-        if (!have($item`oil of expertise`)) {
-          if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
-          create($item`oil of expertise`, 1);
-        }
-        if (itemAmount($item`oil of expertise`) > 1)
-          use($item`oil of expertise`, itemAmount($item`oil of expertise`) - 1);
-        if (have($item`cherry`) && have($effect`Expert Oiliness`))
-          putCloset(itemAmount($item`cherry`), $item`cherry`);
-      },
-      limit: { tries: 1 },
-    },
-    {
       name: "Buy Oversized Sparkler",
-      ready: () => have($effect`Everything Looks Blue`) && myMeat() >= 1000,
+      ready: () => have($effect`Everything Looks Blue`) && get("hasRange") && myMeat() >= 1000,
       completed: () => have($item`oversized sparkler`),
       do: () => buy($item`oversized sparkler`, 1),
       limit: { tries: 1 },
@@ -726,6 +698,34 @@ export const LevelingQuest: Quest = {
       limit: { tries: 12 },
     },
     {
+      name: "Use Ointment of the Occult",
+      completed: () => have($effect`Mystically Oiled`),
+      do: (): void => {
+        if (!have($item`ointment of the occult`)) {
+          if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
+          create($item`ointment of the occult`, 1);
+        }
+        ensureEffect($effect`Mystically Oiled`);
+      },
+    },
+    {
+      name: "Use Oil of Expertise",
+      completed: () =>
+        (!have($item`cherry`) && itemAmount($item`oil of expertise`) <= 1) ||
+        have($effect`Expert Oiliness`),
+      do: (): void => {
+        if (!have($item`oil of expertise`)) {
+          if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
+          create($item`oil of expertise`, 1);
+        }
+        if (itemAmount($item`oil of expertise`) > 1)
+          use($item`oil of expertise`, itemAmount($item`oil of expertise`) - 1);
+        if (have($item`cherry`) && have($effect`Expert Oiliness`))
+          putCloset(itemAmount($item`cherry`), $item`cherry`);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Snojo",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
@@ -769,6 +769,15 @@ export const LevelingQuest: Quest = {
         sellMiscellaneousItems();
       },
       limit: { tries: 4 },
+    },
+    {
+      name: "Get Totem and Saucepan",
+      completed: () => have($item`turtle totem`) && have($item`saucepan`),
+      do: (): void => {
+        buy(1, $item`chewing gum on a string`);
+        use(1, $item`chewing gum on a string`);
+      },
+      limit: { tries: 50 },
     },
     {
       name: "Backups",
