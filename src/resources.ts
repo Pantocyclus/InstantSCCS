@@ -143,6 +143,7 @@ const resources: Resource[] = [
     "instant_skipEarlyTrainsetMeat",
     () => "Do not spend an adventure in the Dire Warren pre-coil grabbing meat from the trainset"
   ),
+  new Resource("instant_saveSugar", () => "Do not spend tome uses on sugar shorts/chapeau/shank"),
 ];
 
 const automaticallyExcludedBuffs = Array.from(

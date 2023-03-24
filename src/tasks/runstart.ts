@@ -11,6 +11,7 @@ import {
   equip,
   getWorkshed,
   haveEquipped,
+  haveSkill,
   hermit,
   Item,
   itemAmount,
@@ -38,6 +39,7 @@ import {
   $effect,
   $familiar,
   $item,
+  $items,
   $location,
   $monster,
   $skill,
@@ -190,6 +192,30 @@ export const RunStartQuest: Quest = {
       completed: () =>
         get("_universeCalculated") >= (get("skillLevel144") > 3 ? 3 : get("skillLevel144")),
       do: () => cliExecute("numberology 69"),
+      limit: { tries: 3 },
+    },
+    {
+      name: "Summon Sugar Sheets",
+      completed: () =>
+        !haveSkill($skill`Summon Sugar Sheets`) ||
+        get("instant_saveSugar", false) ||
+        get("tomeSummons") >= 3 ||
+        (have($skill`Summon Clip Art`) && !get("instant_saveClipArt", false)),
+      do: (): void => {
+        const sheetsToMake = 3 - get("tomeSummons");
+        restoreMp(2 * sheetsToMake);
+        useSkill($skill`Summon Sugar Sheets`, sheetsToMake);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Fold Sugar Sheets",
+      completed: () => !have($item`sugar sheet`),
+      do: (): void => {
+        const nextMissingSugarItem =
+          $items`sugar shorts, sugar chapeau, sugar shank`.find((it) => !have(it)) || $item`none`;
+        create(nextMissingSugarItem);
+      },
       limit: { tries: 3 },
     },
     {

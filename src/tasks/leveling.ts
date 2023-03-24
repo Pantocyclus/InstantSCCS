@@ -64,9 +64,14 @@ import {
   uneffect,
   Witchess,
 } from "libram";
-import { CombatStrategy } from "grimoire-kolmafia";
+import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import { tryAcquiringEffect } from "../lib";
-import { docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
+import {
+  docBag,
+  garbageShirt,
+  sugarItemsAboutToBreak,
+  unbreakableUmbrella,
+} from "../engine/outfit";
 import Macro from "../combat";
 import { forbiddenEffects } from "../resources";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
@@ -121,6 +126,17 @@ export function powerlevelingLocation(): Location {
   else if (get("sleazeAirportAlways")) return $location`Sloppy Seconds Diner`;
 
   return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`; // Default location
+}
+
+function baseOutfit(): OutfitSpec {
+  return {
+    offhand: $item`unbreakable umbrella`,
+    back: $item`LOV Epaulettes`,
+    acc1: $item`codpiece`,
+    familiar: $familiar`Cookbookbat`,
+    modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+    avoid: sugarItemsAboutToBreak(),
+  };
 }
 
 function haveCBBIngredients(): boolean {
@@ -542,12 +558,7 @@ export const LevelingQuest: Quest = {
           .tryItem($item`red rocket`)
           .default()
       ),
-      outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -574,12 +585,7 @@ export const LevelingQuest: Quest = {
         haveEffect($effect`Glowing Blue`) !== 10 ||
         myMp() >= 500,
       do: $location`The Dire Warren`,
-      outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       combat: new CombatStrategy().macro(Macro.attack().repeat()),
       post: (): void => {
         sendAutumnaton();
@@ -680,12 +686,7 @@ export const LevelingQuest: Quest = {
         }
       },
       combat: new CombatStrategy().macro(Macro.tryItem($item`red rocket`).default()),
-      outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       choices: {
         1498: 1,
       },
@@ -738,12 +739,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
       do: $location`The X-32-F Combat Training Snowman`,
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       limit: { tries: 10 },
       post: (): void => {
         if (get("_snojoFreeFights") >= 10) cliExecute("hottub");
@@ -761,12 +757,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_snokebombUsed") >= 3,
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Snokebomb`).abort()),
-      outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       choices: {
         1094: 5,
         1115: 6,
@@ -807,14 +798,10 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Back-Up to your Last Enemy`).default()
       ),
-      outfit: {
-        back: $item`LOV Epaulettes`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
+      outfit: () => ({
+        ...baseOutfit(),
         acc3: $item`backup camera`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      }),
       post: (): void => {
         if (!freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none))
           throw new Error("Fought unexpected monster");
@@ -835,13 +822,10 @@ export const LevelingQuest: Quest = {
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
       do: $location`Noob Cave`,
-      outfit: {
-        back: $item`LOV Epaulettes`,
+      outfit: () => ({
+        ...baseOutfit(),
         offhand: $item`Kramco Sausage-o-Matic™`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      }),
       combat: new CombatStrategy().macro(Macro.default()),
       post: (): void => {
         sendAutumnaton();
@@ -865,13 +849,7 @@ export const LevelingQuest: Quest = {
         get("instant_saveLocketRedSkeleton", false),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
       combat: new CombatStrategy().macro(Macro.tryItem($item`yellow rocket`).abort()),
-      outfit: {
-        back: $item`LOV Epaulettes`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       post: (): void => {
         use($item`red box`, 1);
         sendAutumnaton();
@@ -899,13 +877,10 @@ export const LevelingQuest: Quest = {
           .if_($monster`LOV Engineer`, Macro.default())
           .if_($monster`LOV Equivocator`, Macro.default())
       ),
-      outfit: {
+      outfit: () => ({
+        ...baseOutfit(),
         weapon: $item`Fourth of May Cosplay Saber`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      }),
       limit: { tries: 1 },
       post: (): void => {
         if (have($effect`Beaten Up`)) cliExecute("hottub");
@@ -925,13 +900,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_speakeasyFreeFights", 0) >= 3 || !get("ownsSpeakeasy"),
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: {
-        back: $item`LOV Epaulettes`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       limit: { tries: 3 },
       post: (): void => {
         sendAutumnaton();
@@ -950,14 +919,11 @@ export const LevelingQuest: Quest = {
       do: () => visitUrl("main.php?fightgodlobster=1"),
       combat: new CombatStrategy().macro(Macro.default()),
       choices: { 1310: () => (have($item`God Lobster's Ring`) ? 2 : 3) }, // Get xp on last fight
-      outfit: {
-        back: $item`LOV Epaulettes`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
+      outfit: () => ({
+        ...baseOutfit(),
         famequip: $items`God Lobster's Ring, God Lobster's Scepter`,
         familiar: $familiar`God Lobster`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      }),
       acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 3 },
       post: (): void => {
@@ -981,13 +947,7 @@ export const LevelingQuest: Quest = {
         sellMiscellaneousItems();
       },
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: {
-        back: $item`LOV Epaulettes`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       limit: { tries: 1 },
     },
     {
@@ -1002,13 +962,7 @@ export const LevelingQuest: Quest = {
         get("_witchessFights") >= 5 || !Witchess.have() || get("instant_saveWitchess", false),
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: {
-        back: $item`LOV Epaulettes`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -1026,13 +980,10 @@ export const LevelingQuest: Quest = {
       completed: () => get("_machineTunnelsAdv") >= 5 || !have($familiar`Machine Elf`),
       do: () => adv1($location`The Deep Machine Tunnels`, -1),
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: {
-        back: $item`LOV Epaulettes`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
+      outfit: () => ({
+        ...baseOutfit(),
         familiar: $familiar`Machine Elf`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      }),
       limit: { tries: 5 },
       post: (): void => {
         sendAutumnaton();
@@ -1059,13 +1010,7 @@ export const LevelingQuest: Quest = {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
         }
       },
-      outfit: {
-        back: $item`LOV Epaulettes`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       limit: { tries: 60 },
       choices: {
         1094: 5,
@@ -1151,13 +1096,7 @@ export const LevelingQuest: Quest = {
         get("instant_saveLocketWitchessKing", false),
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: {
-        back: $item`LOV Epaulettes`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -1175,13 +1114,7 @@ export const LevelingQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
-      outfit: {
-        back: $item`LOV Epaulettes`,
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      outfit: baseOutfit,
       completed: () =>
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&

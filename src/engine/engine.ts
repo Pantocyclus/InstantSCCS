@@ -99,48 +99,6 @@ export class Engine extends BaseEngine {
     const originalValues = trackedPreferences.map(({ pref }) => [pref, get(pref).toString()]);
     this.checkLimits(task, undefined);
 
-    // Handle unequippables in outfit here
-    const outfit = task.outfit;
-    const spec = undelay(outfit);
-    if (spec !== undefined) {
-      if (spec.familiar && !have(spec.familiar)) {
-        print(`Ignoring using a familiar because we don't have ${spec.familiar}`, "red");
-        spec.familiar = $familiar.none;
-      }
-      if (spec instanceof Outfit) {
-        const badSlots = Array.from(spec.equips.entries())
-          .filter(([, it]) => !have(it) && it !== null)
-          .map(([s]) => s);
-        badSlots.forEach((s) => {
-          print(`Ignoring slot ${s} because we don't have ${spec.equips.get(s) ?? ""}`, "red");
-          spec.equips.delete(s);
-        });
-      } else {
-        for (const slotName of outfitSlots) {
-          const itemOrItems = spec[slotName];
-          if (itemOrItems) {
-            if (itemOrItems instanceof Item) {
-              if (!have(itemOrItems) && itemOrItems !== null) {
-                print(`Ignoring slot ${slotName} because we don't have ${itemOrItems}`, "red");
-                spec[slotName] = undefined;
-              }
-            } else {
-              if (!itemOrItems.some((it) => have(it) && it !== null)) {
-                print(
-                  `Ignoring slot ${slotName} because we don't have ${itemOrItems
-                    .map((it) => it.name)
-                    .join(", ")}`,
-                  "red"
-                );
-                spec[slotName] = undefined;
-              }
-            }
-          }
-        }
-      }
-      task.outfit = spec;
-    }
-
     super.execute(task);
     if (have($effect`Beaten Up`)) {
       if (get("lastEncounter") === "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl")
@@ -160,6 +118,54 @@ export class Engine extends BaseEngine {
     } else {
       print(`${task.name} not completed!`, "blue");
     }
+  }
+
+  createOutfit(task: Task): Outfit {
+    // Handle unequippables in outfit here
+    const spec = undelay(task.outfit);
+    if (spec === undefined) {
+      return new Outfit();
+    }
+
+    if (spec.familiar && !have(spec.familiar)) {
+      print(`Ignoring using a familiar because we don't have ${spec.familiar}`, "red");
+      spec.familiar = $familiar.none;
+    }
+
+    if (spec instanceof Outfit) {
+      const badSlots = Array.from(spec.equips.entries())
+        .filter(([, it]) => !have(it) && it !== null)
+        .map(([s]) => s);
+      badSlots.forEach((s) => {
+        print(`Ignoring slot ${s} because we don't have ${spec.equips.get(s) ?? ""}`, "red");
+        spec.equips.delete(s);
+      });
+      return spec.clone();
+    }
+
+    // spec is an OutfitSpec
+    for (const slotName of outfitSlots) {
+      const itemOrItems = spec[slotName];
+      if (itemOrItems) {
+        if (itemOrItems instanceof Item) {
+          if (!have(itemOrItems) && itemOrItems !== null) {
+            print(`Ignoring slot ${slotName} because we don't have ${itemOrItems}`, "red");
+            spec[slotName] = undefined;
+          }
+        } else {
+          if (!itemOrItems.some((it) => have(it) && it !== null)) {
+            print(
+              `Ignoring slot ${slotName} because we don't have ${itemOrItems
+                .map((it) => it.name)
+                .join(", ")}`,
+              "red"
+            );
+            spec[slotName] = undefined;
+          }
+        }
+      }
+    }
+    return Outfit.from(spec, new Error("Failed to equip outfit"));
   }
 
   dress(task: Task, outfit: Outfit): void {

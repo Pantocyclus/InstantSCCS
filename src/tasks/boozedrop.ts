@@ -39,6 +39,7 @@ import {
   Station,
 } from "libram/dist/resources/2022/TrainSet";
 import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { sugarItemsAboutToBreak } from "../engine/outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 import { forbiddenEffects } from "../resources";
@@ -102,13 +103,14 @@ export const BoozeDropQuest: Quest = {
           use($item`photocopied monster`);
         }
       },
-      outfit: {
+      outfit: () => ({
         back: $item`vampyric cloake`,
         weapon: $item`Fourth of May Cosplay Saber`,
         offhand: $item`industrial fire extinguisher`,
         familiar: $familiar`Cookbookbat`,
         modifier: "myst",
-      },
+        avoid: sugarItemsAboutToBreak(),
+      }),
       choices: { 1387: 3 },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Bowl Straight Up`)
