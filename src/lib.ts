@@ -4,17 +4,21 @@ import {
   getCampground,
   Item,
   mpCost,
+  myBasestat,
+  myBuffedstat,
+  myMaxhp,
   myMp,
   print,
   restoreMp,
   retrieveItem,
   runChoice,
+  Stat,
   toItem,
   toSkill,
   use,
   visitUrl,
 } from "kolmafia";
-import { $effect, $item, $items, get, have, set } from "libram";
+import { $effect, $item, $items, $stat, get, have, set } from "libram";
 import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
 
@@ -34,7 +38,7 @@ export enum CommunityServiceTests {
 }
 
 const testModifiers = new Map([
-  [CommunityServiceTests.HPTEST, ["Maximum HP", "Maximum HP Percent"]],
+  [CommunityServiceTests.HPTEST, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]],
   [CommunityServiceTests.MUSTEST, ["Muscle", "Muscle Percent"]],
   [CommunityServiceTests.MYSTTEST, ["Mysticality", "Mysticality Percent"]],
   [CommunityServiceTests.MOXTEST, ["Moxie", "Moxie Percent"]],
@@ -92,9 +96,64 @@ export function advCost(whichTest: number): number {
   }
 }
 
+function statTurnsSaved(whichTest: number): number {
+  if (whichTest === CommunityServiceTests.HPTEST)
+    return Math.floor((myMaxhp() - myBuffedstat($stat`Muscle`) - 3) / 30);
+
+  let stat: Stat;
+  switch (whichTest) {
+    case CommunityServiceTests.MUSTEST:
+      stat = $stat`Muscle`;
+      break;
+    case CommunityServiceTests.MYSTTEST:
+      stat = $stat`Mysticality`;
+      break;
+    case CommunityServiceTests.MOXTEST:
+      stat = $stat`Moxie`;
+      break;
+    default:
+      return 0;
+  }
+  return Math.floor((myBuffedstat(stat) - myBasestat(stat)) / 30);
+}
+
+function logRelevantStats(whichTest: number): void {
+  switch (whichTest) {
+    case CommunityServiceTests.HPTEST:
+      print(
+        `Buffed Mus: ${myBuffedstat(
+          $stat`Muscle`
+        )}; HP: ${myMaxhp()}; turns saved: ${statTurnsSaved(whichTest)}`
+      );
+      break;
+    case CommunityServiceTests.MUSTEST:
+      print(
+        `Base Mus: ${myBasestat($stat`Muscle`)}; buffed Mus: ${myBuffedstat(
+          $stat`Muscle`
+        )}; base Mys: ${myBasestat($stat`Mysticality`)}; turns saved: ${statTurnsSaved(whichTest)}`
+      );
+      break;
+    case CommunityServiceTests.MYSTTEST:
+      print(
+        `Base Mys: ${myBasestat($stat`Mysticality`)}; buffed Mys: ${myBuffedstat(
+          $stat`Mysticality`
+        )}; turns saved: ${statTurnsSaved(whichTest)}`
+      );
+      break;
+    case CommunityServiceTests.MOXTEST:
+      print(
+        `Base Mox: ${myBasestat($stat`Moxie`)}; buffed Mox: ${myBuffedstat(
+          $stat`Moxie`
+        )}; base Mys: ${myBasestat($stat`Mysticality`)}; turns saved: ${statTurnsSaved(whichTest)}`
+      );
+      break;
+  }
+}
+
 export function logTestSetup(whichTest: number): void {
   const testTurns = advCost(whichTest);
   printModtrace(testModifiers.get(whichTest) ?? []);
+  logRelevantStats(whichTest);
   print(
     `${testNames.get(whichTest) ?? "Unknown Test"} takes ${testTurns} adventure${
       testTurns === 1 ? "" : "s"
