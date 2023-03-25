@@ -37,14 +37,14 @@
   },
   "author": "Pantocyclus",
   "license": "MIT",
-  "repository": "git+https://github.com/docrostov/kol-js-starter.git",
+  "repository": "git+https://github.com/Pantocyclus/InstantSCCS.git",
   "keywords": [
     "KoLMafia",
     "JS",
     "TS"
   ],
   "bugs": {
-    "url": "https://github.com/docrostov/kol-js-starter/issues"
+    "url": "https://github.com/Pantocyclus/InstantSCCS/issues"
   },
-  "homepage": "https://github.com/docrostov/kol-js-starter#readme"
+  "homepage": "https://github.com/Pantocyclus/InstantSCCS#readme"
 }

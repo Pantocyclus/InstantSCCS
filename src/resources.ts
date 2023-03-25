@@ -144,6 +144,10 @@ const resources: Resource[] = [
     () => "Do not spend an adventure in the Dire Warren pre-coil grabbing meat from the trainset"
   ),
   new Resource("instant_saveSugar", () => "Do not spend tome uses on sugar shorts/chapeau/shank"),
+  new Resource(
+    "instant_skipMappingNinja",
+    () => "Do not attempt to grab a li'l ninja costume for your tot"
+  ),
 ];
 
 const automaticallyExcludedBuffs = Array.from(

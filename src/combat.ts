@@ -1,5 +1,5 @@
 import { mpCost, myClass, toInt } from "kolmafia";
-import { $skill, StrictMacro } from "libram";
+import { $item, $skill, get, have, StrictMacro } from "libram";
 
 export const mainStat = myClass().primestat;
 
@@ -37,4 +37,22 @@ export default class Macro extends StrictMacro {
 
 export function main(): void {
   Macro.load().submit();
+}
+
+export function haveFreeKill(): boolean {
+  // TODO: Support for Parka YR
+  const haveXRay = have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3;
+  const haveShatteringPunch = have($skill`Shattering Punch`) && get("_shatteringPunchUsed") < 3;
+  const haveMobHit = have($skill`Gingerbread Mob Hit`) && !get("_gingerbreadMobHitUsed");
+
+  return haveXRay || haveShatteringPunch || haveMobHit;
+}
+
+export function haveFreeBanish(): boolean {
+  const haveSnokeBomb = have($skill`Snokebomb`) && get("_snokebombUsed") < 3;
+  const haveFeelHatred = have($skill`Feel Hatred`) && get("_feelHatredUsed") < 3;
+  const haveReflexHammer = have($skill`Reflex Hammer`) && get("_reflexHammerUsed") < 3;
+  const haveThrowLatte = have($skill`Throw Latte on Opponent`) && !get("_latteBanishUsed");
+
+  return haveSnokeBomb || haveFeelHatred || haveReflexHammer || haveThrowLatte;
 }

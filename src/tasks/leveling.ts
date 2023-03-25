@@ -1,8 +1,6 @@
 import { Quest } from "../engine/task";
 import {
-  adv1,
   autosell,
-  availableChoiceOptions,
   buy,
   chew,
   cliExecute,
@@ -11,13 +9,14 @@ import {
   eat,
   Effect,
   effectModifier,
-  handlingChoice,
+  getMonsters,
   haveEffect,
   inebrietyLimit,
   Item,
   itemAmount,
-  lastChoice,
+  itemDrops,
   Location,
+  mallPrice,
   Monster,
   mpCost,
   myBasestat,
@@ -60,9 +59,11 @@ import {
   getKramcoWandererChance,
   have,
   SongBoom,
+  sum,
   TunnelOfLove,
   uneffect,
   Witchess,
+  withChoice,
 } from "libram";
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import { tryAcquiringEffect } from "../lib";
@@ -75,6 +76,11 @@ import {
 import Macro from "../combat";
 import { forbiddenEffects } from "../resources";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
+import {
+  chooseQuest,
+  chooseRift,
+  rufusTarget,
+} from "libram/dist/resources/2023/ClosedCircuitPayphone";
 
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
@@ -126,6 +132,26 @@ export function powerlevelingLocation(): Location {
   else if (get("sleazeAirportAlways")) return $location`Sloppy Seconds Diner`;
 
   return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`; // Default location
+}
+
+let _bestShadowRift: Location | null = null;
+export function bestShadowRift(): Location {
+  if (!_bestShadowRift) {
+    _bestShadowRift =
+      chooseRift({
+        canAdventure: true,
+        sortBy: (l: Location) => {
+          const drops = getMonsters(l)
+            .map((m) => Object.keys(itemDrops(m)).map((s) => toItem(s)))
+            .reduce((acc, val) => acc.concat(val), []);
+          return sum(drops, mallPrice);
+        },
+      }) ?? $location.none;
+    if (_bestShadowRift === $location.none) {
+      throw new Error("Failed to find a suitable Shadow Rift to adventure in");
+    }
+  }
+  return _bestShadowRift;
 }
 
 function baseOutfit(): OutfitSpec {
@@ -538,6 +564,51 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Map Amateur Ninja",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`)) {
+          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
+          buy($item`blue rocket`, 1);
+        }
+        unbreakableUmbrella();
+        docBag();
+        restoreMp(50);
+        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
+          if (myMeat() >= 250) buy($item`red rocket`, 1);
+        }
+      },
+      completed: () =>
+        !have($skill`Map the Monsters`) ||
+        get("_monstersMapped") >= 3 ||
+        have($item`li'l ninja costume`) ||
+        !have($familiar`Trick-or-Treating Tot`) ||
+        get("instant_skipMappingNinja", false),
+      do: () => mapMonster($location`The Haiku Dungeon`, $monster`amateur ninja`),
+      combat: new CombatStrategy().macro(
+        Macro.if_(
+          $monster`amateur ninja`,
+          Macro.tryItem($item`blue rocket`)
+            .tryItem($item`red rocket`)
+            .trySkill($skill`Chest X-Ray`)
+            .trySkill($skill`Gingerbread Mob Hit`)
+            .trySkill($skill`Shattering Punch`)
+            .default()
+        ).abort()
+      ),
+      outfit: {
+        offhand: $item`unbreakable umbrella`,
+        acc1: $item`codpiece`,
+        familiar: $familiar`Trick-or-Treating Tot`,
+        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+      },
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Restore MP with Glowing Blue",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
@@ -594,47 +665,13 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Map Amateur Ninja",
-      ready: () => have($item`cosmic bowling ball`), // Grab this in between rift free fights (since we aren't using the bowling ball there)
-      prepare: (): void => {
-        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
-        restoreMp(50);
-      },
-      completed: () =>
-        !have($skill`Map the Monsters`) ||
-        get("_monstersMapped") >= 3 ||
-        have($item`li'l ninja costume`) ||
-        !have($familiar`Trick-or-Treating Tot`),
-      do: () => mapMonster($location`The Haiku Dungeon`, $monster`amateur ninja`),
-      combat: new CombatStrategy().macro(
-        Macro.if_($monster`amateur ninja`, Macro.trySkill($skill`Bowl a Curveball`)).abort()
-      ),
-      outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Trick-or-Treating Tot`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
-      post: (): void => {
-        sendAutumnaton();
-        sellMiscellaneousItems();
-      },
-      limit: { tries: 1 },
-    },
-    {
       name: "Get Rufus Quest",
-      completed: () => get("_shadowAffinityToday", false) || !have($item`closed-circuit pay phone`),
-      do: () => use($item`closed-circuit pay phone`),
-      choices: {
-        1497: 2,
-        1498: 6,
-      },
+      completed: () => get("_shadowAffinityToday") || !have($item`closed-circuit pay phone`),
+      do: () => chooseQuest(() => 2),
       limit: { tries: 1 },
     },
     {
       name: "Shadow Rift",
-      ready: () => toItem(get("rufusQuestTarget", "")) !== $item.none,
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
@@ -645,53 +682,15 @@ export const LevelingQuest: Quest = {
       },
       completed: () =>
         have($item`Rufus's shadow lodestone`) ||
-        get("_shadowRiftCombats", 0) >= 12 ||
+        (!have($effect`Shadow Affinity`) && get("encountersUntilSRChoice") !== 0) ||
         !have($item`closed-circuit pay phone`),
-      do: (): void => {
-        const target = get("rufusQuestTarget", "");
-        if (have($effect`Shadow Affinity`)) {
-          print("Entering rift with Shadow Affinity!");
-          visitUrl("place.php?whichplace=town_right&action=townright_shadowrift_free");
-        } else {
-          print("Entering rift without Shadow Affinity!");
-          visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
-        }
-
-        if (handlingChoice() && lastChoice() === 1499) {
-          let NCChoice = 6;
-          let tries = 0;
-          while (NCChoice === 6) {
-            const availableChoices = availableChoiceOptions(true);
-
-            print(`Try #${tries + 1} - Target = ${target}; Choices available:`, "blue");
-            [2, 3, 4].forEach((choice) =>
-              print(
-                `Choice ${choice}: ${availableChoices[choice]} (${
-                  availableChoices[choice].includes(target) ? "" : "no "
-                }match)`,
-                `${availableChoices[choice].includes(target) ? "green" : "red"}`
-              )
-            );
-
-            const currentChoice = [2, 3, 4].filter((choice) =>
-              availableChoices[choice].includes(target)
-            );
-            tries += 1;
-            if (currentChoice.length > 1) throw new Error("We found more than 1 valid solution!");
-            else if (currentChoice.length === 1) NCChoice = currentChoice[0];
-            else if (tries >= 10) throw new Error(`Did not find ${target} after 10 tries!`);
-            else runChoice(5);
-          }
-          runChoice(NCChoice);
-        }
-      },
+      do: bestShadowRift(),
       combat: new CombatStrategy().macro(Macro.tryItem($item`red rocket`).default()),
       outfit: baseOutfit,
-      choices: {
-        1498: 1,
-      },
       post: (): void => {
-        if (have(toItem(get("rufusQuestTarget", "")))) use($item`closed-circuit pay phone`);
+        if (have(rufusTarget() as Item)) {
+          withChoice(1498, 1, () => use($item`closed-circuit pay phone`));
+        }
         sendAutumnaton();
         sellMiscellaneousItems();
       },
@@ -978,7 +977,7 @@ export const LevelingQuest: Quest = {
         restoreMp(50);
       },
       completed: () => get("_machineTunnelsAdv") >= 5 || !have($familiar`Machine Elf`),
-      do: () => adv1($location`The Deep Machine Tunnels`, -1),
+      do: $location`The Deep Machine Tunnels`,
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: () => ({
         ...baseOutfit(),

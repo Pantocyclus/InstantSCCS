@@ -11,7 +11,6 @@ import {
   equip,
   getWorkshed,
   haveEquipped,
-  haveSkill,
   hermit,
   Item,
   itemAmount,
@@ -197,7 +196,7 @@ export const RunStartQuest: Quest = {
     {
       name: "Summon Sugar Sheets",
       completed: () =>
-        !haveSkill($skill`Summon Sugar Sheets`) ||
+        !have($skill`Summon Sugar Sheets`) ||
         get("instant_saveSugar", false) ||
         get("tomeSummons") >= 3 ||
         (have($skill`Summon Clip Art`) && !get("instant_saveClipArt", false)),
