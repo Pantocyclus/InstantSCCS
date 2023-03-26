@@ -513,3 +513,17 @@ Note that we are already filling up all our organs in this route, so you shouldn
 ### I can't survive the early fights! What do I do?
 
 If you're scripting your own run, try eating the Deep Dish of Legend early (this is already done in the script above). It gives +100%hp and +300%mus, which should help you survive a few more hits from the monsters. However, this does come at the cost of possibly not carrying this buff over to the NC test to buff your Disgeist, thus losing you 5%NC (increasing your turncount by 3).
+
+### What range of shininess is this script suitable for?
+
+This script supports runs from anywhere between 130-320 turns (correct as of March 2023). Check [here](http://www.koldb.com/searchresults.php?type=normal&path=cs&class=s&sign=Opossum&familiar=Cookbookbat&sortby=dt&timetype=ralph&event=ns13&unique=on) for an updated list of the best runs of users using this script/route.
+
+If you are able to cap all the stat tests without using any CBB foods (including the T4 ones) because you have access to a bunch of free fights, stat% and xp% buffs, then you're probably too shiny for this script (and the cookbookbat route). Consider using one of these other scripts listed [here](https://loathing-associates-scripting-society.github.io//KoL-Scripting-Resources/CS-Scripting-Resources.html) instead. For example, [this personal script](https://github.com/Pantocyclus/InstantHCCS) is able to achieve a ~1/105 HCCS with fewer resources and organs used as compared to the ~1/130 SCCS with InstantSCCS.
+
+### Why is InstantSCCS not using the S.I.T. Course Completion Certificate?
+
+The drops from the S.I.T. Course Completion Certificate aren't used in the route, so it is up to the user to decide which course they would like to commit to for the day before invoking InstantSCCS.
+
+### Is there a way to automate the acquisition of the necessary T4 CBB foods/astral choices in Valhalla?
+
+As with the usage of the S.I.T Course Voucher prior to invoking InstantSCCS, you may find a few community looping scripts/wrappers that would do so for you. At the present moment these are not natively shipped together with InstantSCCS.

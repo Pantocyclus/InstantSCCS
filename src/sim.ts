@@ -1,4 +1,13 @@
-import { Familiar, Item, Monster, print, printHtml, Skill, storageAmount } from "kolmafia";
+import {
+  Familiar,
+  Item,
+  Monster,
+  print,
+  printHtml,
+  Skill,
+  storageAmount,
+  turnsPlayed,
+} from "kolmafia";
 import {
   $familiar,
   $item,
@@ -394,7 +403,12 @@ function buildMiscList(): Requirement[] {
       why: "Ensures Novelty Tropical Skeleton",
     },
     {
-      thing: new Hardcoded(haveTrainSet() && !nextConfigurable(), "Configurable Trainset"),
+      thing: new Hardcoded(
+        haveTrainSet() &&
+          (!nextConfigurable() ||
+            (get("lastTrainsetConfiguration") === -40 && turnsPlayed() >= 40)),
+        "Configurable Trainset"
+      ),
       why: "XP and meat during Powerleveling",
     },
     {
