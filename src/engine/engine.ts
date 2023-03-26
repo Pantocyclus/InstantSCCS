@@ -37,8 +37,8 @@ export const notableSkillPrefs: trackedPref[] = [
   new trackedPref("_feelEnvyUsed", "Feel Envy", 3),
   new trackedPref("_sourceTerminalDigitizeUses", "Digitize", 3),
   new trackedPref("_sourceTerminalPortscanUses", "Portscan", 3),
-  new trackedPref("_sourceTerminalDuplicateUses", "Duplicate", 3),
-  new trackedPref("_sourceTerminalEnhanceUses", "Source Terminal Enhances", 1),
+  new trackedPref("_sourceTerminalEnhanceUses", "Source Terminal Enhances", 3),
+  new trackedPref("_sourceTerminalDuplicateUses", "Duplicate", 1),
 ];
 
 export const freeFightPrefs: trackedPref[] = [

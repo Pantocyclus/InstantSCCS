@@ -1079,14 +1079,21 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Acquire Lyle's Buff",
+      completed: () => get("_lyleFavored"),
+      do: (): void => {
+        tryAcquiringEffect($effect`Favored by Lyle`);
+        tryAcquiringEffect($effect`Starry-Eyed`);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Witchess King",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
-        tryAcquiringEffect($effect`Favored by Lyle`);
-        tryAcquiringEffect($effect`Starry-Eyed`);
         restoreMp(50);
       },
       completed: () =>
