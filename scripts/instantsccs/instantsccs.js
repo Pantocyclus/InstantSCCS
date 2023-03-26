@@ -12536,7 +12536,7 @@ function buildMiscList() {
     })(), "Ice Housed Skeleton Store Monster"),
     why: "Ensures Novelty Tropical Skeleton"
   }, {
-    thing: new Hardcoded(TrainSet_have() && !nextConfigurable(), "Configurable Trainset"),
+    thing: new Hardcoded(TrainSet_have() && (!nextConfigurable() || property_get("lastTrainsetConfiguration") === -40 && (0,external_kolmafia_namespaceObject.turnsPlayed)() >= 40), "Configurable Trainset"),
     why: "XP and meat during Powerleveling"
   }, {
     thing: new Hardcoded(property_get("knownAscensions") >= 10, "Access to all-purpose flower in the Gift Shop"),
