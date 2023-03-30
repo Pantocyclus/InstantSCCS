@@ -114,7 +114,6 @@ export const MysticalityQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Mysticality.isDone(),
       prepare: (): void => {
-        useSkill($skill`Bind Undead Elbow Macaroni`);
         const usefulEffects: Effect[] = [
           $effect`Big`,
           $effect`Glittering Eyelashes`,
