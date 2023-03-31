@@ -179,7 +179,7 @@ export function canAcquireEffect(ef: Effect): boolean {
 }
 
 // Adapted from goorbo
-const gardens = $items`packet of pumpkin seeds, Peppermint Pip Packet, packet of dragon's teeth, packet of beer seeds, packet of winter seeds, packet of thanksgarden seeds, packet of tall grass seeds, packet of mushroom spores`;
+const gardens = $items`packet of pumpkin seeds, Peppermint Pip Packet, packet of dragon's teeth, packet of beer seeds, packet of winter seeds, packet of thanksgarden seeds, packet of tall grass seeds, packet of mushroom spores, packet of rock seeds`;
 export function getGarden(): Item {
   return gardens.find((it) => it.name in getCampground()) || $item.none;
 }
