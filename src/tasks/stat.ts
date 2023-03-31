@@ -3,6 +3,7 @@ import {
   $effect,
   $effects,
   $item,
+  $items,
   $skill,
   CommunityService,
   ensureEffect,
@@ -71,12 +72,20 @@ export const MuscleQuest: Quest = {
           create($item`oil of expertise`, 1);
         }
         ensureEffect($effect`Expert Oiliness`);
+        if (
+          !have($effect`Phorcefullness`) &&
+          !have($item`philter of phorce`) &&
+          $items`scrumptious reagent, lemon`.every((it) => have(it))
+        ) {
+          create($item`philter of phorce`, 1);
+        }
         const usefulEffects: Effect[] = [
           $effect`Big`,
           $effect`Go Get 'Em, Tiger!`,
           $effect`Hulkien`,
           $effect`Quiet Determination`,
           $effect`Power Ballad of the Arrowsmith`,
+          $effect`Phorcefullness`,
           $effect`Rage of the Reindeer`,
           $effect`Song of Bravado`,
           $effect`Stevedave's Shanty of Superiority`,
