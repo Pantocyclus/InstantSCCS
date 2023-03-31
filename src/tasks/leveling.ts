@@ -1021,7 +1021,9 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Acquire Wad of Dough",
-      completed: () => have($item`wad of dough`),
+      completed: () =>
+        have($item`wad of dough`) ||
+        (get("instant_saveHoneyBun", false) && get("instant_saveWileyWheyBar", false)),
       do: (): void => {
         if (myMeat() < 100) throw new Error("Insufficient Meat to purchase all-purpose flower!");
         if (!have($item`all-purpose flower`)) buy($item`all-purpose flower`, 1);
