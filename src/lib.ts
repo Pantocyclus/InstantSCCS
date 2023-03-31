@@ -1,6 +1,8 @@
 import {
   cliExecute,
   Effect,
+  getCampground,
+  Item,
   mpCost,
   myMp,
   print,
@@ -11,7 +13,7 @@ import {
   use,
   visitUrl,
 } from "kolmafia";
-import { $effect, $item, get, have, set } from "libram";
+import { $effect, $item, $items, get, have, set } from "libram";
 import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
 
@@ -174,4 +176,10 @@ export function canAcquireEffect(ef: Effect): boolean {
       }
     })
     .some((b) => b);
+}
+
+// Adapted from goorbo
+const gardens = $items`packet of pumpkin seeds, Peppermint Pip Packet, packet of dragon's teeth, packet of beer seeds, packet of winter seeds, packet of thanksgarden seeds, packet of tall grass seeds, packet of mushroom spores`;
+export function getGarden(): Item {
+  return gardens.find((it) => it.name in getCampground()) || $item.none;
 }

@@ -9,6 +9,7 @@ import {
   currentMcd,
   drink,
   equip,
+  getCampground,
   getWorkshed,
   haveEquipped,
   hermit,
@@ -28,6 +29,7 @@ import {
   runChoice,
   storageAmount,
   takeStorage,
+  toInt,
   totalFreeRests,
   turnsPlayed,
   use,
@@ -53,7 +55,7 @@ import {
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
-import { tryAcquiringEffect } from "../lib";
+import { getGarden, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { unbreakableUmbrella } from "../engine/outfit";
@@ -336,6 +338,32 @@ export const RunStartQuest: Quest = {
         cliExecute("backupcamera ml");
         if (!get("backupCameraReverserEnabled")) cliExecute("backupcamera reverser");
       },
+    },
+    {
+      name: "Harvest Power Plant",
+      completed: () =>
+        !have($item`potted power plant`) ||
+        get("_pottedPowerPlant")
+          .split(",")
+          .every((s) => s === "0"),
+      do: (): void => {
+        visitUrl(`inv_use.php?pwd&whichitem=${toInt($item`potted power plant`)}`);
+        get("_pottedPowerPlant")
+          .split(",")
+          .forEach((s, i) => {
+            if (s !== "0") visitUrl(`choice.php?pwd&whichchoice=1448&option=1&pp=${i + 1}`);
+          });
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Harvest Garden",
+      completed: () =>
+        !getGarden() ||
+        getGarden() === $item`packet of mushroom spores` ||
+        getCampground()[getGarden().name] === 0,
+      do: () => cliExecute("garden pick"),
+      limit: { tries: 3 },
     },
     {
       name: "Autumnaton",

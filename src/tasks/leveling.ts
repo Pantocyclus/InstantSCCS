@@ -487,15 +487,6 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Breakfast",
-      completed: () => get("breakfastCompleted"),
-      do: (): void => {
-        cliExecute("breakfast");
-        cliExecute("refresh all");
-      },
-      limit: { tries: 1 },
-    },
-    {
       name: "Consult Gorgonzola",
       completed: () => get("_clanFortuneBuffUsed") || get("instant_saveFortuneTeller", false),
       do: () => cliExecute("fortune buff mys"),
