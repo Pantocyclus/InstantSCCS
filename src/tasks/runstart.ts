@@ -364,7 +364,13 @@ export const RunStartQuest: Quest = {
         getCampground()[getGarden().name] === 0 ||
         get("instant_saveGarden", false),
       do: () => cliExecute("garden pick"),
-      limit: { tries: 3 },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Looking Glass",
+      completed: () => get("_lookingGlass"),
+      do: () => visitUrl("clan_viplounge.php?action=lookingglass&whichfloor=2"),
+      limit: { tries: 1 },
     },
     {
       name: "Autumnaton",
