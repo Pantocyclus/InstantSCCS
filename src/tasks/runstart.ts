@@ -361,7 +361,8 @@ export const RunStartQuest: Quest = {
       completed: () =>
         !getGarden() ||
         getGarden() === $item`packet of mushroom spores` ||
-        getCampground()[getGarden().name] === 0,
+        getCampground()[getGarden().name] === 0 ||
+        get("instant_saveGarden", false),
       do: () => cliExecute("garden pick"),
       limit: { tries: 3 },
     },

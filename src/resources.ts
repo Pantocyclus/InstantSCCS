@@ -148,6 +148,7 @@ const resources: Resource[] = [
     "instant_skipMappingNinja",
     () => "Do not attempt to grab a li'l ninja costume for your tot"
   ),
+  new Resource("instant_saveGarden", () => "Do not harvest your garden"),
 ];
 
 const automaticallyExcludedBuffs = Array.from(
