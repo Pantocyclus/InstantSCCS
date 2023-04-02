@@ -340,6 +340,11 @@ export const RunStartQuest: Quest = {
       },
     },
     {
+      name: "Update Garbage Tote",
+      completed: () => get("_garbageItemChanged") || !have($item`January's Garbage Tote`),
+      do: () => cliExecute("fold broken champagne bottle"),
+    },
+    {
       name: "Harvest Power Plant",
       completed: () =>
         !have($item`potted power plant`) ||
