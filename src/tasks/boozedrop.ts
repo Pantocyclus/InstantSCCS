@@ -38,11 +38,10 @@ import {
   setConfiguration,
   Station,
 } from "libram/dist/resources/2022/TrainSet";
-import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
-import { forbiddenEffects } from "../resources";
 
 export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
@@ -208,19 +207,12 @@ export const BoozeDropQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
 
-        if (
-          !have($effect`Infernal Thirst`) &&
-          have($item`genie bottle`) &&
-          get("_genieWishesUsed") < 3 &&
-          !get("instant_saveWishes", false) &&
-          !forbiddenEffects.includes($effect`Infernal Thirst`)
-        )
-          cliExecute("genie effect infernal thirst");
-
         if (have($familiar`Trick-or-Treating Tot`) && have($item`li'l ninja costume`)) {
           useFamiliar($familiar`Trick-or-Treating Tot`);
           equip($slot`familiar`, $item`li'l ninja costume`);
         }
+        // If it saves us >= 6 turns, try using a wish
+        if (advCost(CommunityServiceTests.ITEMTEST) >= 7) wishFor($effect`Infernal Thirst`);
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: (): void => {

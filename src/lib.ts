@@ -8,6 +8,7 @@ import {
   print,
   restoreMp,
   retrieveItem,
+  runChoice,
   toItem,
   toSkill,
   use,
@@ -182,4 +183,24 @@ export function canAcquireEffect(ef: Effect): boolean {
 const gardens = $items`packet of pumpkin seeds, Peppermint Pip Packet, packet of dragon's teeth, packet of beer seeds, packet of winter seeds, packet of thanksgarden seeds, packet of tall grass seeds, packet of mushroom spores, packet of rock seeds`;
 export function getGarden(): Item {
   return gardens.find((it) => it.name in getCampground()) || $item.none;
+}
+
+export function wishFor(ef: Effect, useGenie = true): void {
+  // Tries to wish for an effect, but does not guarantee it
+  if (have(ef)) return;
+  if (forbiddenEffects.includes(ef)) return;
+  // Genie and Monkey Paw both support wishing for effects
+  // However, we can always sell Genie Wishes, so we prioritize using the paw
+  // TODO: Use mafia's pref to check if we can still use the paw for wishes
+
+  // eslint-disable-next-line libram/verify-constants
+  if (have($item`cursed monkey's paw`) && !get("instant_saveMonkeysPaw", false)) {
+    cliExecute("main.php?action=cmonk&pwd");
+    runChoice(1, `wish=${ef.name}`);
+    if (have(ef)) return;
+  }
+
+  if (have($item`genie bottle`) && !get("instant_saveGenie", false) && useGenie) {
+    cliExecute(`genie effect ${ef.name}`);
+  }
 }

@@ -1,7 +1,6 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
   buy,
-  cliExecute,
   create,
   Effect,
   inebrietyLimit,
@@ -14,6 +13,7 @@ import {
 } from "kolmafia";
 import {
   $effect,
+  $effects,
   $familiar,
   $item,
   $location,
@@ -26,8 +26,7 @@ import {
 import Macro from "../combat";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
 import { Quest } from "../engine/task";
-import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
-import { forbiddenEffects } from "../resources";
+import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 
 export const WeaponDamageQuest: Quest = {
   name: "Weapon Damage",
@@ -118,15 +117,11 @@ export const WeaponDamageQuest: Quest = {
           $effect`Weapon of Mass Destruction`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-
-        if (
-          !have($effect`Outer Wolf™`) &&
-          have($item`genie bottle`) &&
-          get("_genieWishesUsed") < 3 &&
-          !get("instant_saveWishes", false) &&
-          !forbiddenEffects.includes($effect`Outer Wolf™`)
-        )
-          cliExecute("genie effect outer wolf");
+        // If it saves us >= 6 turns, try using a wish
+        if (advCost(CommunityServiceTests.WPNTEST) >= 7) wishFor($effect`Outer Wolf™`);
+        $effects`Spit Upon, Pyramid Power`.forEach((ef) => {
+          if (advCost(CommunityServiceTests.WPNTEST) >= 5) wishFor(ef); // The effects each save 2 turns on spelltest as well
+        });
       },
       completed: () => CommunityService.WeaponDamage.isDone(),
       do: (): void => {

@@ -27,7 +27,7 @@ import {
   uneffect,
 } from "libram";
 import { Quest } from "../engine/task";
-import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
 import Macro from "../combat";
 
@@ -151,6 +151,8 @@ export const HotResQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         cliExecute("maximize hot res");
+        // If it saves us >= 6 turns, try using a wish
+        if (advCost(CommunityServiceTests.HOTTEST) >= 7) wishFor($effect`Fireproof Lips`);
       },
       completed: () => CommunityService.HotRes.isDone(),
       do: (): void => {

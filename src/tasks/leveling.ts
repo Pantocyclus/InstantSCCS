@@ -66,7 +66,7 @@ import {
   withChoice,
 } from "libram";
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
-import { tryAcquiringEffect } from "../lib";
+import { tryAcquiringEffect, wishFor } from "../lib";
 import {
   docBag,
   garbageShirt,
@@ -338,6 +338,17 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Wish for XP% buff",
+      // TODO: Make this completed if we've already wished twice with the paw (requires mafia tracking)
+      completed: () =>
+        have($effect`Different Way of Seeing Things`) ||
+        // eslint-disable-next-line libram/verify-constants
+        !have($item`cursed monkey's paw`) ||
+        forbiddenEffects.includes($effect`Different Way of Seeing Things`) ||
+        get("instant_saveMonkeysPaw", false),
+      do: () => wishFor($effect`Different Way of Seeing Things`, false),
+    },
+    {
       name: "Pull Non-Euclidean Angle",
       completed: () =>
         get("_roninStoragePulls").split(",").length >= 5 ||
@@ -347,7 +358,8 @@ export const LevelingQuest: Quest = {
         have($item`non-Euclidean angle`) ||
         have($effect`Different Way of Seeing Things`) ||
         storageAmount($item`non-Euclidean angle`) === 0 ||
-        get("instant_saveEuclideanAngle", false),
+        get("instant_saveEuclideanAngle", false) ||
+        !have($item`a ten-percent bonus`),
       do: (): void => {
         takeStorage($item`non-Euclidean angle`, 1);
         chew($item`non-Euclidean angle`, 1);
