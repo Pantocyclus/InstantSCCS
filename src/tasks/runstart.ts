@@ -364,7 +364,7 @@ export const RunStartQuest: Quest = {
     {
       name: "Harvest Garden",
       completed: () =>
-        [$item`none`, $item`packet of mushroom spores`].includes(getGarden()) ||
+        [$item.none, $item`packet of mushroom spores`].includes(getGarden()) ||
         getCampground()[getGarden().name] === 0 ||
         get("instant_saveGarden", false),
       do: () => cliExecute("garden pick"),
