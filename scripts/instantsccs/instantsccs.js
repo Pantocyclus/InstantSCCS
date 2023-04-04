@@ -10828,7 +10828,7 @@ var RunStartQuest = {
     }
   }, {
     name: "Harvest Garden",
-    completed: () => !getGarden() || getGarden() === template_string_$item(runstart_templateObject53 || (runstart_templateObject53 = runstart_taggedTemplateLiteral(["packet of mushroom spores"]))) || (0,external_kolmafia_namespaceObject.getCampground)()[getGarden().name] === 0 || property_get("instant_saveGarden", false),
+    completed: () => [template_string_$item.none, template_string_$item(runstart_templateObject53 || (runstart_templateObject53 = runstart_taggedTemplateLiteral(["packet of mushroom spores"])))].includes(getGarden()) || (0,external_kolmafia_namespaceObject.getCampground)()[getGarden().name] === 0 || property_get("instant_saveGarden", false),
     do: () => (0,external_kolmafia_namespaceObject.cliExecute)("garden pick"),
     limit: {
       tries: 1
