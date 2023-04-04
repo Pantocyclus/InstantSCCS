@@ -1,10 +1,9 @@
-import { create, Effect, print, useSkill } from "kolmafia";
+import { create, Effect, print } from "kolmafia";
 import {
   $effect,
   $effects,
   $item,
   $items,
-  $skill,
   CommunityService,
   ensureEffect,
   get,
