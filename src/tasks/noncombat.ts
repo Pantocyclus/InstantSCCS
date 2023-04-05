@@ -1,7 +1,7 @@
 import { Quest } from "../engine/task";
 import { buy, cliExecute, Effect, print, runChoice, visitUrl } from "kolmafia";
 import { $effect, $familiar, $item, CommunityService, get, have, uneffect } from "libram";
-import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { logTestSetup, tryAcquiringEffect } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 
@@ -62,7 +62,7 @@ export const NoncombatQuest: Quest = {
       },
       do: (): void => {
         const maxTurns = get("instant_comTestTurnLimit", 12);
-        const testTurns = advCost(CommunityServiceTests.COMTEST);
+        const testTurns = CommunityService.Noncombat.actualCost();
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
@@ -72,7 +72,7 @@ export const NoncombatQuest: Quest = {
             "red"
           );
         }
-        CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), maxTurns);
+        CommunityService.Noncombat.run(() => logTestSetup(CommunityService.Noncombat), maxTurns);
       },
       outfit: {
         familiar: $familiar`Disgeist`,

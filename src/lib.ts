@@ -12,56 +12,27 @@ import {
   restoreMp,
   retrieveItem,
   runChoice,
-  Stat,
   toItem,
   toSkill,
+  toStat,
   use,
-  visitUrl,
 } from "kolmafia";
-import { $effect, $item, $items, $stat, get, have, set } from "libram";
+import { $effect, $item, $items, $stat, CommunityService, get, have, set } from "libram";
 import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
 
-export enum CommunityServiceTests {
-  HPTEST = 1,
-  MUSTEST = 2,
-  MYSTTEST = 3,
-  MOXTEST = 4,
-  FAMTEST = 5,
-  WPNTEST = 6,
-  SPELLTEST = 7,
-  COMTEST = 8,
-  ITEMTEST = 9,
-  HOTTEST = 10,
-  COILTEST = 11,
-  DONATEBODY = 30,
-}
-
-const testModifiers = new Map([
-  [CommunityServiceTests.HPTEST, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]],
-  [CommunityServiceTests.MUSTEST, ["Muscle", "Muscle Percent"]],
-  [CommunityServiceTests.MYSTTEST, ["Mysticality", "Mysticality Percent"]],
-  [CommunityServiceTests.MOXTEST, ["Moxie", "Moxie Percent"]],
-  [CommunityServiceTests.FAMTEST, ["Familiar Weight"]],
-  [CommunityServiceTests.WPNTEST, ["Weapon Damage", "Weapon Damage Percent"]],
-  [CommunityServiceTests.SPELLTEST, ["Spell Damage", "Spell Damage Percent"]],
-  [CommunityServiceTests.COMTEST, ["Combat Rate"]],
-  [CommunityServiceTests.ITEMTEST, ["Item Drop", "Booze Drop"]],
-  [CommunityServiceTests.HOTTEST, ["Hot Resistance"]],
-  [CommunityServiceTests.COILTEST, []],
-]);
-export const testNames = new Map([
-  [CommunityServiceTests.HPTEST, "HP Test"],
-  [CommunityServiceTests.MUSTEST, "Muscle Test"],
-  [CommunityServiceTests.MYSTTEST, "Mysticality Test"],
-  [CommunityServiceTests.MOXTEST, "Moxie Test"],
-  [CommunityServiceTests.FAMTEST, "Familiar Weight Test"],
-  [CommunityServiceTests.WPNTEST, "Weapon Damage Test"],
-  [CommunityServiceTests.SPELLTEST, "Spell Damage Test"],
-  [CommunityServiceTests.COMTEST, "Noncombat Test"],
-  [CommunityServiceTests.ITEMTEST, "Item Drop Test"],
-  [CommunityServiceTests.HOTTEST, "Hot Resistance Test"],
-  [CommunityServiceTests.COILTEST, "Coil Wire"],
+export const testModifiers = new Map([
+  [CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]],
+  [CommunityService.Muscle, ["Muscle", "Muscle Percent"]],
+  [CommunityService.Mysticality, ["Mysticality", "Mysticality Percent"]],
+  [CommunityService.Moxie, ["Moxie", "Moxie Percent"]],
+  [CommunityService.FamiliarWeight, ["Familiar Weight"]],
+  [CommunityService.WeaponDamage, ["Weapon Damage", "Weapon Damage Percent"]],
+  [CommunityService.SpellDamage, ["Spell Damage", "Spell Damage Percent"]],
+  [CommunityService.Noncombat, ["Combat Rate"]],
+  [CommunityService.BoozeDrop, ["Item Drop", "Booze Drop"]],
+  [CommunityService.HotRes, ["Hot Resistance"]],
+  [CommunityService.CoilWire, []],
 ]);
 
 // From phccs
@@ -78,89 +49,33 @@ export function convertMilliseconds(milliseconds: number): string {
   );
 }
 
-export function advCost(whichTest: number): number {
-  // Adapted from AutoHCCS
-  const page = visitUrl("council.php");
-  const testStr = `name=option value=${whichTest}>`;
-  if (page.includes(testStr)) {
-    const chars = 140; // chars to look ahead
-    const pageStr = page.slice(
-      page.indexOf(testStr) + testStr.length,
-      page.indexOf(testStr) + testStr.length + chars
+function logRelevantStats(whichTest: CommunityService): void {
+  if (
+    [CommunityService.Muscle, CommunityService.Mysticality, CommunityService.Moxie].includes(
+      whichTest
+    )
+  ) {
+    const testStat = toStat(whichTest.statName);
+    const statString = testStat.toString().slice(0, 3);
+    print(
+      `Base ${statString}: ${myBasestat(testStat)}; Buffed ${statString}: ${myBuffedstat(testStat)}`
     );
-    const advStr = pageStr.slice(pageStr.indexOf("(") + 1, pageStr.indexOf("(") + 3).trim();
-    return parseInt(advStr);
-  } else {
-    print("Didn't find specified test on the council page. Already done?");
-    return 99999;
+  } else if (whichTest === CommunityService.HP) {
+    print(`Buffed Mus: ${myBuffedstat($stat`Muscle`)}; HP: ${myMaxhp()};`);
   }
 }
 
-function statTurnsSaved(whichTest: number): number {
-  if (whichTest === CommunityServiceTests.HPTEST)
-    return Math.floor((myMaxhp() - myBuffedstat($stat`Muscle`) - 3) / 30);
-
-  let stat: Stat;
-  switch (whichTest) {
-    case CommunityServiceTests.MUSTEST:
-      stat = $stat`Muscle`;
-      break;
-    case CommunityServiceTests.MYSTTEST:
-      stat = $stat`Mysticality`;
-      break;
-    case CommunityServiceTests.MOXTEST:
-      stat = $stat`Moxie`;
-      break;
-    default:
-      return 0;
-  }
-  return Math.floor((myBuffedstat(stat) - myBasestat(stat)) / 30);
-}
-
-function logRelevantStats(whichTest: number): void {
-  switch (whichTest) {
-    case CommunityServiceTests.HPTEST:
-      print(
-        `Buffed Mus: ${myBuffedstat(
-          $stat`Muscle`
-        )}; HP: ${myMaxhp()}; turns saved: ${statTurnsSaved(whichTest)}`
-      );
-      break;
-    case CommunityServiceTests.MUSTEST:
-      print(
-        `Base Mus: ${myBasestat($stat`Muscle`)}; buffed Mus: ${myBuffedstat(
-          $stat`Muscle`
-        )}; base Mys: ${myBasestat($stat`Mysticality`)}; turns saved: ${statTurnsSaved(whichTest)}`
-      );
-      break;
-    case CommunityServiceTests.MYSTTEST:
-      print(
-        `Base Mys: ${myBasestat($stat`Mysticality`)}; buffed Mys: ${myBuffedstat(
-          $stat`Mysticality`
-        )}; turns saved: ${statTurnsSaved(whichTest)}`
-      );
-      break;
-    case CommunityServiceTests.MOXTEST:
-      print(
-        `Base Mox: ${myBasestat($stat`Moxie`)}; buffed Mox: ${myBuffedstat(
-          $stat`Moxie`
-        )}; base Mys: ${myBasestat($stat`Mysticality`)}; turns saved: ${statTurnsSaved(whichTest)}`
-      );
-      break;
-  }
-}
-
-export function logTestSetup(whichTest: number): void {
-  const testTurns = advCost(whichTest);
+export function logTestSetup(whichTest: CommunityService): void {
+  const testTurns = whichTest.actualCost();
   printModtrace(testModifiers.get(whichTest) ?? []);
   logRelevantStats(whichTest);
   print(
-    `${testNames.get(whichTest) ?? "Unknown Test"} takes ${testTurns} adventure${
+    `${whichTest.statName} Test takes ${testTurns} adventure${
       testTurns === 1 ? "" : "s"
-    }.`,
+    } (predicted: ${whichTest.prediction}).`,
     "blue"
   );
-  set(`_CSTest${whichTest}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
+  set(`_CSTest${whichTest.id}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
 }
 
 export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {

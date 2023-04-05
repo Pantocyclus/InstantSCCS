@@ -12,7 +12,7 @@ import {
   have,
 } from "libram";
 import { Quest } from "../engine/task";
-import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
 
@@ -71,7 +71,7 @@ export const FamiliarWeightQuest: Quest = {
       },
       do: (): void => {
         const maxTurns = get("instant_famTestTurnLimit", 50);
-        const testTurns = advCost(CommunityServiceTests.FAMTEST);
+        const testTurns = CommunityService.FamiliarWeight.actualCost();
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
@@ -82,7 +82,7 @@ export const FamiliarWeightQuest: Quest = {
           );
         }
         CommunityService.FamiliarWeight.run(
-          () => logTestSetup(CommunityServiceTests.FAMTEST),
+          () => logTestSetup(CommunityService.FamiliarWeight),
           maxTurns
         );
       },

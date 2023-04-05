@@ -27,7 +27,7 @@ import {
   uneffect,
 } from "libram";
 import { Quest } from "../engine/task";
-import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
 import Macro from "../combat";
 
@@ -152,12 +152,12 @@ export const HotResQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         cliExecute("maximize hot res");
         // If it saves us >= 6 turns, try using a wish
-        if (advCost(CommunityServiceTests.HOTTEST) >= 7) wishFor($effect`Fireproof Lips`);
+        if (CommunityService.HotRes.actualCost() >= 7) wishFor($effect`Fireproof Lips`);
       },
       completed: () => CommunityService.HotRes.isDone(),
       do: (): void => {
         const maxTurns = get("instant_hotTestTurnLimit", 35);
-        const testTurns = advCost(CommunityServiceTests.HOTTEST);
+        const testTurns = CommunityService.HotRes.actualCost();
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
@@ -167,7 +167,7 @@ export const HotResQuest: Quest = {
             "red"
           );
         }
-        CommunityService.HotRes.run(() => logTestSetup(CommunityServiceTests.HOTTEST), maxTurns);
+        CommunityService.HotRes.run(() => logTestSetup(CommunityService.HotRes), maxTurns);
       },
       outfit: {
         modifier: "hot res",

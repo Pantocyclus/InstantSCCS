@@ -1,10 +1,9 @@
-import { create, Effect, print, useSkill } from "kolmafia";
+import { create, Effect, print } from "kolmafia";
 import {
   $effect,
   $effects,
   $item,
   $items,
-  $skill,
   CommunityService,
   ensureEffect,
   get,
@@ -12,7 +11,7 @@ import {
   uneffect,
 } from "libram";
 import { Quest } from "../engine/task";
-import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { logTestSetup, tryAcquiringEffect } from "../lib";
 
 export const HPQuest: Quest = {
   name: "HP",
@@ -43,7 +42,7 @@ export const HPQuest: Quest = {
       },
       do: (): void => {
         const maxTurns = get("instant_hpTestTurnLimit", 1);
-        const testTurns = advCost(CommunityServiceTests.HPTEST);
+        const testTurns = CommunityService.HP.actualCost();
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
@@ -53,7 +52,7 @@ export const HPQuest: Quest = {
             "red"
           );
         }
-        CommunityService.HP.run(() => logTestSetup(CommunityServiceTests.HPTEST), maxTurns);
+        CommunityService.HP.run(() => logTestSetup(CommunityService.HP), maxTurns);
       },
       outfit: { modifier: "HP, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },
@@ -95,7 +94,7 @@ export const MuscleQuest: Quest = {
       },
       do: (): void => {
         const maxTurns = get("instant_musTestTurnLimit", 2);
-        const testTurns = advCost(CommunityServiceTests.MUSTEST);
+        const testTurns = CommunityService.Muscle.actualCost();
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
@@ -105,7 +104,7 @@ export const MuscleQuest: Quest = {
             "red"
           );
         }
-        CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), maxTurns);
+        CommunityService.Muscle.run(() => logTestSetup(CommunityService.Muscle), maxTurns);
       },
       outfit: { modifier: "Muscle, switch disembodied hand, -switch left-hand man" },
       post: (): void => {
@@ -138,7 +137,7 @@ export const MysticalityQuest: Quest = {
       },
       do: (): void => {
         const maxTurns = get("instant_mystTestTurnLimit", 1);
-        const testTurns = advCost(CommunityServiceTests.MYSTTEST);
+        const testTurns = CommunityService.Mysticality.actualCost();
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
@@ -149,7 +148,7 @@ export const MysticalityQuest: Quest = {
           );
         }
         CommunityService.Mysticality.run(
-          () => logTestSetup(CommunityServiceTests.MYSTTEST),
+          () => logTestSetup(CommunityService.Mysticality),
           maxTurns
         );
       },
@@ -194,7 +193,7 @@ export const MoxieQuest: Quest = {
       },
       do: (): void => {
         const maxTurns = get("instant_moxTestTurnLimit", 5);
-        const testTurns = advCost(CommunityServiceTests.MOXTEST);
+        const testTurns = CommunityService.Moxie.actualCost();
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
@@ -204,7 +203,7 @@ export const MoxieQuest: Quest = {
             "red"
           );
         }
-        CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), maxTurns);
+        CommunityService.Moxie.run(() => logTestSetup(CommunityService.Moxie), maxTurns);
       },
       outfit: { modifier: "Moxie, switch disembodied hand, -switch left-hand man" },
       limit: { tries: 1 },

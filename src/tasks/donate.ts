@@ -21,7 +21,7 @@ import {
   trackedPref,
 } from "../engine/engine";
 import { Quest } from "../engine/task";
-import { CommunityServiceTests, testNames } from "../lib";
+import { testModifiers } from "../lib";
 
 function logPrefUsage(tPref: trackedPref): void {
   const pref = tPref.pref;
@@ -78,23 +78,16 @@ function logResourceUsage(): void {
   // Adventures Used
   print("");
   print("Test Summary:");
-  const tests = Array<number>(
-    CommunityServiceTests.COILTEST,
-    CommunityServiceTests.HOTTEST,
-    CommunityServiceTests.HPTEST,
-    CommunityServiceTests.MUSTEST,
-    CommunityServiceTests.MYSTTEST,
-    CommunityServiceTests.MOXTEST,
-    CommunityServiceTests.COMTEST,
-    CommunityServiceTests.WPNTEST,
-    CommunityServiceTests.SPELLTEST,
-    CommunityServiceTests.FAMTEST,
-    CommunityServiceTests.ITEMTEST
+
+  const tests = Array.from(testModifiers.keys());
+  tests.forEach((whichTest) =>
+    print(`${whichTest.statName}: ${get(`_CSTest${whichTest.id}`, "?")}`)
   );
-  tests.forEach((test) =>
-    print(`${testNames.get(test) ?? "Unknown Test"}: ${get(`_CSTest${test}`, "?")}`)
+  print(
+    `Leveling: ${
+      turnsPlayed() - sumNumbers(tests.map((whichTest) => get(`_CSTest${whichTest.id}`, 0)))
+    }`
   );
-  print(`Leveling: ${turnsPlayed() - sumNumbers(tests.map((test) => get(`_CSTest${test}`, 0)))}`);
   print(`Adventures used: ${turnsPlayed()}`);
 
   print("");
