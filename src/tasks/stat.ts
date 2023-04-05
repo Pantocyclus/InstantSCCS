@@ -1,10 +1,9 @@
-import { create, Effect, print, useSkill } from "kolmafia";
+import { create, Effect, print } from "kolmafia";
 import {
   $effect,
   $effects,
   $item,
   $items,
-  $skill,
   CommunityService,
   ensureEffect,
   get,
@@ -131,6 +130,7 @@ export const MysticalityQuest: Quest = {
           $effect`Triple-Sized`,
           $effect`Pasta Oneness`,
           $effect`Quiet Judgement`,
+          $effect`Saucemastery`,
           $effect`Song of Bravado`,
           $effect`Stevedave's Shanty of Superiority`,
         ];
