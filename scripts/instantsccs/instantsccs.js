@@ -2445,6 +2445,7 @@ function wishFor(ef) {
   if (lib_have(template_string_$item(lib_templateObject11 || (lib_templateObject11 = lib_taggedTemplateLiteral(["cursed monkey's paw"])))) && !property_get("instant_saveMonkeysPaw", false)) {
     (0,external_kolmafia_namespaceObject.cliExecute)("main.php?action=cmonk&pwd");
     (0,external_kolmafia_namespaceObject.runChoice)(1, "wish=".concat(ef.name));
+    (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     if (lib_have(ef)) return;
   }
 
