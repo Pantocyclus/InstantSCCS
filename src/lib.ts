@@ -16,6 +16,7 @@ import {
   toSkill,
   toStat,
   use,
+  visitUrl,
 } from "kolmafia";
 import { $effect, $item, $items, $stat, CommunityService, get, have, set } from "libram";
 import { printModtrace } from "libram/dist/modifier";
@@ -70,9 +71,11 @@ export function logTestSetup(whichTest: CommunityService): void {
   printModtrace(testModifiers.get(whichTest) ?? []);
   logRelevantStats(whichTest);
   print(
-    `${whichTest.statName} Test takes ${testTurns} adventure${
-      testTurns === 1 ? "" : "s"
-    } (predicted: ${whichTest.prediction}).`,
+    `${whichTest.statName} ${
+      whichTest !== CommunityService.CoilWire ? "Test" : ""
+    } takes ${testTurns} adventure${testTurns === 1 ? "" : "s"} (predicted: ${
+      whichTest.prediction
+    }).`,
     "blue"
   );
   set(`_CSTest${whichTest.id}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
