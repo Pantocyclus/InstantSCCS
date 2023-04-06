@@ -171,6 +171,7 @@ export function wishFor(ef: Effect, useGenie = true): void {
   if (have($item`cursed monkey's paw`) && !get("instant_saveMonkeysPaw", false)) {
     cliExecute("main.php?action=cmonk&pwd");
     runChoice(1, `wish=${ef.name}`);
+    visitUrl("main.php");
     if (have(ef)) return;
   }
 

@@ -62,6 +62,13 @@ function buildIotmList(): Requirement[] {
       why: "Leveling + banish",
     },
     {
+      // eslint-disable-next-line libram/verify-constants
+      thing: $item`cursed monkey's paw`,
+      why: "Leveling + many test improvements",
+      optional: true,
+      recommended: true,
+    },
+    {
       thing: $familiar`Cookbookbat`,
       why: "Turngen, stat tests",
     },
@@ -78,7 +85,6 @@ function buildIotmList(): Requirement[] {
       recommended: true,
     },
     {
-      // eslint-disable-next-line libram/verify-constants
       thing: $item`closed-circuit pay phone`,
       why: "Free fights, Non-combat, Item Drop",
       optional: true,

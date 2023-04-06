@@ -130,6 +130,7 @@ export const MysticalityQuest: Quest = {
           $effect`Triple-Sized`,
           $effect`Pasta Oneness`,
           $effect`Quiet Judgement`,
+          $effect`Saucemastery`,
           $effect`Song of Bravado`,
           $effect`Stevedave's Shanty of Superiority`,
         ];
