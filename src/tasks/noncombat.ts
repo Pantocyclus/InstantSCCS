@@ -1,7 +1,7 @@
 import { Quest } from "../engine/task";
 import { buy, cliExecute, Effect, print, runChoice, visitUrl } from "kolmafia";
 import { $effect, $familiar, $item, CommunityService, get, have, uneffect } from "libram";
-import { logTestSetup, tryAcquiringEffect } from "../lib";
+import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 
@@ -59,6 +59,8 @@ export const NoncombatQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
+        // If it saves us >= 6 turns, try using a wish
+        if (CommunityService.Noncombat.actualCost() >= 7) wishFor($effect`Disquiet Riot`);
       },
       do: (): void => {
         const maxTurns = get("instant_comTestTurnLimit", 12);
