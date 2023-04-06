@@ -82,6 +82,7 @@ import {
   rufusTarget,
 } from "libram/dist/resources/2023/ClosedCircuitPayphone";
 
+const targetBaseMyst = 190;
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
@@ -345,7 +346,8 @@ export const LevelingQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         !have($item`cursed monkey's paw`) ||
         forbiddenEffects.includes($effect`Different Way of Seeing Things`) ||
-        get("instant_saveMonkeysPaw", false),
+        get("instant_saveMonkeysPaw", false) ||
+        myBasestat($stat`Mysticality`) >= targetBaseMyst - 15,
       do: () => wishFor($effect`Different Way of Seeing Things`, false),
     },
     {
@@ -995,7 +997,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Powerlevel",
       completed: () =>
-        myBasestat($stat`Mysticality`) >= 175 &&
+        myBasestat($stat`Mysticality`) >= targetBaseMyst - 15 &&
         (haveCBBIngredients() ||
           craftedCBBEffects.some((ef) => have(ef)) ||
           craftedCBBEffects.every((ef) => forbiddenEffects.includes(ef))) &&
@@ -1134,7 +1136,7 @@ export const LevelingQuest: Quest = {
           itemAmount($item`Vegetable of Jarlsberg`) >= 2) &&
         (have($effect`Awfully Wily`) ||
           get("instant_saveWileyWheyBar", false) ||
-          myBasestat($stat`Mysticality`) >= 190),
+          myBasestat($stat`Mysticality`) >= targetBaseMyst),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Pride`)
