@@ -26,7 +26,7 @@ import {
 import Macro from "../combat";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
 import { Quest } from "../engine/task";
-import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 
 export const WeaponDamageQuest: Quest = {
   name: "Weapon Damage",
@@ -118,15 +118,15 @@ export const WeaponDamageQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         // If it saves us >= 6 turns, try using a wish
-        if (advCost(CommunityServiceTests.WPNTEST) >= 7) wishFor($effect`Outer Wolf™`);
+        if (CommunityService.WeaponDamage.actualCost() >= 7) wishFor($effect`Outer Wolf™`);
         $effects`Spit Upon, Pyramid Power`.forEach((ef) => {
-          if (advCost(CommunityServiceTests.WPNTEST) >= 5) wishFor(ef); // The effects each save 2 turns on spelltest as well
+          if (CommunityService.WeaponDamage.actualCost() >= 5) wishFor(ef); // The effects each save 2 turns on spelltest as well
         });
       },
       completed: () => CommunityService.WeaponDamage.isDone(),
       do: (): void => {
         const maxTurns = get("instant_wpnTestTurnLimit", 35);
-        const testTurns = advCost(CommunityServiceTests.WPNTEST);
+        const testTurns = CommunityService.WeaponDamage.actualCost();
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
@@ -137,7 +137,7 @@ export const WeaponDamageQuest: Quest = {
           );
         }
         CommunityService.WeaponDamage.run(
-          () => logTestSetup(CommunityServiceTests.WPNTEST),
+          () => logTestSetup(CommunityService.WeaponDamage),
           maxTurns
         );
       },

@@ -21,7 +21,7 @@ import {
   have,
 } from "libram";
 import { Quest } from "../engine/task";
-import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect } from "../lib";
+import { logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
 
@@ -79,7 +79,7 @@ export const SpellDamageQuest: Quest = {
 
         const wines = $items`Sacramento wine, distilled fortified wine`;
         while (
-          advCost(CommunityServiceTests.SPELLTEST) > myAdventures() &&
+          CommunityService.SpellDamage.actualCost() > myAdventures() &&
           myInebriety() < inebrietyLimit() &&
           wines.some((booze) => have(booze))
         ) {
@@ -90,7 +90,7 @@ export const SpellDamageQuest: Quest = {
       completed: () => CommunityService.SpellDamage.isDone(),
       do: (): void => {
         const maxTurns = get("instant_spellTestTurnLimit", 55);
-        const testTurns = advCost(CommunityServiceTests.SPELLTEST);
+        const testTurns = CommunityService.SpellDamage.actualCost();
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
@@ -101,7 +101,7 @@ export const SpellDamageQuest: Quest = {
           );
         }
         CommunityService.SpellDamage.run(
-          () => logTestSetup(CommunityServiceTests.SPELLTEST),
+          () => logTestSetup(CommunityService.SpellDamage),
           maxTurns
         );
       },

@@ -38,7 +38,7 @@ import {
   setConfiguration,
   Station,
 } from "libram/dist/resources/2022/TrainSet";
-import { advCost, CommunityServiceTests, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
@@ -212,12 +212,12 @@ export const BoozeDropQuest: Quest = {
           equip($slot`familiar`, $item`li'l ninja costume`);
         }
         // If it saves us >= 6 turns, try using a wish
-        if (advCost(CommunityServiceTests.ITEMTEST) >= 7) wishFor($effect`Infernal Thirst`);
+        if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect`Infernal Thirst`);
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: (): void => {
         const maxTurns = get("instant_boozeTestTurnLimit", 30);
-        const testTurns = advCost(CommunityServiceTests.ITEMTEST);
+        const testTurns = CommunityService.BoozeDrop.actualCost();
         if (testTurns > maxTurns) {
           print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
           print("Either there was a bug, or you are under-prepared for this test", "red");
@@ -227,10 +227,7 @@ export const BoozeDropQuest: Quest = {
             "red"
           );
         }
-        CommunityService.BoozeDrop.run(
-          () => logTestSetup(CommunityServiceTests.ITEMTEST),
-          maxTurns
-        );
+        CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns);
       },
       outfit: {
         modifier:
