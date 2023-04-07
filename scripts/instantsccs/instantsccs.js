@@ -2030,6 +2030,874 @@ var byStat = makeByXFunction(() => (0,external_kolmafia_namespaceObject.myPrimes
  */
 
 var byClass = makeByXFunction(() => (0,external_kolmafia_namespaceObject.myClass)().toString());
+;// CONCATENATED MODULE: ./node_modules/libram/dist/logger.js
+var _defaultHandlers;
+
+function logger_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function logger_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function logger_createClass(Constructor, protoProps, staticProps) { if (protoProps) logger_defineProperties(Constructor.prototype, protoProps); if (staticProps) logger_defineProperties(Constructor, staticProps); return Constructor; }
+
+function logger_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var LogLevels;
+
+(function (LogLevels) {
+  LogLevels[LogLevels["NONE"] = 0] = "NONE";
+  LogLevels[LogLevels["ERROR"] = 1] = "ERROR";
+  LogLevels[LogLevels["WARNING"] = 2] = "WARNING";
+  LogLevels[LogLevels["INFO"] = 3] = "INFO";
+  LogLevels[LogLevels["DEBUG"] = 4] = "DEBUG";
+})(LogLevels || (LogLevels = {}));
+
+var defaultHandlers = (_defaultHandlers = {}, logger_defineProperty(_defaultHandlers, LogLevels.INFO, message => {
+  (0,external_kolmafia_namespaceObject.printHtml)("<b>[Libram Info]</b> ".concat(message));
+  (0,external_kolmafia_namespaceObject.logprint)("[Libram] ".concat(message));
+  return;
+}), logger_defineProperty(_defaultHandlers, LogLevels.WARNING, message => {
+  (0,external_kolmafia_namespaceObject.printHtml)("<span style=\"background: orange; color: white;\"><b>[Libram Warning]</b> ".concat(message, "</span>"));
+  (0,external_kolmafia_namespaceObject.logprint)("[Libram] ".concat(message));
+  return;
+}), logger_defineProperty(_defaultHandlers, LogLevels.ERROR, error => {
+  (0,external_kolmafia_namespaceObject.printHtml)("<span style=\"background: red; color: white;\"><b>[Libram Error]</b> ".concat(error.toString(), "</span>"));
+  (0,external_kolmafia_namespaceObject.logprint)("[Libram] ".concat(error));
+  return;
+}), logger_defineProperty(_defaultHandlers, LogLevels.DEBUG, message => {
+  (0,external_kolmafia_namespaceObject.printHtml)("<span style=\"background: red; color: white;\"><b>[Libram Debug]</b> ".concat(message, "</span>"));
+  (0,external_kolmafia_namespaceObject.logprint)("[Libram] ".concat(message));
+  return;
+}), _defaultHandlers);
+
+var Logger = /*#__PURE__*/function () {
+  function Logger() {
+    logger_classCallCheck(this, Logger);
+
+    logger_defineProperty(this, "handlers", defaultHandlers);
+  }
+
+  logger_createClass(Logger, [{
+    key: "level",
+    get: function get() {
+      return Logger.currentLevel;
+    }
+  }, {
+    key: "setLevel",
+    value: function setLevel(level) {
+      Logger.currentLevel = level;
+    }
+  }, {
+    key: "setHandler",
+    value: function setHandler(level, callback) {
+      this.handlers[level] = callback;
+    } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  }, {
+    key: "log",
+    value: function log(level, message) {
+      if (this.level >= level) this.handlers[level](message);
+    }
+  }, {
+    key: "info",
+    value: function info(message) {
+      this.log(LogLevels.INFO, message);
+    }
+  }, {
+    key: "warning",
+    value: function warning(message) {
+      this.log(LogLevels.WARNING, message);
+    }
+  }, {
+    key: "error",
+    value: function error(message) {
+      this.log(LogLevels.ERROR, message);
+    }
+  }, {
+    key: "debug",
+    value: function debug(message) {
+      this.log(LogLevels.DEBUG, message);
+    }
+  }]);
+
+  return Logger;
+}();
+
+logger_defineProperty(Logger, "currentLevel", LogLevels.ERROR);
+
+/* harmony default export */ const dist_logger = (new Logger());
+;// CONCATENATED MODULE: ./node_modules/libram/dist/maximize.js
+var maximize_templateObject, maximize_templateObject2, maximize_templateObject3, maximize_templateObject4, maximize_templateObject5, maximize_templateObject6, maximize_templateObject7, maximize_templateObject8, maximize_templateObject9, maximize_templateObject10, maximize_templateObject11, maximize_templateObject12, maximize_templateObject13, maximize_templateObject14, maximize_templateObject15, maximize_templateObject16, maximize_templateObject17, maximize_templateObject18, maximize_templateObject19, maximize_templateObject20, maximize_templateObject21, maximize_templateObject22, maximize_templateObject23, maximize_templateObject24, maximize_templateObject25, maximize_templateObject26, maximize_templateObject27, maximize_templateObject28, maximize_templateObject29, maximize_templateObject30, maximize_templateObject31, maximize_templateObject32, maximize_templateObject33, maximize_templateObject34, _templateObject35, _templateObject36, _templateObject37, _templateObject38, _templateObject39, _templateObject40, _templateObject41, _templateObject42, _templateObject43, _templateObject44, _templateObject45, _templateObject46, _templateObject47, _templateObject48;
+
+function maximize_slicedToArray(arr, i) { return maximize_arrayWithHoles(arr) || maximize_iterableToArrayLimit(arr, i) || maximize_unsupportedIterableToArray(arr, i) || maximize_nonIterableRest(); }
+
+function maximize_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function maximize_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function maximize_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function maximize_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function maximize_createClass(Constructor, protoProps, staticProps) { if (protoProps) maximize_defineProperties(Constructor.prototype, protoProps); if (staticProps) maximize_defineProperties(Constructor, staticProps); return Constructor; }
+
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
+
+function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
+
+function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
+
+function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
+
+function maximize_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function maximize_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = maximize_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function maximize_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function maximize_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function maximize_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { maximize_ownKeys(Object(source), true).forEach(function (key) { maximize_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { maximize_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function maximize_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function maximize_toConsumableArray(arr) { return maximize_arrayWithoutHoles(arr) || maximize_iterableToArray(arr) || maximize_unsupportedIterableToArray(arr) || maximize_nonIterableSpread(); }
+
+function maximize_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function maximize_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return maximize_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return maximize_arrayLikeToArray(o, minLen); }
+
+function maximize_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function maximize_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return maximize_arrayLikeToArray(arr); }
+
+function maximize_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+
+/**
+ * Merges a partial set of maximizer options onto a full set maximizer options. We merge via overriding for all boolean properties and for onlySlot, and concat all other array properties.
+ *
+ * @param defaultOptions MaximizeOptions to use as a "base."
+ * @param addendums Options to attempt to merge onto defaultOptions.
+ * @returns Merged maximizer options
+ */
+
+function mergeMaximizeOptions(defaultOptions, addendums) {
+  var _addendums$updateOnFa, _addendums$updateOnCa, _addendums$useOutfitC, _addendums$forceEquip, _addendums$preventEqu, _addendums$bonusEquip, _addendums$onlySlot, _addendums$preventSlo, _addendums$forceUpdat, _addendums$modes;
+
+  return {
+    updateOnFamiliarChange: (_addendums$updateOnFa = addendums.updateOnFamiliarChange) !== null && _addendums$updateOnFa !== void 0 ? _addendums$updateOnFa : defaultOptions.updateOnFamiliarChange,
+    updateOnCanEquipChanged: (_addendums$updateOnCa = addendums.updateOnCanEquipChanged) !== null && _addendums$updateOnCa !== void 0 ? _addendums$updateOnCa : defaultOptions.updateOnCanEquipChanged,
+    useOutfitCaching: (_addendums$useOutfitC = addendums.useOutfitCaching) !== null && _addendums$useOutfitC !== void 0 ? _addendums$useOutfitC : defaultOptions.useOutfitCaching,
+    forceEquip: [].concat(maximize_toConsumableArray(defaultOptions.forceEquip), maximize_toConsumableArray((_addendums$forceEquip = addendums.forceEquip) !== null && _addendums$forceEquip !== void 0 ? _addendums$forceEquip : [])),
+    preventEquip: [].concat(maximize_toConsumableArray(defaultOptions.preventEquip), maximize_toConsumableArray((_addendums$preventEqu = addendums.preventEquip) !== null && _addendums$preventEqu !== void 0 ? _addendums$preventEqu : [])).filter(item => {
+      var _addendums$forceEquip2;
+
+      return !defaultOptions.forceEquip.includes(item) && !((_addendums$forceEquip2 = addendums.forceEquip) !== null && _addendums$forceEquip2 !== void 0 && _addendums$forceEquip2.includes(item));
+    }),
+    bonusEquip: new Map([].concat(maximize_toConsumableArray(defaultOptions.bonusEquip), maximize_toConsumableArray((_addendums$bonusEquip = addendums.bonusEquip) !== null && _addendums$bonusEquip !== void 0 ? _addendums$bonusEquip : []))),
+    onlySlot: (_addendums$onlySlot = addendums.onlySlot) !== null && _addendums$onlySlot !== void 0 ? _addendums$onlySlot : defaultOptions.onlySlot,
+    preventSlot: [].concat(maximize_toConsumableArray(defaultOptions.preventSlot), maximize_toConsumableArray((_addendums$preventSlo = addendums.preventSlot) !== null && _addendums$preventSlo !== void 0 ? _addendums$preventSlo : [])),
+    forceUpdate: (_addendums$forceUpdat = addendums.forceUpdate) !== null && _addendums$forceUpdat !== void 0 ? _addendums$forceUpdat : defaultOptions.forceUpdate,
+    modes: maximize_objectSpread(maximize_objectSpread({}, defaultOptions.modes), (_addendums$modes = addendums.modes) !== null && _addendums$modes !== void 0 ? _addendums$modes : {})
+  };
+}
+var defaultMaximizeOptions = {
+  updateOnFamiliarChange: true,
+  updateOnCanEquipChanged: true,
+  useOutfitCaching: true,
+  forceEquip: [],
+  preventEquip: [],
+  bonusEquip: new Map(),
+  onlySlot: [],
+  preventSlot: [],
+  forceUpdate: false,
+  modes: {}
+};
+/**
+ *
+ * @param options Default options for each maximizer run.
+ * @param options.updateOnFamiliarChange Re-run the maximizer if familiar has changed. Default true.
+ * @param options.updateOnCanEquipChanged Re-run the maximizer if stats have changed what can be equipped. Default true.
+ * @param options.forceEquip Equipment to force-equip ("equip X").
+ * @param options.preventEquip Equipment to prevent equipping ("-equip X").
+ * @param options.bonusEquip Equipment to apply a bonus to ("200 bonus X").
+ */
+
+function setDefaultMaximizeOptions(options) {
+  Object.assign(defaultMaximizeOptions, options);
+}
+var modeableCommands = ["backupcamera", "umbrella", "snowsuit", "edpiece", "retrocape", "parka"];
+var modeableItems = {
+  backupcamera: template_string_$item(maximize_templateObject || (maximize_templateObject = maximize_taggedTemplateLiteral(["backup camera"]))),
+  umbrella: template_string_$item(maximize_templateObject2 || (maximize_templateObject2 = maximize_taggedTemplateLiteral(["unbreakable umbrella"]))),
+  snowsuit: template_string_$item(maximize_templateObject3 || (maximize_templateObject3 = maximize_taggedTemplateLiteral(["Snow Suit"]))),
+  edpiece: template_string_$item(maximize_templateObject4 || (maximize_templateObject4 = maximize_taggedTemplateLiteral(["The Crown of Ed the Undying"]))),
+  retrocape: template_string_$item(maximize_templateObject5 || (maximize_templateObject5 = maximize_taggedTemplateLiteral(["unwrapped knock-off retro superhero cape"]))),
+  parka: template_string_$item(maximize_templateObject6 || (maximize_templateObject6 = maximize_taggedTemplateLiteral(["Jurassic Parka"])))
+};
+var modeableState = {
+  backupcamera: () => (0,external_kolmafia_namespaceObject.getProperty)("backupCameraMode"),
+  umbrella: () => (0,external_kolmafia_namespaceObject.getProperty)("umbrellaState"),
+  snowsuit: () => (0,external_kolmafia_namespaceObject.getProperty)("snowsuit"),
+  edpiece: () => (0,external_kolmafia_namespaceObject.getProperty)("edPiece"),
+  retrocape: () => (0,external_kolmafia_namespaceObject.getProperty)("retroCapeSuperhero") + " " + (0,external_kolmafia_namespaceObject.getProperty)("retroCapeWashingInstructions"),
+  parka: () => (0,external_kolmafia_namespaceObject.getProperty)("parkaMode")
+};
+/**
+ * Get set of current modes for modeables
+ *
+ * @returns Set of modes
+ */
+
+function getCurrentModes() {
+  var modes = {};
+
+  var _iterator = maximize_createForOfIteratorHelper(modeableCommands),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var key = _step.value;
+
+      if ((0,external_kolmafia_namespaceObject.haveEquipped)(modeableItems[key])) {
+        modes[key] = modeableState[key]();
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  return modes;
+}
+/**
+ * Apply set of modes
+ *
+ * @param modes Modes to apply
+ */
+
+function applyModes(modes) {
+  var _iterator2 = maximize_createForOfIteratorHelper(modeableCommands),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var command = _step2.value;
+
+      if ((0,external_kolmafia_namespaceObject.haveEquipped)(modeableItems[command]) && modes[command] !== undefined) {
+        if (modeableState[command]() !== modes[command]) {
+          (0,external_kolmafia_namespaceObject.cliExecute)(command + " " + modes[command]);
+        }
+      }
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+} // Subset of slots that are valid for caching.
+
+var cachedSlots = $slots(maximize_templateObject7 || (maximize_templateObject7 = maximize_taggedTemplateLiteral(["hat, weapon, off-hand, back, shirt, pants, acc1, acc2, acc3, familiar"])));
+
+var CacheEntry = function CacheEntry(equipment, rider, familiar, canEquipItemCount, modes) {
+  maximize_classCallCheck(this, CacheEntry);
+
+  maximize_defineProperty(this, "equipment", void 0);
+
+  maximize_defineProperty(this, "rider", void 0);
+
+  maximize_defineProperty(this, "familiar", void 0);
+
+  maximize_defineProperty(this, "canEquipItemCount", void 0);
+
+  maximize_defineProperty(this, "modes", void 0);
+
+  this.equipment = equipment;
+  this.rider = rider;
+  this.familiar = familiar;
+  this.canEquipItemCount = canEquipItemCount;
+  this.modes = modes;
+};
+
+var _outfitSlots = /*#__PURE__*/new WeakMap();
+
+var _useHistory = /*#__PURE__*/new WeakMap();
+
+var _maxSize = /*#__PURE__*/new WeakMap();
+
+var OutfitLRUCache = /*#__PURE__*/function () {
+  // Current outfits allocated
+  // Array of indices into #outfitSlots in order of use. Most recent at the front.
+  function OutfitLRUCache(maxSize) {
+    maximize_classCallCheck(this, OutfitLRUCache);
+
+    _outfitSlots.set(this, {
+      writable: true,
+      value: []
+    });
+
+    _useHistory.set(this, {
+      writable: true,
+      value: []
+    });
+
+    _maxSize.set(this, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _maxSize, maxSize);
+  }
+
+  maximize_createClass(OutfitLRUCache, [{
+    key: "checkConsistent",
+    value: function checkConsistent() {
+      if (_classPrivateFieldGet(this, _useHistory).length !== _classPrivateFieldGet(this, _outfitSlots).length || !maximize_toConsumableArray(_classPrivateFieldGet(this, _useHistory)).sort().every((value, index) => value === index)) {
+        throw new Error("Outfit cache consistency failed.");
+      }
+    }
+  }, {
+    key: "promote",
+    value: function promote(index) {
+      _classPrivateFieldSet(this, _useHistory, [index].concat(maximize_toConsumableArray(_classPrivateFieldGet(this, _useHistory).filter(i => i !== index))));
+
+      this.checkConsistent();
+    }
+  }, {
+    key: "get",
+    value: function get(key) {
+      var index = _classPrivateFieldGet(this, _outfitSlots).indexOf(key);
+
+      if (index < 0) return undefined;
+      this.promote(index);
+      return "".concat(OutfitLRUCache.OUTFIT_PREFIX, " ").concat(index);
+    }
+  }, {
+    key: "insert",
+    value: function insert(key) {
+      var lastUseIndex = undefined;
+
+      if (_classPrivateFieldGet(this, _outfitSlots).length >= _classPrivateFieldGet(this, _maxSize)) {
+        lastUseIndex = _classPrivateFieldGet(this, _useHistory).pop();
+
+        if (lastUseIndex === undefined) {
+          throw new Error("Outfit cache consistency failed.");
+        }
+
+        _classPrivateFieldGet(this, _useHistory).splice(0, 0, lastUseIndex);
+
+        _classPrivateFieldGet(this, _outfitSlots)[lastUseIndex] = key;
+        this.checkConsistent();
+        return "".concat(OutfitLRUCache.OUTFIT_PREFIX, " ").concat(lastUseIndex);
+      } else {
+        var index = _classPrivateFieldGet(this, _outfitSlots).push(key) - 1;
+
+        _classPrivateFieldGet(this, _useHistory).splice(0, 0, index);
+
+        this.checkConsistent();
+        return "".concat(OutfitLRUCache.OUTFIT_PREFIX, " ").concat(index);
+      }
+    }
+  }, {
+    key: "clear",
+    value: function clear() {
+      _classPrivateFieldSet(this, _outfitSlots, []);
+
+      _classPrivateFieldSet(this, _useHistory, []);
+    }
+  }]);
+
+  return OutfitLRUCache;
+}();
+/**
+ * Save current equipment as KoL-native outfit.
+ *
+ * @param name Name of new outfit.
+ */
+
+
+maximize_defineProperty(OutfitLRUCache, "OUTFIT_PREFIX", "Script Outfit");
+
+function saveOutfit(name) {
+  (0,external_kolmafia_namespaceObject.cliExecute)("outfit save ".concat(name));
+} // Objective cache entries.
+
+
+var cachedObjectives = {}; // Outfit cache entries. Keep 6 by default to avoid cluttering list.
+
+var outfitCache = new OutfitLRUCache(6); // Cache to prevent rescanning all items unnecessarily
+
+var cachedStats = [0, 0, 0];
+var cachedCanEquipItemCount = 0;
+/**
+ * Count the number of unique items that can be equipped.
+ *
+ * @returns The count of unique items.
+ */
+
+function canEquipItemCount() {
+  var stats = $stats(maximize_templateObject8 || (maximize_templateObject8 = maximize_taggedTemplateLiteral(["Muscle, Mysticality, Moxie"]))).map(stat => Math.min((0,external_kolmafia_namespaceObject.myBasestat)(stat), 300));
+
+  if (stats.every((value, index) => value === cachedStats[index])) {
+    return cachedCanEquipItemCount;
+  }
+
+  cachedStats = stats;
+  cachedCanEquipItemCount = external_kolmafia_namespaceObject.Item.all().filter(item => (0,external_kolmafia_namespaceObject.canEquip)(item)).length;
+  return cachedCanEquipItemCount;
+}
+/**
+ * Checks the objective cache for a valid entry.
+ *
+ * @param cacheKey The cache key to check.
+ * @param options Set of maximizer options
+ * @returns A valid CacheEntry or null.
+ */
+
+
+function checkCache(cacheKey, options) {
+  var entry = cachedObjectives[cacheKey];
+
+  if (!entry) {
+    return null;
+  }
+
+  if (options.updateOnFamiliarChange && (0,external_kolmafia_namespaceObject.myFamiliar)() !== entry.familiar) {
+    dist_logger.warning("Equipment found in maximize cache but familiar is different.");
+    return null;
+  }
+
+  if (options.updateOnCanEquipChanged && entry.canEquipItemCount !== canEquipItemCount()) {
+    dist_logger.warning("Equipment found in maximize cache but equippable item list is out of date.");
+    return null;
+  }
+
+  return entry;
+}
+/**
+ * Applies equipment that was found in the cache.
+ *
+ * @param entry The CacheEntry to apply
+ * @param options Set of maximizer options
+ */
+
+
+function applyCached(entry, options) {
+  var outfitName = options.useOutfitCaching ? outfitCache.get(entry) : undefined;
+
+  if (outfitName) {
+    if (!(0,external_kolmafia_namespaceObject.isWearingOutfit)(outfitName)) {
+      (0,external_kolmafia_namespaceObject.outfit)(outfitName);
+    }
+
+    var familiarEquip = entry.equipment.get($slot(maximize_templateObject9 || (maximize_templateObject9 = maximize_taggedTemplateLiteral(["familiar"]))));
+    if (familiarEquip) (0,external_kolmafia_namespaceObject.equip)($slot(maximize_templateObject10 || (maximize_templateObject10 = maximize_taggedTemplateLiteral(["familiar"]))), familiarEquip);
+  } else {
+    var _iterator3 = maximize_createForOfIteratorHelper(entry.equipment),
+        _step3;
+
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var _step3$value = maximize_slicedToArray(_step3.value, 2),
+            slot = _step3$value[0],
+            item = _step3$value[1];
+
+        if ((0,external_kolmafia_namespaceObject.equippedItem)(slot) !== item && (0,external_kolmafia_namespaceObject.availableAmount)(item) > 0) {
+          (0,external_kolmafia_namespaceObject.equip)(slot, item);
+        }
+      }
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
+    }
+
+    if (verifyCached(entry) && options.useOutfitCaching) {
+      var _outfitName = outfitCache.insert(entry);
+
+      dist_logger.info("Saving equipment to outfit ".concat(_outfitName, "."));
+      saveOutfit(_outfitName);
+    }
+  }
+
+  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(maximize_templateObject11 || (maximize_templateObject11 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))) > 0 && entry.rider.get(template_string_$item(maximize_templateObject12 || (maximize_templateObject12 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))))) {
+    (0,external_kolmafia_namespaceObject.enthroneFamiliar)(entry.rider.get(template_string_$item(maximize_templateObject13 || (maximize_templateObject13 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))) || template_string_$familiar.none);
+  }
+
+  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(maximize_templateObject14 || (maximize_templateObject14 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))) > 0 && entry.rider.get(template_string_$item(maximize_templateObject15 || (maximize_templateObject15 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))))) {
+    (0,external_kolmafia_namespaceObject.bjornifyFamiliar)(entry.rider.get(template_string_$item(maximize_templateObject16 || (maximize_templateObject16 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))) || template_string_$familiar.none);
+  }
+
+  applyModes(maximize_objectSpread(maximize_objectSpread({}, entry.modes), options.modes));
+}
+
+var slotStructure = [$slots(maximize_templateObject17 || (maximize_templateObject17 = maximize_taggedTemplateLiteral(["hat"]))), $slots(maximize_templateObject18 || (maximize_templateObject18 = maximize_taggedTemplateLiteral(["back"]))), $slots(maximize_templateObject19 || (maximize_templateObject19 = maximize_taggedTemplateLiteral(["shirt"]))), $slots(maximize_templateObject20 || (maximize_templateObject20 = maximize_taggedTemplateLiteral(["weapon, off-hand"]))), $slots(maximize_templateObject21 || (maximize_templateObject21 = maximize_taggedTemplateLiteral(["pants"]))), $slots(maximize_templateObject22 || (maximize_templateObject22 = maximize_taggedTemplateLiteral(["acc1, acc2, acc3"]))), $slots(maximize_templateObject23 || (maximize_templateObject23 = maximize_taggedTemplateLiteral(["familiar"])))];
+/**
+ * Verifies that a CacheEntry was applied successfully.
+ *
+ * @param entry The CacheEntry to verify
+ * @param warn Whether to warn if the cache could not be applied
+ * @returns If all desired equipment was appliedn in the correct slots.
+ */
+
+function verifyCached(entry) {
+  var warn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var success = true;
+
+  var _iterator4 = maximize_createForOfIteratorHelper(slotStructure),
+      _step4;
+
+  try {
+    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+      var slotGroup = _step4.value;
+      var desiredSlots = slotGroup.map(slot => {
+        var _entry$equipment$get;
+
+        return [slot, (_entry$equipment$get = entry.equipment.get(slot)) !== null && _entry$equipment$get !== void 0 ? _entry$equipment$get : null];
+      }).filter(_ref => {
+        var _ref2 = maximize_slicedToArray(_ref, 2),
+            item = _ref2[1];
+
+        return item !== null;
+      });
+      var desiredSet = desiredSlots.map(_ref3 => {
+        var _ref4 = maximize_slicedToArray(_ref3, 2),
+            item = _ref4[1];
+
+        return item;
+      });
+      var equippedSet = desiredSlots.map(_ref5 => {
+        var _ref6 = maximize_slicedToArray(_ref5, 1),
+            slot = _ref6[0];
+
+        return (0,external_kolmafia_namespaceObject.equippedItem)(slot);
+      });
+
+      if (!setEqual(desiredSet, equippedSet)) {
+        if (warn) {
+          dist_logger.warning("Failed to apply cached ".concat(desiredSet.join(", "), " in ").concat(slotGroup.join(", "), "."));
+        }
+
+        success = false;
+      }
+    }
+  } catch (err) {
+    _iterator4.e(err);
+  } finally {
+    _iterator4.f();
+  }
+
+  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(maximize_templateObject24 || (maximize_templateObject24 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))) > 0 && entry.rider.get(template_string_$item(maximize_templateObject25 || (maximize_templateObject25 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))))) {
+    if (entry.rider.get(template_string_$item(maximize_templateObject26 || (maximize_templateObject26 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))) !== (0,external_kolmafia_namespaceObject.myEnthronedFamiliar)()) {
+      if (warn) {
+        dist_logger.warning("Failed to apply ".concat(entry.rider.get(template_string_$item(maximize_templateObject27 || (maximize_templateObject27 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))), " in ").concat(template_string_$item(maximize_templateObject28 || (maximize_templateObject28 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))), "."));
+      }
+
+      success = false;
+    }
+  }
+
+  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(maximize_templateObject29 || (maximize_templateObject29 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))) > 0 && entry.rider.get(template_string_$item(maximize_templateObject30 || (maximize_templateObject30 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))))) {
+    if (entry.rider.get(template_string_$item(maximize_templateObject31 || (maximize_templateObject31 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))) !== (0,external_kolmafia_namespaceObject.myBjornedFamiliar)()) {
+      if (warn) {
+        dist_logger.warning("Failed to apply".concat(entry.rider.get(template_string_$item(maximize_templateObject32 || (maximize_templateObject32 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))), " in ").concat(template_string_$item(maximize_templateObject33 || (maximize_templateObject33 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))), "."));
+      }
+
+      success = false;
+    }
+  }
+
+  return success;
+}
+/**
+ * Save current equipment to the objective cache.
+ *
+ * @param cacheKey The cache key to save.
+ * @param options Set of maximizer options
+ */
+
+
+function saveCached(cacheKey, options) {
+  var equipment = new Map();
+  var rider = new Map();
+
+  var _iterator5 = maximize_createForOfIteratorHelper(cachedSlots),
+      _step5;
+
+  try {
+    for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+      var _slot2 = _step5.value;
+      equipment.set(_slot2, (0,external_kolmafia_namespaceObject.equippedItem)(_slot2));
+    }
+  } catch (err) {
+    _iterator5.e(err);
+  } finally {
+    _iterator5.f();
+  }
+
+  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(maximize_templateObject34 || (maximize_templateObject34 = maximize_taggedTemplateLiteral(["card sleeve"])))) > 0) {
+    equipment.set($slot(_templateObject35 || (_templateObject35 = maximize_taggedTemplateLiteral(["card-sleeve"]))), (0,external_kolmafia_namespaceObject.equippedItem)($slot(_templateObject36 || (_templateObject36 = maximize_taggedTemplateLiteral(["card-sleeve"])))));
+  }
+
+  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(_templateObject37 || (_templateObject37 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))) > 0) {
+    rider.set(template_string_$item(_templateObject38 || (_templateObject38 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))), (0,external_kolmafia_namespaceObject.myEnthronedFamiliar)());
+  }
+
+  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(_templateObject39 || (_templateObject39 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))) > 0) {
+    rider.set(template_string_$item(_templateObject40 || (_templateObject40 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))), (0,external_kolmafia_namespaceObject.myBjornedFamiliar)());
+  }
+
+  if (options.preventSlot && options.preventSlot.length > 0) {
+    var _iterator6 = maximize_createForOfIteratorHelper(options.preventSlot),
+        _step6;
+
+    try {
+      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+        var slot = _step6.value;
+        equipment.delete(slot);
+      }
+    } catch (err) {
+      _iterator6.e(err);
+    } finally {
+      _iterator6.f();
+    }
+
+    if (options.preventSlot.includes($slot(_templateObject41 || (_templateObject41 = maximize_taggedTemplateLiteral(["buddy-bjorn"]))))) {
+      rider.delete(template_string_$item(_templateObject42 || (_templateObject42 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))));
+    }
+
+    if (options.preventSlot.includes($slot(_templateObject43 || (_templateObject43 = maximize_taggedTemplateLiteral(["crown-of-thrones"]))))) {
+      rider.delete(template_string_$item(_templateObject44 || (_templateObject44 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))));
+    }
+  }
+
+  if (options.onlySlot && options.onlySlot.length > 0) {
+    var _iterator7 = maximize_createForOfIteratorHelper(external_kolmafia_namespaceObject.Slot.all()),
+        _step7;
+
+    try {
+      for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+        var _slot = _step7.value;
+
+        if (!options.onlySlot.includes(_slot)) {
+          equipment.delete(_slot);
+        }
+      }
+    } catch (err) {
+      _iterator7.e(err);
+    } finally {
+      _iterator7.f();
+    }
+
+    if (!options.onlySlot.includes($slot(_templateObject45 || (_templateObject45 = maximize_taggedTemplateLiteral(["buddy-bjorn"]))))) {
+      rider.delete(template_string_$item(_templateObject46 || (_templateObject46 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))));
+    }
+
+    if (!options.onlySlot.includes($slot(_templateObject47 || (_templateObject47 = maximize_taggedTemplateLiteral(["crown-of-thrones"]))))) {
+      rider.delete(template_string_$item(_templateObject48 || (_templateObject48 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))));
+    }
+  }
+
+  var entry = new CacheEntry(equipment, rider, (0,external_kolmafia_namespaceObject.myFamiliar)(), canEquipItemCount(), maximize_objectSpread(maximize_objectSpread({}, getCurrentModes()), options.modes));
+  cachedObjectives[cacheKey] = entry;
+
+  if (options.useOutfitCaching) {
+    var outfitName = outfitCache.insert(entry);
+    dist_logger.info("Saving equipment to outfit ".concat(outfitName, "."));
+    saveOutfit(outfitName);
+  }
+}
+/**
+ * Run the maximizer, but only if the objective and certain pieces of game state haven't changed since it was last run.
+ *
+ * @param objectives Objectives to maximize for.
+ * @param options Options for this run of the maximizer.
+ * @param options.updateOnFamiliarChange Re-run the maximizer if familiar has changed. Default true.
+ * @param options.updateOnCanEquipChanged Re-run the maximizer if stats have changed what can be equipped. Default true.
+ * @param options.forceEquip Equipment to force-equip ("equip X").
+ * @param options.preventEquip Equipment to prevent equipping ("-equip X").
+ * @param options.bonusEquip Equipment to apply a bonus to ("200 bonus X").
+ * @returns Whether the maximize call succeeded.
+ */
+
+
+function maximizeCached(objectives) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var fullOptions = mergeMaximizeOptions(defaultMaximizeOptions, options);
+  var forceEquip = fullOptions.forceEquip,
+      preventEquip = fullOptions.preventEquip,
+      bonusEquip = fullOptions.bonusEquip,
+      onlySlot = fullOptions.onlySlot,
+      preventSlot = fullOptions.preventSlot,
+      forceUpdate = fullOptions.forceUpdate; // Sort each group in objective to ensure consistent ordering in string
+
+  var objective = maximize_toConsumableArray(new Set([].concat(maximize_toConsumableArray(objectives.sort()), maximize_toConsumableArray(forceEquip.map(item => "equip ".concat(item)).sort()), maximize_toConsumableArray(preventEquip.map(item => "-equip ".concat(item)).sort()), maximize_toConsumableArray(onlySlot.map(slot => "".concat(slot)).sort()), maximize_toConsumableArray(preventSlot.map(slot => "-".concat(slot)).sort()), maximize_toConsumableArray(Array.from(bonusEquip.entries()).filter(_ref7 => {
+    var _ref8 = maximize_slicedToArray(_ref7, 2),
+        bonus = _ref8[1];
+
+    return bonus !== 0;
+  }).map(_ref9 => {
+    var _ref10 = maximize_slicedToArray(_ref9, 2),
+        item = _ref10[0],
+        bonus = _ref10[1];
+
+    return "".concat(Math.round(bonus * 100) / 100, " bonus ").concat(item);
+  }).sort())))).join(", "); // Items equipped in slots not touched by the maximizer must be in the cache key
+
+
+  var untouchedSlots = cachedSlots.filter(slot => preventSlot.includes(slot) || onlySlot.length > 0 && !onlySlot.includes(slot));
+  var cacheKey = [objective].concat(maximize_toConsumableArray(untouchedSlots.map(slot => "".concat(slot, ":").concat((0,external_kolmafia_namespaceObject.equippedItem)(slot))).sort())).join("; ");
+  var cacheEntry = checkCache(cacheKey, fullOptions);
+
+  if (cacheEntry && !forceUpdate) {
+    if (verifyCached(cacheEntry, false)) return true;
+    dist_logger.info("Equipment found in maximize cache, equipping...");
+    applyCached(cacheEntry, fullOptions);
+
+    if (verifyCached(cacheEntry)) {
+      dist_logger.info("Equipped cached ".concat(cacheKey));
+      return true;
+    }
+
+    dist_logger.warning("Maximize cache application failed, maximizing...");
+  }
+
+  var result = (0,external_kolmafia_namespaceObject.maximize)(objective, false);
+  saveCached(cacheKey, fullOptions);
+  return result;
+}
+
+var _maximizeParameters = /*#__PURE__*/new WeakMap();
+
+var _maximizeOptions = /*#__PURE__*/new WeakMap();
+
+var Requirement = /*#__PURE__*/function () {
+  /**
+   * A convenient way of combining maximization parameters and options
+   *
+   * @param maximizeParameters Parameters you're attempting to maximize
+   * @param maximizeOptions Object potentially containing forceEquips, bonusEquips, preventEquips, and preventSlots
+   */
+  function Requirement(maximizeParameters, maximizeOptions) {
+    maximize_classCallCheck(this, Requirement);
+
+    _maximizeParameters.set(this, {
+      writable: true,
+      value: void 0
+    });
+
+    _maximizeOptions.set(this, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _maximizeParameters, maximizeParameters);
+
+    _classPrivateFieldSet(this, _maximizeOptions, maximizeOptions);
+  }
+
+  maximize_createClass(Requirement, [{
+    key: "maximizeParameters",
+    get: function get() {
+      return _classPrivateFieldGet(this, _maximizeParameters);
+    }
+  }, {
+    key: "maximizeOptions",
+    get: function get() {
+      return _classPrivateFieldGet(this, _maximizeOptions);
+    }
+    /**
+     * Merges two requirements, concanating relevant arrays. Typically used in static form.
+     *
+     * @param other Requirement to merge with.
+     */
+
+  }, {
+    key: "merge",
+    value: function merge(other) {
+      var _optionsA$forceEquip, _other$maximizeOption, _optionsA$preventEqui, _other$maximizeOption3, _optionsA$bonusEquip$, _optionsA$bonusEquip, _optionsB$bonusEquip$, _optionsB$bonusEquip, _optionsA$onlySlot, _optionsB$onlySlot, _optionsA$preventSlot, _optionsB$preventSlot;
+
+      var optionsA = this.maximizeOptions;
+      var optionsB = other.maximizeOptions;
+      return new Requirement([].concat(maximize_toConsumableArray(this.maximizeParameters), maximize_toConsumableArray(other.maximizeParameters)), {
+        updateOnFamiliarChange: optionsA.updateOnFamiliarChange || other.maximizeOptions.updateOnFamiliarChange,
+        updateOnCanEquipChanged: optionsA.updateOnCanEquipChanged || other.maximizeOptions.updateOnCanEquipChanged,
+        forceEquip: [].concat(maximize_toConsumableArray((_optionsA$forceEquip = optionsA.forceEquip) !== null && _optionsA$forceEquip !== void 0 ? _optionsA$forceEquip : []), maximize_toConsumableArray((_other$maximizeOption = other.maximizeOptions.forceEquip) !== null && _other$maximizeOption !== void 0 ? _other$maximizeOption : [])).filter(x => {
+          var _other$maximizeOption2;
+
+          return !((_other$maximizeOption2 = other.maximizeOptions.preventEquip) !== null && _other$maximizeOption2 !== void 0 && _other$maximizeOption2.includes(x));
+        }),
+        preventEquip: [].concat(maximize_toConsumableArray((_optionsA$preventEqui = optionsA.preventEquip) !== null && _optionsA$preventEqui !== void 0 ? _optionsA$preventEqui : []), maximize_toConsumableArray((_other$maximizeOption3 = other.maximizeOptions.preventEquip) !== null && _other$maximizeOption3 !== void 0 ? _other$maximizeOption3 : [])).filter(x => {
+          var _other$maximizeOption4;
+
+          return !((_other$maximizeOption4 = other.maximizeOptions.forceEquip) !== null && _other$maximizeOption4 !== void 0 && _other$maximizeOption4.includes(x));
+        }),
+        bonusEquip: new Map([].concat(maximize_toConsumableArray((_optionsA$bonusEquip$ = (_optionsA$bonusEquip = optionsA.bonusEquip) === null || _optionsA$bonusEquip === void 0 ? void 0 : _optionsA$bonusEquip.entries()) !== null && _optionsA$bonusEquip$ !== void 0 ? _optionsA$bonusEquip$ : []), maximize_toConsumableArray((_optionsB$bonusEquip$ = (_optionsB$bonusEquip = optionsB.bonusEquip) === null || _optionsB$bonusEquip === void 0 ? void 0 : _optionsB$bonusEquip.entries()) !== null && _optionsB$bonusEquip$ !== void 0 ? _optionsB$bonusEquip$ : []))),
+        onlySlot: [].concat(maximize_toConsumableArray((_optionsA$onlySlot = optionsA.onlySlot) !== null && _optionsA$onlySlot !== void 0 ? _optionsA$onlySlot : []), maximize_toConsumableArray((_optionsB$onlySlot = optionsB.onlySlot) !== null && _optionsB$onlySlot !== void 0 ? _optionsB$onlySlot : [])),
+        preventSlot: [].concat(maximize_toConsumableArray((_optionsA$preventSlot = optionsA.preventSlot) !== null && _optionsA$preventSlot !== void 0 ? _optionsA$preventSlot : []), maximize_toConsumableArray((_optionsB$preventSlot = optionsB.preventSlot) !== null && _optionsB$preventSlot !== void 0 ? _optionsB$preventSlot : [])),
+        forceUpdate: optionsA.forceUpdate || optionsB.forceUpdate
+      });
+    }
+    /**
+     * Merges a set of requirements together, starting with an empty requirement.
+     *
+     * @param allRequirements Requirements to merge
+     * @returns Merged requirements
+     */
+
+  }, {
+    key: "maximize",
+    value:
+    /**
+     * Runs maximizeCached, using the maximizeParameters and maximizeOptions contained by this requirement.
+     *
+     * @returns Whether the maximize call succeeded.
+     */
+    function maximize() {
+      return maximizeCached(this.maximizeParameters, this.maximizeOptions);
+    }
+    /**
+     * Merges requirements, and then runs maximizeCached on the combined requirement.
+     *
+     * @param requirements Requirements to maximize on
+     */
+
+  }], [{
+    key: "merge",
+    value: function merge(allRequirements) {
+      return allRequirements.reduce((x, y) => x.merge(y), new Requirement([], {}));
+    }
+  }, {
+    key: "maximize",
+    value: function maximize() {
+      for (var _len = arguments.length, requirements = new Array(_len), _key = 0; _key < _len; _key++) {
+        requirements[_key] = arguments[_key];
+      }
+
+      Requirement.merge(requirements).maximize();
+    }
+  }]);
+
+  return Requirement;
+}();
+/**
+ * Clear all outfits cached by the maximizer.
+ */
+
+function clearMaximizerCache() {
+  outfitCache.clear();
+
+  for (var member in cachedObjectives) {
+    delete cachedObjectives[member];
+  }
+}
 ;// CONCATENATED MODULE: ./node_modules/libram/dist/modifierTypes.js
 // THIS FILE IS AUTOMATICALLY GENERATED. See tools/parseModifiers.ts for more information
 var modifierTypes_booleanModifiers = ["Softcore Only", "Single Equip", "Never Fumble", "Weakens Monster", "Free Pull", "Variable", "Nonstackable Watch", "Cold Immunity", "Hot Immunity", "Sleaze Immunity", "Spooky Immunity", "Stench Immunity", "Cold Vulnerability", "Hot Vulnerability", "Sleaze Vulnerability", "Spooky Vulnerability", "Stench Vulnerability", "Moxie Controls MP", "Moxie May Control MP", "Four Songs", "Adventure Underwater", "Underwater Familiar", "Generic", "Unarmed", "No Pull", "Lasts Until Rollover", "Attacks Can't Miss", "Pirate", "Breakable", "Drops Items", "Drops Meat"];
@@ -2210,6 +3078,414 @@ baseModifier) {
   });
   (0,external_kolmafia_namespaceObject.print)("Total ".concat(baseModifier, ": ").concat(total.toFixed(1)), totalColor);
 }
+;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2017/MummingTrunk.js
+function MummingTrunk_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = MummingTrunk_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function MummingTrunk_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return MummingTrunk_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return MummingTrunk_arrayLikeToArray(o, minLen); }
+
+function MummingTrunk_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+/**
+ * Internal function used to parse mods
+ *
+ * @param input The modstring used in your mummery pref
+ * @returns a NumericModifier matching that string
+ */
+
+function toModifier(input) {
+  var regExp = new RegExp(/Experience \((.*?)\)/);
+  var matcher = input.match(regExp);
+  return matcher ? "".concat(matcher[2], " Experience") : input;
+}
+/**
+ * Parses the _mummeryMods preference into a Map for easier use.
+ *
+ * @returns A map, mapping Familiars to a Tuple consisting of the NumericModifier attached to the familiar, and the value thereof.
+ */
+
+
+function currentCostumes() {
+  var entries = property_get("_mummeryMods").split(",");
+  var returnValue = new Map();
+  var regExp = new RegExp(/([^:]+): \[(\d+)\*fam\(([^)]+)\)\]/);
+
+  var _iterator = MummingTrunk_createForOfIteratorHelper(entries),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var entry = _step.value;
+      var matcher = entry.match(regExp);
+
+      if (matcher) {
+        returnValue.set((0,external_kolmafia_namespaceObject.toFamiliar)(matcher[3]), [toModifier(matcher[1]), parseInt(matcher[2])]);
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  return returnValue;
+}
+;// CONCATENATED MODULE: ./node_modules/libram/dist/challengePaths/2015/CommunityService.js
+var CommunityService_templateObject, CommunityService_templateObject2, CommunityService_templateObject3, CommunityService_templateObject4, CommunityService_templateObject5, CommunityService_templateObject6, CommunityService_templateObject7, CommunityService_templateObject8, CommunityService_templateObject9, CommunityService_templateObject10, CommunityService_templateObject11, CommunityService_templateObject12, CommunityService_templateObject13, CommunityService_templateObject14, CommunityService_templateObject15, CommunityService_templateObject16, CommunityService_templateObject17, CommunityService_templateObject18, CommunityService_templateObject19, CommunityService_templateObject20, CommunityService_templateObject21, CommunityService_templateObject22, CommunityService_templateObject23, CommunityService_templateObject24, CommunityService_templateObject25, CommunityService_templateObject26, CommunityService_templateObject27;
+
+function CommunityService_slicedToArray(arr, i) { return CommunityService_arrayWithHoles(arr) || CommunityService_iterableToArrayLimit(arr, i) || CommunityService_unsupportedIterableToArray(arr, i) || CommunityService_nonIterableRest(); }
+
+function CommunityService_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function CommunityService_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return CommunityService_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return CommunityService_arrayLikeToArray(o, minLen); }
+
+function CommunityService_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function CommunityService_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function CommunityService_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function CommunityService_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function CommunityService_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function CommunityService_createClass(Constructor, protoProps, staticProps) { if (protoProps) CommunityService_defineProperties(Constructor.prototype, protoProps); if (staticProps) CommunityService_defineProperties(Constructor, staticProps); return Constructor; }
+
+function CommunityService_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function CommunityService_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+
+
+
+
+var thralls = new Map([[template_string_$stat(CommunityService_templateObject || (CommunityService_templateObject = CommunityService_taggedTemplateLiteral(["muscle"]))), $thrall(CommunityService_templateObject2 || (CommunityService_templateObject2 = CommunityService_taggedTemplateLiteral(["Elbow Macaroni"])))], [template_string_$stat(CommunityService_templateObject3 || (CommunityService_templateObject3 = CommunityService_taggedTemplateLiteral(["moxie"]))), $thrall(CommunityService_templateObject4 || (CommunityService_templateObject4 = CommunityService_taggedTemplateLiteral(["Penne Dreadful"])))]]);
+
+var statCommunityServicePredictor = stat => {
+  return () => 60 - Math.floor(1 / 30 * ((0,external_kolmafia_namespaceObject.myBuffedstat)(stat) - (0,external_kolmafia_namespaceObject.myBasestat)(thralls.get(stat) === (0,external_kolmafia_namespaceObject.myThrall)() && !lib_have($effect(CommunityService_templateObject5 || (CommunityService_templateObject5 = CommunityService_taggedTemplateLiteral(["Expert Oiliness"])))) ? template_string_$stat(CommunityService_templateObject6 || (CommunityService_templateObject6 = CommunityService_taggedTemplateLiteral(["mysticality"]))) : stat)));
+};
+
+var visitCouncil = () => (0,external_kolmafia_namespaceObject.visitUrl)("council.php");
+
+var baseWeight = () => lib_have($effect(CommunityService_templateObject7 || (CommunityService_templateObject7 = CommunityService_taggedTemplateLiteral(["Fidoxene"])))) ? 20 : (0,external_kolmafia_namespaceObject.familiarWeight)((0,external_kolmafia_namespaceObject.myFamiliar)());
+
+var CommunityService = /*#__PURE__*/function () {
+  /**
+   * Class to store properties of various CS tests.
+   *
+   * @param id The id the game HTML uses to identify the test; this is used primarily in runChoice.
+   * @param stat The principle stat the test measures, often used as more easily memorable shorthand for the specific tests
+   * @param property The name of the test as a string, often used as part of the string property "csServicesPerformed".
+   * @param predictor A function that returns an estimate for the number of turns that the test will take given your character's current state.
+   * @param maximizeRequirements A Requirement object, if applicable, that aligns with the things needed to maximize for this particular test.
+   */
+  function CommunityService(id, stat, property, predictor, maximizeRequirements) {
+    CommunityService_classCallCheck(this, CommunityService);
+
+    CommunityService_defineProperty(this, "choice", void 0);
+
+    CommunityService_defineProperty(this, "stat", void 0);
+
+    CommunityService_defineProperty(this, "property", void 0);
+
+    CommunityService_defineProperty(this, "predictor", void 0);
+
+    CommunityService_defineProperty(this, "maximizeRequirements", void 0);
+
+    this.choice = id;
+    this.stat = stat;
+    this.property = property;
+    this.predictor = predictor;
+    this.maximizeRequirements = maximizeRequirements;
+  }
+  /**
+   * @returns The id number of the test, used primarily in runChoice.
+   */
+
+
+  CommunityService_createClass(CommunityService, [{
+    key: "id",
+    get: function get() {
+      return this.choice;
+    }
+    /**
+     * @returns The primary stat the test measures, used primarily as memorable shorthand in place of test names.
+     */
+
+  }, {
+    key: "statName",
+    get: function get() {
+      return this.stat;
+    }
+    /**
+     * @returns The name of the test, used primarily as part of the string property "csServicesPerformed"
+     */
+
+  }, {
+    key: "name",
+    get: function get() {
+      return this.property;
+    }
+    /**
+     *  @returns The predicted number of turns this test will take given your character's current state.
+     */
+
+  }, {
+    key: "prediction",
+    get: function get() {
+      return this.predictor();
+    }
+    /**
+     * @returns A Requirement object, if applicable, that aligns with the things needed to maximize for this particular test.
+     */
+
+  }, {
+    key: "requirement",
+    get: function get() {
+      return this.maximizeRequirements;
+    }
+  }, {
+    key: "isDone",
+    value:
+    /**
+     * Checks the "csServicesPerformed" property to see whether mafia currently believes this test is complete.
+     *
+     * @returns Whether mafia currently believes this test is complete.
+     */
+    function isDone() {
+      return property_get("csServicesPerformed").includes(this.property);
+    }
+    /**
+     * Maximizes based on the Requirement associated with this particular test.
+     */
+
+  }, {
+    key: "maximize",
+    value: function maximize() {
+      if (this.maximizeRequirements) this.maximizeRequirements.maximize();
+    }
+    /**
+     * Attempts to turn in the test to the Council of Loathing.
+     *
+     * @returns Whether mafia believes the test is complete at the end of this function.
+     */
+
+  }, {
+    key: "do",
+    value: function _do() {
+      if (property_get("csServicesPerformed").trim().length === 0) visitCouncil();
+      visitCouncil();
+      var councilText = (0,external_kolmafia_namespaceObject.runChoice)(this.choice);
+      return this._verifyIsDone(councilText);
+    }
+    /**
+     * Wrapper function that prepares for a test and then completes it, adding time and turn details to the log.
+     *
+     * @param prepare A function that does all necessary preparations for this CS test, including choosing your outfit. Optionally returns the number of turns you expect to spend preparing for the test.
+     * @param maxTurns We will run the test iff the predicted/actual turns is less than or equal to this parameter.
+     * @returns "completed", "failed", or "already completed".
+     */
+
+  }, {
+    key: "run",
+    value: function run(prepare) {
+      var maxTurns = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Infinity;
+      if (this.isDone()) return "already completed";
+      var startTime = Date.now();
+      var startTurns = (0,external_kolmafia_namespaceObject.myTurncount)();
+      var additionalTurns;
+
+      try {
+        var _prepare;
+
+        additionalTurns = (_prepare = prepare()) !== null && _prepare !== void 0 ? _prepare : 0;
+      } catch (e) {
+        (0,external_kolmafia_namespaceObject.print)("".concat(e), "red");
+        return "failed";
+      }
+
+      var prediction = this.predictor();
+      var council = visitCouncil();
+
+      var turns = this._actualCost(council);
+
+      if (!turns) return "already completed";
+
+      if (turns > Math.min(maxTurns, (0,external_kolmafia_namespaceObject.myAdventures)())) {
+        return "failed";
+      }
+
+      if (!this.do()) return "failed";
+      CommunityService.log[this.property] = {
+        predictedTurns: prediction + additionalTurns,
+        turnCost: (0,external_kolmafia_namespaceObject.myTurncount)() - startTurns,
+        seconds: (Date.now() - startTime) / 1000,
+        type: "test"
+      };
+      return "completed";
+    }
+  }, {
+    key: "_verifyIsDone",
+    value: function _verifyIsDone(councilText) {
+      return !councilText.includes("<input type=hidden name=option value=".concat(this.choice, ">"));
+    }
+    /**
+     * Checks council.php to verify that a test is complete; more reliable than isDone, but requires an additional pagehit.
+     *
+     * @returns Whether council.php suggests that the test is complete.
+     */
+
+  }, {
+    key: "verifyIsDone",
+    value: function verifyIsDone() {
+      return this._verifyIsDone(visitCouncil());
+    }
+  }, {
+    key: "_actualCost",
+    value: function _actualCost(councilText) {
+      var match = councilText.match("<input type=hidden name=option value=".concat(this.id, ">.*?Perform Service \\((\\d+) Adventures\\)"));
+      return match ? parseInt(match[1]) : 0;
+    }
+    /**
+     * Checks council.php for the number of turns this test will take; more reliable than prediction, but requires an additional pagehit.
+     *
+     * @returns The number of turns to complete this test according to council.php.
+     */
+
+  }, {
+    key: "actualCost",
+    value: function actualCost() {
+      return this._actualCost(visitCouncil());
+    }
+    /**
+     * A log of the predicted turns, actual turns, and duration of each CS test performed.
+     */
+
+  }], [{
+    key: "logTask",
+    value: function logTask(name, action) {
+      var _action;
+
+      var startTime = Date.now();
+      var startTurns = (0,external_kolmafia_namespaceObject.myTurncount)();
+      var estimatedTurns = (_action = action()) !== null && _action !== void 0 ? _action : 0;
+      CommunityService.log[name] = {
+        type: "task",
+        turnCost: (0,external_kolmafia_namespaceObject.myTurncount)() - startTurns,
+        predictedTurns: estimatedTurns,
+        seconds: (Date.now() - startTime) / 1000
+      };
+    }
+  }, {
+    key: "printLog",
+    value:
+    /**
+     * Prints turncount and time details of the test in question.
+     *
+     * @param colour The colour (or color) you'd like the log to be printed in.
+     */
+    function printLog() {
+      var colour = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "blue";
+      var logEntries = Object.entries(CommunityService.log);
+
+      for (var _i = 0, _logEntries = logEntries; _i < _logEntries.length; _i++) {
+        var _logEntries$_i = CommunityService_slicedToArray(_logEntries[_i], 2),
+            testName = _logEntries$_i[0],
+            testEntry = _logEntries$_i[1];
+
+        var type = testEntry.type,
+            predictedTurns = testEntry.predictedTurns,
+            turnCost = testEntry.turnCost,
+            seconds = testEntry.seconds;
+
+        if (type === "test") {
+          (0,external_kolmafia_namespaceObject.print)("We predicted the ".concat(testName, " test would take ").concat(predictedTurns, " turns, ").concat(predictedTurns === turnCost ? "and" : "but", " it took ").concat(turnCost, " turns."), colour);
+          (0,external_kolmafia_namespaceObject.print)("".concat(testName, " took ").concat(seconds.toFixed(1), " seconds."), colour);
+        } else {
+          if (!(predictedTurns === 0 && turnCost === 0)) {
+            (0,external_kolmafia_namespaceObject.print)("We predicted the task ".concat(testName, " would take ").concat(predictedTurns, " turns, ").concat(predictedTurns === turnCost ? "and" : "but", " it took ").concat(turnCost, " turns."), colour);
+          }
+
+          (0,external_kolmafia_namespaceObject.print)("The task ".concat(testName, " took ").concat(seconds.toFixed(1), " seconds."), colour);
+        }
+      }
+
+      var totalTime = sum(logEntries, _ref => {
+        var _ref2 = CommunityService_slicedToArray(_ref, 2),
+            testEntry = _ref2[1];
+
+        return testEntry.seconds;
+      });
+      (0,external_kolmafia_namespaceObject.print)("All together, you have spent ".concat(totalTime.toFixed(1), " seconds during this Community Service run"), colour);
+    } // Below, we have the tests themselves.
+
+  }]);
+
+  return CommunityService;
+}();
+
+CommunityService_defineProperty(CommunityService, "log", {});
+
+CommunityService_defineProperty(CommunityService, "HP", new CommunityService(1, "HP", "Donate Blood", () => 60 - Math.floor(((0,external_kolmafia_namespaceObject.myMaxhp)() - (0,external_kolmafia_namespaceObject.myBuffedstat)(template_string_$stat(CommunityService_templateObject8 || (CommunityService_templateObject8 = CommunityService_taggedTemplateLiteral(["muscle"])))) - 3) / 30), new Requirement(["HP"], {})));
+
+CommunityService_defineProperty(CommunityService, "Muscle", new CommunityService(2, "Muscle", "Feed The Children", statCommunityServicePredictor(template_string_$stat(CommunityService_templateObject9 || (CommunityService_templateObject9 = CommunityService_taggedTemplateLiteral(["Muscle"])))), new Requirement(["Muscle"], {})));
+
+CommunityService_defineProperty(CommunityService, "Mysticality", new CommunityService(3, "Mysticality", "Build Playground Mazes", statCommunityServicePredictor(template_string_$stat(CommunityService_templateObject10 || (CommunityService_templateObject10 = CommunityService_taggedTemplateLiteral(["Mysticality"])))), new Requirement(["Mysticality"], {})));
+
+CommunityService_defineProperty(CommunityService, "Moxie", new CommunityService(4, "Moxie", "Feed Conspirators", statCommunityServicePredictor(template_string_$stat(CommunityService_templateObject11 || (CommunityService_templateObject11 = CommunityService_taggedTemplateLiteral(["Moxie"])))), new Requirement(["Moxie"], {})));
+
+CommunityService_defineProperty(CommunityService, "FamiliarWeight", new CommunityService(5, "Familiar Weight", "Breed More Collies", () => 60 - Math.floor((baseWeight() + (0,external_kolmafia_namespaceObject.weightAdjustment)()) / 5), new Requirement(["Familiar Weight"], {})));
+
+CommunityService_defineProperty(CommunityService, "WeaponDamage", new CommunityService(6, "Weapon Damage", "Reduce Gazelle Population", () => {
+  var weaponPower = (0,external_kolmafia_namespaceObject.getPower)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject12 || (CommunityService_templateObject12 = CommunityService_taggedTemplateLiteral(["weapon"])))));
+  var offhandPower = (0,external_kolmafia_namespaceObject.toSlot)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject13 || (CommunityService_templateObject13 = CommunityService_taggedTemplateLiteral(["off-hand"]))))) === $slot(CommunityService_templateObject14 || (CommunityService_templateObject14 = CommunityService_taggedTemplateLiteral(["weapon"]))) ? (0,external_kolmafia_namespaceObject.getPower)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject15 || (CommunityService_templateObject15 = CommunityService_taggedTemplateLiteral(["off-hand"]))))) : 0;
+  var familiarPower = (0,external_kolmafia_namespaceObject.toSlot)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject16 || (CommunityService_templateObject16 = CommunityService_taggedTemplateLiteral(["familiar"]))))) === $slot(CommunityService_templateObject17 || (CommunityService_templateObject17 = CommunityService_taggedTemplateLiteral(["weapon"]))) ? (0,external_kolmafia_namespaceObject.getPower)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject18 || (CommunityService_templateObject18 = CommunityService_taggedTemplateLiteral(["familiar"]))))) : 0; // mafia does not currently count swagger
+
+  var multiplier = lib_have($effect(CommunityService_templateObject19 || (CommunityService_templateObject19 = CommunityService_taggedTemplateLiteral(["Bow-Legged Swagger"])))) ? 2 : 1; // We add 0.001 because the floor function sometimes introduces weird rounding errors
+
+  return 60 - Math.floor(multiplier * (modifier_get("Weapon Damage") - 0.15 * (weaponPower + offhandPower + familiarPower)) / 50 + 0.001) - Math.floor(multiplier * modifier_get("Weapon Damage Percent") / 50 + 0.001);
+}, new Requirement(["Weapon Damage", "Weapon Damage Percent"], {})));
+
+CommunityService_defineProperty(CommunityService, "SpellDamage", new CommunityService(7, "Spell Damage", "Make Sausage", () => {
+  var dragonfishDamage = (0,external_kolmafia_namespaceObject.myFamiliar)() === template_string_$familiar(CommunityService_templateObject20 || (CommunityService_templateObject20 = CommunityService_taggedTemplateLiteral(["Magic Dragonfish"]))) ? (0,external_kolmafia_namespaceObject.numericModifier)(template_string_$familiar(CommunityService_templateObject21 || (CommunityService_templateObject21 = CommunityService_taggedTemplateLiteral(["Magic Dragonfish"]))), "Spell Damage Percent", baseWeight() + (0,external_kolmafia_namespaceObject.weightAdjustment)(), template_string_$item.none) : 0; // We add 0.001 because the floor function sometimes introduces weird rounding errors
+
+  return 60 - Math.floor(modifier_get("Spell Damage") / 50 + 0.001) - Math.floor((modifier_get("Spell Damage Percent") - dragonfishDamage) / 50 + 0.001);
+}, new Requirement(["Spell Damage", "Spell Damage Percent"], {})));
+
+CommunityService_defineProperty(CommunityService, "Noncombat", new CommunityService(8, "Non-Combat", "Be a Living Statue", () => {
+  var noncombatRate = -1 * modifier_get("Combat Rate");
+  var unsoftcappedRate = noncombatRate > 25 ? 25 + (noncombatRate - 25) * 5 : noncombatRate;
+  return 60 - 3 * Math.floor(unsoftcappedRate / 5);
+}, new Requirement(["-combat"], {})));
+
+CommunityService_defineProperty(CommunityService, "BoozeDrop", new CommunityService(9, "Item Drop", "Make Margaritas", () => {
+  var mummingCostume = currentCostumes().get((0,external_kolmafia_namespaceObject.myFamiliar)());
+  var mummingBuff = mummingCostume && mummingCostume[0] === "Item Drop" ? mummingCostume[1] : 0;
+  var familiarItemDrop = (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.myFamiliar)(), "Item Drop", baseWeight() + (0,external_kolmafia_namespaceObject.weightAdjustment)(), (0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject22 || (CommunityService_templateObject22 = CommunityService_taggedTemplateLiteral(["familiar"]))))) + mummingBuff - (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject23 || (CommunityService_templateObject23 = CommunityService_taggedTemplateLiteral(["familiar"])))), "Item Drop");
+  var familiarBoozeDrop = (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.myFamiliar)(), "Booze Drop", baseWeight() + (0,external_kolmafia_namespaceObject.weightAdjustment)(), (0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject24 || (CommunityService_templateObject24 = CommunityService_taggedTemplateLiteral(["familiar"]))))) - (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject25 || (CommunityService_templateObject25 = CommunityService_taggedTemplateLiteral(["familiar"])))), "Booze Drop"); // Champagne doubling does NOT count for CS, so we undouble
+
+  var multiplier = (0,external_kolmafia_namespaceObject.haveEquipped)(template_string_$item(CommunityService_templateObject26 || (CommunityService_templateObject26 = CommunityService_taggedTemplateLiteral(["broken champagne bottle"])))) && property_get("garbageChampagneCharge") > 0 ? 0.5 : 1; // We add 0.001 because the floor function sometimes introduces weird rounding errors
+
+  return 60 - Math.floor(multiplier * (modifier_get("Item Drop") - familiarItemDrop - (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.myThrall)(), "Item Drop")) / 30 + 0.001) - Math.floor((modifier_get("Booze Drop") - familiarBoozeDrop) / 15 + 0.001);
+}, new Requirement(["Item Drop", "2 Booze Drop"], {
+  preventEquip: template_string_$items(CommunityService_templateObject27 || (CommunityService_templateObject27 = CommunityService_taggedTemplateLiteral(["broken champagne bottle"])))
+})));
+
+CommunityService_defineProperty(CommunityService, "HotRes", new CommunityService(10, "Hot Resistance", "Clean Steam Tunnels", () => 60 - modifier_get("Hot Resistance"), new Requirement(["Hot Resistance"], {})));
+
+CommunityService_defineProperty(CommunityService, "CoilWire", new CommunityService(11, "Coil Wire", "Coil Wire", () => 60, new Requirement([], {})));
+
+CommunityService_defineProperty(CommunityService, "donate", () => {
+  visitCouncil();
+  (0,external_kolmafia_namespaceObject.visitUrl)("choice.php?whichchoice=1089&option=30");
+});
+
+
 ;// CONCATENATED MODULE: ./src/resources.ts
 var resources_templateObject, resources_templateObject2, resources_templateObject3, resources_templateObject4, resources_templateObject5, resources_templateObject6, resources_templateObject7, resources_templateObject8, resources_templateObject9, resources_templateObject10, resources_templateObject11, resources_templateObject12, resources_templateObject13;
 
@@ -2277,7 +3553,7 @@ function checkResources() {
   (0,external_kolmafia_namespaceObject.print)("Type 'ash remove_property(\"<prefname>\")' to delete a preference");
 }
 ;// CONCATENATED MODULE: ./src/lib.ts
-var lib_templateObject, lib_templateObject2, lib_templateObject3, lib_templateObject4, lib_templateObject5, lib_templateObject6, lib_templateObject7, lib_templateObject8, lib_templateObject9, lib_templateObject10, lib_templateObject11, lib_templateObject12;
+var lib_templateObject, lib_templateObject2, lib_templateObject3, lib_templateObject4, lib_templateObject5, lib_templateObject6, lib_templateObject7, lib_templateObject8, lib_templateObject9, lib_templateObject10, lib_templateObject11, lib_templateObject12, lib_templateObject13;
 
 function lib_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -2285,25 +3561,7 @@ function lib_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.sli
 
 
 
-var CommunityServiceTests;
-
-(function (CommunityServiceTests) {
-  CommunityServiceTests[CommunityServiceTests["HPTEST"] = 1] = "HPTEST";
-  CommunityServiceTests[CommunityServiceTests["MUSTEST"] = 2] = "MUSTEST";
-  CommunityServiceTests[CommunityServiceTests["MYSTTEST"] = 3] = "MYSTTEST";
-  CommunityServiceTests[CommunityServiceTests["MOXTEST"] = 4] = "MOXTEST";
-  CommunityServiceTests[CommunityServiceTests["FAMTEST"] = 5] = "FAMTEST";
-  CommunityServiceTests[CommunityServiceTests["WPNTEST"] = 6] = "WPNTEST";
-  CommunityServiceTests[CommunityServiceTests["SPELLTEST"] = 7] = "SPELLTEST";
-  CommunityServiceTests[CommunityServiceTests["COMTEST"] = 8] = "COMTEST";
-  CommunityServiceTests[CommunityServiceTests["ITEMTEST"] = 9] = "ITEMTEST";
-  CommunityServiceTests[CommunityServiceTests["HOTTEST"] = 10] = "HOTTEST";
-  CommunityServiceTests[CommunityServiceTests["COILTEST"] = 11] = "COILTEST";
-  CommunityServiceTests[CommunityServiceTests["DONATEBODY"] = 30] = "DONATEBODY";
-})(CommunityServiceTests || (CommunityServiceTests = {}));
-
-var testModifiers = new Map([[CommunityServiceTests.HPTEST, ["Maximum HP", "Maximum HP Percent"]], [CommunityServiceTests.MUSTEST, ["Muscle", "Muscle Percent"]], [CommunityServiceTests.MYSTTEST, ["Mysticality", "Mysticality Percent"]], [CommunityServiceTests.MOXTEST, ["Moxie", "Moxie Percent"]], [CommunityServiceTests.FAMTEST, ["Familiar Weight"]], [CommunityServiceTests.WPNTEST, ["Weapon Damage", "Weapon Damage Percent"]], [CommunityServiceTests.SPELLTEST, ["Spell Damage", "Spell Damage Percent"]], [CommunityServiceTests.COMTEST, ["Combat Rate"]], [CommunityServiceTests.ITEMTEST, ["Item Drop", "Booze Drop"]], [CommunityServiceTests.HOTTEST, ["Hot Resistance"]], [CommunityServiceTests.COILTEST, []]]);
-var testNames = new Map([[CommunityServiceTests.HPTEST, "HP Test"], [CommunityServiceTests.MUSTEST, "Muscle Test"], [CommunityServiceTests.MYSTTEST, "Mysticality Test"], [CommunityServiceTests.MOXTEST, "Moxie Test"], [CommunityServiceTests.FAMTEST, "Familiar Weight Test"], [CommunityServiceTests.WPNTEST, "Weapon Damage Test"], [CommunityServiceTests.SPELLTEST, "Spell Damage Test"], [CommunityServiceTests.COMTEST, "Noncombat Test"], [CommunityServiceTests.ITEMTEST, "Item Drop Test"], [CommunityServiceTests.HOTTEST, "Hot Resistance Test"], [CommunityServiceTests.COILTEST, "Coil Wire"]]); // From phccs
+var testModifiers = new Map([[CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]], [CommunityService.Muscle, ["Muscle", "Muscle Percent"]], [CommunityService.Mysticality, ["Mysticality", "Mysticality Percent"]], [CommunityService.Moxie, ["Moxie", "Moxie Percent"]], [CommunityService.FamiliarWeight, ["Familiar Weight"]], [CommunityService.WeaponDamage, ["Weapon Damage", "Weapon Damage Percent"]], [CommunityService.SpellDamage, ["Spell Damage", "Spell Damage Percent"]], [CommunityService.Noncombat, ["Combat Rate"]], [CommunityService.BoozeDrop, ["Item Drop", "Booze Drop"]], [CommunityService.HotRes, ["Hot Resistance"]], [CommunityService.CoilWire, []]]); // From phccs
 
 function convertMilliseconds(milliseconds) {
   var seconds = milliseconds / 1000;
@@ -2313,29 +3571,25 @@ function convertMilliseconds(milliseconds) {
   var minutesLeft = Math.round(minutes - hours * 60);
   return (hours !== 0 ? "".concat(hours, " hours, ") : "") + (minutesLeft !== 0 ? "".concat(minutesLeft, " minutes, ") : "") + (secondsLeft !== 0 ? "".concat(secondsLeft, " seconds") : "");
 }
-function advCost(whichTest) {
-  // Adapted from AutoHCCS
-  var page = (0,external_kolmafia_namespaceObject.visitUrl)("council.php");
-  var testStr = "name=option value=".concat(whichTest, ">");
 
-  if (page.includes(testStr)) {
-    var chars = 140; // chars to look ahead
-
-    var pageStr = page.slice(page.indexOf(testStr) + testStr.length, page.indexOf(testStr) + testStr.length + chars);
-    var advStr = pageStr.slice(pageStr.indexOf("(") + 1, pageStr.indexOf("(") + 3).trim();
-    return parseInt(advStr);
-  } else {
-    (0,external_kolmafia_namespaceObject.print)("Didn't find specified test on the council page. Already done?");
-    return 99999;
+function logRelevantStats(whichTest) {
+  if ([CommunityService.Muscle, CommunityService.Mysticality, CommunityService.Moxie].includes(whichTest)) {
+    var testStat = (0,external_kolmafia_namespaceObject.toStat)(whichTest.statName);
+    var statString = testStat.toString().slice(0, 3);
+    (0,external_kolmafia_namespaceObject.print)("Base ".concat(statString, ": ").concat((0,external_kolmafia_namespaceObject.myBasestat)(testStat), "; Buffed ").concat(statString, ": ").concat((0,external_kolmafia_namespaceObject.myBuffedstat)(testStat)));
+  } else if (whichTest === CommunityService.HP) {
+    (0,external_kolmafia_namespaceObject.print)("Buffed Mus: ".concat((0,external_kolmafia_namespaceObject.myBuffedstat)(template_string_$stat(lib_templateObject || (lib_templateObject = lib_taggedTemplateLiteral(["Muscle"])))), "; HP: ").concat((0,external_kolmafia_namespaceObject.myMaxhp)(), ";"));
   }
 }
-function logTestSetup(whichTest) {
-  var _testModifiers$get, _testNames$get;
 
-  var testTurns = advCost(whichTest);
+function logTestSetup(whichTest) {
+  var _testModifiers$get;
+
+  var testTurns = whichTest.actualCost();
   printModtrace((_testModifiers$get = testModifiers.get(whichTest)) !== null && _testModifiers$get !== void 0 ? _testModifiers$get : []);
-  (0,external_kolmafia_namespaceObject.print)("".concat((_testNames$get = testNames.get(whichTest)) !== null && _testNames$get !== void 0 ? _testNames$get : "Unknown Test", " takes ").concat(testTurns, " adventure").concat(testTurns === 1 ? "" : "s", "."), "blue");
-  _set("_CSTest".concat(whichTest), testTurns + (lib_have($effect(lib_templateObject || (lib_templateObject = lib_taggedTemplateLiteral(["Simmering"])))) ? 1 : 0));
+  logRelevantStats(whichTest);
+  (0,external_kolmafia_namespaceObject.print)("".concat(whichTest.statName, " ").concat(whichTest !== CommunityService.CoilWire ? "Test" : "", " takes ").concat(testTurns, " adventure").concat(testTurns === 1 ? "" : "s", " (predicted: ").concat(whichTest.prediction, ")."), "blue");
+  _set("_CSTest".concat(whichTest.id), testTurns + (lib_have($effect(lib_templateObject2 || (lib_templateObject2 = lib_taggedTemplateLiteral(["Simmering"])))) ? 1 : 0));
 }
 function tryAcquiringEffect(ef) {
   var tryRegardless = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -2343,15 +3597,15 @@ function tryAcquiringEffect(ef) {
   if (lib_have(ef)) return; // If we already have the effect, we're done
   else if (forbiddenEffects.includes(ef)) return; // Don't acquire the effect if we are saving it
 
-  if (ef === $effect(lib_templateObject2 || (lib_templateObject2 = lib_taggedTemplateLiteral(["Sparkling Consciousness"])))) {
+  if (ef === $effect(lib_templateObject3 || (lib_templateObject3 = lib_taggedTemplateLiteral(["Sparkling Consciousness"])))) {
     // This has no ef.default for some reason
-    if (!property_get("_fireworkUsed") && (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(lib_templateObject3 || (lib_templateObject3 = lib_taggedTemplateLiteral(["sparkler"]))), 1)) (0,external_kolmafia_namespaceObject.use)(template_string_$item(lib_templateObject4 || (lib_templateObject4 = lib_taggedTemplateLiteral(["sparkler"]))), 1);
+    if (!property_get("_fireworkUsed") && (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(lib_templateObject4 || (lib_templateObject4 = lib_taggedTemplateLiteral(["sparkler"]))), 1)) (0,external_kolmafia_namespaceObject.use)(template_string_$item(lib_templateObject5 || (lib_templateObject5 = lib_taggedTemplateLiteral(["sparkler"]))), 1);
     return;
   }
 
   if (!ef.default) return; // No way to acquire?
 
-  if (ef === $effect(lib_templateObject5 || (lib_templateObject5 = lib_taggedTemplateLiteral(["Ode to Booze"])))) (0,external_kolmafia_namespaceObject.restoreMp)(60);
+  if (ef === $effect(lib_templateObject6 || (lib_templateObject6 = lib_taggedTemplateLiteral(["Ode to Booze"])))) (0,external_kolmafia_namespaceObject.restoreMp)(60);
   if (tryRegardless || canAcquireEffect(ef)) (0,external_kolmafia_namespaceObject.cliExecute)(ef.default.replace(/cast 1 /g, "cast "));
 }
 function canAcquireEffect(ef) {
@@ -2373,7 +3627,7 @@ function canAcquireEffect(ef) {
 
       case "use":
         // We have the item
-        if (ef === $effect(lib_templateObject6 || (lib_templateObject6 = lib_taggedTemplateLiteral(["Sparkling Consciousness"]))) && property_get("_fireworkUsed")) return false;
+        if (ef === $effect(lib_templateObject7 || (lib_templateObject7 = lib_taggedTemplateLiteral(["Sparkling Consciousness"]))) && property_get("_fireworkUsed")) return false;
         return lib_have((0,external_kolmafia_namespaceObject.toItem)(target));
 
       case "cast":
@@ -2381,7 +3635,7 @@ function canAcquireEffect(ef) {
       // We have the skill and can cast it
 
       case "cargo":
-        return lib_have(template_string_$item(lib_templateObject7 || (lib_templateObject7 = lib_taggedTemplateLiteral(["Cargo Cultist Shorts"])))) && !property_get("_cargoPocketEmptied");
+        return lib_have(template_string_$item(lib_templateObject8 || (lib_templateObject8 = lib_taggedTemplateLiteral(["Cargo Cultist Shorts"])))) && !property_get("_cargoPocketEmptied");
       // We can grab it from our cargo pants
 
       case "synthesize":
@@ -2398,14 +3652,14 @@ function canAcquireEffect(ef) {
         return property_get("telescopeUpgrades") > 0 && !property_get("telescopeLookedHigh");
 
       case "beach":
-        return lib_have(template_string_$item(lib_templateObject8 || (lib_templateObject8 = lib_taggedTemplateLiteral(["Beach Comb"]))));
+        return lib_have(template_string_$item(lib_templateObject9 || (lib_templateObject9 = lib_taggedTemplateLiteral(["Beach Comb"]))));
       // need to check if specific beach head has been taken
 
       case "spacegate":
         return property_get("spacegateAlways") && !property_get("_spacegateVaccine");
 
       case "pillkeeper":
-        return lib_have(template_string_$item(lib_templateObject9 || (lib_templateObject9 = lib_taggedTemplateLiteral(["Eight Days a Week Pill Keeper"]))));
+        return lib_have(template_string_$item(lib_templateObject10 || (lib_templateObject10 = lib_taggedTemplateLiteral(["Eight Days a Week Pill Keeper"]))));
 
       case "pool":
         return property_get("_poolGames") < 3;
@@ -2429,7 +3683,7 @@ function canAcquireEffect(ef) {
   }).some(b => b);
 } // Adapted from goorbo
 
-var gardens = template_string_$items(lib_templateObject10 || (lib_templateObject10 = lib_taggedTemplateLiteral(["packet of pumpkin seeds, Peppermint Pip Packet, packet of dragon's teeth, packet of beer seeds, packet of winter seeds, packet of thanksgarden seeds, packet of tall grass seeds, packet of mushroom spores, packet of rock seeds"])));
+var gardens = template_string_$items(lib_templateObject11 || (lib_templateObject11 = lib_taggedTemplateLiteral(["packet of pumpkin seeds, Peppermint Pip Packet, packet of dragon's teeth, packet of beer seeds, packet of winter seeds, packet of thanksgarden seeds, packet of tall grass seeds, packet of mushroom spores, packet of rock seeds"])));
 function getGarden() {
   return gardens.find(it => it.name in (0,external_kolmafia_namespaceObject.getCampground)()) || template_string_$item.none;
 }
@@ -2442,14 +3696,14 @@ function wishFor(ef) {
   // TODO: Use mafia's pref to check if we can still use the paw for wishes
   // eslint-disable-next-line libram/verify-constants
 
-  if (lib_have(template_string_$item(lib_templateObject11 || (lib_templateObject11 = lib_taggedTemplateLiteral(["cursed monkey's paw"])))) && !property_get("instant_saveMonkeysPaw", false)) {
+  if (lib_have(template_string_$item(lib_templateObject12 || (lib_templateObject12 = lib_taggedTemplateLiteral(["cursed monkey's paw"])))) && !property_get("instant_saveMonkeysPaw", false)) {
     (0,external_kolmafia_namespaceObject.cliExecute)("main.php?action=cmonk&pwd");
     (0,external_kolmafia_namespaceObject.runChoice)(1, "wish=".concat(ef.name));
     (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     if (lib_have(ef)) return;
   }
 
-  if (lib_have(template_string_$item(lib_templateObject12 || (lib_templateObject12 = lib_taggedTemplateLiteral(["genie bottle"])))) && !property_get("instant_saveGenie", false) && useGenie) {
+  if (lib_have(template_string_$item(lib_templateObject13 || (lib_templateObject13 = lib_taggedTemplateLiteral(["genie bottle"])))) && !property_get("instant_saveGenie", false) && useGenie) {
     (0,external_kolmafia_namespaceObject.cliExecute)("genie effect ".concat(ef.name));
   }
 }
@@ -5136,874 +6390,6 @@ var CombatResources = /*#__PURE__*/function () {
 
   return CombatResources;
 }();
-;// CONCATENATED MODULE: ./node_modules/libram/dist/logger.js
-var _defaultHandlers;
-
-function logger_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function logger_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function logger_createClass(Constructor, protoProps, staticProps) { if (protoProps) logger_defineProperties(Constructor.prototype, protoProps); if (staticProps) logger_defineProperties(Constructor, staticProps); return Constructor; }
-
-function logger_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-var LogLevels;
-
-(function (LogLevels) {
-  LogLevels[LogLevels["NONE"] = 0] = "NONE";
-  LogLevels[LogLevels["ERROR"] = 1] = "ERROR";
-  LogLevels[LogLevels["WARNING"] = 2] = "WARNING";
-  LogLevels[LogLevels["INFO"] = 3] = "INFO";
-  LogLevels[LogLevels["DEBUG"] = 4] = "DEBUG";
-})(LogLevels || (LogLevels = {}));
-
-var defaultHandlers = (_defaultHandlers = {}, logger_defineProperty(_defaultHandlers, LogLevels.INFO, message => {
-  (0,external_kolmafia_namespaceObject.printHtml)("<b>[Libram Info]</b> ".concat(message));
-  (0,external_kolmafia_namespaceObject.logprint)("[Libram] ".concat(message));
-  return;
-}), logger_defineProperty(_defaultHandlers, LogLevels.WARNING, message => {
-  (0,external_kolmafia_namespaceObject.printHtml)("<span style=\"background: orange; color: white;\"><b>[Libram Warning]</b> ".concat(message, "</span>"));
-  (0,external_kolmafia_namespaceObject.logprint)("[Libram] ".concat(message));
-  return;
-}), logger_defineProperty(_defaultHandlers, LogLevels.ERROR, error => {
-  (0,external_kolmafia_namespaceObject.printHtml)("<span style=\"background: red; color: white;\"><b>[Libram Error]</b> ".concat(error.toString(), "</span>"));
-  (0,external_kolmafia_namespaceObject.logprint)("[Libram] ".concat(error));
-  return;
-}), logger_defineProperty(_defaultHandlers, LogLevels.DEBUG, message => {
-  (0,external_kolmafia_namespaceObject.printHtml)("<span style=\"background: red; color: white;\"><b>[Libram Debug]</b> ".concat(message, "</span>"));
-  (0,external_kolmafia_namespaceObject.logprint)("[Libram] ".concat(message));
-  return;
-}), _defaultHandlers);
-
-var Logger = /*#__PURE__*/function () {
-  function Logger() {
-    logger_classCallCheck(this, Logger);
-
-    logger_defineProperty(this, "handlers", defaultHandlers);
-  }
-
-  logger_createClass(Logger, [{
-    key: "level",
-    get: function get() {
-      return Logger.currentLevel;
-    }
-  }, {
-    key: "setLevel",
-    value: function setLevel(level) {
-      Logger.currentLevel = level;
-    }
-  }, {
-    key: "setHandler",
-    value: function setHandler(level, callback) {
-      this.handlers[level] = callback;
-    } // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-  }, {
-    key: "log",
-    value: function log(level, message) {
-      if (this.level >= level) this.handlers[level](message);
-    }
-  }, {
-    key: "info",
-    value: function info(message) {
-      this.log(LogLevels.INFO, message);
-    }
-  }, {
-    key: "warning",
-    value: function warning(message) {
-      this.log(LogLevels.WARNING, message);
-    }
-  }, {
-    key: "error",
-    value: function error(message) {
-      this.log(LogLevels.ERROR, message);
-    }
-  }, {
-    key: "debug",
-    value: function debug(message) {
-      this.log(LogLevels.DEBUG, message);
-    }
-  }]);
-
-  return Logger;
-}();
-
-logger_defineProperty(Logger, "currentLevel", LogLevels.ERROR);
-
-/* harmony default export */ const dist_logger = (new Logger());
-;// CONCATENATED MODULE: ./node_modules/libram/dist/maximize.js
-var maximize_templateObject, maximize_templateObject2, maximize_templateObject3, maximize_templateObject4, maximize_templateObject5, maximize_templateObject6, maximize_templateObject7, maximize_templateObject8, maximize_templateObject9, maximize_templateObject10, maximize_templateObject11, maximize_templateObject12, maximize_templateObject13, maximize_templateObject14, maximize_templateObject15, maximize_templateObject16, maximize_templateObject17, maximize_templateObject18, maximize_templateObject19, maximize_templateObject20, maximize_templateObject21, maximize_templateObject22, maximize_templateObject23, maximize_templateObject24, maximize_templateObject25, maximize_templateObject26, maximize_templateObject27, maximize_templateObject28, maximize_templateObject29, maximize_templateObject30, maximize_templateObject31, maximize_templateObject32, maximize_templateObject33, maximize_templateObject34, _templateObject35, _templateObject36, _templateObject37, _templateObject38, _templateObject39, _templateObject40, _templateObject41, _templateObject42, _templateObject43, _templateObject44, _templateObject45, _templateObject46, _templateObject47, _templateObject48;
-
-function maximize_slicedToArray(arr, i) { return maximize_arrayWithHoles(arr) || maximize_iterableToArrayLimit(arr, i) || maximize_unsupportedIterableToArray(arr, i) || maximize_nonIterableRest(); }
-
-function maximize_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function maximize_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function maximize_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function maximize_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function maximize_createClass(Constructor, protoProps, staticProps) { if (protoProps) maximize_defineProperties(Constructor.prototype, protoProps); if (staticProps) maximize_defineProperties(Constructor, staticProps); return Constructor; }
-
-function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
-
-function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
-
-function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
-
-function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
-
-function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
-
-function maximize_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function maximize_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = maximize_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function maximize_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-function maximize_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function maximize_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { maximize_ownKeys(Object(source), true).forEach(function (key) { maximize_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { maximize_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function maximize_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function maximize_toConsumableArray(arr) { return maximize_arrayWithoutHoles(arr) || maximize_iterableToArray(arr) || maximize_unsupportedIterableToArray(arr) || maximize_nonIterableSpread(); }
-
-function maximize_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function maximize_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return maximize_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return maximize_arrayLikeToArray(o, minLen); }
-
-function maximize_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function maximize_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return maximize_arrayLikeToArray(arr); }
-
-function maximize_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-
-
-
-/**
- * Merges a partial set of maximizer options onto a full set maximizer options. We merge via overriding for all boolean properties and for onlySlot, and concat all other array properties.
- *
- * @param defaultOptions MaximizeOptions to use as a "base."
- * @param addendums Options to attempt to merge onto defaultOptions.
- * @returns Merged maximizer options
- */
-
-function mergeMaximizeOptions(defaultOptions, addendums) {
-  var _addendums$updateOnFa, _addendums$updateOnCa, _addendums$useOutfitC, _addendums$forceEquip, _addendums$preventEqu, _addendums$bonusEquip, _addendums$onlySlot, _addendums$preventSlo, _addendums$forceUpdat, _addendums$modes;
-
-  return {
-    updateOnFamiliarChange: (_addendums$updateOnFa = addendums.updateOnFamiliarChange) !== null && _addendums$updateOnFa !== void 0 ? _addendums$updateOnFa : defaultOptions.updateOnFamiliarChange,
-    updateOnCanEquipChanged: (_addendums$updateOnCa = addendums.updateOnCanEquipChanged) !== null && _addendums$updateOnCa !== void 0 ? _addendums$updateOnCa : defaultOptions.updateOnCanEquipChanged,
-    useOutfitCaching: (_addendums$useOutfitC = addendums.useOutfitCaching) !== null && _addendums$useOutfitC !== void 0 ? _addendums$useOutfitC : defaultOptions.useOutfitCaching,
-    forceEquip: [].concat(maximize_toConsumableArray(defaultOptions.forceEquip), maximize_toConsumableArray((_addendums$forceEquip = addendums.forceEquip) !== null && _addendums$forceEquip !== void 0 ? _addendums$forceEquip : [])),
-    preventEquip: [].concat(maximize_toConsumableArray(defaultOptions.preventEquip), maximize_toConsumableArray((_addendums$preventEqu = addendums.preventEquip) !== null && _addendums$preventEqu !== void 0 ? _addendums$preventEqu : [])).filter(item => {
-      var _addendums$forceEquip2;
-
-      return !defaultOptions.forceEquip.includes(item) && !((_addendums$forceEquip2 = addendums.forceEquip) !== null && _addendums$forceEquip2 !== void 0 && _addendums$forceEquip2.includes(item));
-    }),
-    bonusEquip: new Map([].concat(maximize_toConsumableArray(defaultOptions.bonusEquip), maximize_toConsumableArray((_addendums$bonusEquip = addendums.bonusEquip) !== null && _addendums$bonusEquip !== void 0 ? _addendums$bonusEquip : []))),
-    onlySlot: (_addendums$onlySlot = addendums.onlySlot) !== null && _addendums$onlySlot !== void 0 ? _addendums$onlySlot : defaultOptions.onlySlot,
-    preventSlot: [].concat(maximize_toConsumableArray(defaultOptions.preventSlot), maximize_toConsumableArray((_addendums$preventSlo = addendums.preventSlot) !== null && _addendums$preventSlo !== void 0 ? _addendums$preventSlo : [])),
-    forceUpdate: (_addendums$forceUpdat = addendums.forceUpdate) !== null && _addendums$forceUpdat !== void 0 ? _addendums$forceUpdat : defaultOptions.forceUpdate,
-    modes: maximize_objectSpread(maximize_objectSpread({}, defaultOptions.modes), (_addendums$modes = addendums.modes) !== null && _addendums$modes !== void 0 ? _addendums$modes : {})
-  };
-}
-var defaultMaximizeOptions = {
-  updateOnFamiliarChange: true,
-  updateOnCanEquipChanged: true,
-  useOutfitCaching: true,
-  forceEquip: [],
-  preventEquip: [],
-  bonusEquip: new Map(),
-  onlySlot: [],
-  preventSlot: [],
-  forceUpdate: false,
-  modes: {}
-};
-/**
- *
- * @param options Default options for each maximizer run.
- * @param options.updateOnFamiliarChange Re-run the maximizer if familiar has changed. Default true.
- * @param options.updateOnCanEquipChanged Re-run the maximizer if stats have changed what can be equipped. Default true.
- * @param options.forceEquip Equipment to force-equip ("equip X").
- * @param options.preventEquip Equipment to prevent equipping ("-equip X").
- * @param options.bonusEquip Equipment to apply a bonus to ("200 bonus X").
- */
-
-function setDefaultMaximizeOptions(options) {
-  Object.assign(defaultMaximizeOptions, options);
-}
-var modeableCommands = ["backupcamera", "umbrella", "snowsuit", "edpiece", "retrocape", "parka"];
-var modeableItems = {
-  backupcamera: template_string_$item(maximize_templateObject || (maximize_templateObject = maximize_taggedTemplateLiteral(["backup camera"]))),
-  umbrella: template_string_$item(maximize_templateObject2 || (maximize_templateObject2 = maximize_taggedTemplateLiteral(["unbreakable umbrella"]))),
-  snowsuit: template_string_$item(maximize_templateObject3 || (maximize_templateObject3 = maximize_taggedTemplateLiteral(["Snow Suit"]))),
-  edpiece: template_string_$item(maximize_templateObject4 || (maximize_templateObject4 = maximize_taggedTemplateLiteral(["The Crown of Ed the Undying"]))),
-  retrocape: template_string_$item(maximize_templateObject5 || (maximize_templateObject5 = maximize_taggedTemplateLiteral(["unwrapped knock-off retro superhero cape"]))),
-  parka: template_string_$item(maximize_templateObject6 || (maximize_templateObject6 = maximize_taggedTemplateLiteral(["Jurassic Parka"])))
-};
-var modeableState = {
-  backupcamera: () => (0,external_kolmafia_namespaceObject.getProperty)("backupCameraMode"),
-  umbrella: () => (0,external_kolmafia_namespaceObject.getProperty)("umbrellaState"),
-  snowsuit: () => (0,external_kolmafia_namespaceObject.getProperty)("snowsuit"),
-  edpiece: () => (0,external_kolmafia_namespaceObject.getProperty)("edPiece"),
-  retrocape: () => (0,external_kolmafia_namespaceObject.getProperty)("retroCapeSuperhero") + " " + (0,external_kolmafia_namespaceObject.getProperty)("retroCapeWashingInstructions"),
-  parka: () => (0,external_kolmafia_namespaceObject.getProperty)("parkaMode")
-};
-/**
- * Get set of current modes for modeables
- *
- * @returns Set of modes
- */
-
-function getCurrentModes() {
-  var modes = {};
-
-  var _iterator = maximize_createForOfIteratorHelper(modeableCommands),
-      _step;
-
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var key = _step.value;
-
-      if ((0,external_kolmafia_namespaceObject.haveEquipped)(modeableItems[key])) {
-        modes[key] = modeableState[key]();
-      }
-    }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
-
-  return modes;
-}
-/**
- * Apply set of modes
- *
- * @param modes Modes to apply
- */
-
-function applyModes(modes) {
-  var _iterator2 = maximize_createForOfIteratorHelper(modeableCommands),
-      _step2;
-
-  try {
-    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-      var command = _step2.value;
-
-      if ((0,external_kolmafia_namespaceObject.haveEquipped)(modeableItems[command]) && modes[command] !== undefined) {
-        if (modeableState[command]() !== modes[command]) {
-          (0,external_kolmafia_namespaceObject.cliExecute)(command + " " + modes[command]);
-        }
-      }
-    }
-  } catch (err) {
-    _iterator2.e(err);
-  } finally {
-    _iterator2.f();
-  }
-} // Subset of slots that are valid for caching.
-
-var cachedSlots = $slots(maximize_templateObject7 || (maximize_templateObject7 = maximize_taggedTemplateLiteral(["hat, weapon, off-hand, back, shirt, pants, acc1, acc2, acc3, familiar"])));
-
-var CacheEntry = function CacheEntry(equipment, rider, familiar, canEquipItemCount, modes) {
-  maximize_classCallCheck(this, CacheEntry);
-
-  maximize_defineProperty(this, "equipment", void 0);
-
-  maximize_defineProperty(this, "rider", void 0);
-
-  maximize_defineProperty(this, "familiar", void 0);
-
-  maximize_defineProperty(this, "canEquipItemCount", void 0);
-
-  maximize_defineProperty(this, "modes", void 0);
-
-  this.equipment = equipment;
-  this.rider = rider;
-  this.familiar = familiar;
-  this.canEquipItemCount = canEquipItemCount;
-  this.modes = modes;
-};
-
-var _outfitSlots = /*#__PURE__*/new WeakMap();
-
-var _useHistory = /*#__PURE__*/new WeakMap();
-
-var _maxSize = /*#__PURE__*/new WeakMap();
-
-var OutfitLRUCache = /*#__PURE__*/function () {
-  // Current outfits allocated
-  // Array of indices into #outfitSlots in order of use. Most recent at the front.
-  function OutfitLRUCache(maxSize) {
-    maximize_classCallCheck(this, OutfitLRUCache);
-
-    _outfitSlots.set(this, {
-      writable: true,
-      value: []
-    });
-
-    _useHistory.set(this, {
-      writable: true,
-      value: []
-    });
-
-    _maxSize.set(this, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldSet(this, _maxSize, maxSize);
-  }
-
-  maximize_createClass(OutfitLRUCache, [{
-    key: "checkConsistent",
-    value: function checkConsistent() {
-      if (_classPrivateFieldGet(this, _useHistory).length !== _classPrivateFieldGet(this, _outfitSlots).length || !maximize_toConsumableArray(_classPrivateFieldGet(this, _useHistory)).sort().every((value, index) => value === index)) {
-        throw new Error("Outfit cache consistency failed.");
-      }
-    }
-  }, {
-    key: "promote",
-    value: function promote(index) {
-      _classPrivateFieldSet(this, _useHistory, [index].concat(maximize_toConsumableArray(_classPrivateFieldGet(this, _useHistory).filter(i => i !== index))));
-
-      this.checkConsistent();
-    }
-  }, {
-    key: "get",
-    value: function get(key) {
-      var index = _classPrivateFieldGet(this, _outfitSlots).indexOf(key);
-
-      if (index < 0) return undefined;
-      this.promote(index);
-      return "".concat(OutfitLRUCache.OUTFIT_PREFIX, " ").concat(index);
-    }
-  }, {
-    key: "insert",
-    value: function insert(key) {
-      var lastUseIndex = undefined;
-
-      if (_classPrivateFieldGet(this, _outfitSlots).length >= _classPrivateFieldGet(this, _maxSize)) {
-        lastUseIndex = _classPrivateFieldGet(this, _useHistory).pop();
-
-        if (lastUseIndex === undefined) {
-          throw new Error("Outfit cache consistency failed.");
-        }
-
-        _classPrivateFieldGet(this, _useHistory).splice(0, 0, lastUseIndex);
-
-        _classPrivateFieldGet(this, _outfitSlots)[lastUseIndex] = key;
-        this.checkConsistent();
-        return "".concat(OutfitLRUCache.OUTFIT_PREFIX, " ").concat(lastUseIndex);
-      } else {
-        var index = _classPrivateFieldGet(this, _outfitSlots).push(key) - 1;
-
-        _classPrivateFieldGet(this, _useHistory).splice(0, 0, index);
-
-        this.checkConsistent();
-        return "".concat(OutfitLRUCache.OUTFIT_PREFIX, " ").concat(index);
-      }
-    }
-  }, {
-    key: "clear",
-    value: function clear() {
-      _classPrivateFieldSet(this, _outfitSlots, []);
-
-      _classPrivateFieldSet(this, _useHistory, []);
-    }
-  }]);
-
-  return OutfitLRUCache;
-}();
-/**
- * Save current equipment as KoL-native outfit.
- *
- * @param name Name of new outfit.
- */
-
-
-maximize_defineProperty(OutfitLRUCache, "OUTFIT_PREFIX", "Script Outfit");
-
-function saveOutfit(name) {
-  (0,external_kolmafia_namespaceObject.cliExecute)("outfit save ".concat(name));
-} // Objective cache entries.
-
-
-var cachedObjectives = {}; // Outfit cache entries. Keep 6 by default to avoid cluttering list.
-
-var outfitCache = new OutfitLRUCache(6); // Cache to prevent rescanning all items unnecessarily
-
-var cachedStats = [0, 0, 0];
-var cachedCanEquipItemCount = 0;
-/**
- * Count the number of unique items that can be equipped.
- *
- * @returns The count of unique items.
- */
-
-function canEquipItemCount() {
-  var stats = $stats(maximize_templateObject8 || (maximize_templateObject8 = maximize_taggedTemplateLiteral(["Muscle, Mysticality, Moxie"]))).map(stat => Math.min((0,external_kolmafia_namespaceObject.myBasestat)(stat), 300));
-
-  if (stats.every((value, index) => value === cachedStats[index])) {
-    return cachedCanEquipItemCount;
-  }
-
-  cachedStats = stats;
-  cachedCanEquipItemCount = external_kolmafia_namespaceObject.Item.all().filter(item => (0,external_kolmafia_namespaceObject.canEquip)(item)).length;
-  return cachedCanEquipItemCount;
-}
-/**
- * Checks the objective cache for a valid entry.
- *
- * @param cacheKey The cache key to check.
- * @param options Set of maximizer options
- * @returns A valid CacheEntry or null.
- */
-
-
-function checkCache(cacheKey, options) {
-  var entry = cachedObjectives[cacheKey];
-
-  if (!entry) {
-    return null;
-  }
-
-  if (options.updateOnFamiliarChange && (0,external_kolmafia_namespaceObject.myFamiliar)() !== entry.familiar) {
-    dist_logger.warning("Equipment found in maximize cache but familiar is different.");
-    return null;
-  }
-
-  if (options.updateOnCanEquipChanged && entry.canEquipItemCount !== canEquipItemCount()) {
-    dist_logger.warning("Equipment found in maximize cache but equippable item list is out of date.");
-    return null;
-  }
-
-  return entry;
-}
-/**
- * Applies equipment that was found in the cache.
- *
- * @param entry The CacheEntry to apply
- * @param options Set of maximizer options
- */
-
-
-function applyCached(entry, options) {
-  var outfitName = options.useOutfitCaching ? outfitCache.get(entry) : undefined;
-
-  if (outfitName) {
-    if (!(0,external_kolmafia_namespaceObject.isWearingOutfit)(outfitName)) {
-      (0,external_kolmafia_namespaceObject.outfit)(outfitName);
-    }
-
-    var familiarEquip = entry.equipment.get($slot(maximize_templateObject9 || (maximize_templateObject9 = maximize_taggedTemplateLiteral(["familiar"]))));
-    if (familiarEquip) (0,external_kolmafia_namespaceObject.equip)($slot(maximize_templateObject10 || (maximize_templateObject10 = maximize_taggedTemplateLiteral(["familiar"]))), familiarEquip);
-  } else {
-    var _iterator3 = maximize_createForOfIteratorHelper(entry.equipment),
-        _step3;
-
-    try {
-      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-        var _step3$value = maximize_slicedToArray(_step3.value, 2),
-            slot = _step3$value[0],
-            item = _step3$value[1];
-
-        if ((0,external_kolmafia_namespaceObject.equippedItem)(slot) !== item && (0,external_kolmafia_namespaceObject.availableAmount)(item) > 0) {
-          (0,external_kolmafia_namespaceObject.equip)(slot, item);
-        }
-      }
-    } catch (err) {
-      _iterator3.e(err);
-    } finally {
-      _iterator3.f();
-    }
-
-    if (verifyCached(entry) && options.useOutfitCaching) {
-      var _outfitName = outfitCache.insert(entry);
-
-      dist_logger.info("Saving equipment to outfit ".concat(_outfitName, "."));
-      saveOutfit(_outfitName);
-    }
-  }
-
-  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(maximize_templateObject11 || (maximize_templateObject11 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))) > 0 && entry.rider.get(template_string_$item(maximize_templateObject12 || (maximize_templateObject12 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))))) {
-    (0,external_kolmafia_namespaceObject.enthroneFamiliar)(entry.rider.get(template_string_$item(maximize_templateObject13 || (maximize_templateObject13 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))) || template_string_$familiar.none);
-  }
-
-  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(maximize_templateObject14 || (maximize_templateObject14 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))) > 0 && entry.rider.get(template_string_$item(maximize_templateObject15 || (maximize_templateObject15 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))))) {
-    (0,external_kolmafia_namespaceObject.bjornifyFamiliar)(entry.rider.get(template_string_$item(maximize_templateObject16 || (maximize_templateObject16 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))) || template_string_$familiar.none);
-  }
-
-  applyModes(maximize_objectSpread(maximize_objectSpread({}, entry.modes), options.modes));
-}
-
-var slotStructure = [$slots(maximize_templateObject17 || (maximize_templateObject17 = maximize_taggedTemplateLiteral(["hat"]))), $slots(maximize_templateObject18 || (maximize_templateObject18 = maximize_taggedTemplateLiteral(["back"]))), $slots(maximize_templateObject19 || (maximize_templateObject19 = maximize_taggedTemplateLiteral(["shirt"]))), $slots(maximize_templateObject20 || (maximize_templateObject20 = maximize_taggedTemplateLiteral(["weapon, off-hand"]))), $slots(maximize_templateObject21 || (maximize_templateObject21 = maximize_taggedTemplateLiteral(["pants"]))), $slots(maximize_templateObject22 || (maximize_templateObject22 = maximize_taggedTemplateLiteral(["acc1, acc2, acc3"]))), $slots(maximize_templateObject23 || (maximize_templateObject23 = maximize_taggedTemplateLiteral(["familiar"])))];
-/**
- * Verifies that a CacheEntry was applied successfully.
- *
- * @param entry The CacheEntry to verify
- * @param warn Whether to warn if the cache could not be applied
- * @returns If all desired equipment was appliedn in the correct slots.
- */
-
-function verifyCached(entry) {
-  var warn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-  var success = true;
-
-  var _iterator4 = maximize_createForOfIteratorHelper(slotStructure),
-      _step4;
-
-  try {
-    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-      var slotGroup = _step4.value;
-      var desiredSlots = slotGroup.map(slot => {
-        var _entry$equipment$get;
-
-        return [slot, (_entry$equipment$get = entry.equipment.get(slot)) !== null && _entry$equipment$get !== void 0 ? _entry$equipment$get : null];
-      }).filter(_ref => {
-        var _ref2 = maximize_slicedToArray(_ref, 2),
-            item = _ref2[1];
-
-        return item !== null;
-      });
-      var desiredSet = desiredSlots.map(_ref3 => {
-        var _ref4 = maximize_slicedToArray(_ref3, 2),
-            item = _ref4[1];
-
-        return item;
-      });
-      var equippedSet = desiredSlots.map(_ref5 => {
-        var _ref6 = maximize_slicedToArray(_ref5, 1),
-            slot = _ref6[0];
-
-        return (0,external_kolmafia_namespaceObject.equippedItem)(slot);
-      });
-
-      if (!setEqual(desiredSet, equippedSet)) {
-        if (warn) {
-          dist_logger.warning("Failed to apply cached ".concat(desiredSet.join(", "), " in ").concat(slotGroup.join(", "), "."));
-        }
-
-        success = false;
-      }
-    }
-  } catch (err) {
-    _iterator4.e(err);
-  } finally {
-    _iterator4.f();
-  }
-
-  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(maximize_templateObject24 || (maximize_templateObject24 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))) > 0 && entry.rider.get(template_string_$item(maximize_templateObject25 || (maximize_templateObject25 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))))) {
-    if (entry.rider.get(template_string_$item(maximize_templateObject26 || (maximize_templateObject26 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))) !== (0,external_kolmafia_namespaceObject.myEnthronedFamiliar)()) {
-      if (warn) {
-        dist_logger.warning("Failed to apply ".concat(entry.rider.get(template_string_$item(maximize_templateObject27 || (maximize_templateObject27 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))), " in ").concat(template_string_$item(maximize_templateObject28 || (maximize_templateObject28 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))), "."));
-      }
-
-      success = false;
-    }
-  }
-
-  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(maximize_templateObject29 || (maximize_templateObject29 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))) > 0 && entry.rider.get(template_string_$item(maximize_templateObject30 || (maximize_templateObject30 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))))) {
-    if (entry.rider.get(template_string_$item(maximize_templateObject31 || (maximize_templateObject31 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))) !== (0,external_kolmafia_namespaceObject.myBjornedFamiliar)()) {
-      if (warn) {
-        dist_logger.warning("Failed to apply".concat(entry.rider.get(template_string_$item(maximize_templateObject32 || (maximize_templateObject32 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))), " in ").concat(template_string_$item(maximize_templateObject33 || (maximize_templateObject33 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))), "."));
-      }
-
-      success = false;
-    }
-  }
-
-  return success;
-}
-/**
- * Save current equipment to the objective cache.
- *
- * @param cacheKey The cache key to save.
- * @param options Set of maximizer options
- */
-
-
-function saveCached(cacheKey, options) {
-  var equipment = new Map();
-  var rider = new Map();
-
-  var _iterator5 = maximize_createForOfIteratorHelper(cachedSlots),
-      _step5;
-
-  try {
-    for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-      var _slot2 = _step5.value;
-      equipment.set(_slot2, (0,external_kolmafia_namespaceObject.equippedItem)(_slot2));
-    }
-  } catch (err) {
-    _iterator5.e(err);
-  } finally {
-    _iterator5.f();
-  }
-
-  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(maximize_templateObject34 || (maximize_templateObject34 = maximize_taggedTemplateLiteral(["card sleeve"])))) > 0) {
-    equipment.set($slot(_templateObject35 || (_templateObject35 = maximize_taggedTemplateLiteral(["card-sleeve"]))), (0,external_kolmafia_namespaceObject.equippedItem)($slot(_templateObject36 || (_templateObject36 = maximize_taggedTemplateLiteral(["card-sleeve"])))));
-  }
-
-  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(_templateObject37 || (_templateObject37 = maximize_taggedTemplateLiteral(["Crown of Thrones"])))) > 0) {
-    rider.set(template_string_$item(_templateObject38 || (_templateObject38 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))), (0,external_kolmafia_namespaceObject.myEnthronedFamiliar)());
-  }
-
-  if ((0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(_templateObject39 || (_templateObject39 = maximize_taggedTemplateLiteral(["Buddy Bjorn"])))) > 0) {
-    rider.set(template_string_$item(_templateObject40 || (_templateObject40 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))), (0,external_kolmafia_namespaceObject.myBjornedFamiliar)());
-  }
-
-  if (options.preventSlot && options.preventSlot.length > 0) {
-    var _iterator6 = maximize_createForOfIteratorHelper(options.preventSlot),
-        _step6;
-
-    try {
-      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-        var slot = _step6.value;
-        equipment.delete(slot);
-      }
-    } catch (err) {
-      _iterator6.e(err);
-    } finally {
-      _iterator6.f();
-    }
-
-    if (options.preventSlot.includes($slot(_templateObject41 || (_templateObject41 = maximize_taggedTemplateLiteral(["buddy-bjorn"]))))) {
-      rider.delete(template_string_$item(_templateObject42 || (_templateObject42 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))));
-    }
-
-    if (options.preventSlot.includes($slot(_templateObject43 || (_templateObject43 = maximize_taggedTemplateLiteral(["crown-of-thrones"]))))) {
-      rider.delete(template_string_$item(_templateObject44 || (_templateObject44 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))));
-    }
-  }
-
-  if (options.onlySlot && options.onlySlot.length > 0) {
-    var _iterator7 = maximize_createForOfIteratorHelper(external_kolmafia_namespaceObject.Slot.all()),
-        _step7;
-
-    try {
-      for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-        var _slot = _step7.value;
-
-        if (!options.onlySlot.includes(_slot)) {
-          equipment.delete(_slot);
-        }
-      }
-    } catch (err) {
-      _iterator7.e(err);
-    } finally {
-      _iterator7.f();
-    }
-
-    if (!options.onlySlot.includes($slot(_templateObject45 || (_templateObject45 = maximize_taggedTemplateLiteral(["buddy-bjorn"]))))) {
-      rider.delete(template_string_$item(_templateObject46 || (_templateObject46 = maximize_taggedTemplateLiteral(["Buddy Bjorn"]))));
-    }
-
-    if (!options.onlySlot.includes($slot(_templateObject47 || (_templateObject47 = maximize_taggedTemplateLiteral(["crown-of-thrones"]))))) {
-      rider.delete(template_string_$item(_templateObject48 || (_templateObject48 = maximize_taggedTemplateLiteral(["Crown of Thrones"]))));
-    }
-  }
-
-  var entry = new CacheEntry(equipment, rider, (0,external_kolmafia_namespaceObject.myFamiliar)(), canEquipItemCount(), maximize_objectSpread(maximize_objectSpread({}, getCurrentModes()), options.modes));
-  cachedObjectives[cacheKey] = entry;
-
-  if (options.useOutfitCaching) {
-    var outfitName = outfitCache.insert(entry);
-    dist_logger.info("Saving equipment to outfit ".concat(outfitName, "."));
-    saveOutfit(outfitName);
-  }
-}
-/**
- * Run the maximizer, but only if the objective and certain pieces of game state haven't changed since it was last run.
- *
- * @param objectives Objectives to maximize for.
- * @param options Options for this run of the maximizer.
- * @param options.updateOnFamiliarChange Re-run the maximizer if familiar has changed. Default true.
- * @param options.updateOnCanEquipChanged Re-run the maximizer if stats have changed what can be equipped. Default true.
- * @param options.forceEquip Equipment to force-equip ("equip X").
- * @param options.preventEquip Equipment to prevent equipping ("-equip X").
- * @param options.bonusEquip Equipment to apply a bonus to ("200 bonus X").
- * @returns Whether the maximize call succeeded.
- */
-
-
-function maximizeCached(objectives) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var fullOptions = mergeMaximizeOptions(defaultMaximizeOptions, options);
-  var forceEquip = fullOptions.forceEquip,
-      preventEquip = fullOptions.preventEquip,
-      bonusEquip = fullOptions.bonusEquip,
-      onlySlot = fullOptions.onlySlot,
-      preventSlot = fullOptions.preventSlot,
-      forceUpdate = fullOptions.forceUpdate; // Sort each group in objective to ensure consistent ordering in string
-
-  var objective = maximize_toConsumableArray(new Set([].concat(maximize_toConsumableArray(objectives.sort()), maximize_toConsumableArray(forceEquip.map(item => "equip ".concat(item)).sort()), maximize_toConsumableArray(preventEquip.map(item => "-equip ".concat(item)).sort()), maximize_toConsumableArray(onlySlot.map(slot => "".concat(slot)).sort()), maximize_toConsumableArray(preventSlot.map(slot => "-".concat(slot)).sort()), maximize_toConsumableArray(Array.from(bonusEquip.entries()).filter(_ref7 => {
-    var _ref8 = maximize_slicedToArray(_ref7, 2),
-        bonus = _ref8[1];
-
-    return bonus !== 0;
-  }).map(_ref9 => {
-    var _ref10 = maximize_slicedToArray(_ref9, 2),
-        item = _ref10[0],
-        bonus = _ref10[1];
-
-    return "".concat(Math.round(bonus * 100) / 100, " bonus ").concat(item);
-  }).sort())))).join(", "); // Items equipped in slots not touched by the maximizer must be in the cache key
-
-
-  var untouchedSlots = cachedSlots.filter(slot => preventSlot.includes(slot) || onlySlot.length > 0 && !onlySlot.includes(slot));
-  var cacheKey = [objective].concat(maximize_toConsumableArray(untouchedSlots.map(slot => "".concat(slot, ":").concat((0,external_kolmafia_namespaceObject.equippedItem)(slot))).sort())).join("; ");
-  var cacheEntry = checkCache(cacheKey, fullOptions);
-
-  if (cacheEntry && !forceUpdate) {
-    if (verifyCached(cacheEntry, false)) return true;
-    dist_logger.info("Equipment found in maximize cache, equipping...");
-    applyCached(cacheEntry, fullOptions);
-
-    if (verifyCached(cacheEntry)) {
-      dist_logger.info("Equipped cached ".concat(cacheKey));
-      return true;
-    }
-
-    dist_logger.warning("Maximize cache application failed, maximizing...");
-  }
-
-  var result = (0,external_kolmafia_namespaceObject.maximize)(objective, false);
-  saveCached(cacheKey, fullOptions);
-  return result;
-}
-
-var _maximizeParameters = /*#__PURE__*/new WeakMap();
-
-var _maximizeOptions = /*#__PURE__*/new WeakMap();
-
-var Requirement = /*#__PURE__*/function () {
-  /**
-   * A convenient way of combining maximization parameters and options
-   *
-   * @param maximizeParameters Parameters you're attempting to maximize
-   * @param maximizeOptions Object potentially containing forceEquips, bonusEquips, preventEquips, and preventSlots
-   */
-  function Requirement(maximizeParameters, maximizeOptions) {
-    maximize_classCallCheck(this, Requirement);
-
-    _maximizeParameters.set(this, {
-      writable: true,
-      value: void 0
-    });
-
-    _maximizeOptions.set(this, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldSet(this, _maximizeParameters, maximizeParameters);
-
-    _classPrivateFieldSet(this, _maximizeOptions, maximizeOptions);
-  }
-
-  maximize_createClass(Requirement, [{
-    key: "maximizeParameters",
-    get: function get() {
-      return _classPrivateFieldGet(this, _maximizeParameters);
-    }
-  }, {
-    key: "maximizeOptions",
-    get: function get() {
-      return _classPrivateFieldGet(this, _maximizeOptions);
-    }
-    /**
-     * Merges two requirements, concanating relevant arrays. Typically used in static form.
-     *
-     * @param other Requirement to merge with.
-     */
-
-  }, {
-    key: "merge",
-    value: function merge(other) {
-      var _optionsA$forceEquip, _other$maximizeOption, _optionsA$preventEqui, _other$maximizeOption3, _optionsA$bonusEquip$, _optionsA$bonusEquip, _optionsB$bonusEquip$, _optionsB$bonusEquip, _optionsA$onlySlot, _optionsB$onlySlot, _optionsA$preventSlot, _optionsB$preventSlot;
-
-      var optionsA = this.maximizeOptions;
-      var optionsB = other.maximizeOptions;
-      return new Requirement([].concat(maximize_toConsumableArray(this.maximizeParameters), maximize_toConsumableArray(other.maximizeParameters)), {
-        updateOnFamiliarChange: optionsA.updateOnFamiliarChange || other.maximizeOptions.updateOnFamiliarChange,
-        updateOnCanEquipChanged: optionsA.updateOnCanEquipChanged || other.maximizeOptions.updateOnCanEquipChanged,
-        forceEquip: [].concat(maximize_toConsumableArray((_optionsA$forceEquip = optionsA.forceEquip) !== null && _optionsA$forceEquip !== void 0 ? _optionsA$forceEquip : []), maximize_toConsumableArray((_other$maximizeOption = other.maximizeOptions.forceEquip) !== null && _other$maximizeOption !== void 0 ? _other$maximizeOption : [])).filter(x => {
-          var _other$maximizeOption2;
-
-          return !((_other$maximizeOption2 = other.maximizeOptions.preventEquip) !== null && _other$maximizeOption2 !== void 0 && _other$maximizeOption2.includes(x));
-        }),
-        preventEquip: [].concat(maximize_toConsumableArray((_optionsA$preventEqui = optionsA.preventEquip) !== null && _optionsA$preventEqui !== void 0 ? _optionsA$preventEqui : []), maximize_toConsumableArray((_other$maximizeOption3 = other.maximizeOptions.preventEquip) !== null && _other$maximizeOption3 !== void 0 ? _other$maximizeOption3 : [])).filter(x => {
-          var _other$maximizeOption4;
-
-          return !((_other$maximizeOption4 = other.maximizeOptions.forceEquip) !== null && _other$maximizeOption4 !== void 0 && _other$maximizeOption4.includes(x));
-        }),
-        bonusEquip: new Map([].concat(maximize_toConsumableArray((_optionsA$bonusEquip$ = (_optionsA$bonusEquip = optionsA.bonusEquip) === null || _optionsA$bonusEquip === void 0 ? void 0 : _optionsA$bonusEquip.entries()) !== null && _optionsA$bonusEquip$ !== void 0 ? _optionsA$bonusEquip$ : []), maximize_toConsumableArray((_optionsB$bonusEquip$ = (_optionsB$bonusEquip = optionsB.bonusEquip) === null || _optionsB$bonusEquip === void 0 ? void 0 : _optionsB$bonusEquip.entries()) !== null && _optionsB$bonusEquip$ !== void 0 ? _optionsB$bonusEquip$ : []))),
-        onlySlot: [].concat(maximize_toConsumableArray((_optionsA$onlySlot = optionsA.onlySlot) !== null && _optionsA$onlySlot !== void 0 ? _optionsA$onlySlot : []), maximize_toConsumableArray((_optionsB$onlySlot = optionsB.onlySlot) !== null && _optionsB$onlySlot !== void 0 ? _optionsB$onlySlot : [])),
-        preventSlot: [].concat(maximize_toConsumableArray((_optionsA$preventSlot = optionsA.preventSlot) !== null && _optionsA$preventSlot !== void 0 ? _optionsA$preventSlot : []), maximize_toConsumableArray((_optionsB$preventSlot = optionsB.preventSlot) !== null && _optionsB$preventSlot !== void 0 ? _optionsB$preventSlot : [])),
-        forceUpdate: optionsA.forceUpdate || optionsB.forceUpdate
-      });
-    }
-    /**
-     * Merges a set of requirements together, starting with an empty requirement.
-     *
-     * @param allRequirements Requirements to merge
-     * @returns Merged requirements
-     */
-
-  }, {
-    key: "maximize",
-    value:
-    /**
-     * Runs maximizeCached, using the maximizeParameters and maximizeOptions contained by this requirement.
-     *
-     * @returns Whether the maximize call succeeded.
-     */
-    function maximize() {
-      return maximizeCached(this.maximizeParameters, this.maximizeOptions);
-    }
-    /**
-     * Merges requirements, and then runs maximizeCached on the combined requirement.
-     *
-     * @param requirements Requirements to maximize on
-     */
-
-  }], [{
-    key: "merge",
-    value: function merge(allRequirements) {
-      return allRequirements.reduce((x, y) => x.merge(y), new Requirement([], {}));
-    }
-  }, {
-    key: "maximize",
-    value: function maximize() {
-      for (var _len = arguments.length, requirements = new Array(_len), _key = 0; _key < _len; _key++) {
-        requirements[_key] = arguments[_key];
-      }
-
-      Requirement.merge(requirements).maximize();
-    }
-  }]);
-
-  return Requirement;
-}();
-/**
- * Clear all outfits cached by the maximizer.
- */
-
-function clearMaximizerCache() {
-  outfitCache.clear();
-
-  for (var member in cachedObjectives) {
-    delete cachedObjectives[member];
-  }
-}
 ;// CONCATENATED MODULE: ./node_modules/grimoire-kolmafia/dist/outfit.js
 var outfit_templateObject, outfit_templateObject2, outfit_templateObject3, outfit_templateObject4, outfit_templateObject5, outfit_templateObject6, outfit_templateObject7, outfit_templateObject8, outfit_templateObject9, outfit_templateObject10, outfit_templateObject11, outfit_templateObject12, outfit_templateObject13, outfit_templateObject14, outfit_templateObject15, outfit_templateObject16, outfit_templateObject17, outfit_templateObject18, outfit_templateObject19, outfit_templateObject20, outfit_templateObject21, outfit_templateObject22, outfit_templateObject23, outfit_templateObject24, outfit_templateObject25, outfit_templateObject26, outfit_templateObject27, outfit_templateObject28, outfit_templateObject29, outfit_templateObject30, outfit_templateObject31, outfit_templateObject32, outfit_templateObject33, outfit_templateObject34, outfit_templateObject35, outfit_templateObject36, outfit_templateObject37, outfit_templateObject38, outfit_templateObject39, outfit_templateObject40, outfit_templateObject41, outfit_templateObject42, outfit_templateObject43, outfit_templateObject44, outfit_templateObject45, outfit_templateObject46, outfit_templateObject47, outfit_templateObject48, _templateObject49, _templateObject50, _templateObject51, _templateObject52, _templateObject53, _templateObject54, _templateObject55, _templateObject56, _templateObject57, _templateObject58, _templateObject59, _templateObject60;
 
@@ -7872,414 +8258,6 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
 
   return Engine;
 }(Engine);
-;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2017/MummingTrunk.js
-function MummingTrunk_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = MummingTrunk_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function MummingTrunk_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return MummingTrunk_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return MummingTrunk_arrayLikeToArray(o, minLen); }
-
-function MummingTrunk_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-
-/**
- * Internal function used to parse mods
- *
- * @param input The modstring used in your mummery pref
- * @returns a NumericModifier matching that string
- */
-
-function toModifier(input) {
-  var regExp = new RegExp(/Experience \((.*?)\)/);
-  var matcher = input.match(regExp);
-  return matcher ? "".concat(matcher[2], " Experience") : input;
-}
-/**
- * Parses the _mummeryMods preference into a Map for easier use.
- *
- * @returns A map, mapping Familiars to a Tuple consisting of the NumericModifier attached to the familiar, and the value thereof.
- */
-
-
-function currentCostumes() {
-  var entries = property_get("_mummeryMods").split(",");
-  var returnValue = new Map();
-  var regExp = new RegExp(/([^:]+): \[(\d+)\*fam\(([^)]+)\)\]/);
-
-  var _iterator = MummingTrunk_createForOfIteratorHelper(entries),
-      _step;
-
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var entry = _step.value;
-      var matcher = entry.match(regExp);
-
-      if (matcher) {
-        returnValue.set((0,external_kolmafia_namespaceObject.toFamiliar)(matcher[3]), [toModifier(matcher[1]), parseInt(matcher[2])]);
-      }
-    }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
-
-  return returnValue;
-}
-;// CONCATENATED MODULE: ./node_modules/libram/dist/challengePaths/2015/CommunityService.js
-var CommunityService_templateObject, CommunityService_templateObject2, CommunityService_templateObject3, CommunityService_templateObject4, CommunityService_templateObject5, CommunityService_templateObject6, CommunityService_templateObject7, CommunityService_templateObject8, CommunityService_templateObject9, CommunityService_templateObject10, CommunityService_templateObject11, CommunityService_templateObject12, CommunityService_templateObject13, CommunityService_templateObject14, CommunityService_templateObject15, CommunityService_templateObject16, CommunityService_templateObject17, CommunityService_templateObject18, CommunityService_templateObject19, CommunityService_templateObject20, CommunityService_templateObject21, CommunityService_templateObject22, CommunityService_templateObject23, CommunityService_templateObject24, CommunityService_templateObject25, CommunityService_templateObject26, CommunityService_templateObject27;
-
-function CommunityService_slicedToArray(arr, i) { return CommunityService_arrayWithHoles(arr) || CommunityService_iterableToArrayLimit(arr, i) || CommunityService_unsupportedIterableToArray(arr, i) || CommunityService_nonIterableRest(); }
-
-function CommunityService_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function CommunityService_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return CommunityService_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return CommunityService_arrayLikeToArray(o, minLen); }
-
-function CommunityService_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function CommunityService_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function CommunityService_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function CommunityService_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function CommunityService_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function CommunityService_createClass(Constructor, protoProps, staticProps) { if (protoProps) CommunityService_defineProperties(Constructor.prototype, protoProps); if (staticProps) CommunityService_defineProperties(Constructor, staticProps); return Constructor; }
-
-function CommunityService_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function CommunityService_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-
-
-
-
-
-
-
-var thralls = new Map([[template_string_$stat(CommunityService_templateObject || (CommunityService_templateObject = CommunityService_taggedTemplateLiteral(["muscle"]))), $thrall(CommunityService_templateObject2 || (CommunityService_templateObject2 = CommunityService_taggedTemplateLiteral(["Elbow Macaroni"])))], [template_string_$stat(CommunityService_templateObject3 || (CommunityService_templateObject3 = CommunityService_taggedTemplateLiteral(["moxie"]))), $thrall(CommunityService_templateObject4 || (CommunityService_templateObject4 = CommunityService_taggedTemplateLiteral(["Penne Dreadful"])))]]);
-
-var statCommunityServicePredictor = stat => {
-  return () => 60 - Math.floor(1 / 30 * ((0,external_kolmafia_namespaceObject.myBuffedstat)(stat) - (0,external_kolmafia_namespaceObject.myBasestat)(thralls.get(stat) === (0,external_kolmafia_namespaceObject.myThrall)() && !lib_have($effect(CommunityService_templateObject5 || (CommunityService_templateObject5 = CommunityService_taggedTemplateLiteral(["Expert Oiliness"])))) ? template_string_$stat(CommunityService_templateObject6 || (CommunityService_templateObject6 = CommunityService_taggedTemplateLiteral(["mysticality"]))) : stat)));
-};
-
-var visitCouncil = () => (0,external_kolmafia_namespaceObject.visitUrl)("council.php");
-
-var baseWeight = () => lib_have($effect(CommunityService_templateObject7 || (CommunityService_templateObject7 = CommunityService_taggedTemplateLiteral(["Fidoxene"])))) ? 20 : (0,external_kolmafia_namespaceObject.familiarWeight)((0,external_kolmafia_namespaceObject.myFamiliar)());
-
-var CommunityService = /*#__PURE__*/function () {
-  /**
-   * Class to store properties of various CS tests.
-   *
-   * @param id The id the game HTML uses to identify the test; this is used primarily in runChoice.
-   * @param stat The principle stat the test measures, often used as more easily memorable shorthand for the specific tests
-   * @param property The name of the test as a string, often used as part of the string property "csServicesPerformed".
-   * @param predictor A function that returns an estimate for the number of turns that the test will take given your character's current state.
-   * @param maximizeRequirements A Requirement object, if applicable, that aligns with the things needed to maximize for this particular test.
-   */
-  function CommunityService(id, stat, property, predictor, maximizeRequirements) {
-    CommunityService_classCallCheck(this, CommunityService);
-
-    CommunityService_defineProperty(this, "choice", void 0);
-
-    CommunityService_defineProperty(this, "stat", void 0);
-
-    CommunityService_defineProperty(this, "property", void 0);
-
-    CommunityService_defineProperty(this, "predictor", void 0);
-
-    CommunityService_defineProperty(this, "maximizeRequirements", void 0);
-
-    this.choice = id;
-    this.stat = stat;
-    this.property = property;
-    this.predictor = predictor;
-    this.maximizeRequirements = maximizeRequirements;
-  }
-  /**
-   * @returns The id number of the test, used primarily in runChoice.
-   */
-
-
-  CommunityService_createClass(CommunityService, [{
-    key: "id",
-    get: function get() {
-      return this.choice;
-    }
-    /**
-     * @returns The primary stat the test measures, used primarily as memorable shorthand in place of test names.
-     */
-
-  }, {
-    key: "statName",
-    get: function get() {
-      return this.stat;
-    }
-    /**
-     * @returns The name of the test, used primarily as part of the string property "csServicesPerformed"
-     */
-
-  }, {
-    key: "name",
-    get: function get() {
-      return this.property;
-    }
-    /**
-     *  @returns The predicted number of turns this test will take given your character's current state.
-     */
-
-  }, {
-    key: "prediction",
-    get: function get() {
-      return this.predictor();
-    }
-    /**
-     * @returns A Requirement object, if applicable, that aligns with the things needed to maximize for this particular test.
-     */
-
-  }, {
-    key: "requirement",
-    get: function get() {
-      return this.maximizeRequirements;
-    }
-  }, {
-    key: "isDone",
-    value:
-    /**
-     * Checks the "csServicesPerformed" property to see whether mafia currently believes this test is complete.
-     *
-     * @returns Whether mafia currently believes this test is complete.
-     */
-    function isDone() {
-      return property_get("csServicesPerformed").includes(this.property);
-    }
-    /**
-     * Maximizes based on the Requirement associated with this particular test.
-     */
-
-  }, {
-    key: "maximize",
-    value: function maximize() {
-      if (this.maximizeRequirements) this.maximizeRequirements.maximize();
-    }
-    /**
-     * Attempts to turn in the test to the Council of Loathing.
-     *
-     * @returns Whether mafia believes the test is complete at the end of this function.
-     */
-
-  }, {
-    key: "do",
-    value: function _do() {
-      if (property_get("csServicesPerformed").trim().length === 0) visitCouncil();
-      visitCouncil();
-      var councilText = (0,external_kolmafia_namespaceObject.runChoice)(this.choice);
-      return this._verifyIsDone(councilText);
-    }
-    /**
-     * Wrapper function that prepares for a test and then completes it, adding time and turn details to the log.
-     *
-     * @param prepare A function that does all necessary preparations for this CS test, including choosing your outfit. Optionally returns the number of turns you expect to spend preparing for the test.
-     * @param maxTurns We will run the test iff the predicted/actual turns is less than or equal to this parameter.
-     * @returns "completed", "failed", or "already completed".
-     */
-
-  }, {
-    key: "run",
-    value: function run(prepare) {
-      var maxTurns = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Infinity;
-      if (this.isDone()) return "already completed";
-      var startTime = Date.now();
-      var startTurns = (0,external_kolmafia_namespaceObject.myTurncount)();
-      var additionalTurns;
-
-      try {
-        var _prepare;
-
-        additionalTurns = (_prepare = prepare()) !== null && _prepare !== void 0 ? _prepare : 0;
-      } catch (e) {
-        (0,external_kolmafia_namespaceObject.print)("".concat(e), "red");
-        return "failed";
-      }
-
-      var prediction = this.predictor();
-      var council = visitCouncil();
-
-      var turns = this._actualCost(council);
-
-      if (!turns) return "already completed";
-
-      if (turns > Math.min(maxTurns, (0,external_kolmafia_namespaceObject.myAdventures)())) {
-        return "failed";
-      }
-
-      if (!this.do()) return "failed";
-      CommunityService.log[this.property] = {
-        predictedTurns: prediction + additionalTurns,
-        turnCost: (0,external_kolmafia_namespaceObject.myTurncount)() - startTurns,
-        seconds: (Date.now() - startTime) / 1000,
-        type: "test"
-      };
-      return "completed";
-    }
-  }, {
-    key: "_verifyIsDone",
-    value: function _verifyIsDone(councilText) {
-      return !councilText.includes("<input type=hidden name=option value=".concat(this.choice, ">"));
-    }
-    /**
-     * Checks council.php to verify that a test is complete; more reliable than isDone, but requires an additional pagehit.
-     *
-     * @returns Whether council.php suggests that the test is complete.
-     */
-
-  }, {
-    key: "verifyIsDone",
-    value: function verifyIsDone() {
-      return this._verifyIsDone(visitCouncil());
-    }
-  }, {
-    key: "_actualCost",
-    value: function _actualCost(councilText) {
-      var match = councilText.match("<input type=hidden name=option value=".concat(this.id, ">.*?Perform Service \\((\\d+) Adventures\\)"));
-      return match ? parseInt(match[1]) : 0;
-    }
-    /**
-     * Checks council.php for the number of turns this test will take; more reliable than prediction, but requires an additional pagehit.
-     *
-     * @returns The number of turns to complete this test according to council.php.
-     */
-
-  }, {
-    key: "actualCost",
-    value: function actualCost() {
-      return this._actualCost(visitCouncil());
-    }
-    /**
-     * A log of the predicted turns, actual turns, and duration of each CS test performed.
-     */
-
-  }], [{
-    key: "logTask",
-    value: function logTask(name, action) {
-      var _action;
-
-      var startTime = Date.now();
-      var startTurns = (0,external_kolmafia_namespaceObject.myTurncount)();
-      var estimatedTurns = (_action = action()) !== null && _action !== void 0 ? _action : 0;
-      CommunityService.log[name] = {
-        type: "task",
-        turnCost: (0,external_kolmafia_namespaceObject.myTurncount)() - startTurns,
-        predictedTurns: estimatedTurns,
-        seconds: (Date.now() - startTime) / 1000
-      };
-    }
-  }, {
-    key: "printLog",
-    value:
-    /**
-     * Prints turncount and time details of the test in question.
-     *
-     * @param colour The colour (or color) you'd like the log to be printed in.
-     */
-    function printLog() {
-      var colour = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "blue";
-      var logEntries = Object.entries(CommunityService.log);
-
-      for (var _i = 0, _logEntries = logEntries; _i < _logEntries.length; _i++) {
-        var _logEntries$_i = CommunityService_slicedToArray(_logEntries[_i], 2),
-            testName = _logEntries$_i[0],
-            testEntry = _logEntries$_i[1];
-
-        var type = testEntry.type,
-            predictedTurns = testEntry.predictedTurns,
-            turnCost = testEntry.turnCost,
-            seconds = testEntry.seconds;
-
-        if (type === "test") {
-          (0,external_kolmafia_namespaceObject.print)("We predicted the ".concat(testName, " test would take ").concat(predictedTurns, " turns, ").concat(predictedTurns === turnCost ? "and" : "but", " it took ").concat(turnCost, " turns."), colour);
-          (0,external_kolmafia_namespaceObject.print)("".concat(testName, " took ").concat(seconds.toFixed(1), " seconds."), colour);
-        } else {
-          if (!(predictedTurns === 0 && turnCost === 0)) {
-            (0,external_kolmafia_namespaceObject.print)("We predicted the task ".concat(testName, " would take ").concat(predictedTurns, " turns, ").concat(predictedTurns === turnCost ? "and" : "but", " it took ").concat(turnCost, " turns."), colour);
-          }
-
-          (0,external_kolmafia_namespaceObject.print)("The task ".concat(testName, " took ").concat(seconds.toFixed(1), " seconds."), colour);
-        }
-      }
-
-      var totalTime = sum(logEntries, _ref => {
-        var _ref2 = CommunityService_slicedToArray(_ref, 2),
-            testEntry = _ref2[1];
-
-        return testEntry.seconds;
-      });
-      (0,external_kolmafia_namespaceObject.print)("All together, you have spent ".concat(totalTime.toFixed(1), " seconds during this Community Service run"), colour);
-    } // Below, we have the tests themselves.
-
-  }]);
-
-  return CommunityService;
-}();
-
-CommunityService_defineProperty(CommunityService, "log", {});
-
-CommunityService_defineProperty(CommunityService, "HP", new CommunityService(1, "HP", "Donate Blood", () => 60 - Math.floor(((0,external_kolmafia_namespaceObject.myMaxhp)() - (0,external_kolmafia_namespaceObject.myBuffedstat)(template_string_$stat(CommunityService_templateObject8 || (CommunityService_templateObject8 = CommunityService_taggedTemplateLiteral(["muscle"])))) - 3) / 30), new Requirement(["HP"], {})));
-
-CommunityService_defineProperty(CommunityService, "Muscle", new CommunityService(2, "Muscle", "Feed The Children", statCommunityServicePredictor(template_string_$stat(CommunityService_templateObject9 || (CommunityService_templateObject9 = CommunityService_taggedTemplateLiteral(["Muscle"])))), new Requirement(["Muscle"], {})));
-
-CommunityService_defineProperty(CommunityService, "Mysticality", new CommunityService(3, "Mysticality", "Build Playground Mazes", statCommunityServicePredictor(template_string_$stat(CommunityService_templateObject10 || (CommunityService_templateObject10 = CommunityService_taggedTemplateLiteral(["Mysticality"])))), new Requirement(["Mysticality"], {})));
-
-CommunityService_defineProperty(CommunityService, "Moxie", new CommunityService(4, "Moxie", "Feed Conspirators", statCommunityServicePredictor(template_string_$stat(CommunityService_templateObject11 || (CommunityService_templateObject11 = CommunityService_taggedTemplateLiteral(["Moxie"])))), new Requirement(["Moxie"], {})));
-
-CommunityService_defineProperty(CommunityService, "FamiliarWeight", new CommunityService(5, "Familiar Weight", "Breed More Collies", () => 60 - Math.floor((baseWeight() + (0,external_kolmafia_namespaceObject.weightAdjustment)()) / 5), new Requirement(["Familiar Weight"], {})));
-
-CommunityService_defineProperty(CommunityService, "WeaponDamage", new CommunityService(6, "Weapon Damage", "Reduce Gazelle Population", () => {
-  var weaponPower = (0,external_kolmafia_namespaceObject.getPower)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject12 || (CommunityService_templateObject12 = CommunityService_taggedTemplateLiteral(["weapon"])))));
-  var offhandPower = (0,external_kolmafia_namespaceObject.toSlot)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject13 || (CommunityService_templateObject13 = CommunityService_taggedTemplateLiteral(["off-hand"]))))) === $slot(CommunityService_templateObject14 || (CommunityService_templateObject14 = CommunityService_taggedTemplateLiteral(["weapon"]))) ? (0,external_kolmafia_namespaceObject.getPower)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject15 || (CommunityService_templateObject15 = CommunityService_taggedTemplateLiteral(["off-hand"]))))) : 0;
-  var familiarPower = (0,external_kolmafia_namespaceObject.toSlot)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject16 || (CommunityService_templateObject16 = CommunityService_taggedTemplateLiteral(["familiar"]))))) === $slot(CommunityService_templateObject17 || (CommunityService_templateObject17 = CommunityService_taggedTemplateLiteral(["weapon"]))) ? (0,external_kolmafia_namespaceObject.getPower)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject18 || (CommunityService_templateObject18 = CommunityService_taggedTemplateLiteral(["familiar"]))))) : 0; // mafia does not currently count swagger
-
-  var multiplier = lib_have($effect(CommunityService_templateObject19 || (CommunityService_templateObject19 = CommunityService_taggedTemplateLiteral(["Bow-Legged Swagger"])))) ? 2 : 1; // We add 0.001 because the floor function sometimes introduces weird rounding errors
-
-  return 60 - Math.floor(multiplier * (modifier_get("Weapon Damage") - 0.15 * (weaponPower + offhandPower + familiarPower)) / 50 + 0.001) - Math.floor(multiplier * modifier_get("Weapon Damage Percent") / 50 + 0.001);
-}, new Requirement(["Weapon Damage", "Weapon Damage Percent"], {})));
-
-CommunityService_defineProperty(CommunityService, "SpellDamage", new CommunityService(7, "Spell Damage", "Make Sausage", () => {
-  var dragonfishDamage = (0,external_kolmafia_namespaceObject.myFamiliar)() === template_string_$familiar(CommunityService_templateObject20 || (CommunityService_templateObject20 = CommunityService_taggedTemplateLiteral(["Magic Dragonfish"]))) ? (0,external_kolmafia_namespaceObject.numericModifier)(template_string_$familiar(CommunityService_templateObject21 || (CommunityService_templateObject21 = CommunityService_taggedTemplateLiteral(["Magic Dragonfish"]))), "Spell Damage Percent", baseWeight() + (0,external_kolmafia_namespaceObject.weightAdjustment)(), template_string_$item.none) : 0; // We add 0.001 because the floor function sometimes introduces weird rounding errors
-
-  return 60 - Math.floor(modifier_get("Spell Damage") / 50 + 0.001) - Math.floor((modifier_get("Spell Damage Percent") - dragonfishDamage) / 50 + 0.001);
-}, new Requirement(["Spell Damage", "Spell Damage Percent"], {})));
-
-CommunityService_defineProperty(CommunityService, "Noncombat", new CommunityService(8, "Non-Combat", "Be a Living Statue", () => {
-  var noncombatRate = -1 * modifier_get("Combat Rate");
-  var unsoftcappedRate = noncombatRate > 25 ? 25 + (noncombatRate - 25) * 5 : noncombatRate;
-  return 60 - 3 * Math.floor(unsoftcappedRate / 5);
-}, new Requirement(["-combat"], {})));
-
-CommunityService_defineProperty(CommunityService, "BoozeDrop", new CommunityService(9, "Item Drop", "Make Margaritas", () => {
-  var mummingCostume = currentCostumes().get((0,external_kolmafia_namespaceObject.myFamiliar)());
-  var mummingBuff = mummingCostume && mummingCostume[0] === "Item Drop" ? mummingCostume[1] : 0;
-  var familiarItemDrop = (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.myFamiliar)(), "Item Drop", baseWeight() + (0,external_kolmafia_namespaceObject.weightAdjustment)(), (0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject22 || (CommunityService_templateObject22 = CommunityService_taggedTemplateLiteral(["familiar"]))))) + mummingBuff - (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject23 || (CommunityService_templateObject23 = CommunityService_taggedTemplateLiteral(["familiar"])))), "Item Drop");
-  var familiarBoozeDrop = (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.myFamiliar)(), "Booze Drop", baseWeight() + (0,external_kolmafia_namespaceObject.weightAdjustment)(), (0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject24 || (CommunityService_templateObject24 = CommunityService_taggedTemplateLiteral(["familiar"]))))) - (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(CommunityService_templateObject25 || (CommunityService_templateObject25 = CommunityService_taggedTemplateLiteral(["familiar"])))), "Booze Drop"); // Champagne doubling does NOT count for CS, so we undouble
-
-  var multiplier = (0,external_kolmafia_namespaceObject.haveEquipped)(template_string_$item(CommunityService_templateObject26 || (CommunityService_templateObject26 = CommunityService_taggedTemplateLiteral(["broken champagne bottle"])))) && property_get("garbageChampagneCharge") > 0 ? 0.5 : 1; // We add 0.001 because the floor function sometimes introduces weird rounding errors
-
-  return 60 - Math.floor(multiplier * (modifier_get("Item Drop") - familiarItemDrop - (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.myThrall)(), "Item Drop")) / 30 + 0.001) - Math.floor((modifier_get("Booze Drop") - familiarBoozeDrop) / 15 + 0.001);
-}, new Requirement(["Item Drop", "2 Booze Drop"], {
-  preventEquip: template_string_$items(CommunityService_templateObject27 || (CommunityService_templateObject27 = CommunityService_taggedTemplateLiteral(["broken champagne bottle"])))
-})));
-
-CommunityService_defineProperty(CommunityService, "HotRes", new CommunityService(10, "Hot Resistance", "Clean Steam Tunnels", () => 60 - modifier_get("Hot Resistance"), new Requirement(["Hot Resistance"], {})));
-
-CommunityService_defineProperty(CommunityService, "CoilWire", new CommunityService(11, "Coil Wire", "Coil Wire", () => 60, new Requirement([], {})));
-
-CommunityService_defineProperty(CommunityService, "donate", () => {
-  visitCouncil();
-  (0,external_kolmafia_namespaceObject.visitUrl)("choice.php?whichchoice=1089&option=30");
-});
-
-
 ;// CONCATENATED MODULE: ./src/tasks/stat.ts
 var stat_templateObject, stat_templateObject2, stat_templateObject3, stat_templateObject4, stat_templateObject5, stat_templateObject6, stat_templateObject7, stat_templateObject8, stat_templateObject9, stat_templateObject10, stat_templateObject11, stat_templateObject12, stat_templateObject13, stat_templateObject14, stat_templateObject15, stat_templateObject16, stat_templateObject17, stat_templateObject18, stat_templateObject19, stat_templateObject20, stat_templateObject21, stat_templateObject22, stat_templateObject23, stat_templateObject24, stat_templateObject25, stat_templateObject26, stat_templateObject27, stat_templateObject28, stat_templateObject29, stat_templateObject30, stat_templateObject31, stat_templateObject32, stat_templateObject33, stat_templateObject34, stat_templateObject35, stat_templateObject36, stat_templateObject37, stat_templateObject38, stat_templateObject39, stat_templateObject40, stat_templateObject41, stat_templateObject42, stat_templateObject43, stat_templateObject44, stat_templateObject45, stat_templateObject46, stat_templateObject47, stat_templateObject48, stat_templateObject49, stat_templateObject50, stat_templateObject51, stat_templateObject52, stat_templateObject53, stat_templateObject54, stat_templateObject55, stat_templateObject56, stat_templateObject57, stat_templateObject58, stat_templateObject59, stat_templateObject60, _templateObject61, _templateObject62;
 
@@ -8300,7 +8278,7 @@ var HPQuest = {
     },
     do: () => {
       var maxTurns = property_get("instant_hpTestTurnLimit", 1);
-      var testTurns = advCost(CommunityServiceTests.HPTEST);
+      var testTurns = CommunityService.HP.actualCost();
 
       if (testTurns > maxTurns) {
         (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
@@ -8309,7 +8287,7 @@ var HPQuest = {
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_hpTestTurnLimit=<new limit>'", "red");
       }
 
-      CommunityService.HP.run(() => logTestSetup(CommunityServiceTests.HPTEST), maxTurns);
+      CommunityService.HP.run(() => logTestSetup(CommunityService.HP), maxTurns);
     },
     outfit: {
       modifier: "HP, switch disembodied hand, -switch left-hand man"
@@ -8340,7 +8318,7 @@ var MuscleQuest = {
     },
     do: () => {
       var maxTurns = property_get("instant_musTestTurnLimit", 2);
-      var testTurns = advCost(CommunityServiceTests.MUSTEST);
+      var testTurns = CommunityService.Muscle.actualCost();
 
       if (testTurns > maxTurns) {
         (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
@@ -8349,7 +8327,7 @@ var MuscleQuest = {
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_musTestTurnLimit=<new limit>'", "red");
       }
 
-      CommunityService.Muscle.run(() => logTestSetup(CommunityServiceTests.MUSTEST), maxTurns);
+      CommunityService.Muscle.run(() => logTestSetup(CommunityService.Muscle), maxTurns);
     },
     outfit: {
       modifier: "Muscle, switch disembodied hand, -switch left-hand man"
@@ -8373,7 +8351,7 @@ var MysticalityQuest = {
     },
     do: () => {
       var maxTurns = property_get("instant_mystTestTurnLimit", 1);
-      var testTurns = advCost(CommunityServiceTests.MYSTTEST);
+      var testTurns = CommunityService.Mysticality.actualCost();
 
       if (testTurns > maxTurns) {
         (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
@@ -8382,7 +8360,7 @@ var MysticalityQuest = {
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_mystTestTurnLimit=<new limit>'", "red");
       }
 
-      CommunityService.Mysticality.run(() => logTestSetup(CommunityServiceTests.MYSTTEST), maxTurns);
+      CommunityService.Mysticality.run(() => logTestSetup(CommunityService.Mysticality), maxTurns);
     },
     outfit: {
       modifier: "Mysticality, switch disembodied hand, -switch left-hand man"
@@ -8412,7 +8390,7 @@ var MoxieQuest = {
     },
     do: () => {
       var maxTurns = property_get("instant_moxTestTurnLimit", 5);
-      var testTurns = advCost(CommunityServiceTests.MOXTEST);
+      var testTurns = CommunityService.Moxie.actualCost();
 
       if (testTurns > maxTurns) {
         (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
@@ -8421,7 +8399,7 @@ var MoxieQuest = {
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_moxTestTurnLimit=<new limit>'", "red");
       }
 
-      CommunityService.Moxie.run(() => logTestSetup(CommunityServiceTests.MOXTEST), maxTurns);
+      CommunityService.Moxie.run(() => logTestSetup(CommunityService.Moxie), maxTurns);
     },
     outfit: {
       modifier: "Moxie, switch disembodied hand, -switch left-hand man"
@@ -10135,7 +10113,7 @@ var CoilWireQuest = {
     name: "Test",
     ready: () => (0,external_kolmafia_namespaceObject.myAdventures)() >= 60,
     completed: () => CommunityService.CoilWire.isDone(),
-    do: () => CommunityService.CoilWire.run(() => logTestSetup(CommunityServiceTests.COILTEST)),
+    do: () => CommunityService.CoilWire.run(() => logTestSetup(CommunityService.CoilWire)),
     limit: {
       tries: 1
     }
@@ -11080,7 +11058,7 @@ var FamiliarWeightQuest = {
     },
     do: () => {
       var maxTurns = property_get("instant_famTestTurnLimit", 50);
-      var testTurns = advCost(CommunityServiceTests.FAMTEST);
+      var testTurns = CommunityService.FamiliarWeight.actualCost();
 
       if (testTurns > maxTurns) {
         (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
@@ -11089,7 +11067,7 @@ var FamiliarWeightQuest = {
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_famTestTurnLimit=<new limit>'", "red");
       }
 
-      CommunityService.FamiliarWeight.run(() => logTestSetup(CommunityServiceTests.FAMTEST), maxTurns);
+      CommunityService.FamiliarWeight.run(() => logTestSetup(CommunityService.FamiliarWeight), maxTurns);
     },
     outfit: {
       modifier: "familiar weight",
@@ -11101,7 +11079,7 @@ var FamiliarWeightQuest = {
   }]
 };
 ;// CONCATENATED MODULE: ./src/tasks/noncombat.ts
-var noncombat_templateObject, noncombat_templateObject2, noncombat_templateObject3, noncombat_templateObject4, noncombat_templateObject5, noncombat_templateObject6, noncombat_templateObject7, noncombat_templateObject8, noncombat_templateObject9, noncombat_templateObject10, noncombat_templateObject11, noncombat_templateObject12, noncombat_templateObject13, noncombat_templateObject14, noncombat_templateObject15, noncombat_templateObject16, noncombat_templateObject17, noncombat_templateObject18, noncombat_templateObject19, noncombat_templateObject20;
+var noncombat_templateObject, noncombat_templateObject2, noncombat_templateObject3, noncombat_templateObject4, noncombat_templateObject5, noncombat_templateObject6, noncombat_templateObject7, noncombat_templateObject8, noncombat_templateObject9, noncombat_templateObject10, noncombat_templateObject11, noncombat_templateObject12, noncombat_templateObject13, noncombat_templateObject14, noncombat_templateObject15, noncombat_templateObject16, noncombat_templateObject17, noncombat_templateObject18, noncombat_templateObject19, noncombat_templateObject20, noncombat_templateObject21;
 
 function noncombat_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -11145,10 +11123,13 @@ var NoncombatQuest = {
       $effect(noncombat_templateObject15 || (noncombat_templateObject15 = noncombat_taggedTemplateLiteral(["Blood Bond"]))), $effect(noncombat_templateObject16 || (noncombat_templateObject16 = noncombat_taggedTemplateLiteral(["Leash of Linguini"]))), $effect(noncombat_templateObject17 || (noncombat_templateObject17 = noncombat_taggedTemplateLiteral(["Empathy"]))), $effect(noncombat_templateObject18 || (noncombat_templateObject18 = noncombat_taggedTemplateLiteral(["Puzzle Champ"])))];
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
       (0,external_kolmafia_namespaceObject.cliExecute)("maximize -combat"); // To avoid maximizer bug, we invoke this once more
+      // If it saves us >= 6 turns, try using a wish
+
+      if (CommunityService.Noncombat.actualCost() >= 7) wishFor($effect(noncombat_templateObject19 || (noncombat_templateObject19 = noncombat_taggedTemplateLiteral(["Disquiet Riot"]))));
     },
     do: () => {
       var maxTurns = property_get("instant_comTestTurnLimit", 12);
-      var testTurns = advCost(CommunityServiceTests.COMTEST);
+      var testTurns = CommunityService.Noncombat.actualCost();
 
       if (testTurns > maxTurns) {
         (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
@@ -11157,14 +11138,14 @@ var NoncombatQuest = {
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_comTestTurnLimit=<new limit>'", "red");
       }
 
-      CommunityService.Noncombat.run(() => logTestSetup(CommunityServiceTests.COMTEST), maxTurns);
+      CommunityService.Noncombat.run(() => logTestSetup(CommunityService.Noncombat), maxTurns);
     },
     outfit: {
-      familiar: template_string_$familiar(noncombat_templateObject19 || (noncombat_templateObject19 = noncombat_taggedTemplateLiteral(["Disgeist"]))),
+      familiar: template_string_$familiar(noncombat_templateObject20 || (noncombat_templateObject20 = noncombat_taggedTemplateLiteral(["Disgeist"]))),
       modifier: "-combat"
     },
     post: () => {
-      uneffect($effect(noncombat_templateObject20 || (noncombat_templateObject20 = noncombat_taggedTemplateLiteral(["The Sonata of Sneakiness"]))));
+      uneffect($effect(noncombat_templateObject21 || (noncombat_templateObject21 = noncombat_taggedTemplateLiteral(["The Sonata of Sneakiness"]))));
     },
     limit: {
       tries: 1
@@ -11324,12 +11305,12 @@ var BoozeDropQuest = {
       } // If it saves us >= 6 turns, try using a wish
 
 
-      if (advCost(CommunityServiceTests.ITEMTEST) >= 7) wishFor($effect(boozedrop_templateObject64 || (boozedrop_templateObject64 = boozedrop_taggedTemplateLiteral(["Infernal Thirst"]))));
+      if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect(boozedrop_templateObject64 || (boozedrop_templateObject64 = boozedrop_taggedTemplateLiteral(["Infernal Thirst"]))));
     },
     completed: () => CommunityService.BoozeDrop.isDone(),
     do: () => {
       var maxTurns = property_get("instant_boozeTestTurnLimit", 30);
-      var testTurns = advCost(CommunityServiceTests.ITEMTEST);
+      var testTurns = CommunityService.BoozeDrop.actualCost();
 
       if (testTurns > maxTurns) {
         (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
@@ -11338,7 +11319,7 @@ var BoozeDropQuest = {
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_boozeTestTurnLimit=<new limit>'", "red");
       }
 
-      CommunityService.BoozeDrop.run(() => logTestSetup(CommunityServiceTests.ITEMTEST), maxTurns);
+      CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns);
     },
     outfit: {
       modifier: "Item Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man"
@@ -11439,12 +11420,12 @@ var HotResQuest = {
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
       (0,external_kolmafia_namespaceObject.cliExecute)("maximize hot res"); // If it saves us >= 6 turns, try using a wish
 
-      if (advCost(CommunityServiceTests.HOTTEST) >= 7) wishFor($effect(hotres_templateObject60 || (hotres_templateObject60 = hotres_taggedTemplateLiteral(["Fireproof Lips"]))));
+      if (CommunityService.HotRes.actualCost() >= 7) wishFor($effect(hotres_templateObject60 || (hotres_templateObject60 = hotres_taggedTemplateLiteral(["Fireproof Lips"]))));
     },
     completed: () => CommunityService.HotRes.isDone(),
     do: () => {
       var maxTurns = property_get("instant_hotTestTurnLimit", 35);
-      var testTurns = advCost(CommunityServiceTests.HOTTEST);
+      var testTurns = CommunityService.HotRes.actualCost();
 
       if (testTurns > maxTurns) {
         (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
@@ -11453,7 +11434,7 @@ var HotResQuest = {
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_hotTestTurnLimit=<new limit>'", "red");
       }
 
-      CommunityService.HotRes.run(() => logTestSetup(CommunityServiceTests.HOTTEST), maxTurns);
+      CommunityService.HotRes.run(() => logTestSetup(CommunityService.HotRes), maxTurns);
     },
     outfit: {
       modifier: "hot res",
@@ -11530,15 +11511,15 @@ var WeaponDamageQuest = {
       var usefulEffects = [$effect(weapondamage_templateObject21 || (weapondamage_templateObject21 = weapondamage_taggedTemplateLiteral(["Billiards Belligerence"]))), $effect(weapondamage_templateObject22 || (weapondamage_templateObject22 = weapondamage_taggedTemplateLiteral(["Bow-Legged Swagger"]))), $effect(weapondamage_templateObject23 || (weapondamage_templateObject23 = weapondamage_taggedTemplateLiteral(["Carol of the Bulls"]))), $effect(weapondamage_templateObject24 || (weapondamage_templateObject24 = weapondamage_taggedTemplateLiteral(["Cowrruption"]))), $effect(weapondamage_templateObject25 || (weapondamage_templateObject25 = weapondamage_taggedTemplateLiteral(["Disdain of the War Snapper"]))), $effect(weapondamage_templateObject26 || (weapondamage_templateObject26 = weapondamage_taggedTemplateLiteral(["Faboooo"]))), $effect(weapondamage_templateObject27 || (weapondamage_templateObject27 = weapondamage_taggedTemplateLiteral(["Feeling Punchy"]))), $effect(weapondamage_templateObject28 || (weapondamage_templateObject28 = weapondamage_taggedTemplateLiteral(["Frenzied, Bloody"]))), $effect(weapondamage_templateObject29 || (weapondamage_templateObject29 = weapondamage_taggedTemplateLiteral(["Imported Strength"]))), $effect(weapondamage_templateObject30 || (weapondamage_templateObject30 = weapondamage_taggedTemplateLiteral(["Jackasses' Symphony of Destruction"]))), $effect(weapondamage_templateObject31 || (weapondamage_templateObject31 = weapondamage_taggedTemplateLiteral(["Lack of Body-Building"]))), $effect(weapondamage_templateObject32 || (weapondamage_templateObject32 = weapondamage_taggedTemplateLiteral(["Pronounced Potency"]))), $effect(weapondamage_templateObject33 || (weapondamage_templateObject33 = weapondamage_taggedTemplateLiteral(["Rage of the Reindeer"]))), $effect(weapondamage_templateObject34 || (weapondamage_templateObject34 = weapondamage_taggedTemplateLiteral(["Rictus of Yeg"]))), $effect(weapondamage_templateObject35 || (weapondamage_templateObject35 = weapondamage_taggedTemplateLiteral(["Seeing Red"]))), $effect(weapondamage_templateObject36 || (weapondamage_templateObject36 = weapondamage_taggedTemplateLiteral(["Scowl of the Auk"]))), $effect(weapondamage_templateObject37 || (weapondamage_templateObject37 = weapondamage_taggedTemplateLiteral(["Song of the North"]))), $effect(weapondamage_templateObject38 || (weapondamage_templateObject38 = weapondamage_taggedTemplateLiteral(["Tenacity of the Snapper"]))), $effect(weapondamage_templateObject39 || (weapondamage_templateObject39 = weapondamage_taggedTemplateLiteral(["The Power of LOV"]))), $effect(weapondamage_templateObject40 || (weapondamage_templateObject40 = weapondamage_taggedTemplateLiteral(["Wasabi With You"]))), $effect(weapondamage_templateObject41 || (weapondamage_templateObject41 = weapondamage_taggedTemplateLiteral(["Weapon of Mass Destruction"])))];
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true)); // If it saves us >= 6 turns, try using a wish
 
-      if (advCost(CommunityServiceTests.WPNTEST) >= 7) wishFor($effect(weapondamage_templateObject42 || (weapondamage_templateObject42 = weapondamage_taggedTemplateLiteral(["Outer Wolf\u2122"]))));
+      if (CommunityService.WeaponDamage.actualCost() >= 7) wishFor($effect(weapondamage_templateObject42 || (weapondamage_templateObject42 = weapondamage_taggedTemplateLiteral(["Outer Wolf\u2122"]))));
       $effects(weapondamage_templateObject43 || (weapondamage_templateObject43 = weapondamage_taggedTemplateLiteral(["Spit Upon, Pyramid Power"]))).forEach(ef => {
-        if (advCost(CommunityServiceTests.WPNTEST) >= 5) wishFor(ef); // The effects each save 2 turns on spelltest as well
+        if (CommunityService.WeaponDamage.actualCost() >= 5) wishFor(ef); // The effects each save 2 turns on spelltest as well
       });
     },
     completed: () => CommunityService.WeaponDamage.isDone(),
     do: () => {
       var maxTurns = property_get("instant_wpnTestTurnLimit", 35);
-      var testTurns = advCost(CommunityServiceTests.WPNTEST);
+      var testTurns = CommunityService.WeaponDamage.actualCost();
 
       if (testTurns > maxTurns) {
         (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
@@ -11547,7 +11528,7 @@ var WeaponDamageQuest = {
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_wpnTestTurnLimit=<new limit>'", "red");
       }
 
-      CommunityService.WeaponDamage.run(() => logTestSetup(CommunityServiceTests.WPNTEST), maxTurns);
+      CommunityService.WeaponDamage.run(() => logTestSetup(CommunityService.WeaponDamage), maxTurns);
     },
     outfit: {
       modifier: "weapon dmg, switch disembodied hand, -switch left-hand man"
@@ -11622,13 +11603,9 @@ function logResourceUsage() {
 
   (0,external_kolmafia_namespaceObject.print)("");
   (0,external_kolmafia_namespaceObject.print)("Test Summary:");
-  var tests = Array(CommunityServiceTests.COILTEST, CommunityServiceTests.HOTTEST, CommunityServiceTests.HPTEST, CommunityServiceTests.MUSTEST, CommunityServiceTests.MYSTTEST, CommunityServiceTests.MOXTEST, CommunityServiceTests.COMTEST, CommunityServiceTests.WPNTEST, CommunityServiceTests.SPELLTEST, CommunityServiceTests.FAMTEST, CommunityServiceTests.ITEMTEST);
-  tests.forEach(test => {
-    var _testNames$get;
-
-    return (0,external_kolmafia_namespaceObject.print)("".concat((_testNames$get = testNames.get(test)) !== null && _testNames$get !== void 0 ? _testNames$get : "Unknown Test", ": ").concat(property_get("_CSTest".concat(test), "?")));
-  });
-  (0,external_kolmafia_namespaceObject.print)("Leveling: ".concat((0,external_kolmafia_namespaceObject.turnsPlayed)() - sumNumbers(tests.map(test => property_get("_CSTest".concat(test), 0)))));
+  var tests = Array.from(testModifiers.keys());
+  tests.forEach(whichTest => (0,external_kolmafia_namespaceObject.print)("".concat(whichTest.statName, ": ").concat(property_get("_CSTest".concat(whichTest.id), "?"))));
+  (0,external_kolmafia_namespaceObject.print)("Leveling: ".concat((0,external_kolmafia_namespaceObject.turnsPlayed)() - sumNumbers(tests.map(whichTest => property_get("_CSTest".concat(whichTest.id), 0)))));
   (0,external_kolmafia_namespaceObject.print)("Adventures used: ".concat((0,external_kolmafia_namespaceObject.turnsPlayed)()));
   (0,external_kolmafia_namespaceObject.print)("");
 }
@@ -11722,7 +11699,7 @@ var SpellDamageQuest = {
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
       var wines = template_string_$items(spelldamage_templateObject27 || (spelldamage_templateObject27 = spelldamage_taggedTemplateLiteral(["Sacramento wine, distilled fortified wine"])));
 
-      while (advCost(CommunityServiceTests.SPELLTEST) > (0,external_kolmafia_namespaceObject.myAdventures)() && (0,external_kolmafia_namespaceObject.myInebriety)() < (0,external_kolmafia_namespaceObject.inebrietyLimit)() && wines.some(booze => lib_have(booze))) {
+      while (CommunityService.SpellDamage.actualCost() > (0,external_kolmafia_namespaceObject.myAdventures)() && (0,external_kolmafia_namespaceObject.myInebriety)() < (0,external_kolmafia_namespaceObject.inebrietyLimit)() && wines.some(booze => lib_have(booze))) {
         tryAcquiringEffect($effect(spelldamage_templateObject28 || (spelldamage_templateObject28 = spelldamage_taggedTemplateLiteral(["Ode to Booze"]))));
         (0,external_kolmafia_namespaceObject.drink)(wines.filter(booze => lib_have(booze))[0], 1);
       }
@@ -11730,7 +11707,7 @@ var SpellDamageQuest = {
     completed: () => CommunityService.SpellDamage.isDone(),
     do: () => {
       var maxTurns = property_get("instant_spellTestTurnLimit", 55);
-      var testTurns = advCost(CommunityServiceTests.SPELLTEST);
+      var testTurns = CommunityService.SpellDamage.actualCost();
 
       if (testTurns > maxTurns) {
         (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
@@ -11739,7 +11716,7 @@ var SpellDamageQuest = {
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_spellTestTurnLimit=<new limit>'", "red");
       }
 
-      CommunityService.SpellDamage.run(() => logTestSetup(CommunityServiceTests.SPELLTEST), maxTurns);
+      CommunityService.SpellDamage.run(() => logTestSetup(CommunityService.SpellDamage), maxTurns);
     },
     outfit: {
       modifier: "spell dmg, switch disembodied hand, -switch left-hand man"
