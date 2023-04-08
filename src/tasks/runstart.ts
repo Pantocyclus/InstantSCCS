@@ -58,7 +58,8 @@ import { Quest } from "../engine/task";
 import { getGarden, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
-import { unbreakableUmbrella } from "../engine/outfit";
+import { baseOutfit, chooseFamiliar, unbreakableUmbrella } from "../engine/outfit";
+import { OutfitSpec } from "grimoire-kolmafia";
 
 export const RunStartQuest: Quest = {
   name: "Run Start",
@@ -416,12 +417,14 @@ export const RunStartQuest: Quest = {
         get("instant_skipEarlyTrainsetMeat", false),
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(Macro.attack()),
-      outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier:
-          "0.25 mys, -1 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball, -equip backup camera",
+      outfit: (): OutfitSpec => {
+        return {
+          offhand: $item`unbreakable umbrella`,
+          acc1: $item`codpiece`,
+          familiar: chooseFamiliar(false),
+          modifier:
+            "0.25 mys, -1 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball, -equip backup camera",
+        };
       },
       limit: { tries: 1 },
     },
@@ -466,12 +469,14 @@ export const RunStartQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.if_($monster`novelty tropical skeleton`, Macro.tryItem($item`yellow rocket`)).abort()
       ),
-      outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier:
-          "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball",
+      outfit: (): OutfitSpec => {
+        return {
+          offhand: $item`unbreakable umbrella`,
+          acc1: $item`codpiece`,
+          familiar: chooseFamiliar(false),
+          modifier:
+            "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball",
+        };
       },
       post: (): void => {
         if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
@@ -498,14 +503,20 @@ export const RunStartQuest: Quest = {
         Macro.if_($monster`novelty tropical skeleton`, Macro.tryItem($item`yellow rocket`))
           .trySkill($skill`Bowl a Curveball`)
           .trySkill($skill`Snokebomb`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Monkey Slap`)
           .abort()
       ),
-      outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier:
-          "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball",
+      outfit: (): OutfitSpec => {
+        return {
+          offhand: $item`unbreakable umbrella`,
+          acc1: $item`codpiece`,
+          // eslint-disable-next-line libram/verify-constants
+          acc2: $item`cursed monkey's paw`,
+          familiar: chooseFamiliar(false),
+          modifier:
+            "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip miniature crystal ball",
+        };
       },
       post: (): void => {
         if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
@@ -548,12 +559,10 @@ export const RunStartQuest: Quest = {
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
       do: $location`Noob Cave`,
-      outfit: {
+      outfit: () => ({
+        ...baseOutfit(),
         offhand: $item`Kramco Sausage-o-Matic™`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Cookbookbat`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      }),
       combat: new CombatStrategy().macro(Macro.default()),
     },
   ],

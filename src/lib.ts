@@ -3,6 +3,7 @@ import {
   Effect,
   getCampground,
   Item,
+  itemAmount,
   mpCost,
   myBasestat,
   myBuffedstat,
@@ -181,4 +182,40 @@ export function wishFor(ef: Effect, useGenie = true): void {
   if (have($item`genie bottle`) && !get("instant_saveGenie", false) && useGenie) {
     cliExecute(`genie effect ${ef.name}`);
   }
+}
+
+export const targetBaseMyst = 190;
+export function haveCBBIngredients(fullCheck: boolean): boolean {
+  let yeast = 0,
+    vegetable = 0,
+    whey = 0;
+  if (!get("instant_saveHoneyBun", false) && !have($effect`Motherly Loved`)) yeast += 1;
+  if (!get("instant_saveRoastedVegetableStats", false) && !have($effect`Wizard Sight`))
+    vegetable += 2;
+  if (!get("instant_saveRichRicotta", false) && !have($effect`Rippin' Ricotta`)) whey += 2;
+  if (!get("instant_savePlainCalzone", false) && !have($effect`Angering Pizza Purists`)) {
+    yeast += 2;
+    whey += 2;
+  }
+  if (fullCheck) {
+    if (!get("instant_saveRicottaCasserole", false) && !have($effect`Pretty Delicious`)) {
+      vegetable += 2;
+      whey += 2;
+    }
+    if (!get("instant_saveRoastedVegetableItem", false)) {
+      vegetable += 2;
+    }
+    if (
+      !get("instant_saveWileyWheyBar", false) &&
+      !have($effect`Awfully Wily`) &&
+      myBasestat($stat`Mysticality`) < targetBaseMyst
+    ) {
+      whey += 1;
+    }
+  }
+  return (
+    itemAmount($item`Yeast of Boris`) >= yeast &&
+    itemAmount($item`Vegetable of Jarlsberg`) >= vegetable &&
+    itemAmount($item`St. Sneaky Pete's Whey`) >= whey
+  );
 }

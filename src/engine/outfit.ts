@@ -1,5 +1,7 @@
-import { cliExecute, equip, equippedItem, Item } from "kolmafia";
-import { $item, $skill, $slot, get, have } from "libram";
+import { OutfitSpec } from "grimoire-kolmafia";
+import { cliExecute, equip, equippedItem, Familiar, Item } from "kolmafia";
+import { $familiar, $item, $skill, $slot, get, have } from "libram";
+import { haveCBBIngredients } from "../lib";
 
 export function garbageShirt(): void {
   if (
@@ -44,4 +46,51 @@ export function sugarItemsAboutToBreak(): Item[] {
       return itemAboutToBreak ? [item] : [];
     })
     .reduce((a, b) => a.concat(b));
+}
+
+function nanorhino(allowAttackingFamiliars = false): Familiar {
+  return allowAttackingFamiliars && get("_nanorhinoCharge", 0) === 100
+    ? $familiar`Nanorhino`
+    : $familiar.none;
+}
+
+function cookbookbat(): Familiar {
+  return !haveCBBIngredients(true) ? $familiar`Cookbookbat` : $familiar.none;
+}
+
+function shorterOrderCook(allowAttackingFamiliars = true): Familiar {
+  return allowAttackingFamiliars && !have($item`short stack of pancakes`)
+    ? $familiar`Shorter-Order Cook`
+    : $familiar.none;
+}
+
+function garbageFire(): Familiar {
+  return !have($item`burning newspaper`) ? $familiar`Garbage Fire` : $familiar.none;
+}
+
+function sombrero(allowAttackingFamiliars = true): Familiar {
+  const sombreros = [
+    allowAttackingFamiliars ? $familiar`Galloping Grill` : $familiar.none,
+    $familiar`Baby Sandworm`,
+    $familiar`Hovering Sombrero`,
+  ].filter((fam) => have(fam));
+  return sombreros.length > 0 ? sombreros[0] : $familiar.none;
+}
+
+export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
+  const familiars = [cookbookbat, shorterOrderCook, garbageFire, nanorhino, sombrero]
+    .map((fn) => fn(allowAttackingFamiliars))
+    .filter((fam) => have(fam));
+  return familiars.length > 0 ? familiars[0] : $familiar.none;
+}
+
+export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
+  return {
+    offhand: $item`unbreakable umbrella`,
+    back: $item`LOV Epaulettes`,
+    acc1: $item`codpiece`,
+    familiar: chooseFamiliar(allowAttackingFamiliars),
+    modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+    avoid: sugarItemsAboutToBreak(),
+  };
 }

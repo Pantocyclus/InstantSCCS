@@ -42,6 +42,12 @@ export const FamiliarWeightQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Fold Burning Newspaper",
+      completed: () => !have($item`burning newspaper`),
+      do: () => cliExecute("create burning paper crane"),
+      limit: { tries: 1 },
+    },
+    {
       name: "Test",
       completed: () => CommunityService.FamiliarWeight.isDone(),
       prepare: (): void => {
@@ -54,6 +60,7 @@ export const FamiliarWeightQuest: Quest = {
           $effect`Fidoxene`,
           $effect`Leash of Linguini`,
           $effect`Puzzle Champ`,
+          $effect`Shortly Stacked`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
 
