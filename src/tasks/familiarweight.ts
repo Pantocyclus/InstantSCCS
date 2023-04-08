@@ -42,6 +42,17 @@ export const FamiliarWeightQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Tune Moon to Platypus",
+      completed: () =>
+        !have($item`hewn moon-rune spoon`) ||
+        get("moonTuned") ||
+        get("instant_saveMoonTune", false),
+      do: (): void => {
+        cliExecute("spoon platypus");
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Test",
       completed: () => CommunityService.FamiliarWeight.isDone(),
       prepare: (): void => {
