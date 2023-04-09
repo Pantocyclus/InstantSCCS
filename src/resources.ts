@@ -150,6 +150,7 @@ const resources: Resource[] = [
     () => "Do not attempt to grab a li'l ninja costume for your tot"
   ),
   new Resource("instant_saveGarden", () => "Do not harvest your garden"),
+  new Resource("instant_saveMoonTune", () => "Do not tune the moon for familiar weight test"),
 ];
 
 const automaticallyExcludedBuffs = Array.from(
