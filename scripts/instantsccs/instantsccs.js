@@ -3547,7 +3547,7 @@ function checkResources() {
   forbiddenEffects.forEach(ef => (0,external_kolmafia_namespaceObject.print)("- ".concat(ef.name)));
   (0,external_kolmafia_namespaceObject.print)("The following are all the familliars we will not use during leveling:");
   var excludedFamiliars = property_get("instant_explicitlyExcludedFamiliars").split(",").map(i => (0,external_kolmafia_namespaceObject.toInt)(i));
-  external_kolmafia_namespaceObject.Familiar.all().filter(fam => excludedFamiliars.includes((0,external_kolmafia_namespaceObject.toInt)(fam))).forEach(fam => (0,external_kolmafia_namespaceObject.print)("- ".concat(fam.name)));
+  external_kolmafia_namespaceObject.Familiar.all().filter(fam => excludedFamiliars.includes((0,external_kolmafia_namespaceObject.toInt)(fam))).forEach(fam => (0,external_kolmafia_namespaceObject.print)("- ".concat(fam)));
   (0,external_kolmafia_namespaceObject.print)();
   (0,external_kolmafia_namespaceObject.print)("Type 'set <prefname>=<true/false(/or number)>' in the CLI to set your preferences");
   (0,external_kolmafia_namespaceObject.print)("Type 'set instant_explicitlyExcludedBuffs=<effect_id1>,...,<effect_idn>' to exclude getting specific effects");
