@@ -3545,11 +3545,15 @@ function checkResources() {
   (0,external_kolmafia_namespaceObject.print)();
   (0,external_kolmafia_namespaceObject.print)("The following are all the buffs we will not acquire in run:");
   forbiddenEffects.forEach(ef => (0,external_kolmafia_namespaceObject.print)("- ".concat(ef.name)));
+  (0,external_kolmafia_namespaceObject.print)("The following are all the familliars we will not use during leveling:");
+  var excludedFamiliars = property_get("instant_explicitlyExcludedFamiliars").split(",").map(i => (0,external_kolmafia_namespaceObject.toInt)(i));
+  external_kolmafia_namespaceObject.Familiar.all().filter(fam => excludedFamiliars.includes((0,external_kolmafia_namespaceObject.toInt)(fam))).forEach(fam => (0,external_kolmafia_namespaceObject.print)("- ".concat(fam.name)));
   (0,external_kolmafia_namespaceObject.print)();
   (0,external_kolmafia_namespaceObject.print)("Type 'set <prefname>=<true/false(/or number)>' in the CLI to set your preferences");
   (0,external_kolmafia_namespaceObject.print)("Type 'set instant_explicitlyExcludedBuffs=<effect_id1>,...,<effect_idn>' to exclude getting specific effects");
   (0,external_kolmafia_namespaceObject.print)("(e.g. 'set instant_explicitlyExcludedBuffs=2106' to exclude substats.enh (id = 2106)");
   (0,external_kolmafia_namespaceObject.print)("without excluding acquiring items.enh from the Source Terminal)");
+  (0,external_kolmafia_namespaceObject.print)("Type 'set instant_explicitlyExcludedBuffs=<fam_id1>,...,<fam_idn>' to exclude using specific familiars during leveling");
   (0,external_kolmafia_namespaceObject.print)("Type 'ash remove_property(\"<prefname>\")' to delete a preference");
 }
 ;// CONCATENATED MODULE: ./src/lib.ts
@@ -8841,7 +8845,7 @@ function fightPiece(piece) {
   return (0,external_kolmafia_namespaceObject.runCombat)();
 }
 ;// CONCATENATED MODULE: ./src/engine/outfit.ts
-var engine_outfit_templateObject, engine_outfit_templateObject2, engine_outfit_templateObject3, engine_outfit_templateObject4, engine_outfit_templateObject5, engine_outfit_templateObject6, engine_outfit_templateObject7, engine_outfit_templateObject8, engine_outfit_templateObject9, engine_outfit_templateObject10, engine_outfit_templateObject11, engine_outfit_templateObject12, engine_outfit_templateObject13, engine_outfit_templateObject14, engine_outfit_templateObject15, engine_outfit_templateObject16, engine_outfit_templateObject17, engine_outfit_templateObject18, engine_outfit_templateObject19, engine_outfit_templateObject20, engine_outfit_templateObject21, engine_outfit_templateObject22, engine_outfit_templateObject23, engine_outfit_templateObject24, engine_outfit_templateObject25, engine_outfit_templateObject26, engine_outfit_templateObject27, engine_outfit_templateObject28, engine_outfit_templateObject29, engine_outfit_templateObject30, engine_outfit_templateObject31, engine_outfit_templateObject32;
+var engine_outfit_templateObject, engine_outfit_templateObject2, engine_outfit_templateObject3, engine_outfit_templateObject4, engine_outfit_templateObject5, engine_outfit_templateObject6, engine_outfit_templateObject7, engine_outfit_templateObject8, engine_outfit_templateObject9, engine_outfit_templateObject10, engine_outfit_templateObject11, engine_outfit_templateObject12, engine_outfit_templateObject13, engine_outfit_templateObject14, engine_outfit_templateObject15, engine_outfit_templateObject16, engine_outfit_templateObject17, engine_outfit_templateObject18, engine_outfit_templateObject19, engine_outfit_templateObject20, engine_outfit_templateObject21, engine_outfit_templateObject22, engine_outfit_templateObject23, engine_outfit_templateObject24, engine_outfit_templateObject25, engine_outfit_templateObject26, engine_outfit_templateObject27, engine_outfit_templateObject28, engine_outfit_templateObject29, engine_outfit_templateObject30, engine_outfit_templateObject31, engine_outfit_templateObject32, engine_outfit_templateObject33, engine_outfit_templateObject34;
 
 function engine_outfit_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -8917,19 +8921,21 @@ function optimisticCandle() {
 
 function chooseFamiliar() {
   var allowAttackingFamiliars = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-  var familiars = [cookbookbat, shorterOrderCook, garbageFire, nanorhino, optimisticCandle, rockinRobin, sombrero].map(fn => fn(allowAttackingFamiliars)).filter(fam => lib_have(fam));
-  return familiars.length > 0 ? familiars[0] : template_string_$familiar.none;
+  var ignoredFamiliars = property_get("instant_explicitlyExcludedFamiliars", "").split(",").map(i => (0,external_kolmafia_namespaceObject.toInt)(i));
+  var defaultFam = lib_have(template_string_$familiar(engine_outfit_templateObject29 || (engine_outfit_templateObject29 = engine_outfit_taggedTemplateLiteral(["Cookbookbat"])))) ? template_string_$familiar(engine_outfit_templateObject30 || (engine_outfit_templateObject30 = engine_outfit_taggedTemplateLiteral(["Cookbookbat"]))) : template_string_$familiar.none;
+  var familiars = [cookbookbat, shorterOrderCook, garbageFire, nanorhino, optimisticCandle, rockinRobin, sombrero].map(fn => fn(allowAttackingFamiliars)).filter(fam => lib_have(fam) && !ignoredFamiliars.includes((0,external_kolmafia_namespaceObject.toInt)(fam)));
+  return familiars.length > 0 ? familiars[0] : defaultFam;
 }
-var specialEquipFamiliars = $familiars(engine_outfit_templateObject29 || (engine_outfit_templateObject29 = engine_outfit_taggedTemplateLiteral(["Disembodied Hand, Left-Hand Man, Mad Hatrack, Fancypants Scarecrow, Ghost of Crimbo Carols, Ghost of Crimbo Cheer, Ghost of Crimbo Commerce"])));
+var specialEquipFamiliars = $familiars(engine_outfit_templateObject31 || (engine_outfit_templateObject31 = engine_outfit_taggedTemplateLiteral(["Disembodied Hand, Left-Hand Man, Mad Hatrack, Fancypants Scarecrow, Ghost of Crimbo Carols, Ghost of Crimbo Cheer, Ghost of Crimbo Commerce"])));
 function chooseHeaviestFamiliar() {
   return maxBy(external_kolmafia_namespaceObject.Familiar.all().filter(fam => lib_have(fam) && !specialEquipFamiliars.includes(fam)), fam => fam.experience);
 }
 function baseOutfit() {
   var allowAttackingFamiliars = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
   return {
-    offhand: template_string_$item(engine_outfit_templateObject30 || (engine_outfit_templateObject30 = engine_outfit_taggedTemplateLiteral(["unbreakable umbrella"]))),
-    back: template_string_$item(engine_outfit_templateObject31 || (engine_outfit_templateObject31 = engine_outfit_taggedTemplateLiteral(["LOV Epaulettes"]))),
-    acc1: template_string_$item(engine_outfit_templateObject32 || (engine_outfit_templateObject32 = engine_outfit_taggedTemplateLiteral(["codpiece"]))),
+    offhand: template_string_$item(engine_outfit_templateObject32 || (engine_outfit_templateObject32 = engine_outfit_taggedTemplateLiteral(["unbreakable umbrella"]))),
+    back: template_string_$item(engine_outfit_templateObject33 || (engine_outfit_templateObject33 = engine_outfit_taggedTemplateLiteral(["LOV Epaulettes"]))),
+    acc1: template_string_$item(engine_outfit_templateObject34 || (engine_outfit_templateObject34 = engine_outfit_taggedTemplateLiteral(["codpiece"]))),
     familiar: chooseFamiliar(allowAttackingFamiliars),
     modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
     avoid: sugarItemsAboutToBreak()
