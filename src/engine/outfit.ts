@@ -1,5 +1,5 @@
 import { OutfitSpec } from "grimoire-kolmafia";
-import { cliExecute, equip, equippedItem, Familiar, Item } from "kolmafia";
+import { cliExecute, equip, equippedItem, Familiar, Item, toInt } from "kolmafia";
 import { $familiar, $familiars, $item, $skill, $slot, get, have, maxBy } from "libram";
 import { haveCBBIngredients } from "../lib";
 
@@ -86,6 +86,10 @@ function optimisticCandle(): Familiar {
 }
 
 export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
+  const ignoredFamiliars = get("instant_explicitlyExcludedFamiliars", "")
+    .split(",")
+    .map((i) => toInt(i));
+  const defaultFam = have($familiar`Cookbookbat`) ? $familiar`Cookbookbat` : $familiar.none;
   const familiars = [
     cookbookbat,
     shorterOrderCook,
@@ -96,8 +100,8 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
     sombrero,
   ]
     .map((fn) => fn(allowAttackingFamiliars))
-    .filter((fam) => have(fam));
-  return familiars.length > 0 ? familiars[0] : $familiar.none;
+    .filter((fam) => have(fam) && !ignoredFamiliars.includes(toInt(fam)));
+  return familiars.length > 0 ? familiars[0] : defaultFam;
 }
 
 const specialEquipFamiliars = $familiars`Disembodied Hand, Left-Hand Man, Mad Hatrack, Fancypants Scarecrow, Ghost of Crimbo Carols, Ghost of Crimbo Cheer, Ghost of Crimbo Commerce`;
