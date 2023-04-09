@@ -3553,7 +3553,7 @@ function checkResources() {
   (0,external_kolmafia_namespaceObject.print)("Type 'set instant_explicitlyExcludedBuffs=<effect_id1>,...,<effect_idn>' to exclude getting specific effects");
   (0,external_kolmafia_namespaceObject.print)("(e.g. 'set instant_explicitlyExcludedBuffs=2106' to exclude substats.enh (id = 2106)");
   (0,external_kolmafia_namespaceObject.print)("without excluding acquiring items.enh from the Source Terminal)");
-  (0,external_kolmafia_namespaceObject.print)("Type 'set instant_explicitlyExcludedBuffs=<fam_id1>,...,<fam_idn>' to exclude using specific familiars during leveling");
+  (0,external_kolmafia_namespaceObject.print)("Type 'set instant_explicitlyExcludedFamiliars=<fam_id1>,...,<fam_idn>' to exclude using specific familiars during leveling");
   (0,external_kolmafia_namespaceObject.print)("Type 'ash remove_property(\"<prefname>\")' to delete a preference");
 }
 ;// CONCATENATED MODULE: ./src/lib.ts
