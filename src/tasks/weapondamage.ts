@@ -67,6 +67,12 @@ export const WeaponDamageQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Glob of Melted Wax",
+      completed: () => !have($item`glob of melted wax`) || have($item`wax hand`),
+      do: () => create($item`wax hand`, 1),
+      limit: { tries: 1 },
+    },
+    {
       name: "Meteor Shower",
       completed: () =>
         have($effect`Meteor Showered`) ||

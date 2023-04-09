@@ -77,8 +77,24 @@ function sombrero(allowAttackingFamiliars = true): Familiar {
   return sombreros.length > 0 ? sombreros[0] : $familiar.none;
 }
 
+function rockinRobin(): Familiar {
+  return !have($item`robin's egg`) ? $familiar`Rockin' Robin` : $familiar.none;
+}
+
+function optimisticCandle(): Familiar {
+  return !have($item`glob of melted wax`) ? $familiar`Optimistic Candle` : $familiar.none;
+}
+
 export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
-  const familiars = [cookbookbat, shorterOrderCook, garbageFire, nanorhino, sombrero]
+  const familiars = [
+    cookbookbat,
+    shorterOrderCook,
+    garbageFire,
+    nanorhino,
+    optimisticCandle,
+    rockinRobin,
+    sombrero,
+  ]
     .map((fn) => fn(allowAttackingFamiliars))
     .filter((fam) => have(fam));
   return familiars.length > 0 ? familiars[0] : $familiar.none;

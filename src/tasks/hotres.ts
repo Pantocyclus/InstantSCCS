@@ -115,6 +115,12 @@ export const HotResQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Metal Meteoroid",
+      completed: () => !have($item`metal meteoroid`) || have($item`meteorite guard`),
+      do: () => create($item`meteorite guard`, 1),
+      limit: { tries: 1 },
+    },
+    {
       name: "Test",
       prepare: (): void => {
         cliExecute("retrocape vampire hold");
@@ -138,6 +144,7 @@ export const HotResQuest: Quest = {
         const usefulEffects: Effect[] = [
           $effect`Amazing`,
           $effect`Astral Shell`,
+          $effect`Egged On`,
           $effect`Elemental Saucesphere`,
           $effect`Feeling Peaceful`,
           $effect`Hot-Headed`,
