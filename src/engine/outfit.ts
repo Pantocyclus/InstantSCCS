@@ -1,6 +1,6 @@
 import { OutfitSpec } from "grimoire-kolmafia";
 import { cliExecute, equip, equippedItem, Familiar, Item } from "kolmafia";
-import { $familiar, $item, $skill, $slot, get, have } from "libram";
+import { $familiar, $familiars, $item, $skill, $slot, get, have, maxBy } from "libram";
 import { haveCBBIngredients } from "../lib";
 
 export function garbageShirt(): void {
@@ -82,6 +82,14 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
     .map((fn) => fn(allowAttackingFamiliars))
     .filter((fam) => have(fam));
   return familiars.length > 0 ? familiars[0] : $familiar.none;
+}
+
+const specialEquipFamiliars = $familiars`Disembodied Hand, Left-Hand Man, Mad Hatrack, Fancypants Scarecrow, Ghost of Crimbo Carols, Ghost of Crimbo Cheer, Ghost of Crimbo Commerce`;
+export function chooseHeaviestFamiliar(): Familiar {
+  return maxBy(
+    Familiar.all().filter((fam) => have(fam) && !specialEquipFamiliars.includes(fam)),
+    (fam) => fam.experience
+  );
 }
 
 export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {

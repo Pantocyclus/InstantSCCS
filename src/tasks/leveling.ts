@@ -307,11 +307,11 @@ export const LevelingQuest: Quest = {
       // TODO: Make this completed if we've already wished twice with the paw (requires mafia tracking)
       completed: () =>
         have($effect`Different Way of Seeing Things`) ||
-        // eslint-disable-next-line libram/verify-constants
         !have($item`cursed monkey's paw`) ||
         forbiddenEffects.includes($effect`Different Way of Seeing Things`) ||
         get("instant_saveMonkeysPaw", false) ||
-        myBasestat($stat`Mysticality`) >= targetBaseMyst - 15,
+        myBasestat($stat`Mysticality`) >= targetBaseMyst - 15 ||
+        get("_monkeyPawWishesUsed", 0) >= 2,
       do: () => wishFor($effect`Different Way of Seeing Things`, false),
     },
     {

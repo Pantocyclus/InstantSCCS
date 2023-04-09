@@ -503,7 +503,6 @@ export const RunStartQuest: Quest = {
         Macro.if_($monster`novelty tropical skeleton`, Macro.tryItem($item`yellow rocket`))
           .trySkill($skill`Bowl a Curveball`)
           .trySkill($skill`Snokebomb`)
-          // eslint-disable-next-line libram/verify-constants
           .trySkill($skill`Monkey Slap`)
           .abort()
       ),
@@ -511,7 +510,6 @@ export const RunStartQuest: Quest = {
         return {
           offhand: $item`unbreakable umbrella`,
           acc1: $item`codpiece`,
-          // eslint-disable-next-line libram/verify-constants
           acc2: $item`cursed monkey's paw`,
           familiar: chooseFamiliar(false),
           modifier:

@@ -14,7 +14,7 @@ import {
 import { Quest } from "../engine/task";
 import { logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
-import { sugarItemsAboutToBreak } from "../engine/outfit";
+import { chooseHeaviestFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 
 export const FamiliarWeightQuest: Quest = {
   name: "Familiar Weight",
@@ -93,7 +93,7 @@ export const FamiliarWeightQuest: Quest = {
           maxTurns
         );
       },
-      outfit: { modifier: "familiar weight", familiar: $familiar`Cookbookbat` },
+      outfit: () => ({ modifier: "familiar weight", familiar: chooseHeaviestFamiliar() }),
       limit: { tries: 1 },
     },
   ],
