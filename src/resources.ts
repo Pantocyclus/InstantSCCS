@@ -189,7 +189,7 @@ export function checkResources(): void {
     .map((i) => toInt(i));
   Familiar.all()
     .filter((fam) => excludedFamiliars.includes(toInt(fam)))
-    .forEach((fam) => print(`- ${fam.name}`));
+    .forEach((fam) => print(`- ${fam}`));
   print();
   print("Type 'set <prefname>=<true/false(/or number)>' in the CLI to set your preferences");
   print(
