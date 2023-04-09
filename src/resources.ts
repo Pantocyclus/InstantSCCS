@@ -198,7 +198,7 @@ export function checkResources(): void {
   print("(e.g. 'set instant_explicitlyExcludedBuffs=2106' to exclude substats.enh (id = 2106)");
   print("without excluding acquiring items.enh from the Source Terminal)");
   print(
-    "Type 'set instant_explicitlyExcludedBuffs=<fam_id1>,...,<fam_idn>' to exclude using specific familiars during leveling"
+    "Type 'set instant_explicitlyExcludedFamiliars=<fam_id1>,...,<fam_idn>' to exclude using specific familiars during leveling"
   );
   print("Type 'ash remove_property(\"<prefname>\")' to delete a preference");
 }
