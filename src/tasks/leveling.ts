@@ -65,14 +65,9 @@ import {
   Witchess,
   withChoice,
 } from "libram";
-import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
-import { tryAcquiringEffect, wishFor } from "../lib";
-import {
-  docBag,
-  garbageShirt,
-  sugarItemsAboutToBreak,
-  unbreakableUmbrella,
-} from "../engine/outfit";
+import { CombatStrategy } from "grimoire-kolmafia";
+import { haveCBBIngredients, targetBaseMyst, tryAcquiringEffect, wishFor } from "../lib";
+import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
 import Macro from "../combat";
 import { forbiddenEffects } from "../resources";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
@@ -82,7 +77,6 @@ import {
   rufusTarget,
 } from "libram/dist/resources/2023/ClosedCircuitPayphone";
 
-const targetBaseMyst = 190;
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
@@ -153,36 +147,6 @@ export function bestShadowRift(): Location {
     }
   }
   return _bestShadowRift;
-}
-
-function baseOutfit(): OutfitSpec {
-  return {
-    offhand: $item`unbreakable umbrella`,
-    back: $item`LOV Epaulettes`,
-    acc1: $item`codpiece`,
-    familiar: $familiar`Cookbookbat`,
-    modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-    avoid: sugarItemsAboutToBreak(),
-  };
-}
-
-function haveCBBIngredients(): boolean {
-  let yeast = 0,
-    vegetable = 0,
-    whey = 0;
-  if (!get("instant_saveHoneyBun", false) && !have($effect`Motherly Loved`)) yeast += 1;
-  if (!get("instant_saveRoastedVegetableStats", false) && !have($effect`Wizard Sight`))
-    vegetable += 2;
-  if (!get("instant_saveRichRicotta", false) && !have($effect`Rippin' Ricotta`)) whey += 2;
-  if (!get("instant_savePlainCalzone", false) && !have($effect`Angering Pizza Purists`)) {
-    yeast += 2;
-    whey += 2;
-  }
-  return (
-    itemAmount($item`Yeast of Boris`) >= yeast &&
-    itemAmount($item`Vegetable of Jarlsberg`) >= vegetable &&
-    itemAmount($item`St. Sneaky Pete's Whey`) >= whey
-  );
 }
 
 function sendAutumnaton(): void {
@@ -343,11 +307,11 @@ export const LevelingQuest: Quest = {
       // TODO: Make this completed if we've already wished twice with the paw (requires mafia tracking)
       completed: () =>
         have($effect`Different Way of Seeing Things`) ||
-        // eslint-disable-next-line libram/verify-constants
         !have($item`cursed monkey's paw`) ||
         forbiddenEffects.includes($effect`Different Way of Seeing Things`) ||
         get("instant_saveMonkeysPaw", false) ||
-        myBasestat($stat`Mysticality`) >= targetBaseMyst - 15,
+        myBasestat($stat`Mysticality`) >= targetBaseMyst - 15 ||
+        get("_monkeyPawWishesUsed", 0) >= 2,
       do: () => wishFor($effect`Different Way of Seeing Things`, false),
     },
     {
@@ -634,7 +598,7 @@ export const LevelingQuest: Quest = {
           .tryItem($item`red rocket`)
           .default()
       ),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(false),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -661,7 +625,7 @@ export const LevelingQuest: Quest = {
         haveEffect($effect`Glowing Blue`) !== 10 ||
         myMp() >= 500,
       do: $location`The Dire Warren`,
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(false),
       combat: new CombatStrategy().macro(Macro.attack().repeat()),
       post: (): void => {
         sendAutumnaton();
@@ -853,7 +817,7 @@ export const LevelingQuest: Quest = {
         get("instant_saveLocketRedSkeleton", false),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
       combat: new CombatStrategy().macro(Macro.tryItem($item`yellow rocket`).abort()),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(false),
       post: (): void => {
         use($item`red box`, 1);
         sendAutumnaton();
@@ -998,7 +962,7 @@ export const LevelingQuest: Quest = {
       name: "Powerlevel",
       completed: () =>
         myBasestat($stat`Mysticality`) >= targetBaseMyst - 15 &&
-        (haveCBBIngredients() ||
+        (haveCBBIngredients(false) ||
           craftedCBBEffects.some((ef) => have(ef)) ||
           craftedCBBEffects.every((ef) => forbiddenEffects.includes(ef))) &&
         (powerlevelingLocation() !== $location`The Neverending Party` ||
@@ -1131,12 +1095,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
-        (have($effect`Pretty Delicious`) || get("instant_saveRicottaCasserole", false)) &&
-        (get("instant_saveRoastedVegetableItem", false) ||
-          itemAmount($item`Vegetable of Jarlsberg`) >= 2) &&
-        (have($effect`Awfully Wily`) ||
-          get("instant_saveWileyWheyBar", false) ||
-          myBasestat($stat`Mysticality`) >= targetBaseMyst),
+        haveCBBIngredients(true),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Pride`)

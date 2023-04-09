@@ -62,7 +62,6 @@ function buildIotmList(): Requirement[] {
       why: "Leveling + banish",
     },
     {
-      // eslint-disable-next-line libram/verify-constants
       thing: $item`cursed monkey's paw`,
       why: "Leveling + many test improvements",
       optional: true,
