@@ -498,7 +498,9 @@ A Seal Clubber route might be viable for mid-to-high shiny, but the MP regen fro
 
 Run `instantsccs savedresources` to see a list of preferences you can set to save specific resources. You may also explicitly exclude acquiring certain buffs by typing `set instant_explicitlyExcludedBuffs=<comma-separated effect IDs>` (and confirming that the correct buffs have been excluded in the savedresources printout). <br/>
 
-![image](https://user-images.githubusercontent.com/98746573/226190266-089eda2e-61f9-4c26-bf46-d6501e9dc082.png) <br/>
+![image](https://user-images.githubusercontent.com/98746573/230785325-174ee6e9-75df-4de9-96a7-71c9741309fe.png) <br/>
+
+Similarly, you may exclude using certain familiars during the leveling phase by typing `set instant_explicitlyExcludedFamiliars=<comma-separated familiar IDs>` (and confirming that the correct familiars have been excluded in the savedresources printout). <br/>
 
 ### I don't have a lot of the recommended skills. Will this script still work for me?
 
