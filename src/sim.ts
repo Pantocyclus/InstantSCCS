@@ -1,13 +1,4 @@
-import {
-  Familiar,
-  Item,
-  Monster,
-  print,
-  printHtml,
-  Skill,
-  storageAmount,
-  turnsPlayed,
-} from "kolmafia";
+import { Familiar, Item, Monster, print, printHtml, Skill, storageAmount } from "kolmafia";
 import {
   $familiar,
   $item,
@@ -19,7 +10,7 @@ import {
   Lifestyle,
   permedSkills,
 } from "libram";
-import { have as haveTrainSet, nextConfigurable } from "libram/dist/resources/2022/TrainSet";
+import { have as haveTrainSet } from "libram/dist/resources/2022/TrainSet";
 
 class Hardcoded {
   have: boolean;
@@ -396,6 +387,9 @@ function buildMiscList(): Requirement[] {
     {
       thing: new Hardcoded(
         (() => {
+          // We don't need an ice house if we can map the novelty skeleton
+          if (have($skill`Map the Monsters`)) return true;
+
           const banishes = get("banishedMonsters").split(":");
           const iceHouseIndex = banishes.map((string) => string.toLowerCase()).indexOf("ice house");
           if (iceHouseIndex === -1) return false;
@@ -403,18 +397,9 @@ function buildMiscList(): Requirement[] {
             banishes[iceHouseIndex - 1]
           );
         })(),
-        "Ice Housed Skeleton Store Monster"
+        "Cartography / Ice Housed Skeleton Store Monster"
       ),
       why: "Ensures Novelty Tropical Skeleton",
-    },
-    {
-      thing: new Hardcoded(
-        haveTrainSet() &&
-          (!nextConfigurable() ||
-            (get("lastTrainsetConfiguration") === -40 && turnsPlayed() >= 40)),
-        "Configurable Trainset"
-      ),
-      why: "XP and meat during Powerleveling",
     },
     {
       thing: new Hardcoded(
