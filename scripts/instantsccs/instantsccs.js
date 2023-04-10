@@ -3710,7 +3710,7 @@ function wishFor(ef) {
     (0,external_kolmafia_namespaceObject.cliExecute)("genie effect ".concat(ef.name));
   }
 }
-var targetBaseMyst = 190;
+var targetBaseMyst = property_get("instant_targetBaseMyst", 190);
 function haveCBBIngredients(fullCheck) {
   var yeast = 0,
       vegetable = 0,
@@ -11253,7 +11253,7 @@ var BoozeDropQuest = {
   completed: () => CommunityService.BoozeDrop.isDone(),
   tasks: [{
     name: "Configure Trainset",
-    completed: () => (0,external_kolmafia_namespaceObject.getWorkshed)() === template_string_$item(boozedrop_templateObject || (boozedrop_templateObject = boozedrop_taggedTemplateLiteral(["model train set"]))) && !canConfigure(),
+    completed: () => (0,external_kolmafia_namespaceObject.getWorkshed)() === template_string_$item(boozedrop_templateObject || (boozedrop_templateObject = boozedrop_taggedTemplateLiteral(["model train set"]))) && !canConfigure() || !TrainSet_have(),
     do: () => {
       var offset = property_get("trainsetPosition") % 8;
       var newStations = [];
