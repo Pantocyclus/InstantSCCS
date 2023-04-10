@@ -192,7 +192,7 @@ export function wishFor(ef: Effect, useGenie = true): void {
   }
 }
 
-export const targetBaseMyst = 190;
+export const targetBaseMyst = get("instant_targetBaseMyst", 190);
 export function haveCBBIngredients(fullCheck: boolean): boolean {
   let yeast = 0,
     vegetable = 0,

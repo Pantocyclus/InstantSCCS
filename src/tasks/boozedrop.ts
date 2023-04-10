@@ -49,7 +49,8 @@ export const BoozeDropQuest: Quest = {
   tasks: [
     {
       name: "Configure Trainset",
-      completed: () => getWorkshed() === $item`model train set` && !canConfigure(),
+      completed: () =>
+        (getWorkshed() === $item`model train set` && !canConfigure()) || !TrainSet.have(),
       do: (): void => {
         const offset = get("trainsetPosition") % 8;
         const newStations: TrainSet.Station[] = [];
