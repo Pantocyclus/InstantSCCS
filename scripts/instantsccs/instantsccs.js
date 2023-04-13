@@ -10166,13 +10166,11 @@ var LevelingQuest = {
 ;// CONCATENATED MODULE: ./src/tasks/coilwire.ts
 
 
-
 var CoilWireQuest = {
   name: "Coil Wire",
   completed: () => CommunityService.CoilWire.isDone(),
   tasks: [{
     name: "Test",
-    ready: () => (0,external_kolmafia_namespaceObject.myAdventures)() >= 60,
     completed: () => CommunityService.CoilWire.isDone(),
     do: () => CommunityService.CoilWire.run(() => logTestSetup(CommunityService.CoilWire)),
     limit: {
