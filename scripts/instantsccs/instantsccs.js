@@ -12427,7 +12427,7 @@ function buildIotmList() {
     optional: true,
     recommended: true
   }, {
-    thing: new Hardcoded(lib_have(template_string_$item(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))) || (0,external_kolmafia_namespaceObject.storageAmount)(template_string_$item(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))) > 0 || property_get("stenchAirportAlways"), "Scaler Zone Access"),
+    thing: new Hardcoded(lib_have(template_string_$item(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))) || (0,external_kolmafia_namespaceObject.storageAmount)(template_string_$item(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))) > 0 || property_get("stenchAirportAlways") || property_get("spookyAirportAlways") || property_get("hotAirportAlways") || property_get("coldAirportAlways") || property_get("sleazeAirportAlways") || property_get("neverendingPartyAlways"), "Scaler Zone Access"),
     why: "Scalers for leveling"
   }, {
     thing: template_string_$item(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["backup camera"]))),
