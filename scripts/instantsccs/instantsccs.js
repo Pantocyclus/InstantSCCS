@@ -8280,7 +8280,7 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
       engine_get(engine_getPrototypeOf(Engine.prototype), "initPropertiesManager", this).call(this, manager);
 
       var tonic = "doc galaktik's invigorating tonic";
-      var mpItems = property_get("mpAutoRecoveryItems");
+      var mpItems = property_get("mpAutoRecoveryItems").split(";").filter(s => s !== "sleep on your clan sofa").join(";");
       manager.set({
         hpAutoRecovery: -0.05,
         mpAutoRecovery: -0.05,
