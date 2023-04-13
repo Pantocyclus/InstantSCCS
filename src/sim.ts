@@ -84,7 +84,12 @@ function buildIotmList(): Requirement[] {
       thing: new Hardcoded(
         have($item`one-day ticket to Dinseylandfill`) ||
           storageAmount($item`one-day ticket to Dinseylandfill`) > 0 ||
-          get("stenchAirportAlways"),
+          get("stenchAirportAlways") ||
+          get("spookyAirportAlways") ||
+          get("hotAirportAlways") ||
+          get("coldAirportAlways") ||
+          get("sleazeAirportAlways") ||
+          get("neverendingPartyAlways"),
         "Scaler Zone Access"
       ),
       why: "Scalers for leveling",
