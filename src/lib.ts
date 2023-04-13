@@ -4,6 +4,7 @@ import {
   getCampground,
   Item,
   itemAmount,
+  monkeyPaw,
   mpCost,
   myBasestat,
   myBuffedstat,
@@ -12,12 +13,10 @@ import {
   print,
   restoreMp,
   retrieveItem,
-  runChoice,
   toItem,
   toSkill,
   toStat,
   use,
-  visitUrl,
 } from "kolmafia";
 import { $effect, $item, $items, $stat, CommunityService, get, have, set } from "libram";
 import { printModtrace } from "libram/dist/modifier";
@@ -176,10 +175,7 @@ export function wishFor(ef: Effect, useGenie = true): void {
     !get("instant_saveMonkeysPaw", false) &&
     get("_monkeyPawWishesUsed", 0) <= 5
   ) {
-    cliExecute("main.php?action=cmonk&pwd");
-    runChoice(1, `wish=${ef.name}`);
-    visitUrl("main.php");
-    if (have(ef)) return;
+    if (monkeyPaw(ef)) return;
   }
 
   if (
