@@ -9,7 +9,6 @@ export const CoilWireQuest: Quest = {
   tasks: [
     {
       name: "Test",
-      ready: () => myAdventures() >= 60,
       completed: () => CommunityService.CoilWire.isDone(),
       do: () => CommunityService.CoilWire.run(() => logTestSetup(CommunityService.CoilWire)),
       limit: { tries: 1 },
