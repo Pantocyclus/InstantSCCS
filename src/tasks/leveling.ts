@@ -571,10 +571,7 @@ export const LevelingQuest: Quest = {
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
       },
-      post: (): void => {
-        sendAutumnaton();
-        sellMiscellaneousItems();
-      },
+      post: () => sellMiscellaneousItems(),
       limit: { tries: 1 },
     },
     {
@@ -599,10 +596,7 @@ export const LevelingQuest: Quest = {
           .default()
       ),
       outfit: () => baseOutfit(false),
-      post: (): void => {
-        sendAutumnaton();
-        sellMiscellaneousItems();
-      },
+      post: () => sellMiscellaneousItems(),
       choices: {
         1094: 5,
         1115: 6,
