@@ -97,7 +97,11 @@ export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   if (!ef.default) return; // No way to acquire?
 
   if (ef === $effect`Ode to Booze`) restoreMp(60);
-  if (tryRegardless || canAcquireEffect(ef)) cliExecute(ef.default.replace(/cast 1 /g, "cast "));
+  if (tryRegardless || canAcquireEffect(ef)) {
+    const efDefault = ef.default;
+    if (efDefault.split(" ")[0] === "cargo") return; // Don't acquire effects with cargo (items are usually way more useful)
+    cliExecute(efDefault.replace(/cast 1 /g, "cast "));
+  }
 }
 
 export function canAcquireEffect(ef: Effect): boolean {
@@ -120,7 +124,7 @@ export function canAcquireEffect(ef: Effect): boolean {
         case "cast":
           return have(toSkill(target)) && myMp() >= mpCost(toSkill(target)); // We have the skill and can cast it
         case "cargo":
-          return have($item`Cargo Cultist Shorts`) && !get("_cargoPocketEmptied"); // We can grab it from our cargo pants
+          return false; // Don't acquire effects with cargo (items are usually way more useful)
         case "synthesize":
           return false; // We currently don't support sweet synthesis
         case "barrelprayer":
