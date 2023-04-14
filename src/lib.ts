@@ -2,6 +2,7 @@ import {
   cliExecute,
   Effect,
   getCampground,
+  holiday,
   Item,
   itemAmount,
   monkeyPaw,
@@ -87,7 +88,7 @@ export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   // If we already have the effect, we're done
   else if (forbiddenEffects.includes(ef)) return; // Don't acquire the effect if we are saving it
 
-  if (ef === $effect`Sparkling Consciousness`) {
+  if (holiday() === "Dependence Day" && ef === $effect`Sparkling Consciousness`) {
     // This has no ef.default for some reason
     if (!get("_fireworkUsed") && retrieveItem($item`sparkler`, 1)) use($item`sparkler`, 1);
     return;
