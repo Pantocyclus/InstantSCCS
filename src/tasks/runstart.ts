@@ -302,13 +302,15 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Daycare Nap",
+      completed: () => get("_daycareNap") || !get("daycareOpen"),
+      do: () => cliExecute("daycare item"),
+      limit: { tries: 1 },
+    },
+    {
       name: "Scavenge",
       completed: () => get("_daycareGymScavenges") > 0 || !get("daycareOpen"),
-      do: (): void => {
-        visitUrl("place.php?whichplace=town_wrong&action=townwrong_boxingdaycare");
-        runChoice(3);
-        runChoice(2);
-      },
+      do: () => cliExecute("daycare scavenge free"),
       limit: { tries: 1 },
     },
     {
