@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 699:
+/***/ 217:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -8288,7 +8288,8 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
         hpAutoRecovery: -0.05,
         mpAutoRecovery: -0.05,
         maximizerCombinationLimit: 0,
-        mpAutoRecoveryItems: "".concat(mpItems).concat(mpItems.split(";").includes(tonic) ? "" : ";".concat(tonic))
+        mpAutoRecoveryItems: "".concat(mpItems).concat(mpItems.split(";").includes(tonic) ? "" : ";".concat(tonic)),
+        shadowLabyrinthGoal: "effects"
       });
     }
   }]);
@@ -8446,6 +8447,222 @@ var MoxieQuest = {
     }
   }]
 };
+;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2022/AutumnAton.js
+var AutumnAton_templateObject, AutumnAton_templateObject2, AutumnAton_templateObject3, AutumnAton_templateObject4, AutumnAton_templateObject5, AutumnAton_templateObject6, AutumnAton_templateObject7, AutumnAton_templateObject8, AutumnAton_templateObject9;
+
+function AutumnAton_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+var item = external_kolmafia_namespaceObject.Item.get("autumn-aton");
+/**
+ * Is the autumn-aton currently in your inventory, available to deploy?
+ *
+ * @returns The whether the autumn-aton is currently available for deployment
+ */
+
+function available() {
+  return (0,external_kolmafia_namespaceObject.availableAmount)(item) > 0;
+}
+/**
+ * Do you own the autumn-aton?
+ *
+ * @returns Whether you are an autumn-aton `have`r
+ */
+
+function AutumnAton_have() {
+  return get("hasAutumnaton") || available();
+}
+/**
+ * Internal function used to parse the fallbot's choice adventure to determine which zones are currently available
+ *
+ * @param html The pagetext of the fallbot's choice adventure
+ * @returns The locations currently available to send the fallbot to
+ */
+
+function checkLocations(html) {
+  return (0,external_kolmafia_namespaceObject.xpath)(html, '//select[@name="heythereprogrammer"]//option[position()>1]/text()').map(name => (0,external_kolmafia_namespaceObject.toLocation)(name));
+}
+
+var AutumnAton_use = () => (0,external_kolmafia_namespaceObject.visitUrl)("inv_use.php?pwd&whichitem=10954");
+/**
+ * @returns The current location the autumn-aton is questing in; null if it is not on a quest.
+ */
+
+
+function currentlyIn() {
+  return get("autumnatonQuestLocation");
+}
+/**
+ * Deploy the autumn-aton to a location of your choosing.
+ *
+ * @param target A location to send the autumn-aton to, or a prioritized list of locations to send it to, or a function to pick which location to send it to.
+ * @param upgrade Should we apply any upgrades we see available?
+ * @returns Where we ended up sending the autumn-aton; null if we didn't send it off.
+ */
+
+function sendTo(target) {
+  var upgrade = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  if (!available()) return null;
+  var pageHtml = AutumnAton_use();
+  if (upgrade && (0,external_kolmafia_namespaceObject.availableChoiceOptions)()[1]) (0,external_kolmafia_namespaceObject.runChoice)(1);
+  var locationsAvailable = checkLocations(pageHtml);
+  var location = target instanceof external_kolmafia_namespaceObject.Location ? target : Array.isArray(target) ? target.find(l => locationsAvailable.includes(l)) : target(locationsAvailable);
+  if (!location) return null;
+  if (!locationsAvailable.includes(location)) return null;
+  if (!(0,external_kolmafia_namespaceObject.handlingChoice)()) AutumnAton_use();
+  (0,external_kolmafia_namespaceObject.runChoice)(2, "heythereprogrammer=".concat(location.id));
+  if ((0,external_kolmafia_namespaceObject.handlingChoice)()) (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
+  return location;
+}
+/**
+ * Install any available upgrades for the autumn-aton.
+ *
+ * @returns Whether there were any upgrades to install.
+ */
+
+function upgrade() {
+  AutumnAton_use();
+  var canUpgrade = availableChoiceOptions()[1] !== undefined;
+  if (canUpgrade) runChoice(1);
+  visitUrl("main.php");
+  return canUpgrade;
+}
+/**
+ * @returns A list of all locations you can send your autumn-aton to right now. Empty if you are unable to send it anywhere.
+ */
+
+function availableLocations() {
+  if (!available()) return [];
+  var pageHtml = AutumnAton_use();
+  (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
+  return checkLocations(pageHtml);
+}
+/**
+ * The mafia names for the autumn-aton upgrades
+ */
+
+var possibleUpgrades = (/* unused pure expression or super */ null && (["leftarm1", "leftleg1", "rightarm1", "rightleg1", "base_blackhat", "cowcatcher", "periscope", "radardish", "dualexhaust"]));
+/**
+ * @returns An array containing the upgrades that you currently have on your autumn-aton.
+ */
+
+function currentUpgrades() {
+  return get("autumnatonUpgrades").split(",");
+}
+/**
+ * @returns The number of turns remaining in your current autumn-aton quest. This number may be negative for any number of reasons.
+ */
+
+function turnsLeft() {
+  return get("autumnatonQuestTurn") - totalTurnsPlayed();
+}
+/**
+ * @returns The number of leg-upgrades your autumn-aton has installed
+ */
+
+function legs() {
+  return currentUpgrades().filter(u => u.includes("leg")).length;
+}
+/**
+ * @returns The number of turns we expect your next autumn-aton quest to take.
+ */
+
+function turnsForQuest() {
+  return 11 * Math.max(1, get("_autumnatonQuests") - legs());
+}
+/**
+ * @returns The current visual acuity level of your autumn-aton as determined by the current upgrade-state.
+ */
+
+function visualAcuity() {
+  var visualUpgrades = ["periscope", "radardish"];
+  return 1 + currentUpgrades().filter(u => visualUpgrades.includes(u)).length;
+}
+/**
+ * @returns The number of items from a zone we expect the autumn-aton to steal based on the current upgrade-state. It may not succeed in stealing every item it can.
+ */
+
+function zoneItems() {
+  return 3 + currentUpgrades().filter(u => u.includes("arm")).length;
+}
+/**
+ * @returns The number of seasonal items we expect the autumn-aton to return with given its current upgrade-state.
+ */
+
+function seasonalItems() {
+  return currentUpgrades().includes("cowcatcher") ? 2 : 1;
+}
+var difficulties = (/* unused pure expression or super */ null && (["low", "mid", "high"]));
+var UNIQUES = {
+  outdoor: {
+    low: {
+      index: 4,
+      item: template_string_$item(AutumnAton_templateObject || (AutumnAton_templateObject = AutumnAton_taggedTemplateLiteral(["autumn leaf"])))
+    },
+    mid: {
+      index: 2,
+      item: template_string_$item(AutumnAton_templateObject2 || (AutumnAton_templateObject2 = AutumnAton_taggedTemplateLiteral(["autumn debris shield"])))
+    },
+    high: {
+      index: 6,
+      item: template_string_$item(AutumnAton_templateObject3 || (AutumnAton_templateObject3 = AutumnAton_taggedTemplateLiteral(["autumn leaf pendant"])))
+    }
+  },
+  indoor: {
+    low: {
+      index: 0,
+      item: template_string_$item(AutumnAton_templateObject4 || (AutumnAton_templateObject4 = AutumnAton_taggedTemplateLiteral(["AutumnFest ale"])))
+    },
+    mid: {
+      index: 3,
+      item: template_string_$item(AutumnAton_templateObject5 || (AutumnAton_templateObject5 = AutumnAton_taggedTemplateLiteral(["autumn-spice donut"])))
+    },
+    high: {
+      index: 7,
+      item: template_string_$item(AutumnAton_templateObject6 || (AutumnAton_templateObject6 = AutumnAton_taggedTemplateLiteral(["autumn breeze"])))
+    }
+  },
+  underground: {
+    low: {
+      index: 1,
+      item: template_string_$item(AutumnAton_templateObject7 || (AutumnAton_templateObject7 = AutumnAton_taggedTemplateLiteral(["autumn sweater-weather sweater"])))
+    },
+    mid: {
+      index: 5,
+      item: template_string_$item(AutumnAton_templateObject8 || (AutumnAton_templateObject8 = AutumnAton_taggedTemplateLiteral(["autumn dollar"])))
+    },
+    high: {
+      index: 8,
+      item: template_string_$item(AutumnAton_templateObject9 || (AutumnAton_templateObject9 = AutumnAton_taggedTemplateLiteral(["autumn years wisdom"])))
+    }
+  }
+};
+/**
+ * Determines and returns the upgrade and item drop associated with the given location
+ *
+ * @param location The location to check the expected autumn-aton-unique drops of
+ * @returns `null` if the location has no upgrade or drop; otherwise, the upgrade and the autumn-aton item associated with that item
+ */
+
+function getUniques(location) {
+  var env = location.environment;
+  var difficulty = location.difficultyLevel;
+
+  if (arrayContains(env, ["outdoor", "indoor", "underground"]) && arrayContains(difficulty, difficulties)) {
+    var _UNIQUES$env$difficul = UNIQUES[env][difficulty],
+        index = _UNIQUES$env$difficul.index,
+        _item = _UNIQUES$env$difficul.item;
+    return {
+      upgrade: possibleUpgrades[index],
+      item: _item
+    };
+  }
+
+  return null;
+}
 ;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2018/SongBoom.js
 var SongBoom_templateObject;
 
@@ -8455,13 +8672,13 @@ function SongBoom_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = string
 
 
 
-var item = template_string_$item(SongBoom_templateObject || (SongBoom_templateObject = SongBoom_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"])));
+var SongBoom_item = template_string_$item(SongBoom_templateObject || (SongBoom_templateObject = SongBoom_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"])));
 /**
  * @returns Whether we `have` the SongBoom™ BoomBox
  */
 
 function SongBoom_have() {
-  return haveItem(item);
+  return haveItem(SongBoom_item);
 }
 var keywords = {
   "Eye of the Giger": "spooky",
@@ -9297,7 +9514,9 @@ function bestShadowRift() {
 }
 
 function sendAutumnaton() {
-  if (lib_have(template_string_$item(leveling_templateObject33 || (leveling_templateObject33 = leveling_taggedTemplateLiteral(["autumn-aton"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("autumnaton send Shadow Rift");
+  var _bestShadowRift2, _bestShadowRift3;
+
+  if (availableLocations().includes((_bestShadowRift2 = _bestShadowRift) !== null && _bestShadowRift2 !== void 0 ? _bestShadowRift2 : $location.none) && lib_have(template_string_$item(leveling_templateObject33 || (leveling_templateObject33 = leveling_taggedTemplateLiteral(["autumn-aton"]))))) sendTo((_bestShadowRift3 = _bestShadowRift) !== null && _bestShadowRift3 !== void 0 ? _bestShadowRift3 : $location.none);
 }
 
 function sellMiscellaneousItems() {
@@ -13020,7 +13239,7 @@ function runComplete() {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__[__webpack_require__.s = 699](0, __webpack_exports__, __webpack_require__);
+/******/ 	__webpack_modules__[__webpack_require__.s = 217](0, __webpack_exports__, __webpack_require__);
 /******/ 	var __webpack_export_target__ = exports;
 /******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
 /******/ 	if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
