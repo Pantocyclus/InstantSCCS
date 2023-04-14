@@ -748,59 +748,6 @@ export const LevelingQuest: Quest = {
       limit: { tries: 50 },
     },
     {
-      name: "Backups",
-      ready: () => freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none),
-      prepare: (): void => {
-        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
-        garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
-        restoreMp(50);
-      },
-      completed: () =>
-        !have($item`backup camera`) ||
-        !freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none) ||
-        get("_backUpUses") >= 11 - clamp(get("instant_saveBackups", 0), 0, 11) ||
-        myBasestat($stat`Mysticality`) >= 190, // no longer need to back up Witchess Kings
-      do: $location`The Dire Warren`,
-      combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Back-Up to your Last Enemy`).default()
-      ),
-      outfit: () => ({
-        ...baseOutfit(),
-        acc3: $item`backup camera`,
-      }),
-      post: (): void => {
-        if (!freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none))
-          throw new Error("Fought unexpected monster");
-        sendAutumnaton();
-        sellMiscellaneousItems();
-      },
-      limit: { tries: 11 },
-    },
-    {
-      name: "Kramco",
-      prepare: (): void => {
-        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
-        garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
-        restoreMp(50);
-      },
-      ready: () => getKramcoWandererChance() >= 1.0,
-      completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
-      do: $location`Noob Cave`,
-      outfit: () => ({
-        ...baseOutfit(),
-        offhand: $item`Kramco Sausage-o-Matic™`,
-      }),
-      combat: new CombatStrategy().macro(Macro.default()),
-      post: (): void => {
-        sendAutumnaton();
-        sellMiscellaneousItems();
-      },
-    },
-    {
       name: "Red Skeleton",
       ready: () => !have($effect`Everything Looks Yellow`),
       prepare: (): void => {
@@ -854,6 +801,59 @@ export const LevelingQuest: Quest = {
         if (have($effect`Beaten Up`)) cliExecute("hottub");
         if (have($item`LOV Extraterrestrial Chocolate`))
           use($item`LOV Extraterrestrial Chocolate`, 1);
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+    },
+    {
+      name: "Backups",
+      ready: () => freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none),
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        garbageShirt();
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
+      },
+      completed: () =>
+        !have($item`backup camera`) ||
+        !freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none) ||
+        get("_backUpUses") >= 11 - clamp(get("instant_saveBackups", 0), 0, 11) ||
+        myBasestat($stat`Mysticality`) >= 190, // no longer need to back up Witchess Kings
+      do: $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Back-Up to your Last Enemy`).default()
+      ),
+      outfit: () => ({
+        ...baseOutfit(),
+        acc3: $item`backup camera`,
+      }),
+      post: (): void => {
+        if (!freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none))
+          throw new Error("Fought unexpected monster");
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 11 },
+    },
+    {
+      name: "Kramco",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        garbageShirt();
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
+      },
+      ready: () => getKramcoWandererChance() >= 1.0,
+      completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
+      do: $location`Noob Cave`,
+      outfit: () => ({
+        ...baseOutfit(),
+        offhand: $item`Kramco Sausage-o-Matic™`,
+      }),
+      combat: new CombatStrategy().macro(Macro.default()),
+      post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
