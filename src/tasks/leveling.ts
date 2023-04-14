@@ -52,6 +52,7 @@ import {
   $monsters,
   $skill,
   $stat,
+  AutumnAton,
   clamp,
   CombatLoversLocket,
   ensureEffect,
@@ -150,7 +151,11 @@ export function bestShadowRift(): Location {
 }
 
 function sendAutumnaton(): void {
-  if (have($item`autumn-aton`)) cliExecute("autumnaton send Shadow Rift");
+  if (
+    AutumnAton.availableLocations().includes(_bestShadowRift ?? $location.none) &&
+    have($item`autumn-aton`)
+  )
+    AutumnAton.sendTo(_bestShadowRift ?? $location.none);
 }
 
 function sellMiscellaneousItems(): void {
