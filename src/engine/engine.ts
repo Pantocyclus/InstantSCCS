@@ -190,6 +190,7 @@ export class Engine extends BaseEngine {
       mpAutoRecovery: -0.05,
       maximizerCombinationLimit: 0,
       mpAutoRecoveryItems: `${mpItems}${mpItems.split(";").includes(tonic) ? "" : `;${tonic}`}`,
+      shadowLabyrinthGoal: "effects",
     });
   }
 }
