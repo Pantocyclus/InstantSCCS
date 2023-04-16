@@ -179,7 +179,7 @@ export function wishFor(ef: Effect, useGenie = true): void {
   if (
     have($item`cursed monkey's paw`) &&
     !get("instant_saveMonkeysPaw", false) &&
-    get("_monkeyPawWishesUsed", 0) <= 5
+    get("_monkeyPawWishesUsed", 0) < 5
   ) {
     if (monkeyPaw(ef)) return;
   }
@@ -188,7 +188,7 @@ export function wishFor(ef: Effect, useGenie = true): void {
     have($item`genie bottle`) &&
     !get("instant_saveGenie", false) &&
     useGenie &&
-    get("_genieWishesUsed", 0) <= 3
+    get("_genieWishesUsed", 0) < 3
   ) {
     cliExecute(`genie effect ${ef.name}`);
   }
