@@ -8218,7 +8218,7 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
           var _ref5 = engine_slicedToArray(_ref4, 2),
               it = _ref5[1];
 
-          return !lib_have(it) && it !== null;
+          return !lib_have(it) && it !== template_string_$item.none;
         }).map(_ref6 => {
           var _ref7 = engine_slicedToArray(_ref6, 1),
               s = _ref7[0];
