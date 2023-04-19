@@ -1,6 +1,16 @@
 import { Task } from "./task";
 import { Engine as BaseEngine, Outfit, outfitSlots, undelay } from "grimoire-kolmafia";
-import { $effect, $familiar, $skill, get, have, PropertiesManager, set, uneffect } from "libram";
+import {
+  $effect,
+  $familiar,
+  $item,
+  $skill,
+  get,
+  have,
+  PropertiesManager,
+  set,
+  uneffect,
+} from "libram";
 import { Item, myHp, myMaxhp, print, useSkill } from "kolmafia";
 
 export class trackedPref {
@@ -135,7 +145,7 @@ export class Engine extends BaseEngine {
 
     if (spec instanceof Outfit) {
       const badSlots = Array.from(spec.equips.entries())
-        .filter(([, it]) => !have(it) && it !== null)
+        .filter(([, it]) => !have(it) && it !== $item.none)
         .map(([s]) => s);
       badSlots.forEach((s) => {
         print(`Ignoring slot ${s} because we don't have ${spec.equips.get(s) ?? ""}`, "red");
