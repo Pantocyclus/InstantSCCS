@@ -11856,7 +11856,7 @@ var WeaponDamageQuest = {
   }]
 };
 ;// CONCATENATED MODULE: ./src/tasks/donate.ts
-var donate_templateObject, donate_templateObject2, donate_templateObject3;
+var donate_templateObject, donate_templateObject2, donate_templateObject3, donate_templateObject4;
 
 function donate_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = donate_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -11910,7 +11910,9 @@ function logResourceUsage() {
     (0,external_kolmafia_namespaceObject.print)(header);
     prefArr.map(logPrefUsage);
     (0,external_kolmafia_namespaceObject.print)("");
-  }); // Organs Used
+  });
+  (0,external_kolmafia_namespaceObject.print)("Pulls Used: ".concat(property_get("_roninStoragePulls").split(",").map(id => template_string_$item(donate_templateObject || (donate_templateObject = donate_taggedTemplateLiteral(["", ""])), id).name).join(", ")));
+  (0,external_kolmafia_namespaceObject.print)(""); // Organs Used
 
   (0,external_kolmafia_namespaceObject.print)("Organs Used:");
   (0,external_kolmafia_namespaceObject.print)("Stomach: ".concat((0,external_kolmafia_namespaceObject.myFullness)(), "/").concat((0,external_kolmafia_namespaceObject.fullnessLimit)()));
@@ -11950,9 +11952,9 @@ var DonateQuest = {
     }
   }, {
     name: "Shrug Negative Effects",
-    completed: () => !lib_have($effect(donate_templateObject || (donate_templateObject = donate_taggedTemplateLiteral(["Feeling Lost"])))) && !lib_have($effect(donate_templateObject2 || (donate_templateObject2 = donate_taggedTemplateLiteral(["Cowrruption"])))),
+    completed: () => !lib_have($effect(donate_templateObject2 || (donate_templateObject2 = donate_taggedTemplateLiteral(["Feeling Lost"])))) && !lib_have($effect(donate_templateObject3 || (donate_templateObject3 = donate_taggedTemplateLiteral(["Cowrruption"])))),
     do: () => {
-      var _iterator = donate_createForOfIteratorHelper($effects(donate_templateObject3 || (donate_templateObject3 = donate_taggedTemplateLiteral(["Feeling Lost, Cowrruption, Cold Hearted"])))),
+      var _iterator = donate_createForOfIteratorHelper($effects(donate_templateObject4 || (donate_templateObject4 = donate_taggedTemplateLiteral(["Feeling Lost, Cowrruption, Cold Hearted"])))),
           _step;
 
       try {
