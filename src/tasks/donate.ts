@@ -10,7 +10,16 @@ import {
   spleenLimit,
   turnsPlayed,
 } from "kolmafia";
-import { $effect, $effects, CommunityService, get, have, sumNumbers, uneffect } from "libram";
+import {
+  $effect,
+  $effects,
+  $item,
+  CommunityService,
+  get,
+  have,
+  sumNumbers,
+  uneffect,
+} from "libram";
 import {
   farmingResourcePrefs,
   freeBanishPrefs,
@@ -65,6 +74,14 @@ function logResourceUsage(): void {
     prefArr.map(logPrefUsage);
     print("");
   });
+
+  print(
+    `Pulls Used: ${get("_roninStoragePulls")
+      .split(",")
+      .map((id) => $item`${id}`.name)
+      .join(", ")}`
+  );
+  print("");
 
   // Organs Used
   print("Organs Used:");
