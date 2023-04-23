@@ -11,7 +11,16 @@ import {
   set,
   uneffect,
 } from "libram";
-import { Item, myHp, myMaxhp, print, useSkill } from "kolmafia";
+import {
+  Item,
+  myFullness,
+  myHp,
+  myInebriety,
+  myMaxhp,
+  mySpleenUse,
+  print,
+  useSkill,
+} from "kolmafia";
 
 export class trackedPref {
   pref: string;
@@ -108,6 +117,8 @@ export class Engine extends BaseEngine {
 
   public execute(task: Task): void {
     const originalValues = trackedPreferences.map(({ pref }) => [pref, get(pref).toString()]);
+    const organUsage = () => [myFullness(), myInebriety(), mySpleenUse()];
+    const originalOrgans = organUsage();
     this.checkLimits(task, undefined);
 
     super.execute(task);
@@ -119,6 +130,14 @@ export class Engine extends BaseEngine {
     originalValues.forEach(([pref, val]) => {
       if (val !== get(pref).toString()) {
         const s = `_instant${pref}`;
+        const arr = get(s, "").split(",");
+        arr.push(task.name);
+        set(s, arr.filter((v, i, a) => v.length > 0 && a.indexOf(v) === i).join(","));
+      }
+    });
+    organUsage().forEach((organUse, idx) => {
+      if (organUse !== originalOrgans[idx]) {
+        const s = `_instant_${["fullness", "inebriety", "spleenUse"][idx]}`;
         const arr = get(s, "").split(",");
         arr.push(task.name);
         set(s, arr.filter((v, i, a) => v.length > 0 && a.indexOf(v) === i).join(","));
