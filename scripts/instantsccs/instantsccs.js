@@ -8171,6 +8171,10 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
         var pref = _ref.pref;
         return [pref, property_get(pref).toString()];
       });
+
+      var organUsage = () => [(0,external_kolmafia_namespaceObject.myFullness)(), (0,external_kolmafia_namespaceObject.myInebriety)(), (0,external_kolmafia_namespaceObject.mySpleenUse)()];
+
+      var originalOrgans = organUsage();
       this.checkLimits(task, undefined);
 
       engine_get(engine_getPrototypeOf(Engine.prototype), "execute", this).call(this, task);
@@ -8186,6 +8190,14 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
 
         if (val !== property_get(pref).toString()) {
           var s = "_instant".concat(pref);
+          var arr = property_get(s, "").split(",");
+          arr.push(task.name);
+          _set(s, arr.filter((v, i, a) => v.length > 0 && a.indexOf(v) === i).join(","));
+        }
+      });
+      organUsage().forEach((organUse, idx) => {
+        if (organUse !== originalOrgans[idx]) {
+          var s = "_instant_".concat(["fullness", "inebriety", "spleenUse"][idx]);
           var arr = property_get(s, "").split(",");
           arr.push(task.name);
           _set(s, arr.filter((v, i, a) => v.length > 0 && a.indexOf(v) === i).join(","));
@@ -11915,9 +11927,9 @@ function logResourceUsage() {
   (0,external_kolmafia_namespaceObject.print)(""); // Organs Used
 
   (0,external_kolmafia_namespaceObject.print)("Organs Used:");
-  (0,external_kolmafia_namespaceObject.print)("Stomach: ".concat((0,external_kolmafia_namespaceObject.myFullness)(), "/").concat((0,external_kolmafia_namespaceObject.fullnessLimit)()));
-  (0,external_kolmafia_namespaceObject.print)("Liver: ".concat((0,external_kolmafia_namespaceObject.myInebriety)(), "/").concat((0,external_kolmafia_namespaceObject.inebrietyLimit)()));
-  (0,external_kolmafia_namespaceObject.print)("Spleen: ".concat((0,external_kolmafia_namespaceObject.mySpleenUse)(), "/").concat((0,external_kolmafia_namespaceObject.spleenLimit)()));
+  (0,external_kolmafia_namespaceObject.print)("Stomach: ".concat((0,external_kolmafia_namespaceObject.myFullness)(), "/").concat((0,external_kolmafia_namespaceObject.fullnessLimit)(), " ").concat(property_get("_instant_fullness", "").split(",").join(", ")));
+  (0,external_kolmafia_namespaceObject.print)("Liver: ".concat((0,external_kolmafia_namespaceObject.myInebriety)(), "/").concat((0,external_kolmafia_namespaceObject.inebrietyLimit)(), " ").concat(property_get("_instant_inebriety", "").split(",").join(", ")));
+  (0,external_kolmafia_namespaceObject.print)("Spleen: ".concat((0,external_kolmafia_namespaceObject.mySpleenUse)(), "/").concat((0,external_kolmafia_namespaceObject.spleenLimit)(), " ").concat(property_get("_instant_spleenUse", "").split(",").join(", ")));
   (0,external_kolmafia_namespaceObject.print)("Sweat Remaining: ".concat(property_get("sweat"), "/100, Sweat Out Some Booze: ").concat(property_get("_sweatOutSomeBoozeUsed"), "/3")); // Adventures Used
 
   (0,external_kolmafia_namespaceObject.print)("");
