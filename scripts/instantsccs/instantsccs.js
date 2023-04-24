@@ -9950,7 +9950,7 @@ var LevelingQuest = {
     }
   }, {
     name: "Use Ointment of the Occult",
-    completed: () => lib_have($effect(_templateObject205 || (_templateObject205 = leveling_taggedTemplateLiteral(["Mystically Oiled"])))) || !lib_have(template_string_$item(_templateObject206 || (_templateObject206 = leveling_taggedTemplateLiteral(["ointment of the occult"])))) && (!lib_have(template_string_$item(_templateObject207 || (_templateObject207 = leveling_taggedTemplateLiteral(["grapefruit"])))) || property_get("reagentSummons") > 0),
+    completed: () => !lib_have(template_string_$item(_templateObject205 || (_templateObject205 = leveling_taggedTemplateLiteral(["grapefruit"])))) && !lib_have(template_string_$item(_templateObject206 || (_templateObject206 = leveling_taggedTemplateLiteral(["ointment of the occult"])))) || lib_have($effect(_templateObject207 || (_templateObject207 = leveling_taggedTemplateLiteral(["Mystically Oiled"])))),
     do: () => {
       if (!lib_have(template_string_$item(_templateObject208 || (_templateObject208 = leveling_taggedTemplateLiteral(["ointment of the occult"]))))) {
         if (property_get("reagentSummons") === 0) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject209 || (_templateObject209 = leveling_taggedTemplateLiteral(["Advanced Saucecrafting"]))), 1);
