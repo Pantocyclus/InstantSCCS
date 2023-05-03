@@ -152,7 +152,9 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Restore mp",
-      completed: () => get("timesRested") >= totalFreeRests() || myMp() >= Math.min(200, myMaxmp()),
+      completed: () =>
+        get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0) ||
+        myMp() >= Math.min(200, myMaxmp()),
       prepare: (): void => {
         if (have($item`Newbiesport™ tent`)) use($item`Newbiesport™ tent`);
       },

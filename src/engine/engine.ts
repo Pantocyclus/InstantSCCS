@@ -1,5 +1,5 @@
 import { Task } from "./task";
-import { Engine as BaseEngine, Outfit, outfitSlots, undelay } from "grimoire-kolmafia";
+import { Engine as BaseEngine, Outfit, outfitSlots } from "grimoire-kolmafia";
 import {
   $effect,
   $familiar,
@@ -9,6 +9,7 @@ import {
   have,
   PropertiesManager,
   set,
+  undelay,
   uneffect,
 } from "libram";
 import {
@@ -19,6 +20,7 @@ import {
   myMaxhp,
   mySpleenUse,
   print,
+  totalFreeRests,
   useSkill,
 } from "kolmafia";
 
@@ -83,6 +85,7 @@ export const potentiallyFreeFightPrefs: trackedPref[] = [
 
 export const farmingResourcePrefs: trackedPref[] = [
   new trackedPref("_powerfulGloveBatteryPowerUsed", "Powerful Glove Charges", 100),
+  new trackedPref("_cinchUsed", "Cinch", 100),
   new trackedPref("_kgbClicksUsed", "KGB Clicks", 22),
   new trackedPref("_deckCardsDrawn", "Deck Draws", 15),
   new trackedPref("_macrometeoriteUses", "Macrometeorites", 10),
@@ -99,6 +102,7 @@ export const farmingResourcePrefs: trackedPref[] = [
   new trackedPref("_pantogramModifier", "Pantogram", 1),
   new trackedPref("_cargoPocketEmptied", "Cargo Shorts", 1),
   new trackedPref("_freePillKeeperUsed", "Pillkeeper", 1),
+  new trackedPref("timesRested", "Free Rests", totalFreeRests()),
 ];
 
 export const trackedPreferences: trackedPref[] = [
@@ -209,16 +213,29 @@ export class Engine extends BaseEngine {
 
   initPropertiesManager(manager: PropertiesManager): void {
     super.initPropertiesManager(manager);
-    const tonic = "doc galaktik's invigorating tonic";
+    const bannedAutoRestorers = [
+      "sleep on your clan sofa",
+      "rest in your campaway tent",
+      "rest at the chateau",
+      "rest at your campground",
+      "free rest",
+    ];
+    const bannedAutoHpRestorers = [...bannedAutoRestorers];
+    const bannedAutoMpRestorers = [...bannedAutoRestorers, "doc galaktik's invigorating tonic"];
+    const hpItems = get("hpAutoRecoveryItems")
+      .split(";")
+      .filter((s) => !bannedAutoHpRestorers.includes(s))
+      .join(";");
     const mpItems = get("mpAutoRecoveryItems")
       .split(";")
-      .filter((s) => s !== "sleep on your clan sofa")
+      .filter((s) => !bannedAutoMpRestorers.includes(s))
       .join(";");
     manager.set({
       hpAutoRecovery: -0.05,
       mpAutoRecovery: -0.05,
       maximizerCombinationLimit: 0,
-      mpAutoRecoveryItems: `${mpItems}${mpItems.split(";").includes(tonic) ? "" : `;${tonic}`}`,
+      hpAutoRecoveryItems: hpItems,
+      mpAutoRecoveryItems: mpItems,
       shadowLabyrinthGoal: "effects",
     });
   }

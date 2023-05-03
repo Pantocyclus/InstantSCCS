@@ -60,7 +60,7 @@ export function main(command?: string): void {
     return;
   }
 
-  sinceKolmafiaRevision(27323);
+  sinceKolmafiaRevision(27339);
 
   const setTimeNow = get(timeProperty, -1) === -1;
   if (setTimeNow) set(timeProperty, gametimeToInt());

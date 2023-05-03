@@ -78,6 +78,7 @@ import {
   rufusTarget,
 } from "libram/dist/resources/2023/ClosedCircuitPayphone";
 
+const useCinch = !get("instant_saveCinch", false);
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
@@ -807,6 +808,26 @@ export const LevelingQuest: Quest = {
       },
     },
     {
+      name: "Restore cinch",
+      completed: () =>
+        get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0) ||
+        get("_cinchUsed", 0) <= 95 ||
+        !useCinch,
+      prepare: (): void => {
+        if (have($item`Newbiesport™ tent`)) use($item`Newbiesport™ tent`);
+      },
+      do: (): void => {
+        if (get("chateauAvailable")) {
+          visitUrl("place.php?whichplace=chateau&action=chateau_restbox");
+        } else if (get("getawayCampsiteUnlocked")) {
+          visitUrl("place.php?whichplace=campaway&action=campaway_tentclick");
+        } else {
+          visitUrl("campground.php?action=rest");
+        }
+      },
+      outfit: { modifier: "myst, mp" },
+    },
+    {
       name: "Backups",
       ready: () => freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none),
       prepare: (): void => {
@@ -823,7 +844,7 @@ export const LevelingQuest: Quest = {
         myBasestat($stat`Mysticality`) >= 190, // no longer need to back up Witchess Kings
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Back-Up to your Last Enemy`).default()
+        Macro.trySkill($skill`Back-Up to your Last Enemy`).default(useCinch)
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -853,7 +874,7 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(),
         offhand: $item`Kramco Sausage-o-Matic™`,
       }),
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -886,7 +907,7 @@ export const LevelingQuest: Quest = {
       },
       completed: () => get("_godLobsterFights") >= 3 || !have($familiar`God Lobster`),
       do: () => visitUrl("main.php?fightgodlobster=1"),
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
       choices: { 1310: () => (have($item`God Lobster's Ring`) ? 2 : 3) }, // Get xp on last fight
       outfit: () => ({
         ...baseOutfit(),
@@ -915,7 +936,7 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: baseOutfit,
       limit: { tries: 1 },
     },
@@ -930,7 +951,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         get("_witchessFights") >= 5 || !Witchess.have() || get("instant_saveWitchess", false),
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();
@@ -948,7 +969,7 @@ export const LevelingQuest: Quest = {
       },
       completed: () => get("_machineTunnelsAdv") >= 5 || !have($familiar`Machine Elf`),
       do: $location`The Deep Machine Tunnels`,
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: () => ({
         ...baseOutfit(),
         familiar: $familiar`Machine Elf`,
@@ -990,7 +1011,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`red rocket`)
           .trySkill($skill`Bowl Sideways`)
-          .default()
+          .default(useCinch)
       ),
       post: (): void => {
         if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
@@ -1073,7 +1094,7 @@ export const LevelingQuest: Quest = {
         !CombatLoversLocket.availableLocketMonsters().includes($monster`Witchess King`) ||
         get("instant_saveLocketWitchessKing", false),
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();
@@ -1104,7 +1125,7 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
           .trySkill($skill`Bowl Sideways`)
-          .default()
+          .default(useCinch)
       ),
       choices: {
         1094: 5,
