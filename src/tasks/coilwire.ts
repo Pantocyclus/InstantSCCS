@@ -1,7 +1,6 @@
 import { Quest } from "../engine/task";
 import { CommunityService } from "libram";
 import { logTestSetup } from "../lib";
-import { myAdventures } from "kolmafia";
 
 export const CoilWireQuest: Quest = {
   name: "Coil Wire",
