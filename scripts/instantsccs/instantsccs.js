@@ -9819,7 +9819,7 @@ var LevelingQuest = {
     }
   }, {
     name: "Restore mp",
-    completed: () => property_get("timesRested") >= (0,external_kolmafia_namespaceObject.totalFreeRests)() || (0,external_kolmafia_namespaceObject.myMp)() >= (0,external_kolmafia_namespaceObject.myMaxmp)(),
+    completed: () => property_get("timesRested") >= (0,external_kolmafia_namespaceObject.totalFreeRests)() - property_get("instant_saveFreeRests", 0) || (0,external_kolmafia_namespaceObject.myMp)() >= Math.min(200, (0,external_kolmafia_namespaceObject.myMaxmp)()),
     prepare: () => {
       if (lib_have(template_string_$item(_templateObject106 || (_templateObject106 = leveling_taggedTemplateLiteral(["Newbiesport\u2122 tent"]))))) (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject107 || (_templateObject107 = leveling_taggedTemplateLiteral(["Newbiesport\u2122 tent"]))));
     },
