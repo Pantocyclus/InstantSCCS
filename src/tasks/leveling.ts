@@ -1123,6 +1123,7 @@ export const LevelingQuest: Quest = {
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Pride`)
+          .trySkill($skill`Cincho: Confetti Extravaganza`)
           .trySkill($skill`Chest X-Ray`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
