@@ -43,11 +43,13 @@ import {
   $items,
   $location,
   $monster,
+  $monsters,
   $skill,
   $slot,
   clamp,
   CommunityService,
   get,
+  getBanishedMonsters,
   getKramcoWandererChance,
   have,
   Pantogram,
@@ -501,7 +503,10 @@ export const RunStartQuest: Quest = {
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
       completed: () =>
-        have($item`cherry`) && !have($item`cosmic bowling ball`) && get("_snokebombUsed") >= 1,
+        have($item`cherry`) &&
+        $monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton`.filter((m) =>
+          Array.from(getBanishedMonsters().values()).includes(m)
+        ).length >= (have($skill`Map the Monsters`) ? 2 : 3),
       do: $location`The Skeleton Store`,
       combat: new CombatStrategy().macro(
         Macro.if_($monster`novelty tropical skeleton`, Macro.tryItem($item`yellow rocket`))
