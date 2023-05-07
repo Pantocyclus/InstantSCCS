@@ -1,5 +1,5 @@
 import { CombatStrategy } from "grimoire-kolmafia";
-import { cliExecute, create, Effect, print, use, useFamiliar } from "kolmafia";
+import { cliExecute, create, Effect, print, toInt, use, useFamiliar, visitUrl } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -77,12 +77,26 @@ export const FamiliarWeightQuest: Quest = {
         if (
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&
-          $familiars`Mini-Trainbot, Exotic Parrot`.some((fam) => have(fam))
+          ($familiars`Mini-Trainbot, Exotic Parrot`.some((fam) => have(fam)) ||
+            $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)))
         ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
-          if (have($familiar`Mini-Trainbot`)) useFamiliar($familiar`Mini-Trainbot`);
-          else useFamiliar($familiar`Exotic Parrot`);
-          use($item`box of Familiar Jacks`, 1);
+          if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam))) {
+            useFamiliar($familiar`Homemade Robot`);
+            use($item`box of Familiar Jacks`, 1);
+            useFamiliar($familiar`Comma Chameleon`);
+            visitUrl(
+              `inv_equip.php?which=2&action=equip&whichitem=${toInt(
+                $item`homemade robot gear`
+              )}&pwd`
+            );
+            visitUrl("charpane.php");
+          } else {
+            if (have($familiar`Mini-Trainbot`)) useFamiliar($familiar`Mini-Trainbot`);
+            else useFamiliar($familiar`Exotic Parrot`);
+            use($item`box of Familiar Jacks`, 1);
+          }
+
           cliExecute("maximize familiar weight");
         }
       },
