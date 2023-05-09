@@ -1,4 +1,5 @@
 import {
+  cliExecute,
   gametimeToInt,
   myAdventures,
   myAscensions,
@@ -6,6 +7,7 @@ import {
   setAutoAttack,
   turnsPlayed,
   userConfirm,
+  visitUrl,
 } from "kolmafia";
 import { convertMilliseconds } from "./lib";
 import { get, set, sinceKolmafiaRevision } from "libram";
@@ -64,6 +66,11 @@ export function main(command?: string): void {
 
   const setTimeNow = get(timeProperty, -1) === -1;
   if (setTimeNow) set(timeProperty, gametimeToInt());
+
+  // Some checks to align mafia prefs
+  visitUrl("museum.php?action=icehouse");
+  visitUrl("main.php");
+  cliExecute("refresh all");
 
   const tasks: Task[] = getTasks([
     RunStartQuest,
