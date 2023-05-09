@@ -504,7 +504,7 @@ export const RunStartQuest: Quest = {
       },
       completed: () =>
         have($item`cherry`) &&
-        $monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton`.filter((m) =>
+        $monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton, novelty tropical skeleton`.filter((m) =>
           Array.from(getBanishedMonsters().values()).includes(m)
         ).length >= (have($skill`Map the Monsters`) ? 2 : 3),
       do: $location`The Skeleton Store`,
