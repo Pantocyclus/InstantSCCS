@@ -13364,7 +13364,11 @@ function main_main(command) {
 
   sinceKolmafiaRevision(27339);
   var setTimeNow = property_get(timeProperty, -1) === -1;
-  if (setTimeNow) _set(timeProperty, (0,external_kolmafia_namespaceObject.gametimeToInt)());
+  if (setTimeNow) _set(timeProperty, (0,external_kolmafia_namespaceObject.gametimeToInt)()); // Some checks to align mafia prefs
+
+  (0,external_kolmafia_namespaceObject.visitUrl)("museum.php?action=icehouse");
+  (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
+  (0,external_kolmafia_namespaceObject.cliExecute)("refresh all");
   var tasks = getTasks([RunStartQuest, CoilWireQuest, LevelingQuest, MysticalityQuest, HPQuest, MoxieQuest, MuscleQuest, FamiliarWeightQuest, NoncombatQuest, BoozeDropQuest, HotResQuest, WeaponDamageQuest, SpellDamageQuest, DonateQuest]);
   var engine = new engine_Engine(tasks);
   (0,external_kolmafia_namespaceObject.setAutoAttack)(0);
