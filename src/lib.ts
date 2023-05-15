@@ -19,7 +19,7 @@ import {
   toStat,
   use,
 } from "kolmafia";
-import { $effect, $item, $items, $stat, CommunityService, get, have, set } from "libram";
+import { $effect, $familiar, $item, $items, $stat, CommunityService, get, have, set } from "libram";
 import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
 
@@ -197,6 +197,7 @@ export function wishFor(ef: Effect, useGenie = true): void {
 export const targetBaseMyst = get("instant_targetBaseMyst", 190);
 export const targetBaseMystGap = get("instant_targetBaseMystGap", 15);
 export function haveCBBIngredients(fullCheck: boolean): boolean {
+  if (!have($familiar`Cookbookbat`)) return true;
   let yeast = 0,
     vegetable = 0,
     whey = 0;
