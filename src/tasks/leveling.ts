@@ -67,7 +67,13 @@ import {
   withChoice,
 } from "libram";
 import { CombatStrategy } from "grimoire-kolmafia";
-import { haveCBBIngredients, targetBaseMyst, tryAcquiringEffect, wishFor } from "../lib";
+import {
+  haveCBBIngredients,
+  targetBaseMyst,
+  targetBaseMystGap,
+  tryAcquiringEffect,
+  wishFor,
+} from "../lib";
 import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
 import Macro from "../combat";
 import { forbiddenEffects } from "../resources";
@@ -316,7 +322,7 @@ export const LevelingQuest: Quest = {
         !have($item`cursed monkey's paw`) ||
         forbiddenEffects.includes($effect`Different Way of Seeing Things`) ||
         get("instant_saveMonkeysPaw", false) ||
-        myBasestat($stat`Mysticality`) >= targetBaseMyst - 15 ||
+        myBasestat($stat`Mysticality`) >= targetBaseMyst - targetBaseMystGap ||
         get("_monkeyPawWishesUsed", 0) >= 2,
       do: () => wishFor($effect`Different Way of Seeing Things`, false),
     },
@@ -985,7 +991,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Powerlevel",
       completed: () =>
-        myBasestat($stat`Mysticality`) >= targetBaseMyst - 15 &&
+        myBasestat($stat`Mysticality`) >= targetBaseMyst - targetBaseMystGap &&
         (haveCBBIngredients(false) ||
           craftedCBBEffects.some((ef) => have(ef)) ||
           craftedCBBEffects.every((ef) => forbiddenEffects.includes(ef))) &&
@@ -1117,6 +1123,7 @@ export const LevelingQuest: Quest = {
       },
       outfit: baseOutfit,
       completed: () =>
+        myBasestat($stat`Mysticality`) >= targetBaseMyst &&
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         haveCBBIngredients(true),
