@@ -47,8 +47,9 @@ function buildIotmList(): Requirement[] {
       thing: new Hardcoded(
         have($item`cosmic bowling ball`) ||
           storageAmount($item`cosmic bowling ball`) > 0 ||
-          get("cosmicBowlingBallReturnCombats", -1) >= 0,
-        "Cosmic bowling ball"
+          get("cosmicBowlingBallReturnCombats", -1) >= 0 ||
+          have($item`cursed monkey's paw`),
+        "Cosmic bowling ball (or Cursed Monkey's Paw)"
       ),
       why: "Leveling + banish",
     },
