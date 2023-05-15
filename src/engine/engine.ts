@@ -231,6 +231,7 @@ export class Engine extends BaseEngine {
       .filter((s) => !bannedAutoMpRestorers.includes(s))
       .join(";");
     manager.set({
+      autoSatisfyWithCloset: false,
       hpAutoRecovery: -0.05,
       mpAutoRecovery: -0.05,
       maximizerCombinationLimit: 0,
