@@ -9,7 +9,6 @@ export default class Macro extends StrictMacro {
       `!mpbelow ${mpCost($skill`Stuffed Mortar Shell`)}`,
       Macro.trySkill($skill`Stuffed Mortar Shell`)
     );
-    // eslint-disable-next-line libram/verify-constants
     return (useCinch ? macroHead.trySkill($skill`Cincho: Confetti Extravaganza`) : macroHead)
       .while_(
         `!mpbelow ${mpCost($skill`Saucegeyser`)} && hasskill ${toInt($skill`Saucegeyser`)}`,

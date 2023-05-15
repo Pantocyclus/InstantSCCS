@@ -120,10 +120,8 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     back: lovTunnelCompleted ? $item`LOV Epaulettes` : undefined,
     acc1: $item`codpiece`,
     acc2:
-      // eslint-disable-next-line libram/verify-constants
       have($item`Cincho de Mayo`) && get("_cinchUsed", 0) < 95 && !get("instant_saveCinch", false)
-        ? // eslint-disable-next-line libram/verify-constants
-          $item`Cincho de Mayo`
+        ? $item`Cincho de Mayo`
         : undefined,
     familiar: chooseFamiliar(allowAttackingFamiliars),
     modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",

@@ -59,7 +59,6 @@ function buildIotmList(): Requirement[] {
       recommended: true,
     },
     {
-      // eslint-disable-next-line libram/verify-constants
       thing: $item`Cincho de Mayo`,
       why: "Leveling",
       optional: true,
