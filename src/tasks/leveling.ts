@@ -150,7 +150,7 @@ export function bestShadowRift(): Location {
           return sum(drops, mallPrice);
         },
       }) ?? $location.none;
-    if (_bestShadowRift === $location.none) {
+    if (_bestShadowRift === $location.none && have($item`closed-circuit pay phone`)) {
       throw new Error("Failed to find a suitable Shadow Rift to adventure in");
     }
   }
@@ -158,11 +158,8 @@ export function bestShadowRift(): Location {
 }
 
 function sendAutumnaton(): void {
-  if (
-    AutumnAton.availableLocations().includes(_bestShadowRift ?? $location.none) &&
-    have($item`autumn-aton`)
-  )
-    AutumnAton.sendTo(_bestShadowRift ?? $location.none);
+  if (AutumnAton.availableLocations().includes(bestShadowRift()) && have($item`autumn-aton`))
+    AutumnAton.sendTo(bestShadowRift());
 }
 
 function sellMiscellaneousItems(): void {
