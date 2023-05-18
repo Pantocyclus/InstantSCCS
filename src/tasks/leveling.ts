@@ -685,6 +685,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Use Oil of Expertise",
+      ready: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
       completed: () =>
         (!have($item`cherry`) && itemAmount($item`oil of expertise`) <= 1) ||
         have($effect`Expert Oiliness`),
@@ -796,7 +797,18 @@ export const LevelingQuest: Quest = {
         ),
       combat: new CombatStrategy().macro(
         Macro.if_($monster`LOV Enforcer`, Macro.attack().repeat())
-          .if_($monster`LOV Engineer`, Macro.default())
+          .if_(
+            $monster`LOV Engineer`, Macro
+            .while_(
+              `!mpbelow ${mpCost($skill`Toynado`)} && hasskill ${toInt($skill`Toynado`)}`,
+              Macro.skill($skill`Toynado`)
+            )
+            .while_(
+              `!mpbelow ${mpCost($skill`Saucestorm`)} && hasskill ${toInt($skill`Saucestorm`)}`,
+              Macro.skill($skill`Saucestorm`)
+            )
+            .default()
+          )
           .if_($monster`LOV Equivocator`, Macro.default())
       ),
       outfit: () => ({
