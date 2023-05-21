@@ -154,7 +154,7 @@ const resources: Resource[] = [
   new Resource("instant_saveCinch", () => "Do not spend any cinch for leveling"),
   new Resource(
     "instant_saveFreeRests",
-    (n) => `Save ${n}/${totalFreeRests()} free rests`,
+    (n) => `Save ${n}/${totalFreeRests()} free rests (set a number)`,
     [],
     get("instant_saveFreeRests", false) ? totalFreeRests() : 0
   ),

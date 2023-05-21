@@ -798,16 +798,16 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.if_($monster`LOV Enforcer`, Macro.attack().repeat())
           .if_(
-            $monster`LOV Engineer`, Macro
-            .while_(
+            $monster`LOV Engineer`,
+            Macro.while_(
               `!mpbelow ${mpCost($skill`Toynado`)} && hasskill ${toInt($skill`Toynado`)}`,
               Macro.skill($skill`Toynado`)
             )
-            .while_(
-              `!mpbelow ${mpCost($skill`Saucestorm`)} && hasskill ${toInt($skill`Saucestorm`)}`,
-              Macro.skill($skill`Saucestorm`)
-            )
-            .default()
+              .while_(
+                `!mpbelow ${mpCost($skill`Saucestorm`)} && hasskill ${toInt($skill`Saucestorm`)}`,
+                Macro.skill($skill`Saucestorm`)
+              )
+              .default()
           )
           .if_($monster`LOV Equivocator`, Macro.default())
       ),
