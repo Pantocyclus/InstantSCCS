@@ -5,7 +5,6 @@ import {
   create,
   drink,
   Effect,
-  equip,
   inebrietyLimit,
   myInebriety,
   print,
@@ -19,7 +18,6 @@ import {
   $location,
   $monster,
   $skill,
-  $slot,
   CombatLoversLocket,
   CommunityService,
   get,
@@ -40,8 +38,6 @@ export const HotResQuest: Quest = {
       prepare: (): void => {
         if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`))
           buy($item`yellow rocket`, 1);
-        if (have($skill`Double-Fisted Skull Smashing`) && have($item`industrial fire extinguisher`))
-          equip($slot`offhand`, $item`industrial fire extinguisher`);
       },
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`factory worker (female)`) ||
@@ -51,6 +47,9 @@ export const HotResQuest: Quest = {
       outfit: () => ({
         back: $item`vampyric cloake`,
         weapon: $item`Fourth of May Cosplay Saber`,
+        offhand: have($skill`Double-Fisted Skull Smashing`)
+          ? $item`industrial fire extinguisher`
+          : undefined,
         familiar: $familiar`Cookbookbat`,
         modifier: "Item Drop",
         avoid: sugarItemsAboutToBreak(),

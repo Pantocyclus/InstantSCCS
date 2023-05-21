@@ -106,7 +106,9 @@ export const BoozeDropQuest: Quest = {
       outfit: () => ({
         back: $item`vampyric cloake`,
         weapon: $item`Fourth of May Cosplay Saber`,
-        offhand: $item`industrial fire extinguisher`,
+        offhand: have($skill`Double-Fisted Skull Smashing`)
+          ? $item`industrial fire extinguisher`
+          : undefined,
         familiar: $familiar`Cookbookbat`,
         modifier: "myst",
         avoid: sugarItemsAboutToBreak(),
