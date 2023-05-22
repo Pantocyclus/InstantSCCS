@@ -931,7 +931,6 @@ export const LevelingQuest: Quest = {
         famequip: $items`God Lobster's Ring, God Lobster's Scepter`,
         familiar: $familiar`God Lobster`,
       }),
-      acquire: [{ item: $item`makeshift garbage shirt` }],
       limit: { tries: 3 },
       post: (): void => {
         sendAutumnaton();
