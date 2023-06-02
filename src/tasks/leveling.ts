@@ -391,7 +391,7 @@ export const LevelingQuest: Quest = {
           visitUrl("campground.php?action=rest");
         }
       },
-      outfit: { modifier: "myst, mp" },
+      outfit: { modifier: "myst, mp, -tie" },
     },
     {
       name: "Alice Army",

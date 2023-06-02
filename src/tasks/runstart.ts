@@ -169,7 +169,7 @@ export const RunStartQuest: Quest = {
           visitUrl("campground.php?action=rest");
         }
       },
-      outfit: { modifier: "myst, mp" },
+      outfit: { modifier: "myst, mp, -tie" },
     },
     {
       name: "Borrowed Time",
