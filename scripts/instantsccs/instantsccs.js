@@ -9831,7 +9831,7 @@ var LevelingQuest = {
       }
     },
     outfit: {
-      modifier: "myst, mp"
+      modifier: "myst, mp, -tie"
     }
   }, {
     name: "Alice Army",
@@ -11114,7 +11114,7 @@ var RunStartQuest = {
       }
     },
     outfit: {
-      modifier: "myst, mp"
+      modifier: "myst, mp, -tie"
     }
   }, {
     name: "Borrowed Time",
