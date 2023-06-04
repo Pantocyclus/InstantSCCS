@@ -158,6 +158,16 @@ const resources: Resource[] = [
     [],
     get("instant_saveFreeRests", false) ? totalFreeRests() : 0
   ),
+  new Resource(
+    "instant_saveCatalogCredits",
+    (n) => `Save ${n}/3 Mr. Store Catalog Credits (set a number)`,
+    [],
+    get("instant_saveCatalogCredits", false) ? 3 : 0
+  ),
+  new Resource(
+    "instant_skipHighHeels",
+    () => "Do not grab red-soled high heels from the Mr. Store Catalog"
+  ),
 ];
 
 const automaticallyExcludedBuffs = Array.from(

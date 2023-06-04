@@ -15,8 +15,10 @@ import {
   itemAmount,
   myInebriety,
   print,
+  toInt,
   use,
   useFamiliar,
+  visitUrl,
 } from "kolmafia";
 import {
   $effect,
@@ -31,6 +33,7 @@ import {
   have,
   TrainSet,
   uneffect,
+  withChoice,
 } from "libram";
 import {
   canConfigure,
@@ -42,6 +45,7 @@ import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
+import { forbiddenEffects } from "../resources";
 
 export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
@@ -191,6 +195,27 @@ export const BoozeDropQuest: Quest = {
         use($item`pumpkin juice`, 1);
       },
       limit: { tries: 1 },
+    },
+    {
+      name: "Loathing Idol Microphone",
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        have($effect`Spitting Rhymes`) ||
+        // eslint-disable-next-line libram/verify-constants
+        !have($item`2002 Mr. Store Catalog`) ||
+        get("availableMrStore2002Credits", 0) <= get("instant_saveCatalogCredits", 0) ||
+        // eslint-disable-next-line libram/verify-constants
+        forbiddenEffects.includes($effect`Spitting Rhymes`),
+      do: (): void => {
+        // eslint-disable-next-line libram/verify-constants
+        if (!have($item`Loathing Idol Microphone`)) {
+          // eslint-disable-next-line libram/verify-constants
+          visitUrl(`inv_use.php?whichitem=${toInt($item`2002 Mr. Store Catalog`)}&which=f0&pwd`);
+          visitUrl("shop.php?whichshop=mrstore2002&action=buyitem&quantity=1&whichrow=1384&pwd");
+        }
+        // eslint-disable-next-line libram/verify-constants
+        withChoice(1505, 3, () => use($item`Loathing Idol Microphone`));
+      },
     },
     {
       name: "Test",

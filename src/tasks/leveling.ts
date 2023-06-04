@@ -221,6 +221,27 @@ export const LevelingQuest: Quest = {
       do: (): void => ensureEffect($effect`Inscrutable Gaze`),
     },
     {
+      name: "Hot in Herre",
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        have($effect`Hot in Herre`) ||
+        // eslint-disable-next-line libram/verify-constants
+        !have($item`2002 Mr. Store Catalog`) ||
+        get("availableMrStore2002Credits", 0) <= get("instant_saveCatalogCredits", 0) ||
+        // eslint-disable-next-line libram/verify-constants
+        forbiddenEffects.includes($effect`Hot in Herre`),
+      do: (): void => {
+        // eslint-disable-next-line libram/verify-constants
+        if (!have($item`Charter: Nellyville`)) {
+          // eslint-disable-next-line libram/verify-constants
+          visitUrl(`inv_use.php?whichitem=${toInt($item`2002 Mr. Store Catalog`)}&which=f0&pwd`);
+          visitUrl("shop.php?whichshop=mrstore2002&action=buyitem&quantity=1&whichrow=1385&pwd");
+        }
+        // eslint-disable-next-line libram/verify-constants
+        use($item`Charter: Nellyville`, 1);
+      },
+    },
+    {
       name: "Pull Deep Dish of Legend",
       completed: () =>
         have($item`Deep Dish of Legend`) ||
