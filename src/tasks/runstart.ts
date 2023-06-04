@@ -151,6 +151,7 @@ export const RunStartQuest: Quest = {
       do: () =>
         // eslint-disable-next-line libram/verify-constants
         visitUrl(`inv_use.php?whichitem=${toInt($item`2002 Mr. Store Catalog`)}&which=f0&pwd`),
+      limit: { tries: 1 },
     },
     {
       name: "KGB",

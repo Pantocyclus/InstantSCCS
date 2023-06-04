@@ -240,6 +240,7 @@ export const LevelingQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         use($item`Charter: Nellyville`, 1);
       },
+      limit: { tries: 3 },
     },
     {
       name: "Pull Deep Dish of Legend",

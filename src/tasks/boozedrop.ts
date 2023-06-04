@@ -216,6 +216,7 @@ export const BoozeDropQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         withChoice(1505, 3, () => use($item`Loathing Idol Microphone`));
       },
+      limit: { tries: 1 },
     },
     {
       name: "Test",

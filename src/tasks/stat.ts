@@ -186,6 +186,7 @@ export const MoxieQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         withChoice(1506, 3, () => use($item`Letter from Carrie Bradshaw`));
       },
+      limit: { tries: 1 },
     },
     {
       name: "Test",
