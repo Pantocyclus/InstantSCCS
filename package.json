@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "core-js": "^3.16.4",
-    "grimoire-kolmafia": "^0.3.17",
-    "kolmafia": "^5.27339.0",
-    "libram": "^0.7.18"
+    "grimoire-kolmafia": "^0.3.18",
+    "kolmafia": "^5.27398.0",
+    "libram": "^0.8.3"
   },
   "author": "Pantocyclus",
   "license": "MIT",
