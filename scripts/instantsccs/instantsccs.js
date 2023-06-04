@@ -8634,6 +8634,9 @@ var MoxieQuest = {
 
 
       property_withChoice(1506, 3, () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(stat_templateObject49 || (stat_templateObject49 = stat_taggedTemplateLiteral(["Letter from Carrie Bradshaw"])))));
+    },
+    limit: {
+      tries: 1
     }
   }, {
     name: "Test",
@@ -9805,6 +9808,9 @@ var LevelingQuest = {
 
 
       (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject72 || (_templateObject72 = leveling_taggedTemplateLiteral(["Charter: Nellyville"]))), 1);
+    },
+    limit: {
+      tries: 3
     }
   }, {
     name: "Pull Deep Dish of Legend",
@@ -11189,7 +11195,10 @@ var RunStartQuest = {
     completed: () => // eslint-disable-next-line libram/verify-constants
     !lib_have(template_string_$item(runstart_templateObject16 || (runstart_templateObject16 = runstart_taggedTemplateLiteral(["2002 Mr. Store Catalog"])))) || property_get("availableMrStore2002Credits", 0) > 0,
     do: () => // eslint-disable-next-line libram/verify-constants
-    (0,external_kolmafia_namespaceObject.visitUrl)("inv_use.php?whichitem=".concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$item(runstart_templateObject17 || (runstart_templateObject17 = runstart_taggedTemplateLiteral(["2002 Mr. Store Catalog"])))), "&which=f0&pwd"))
+    (0,external_kolmafia_namespaceObject.visitUrl)("inv_use.php?whichitem=".concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$item(runstart_templateObject17 || (runstart_templateObject17 = runstart_taggedTemplateLiteral(["2002 Mr. Store Catalog"])))), "&which=f0&pwd")),
+    limit: {
+      tries: 1
+    }
   }, {
     name: "KGB",
     completed: () => property_get("_kgbClicksUsed") > 0 || !lib_have(template_string_$item(runstart_templateObject18 || (runstart_templateObject18 = runstart_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"])))) || property_get("instant_saveKGBClicks", false),
@@ -11901,6 +11910,9 @@ var BoozeDropQuest = {
 
 
       property_withChoice(1505, 3, () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(boozedrop_templateObject55 || (boozedrop_templateObject55 = boozedrop_taggedTemplateLiteral(["Loathing Idol Microphone"])))));
+    },
+    limit: {
+      tries: 1
     }
   }, {
     name: "Test",
