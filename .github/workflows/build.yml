@@ -2,9 +2,17 @@ name: Build instantsccs
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "package.json"
   pull_request:
-    branches: [main]
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "package.json"
   workflow_dispatch:
 
 env:
@@ -53,15 +61,17 @@ jobs:
       - name: Synchronize & push into release branch
         run: |
           git fetch --all
-          echo "Switching into release"    
-          git stash && git stash clear      
-          git switch release        
+          echo "Switching into release"
+          git stash && git stash clear
+          git switch release
 
           # Push build into the release branch
-          rm -r scripts/
+          shopt -s extglob
+          rm -rf !(BUILD)
           mv BUILD/scripts scripts
           mv BUILD/dependencies.txt dependencies.txt
           mv BUILD/README.md README.md
+          rm -rf BUILD
           git add scripts
           git add dependencies.txt
           git add README.md
