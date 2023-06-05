@@ -3,14 +3,20 @@ import {
   buy,
   drink,
   Effect,
+  elementalResistance,
   inebrietyLimit,
   myAdventures,
+  myHp,
   myInebriety,
+  myMaxhp,
   print,
+  restoreHp,
   useSkill,
 } from "kolmafia";
 import {
   $effect,
+  $effects,
+  $element,
   $familiar,
   $item,
   $items,
@@ -24,6 +30,9 @@ import { Quest } from "../engine/task";
 import { logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import { sugarItemsAboutToBreak } from "../engine/outfit";
+import { forbiddenEffects } from "../resources";
+
+let triedDeepDark = false;
 
 export const SpellDamageQuest: Quest = {
   name: "Spell Damage",
@@ -54,6 +63,26 @@ export const SpellDamageQuest: Quest = {
         avoid: sugarItemsAboutToBreak(),
       }),
       choices: { 1387: 3 },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Deep Dark Visions",
+      completed: () =>
+        have($effect`Visions of the Deep Dark Deeps`) ||
+        forbiddenEffects.includes($effect`Visions of the Deep Dark Deeps`) ||
+        !have($skill`Deep Dark Visions`) ||
+        triedDeepDark,
+      prepare: () =>
+        $effects`Astral Shell, Elemental Saucesphere`.forEach((ef) => tryAcquiringEffect(ef)),
+      do: (): void => {
+        triedDeepDark = true;
+        const resist = 1 - elementalResistance($element`spooky`) / 100;
+        const neededHp = Math.max(500, myMaxhp() * 4 * resist);
+        if (myMaxhp() < neededHp) return;
+        if (myHp() < neededHp) restoreHp(neededHp);
+        tryAcquiringEffect($effect`Visions of the Deep Dark Deeps`);
+      },
+      outfit: { modifier: "HP 500max, Spooky Resistance", familiar: $familiar`Exotic Parrot` },
       limit: { tries: 1 },
     },
     {
