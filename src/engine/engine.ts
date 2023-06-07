@@ -141,7 +141,7 @@ export class Engine extends BaseEngine {
     }
     originalValues.forEach(([resource, val]) => {
       if (
-        get(resource, "").length > 0
+        get(resource, "").toString().length > 0
           ? val !== get(resource).toString()
           : itemAmount(toItem(resource)) < toInt(val)
       ) {
