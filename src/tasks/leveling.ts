@@ -68,7 +68,10 @@ import {
 } from "libram";
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
+  getSynthExpBuff,
+  getValidComplexCandyPairs,
   haveCBBIngredients,
+  synthExpBuff,
   targetBaseMyst,
   targetBaseMystGap,
   tryAcquiringEffect,
@@ -241,6 +244,15 @@ export const LevelingQuest: Quest = {
         use($item`Charter: Nellyville`, 1);
       },
       limit: { tries: 3 },
+    },
+    {
+      name: "Synth Exp Buff",
+      completed: () =>
+        get("instant_skipSynthExp", false) ||
+        have(synthExpBuff) ||
+        getValidComplexCandyPairs().length === 0,
+      do: (): void => getSynthExpBuff(),
+      limit: { tries: 5 },
     },
     {
       name: "Pull Deep Dish of Legend",

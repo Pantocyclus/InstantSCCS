@@ -14,6 +14,9 @@ import {
   print,
   restoreMp,
   retrieveItem,
+  retrievePrice,
+  sweetSynthesis,
+  toInt,
   toItem,
   toSkill,
   toStat,
@@ -22,6 +25,7 @@ import {
 import { $effect, $familiar, $item, $items, $stat, CommunityService, get, have, set } from "libram";
 import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
+import { mainStat } from "./combat";
 
 export const testModifiers = new Map([
   [CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]],
@@ -230,4 +234,69 @@ export function haveCBBIngredients(fullCheck: boolean): boolean {
     itemAmount($item`Vegetable of Jarlsberg`) >= vegetable &&
     itemAmount($item`St. Sneaky Pete's Whey`) >= whey
   );
+}
+
+export const synthExpBuff =
+  mainStat === $stat`Muscle`
+    ? $effect`Synthesis: Movement`
+    : mainStat === $stat`Mysticality`
+    ? $effect`Synthesis: Learning`
+    : $effect`Synthesis: Style`;
+
+export const complexCandies = $items``.filter((candy) => candy.candyType === "complex");
+const peppermintCandiesCosts = new Map<Item, number>([
+  [$item`peppermint sprout`, 1],
+  [$item`peppermint twist`, 1],
+  [$item`peppermint patty`, 2],
+  [$item`peppermint crook`, 3],
+  [$item`cane-mail pants`, 10],
+  [$item`peppermint rhino baby`, 11],
+  [$item`cane-mail shirt`, 15],
+]);
+const nonPeppermintCandies = complexCandies.filter(
+  (candy) => !Array.from(peppermintCandiesCosts.keys()).includes(candy)
+);
+
+function haveCandies(a: Item, b: Item): boolean {
+  const candiesRequired = new Map<Item, number>();
+  [a, b].forEach((candy) => {
+    const currentAmount = candiesRequired.get(candy) ?? 0;
+    if (nonPeppermintCandies.includes(candy)) candiesRequired.set(candy, currentAmount + 1);
+    else
+      candiesRequired.set(
+        $item`peppermint sprout`,
+        currentAmount + (peppermintCandiesCosts.get(candy) ?? Infinity)
+      );
+  });
+
+  candiesRequired.forEach((amount, candy) => {
+    candiesRequired.set(candy, itemAmount(candy) >= amount ? 1 : 0);
+  });
+
+  return Array.from(candiesRequired.values()).every((val) => val === 1);
+}
+
+const rem = mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4;
+const complexCandyPairs = complexCandies
+  .map((a, i) => complexCandies.slice(i).map((b) => [a, b]))
+  .reduce((acc, val) => acc.concat(val), [])
+  .filter(([a, b]) => (toInt(a) + toInt(b)) % 5 === rem);
+
+export function getValidComplexCandyPairs(): Item[][] {
+  return complexCandyPairs.filter(([a, b]) => haveCandies(a, b));
+}
+
+export function getSynthExpBuff(): void {
+  const filteredComplexCandyPairs = getValidComplexCandyPairs();
+  if (filteredComplexCandyPairs.length === 0) return;
+
+  const bestPair = filteredComplexCandyPairs.reduce((left, right) =>
+    left.map((it) => retrievePrice(it)).reduce((acc, val) => acc + val) <
+    right.map((it) => retrievePrice(it)).reduce((acc, val) => acc + val)
+      ? left
+      : right
+  );
+  if (bestPair[0] === bestPair[1]) retrieveItem(bestPair[0], 2);
+  else bestPair.forEach((it) => retrieveItem(it));
+  sweetSynthesis(bestPair[0], bestPair[1]);
 }
