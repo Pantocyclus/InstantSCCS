@@ -2,17 +2,9 @@ name: Build instantsccs
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - "package.json"
+    branches: [main]
   pull_request:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - "package.json"
+    branches: [main]
   workflow_dispatch:
 
 env:
