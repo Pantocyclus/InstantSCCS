@@ -2,6 +2,7 @@ import {
   cliExecute,
   fullnessLimit,
   inebrietyLimit,
+  itemAmount,
   myAscensions,
   myFullness,
   myInebriety,
@@ -21,40 +22,45 @@ import {
   uneffect,
 } from "libram";
 import {
-  farmingResourcePrefs,
-  freeBanishPrefs,
-  freeFightPrefs,
-  freeKillPrefs,
-  notableSkillPrefs,
-  potentiallyFreeFightPrefs,
-  trackedPref,
+  farmingResourceResources,
+  freeBanishResources,
+  freeFightResources,
+  freeKillResources,
+  notableSkillResources,
+  potentiallyFreeFightResources,
+  trackedResource,
 } from "../engine/engine";
 import { Quest } from "../engine/task";
 import { testModifiers } from "../lib";
 
-function logPrefUsage(tPref: trackedPref): void {
-  const pref = tPref.pref;
-  const name = tPref.name;
-  const n = tPref.maxUses;
+function printResourceUsage(tResource: trackedResource): void {
+  const resource = tResource.resource;
+  const name = tResource.name;
+  const n = tResource.maxUses;
 
-  const localPrefValue = get(`_instant${pref}`, "").split(",").join(", ");
-  const prefValue = get(pref);
-  const prefValueLength = prefValue.toString() !== "" ? prefValue.toString().split(",").length : 0;
+  const localResourceValue = get(`_instant${resource}`, "").split(",").join(", ");
+  const resourceValue = typeof resource === "string" ? get(resource) : itemAmount(resource);
+  const resourceValueLength =
+    resourceValue.toString() !== "" ? resourceValue.toString().split(",").length : 0;
 
-  if (typeof prefValue === "boolean" || prefValue === "true" || prefValue === "false")
+  if (typeof resourceValue === "boolean" || resourceValue === "true" || resourceValue === "false")
     print(
-      `${name}: ${prefValue || prefValue === "true" ? n ?? 1 : 0}/${n ?? "?"} ${localPrefValue}`
+      `${name}: ${resourceValue || resourceValue === "true" ? n ?? 1 : 0}/${
+        n ?? "?"
+      } ${localResourceValue}`
     );
   else if (
-    typeof prefValue === "string" &&
-    (isNaN(parseInt(prefValue)) || prefValue.includes(",") || parseInt(prefValue) > (n ?? 1))
+    typeof resourceValue === "string" &&
+    (isNaN(parseInt(resourceValue)) ||
+      resourceValue.includes(",") ||
+      parseInt(resourceValue) > (n ?? 1))
   )
     print(
-      `${name}: ${prefValueLength > (n ?? 1) ? n ?? 1 : prefValueLength}/${
+      `${name}: ${resourceValueLength > (n ?? 1) ? n ?? 1 : resourceValueLength}/${
         n ?? "?"
-      } ${localPrefValue}`
+      } ${localResourceValue}`
     );
-  else print(`${name}: ${prefValue}/${n ?? "?"} ${localPrefValue}`);
+  else print(`${name}: ${resourceValue}/${n ?? "?"} ${localResourceValue}`);
 }
 
 function logResourceUsage(): void {
@@ -63,15 +69,15 @@ function logResourceUsage(): void {
   print("");
   print("Resource Tracking", "blue");
   [
-    { header: "Banishes Used:", prefArr: freeBanishPrefs },
-    { header: "Free Kills Used:", prefArr: freeKillPrefs },
-    { header: "Notable Skills Used:", prefArr: notableSkillPrefs },
-    { header: "Free Fights Used:", prefArr: freeFightPrefs },
-    { header: "Potentially Free Fights Used:", prefArr: potentiallyFreeFightPrefs },
-    { header: "Farming Resources:", prefArr: farmingResourcePrefs },
-  ].map(({ header, prefArr }) => {
+    { header: "Banishes Used:", resourceArr: freeBanishResources },
+    { header: "Free Kills Used:", resourceArr: freeKillResources },
+    { header: "Notable Skills Used:", resourceArr: notableSkillResources },
+    { header: "Free Fights Used:", resourceArr: freeFightResources },
+    { header: "Potentially Free Fights Used:", resourceArr: potentiallyFreeFightResources },
+    { header: "Farming Resources:", resourceArr: farmingResourceResources },
+  ].map(({ header, resourceArr }) => {
     print(header);
-    prefArr.map(logPrefUsage);
+    resourceArr.map(printResourceUsage);
     print("");
   });
 
