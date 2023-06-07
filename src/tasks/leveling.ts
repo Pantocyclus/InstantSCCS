@@ -246,8 +246,18 @@ export const LevelingQuest: Quest = {
       limit: { tries: 3 },
     },
     {
+      name: "Crimbo Candy",
+      completed: () =>
+        get("_candySummons", 0) > 0 ||
+        !have($skill`Summon Crimbo Candy`) ||
+        !have($skill`Sweet Synthesis`),
+      do: () => useSkill($skill`Summon Crimbo Candy`),
+      limit: { tries: 1 },
+    },
+    {
       name: "Synth Exp Buff",
       completed: () =>
+        !have($skill`Sweet Synthesis`) ||
         get("instant_skipSynthExp", false) ||
         have(synthExpBuff) ||
         getValidComplexCandyPairs().length === 0,
