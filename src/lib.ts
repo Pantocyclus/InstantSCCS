@@ -22,7 +22,18 @@ import {
   toStat,
   use,
 } from "kolmafia";
-import { $effect, $familiar, $item, $items, $stat, CommunityService, get, have, set } from "libram";
+import {
+  $effect,
+  $familiar,
+  $item,
+  $items,
+  $stat,
+  CommunityService,
+  get,
+  have,
+  set,
+  Witchess,
+} from "libram";
 import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
 import { mainStat } from "./combat";
@@ -134,7 +145,7 @@ export function canAcquireEffect(ef: Effect): boolean {
         case "barrelprayer":
           return get("barrelShrineUnlocked") && !get("_barrelPrayer");
         case "witchess":
-          return get("puzzleChampBonus") === 20 && !get("_witchessBuff");
+          return Witchess.have() && get("puzzleChampBonus") >= 20 && !get("_witchessBuff");
         case "telescope":
           return get("telescopeUpgrades") > 0 && !get("telescopeLookedHigh");
         case "beach":
