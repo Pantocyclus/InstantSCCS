@@ -3629,6 +3629,55 @@ CommunityService_defineProperty(CommunityService, "donate", () => {
 });
 
 
+;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2016/Witchess.js
+var Witchess_templateObject;
+
+function Witchess_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+var item = template_string_$item(Witchess_templateObject || (Witchess_templateObject = Witchess_taggedTemplateLiteral(["Witchess Set"])));
+/**
+ * @returns Is the Witchess installed and available in our campground?
+ */
+
+function Witchess_have() {
+  return haveInCampground(item);
+}
+/**
+ * @returns How many Witchess fights have we done so far today?
+ */
+
+function fightsDone() {
+  return get("_witchessFights");
+}
+var pieces = external_kolmafia_namespaceObject.Monster.get(["Witchess Pawn", "Witchess Knight", "Witchess Bishop", "Witchess Rook", "Witchess Queen", "Witchess King", "Witchess Witch", "Witchess Ox"]);
+/**
+ * Fight a Witchess piece of your choice
+ *
+ * @param piece The piece to fight
+ * @returns The value of `runCombat()`, which is the page html of the final round
+ */
+
+function fightPiece(piece) {
+  if (!pieces.includes(piece)) throw new Error("That is not a valid piece.");
+
+  if (!(0,external_kolmafia_namespaceObject.visitUrl)("campground.php?action=witchess").includes("whichchoice value=1181")) {
+    throw new Error("Failed to open Witchess.");
+  }
+
+  if (!(0,external_kolmafia_namespaceObject.runChoice)(1).includes("whichchoice=1182")) {
+    throw new Error("Failed to visit shrink ray.");
+  }
+
+  if (!(0,external_kolmafia_namespaceObject.visitUrl)("choice.php?option=1&pwd=".concat((0,external_kolmafia_namespaceObject.myHash)(), "&whichchoice=1182&piece=").concat(piece.id), false).includes(piece.name)) {
+    throw new Error("Failed to start fight.");
+  }
+
+  return (0,external_kolmafia_namespaceObject.runCombat)();
+}
 ;// CONCATENATED MODULE: ./src/resources.ts
 var resources_templateObject, resources_templateObject2, resources_templateObject3, resources_templateObject4, resources_templateObject5, resources_templateObject6, resources_templateObject7, resources_templateObject8, resources_templateObject9, resources_templateObject10, resources_templateObject11, resources_templateObject12, resources_templateObject13;
 
@@ -4953,7 +5002,7 @@ function canAcquireEffect(ef) {
         return property_get("barrelShrineUnlocked") && !property_get("_barrelPrayer");
 
       case "witchess":
-        return property_get("puzzleChampBonus") === 20 && !property_get("_witchessBuff");
+        return Witchess_have() && property_get("puzzleChampBonus") >= 20 && !property_get("_witchessBuff");
 
       case "telescope":
         return property_get("telescopeUpgrades") > 0 && !property_get("telescopeLookedHigh");
@@ -8825,7 +8874,7 @@ function AutumnAton_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = stri
 
 
 
-var item = external_kolmafia_namespaceObject.Item.get("autumn-aton");
+var AutumnAton_item = external_kolmafia_namespaceObject.Item.get("autumn-aton");
 /**
  * Is the autumn-aton currently in your inventory, available to deploy?
  *
@@ -8833,7 +8882,7 @@ var item = external_kolmafia_namespaceObject.Item.get("autumn-aton");
  */
 
 function available() {
-  return (0,external_kolmafia_namespaceObject.availableAmount)(item) > 0;
+  return (0,external_kolmafia_namespaceObject.availableAmount)(AutumnAton_item) > 0;
 }
 /**
  * Do you own the autumn-aton?
@@ -8873,13 +8922,13 @@ function currentlyIn() {
 function sendTo(target) {
   var upgrade = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
   if (!available()) return null;
-  var pageHtml = lib_directlyUse(item);
+  var pageHtml = lib_directlyUse(AutumnAton_item);
   if (upgrade && (0,external_kolmafia_namespaceObject.availableChoiceOptions)()[1]) (0,external_kolmafia_namespaceObject.runChoice)(1);
   var locationsAvailable = checkLocations(pageHtml);
   var location = target instanceof external_kolmafia_namespaceObject.Location ? target : Array.isArray(target) ? target.find(l => locationsAvailable.includes(l)) : target(locationsAvailable);
   if (!location) return null;
   if (!locationsAvailable.includes(location)) return null;
-  if (!(0,external_kolmafia_namespaceObject.handlingChoice)()) lib_directlyUse(item);
+  if (!(0,external_kolmafia_namespaceObject.handlingChoice)()) lib_directlyUse(AutumnAton_item);
   (0,external_kolmafia_namespaceObject.runChoice)(2, "heythereprogrammer=".concat(location.id));
   if ((0,external_kolmafia_namespaceObject.handlingChoice)()) (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
   return location;
@@ -8891,7 +8940,7 @@ function sendTo(target) {
  */
 
 function upgrade() {
-  directlyUse(item);
+  directlyUse(AutumnAton_item);
   var canUpgrade = availableChoiceOptions()[1] !== undefined;
   if (canUpgrade) runChoice(1);
   visitUrl("main.php");
@@ -8903,7 +8952,7 @@ function upgrade() {
 
 function availableLocations() {
   if (!available()) return [];
-  var pageHtml = lib_directlyUse(item);
+  var pageHtml = lib_directlyUse(AutumnAton_item);
   (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
   return checkLocations(pageHtml);
 }
@@ -9381,55 +9430,6 @@ function fightAll(equipment, effect, extra) {
 
   _set("choiceAdventure1228", extraChoice(extra));
   (0,external_kolmafia_namespaceObject.adv1)($location(TunnelOfLove_templateObject2 || (TunnelOfLove_templateObject2 = TunnelOfLove_taggedTemplateLiteral(["The Tunnel of L.O.V.E."]))), 0, "");
-}
-;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2016/Witchess.js
-var Witchess_templateObject;
-
-function Witchess_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-
-
-
-var Witchess_item = template_string_$item(Witchess_templateObject || (Witchess_templateObject = Witchess_taggedTemplateLiteral(["Witchess Set"])));
-/**
- * @returns Is the Witchess installed and available in our campground?
- */
-
-function Witchess_have() {
-  return haveInCampground(Witchess_item);
-}
-/**
- * @returns How many Witchess fights have we done so far today?
- */
-
-function fightsDone() {
-  return get("_witchessFights");
-}
-var pieces = external_kolmafia_namespaceObject.Monster.get(["Witchess Pawn", "Witchess Knight", "Witchess Bishop", "Witchess Rook", "Witchess Queen", "Witchess King", "Witchess Witch", "Witchess Ox"]);
-/**
- * Fight a Witchess piece of your choice
- *
- * @param piece The piece to fight
- * @returns The value of `runCombat()`, which is the page html of the final round
- */
-
-function fightPiece(piece) {
-  if (!pieces.includes(piece)) throw new Error("That is not a valid piece.");
-
-  if (!(0,external_kolmafia_namespaceObject.visitUrl)("campground.php?action=witchess").includes("whichchoice value=1181")) {
-    throw new Error("Failed to open Witchess.");
-  }
-
-  if (!(0,external_kolmafia_namespaceObject.runChoice)(1).includes("whichchoice=1182")) {
-    throw new Error("Failed to visit shrink ray.");
-  }
-
-  if (!(0,external_kolmafia_namespaceObject.visitUrl)("choice.php?option=1&pwd=".concat((0,external_kolmafia_namespaceObject.myHash)(), "&whichchoice=1182&piece=").concat(piece.id), false).includes(piece.name)) {
-    throw new Error("Failed to start fight.");
-  }
-
-  return (0,external_kolmafia_namespaceObject.runCombat)();
 }
 ;// CONCATENATED MODULE: ./src/engine/outfit.ts
 var engine_outfit_templateObject, engine_outfit_templateObject2, engine_outfit_templateObject3, engine_outfit_templateObject4, engine_outfit_templateObject5, engine_outfit_templateObject6, engine_outfit_templateObject7, engine_outfit_templateObject8, engine_outfit_templateObject9, engine_outfit_templateObject10, engine_outfit_templateObject11, engine_outfit_templateObject12, engine_outfit_templateObject13, engine_outfit_templateObject14, engine_outfit_templateObject15, engine_outfit_templateObject16, engine_outfit_templateObject17, engine_outfit_templateObject18, engine_outfit_templateObject19, engine_outfit_templateObject20, engine_outfit_templateObject21, engine_outfit_templateObject22, engine_outfit_templateObject23, engine_outfit_templateObject24, engine_outfit_templateObject25, engine_outfit_templateObject26, engine_outfit_templateObject27, engine_outfit_templateObject28, engine_outfit_templateObject29, engine_outfit_templateObject30, engine_outfit_templateObject31, engine_outfit_templateObject32, engine_outfit_templateObject33, engine_outfit_templateObject34, engine_outfit_templateObject35, engine_outfit_templateObject36;
