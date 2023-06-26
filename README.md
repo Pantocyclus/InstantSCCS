@@ -234,7 +234,7 @@ If you're missing any of the skills, do take a look at the list of supported Iot
 | [Song of Sauce](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_Sauce_(skill)>)                                           | sdmg test               |
 | [Song of the North](<https://kol.coldfront.net/thekolwiki/index.php/Song_of_the_North_(skill)>)                                   | wdmg test               |
 | [Simmer](https://kol.coldfront.net/thekolwiki/index.php/Simmer)                                                                   | sdmg test               |
-| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg)                        | item test               |
+| [Always Never Not Guzzling](https://kol.coldfront.net/thekolwiki/index.php/Always_Never_Not_Guzzling)                             | item test               |
 | [Crimbo Training: Bartender](https://kol.coldfront.net/thekolwiki/index.php/Crimbo_Training:_Bartender)                           | item test               |
 
 ### Other Recommendations

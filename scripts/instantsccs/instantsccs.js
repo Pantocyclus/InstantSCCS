@@ -8463,6 +8463,14 @@ function orderByRoute(tasks, routing, ignore_missing_tasks) {
 ;// CONCATENATED MODULE: ./src/engine/engine.ts
 var engine_engine_templateObject, engine_templateObject2, engine_templateObject3, engine_templateObject4;
 
+function engine_engine_toConsumableArray(arr) { return engine_engine_arrayWithoutHoles(arr) || engine_engine_iterableToArray(arr) || engine_engine_unsupportedIterableToArray(arr) || engine_engine_nonIterableSpread(); }
+
+function engine_engine_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function engine_engine_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function engine_engine_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return engine_engine_arrayLikeToArray(arr); }
+
 function engine_engine_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = engine_engine_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function engine_engine_slicedToArray(arr, i) { return engine_engine_arrayWithHoles(arr) || engine_engine_iterableToArrayLimit(arr, i) || engine_engine_unsupportedIterableToArray(arr, i) || engine_engine_nonIterableRest(); }
@@ -8676,16 +8684,16 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
 
       var bannedAutoRestorers = ["sleep on your clan sofa", "rest in your campaway tent", "rest at the chateau", "rest at your campground", "free rest"];
       var bannedAutoHpRestorers = [].concat(bannedAutoRestorers);
-      var bannedAutoMpRestorers = [].concat(bannedAutoRestorers, ["doc galaktik's invigorating tonic"]);
+      var bannedAutoMpRestorers = [].concat(bannedAutoRestorers);
       var hpItems = property_get("hpAutoRecoveryItems").split(";").filter(s => !bannedAutoHpRestorers.includes(s)).join(";");
-      var mpItems = property_get("mpAutoRecoveryItems").split(";").filter(s => !bannedAutoMpRestorers.includes(s)).join(";");
+      var mpItems = [].concat(engine_engine_toConsumableArray(property_get("mpAutoRecoveryItems").split(";")), ["doc galaktik's invigorating tonic"]).filter(s => !bannedAutoMpRestorers.includes(s)).join(";");
       manager.set({
         autoSatisfyWithCloset: false,
         hpAutoRecovery: -0.05,
         mpAutoRecovery: -0.05,
         maximizerCombinationLimit: 0,
-        hpAutoRecoveryItems: hpItems,
-        mpAutoRecoveryItems: mpItems,
+        hpAutoRecoveryItems: engine_engine_toConsumableArray(new Set(hpItems)),
+        mpAutoRecoveryItems: engine_engine_toConsumableArray(new Set(mpItems)),
         shadowLabyrinthGoal: "effects"
       });
     }
