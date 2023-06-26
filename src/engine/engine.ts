@@ -233,13 +233,12 @@ export class Engine extends BaseEngine {
       "free rest",
     ];
     const bannedAutoHpRestorers = [...bannedAutoRestorers];
-    const bannedAutoMpRestorers = [...bannedAutoRestorers, "doc galaktik's invigorating tonic"];
+    const bannedAutoMpRestorers = [...bannedAutoRestorers];
     const hpItems = get("hpAutoRecoveryItems")
       .split(";")
       .filter((s) => !bannedAutoHpRestorers.includes(s))
       .join(";");
-    const mpItems = get("mpAutoRecoveryItems")
-      .split(";")
+    const mpItems = [...get("mpAutoRecoveryItems").split(";"), "doc galaktik's invigorating tonic"]
       .filter((s) => !bannedAutoMpRestorers.includes(s))
       .join(";");
     manager.set({
@@ -247,8 +246,8 @@ export class Engine extends BaseEngine {
       hpAutoRecovery: -0.05,
       mpAutoRecovery: -0.05,
       maximizerCombinationLimit: 0,
-      hpAutoRecoveryItems: hpItems,
-      mpAutoRecoveryItems: mpItems,
+      hpAutoRecoveryItems: [...new Set(hpItems)],
+      mpAutoRecoveryItems: [...new Set(mpItems)],
       shadowLabyrinthGoal: "effects",
     });
   }
