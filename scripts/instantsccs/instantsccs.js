@@ -8686,14 +8686,14 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
       var bannedAutoHpRestorers = [].concat(bannedAutoRestorers);
       var bannedAutoMpRestorers = [].concat(bannedAutoRestorers);
       var hpItems = property_get("hpAutoRecoveryItems").split(";").filter(s => !bannedAutoHpRestorers.includes(s)).join(";");
-      var mpItems = [].concat(engine_engine_toConsumableArray(property_get("mpAutoRecoveryItems").split(";")), ["doc galaktik's invigorating tonic"]).filter(s => !bannedAutoMpRestorers.includes(s)).join(";");
+      var mpItems = Array.from(new Set([].concat(engine_engine_toConsumableArray(property_get("mpAutoRecoveryItems").split(";")), ["doc galaktik's invigorating tonic"]))).filter(s => !bannedAutoMpRestorers.includes(s)).join(";");
       manager.set({
         autoSatisfyWithCloset: false,
         hpAutoRecovery: -0.05,
         mpAutoRecovery: -0.05,
         maximizerCombinationLimit: 0,
-        hpAutoRecoveryItems: engine_engine_toConsumableArray(new Set(hpItems)),
-        mpAutoRecoveryItems: engine_engine_toConsumableArray(new Set(mpItems)),
+        hpAutoRecoveryItems: hpItems,
+        mpAutoRecoveryItems: mpItems,
         shadowLabyrinthGoal: "effects"
       });
     }
