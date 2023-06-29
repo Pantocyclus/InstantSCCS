@@ -13587,25 +13587,30 @@ function main_main(command) {
   (0,external_kolmafia_namespaceObject.cliExecute)("refresh all");
   var tasks = getTasks([RunStartQuest, CoilWireQuest, LevelingQuest, MysticalityQuest, HPQuest, MoxieQuest, MuscleQuest, FamiliarWeightQuest, NoncombatQuest, BoozeDropQuest, HotResQuest, WeaponDamageQuest, SpellDamageQuest, DonateQuest]);
   var engine = new engine_Engine(tasks);
-  (0,external_kolmafia_namespaceObject.setAutoAttack)(0);
 
-  while (!runComplete()) {
-    var task = engine.getNextTask();
-    if (task === undefined) throw "Unable to find available task, but the run is not complete";
+  try {
+    (0,external_kolmafia_namespaceObject.setAutoAttack)(0);
 
-    if (args.confirm && !(0,external_kolmafia_namespaceObject.userConfirm)("Executing task ".concat(task.name, ", should we continue?"))) {
-      throw "User rejected execution of task ".concat(task.name);
+    while (!runComplete()) {
+      var task = engine.getNextTask();
+      if (task === undefined) throw "Unable to find available task, but the run is not complete";
+
+      if (args.confirm && !(0,external_kolmafia_namespaceObject.userConfirm)("Executing task ".concat(task.name, ", should we continue?"))) {
+        throw "User rejected execution of task ".concat(task.name);
+      }
+
+      if (task.ready !== undefined && !task.ready()) throw "Task ".concat(task.name, " is not ready");
+      engine.execute(task);
     }
 
-    if (task.ready !== undefined && !task.ready()) throw "Task ".concat(task.name, " is not ready");
-    engine.execute(task);
+    (0,external_kolmafia_namespaceObject.print)("Community Service complete!", "purple");
+    (0,external_kolmafia_namespaceObject.print)("Adventures used: ".concat((0,external_kolmafia_namespaceObject.turnsPlayed)()), "purple");
+    (0,external_kolmafia_namespaceObject.print)("Adventures remaining: ".concat((0,external_kolmafia_namespaceObject.myAdventures)()), "purple");
+    (0,external_kolmafia_namespaceObject.print)("Time: ".concat(convertMilliseconds((0,external_kolmafia_namespaceObject.gametimeToInt)() - property_get(timeProperty, (0,external_kolmafia_namespaceObject.gametimeToInt)())), " since first run today started"), "purple");
+    _set(timeProperty, -1);
+  } finally {
+    engine.destruct();
   }
-
-  (0,external_kolmafia_namespaceObject.print)("Community Service complete!", "purple");
-  (0,external_kolmafia_namespaceObject.print)("Adventures used: ".concat((0,external_kolmafia_namespaceObject.turnsPlayed)()), "purple");
-  (0,external_kolmafia_namespaceObject.print)("Adventures remaining: ".concat((0,external_kolmafia_namespaceObject.myAdventures)()), "purple");
-  (0,external_kolmafia_namespaceObject.print)("Time: ".concat(convertMilliseconds((0,external_kolmafia_namespaceObject.gametimeToInt)() - property_get(timeProperty, (0,external_kolmafia_namespaceObject.gametimeToInt)())), " since first run today started"), "purple");
-  _set(timeProperty, -1);
 }
 
 function runComplete() {
