@@ -89,28 +89,32 @@ export function main(command?: string): void {
     DonateQuest,
   ]);
   const engine = new Engine(tasks);
-  setAutoAttack(0);
+  try {
+    setAutoAttack(0);
 
-  while (!runComplete()) {
-    const task = engine.getNextTask();
-    if (task === undefined) throw "Unable to find available task, but the run is not complete";
-    if (args.confirm && !userConfirm(`Executing task ${task.name}, should we continue?`)) {
-      throw `User rejected execution of task ${task.name}`;
+    while (!runComplete()) {
+      const task = engine.getNextTask();
+      if (task === undefined) throw "Unable to find available task, but the run is not complete";
+      if (args.confirm && !userConfirm(`Executing task ${task.name}, should we continue?`)) {
+        throw `User rejected execution of task ${task.name}`;
+      }
+      if (task.ready !== undefined && !task.ready()) throw `Task ${task.name} is not ready`;
+      engine.execute(task);
     }
-    if (task.ready !== undefined && !task.ready()) throw `Task ${task.name} is not ready`;
-    engine.execute(task);
-  }
 
-  print("Community Service complete!", "purple");
-  print(`Adventures used: ${turnsPlayed()}`, "purple");
-  print(`Adventures remaining: ${myAdventures()}`, "purple");
-  print(
-    `Time: ${convertMilliseconds(
-      gametimeToInt() - get(timeProperty, gametimeToInt())
-    )} since first run today started`,
-    "purple"
-  );
-  set(timeProperty, -1);
+    print("Community Service complete!", "purple");
+    print(`Adventures used: ${turnsPlayed()}`, "purple");
+    print(`Adventures remaining: ${myAdventures()}`, "purple");
+    print(
+      `Time: ${convertMilliseconds(
+        gametimeToInt() - get(timeProperty, gametimeToInt())
+      )} since first run today started`,
+      "purple"
+    );
+    set(timeProperty, -1);
+  } finally {
+    engine.destruct();
+  }
 }
 
 function runComplete(): boolean {
