@@ -29,7 +29,7 @@ import {
 import { Quest } from "../engine/task";
 import { logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
-import { sugarItemsAboutToBreak } from "../engine/outfit";
+import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { forbiddenEffects } from "../resources";
 
 let triedDeepDark = false;
@@ -59,7 +59,7 @@ export const SpellDamageQuest: Quest = {
       ),
       outfit: () => ({
         weapon: $item`Fourth of May Cosplay Saber`,
-        familiar: $familiar`Cookbookbat`,
+        familiar: chooseFamiliar(false),
         avoid: sugarItemsAboutToBreak(),
       }),
       choices: { 1387: 3 },

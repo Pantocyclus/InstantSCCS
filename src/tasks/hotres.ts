@@ -26,7 +26,7 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
-import { sugarItemsAboutToBreak } from "../engine/outfit";
+import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import Macro from "../combat";
 
 export const HotResQuest: Quest = {
@@ -50,7 +50,7 @@ export const HotResQuest: Quest = {
         offhand: have($skill`Double-Fisted Skull Smashing`)
           ? $item`industrial fire extinguisher`
           : undefined,
-        familiar: $familiar`Cookbookbat`,
+        familiar: chooseFamiliar(false),
         modifier: "Item Drop",
         avoid: sugarItemsAboutToBreak(),
       }),

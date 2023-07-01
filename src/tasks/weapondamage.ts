@@ -14,7 +14,6 @@ import {
 import {
   $effect,
   $effects,
-  $familiar,
   $item,
   $location,
   $skill,
@@ -24,7 +23,7 @@ import {
   SongBoom,
 } from "libram";
 import Macro from "../combat";
-import { sugarItemsAboutToBreak } from "../engine/outfit";
+import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { Quest } from "../engine/task";
 import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 
@@ -87,7 +86,7 @@ export const WeaponDamageQuest: Quest = {
       ),
       outfit: () => ({
         weapon: $item`Fourth of May Cosplay Saber`,
-        familiar: $familiar`Cookbookbat`,
+        familiar: chooseFamiliar(false),
         avoid: sugarItemsAboutToBreak(),
       }),
       choices: { 1387: 3 },

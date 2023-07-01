@@ -38,7 +38,6 @@ import {
 } from "kolmafia";
 import {
   $effect,
-  $familiar,
   $item,
   $items,
   $location,
@@ -293,7 +292,7 @@ export const RunStartQuest: Quest = {
         !have($item`mumming trunk`) ||
         get("instant_saveMummingTrunk", false),
       do: () => cliExecute("mummery myst"),
-      outfit: { familiar: $familiar`Cookbookbat` },
+      outfit: { familiar: chooseFamiliar() },
       limit: { tries: 1 },
     },
     {

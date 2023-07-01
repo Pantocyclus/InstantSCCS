@@ -42,7 +42,7 @@ import {
   Station,
 } from "libram/dist/resources/2022/TrainSet";
 import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
-import { sugarItemsAboutToBreak } from "../engine/outfit";
+import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 import { forbiddenEffects } from "../resources";
@@ -113,7 +113,7 @@ export const BoozeDropQuest: Quest = {
         offhand: have($skill`Double-Fisted Skull Smashing`)
           ? $item`industrial fire extinguisher`
           : undefined,
-        familiar: $familiar`Cookbookbat`,
+        familiar: chooseFamiliar(false),
         modifier: "myst",
         avoid: sugarItemsAboutToBreak(),
       }),
