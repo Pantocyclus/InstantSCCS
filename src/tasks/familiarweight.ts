@@ -1,5 +1,15 @@
 import { CombatStrategy } from "grimoire-kolmafia";
-import { cliExecute, create, Effect, print, toInt, use, useFamiliar, visitUrl } from "kolmafia";
+import {
+  cliExecute,
+  create,
+  Effect,
+  mySign,
+  print,
+  toInt,
+  use,
+  useFamiliar,
+  visitUrl,
+} from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -46,7 +56,8 @@ export const FamiliarWeightQuest: Quest = {
       completed: () =>
         !have($item`hewn moon-rune spoon`) ||
         get("moonTuned") ||
-        get("instant_saveMoonTune", false),
+        get("instant_saveMoonTune", false) ||
+        mySign() === "Platypus",
       do: (): void => {
         cliExecute("spoon platypus");
       },
