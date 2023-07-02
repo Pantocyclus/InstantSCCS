@@ -11700,7 +11700,7 @@ var FamiliarWeightQuest = {
     }
   }, {
     name: "Tune Moon to Platypus",
-    completed: () => !lib_have(template_string_$item(familiarweight_templateObject8 || (familiarweight_templateObject8 = familiarweight_taggedTemplateLiteral(["hewn moon-rune spoon"])))) || property_get("moonTuned") || property_get("instant_saveMoonTune", false),
+    completed: () => !lib_have(template_string_$item(familiarweight_templateObject8 || (familiarweight_templateObject8 = familiarweight_taggedTemplateLiteral(["hewn moon-rune spoon"])))) || property_get("moonTuned") || property_get("instant_saveMoonTune", false) || (0,external_kolmafia_namespaceObject.mySign)() === "Platypus",
     do: () => {
       (0,external_kolmafia_namespaceObject.cliExecute)("spoon platypus");
     }
