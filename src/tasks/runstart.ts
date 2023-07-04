@@ -3,6 +3,7 @@ import {
   adv1,
   autosell,
   buy,
+  canadiaAvailable,
   changeMcd,
   cliExecute,
   create,
@@ -453,7 +454,7 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Use Mind Control Device",
-      completed: () => currentMcd() >= 10,
+      completed: () => currentMcd() >= 10 || !canadiaAvailable(),
       do: () => changeMcd(11),
       limit: { tries: 1 },
     },
