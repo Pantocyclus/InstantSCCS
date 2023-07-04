@@ -11552,7 +11552,7 @@ var RunStartQuest = {
     }
   }, {
     name: "Use Mind Control Device",
-    completed: () => (0,external_kolmafia_namespaceObject.currentMcd)() >= 10,
+    completed: () => (0,external_kolmafia_namespaceObject.currentMcd)() >= 10 || !(0,external_kolmafia_namespaceObject.canadiaAvailable)(),
     do: () => (0,external_kolmafia_namespaceObject.changeMcd)(11),
     limit: {
       tries: 1
