@@ -259,7 +259,10 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Detective Badge",
-      completed: () => have($item`gold detective badge`) || !get("hasDetectiveSchool"),
+      completed: () => 
+        $items`plastic detective badge, bronze detective badge, silver detective badge, gold detective badge`
+          .some((badge) => have(badge)) ||
+        !get("hasDetectiveSchool"),
       do: () => visitUrl("place.php?whichplace=town_wrong&action=townwrong_precinct"),
       limit: { tries: 1 },
     },
