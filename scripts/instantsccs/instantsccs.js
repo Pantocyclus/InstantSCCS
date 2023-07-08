@@ -13590,7 +13590,7 @@ function main_main(command) {
     return;
   }
 
-  sinceKolmafiaRevision(27398);
+  sinceKolmafiaRevision(27449);
   var setTimeNow = property_get(timeProperty, -1) === -1;
   if (setTimeNow) _set(timeProperty, (0,external_kolmafia_namespaceObject.gametimeToInt)()); // Some checks to align mafia prefs
 
