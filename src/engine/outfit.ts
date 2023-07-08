@@ -70,7 +70,7 @@ function garbageFire(): Familiar {
 
 function sombrero(allowAttackingFamiliars = true): Familiar {
   const sombreros = [
-    allowAttackingFamiliars ? $familiar`Galloping Grill` : $familiar.none,
+    ...(allowAttackingFamiliars ? $familiars`Patriotic Eagle, Galloping Grill` : []),
     $familiar`Baby Sandworm`,
     $familiar`Hovering Sombrero`,
   ].filter((fam) => have(fam));
