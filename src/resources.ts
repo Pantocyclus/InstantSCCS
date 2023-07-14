@@ -160,6 +160,12 @@ const resources: Resource[] = [
     "Do not grab red-soled high heels from the Mr. Store Catalog"
   ),
   new Resource("instant_skipSynthExp", "Do not use synth for the Xp% buff"),
+  new Resource(
+    "instant_saveNumberology",
+    (n) => `Save ${n}/3 Numberology casts`,
+    [],
+    get("instant_saveNumberology", false) ? 3 : 0
+  ),
 ];
 
 const automaticallyExcludedBuffs = Array.from(

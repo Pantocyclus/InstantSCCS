@@ -206,7 +206,8 @@ export const RunStartQuest: Quest = {
       name: "Numberology",
       ready: () => Object.keys(reverseNumberology()).includes("69"),
       completed: () =>
-        get("_universeCalculated") >= (get("skillLevel144") > 3 ? 3 : get("skillLevel144")),
+        get("_universeCalculated") >=
+        (get("skillLevel144") > 3 ? 3 : get("skillLevel144")) - get("instant_saveNumberology", 0),
       do: () => cliExecute("numberology 69"),
       limit: { tries: 3 },
     },
@@ -259,10 +260,10 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Detective Badge",
-      completed: () => 
-        $items`plastic detective badge, bronze detective badge, silver detective badge, gold detective badge`
-          .some((badge) => have(badge)) ||
-        !get("hasDetectiveSchool"),
+      completed: () =>
+        $items`plastic detective badge, bronze detective badge, silver detective badge, gold detective badge`.some(
+          (badge) => have(badge)
+        ) || !get("hasDetectiveSchool"),
       do: () => visitUrl("place.php?whichplace=town_wrong&action=townwrong_precinct"),
       limit: { tries: 1 },
     },
