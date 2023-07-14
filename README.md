@@ -98,7 +98,7 @@ A Seal Clubber route might be viable for mid-to-high shiny, but the MP regen fro
 
 ### What IotMs are currently supported and how are they being used by the script?
 
-Refer to [this list](https://github.com/Pantocyclus/InstantSCCS/blob/main/ITEMS.md).
+InstantSCCS supports a very large number of IotMs, but, as a generalist script, may not be able to eke out every last benefit from each IotM. For exact specifics, refer to [this list](https://github.com/Pantocyclus/InstantSCCS/blob/main/ITEMS.md).
 
 ### I'm pretty shiny - can I get the script to save certain resources?
 
