@@ -162,7 +162,7 @@ const resources: Resource[] = [
   new Resource("instant_skipSynthExp", "Do not use synth for the Xp% buff"),
   new Resource(
     "instant_saveNumberology",
-    (n) => `Save ${n}/3 Numberology casts`,
+    (n) => `Save ${n}/${get("skillLevel144") > 3 ? 3 : get("skillLevel144")} Numberology casts`,
     [],
     get("instant_saveNumberology", false) ? 3 : 0
   ),
