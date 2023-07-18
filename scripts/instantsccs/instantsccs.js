@@ -12320,7 +12320,7 @@ function logResourceUsage() {
     resourceArr.map(printResourceUsage);
     (0,external_kolmafia_namespaceObject.print)("");
   });
-  (0,external_kolmafia_namespaceObject.print)("Pulls Used: ".concat(property_get("_roninStoragePulls").split(",").map(id => template_string_$item(donate_templateObject || (donate_templateObject = donate_taggedTemplateLiteral(["", ""])), id).name).join(", ")));
+  (0,external_kolmafia_namespaceObject.print)("Pulls Used: ".concat(property_get("_roninStoragePulls").split(",").map(id => id.length > 0 ? template_string_$item(donate_templateObject || (donate_templateObject = donate_taggedTemplateLiteral(["", ""])), id).name : "").join(", ")));
   (0,external_kolmafia_namespaceObject.print)(""); // Organs Used
 
   (0,external_kolmafia_namespaceObject.print)("Organs Used:");
