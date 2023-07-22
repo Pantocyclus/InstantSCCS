@@ -84,7 +84,7 @@ function logResourceUsage(): void {
   print(
     `Pulls Used: ${get("_roninStoragePulls")
       .split(",")
-      .map((id) => id.length > 0 ? $item`${id}`.name : "")
+      .map((id) => (id.length > 0 ? $item`${id}`.name : ""))
       .join(", ")}`
   );
   print("");
