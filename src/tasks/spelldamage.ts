@@ -75,7 +75,7 @@ export const SpellDamageQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         restoreMp(50);
-        Clan.join(get("instant_motherSlimeClan", "").length);
+        Clan.join(get("instant_motherSlimeClan", ""));
       },
       completed: () =>
         !have($familiar`Machine Elf`) ||
