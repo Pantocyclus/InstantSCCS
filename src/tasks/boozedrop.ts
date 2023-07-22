@@ -1,6 +1,7 @@
 import { Quest } from "../engine/task";
 import {
   adv1,
+  autosell,
   buy,
   cliExecute,
   create,
@@ -12,12 +13,14 @@ import {
   getWorkshed,
   hermit,
   inebrietyLimit,
+  inMuscleSign,
   itemAmount,
   myInebriety,
   myMaxhp,
   print,
   restoreHp,
   restoreMp,
+  retrieveItem,
   toInt,
   use,
   useFamiliar,
@@ -127,6 +130,25 @@ export const BoozeDropQuest: Quest = {
       do: (): void => {
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);
         if (!have($item`cyclops eyedrops`)) adv1($location`The Limerick Dungeon`, -1);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Acquire Government",
+      completed: () =>
+        !have($item`government cheese`) ||
+        get("lastAnticheeseDay") > 0 ||
+        get("instant_skipGovernment", false),
+      do: (): void => {
+        inMuscleSign()
+          ? retrieveItem($item`bitchin' meatcar`)
+          : retrieveItem($item`Desert Bus pass`);
+        if (!have($item`Desert Bus pass`) && !have($item`bitchin' meatcar`)) {
+          autosell($item`government cheese`, itemAmount($item`government cheese`));
+          return;
+        }
+        visitUrl("place.php?whichplace=desertbeach&action=db_nukehouse");
+        retrieveItem($item`government`);
       },
       limit: { tries: 1 },
     },
@@ -271,6 +293,7 @@ export const BoozeDropQuest: Quest = {
           $effect`Crunching Leaves`,
           $effect`Fat Leon's Phat Loot Lyric`,
           // $effect`Feeling Lost`,
+          $effect`I See Everything Thrice!`,
           $effect`items.enh`,
           $effect`One Very Clear Eye`,
           $effect`Nearly All-Natural`,

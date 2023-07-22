@@ -942,6 +942,52 @@ export const LevelingQuest: Quest = {
       },
     },
     {
+      name: "Oliver's Place (Map)",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        restoreMp(50);
+      },
+      completed: () =>
+        get("_speakeasyFreeFights", 0) >= 1 ||
+        !get("ownsSpeakeasy") ||
+        !have($skill`Map the Monsters`) ||
+        get("_monstersMapped") >= 3,
+      do: () => mapMonster($location`An Unusually Quiet Barroom Brawl`, $monster`goblin flapper`),
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Feel Envy`)
+          .trySkill($skill`Portscan`)
+          .default()
+      ),
+      outfit: baseOutfit,
+      limit: { tries: 1 },
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+    },
+    {
+      name: "Oliver's Place (Portscan)",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        restoreMp(50);
+      },
+      completed: () =>
+        get("_speakeasyFreeFights", 0) >= 2 ||
+        !get("ownsSpeakeasy") ||
+        !have($skill`Portscan`) ||
+        get("_sourceTerminalPortscanUses") > 0,
+      do: $location`An Unusually Quiet Barroom Brawl`,
+      combat: new CombatStrategy().macro(Macro.trySkill($skill`Portscan`).default()),
+      outfit: baseOutfit,
+      limit: { tries: 1 },
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+    },
+    {
       name: "Oliver's Place",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));

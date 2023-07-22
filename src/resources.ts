@@ -177,6 +177,10 @@ const resources: Resource[] = [
     [],
     get("instant_saveSBForInnerElf", false) ? 2 : 0
   ),
+  new Resource(
+    "instant_skipGovernment",
+    "Do not attempt to unlock the beach with meat to grab an anticheese"
+  ),
 ];
 
 const automaticallyExcludedBuffs = Array.from(
