@@ -6,8 +6,11 @@ import {
   inebrietyLimit,
   myHash,
   myInebriety,
+  myMaxhp,
   myMeat,
   print,
+  restoreHp,
+  restoreMp,
   retrieveItem,
   visitUrl,
 } from "kolmafia";
@@ -18,15 +21,17 @@ import {
   $item,
   $location,
   $skill,
+  clamp,
+  Clan,
   CommunityService,
   get,
   have,
   SongBoom,
 } from "libram";
-import Macro, { haveFreeBanish } from "../combat";
+import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { Quest } from "../engine/task";
-import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { logTestSetup, startingClan, tryAcquiringEffect, wishFor } from "../lib";
 
 export const WeaponDamageQuest: Quest = {
   name: "Weapon Damage",
@@ -68,6 +73,10 @@ export const WeaponDamageQuest: Quest = {
     },
     {
       name: "Carol Ghost Buff",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        restoreMp(50);
+      },
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
@@ -83,6 +92,34 @@ export const WeaponDamageQuest: Quest = {
         familiar: $familiar`Ghost of Crimbo Carols`,
         famequip: $item.none,
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Inner Elf",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        restoreMp(50);
+        Clan.join(get("instant_motherSlimeClan", "").length);
+      },
+      completed: () =>
+        !have($familiar`Machine Elf`) ||
+        !haveMotherSlimeBanish() ||
+        have($effect`Inner Elf`) ||
+        get("instant_motherSlimeClan", "").length === 0,
+      do: $location`The Slime Tube`,
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`KGB tranquilizer dart`)
+          .trySkill($skill`Snokebomb`)
+          .abort()
+      ),
+      outfit: {
+        acc1: $item`Kremlin's Greatest Briefcase`,
+        acc2: $item`Eight Days a Week Pill Keeper`, // survive first hit if it occurs
+        familiar: $familiar`Machine Elf`,
+        modifier: "HP",
+      },
+      post: () => Clan.join(startingClan),
+      limit: { tries: 1 },
     },
     {
       name: "Glob of Melted Wax",

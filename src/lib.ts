@@ -2,6 +2,7 @@ import {
   cliExecute,
   Effect,
   getCampground,
+  getClanName,
   holiday,
   Item,
   itemAmount,
@@ -37,6 +38,8 @@ import {
 import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
 import { mainStat } from "./combat";
+
+export const startingClan = getClanName();
 
 export const testModifiers = new Map([
   [CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]],

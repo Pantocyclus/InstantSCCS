@@ -14,7 +14,10 @@ import {
   inebrietyLimit,
   itemAmount,
   myInebriety,
+  myMaxhp,
   print,
+  restoreHp,
+  restoreMp,
   toInt,
   use,
   useFamiliar,
@@ -29,6 +32,7 @@ import {
   $monster,
   $skill,
   $slot,
+  clamp,
   CommunityService,
   get,
   have,
@@ -54,6 +58,10 @@ export const BoozeDropQuest: Quest = {
   tasks: [
     {
       name: "Carol Ghost Buff",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        restoreMp(50);
+      },
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
@@ -69,6 +77,7 @@ export const BoozeDropQuest: Quest = {
         familiar: $familiar`Ghost of Crimbo Carols`,
         famequip: $item.none,
       },
+      limit: { tries: 1 },
     },
     {
       name: "Configure Trainset",

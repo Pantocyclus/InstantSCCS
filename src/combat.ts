@@ -62,15 +62,18 @@ export function haveFreeKill(): boolean {
   return haveXRay || haveShatteringPunch || haveMobHit;
 }
 
-export function haveFreeBanish(): boolean {
+export function haveMotherSlimeBanish(): boolean {
   const haveSnokeBomb = have($skill`Snokebomb`) && get("_snokebombUsed") < 3;
-  const haveFeelHatred = have($skill`Feel Hatred`) && get("_feelHatredUsed") < 3;
-  const haveReflexHammer = have($skill`Reflex Hammer`) && get("_reflexHammerUsed") < 3;
-  const haveThrowLatte = have($skill`Throw Latte on Opponent`) && !get("_latteBanishUsed");
   const haveKGBTranquilizer =
     have($skill`KGB tranquilizer dart`) && get("_kgbTranquilizerDartUses") < 3;
 
-  return (
-    haveSnokeBomb || haveFeelHatred || haveReflexHammer || haveThrowLatte || haveKGBTranquilizer
-  );
+  return haveSnokeBomb || haveKGBTranquilizer;
+}
+
+export function haveFreeBanish(): boolean {
+  const haveFeelHatred = have($skill`Feel Hatred`) && get("_feelHatredUsed") < 3;
+  const haveReflexHammer = have($skill`Reflex Hammer`) && get("_reflexHammerUsed") < 3;
+  const haveThrowLatte = have($skill`Throw Latte on Opponent`) && !get("_latteBanishUsed");
+
+  return haveFeelHatred || haveReflexHammer || haveThrowLatte || haveMotherSlimeBanish();
 }

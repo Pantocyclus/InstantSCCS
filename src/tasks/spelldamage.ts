@@ -11,6 +11,7 @@ import {
   myMaxhp,
   print,
   restoreHp,
+  restoreMp,
   useSkill,
 } from "kolmafia";
 import {
@@ -22,13 +23,15 @@ import {
   $items,
   $location,
   $skill,
+  clamp,
+  Clan,
   CommunityService,
   get,
   have,
 } from "libram";
 import { Quest } from "../engine/task";
-import { logTestSetup, tryAcquiringEffect } from "../lib";
-import Macro, { haveFreeBanish } from "../combat";
+import { logTestSetup, startingClan, tryAcquiringEffect } from "../lib";
+import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { forbiddenEffects } from "../resources";
 
@@ -39,7 +42,17 @@ export const SpellDamageQuest: Quest = {
   completed: () => CommunityService.SpellDamage.isDone(),
   tasks: [
     {
+      name: "Simmer",
+      completed: () => have($effect`Simmering`) || !have($skill`Simmer`),
+      do: () => useSkill($skill`Simmer`),
+      limit: { tries: 1 },
+    },
+    {
       name: "Carol Ghost Buff",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        restoreMp(50);
+      },
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
@@ -55,11 +68,33 @@ export const SpellDamageQuest: Quest = {
         familiar: $familiar`Ghost of Crimbo Carols`,
         famequip: $item.none,
       },
+      limit: { tries: 1 },
     },
     {
-      name: "Simmer",
-      completed: () => have($effect`Simmering`) || !have($skill`Simmer`),
-      do: () => useSkill($skill`Simmer`),
+      name: "Inner Elf",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        restoreMp(50);
+        Clan.join(get("instant_motherSlimeClan", "").length);
+      },
+      completed: () =>
+        !have($familiar`Machine Elf`) ||
+        !haveMotherSlimeBanish() ||
+        have($effect`Inner Elf`) ||
+        get("instant_motherSlimeClan", "").length === 0,
+      do: $location`The Slime Tube`,
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`KGB tranquilizer dart`)
+          .trySkill($skill`Snokebomb`)
+          .abort()
+      ),
+      outfit: {
+        acc1: $item`Kremlin's Greatest Briefcase`,
+        acc2: $item`Eight Days a Week Pill Keeper`, // survive first hit if it occurs
+        familiar: $familiar`Machine Elf`,
+        modifier: "HP",
+      },
+      post: () => Clan.join(startingClan),
       limit: { tries: 1 },
     },
     {
