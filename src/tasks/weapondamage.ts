@@ -113,6 +113,7 @@ export const WeaponDamageQuest: Quest = {
           .trySkill($skill`Snokebomb`)
           .abort()
       ),
+      choices: { 326: 1 },
       outfit: {
         acc1: $item`Kremlin's Greatest Briefcase`,
         acc2: $item`Eight Days a Week Pill Keeper`, // survive first hit if it occurs
