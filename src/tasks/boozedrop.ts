@@ -97,7 +97,10 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Acquire Clover",
-      completed: () => have($item`11-leaf clover`) || get("_cloversPurchased") >= 2,
+      completed: () =>
+        have($item`11-leaf clover`) ||
+        get("_cloversPurchased") >= 2 ||
+        get("instant_skipCyclopsEyedrops", false),
       do: (): void => {
         buy(1, $item`chewing gum on a string`);
         use(1, $item`chewing gum on a string`);
