@@ -12,6 +12,7 @@ import {
   restoreHp,
   restoreMp,
   retrieveItem,
+  useSkill,
   visitUrl,
 } from "kolmafia";
 import {
@@ -146,6 +147,16 @@ export const WeaponDamageQuest: Quest = {
         avoid: sugarItemsAboutToBreak(),
       }),
       choices: { 1387: 3 },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Favorite Bird (Weapon Damage)",
+      completed: () =>
+        !have($skill`Visit your Favorite Bird`) ||
+        get("_favoriteBirdVisited") ||
+        !get("yourFavoriteBirdMods").includes("Weapon Damage") ||
+        get("instant_saveFavoriteBird", false),
+      do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },
     },
     {

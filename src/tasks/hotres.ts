@@ -10,6 +10,7 @@ import {
   print,
   use,
   useFamiliar,
+  useSkill,
 } from "kolmafia";
 import {
   $effect,
@@ -117,6 +118,16 @@ export const HotResQuest: Quest = {
       name: "Metal Meteoroid",
       completed: () => !have($item`metal meteoroid`) || have($item`meteorite guard`),
       do: () => create($item`meteorite guard`, 1),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Favorite Bird (Hot Res)",
+      completed: () =>
+        !have($skill`Visit your Favorite Bird`) ||
+        get("_favoriteBirdVisited") ||
+        !get("yourFavoriteBirdMods").includes("Hot Resistance") ||
+        get("instant_saveFavoriteBird", false),
+      do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },
     },
     {

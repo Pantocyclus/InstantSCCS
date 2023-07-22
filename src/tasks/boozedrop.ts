@@ -21,6 +21,7 @@ import {
   toInt,
   use,
   useFamiliar,
+  useSkill,
   visitUrl,
 } from "kolmafia";
 import {
@@ -250,6 +251,16 @@ export const BoozeDropQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         withChoice(1505, 3, () => use($item`Loathing Idol Microphone`));
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Favorite Bird (Item)",
+      completed: () =>
+        !have($skill`Visit your Favorite Bird`) ||
+        get("_favoriteBirdVisited") ||
+        !get("yourFavoriteBirdMods").includes("Item Drops") ||
+        get("instant_saveFavoriteBird", false),
+      do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },
     },
     {
