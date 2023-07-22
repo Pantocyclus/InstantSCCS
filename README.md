@@ -143,3 +143,7 @@ The drops from the S.I.T. Course Completion Certificate aren't used in the route
 ### Is there a way to automate the acquisition of the necessary T4 CBB foods/astral choices in Valhalla?
 
 As with the usage of the S.I.T Course Voucher prior to invoking InstantSCCS, you may find a few community looping scripts/wrappers that would do so for you. At the present moment these are not natively shipped together with InstantSCCS.
+
+### Does the script support switching between a clan for VIP Lounge items and a clan with Mother Slime set up for Inner Elf?
+
+The script assumes you are already in the VIP clan. You will have to `set instant_motherSlimeClan=<clan name>` for InstantSCCS to attempt grabbing Inner Elf - this may be the same clan as your VIP clan, or a different one altogether.
