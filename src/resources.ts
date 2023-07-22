@@ -166,6 +166,7 @@ const resources: Resource[] = [
     [],
     get("instant_saveNumberology", false) ? 3 : 0
   ),
+  new Resource("instant_skipCyclopsEyedrops", "Do not spend a clover on Cyclops Eyedrops"),
 ];
 
 const automaticallyExcludedBuffs = Array.from(
