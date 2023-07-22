@@ -171,6 +171,12 @@ const resources: Resource[] = [
     "instant_saveFavoriteBird",
     "Do not use Visit your Favorite Bird on any of the tests"
   ),
+  new Resource(
+    "instant_saveSBForInnerElf",
+    (n) => `Save ${n}/3 Snokebombs for Inner Elf`,
+    [],
+    get("instant_saveSBForInnerElf", false) ? 2 : 0
+  ),
 ];
 
 const automaticallyExcludedBuffs = Array.from(
