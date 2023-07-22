@@ -22,6 +22,7 @@ import {
 } from "kolmafia";
 import {
   $effect,
+  $effects,
   $familiar,
   $item,
   $location,
@@ -44,13 +45,31 @@ import {
 import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
-import Macro from "../combat";
+import Macro, { haveFreeBanish } from "../combat";
 import { forbiddenEffects } from "../resources";
 
 export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
   completed: () => CommunityService.BoozeDrop.isDone(),
   tasks: [
+    {
+      name: "Carol Ghost Buff",
+      completed: () =>
+        !have($familiar`Ghost of Crimbo Carols`) ||
+        !haveFreeBanish() ||
+        $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
+          (ef) => have(ef)
+        ),
+      do: $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(Macro.banish().abort()),
+      outfit: {
+        offhand: $item`latte lovers member's mug`,
+        acc1: $item`Kremlin's Greatest Briefcase`,
+        acc2: $item`Lil' Doctor™ bag`,
+        familiar: $familiar`Ghost of Crimbo Carols`,
+        famequip: $item.none,
+      },
+    },
     {
       name: "Configure Trainset",
       completed: () =>

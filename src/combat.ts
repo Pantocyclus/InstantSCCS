@@ -28,6 +28,18 @@ export default class Macro extends StrictMacro {
     return new Macro().kill();
   }
 
+  banish(): Macro {
+    return Macro.trySkill($skill`Feel Hatred`)
+      .trySkill($skill`Reflex Hammer`)
+      .trySkill($skill`Throw Latte on Opponent`)
+      .trySkill($skill`KGB tranquilizer dart`)
+      .trySkill($skill`Snokebomb`);
+  }
+
+  static banish(): Macro {
+    return new Macro().banish();
+  }
+
   default(useCinch = false): Macro {
     return this.kill(useCinch);
   }
@@ -55,6 +67,10 @@ export function haveFreeBanish(): boolean {
   const haveFeelHatred = have($skill`Feel Hatred`) && get("_feelHatredUsed") < 3;
   const haveReflexHammer = have($skill`Reflex Hammer`) && get("_reflexHammerUsed") < 3;
   const haveThrowLatte = have($skill`Throw Latte on Opponent`) && !get("_latteBanishUsed");
+  const haveKGBTranquilizer =
+    have($skill`KGB tranquilizer dart`) && get("_kgbTranquilizerDartUses") < 3;
 
-  return haveSnokeBomb || haveFeelHatred || haveReflexHammer || haveThrowLatte;
+  return (
+    haveSnokeBomb || haveFeelHatred || haveReflexHammer || haveThrowLatte || haveKGBTranquilizer
+  );
 }

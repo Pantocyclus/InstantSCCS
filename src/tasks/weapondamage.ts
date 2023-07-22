@@ -14,6 +14,7 @@ import {
 import {
   $effect,
   $effects,
+  $familiar,
   $item,
   $location,
   $skill,
@@ -22,7 +23,7 @@ import {
   have,
   SongBoom,
 } from "libram";
-import Macro from "../combat";
+import Macro, { haveFreeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { Quest } from "../engine/task";
 import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
@@ -64,6 +65,24 @@ export const WeaponDamageQuest: Quest = {
         visitUrl("choice.php?whichchoice=1420&option=1&pocket=284");
       },
       limit: { tries: 1 },
+    },
+    {
+      name: "Carol Ghost Buff",
+      completed: () =>
+        !have($familiar`Ghost of Crimbo Carols`) ||
+        !haveFreeBanish() ||
+        $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
+          (ef) => have(ef)
+        ),
+      do: $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(Macro.banish().abort()),
+      outfit: {
+        offhand: $item`latte lovers member's mug`,
+        acc1: $item`Kremlin's Greatest Briefcase`,
+        acc2: $item`Lil' Doctor™ bag`,
+        familiar: $familiar`Ghost of Crimbo Carols`,
+        famequip: $item.none,
+      },
     },
     {
       name: "Glob of Melted Wax",
