@@ -646,7 +646,8 @@ export const LevelingQuest: Quest = {
       completed: () => have($effect`Everything Looks Blue`),
       do: powerlevelingLocation(), // if your powerleveling location is the NEP you don't immediately get the MP regen
       combat: new CombatStrategy().macro(
-        Macro.tryItem($item`blue rocket`)
+        Macro.trySkill($skill`Curse of Weaksauce`)
+          .tryItem($item`blue rocket`)
           .tryItem($item`red rocket`)
           .default()
       ),
