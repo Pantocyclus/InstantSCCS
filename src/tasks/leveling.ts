@@ -811,7 +811,7 @@ export const LevelingQuest: Quest = {
         (have($skill`Feel Envy`) && get("_feelEnvyUsed") < 3),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (!have($item`yellow rocket`)) {
+        if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
@@ -823,7 +823,7 @@ export const LevelingQuest: Quest = {
         get("instant_saveLocketRedSkeleton", false),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
       combat: new CombatStrategy().macro(
-        Macro.tryItem($item`yellow rocket`)
+        Macro.if_("!haseffect Everything Looks Yellow", Macro.tryItem($item`yellow rocket`))
           .trySkill($skill`Feel Envy`)
           .default()
       ),
