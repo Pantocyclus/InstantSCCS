@@ -1,6 +1,17 @@
 import { OutfitSpec } from "grimoire-kolmafia";
 import { cliExecute, equip, equippedItem, Familiar, Item, toInt } from "kolmafia";
-import { $familiar, $familiars, $item, $skill, $slot, get, have, maxBy } from "libram";
+import {
+  $effect,
+  $familiar,
+  $familiars,
+  $item,
+  $skill,
+  $slot,
+  DaylightShavings,
+  get,
+  have,
+  maxBy,
+} from "libram";
 import { haveCBBIngredients } from "../lib";
 
 export function garbageShirt(): void {
@@ -112,10 +123,20 @@ export function chooseHeaviestFamiliar(): Familiar {
   );
 }
 
+export function avoidDaylightShavingsHelm(): boolean {
+  return (
+    DaylightShavings.nextBuff() === $effect`Musician's Musician's Moustache` ||
+    DaylightShavings.hasBuff() ||
+    !have($item`Daylight Shavings Helmet`)
+  );
+}
+
 export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
   // Only try equipping/nag LOV Epaulettes if we are done with the LOV tunnel
   const lovTunnelCompleted = get("_loveTunnelUsed") || !get("loveTunnelAvailable");
+
   return {
+    hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     offhand: $item`unbreakable umbrella`,
     back: lovTunnelCompleted ? $item`LOV Epaulettes` : undefined,
     acc1: $item`codpiece`,
@@ -125,6 +146,9 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
         : undefined,
     familiar: chooseFamiliar(allowAttackingFamiliars),
     modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-    avoid: sugarItemsAboutToBreak(),
+    avoid: [
+      ...sugarItemsAboutToBreak(),
+      ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
+    ],
   };
 }

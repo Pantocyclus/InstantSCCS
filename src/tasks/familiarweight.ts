@@ -26,7 +26,12 @@ import {
 import { Quest } from "../engine/task";
 import { logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
-import { chooseFamiliar, chooseHeaviestFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
+import {
+  avoidDaylightShavingsHelm,
+  chooseFamiliar,
+  chooseHeaviestFamiliar,
+  sugarItemsAboutToBreak,
+} from "../engine/outfit";
 
 export const FamiliarWeightQuest: Quest = {
   name: "Familiar Weight",
@@ -48,7 +53,10 @@ export const FamiliarWeightQuest: Quest = {
       outfit: () => ({
         weapon: $item`Fourth of May Cosplay Saber`,
         familiar: chooseFamiliar(false),
-        avoid: sugarItemsAboutToBreak(),
+        avoid: [
+          ...sugarItemsAboutToBreak(),
+          ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
+        ],
       }),
       choices: { 1387: 3 },
       limit: { tries: 1 },
