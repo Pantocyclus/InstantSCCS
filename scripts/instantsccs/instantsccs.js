@@ -12940,7 +12940,10 @@ var WeaponDamageQuest = {
   }, {
     name: "Glob of Melted Wax",
     completed: () => !lib_have(template_string_$item(weapondamage_templateObject23 || (weapondamage_templateObject23 = weapondamage_taggedTemplateLiteral(["glob of melted wax"])))) || lib_have(template_string_$item(weapondamage_templateObject24 || (weapondamage_templateObject24 = weapondamage_taggedTemplateLiteral(["wax hand"])))),
-    do: () => (0,external_kolmafia_namespaceObject.create)(template_string_$item(weapondamage_templateObject25 || (weapondamage_templateObject25 = weapondamage_taggedTemplateLiteral(["wax hand"]))), 1),
+    do: () => {
+      (0,external_kolmafia_namespaceObject.create)(template_string_$item(weapondamage_templateObject25 || (weapondamage_templateObject25 = weapondamage_taggedTemplateLiteral(["wax hand"]))), 1);
+      (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
+    },
     limit: {
       tries: 1
     }
