@@ -171,6 +171,7 @@ export const WeaponDamageQuest: Quest = {
           $effect`Bow-Legged Swagger`,
           $effect`Carol of the Bulls`,
           $effect`Cowrruption`,
+          $effect`Destructive Resolve`,
           $effect`Disdain of the War Snapper`,
           $effect`Faboooo`,
           $effect`Feeling Punchy`,

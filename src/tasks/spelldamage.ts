@@ -148,6 +148,7 @@ export const SpellDamageQuest: Quest = {
           $effect`Arched Eyebrow of the Archmage`,
           $effect`Carol of the Hells`,
           $effect`Cowrruption`,
+          $effect`Destructive Resolve`,
           $effect`Imported Strength`,
           $effect`Jackasses' Symphony of Destruction`,
           $effect`Mental A-cue-ity`,

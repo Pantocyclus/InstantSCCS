@@ -3,6 +3,7 @@ import {
   Effect,
   getCampground,
   getClanName,
+  haveEffect,
   holiday,
   Item,
   itemAmount,
@@ -16,18 +17,21 @@ import {
   restoreMp,
   retrieveItem,
   retrievePrice,
+  Skill,
   sweetSynthesis,
   toInt,
   toItem,
   toSkill,
   toStat,
   use,
+  useSkill,
 } from "kolmafia";
 import {
   $effect,
   $familiar,
   $item,
   $items,
+  $skill,
   $stat,
   CommunityService,
   get,
@@ -313,4 +317,49 @@ export function getSynthExpBuff(): void {
   if (bestPair[0] === bestPair[1]) retrieveItem(bestPair[0], 2);
   else bestPair.forEach((it) => retrieveItem(it));
   sweetSynthesis(bestPair[0], bestPair[1]);
+}
+
+function chooseLibram(): Skill {
+  const needLoveSong =
+    have($skill`Summon Love Song`) &&
+    itemAmount($item`love song of icy revenge`) +
+      Math.floor(haveEffect($effect`Cold Hearted`) / 5) <
+      4;
+  const needCandyHeart =
+    have($skill`Summon Candy Heart`) &&
+    ((!have($item`green candy heart`) && !have($effect`Heart of Green`)) ||
+      (!have($item`lavender candy heart`) && !have($effect`Heart of Lavender`)));
+
+  if (
+    have($skill`Summon Resolutions`) &&
+    ((!have($item`resolution: be happier`) && !have($effect`Joyful Resolve`)) ||
+      (!have($item`resolution: be feistier`) && !have($effect`Destructive Resolve`)))
+  ) {
+    return $skill`Summon Resolutions`;
+  } else if (needCandyHeart) {
+    return $skill`Summon Candy Heart`;
+  } else if (needLoveSong) {
+    return $skill`Summon Love Song`;
+  } else if (
+    have($skill`Summon Resolutions`) &&
+    !have($item`resolution: be kinder`) &&
+    !have($effect`Kindly Resolve`)
+  ) {
+    return $skill`Summon Resolutions`;
+  } else if (have($skill`Summon Taffy`)) {
+    return $skill`Summon Taffy`;
+  } else if (have($skill`Summon BRICKOs`)) {
+    return $skill`Summon BRICKOs`;
+  } else if (have($skill`Summon Party Favor`)) {
+    return $skill`Summon Party Favor`;
+  } else if (have($skill`Summon Dice`)) {
+    return $skill`Summon Dice`;
+  }
+  return $skill.none;
+}
+
+export function burnLibram(saveMp: number): void {
+  while (myMp() >= mpCost(chooseLibram()) + saveMp) {
+    useSkill(chooseLibram());
+  }
 }

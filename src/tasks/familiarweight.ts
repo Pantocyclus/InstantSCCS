@@ -3,6 +3,8 @@ import {
   cliExecute,
   create,
   Effect,
+  haveEffect,
+  itemAmount,
   mySign,
   print,
   toInt,
@@ -79,6 +81,8 @@ export const FamiliarWeightQuest: Quest = {
           $effect`Do I Know You From Somewhere?`,
           $effect`Empathy`,
           $effect`Fidoxene`,
+          $effect`Heart of Green`,
+          $effect`Kindly Resolve`,
           $effect`Leash of Linguini`,
           $effect`Puzzle Champ`,
           $effect`Shortly Stacked`,
@@ -107,6 +111,15 @@ export const FamiliarWeightQuest: Quest = {
             else useFamiliar($familiar`Exotic Parrot`);
             use($item`box of Familiar Jacks`, 1);
           }
+
+          if (have($item`love song of icy revenge`))
+            use(
+              Math.min(
+                4 - Math.floor(haveEffect($effect`Cold Hearted`) / 5),
+                itemAmount($item`love song of icy revenge`)
+              ),
+              $item`love song of icy revenge`
+            );
 
           cliExecute("maximize familiar weight");
         }

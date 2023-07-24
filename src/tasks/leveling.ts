@@ -66,8 +66,10 @@ import {
   Witchess,
   withChoice,
 } from "libram";
-import { CombatStrategy } from "grimoire-kolmafia";
+import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
+  burnLibram,
+  chooseLibram,
   getSynthExpBuff,
   getValidComplexCandyPairs,
   haveCBBIngredients,
@@ -1220,7 +1222,19 @@ export const LevelingQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
-      outfit: baseOutfit,
+      outfit: (): OutfitSpec => {
+        if (
+          chooseLibram() !== $skill.none ||
+          !have($item`latte lovers member's mug`) ||
+          get("_latteRefillsUsed") >= 3
+        )
+          return baseOutfit();
+        else
+          return {
+            ...baseOutfit(),
+            offhand: $item`latte lovers member's mug`,
+          };
+      },
       completed: () =>
         myBasestat($stat`Mysticality`) >= targetBaseMyst &&
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
@@ -1230,6 +1244,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Pride`)
           .trySkill($skill`Cincho: Confetti Extravaganza`)
+          .trySkill($skill`Gulp Latte`)
           .trySkill($skill`Chest X-Ray`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
@@ -1264,6 +1279,7 @@ export const LevelingQuest: Quest = {
         if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
         sendAutumnaton();
         sellMiscellaneousItems();
+        burnLibram(500);
       },
       limit: { tries: 20 },
     },
