@@ -5175,6 +5175,8 @@ function chooseLibram() {
   return template_string_$skill.none;
 }
 function burnLibram(saveMp) {
+  if (chooseLibram() === template_string_$skill.none) return;
+
   while ((0,external_kolmafia_namespaceObject.myMp)() >= (0,external_kolmafia_namespaceObject.mpCost)(chooseLibram()) + saveMp) {
     (0,external_kolmafia_namespaceObject.useSkill)(chooseLibram());
   }
