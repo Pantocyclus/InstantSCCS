@@ -9,6 +9,7 @@ import {
   eat,
   Effect,
   effectModifier,
+  equippedItem,
   getMonsters,
   haveEffect,
   inebrietyLimit,
@@ -51,6 +52,7 @@ import {
   $monster,
   $monsters,
   $skill,
+  $slot,
   $stat,
   AutumnAton,
   clamp,
@@ -1216,7 +1218,9 @@ export const LevelingQuest: Quest = {
       after: ["Craft and Eat CBB Foods", "Drink Bee's Knees"],
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
+        if (equippedItem($slot`offhand`) !== $item`latte lovers member's mug`) {
+          unbreakableUmbrella();
+        }
         garbageShirt();
         docBag();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
@@ -1224,7 +1228,7 @@ export const LevelingQuest: Quest = {
       },
       outfit: (): OutfitSpec => {
         if (
-          chooseLibram() !== $skill.none ||
+          chooseLibram() === $skill.none ||
           !have($item`latte lovers member's mug`) ||
           get("_latteRefillsUsed") >= 3
         )
