@@ -806,7 +806,9 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Red Skeleton",
-      ready: () => !have($effect`Everything Looks Yellow`),
+      ready: () =>
+        !have($effect`Everything Looks Yellow`) ||
+        (have($skill`Feel Envy`) && get("_feelEnvyUsed") < 3),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!have($item`yellow rocket`)) {
@@ -820,7 +822,11 @@ export const LevelingQuest: Quest = {
         !CombatLoversLocket.availableLocketMonsters().includes($monster`red skeleton`) ||
         get("instant_saveLocketRedSkeleton", false),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
-      combat: new CombatStrategy().macro(Macro.tryItem($item`yellow rocket`).abort()),
+      combat: new CombatStrategy().macro(
+        Macro.tryItem($item`yellow rocket`)
+          .trySkill($skill`Feel Envy`)
+          .default()
+      ),
       outfit: () => baseOutfit(false),
       post: (): void => {
         use($item`red box`, 1);
