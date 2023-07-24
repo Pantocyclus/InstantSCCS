@@ -108,6 +108,10 @@ Run `instantsccs savedresources` to see a list of preferences you can set to sav
 
 Similarly, you may exclude using certain familiars during the leveling phase by typing `set instant_explicitlyExcludedFamiliars=<comma-separated familiar IDs>` (and confirming that the correct familiars have been excluded in the savedresources printout). <br/>
 
+### My settings are such that the script no longer uses all 5 softcore pulls. Can I make the script pull and use some other resources?
+
+You can make the necessary softcore pulls prior to running InstantSCCS. This generally should be equipments (e.g. [Staff of the Roaring Hearth](https://kol.coldfront.net/thekolwiki/index.php/Staff_of_the_Roaring_Hearth), [repaid diaper](https://kol.coldfront.net/thekolwiki/index.php/Repaid_diaper), [meteorite necklace](https://kol.coldfront.net/thekolwiki/index.php/Meteorite_necklace) etc), since they would automatically be equipped by uses the maximizer for various tasks/tests. You may also consider pulling potions that the script uses, but you may not have access to at your shininess level (e.g. [wasabi marble soda](https://kol.coldfront.net/thekolwiki/index.php/Wasabi_marble_soda), [tobiko marble soda](https://kol.coldfront.net/thekolwiki/index.php/Tobiko_marble_soda) etc).
+
 ### I'm looking to improve my CS runs - what IotMs and skills should I go for next?
 
 `instantsccs sim` groups various resources by how impactful they are. You may also refer to [this slightly more comprehensive list](https://github.com/Pantocyclus/InstantSCCS/blob/main/RECOMMENDATIONS.md) for suggestions.
