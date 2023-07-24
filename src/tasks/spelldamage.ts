@@ -190,6 +190,9 @@ export const SpellDamageQuest: Quest = {
         );
       },
       outfit: { modifier: "spell dmg, switch disembodied hand, -switch left-hand man" },
+      post: (): void => {
+        if (have($skill`Spirit of Nothing`)) useSkill($skill`Spirit of Nothing`);
+      },
       limit: { tries: 1 },
     },
   ],
