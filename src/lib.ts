@@ -359,6 +359,7 @@ export function chooseLibram(): Skill {
 }
 
 export function burnLibram(saveMp: number): void {
+  if (chooseLibram() === $skill.none) return;
   while (myMp() >= mpCost(chooseLibram()) + saveMp) {
     useSkill(chooseLibram());
   }
