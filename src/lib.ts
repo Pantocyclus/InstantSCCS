@@ -319,7 +319,7 @@ export function getSynthExpBuff(): void {
   sweetSynthesis(bestPair[0], bestPair[1]);
 }
 
-function chooseLibram(): Skill {
+export function chooseLibram(): Skill {
   const needLoveSong =
     have($skill`Summon Love Song`) &&
     itemAmount($item`love song of icy revenge`) +
