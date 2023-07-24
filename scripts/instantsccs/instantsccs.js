@@ -4894,13 +4894,13 @@ function haveFreeKill() {
 }
 function haveMotherSlimeBanish() {
   var haveSnokeBomb = lib_have(template_string_$skill(combat_templateObject20 || (combat_templateObject20 = combat_taggedTemplateLiteral(["Snokebomb"])))) && property_get("_snokebombUsed") < 3;
-  var haveKGBTranquilizer = lib_have(template_string_$skill(combat_templateObject21 || (combat_templateObject21 = combat_taggedTemplateLiteral(["KGB tranquilizer dart"])))) && property_get("_kgbTranquilizerDartUses") < 3;
+  var haveKGBTranquilizer = lib_have(template_string_$item(combat_templateObject21 || (combat_templateObject21 = combat_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"])))) && property_get("_kgbTranquilizerDartUses") < 3;
   return haveSnokeBomb || haveKGBTranquilizer;
 }
 function haveFreeBanish() {
   var haveFeelHatred = lib_have(template_string_$skill(combat_templateObject22 || (combat_templateObject22 = combat_taggedTemplateLiteral(["Feel Hatred"])))) && property_get("_feelHatredUsed") < 3;
-  var haveReflexHammer = lib_have(template_string_$skill(combat_templateObject23 || (combat_templateObject23 = combat_taggedTemplateLiteral(["Reflex Hammer"])))) && property_get("_reflexHammerUsed") < 3;
-  var haveThrowLatte = lib_have(template_string_$skill(combat_templateObject24 || (combat_templateObject24 = combat_taggedTemplateLiteral(["Throw Latte on Opponent"])))) && !property_get("_latteBanishUsed");
+  var haveReflexHammer = lib_have(template_string_$item(combat_templateObject23 || (combat_templateObject23 = combat_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"])))) && property_get("_reflexHammerUsed") < 3;
+  var haveThrowLatte = lib_have(template_string_$item(combat_templateObject24 || (combat_templateObject24 = combat_taggedTemplateLiteral(["latte lovers member's mug"])))) && !property_get("_latteBanishUsed");
   return haveFeelHatred || haveReflexHammer || haveThrowLatte || haveMotherSlimeBanish();
 }
 ;// CONCATENATED MODULE: ./src/lib.ts
