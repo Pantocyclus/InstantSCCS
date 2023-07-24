@@ -126,7 +126,10 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Glob of Melted Wax",
       completed: () => !have($item`glob of melted wax`) || have($item`wax hand`),
-      do: () => create($item`wax hand`, 1),
+      do: (): void => {
+        create($item`wax hand`, 1);
+        visitUrl("main.php");
+      },
       limit: { tries: 1 },
     },
     {
