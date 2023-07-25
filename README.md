@@ -136,9 +136,11 @@ If you're scripting your own run, try eating the Deep Dish of Legend early (this
 
 ### What range of shininess is this script suitable for?
 
-This script supports runs from anywhere between 120-320 turns (correct as of April 2023). Check [here](http://www.koldb.com/searchresults.php?type=normal&path=cs&class=s&sign=myst&turns1=120&turns2=320&familiar=Melodramedary&sortby=dt&fneg=on&timetype=ralph&lastn=on&ndays=7&lim=200) for an updated list of successful runs using this script/route in the past 7 days.
+This script supports runs from anywhere between 100-320 turns (assuming no manual pulls; correct as of July 2023). Check [here](http://www.koldb.com/searchresults.php?type=normal&path=cs&class=s&sign=myst&turns1=120&turns2=320&familiar=Melodramedary&sortby=dt&fneg=on&timetype=ralph&lastn=on&ndays=7&lim=200) for an updated list of successful runs using this script/route in the past 7 days.
 
-If you are able to cap all the stat tests without using any CBB foods (including the T4 ones) because you have access to a bunch of free fights, stat% and xp% buffs, then you're probably too shiny for this script (and the cookbookbat route). Consider using one of these other scripts listed [here](https://loathing-associates-scripting-society.github.io//KoL-Scripting-Resources/CS-Scripting-Resources.html) instead. For example, [this personal script](https://github.com/Pantocyclus/InstantHCCS) is able to achieve a ~1/91 HCCS with fewer resources and organs used as compared to the ~1/130 SCCS with InstantSCCS.
+If you are able to cap all the stat tests without using any CBB foods (including the T4 ones) because you have access to a bunch of free fights, stat% and xp% buffs, the script now fully supports running without CBB and can be pretty close to optimal (you might even want to consider setting `_instant_skip<calzone|deepDish|pizza>OfLegend` in your wrapper prior to running the script to save all 5 pulls for other manual turncutting pulls).
+
+However, you may also consider using one of these other scripts listed [here](https://loathing-associates-scripting-society.github.io//KoL-Scripting-Resources/CS-Scripting-Resources.html) instead to eke out that last bit of efficiency. For example, [this personal script](https://github.com/Pantocyclus/InstantHCCS) is able to achieve a ~1/91 HCCS with fewer resources and organs used as compared to the ~1/102 SCCS with InstantSCCS.
 
 ### Why is InstantSCCS not using the S.I.T. Course Completion Certificate?
 
