@@ -1237,6 +1237,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Witch",
       prepare: (): void => {
+        if (get("_hotTubSoaks") < 5) cliExecute("hottub");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         garbageShirt();
         [...usefulEffects, ...prismaticEffects].forEach((ef) => tryAcquiringEffect(ef));
@@ -1257,6 +1258,7 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(),
         weapon: $item`June cleaver`,
         offhand: have($skill`Double-Fisted Skull Smashing`) ? $item`dented scepter` : undefined,
+        modifier: "weapon dmg",
       },
       post: (): void => {
         sendAutumnaton();
@@ -1267,6 +1269,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Queen",
       prepare: (): void => {
+        if (get("_hotTubSoaks") < 5) cliExecute("hottub");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         garbageShirt();
         [...usefulEffects, ...prismaticEffects].forEach((ef) => tryAcquiringEffect(ef));
