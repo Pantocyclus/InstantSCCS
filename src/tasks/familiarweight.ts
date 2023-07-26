@@ -96,7 +96,15 @@ export const FamiliarWeightQuest: Quest = {
           $effect`Shortly Stacked`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-
+        
+        if (have($item`love song of icy revenge`))
+            use(
+              Math.min(
+                4 - Math.floor(haveEffect($effect`Cold Hearted`) / 5),
+                itemAmount($item`love song of icy revenge`)
+              ),
+              $item`love song of icy revenge`
+            );
         if (
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&
@@ -119,16 +127,6 @@ export const FamiliarWeightQuest: Quest = {
             else useFamiliar($familiar`Exotic Parrot`);
             use($item`box of Familiar Jacks`, 1);
           }
-
-          if (have($item`love song of icy revenge`))
-            use(
-              Math.min(
-                4 - Math.floor(haveEffect($effect`Cold Hearted`) / 5),
-                itemAmount($item`love song of icy revenge`)
-              ),
-              $item`love song of icy revenge`
-            );
-
           cliExecute("maximize familiar weight");
         }
       },
