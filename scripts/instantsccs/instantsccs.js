@@ -11079,7 +11079,7 @@ var LevelingQuest = {
       usefulEffects.forEach(ef => tryAcquiringEffect(ef));
       (0,external_kolmafia_namespaceObject.restoreMp)(50);
     },
-    completed: () => property_get("_witchessFights") >= 5 - (property_get("instant_skipBishopsForRoyalty", false) ? 3 : 0) || !Witchess_have() || property_get("instant_saveWitchess", false),
+    completed: () => property_get("_witchessFights") >= 4 - (property_get("instant_skipBishopsForRoyalty", false) ? 2 : 0) || !Witchess_have() || property_get("instant_saveWitchess", false),
     do: () => fightPiece($monster(_templateObject300 || (_templateObject300 = leveling_taggedTemplateLiteral(["Witchess Bishop"])))),
     combat: new CombatStrategy().macro(combat_Macro["default"](useCinch)),
     outfit: baseOutfit,
