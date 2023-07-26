@@ -132,6 +132,16 @@ const usefulEffects: Effect[] = [
   $effect`Carol of the Hells`,
 ];
 
+const prismaticEffects: Effect[] = [
+  $effect`Frostbeard`,
+  $effect`Intimidating Mien`,
+  $effect`Pyromania`,
+  $effect`Rotten Memories`,
+  $effect`Takin' It Greasy`,
+  $effect`Your Fifteen Minutes`,
+  $effect`Bendin' Hell`,
+];
+
 export function powerlevelingLocation(): Location {
   if (get("neverendingPartyAlways")) return $location`The Neverending Party`;
   else if (get("stenchAirportAlways") || get("_stenchAirportToday"))
@@ -1066,7 +1076,9 @@ export const LevelingQuest: Quest = {
         restoreMp(50);
       },
       completed: () =>
-        get("_witchessFights") >= 5 || !Witchess.have() || get("instant_saveWitchess", false),
+        get("_witchessFights") >= 5 - (get("instant_skipBishopsForRoyalty", false) ? 3 : 0) ||
+        !Witchess.have() ||
+        get("instant_saveWitchess", false),
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: baseOutfit,
@@ -1201,6 +1213,84 @@ export const LevelingQuest: Quest = {
       name: "Witchess King",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        garbageShirt();
+        [...usefulEffects, ...prismaticEffects].forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
+      },
+      completed: () =>
+        have($item`dented scepter`) ||
+        get("_witchessFights") >= 5 ||
+        !Witchess.have() ||
+        get("instant_saveWitchess", false),
+      do: () => Witchess.fightPiece($monster`Witchess King`),
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
+      outfit: baseOutfit,
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Witchess Witch",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        garbageShirt();
+        [...usefulEffects, ...prismaticEffects].forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
+      },
+      completed: () =>
+        have($item`battle broom`) ||
+        get("_witchessFights") >= 5 ||
+        !Witchess.have() ||
+        get("instant_saveWitchess", false),
+      do: () => Witchess.fightPiece($monster`Witchess Witch`),
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Curse of Weaksauce`)
+          .attack()
+          .repeat()
+      ),
+      outfit: {
+        ...baseOutfit(),
+        weapon: $item`June cleaver`,
+        offhand: have($skill`Double-Fisted Skull Smashing`) ? $item`dented scepter` : undefined,
+      },
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Witchess Queen",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        garbageShirt();
+        [...usefulEffects, ...prismaticEffects].forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
+      },
+      completed: () =>
+        have($item`very pointy crown`) ||
+        get("_witchessFights") >= 5 ||
+        !Witchess.have() ||
+        get("instant_saveWitchess", false),
+      do: () => Witchess.fightPiece($monster`Witchess Queen`),
+      combat: new CombatStrategy().macro(Macro.attack().repeat()),
+      outfit: {
+        ...baseOutfit(),
+        weapon: $item`June cleaver`,
+        offhand: have($skill`Double-Fisted Skull Smashing`) ? $item`dented scepter` : undefined,
+      },
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Witchess King (Locket)",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
@@ -1209,7 +1299,8 @@ export const LevelingQuest: Quest = {
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`Witchess King`) ||
         !CombatLoversLocket.availableLocketMonsters().includes($monster`Witchess King`) ||
-        get("instant_saveLocketWitchessKing", false),
+        get("instant_saveLocketWitchessKing", false) ||
+        have($item`dented scepter`),
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: baseOutfit,

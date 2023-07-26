@@ -96,15 +96,15 @@ export const FamiliarWeightQuest: Quest = {
           $effect`Shortly Stacked`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-        
+
         if (have($item`love song of icy revenge`))
-            use(
-              Math.min(
-                4 - Math.floor(haveEffect($effect`Cold Hearted`) / 5),
-                itemAmount($item`love song of icy revenge`)
-              ),
-              $item`love song of icy revenge`
-            );
+          use(
+            Math.min(
+              4 - Math.floor(haveEffect($effect`Cold Hearted`) / 5),
+              itemAmount($item`love song of icy revenge`)
+            ),
+            $item`love song of icy revenge`
+          );
         if (
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&

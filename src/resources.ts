@@ -181,6 +181,10 @@ const resources: Resource[] = [
     "instant_skipGovernment",
     "Do not attempt to unlock the beach with meat to grab an anticheese"
   ),
+  new Resource(
+    "instant_skipBishopsForRoyalty",
+    "Save 3 Witchess fights for the Queen, King and Witch"
+  ),
 ];
 
 const automaticallyExcludedBuffs = Array.from(
