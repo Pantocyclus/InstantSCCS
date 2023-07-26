@@ -62,6 +62,7 @@ import {
   getKramcoWandererChance,
   have,
   SongBoom,
+  SourceTerminal,
   sum,
   TunnelOfLove,
   uneffect,
@@ -968,6 +969,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         restoreMp(50);
+        if (SourceTerminal.have()) cliExecute("terminal educate portscan");
       },
       completed: () =>
         get("_speakeasyFreeFights", 0) >= 1 ||
@@ -993,11 +995,12 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         restoreMp(50);
+        if (SourceTerminal.have()) cliExecute("terminal educate portscan");
       },
       completed: () =>
         get("_speakeasyFreeFights", 0) >= 2 ||
         !get("ownsSpeakeasy") ||
-        !have($skill`Portscan`) ||
+        !SourceTerminal.have() ||
         get("_sourceTerminalPortscanUses") > 0,
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Portscan`).default()),
