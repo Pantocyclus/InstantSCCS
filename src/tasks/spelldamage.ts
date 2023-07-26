@@ -12,6 +12,7 @@ import {
   print,
   restoreHp,
   restoreMp,
+  retrieveItem,
   useSkill,
 } from "kolmafia";
 import {
@@ -144,6 +145,11 @@ export const SpellDamageQuest: Quest = {
       name: "Test",
       prepare: (): void => {
         if (!have($item`obsidian nutcracker`)) buy($item`obsidian nutcracker`, 1);
+        if (
+          have($item`Ye Wizard's Shack snack voucher`) &&
+          !forbiddenEffects.includes($effect`Pisces in the Skyces`)
+        )
+          retrieveItem($item`tobiko marble soda`);
         const usefulEffects: Effect[] = [
           $effect`AAA-Charged`,
           $effect`Arched Eyebrow of the Archmage`,

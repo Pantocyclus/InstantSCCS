@@ -34,6 +34,7 @@ import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { Quest } from "../engine/task";
 import { logTestSetup, startingClan, tryAcquiringEffect, wishFor } from "../lib";
 import { powerlevelingLocation } from "./leveling";
+import { forbiddenEffects } from "../resources";
 
 const attemptKFH = have($skill`Kung Fu Hustler`) && have($familiar`Disembodied Hand`);
 
@@ -182,7 +183,11 @@ export const WeaponDamageQuest: Quest = {
       prepare: (): void => {
         if (have($item`SongBoom™ BoomBox`)) SongBoom.setSong("These Fists Were Made for Punchin'");
         if (!have($item`goofily-plumed helmet`)) buy($item`goofily-plumed helmet`, 1);
-        if (have($item`Ye Wizard's Shack snack voucher`)) retrieveItem($item`wasabi marble soda`);
+        if (
+          have($item`Ye Wizard's Shack snack voucher`) &&
+          !forbiddenEffects.includes($effect`Wasabi With You`)
+        )
+          retrieveItem($item`wasabi marble soda`);
         const usefulEffects: Effect[] = [
           $effect`Billiards Belligerence`,
           $effect`Bow-Legged Swagger`,
