@@ -38,6 +38,23 @@ export const FamiliarWeightQuest: Quest = {
   completed: () => CommunityService.FamiliarWeight.isDone(),
   tasks: [
     {
+      name: "Tune Moon to Platypus",
+      completed: () =>
+        !have($item`hewn moon-rune spoon`) ||
+        get("moonTuned") ||
+        get("instant_saveMoonTune", false) ||
+        mySign() === "Platypus",
+      do: (): void => {
+        cliExecute("spoon platypus");
+      },
+    },
+    {
+      name: "Fold Burning Newspaper",
+      completed: () => !have($item`burning newspaper`),
+      do: () => cliExecute("create burning paper crane"),
+      limit: { tries: 1 },
+    },
+    {
       name: "Meteor Shower",
       completed: () =>
         have($effect`Meteor Showered`) ||
@@ -59,23 +76,6 @@ export const FamiliarWeightQuest: Quest = {
         ],
       }),
       choices: { 1387: 3 },
-      limit: { tries: 1 },
-    },
-    {
-      name: "Tune Moon to Platypus",
-      completed: () =>
-        !have($item`hewn moon-rune spoon`) ||
-        get("moonTuned") ||
-        get("instant_saveMoonTune", false) ||
-        mySign() === "Platypus",
-      do: (): void => {
-        cliExecute("spoon platypus");
-      },
-    },
-    {
-      name: "Fold Burning Newspaper",
-      completed: () => !have($item`burning newspaper`),
-      do: () => cliExecute("create burning paper crane"),
       limit: { tries: 1 },
     },
     {
