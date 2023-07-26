@@ -35,8 +35,10 @@ import {
   $stat,
   CommunityService,
   get,
+  getKramcoWandererChance,
   have,
   set,
+  sumNumbers,
   Witchess,
 } from "libram";
 import { printModtrace } from "libram/dist/modifier";
@@ -363,4 +365,39 @@ export function burnLibram(saveMp: number): void {
   while (myMp() >= mpCost(chooseLibram()) + saveMp) {
     useSkill(chooseLibram());
   }
+}
+
+export function freeFightsLeft(): number {
+  // Only consider those where we can use the camel
+  const shadowRift = have($item`closed-circuit pay phone`)
+    ? have($effect`Shadow Affinity`)
+      ? haveEffect($effect`Shadow Affinity`)
+      : get("_shadowAffinityToday")
+      ? 11
+      : 0
+    : 0;
+  const snojo = get("snojoAvailable") ? 10 - get("_snojoFreeFights") : 0;
+  const NEP = get("neverendingPartyAlways") ? 10 - get("_neverendingPartyFreeTurns") : 0;
+  const witchess = Witchess.have() ? 5 - get("_witchessFights") : 0;
+  const DMT = have($familiar`Machine Elf`) ? 5 - get("_machineTunnelsAdv") : 0;
+  const LOV = get("loveTunnelAvailable") && !get("_loveTunnelToday") ? 3 : 0;
+  const tentacle = get("_eldritchTentacleFought") ? 1 : 0;
+  const sausageGoblin = getKramcoWandererChance() >= 1.0 ? 1 : 0;
+  const XRay = have($item`Lil' Doctor™ bag`) ? 3 - get("_chestXRayUsed") : 0;
+  const shatteringPunch = have($skill`Shattering Punch`) ? 3 - get("_shatteringPunchUsed") : 0;
+  const mobHit = have($skill`Gingerbread Mob Hit`) && !get("_gingerbreadMobHitUsed") ? 1 : 0;
+
+  return sumNumbers([
+    shadowRift,
+    snojo,
+    NEP,
+    witchess,
+    DMT,
+    LOV,
+    tentacle,
+    sausageGoblin,
+    XRay,
+    shatteringPunch,
+    mobHit,
+  ]);
 }

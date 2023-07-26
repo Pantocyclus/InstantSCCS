@@ -12,7 +12,7 @@ import {
   have,
   maxBy,
 } from "libram";
-import { haveCBBIngredients } from "../lib";
+import { freeFightsLeft, haveCBBIngredients } from "../lib";
 
 export function garbageShirt(): void {
   if (
@@ -96,6 +96,14 @@ function optimisticCandle(): Familiar {
   return !have($item`glob of melted wax`) ? $familiar`Optimistic Candle` : $familiar.none;
 }
 
+function melodramedary(): Familiar {
+  return have($familiar`Melodramedary`) &&
+    freeFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 3.0) &&
+    get("camelSpit") < 100
+    ? $familiar`Melodramedary`
+    : $familiar.none;
+}
+
 export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
   const ignoredFamiliars = get("instant_explicitlyExcludedFamiliars", "")
     .split(",")
@@ -108,6 +116,7 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
     nanorhino,
     optimisticCandle,
     rockinRobin,
+    melodramedary,
     sombrero,
   ]
     .map((fn) => fn(allowAttackingFamiliars))

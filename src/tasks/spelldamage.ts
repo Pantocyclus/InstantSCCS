@@ -108,12 +108,13 @@ export const SpellDamageQuest: Quest = {
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Meteor Shower`)
+          .trySkill($skill`%fn\, spit on me!`)
           .trySkill($skill`Use the Force`)
           .abort()
       ),
       outfit: () => ({
         weapon: $item`Fourth of May Cosplay Saber`,
-        familiar: chooseFamiliar(false),
+        familiar: get("camelSpit") >= 100 ? $familiar`Melodramedary` : chooseFamiliar(false),
         avoid: sugarItemsAboutToBreak(),
       }),
       choices: { 1387: 3 },

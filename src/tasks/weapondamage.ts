@@ -145,6 +145,7 @@ export const WeaponDamageQuest: Quest = {
       do: attemptKFH ? powerlevelingLocation() : $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Meteor Shower`)
+          .trySkill($skill`%fn\, spit on me!`)
           .trySkill($skill`Use the Force`)
           .abort()
       ),
@@ -159,7 +160,7 @@ export const WeaponDamageQuest: Quest = {
             }
           : {
               weapon: $item`Fourth of May Cosplay Saber`,
-              familiar: chooseFamiliar(false),
+              familiar: get("camelSpit") >= 100 ? $familiar`Melodramedary` : chooseFamiliar(false),
               avoid: sugarItemsAboutToBreak(),
             };
       },
