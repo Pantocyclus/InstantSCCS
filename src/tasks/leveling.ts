@@ -1256,7 +1256,10 @@ export const LevelingQuest: Quest = {
       ),
       outfit: {
         ...baseOutfit(),
-        weapon: $item`June cleaver`,
+        weapon:
+          have($effect`Comic Violence`) && have($item`Fourth of May Cosplay Saber`)
+            ? $item`Fourth of May Cosplay Saber`
+            : $item`June cleaver`,
         offhand: have($skill`Double-Fisted Skull Smashing`) ? $item`dented scepter` : undefined,
         modifier: "weapon dmg",
       },
@@ -1284,7 +1287,10 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.attack().repeat()),
       outfit: {
         ...baseOutfit(),
-        weapon: $item`June cleaver`,
+        weapon:
+          have($effect`Comic Violence`) && have($item`Fourth of May Cosplay Saber`)
+            ? $item`Fourth of May Cosplay Saber`
+            : $item`June cleaver`,
         offhand: have($skill`Double-Fisted Skull Smashing`) ? $item`dented scepter` : undefined,
       },
       post: (): void => {
