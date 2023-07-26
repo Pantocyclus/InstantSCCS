@@ -1079,7 +1079,7 @@ export const LevelingQuest: Quest = {
         restoreMp(50);
       },
       completed: () =>
-        get("_witchessFights") >= 5 - (get("instant_skipBishopsForRoyalty", false) ? 3 : 0) ||
+        get("_witchessFights") >= 4 - (get("instant_skipBishopsForRoyalty", false) ? 2 : 0) ||
         !Witchess.have() ||
         get("instant_saveWitchess", false),
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
