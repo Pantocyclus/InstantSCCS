@@ -1,4 +1,4 @@
-import { CombatStrategy } from "grimoire-kolmafia";
+import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   buy,
   create,
@@ -33,6 +33,9 @@ import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { Quest } from "../engine/task";
 import { logTestSetup, startingClan, tryAcquiringEffect, wishFor } from "../lib";
+import { powerlevelingLocation } from "./leveling";
+
+const attemptKFH = have($skill`Kung Fu Hustler`) && have($familiar`Disembodied Hand`);
 
 export const WeaponDamageQuest: Quest = {
   name: "Weapon Damage",
@@ -139,17 +142,27 @@ export const WeaponDamageQuest: Quest = {
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
         get("_saberForceUses") >= 5,
-      do: $location`The Dire Warren`,
+      do: attemptKFH ? powerlevelingLocation() : $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Meteor Shower`)
           .trySkill($skill`Use the Force`)
           .abort()
       ),
-      outfit: () => ({
-        weapon: $item`Fourth of May Cosplay Saber`,
-        familiar: chooseFamiliar(false),
-        avoid: sugarItemsAboutToBreak(),
-      }),
+      outfit: (): OutfitSpec => {
+        return attemptKFH
+          ? {
+              weapon: $item.none,
+              offhand: $item.none,
+              familiar: $familiar`Disembodied Hand`,
+              famequip: $item`Fourth of May Cosplay Saber`,
+              avoid: sugarItemsAboutToBreak(),
+            }
+          : {
+              weapon: $item`Fourth of May Cosplay Saber`,
+              familiar: chooseFamiliar(false),
+              avoid: sugarItemsAboutToBreak(),
+            };
+      },
       choices: { 1387: 3 },
       limit: { tries: 1 },
     },
