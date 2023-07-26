@@ -878,7 +878,7 @@ export const LevelingQuest: Quest = {
           .if_($monster`LOV Equivocator`, Macro.default())
       ),
       outfit: () => ({
-        ...baseOutfit(),
+        ...baseOutfit(false),
         weapon: $item`Fourth of May Cosplay Saber`,
       }),
       limit: { tries: 1 },
