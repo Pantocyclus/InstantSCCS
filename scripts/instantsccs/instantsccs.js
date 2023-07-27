@@ -5179,6 +5179,7 @@ function burnLibram(saveMp) {
 
   while ((0,external_kolmafia_namespaceObject.myMp)() >= (0,external_kolmafia_namespaceObject.mpCost)(chooseLibram()) + saveMp) {
     (0,external_kolmafia_namespaceObject.useSkill)(chooseLibram());
+    if (chooseLibram() === template_string_$skill.none) return;
   }
 }
 function freeFightsLeft() {
