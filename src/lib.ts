@@ -401,3 +401,89 @@ export function freeFightsLeft(): number {
     mobHit,
   ]);
 }
+
+export function expectedCombatFrequency(): number {
+  const vipHat = have($item`Clan VIP Lounge key`) ? -5 : 0;
+  const hat = vipHat;
+
+  const protopack = have($item`protonic accelerator pack`) ? -5 : 0;
+  const back = protopack;
+
+  const parka = have($item`Jurassic Parka`) ? -5 : 0;
+  const shirt = parka;
+
+  const umbrella = have($item`unbreakable umbrella`) ? -10 : 0;
+  const offhand = umbrella;
+
+  const pantogram =
+    have($item`portable pantogram`) && !get("instant_savePantogram", false) ? -5 : 0;
+  const pants = pantogram;
+
+  const kgb =
+    have($item`Kremlin's Greatest Briefcase`) && !get("instant_saveKGBClicks", false) ? -5 : 0;
+  const codpiece =
+    have($item`Clan VIP Lounge key`) && !get("instant_saveFloundry", false) ? -10 : 0;
+  const atlas = get("hasMaydayContract") && !get("instant_saveMayday", false) ? -5 : 0;
+  const accessories = sumNumbers([kgb, codpiece, atlas]);
+
+  const rose = -20;
+  const smoothMovements = have($skill`Smooth Movement`) ? -5 : 0;
+  const sonata = have($skill`The Sonata of Sneakiness`) ? -5 : 0;
+  const favoriteBird =
+    have($item`Bird-a-Day calendar`) &&
+    get("yourFavoriteBirdMods").includes("Combat Frequency") &&
+    !get("instant_saveFavoriteBird", false)
+      ? toInt(
+          get("yourFavoriteBirdMods")
+            .split(", ")
+            .filter((s) => s.includes("Combat Frequency"))
+            .join("")
+            .split(": ")[0]
+        )
+      : 0;
+  const shadowWaters = have($item`closed-circuit pay phone`) ? -10 : 0;
+  const powerfulGlove =
+    have($item`Powerful Glove`) && !forbiddenEffects.includes($effect`Invisible Avatar`) ? -10 : 0;
+  const shoeGum = get("hasDetectiveSchool") && !get("instant_saveCopDollars", false) ? -5 : 0;
+  const silentRunning = -5;
+  const feelingLonely = have($skill`Feel Lonely`) ? -5 : 0;
+  const effects = sumNumbers([
+    rose,
+    smoothMovements,
+    sonata,
+    favoriteBird,
+    shadowWaters,
+    powerfulGlove,
+    shoeGum,
+    silentRunning,
+    feelingLonely,
+  ]);
+
+  const disgeist = have($familiar`Disgeist`) ? -5 : 0;
+  const familiar = disgeist;
+
+  const darkHorse = get("horseryAvailable") ? -5 : 0;
+  const others = darkHorse;
+
+  const intermediateSum = sumNumbers([
+    hat,
+    shirt,
+    back,
+    offhand,
+    pants,
+    accessories,
+    effects,
+    familiar,
+    others,
+  ]);
+
+  return (
+    intermediateSum +
+    (intermediateSum <= -85 &&
+    !forbiddenEffects.includes($effect`Disquiet Riot`) &&
+    ((have($item`genie bottle`) && !get("instant_saveGenie", false)) ||
+      (have($item`cursed monkey's paw`) && !get("instant_saveMonkeysPaw", false)))
+      ? -20
+      : 0)
+  );
+}

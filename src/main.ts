@@ -9,7 +9,7 @@ import {
   userConfirm,
   visitUrl,
 } from "kolmafia";
-import { convertMilliseconds } from "./lib";
+import { convertMilliseconds, expectedCombatFrequency } from "./lib";
 import { get, set, sinceKolmafiaRevision } from "libram";
 import { Engine } from "./engine/engine";
 import { Args, getTasks } from "grimoire-kolmafia";
@@ -80,8 +80,8 @@ export function main(command?: string): void {
     HPQuest,
     MoxieQuest,
     MuscleQuest,
-    FamiliarWeightQuest,
-    NoncombatQuest,
+    expectedCombatFrequency() <= -95 ? NoncombatQuest : FamiliarWeightQuest,
+    expectedCombatFrequency() <= -95 ? FamiliarWeightQuest : NoncombatQuest,
     BoozeDropQuest,
     HotResQuest,
     WeaponDamageQuest,
