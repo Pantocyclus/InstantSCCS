@@ -22,6 +22,7 @@ import {
   mpCost,
   myBasestat,
   myHash,
+  myHp,
   myInebriety,
   myLevel,
   myMaxhp,
@@ -45,6 +46,7 @@ import {
 } from "kolmafia";
 import {
   $effect,
+  $effects,
   $familiar,
   $item,
   $items,
@@ -141,6 +143,17 @@ const prismaticEffects: Effect[] = [
   $effect`Takin' It Greasy`,
   $effect`Your Fifteen Minutes`,
   $effect`Bendin' Hell`,
+];
+
+const wdmgEffects: Effect[] = [
+  $effect`Carol of the Bulls`,
+  $effect`Disdain of the War Snapper`,
+  $effect`Frenzied, Bloody`,
+  $effect`Jackasses' Symphony of Destruction`,
+  $effect`Rage of the Reindeer`,
+  $effect`Scowl of the Auk`,
+  $effect`Song of the North`,
+  $effect`Tenacity of the Snapper`,
 ];
 
 export function powerlevelingLocation(): Location {
@@ -1215,9 +1228,13 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess King",
       prepare: (): void => {
-        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         garbageShirt();
-        [...usefulEffects, ...prismaticEffects].forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
+          ...prismaticEffects,
+          ...wdmgEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         restoreMp(50);
       },
       completed: () =>
@@ -1237,10 +1254,14 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Witch",
       prepare: (): void => {
-        if (get("_hotTubSoaks") < 5) cliExecute("hottub");
-        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         garbageShirt();
-        [...usefulEffects, ...prismaticEffects].forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
+          ...prismaticEffects,
+          ...wdmgEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
+        if (get("_hotTubSoaks") < 5 && myHp() < myMaxhp()) cliExecute("hottub");
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         restoreMp(50);
       },
       completed: () =>
@@ -1272,10 +1293,14 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Queen",
       prepare: (): void => {
-        if (get("_hotTubSoaks") < 5) cliExecute("hottub");
-        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         garbageShirt();
-        [...usefulEffects, ...prismaticEffects].forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
+          ...prismaticEffects,
+          ...wdmgEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
+        if (get("_hotTubSoaks") < 5 && myHp() < myMaxhp()) cliExecute("hottub");
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         restoreMp(50);
       },
       completed: () =>
