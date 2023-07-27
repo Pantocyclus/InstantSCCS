@@ -109,7 +109,7 @@ export const SpellDamageQuest: Quest = {
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Meteor Shower`)
-          .trySkill($skill`%fn\, spit on me!`)
+          .trySkill($skill`%fn, spit on me!`)
           .trySkill($skill`Use the Force`)
           .abort()
       ),
