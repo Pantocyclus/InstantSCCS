@@ -5207,7 +5207,6 @@ function freeFightsLeft() {
   var mobHit = lib_have(template_string_$skill(_templateObject67 || (_templateObject67 = lib_taggedTemplateLiteral(["Gingerbread Mob Hit"])))) && !property_get("_gingerbreadMobHitUsed") ? 1 : 0;
   return sumNumbers([shadowRift, snojo, NEP, witchess, DMT, LOV, tentacle, sausageGoblin, XRay, shatteringPunch, mobHit]);
 }
-
 function computeCombatFrequency() {
   var vipHat = lib_have(template_string_$item(_templateObject68 || (_templateObject68 = lib_taggedTemplateLiteral(["Clan VIP Lounge key"])))) ? -5 : 0;
   var hat = vipHat;
@@ -5251,8 +5250,6 @@ function computeCombatFrequency() {
 
   return total;
 }
-
-var swapFamAndNCTests = !property_get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95;
 ;// CONCATENATED MODULE: ./node_modules/libram/dist/since.js
 function since_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -14863,6 +14860,7 @@ function main_main(command) {
   (0,external_kolmafia_namespaceObject.visitUrl)("museum.php?action=icehouse");
   (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
   (0,external_kolmafia_namespaceObject.cliExecute)("refresh all");
+  var swapFamAndNCTests = !property_get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95;
   var tasks = getTasks([RunStartQuest, CoilWireQuest, LevelingQuest, MysticalityQuest, HPQuest, MoxieQuest, MuscleQuest, swapFamAndNCTests ? NoncombatQuest : FamiliarWeightQuest, swapFamAndNCTests ? FamiliarWeightQuest : NoncombatQuest, BoozeDropQuest, HotResQuest, WeaponDamageQuest, SpellDamageQuest, DonateQuest]);
   var engine = new engine_Engine(tasks);
 
