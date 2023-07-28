@@ -9,7 +9,7 @@ import {
   userConfirm,
   visitUrl,
 } from "kolmafia";
-import { convertMilliseconds, expectedCombatFrequency } from "./lib";
+import { checkGithubVersion, convertMilliseconds, expectedCombatFrequency } from "./lib";
 import { get, set, sinceKolmafiaRevision } from "libram";
 import { Engine } from "./engine/engine";
 import { Args, getTasks } from "grimoire-kolmafia";
@@ -63,6 +63,7 @@ export function main(command?: string): void {
   }
 
   sinceKolmafiaRevision(27449);
+  checkGithubVersion();
 
   const setTimeNow = get(timeProperty, -1) === -1;
   if (setTimeNow) set(timeProperty, gametimeToInt());
