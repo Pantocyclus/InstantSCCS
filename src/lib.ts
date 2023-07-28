@@ -418,7 +418,7 @@ export function freeFightsLeft(): number {
   ]);
 }
 
-export function expectedCombatFrequency(): number {
+function computeCombatFrequency(): number {
   const vipHat = have($item`Clan VIP Lounge key`) ? -5 : 0;
   const hat = vipHat;
 
@@ -454,7 +454,7 @@ export function expectedCombatFrequency(): number {
             .split(", ")
             .filter((s) => s.includes("Combat Frequency"))
             .join("")
-            .split(": ")[0]
+            .split(": ")[1]
         )
       : 0;
   const shadowWaters = have($item`closed-circuit pay phone`) ? -10 : 0;
@@ -493,13 +493,27 @@ export function expectedCombatFrequency(): number {
     others,
   ]);
 
-  return (
-    intermediateSum +
-    (intermediateSum <= -85 &&
+  const wish =
+    intermediateSum <= -85 &&
     !forbiddenEffects.includes($effect`Disquiet Riot`) &&
     ((have($item`genie bottle`) && !get("instant_saveGenie", false)) ||
       (have($item`cursed monkey's paw`) && !get("instant_saveMonkeysPaw", false)))
       ? -20
-      : 0)
+      : 0;
+
+  const total = intermediateSum + wish;
+
+  print("Determining if we should run NC before fam test...");
+  print(
+    `Hat ${hat}, Shirt ${shirt}, Back ${back}, Offhand ${offhand}, Pants ${pants}, Accessories ${accessories}, Effects ${effects}, Others ${others}, Wish ${wish}`
   );
+  if (total <= -95) {
+    print(`Total ${total} <= -95`, "green");
+  } else {
+    print(`Total ${total} > -95`, "red");
+  }
+
+  return total;
 }
+
+export const expectedCombatFrequency = computeCombatFrequency();
