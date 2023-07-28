@@ -35,6 +35,7 @@ import {
   $item,
   $items,
   $skill,
+  $skills,
   $stat,
   CommunityService,
   get,
@@ -342,6 +343,8 @@ export function getSynthExpBuff(): void {
   sweetSynthesis(bestPair[0], bestPair[1]);
 }
 
+const allTomes = $skills`Summon Resolutions, Summon Love Song, Summon Candy Heart, Summon Taffy, Summon BRICKOs, Summon Party Favor, Summon Dice`;
+const availableTomes = allTomes.filter((tome) => have(tome));
 export function chooseLibram(): Skill {
   const needLoveSong =
     have($skill`Summon Love Song`) &&
@@ -369,23 +372,14 @@ export function chooseLibram(): Skill {
     !have($effect`Kindly Resolve`)
   ) {
     return $skill`Summon Resolutions`;
-  } else if (have($skill`Summon Taffy`)) {
-    return $skill`Summon Taffy`;
-  } else if (have($skill`Summon BRICKOs`)) {
-    return $skill`Summon BRICKOs`;
-  } else if (have($skill`Summon Party Favor`)) {
-    return $skill`Summon Party Favor`;
-  } else if (have($skill`Summon Dice`)) {
-    return $skill`Summon Dice`;
   }
-  return $skill.none;
+  return availableTomes[0];
 }
 
 export function burnLibram(saveMp: number): void {
-  if (chooseLibram() === $skill.none) return;
+  if (availableTomes.length === 0) return;
   while (myMp() >= mpCost(chooseLibram()) + saveMp) {
     useSkill(chooseLibram());
-    if (chooseLibram() === $skill.none) return;
   }
 }
 
