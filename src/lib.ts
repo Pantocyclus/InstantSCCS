@@ -27,7 +27,6 @@ import {
   toStat,
   use,
   useSkill,
-  visitUrl,
 } from "kolmafia";
 import {
   $effect,
@@ -66,20 +65,11 @@ export const testModifiers = new Map([
 ]);
 
 export function checkGithubVersion(): void {
-  if (process.env.GITHUB_REPOSITORY === "CustomBuild") {
-    print("Skipping version check for custom build");
+  if (gitAtHead("Pantocyclus-instantsccs-release")) {
+    print("InstantSCCS is up to date!", "green");
   } else {
-    if (gitAtHead("Pantocyclus-instantsccs-release")) {
-      print("InstantSCCS is up to date!", "green");
-    } else {
-      const gitBranches: { name: string; commit: { sha: string } }[] = JSON.parse(
-        visitUrl(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/branches`)
-      );
-      const releaseCommit = gitBranches.find((branchInfo) => branchInfo.name === "release")?.commit;
-      print("InstantSCCS is out of date. Please run 'git update!'", "red");
-      print(`Local Version: ${gitInfo("Pantocyclus-instantsccs-release").commit}.`);
-      print(`Release Version: ${releaseCommit?.sha}.`);
-    }
+    print("InstantSCCS is out of date. Please run 'git update!'", "red");
+    print(`Local Version: ${gitInfo("Pantocyclus-instantsccs-release").commit}.`);
   }
 }
 
