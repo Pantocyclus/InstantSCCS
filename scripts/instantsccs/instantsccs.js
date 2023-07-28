@@ -4934,6 +4934,17 @@ function checkGithubVersion() {
     (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date. Please run 'git update!'", "red");
     (0,external_kolmafia_namespaceObject.print)("Local Version: ".concat((0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release").commit, "."));
   }
+}
+function simpleDateDiff(t1, t2) {
+  // Returns difference in milliseconds
+  var yearDiff = (0,external_kolmafia_namespaceObject.toInt)(t2.slice(0, 4)) - (0,external_kolmafia_namespaceObject.toInt)(t1.slice(0, 4));
+  var monthDiff = 12 * yearDiff + (0,external_kolmafia_namespaceObject.toInt)(t2.slice(4, 6)) - (0,external_kolmafia_namespaceObject.toInt)(t1.slice(4, 6));
+  var dayDiff = monthDiff * Math.max((0,external_kolmafia_namespaceObject.toInt)(t1.slice(6, 8)), (0,external_kolmafia_namespaceObject.toInt)(t2.slice(6, 8))) + (0,external_kolmafia_namespaceObject.toInt)(t2.slice(6, 8)) - (0,external_kolmafia_namespaceObject.toInt)(t1.slice(6, 8));
+  var hourDiff = 24 * dayDiff + (0,external_kolmafia_namespaceObject.toInt)(t2.slice(8, 10)) - (0,external_kolmafia_namespaceObject.toInt)(t1.slice(8, 10));
+  var minDiff = 60 * hourDiff + (0,external_kolmafia_namespaceObject.toInt)(t2.slice(10, 12)) - (0,external_kolmafia_namespaceObject.toInt)(t1.slice(10, 12));
+  var secDiff = 60 * minDiff + (0,external_kolmafia_namespaceObject.toInt)(t2.slice(12, 14)) - (0,external_kolmafia_namespaceObject.toInt)(t1.slice(12, 14));
+  var msDiff = 1000 * secDiff + (0,external_kolmafia_namespaceObject.toInt)(t2.slice(14)) - (0,external_kolmafia_namespaceObject.toInt)(t1.slice(14));
+  return msDiff;
 } // From phccs
 
 function convertMilliseconds(milliseconds) {
@@ -14846,7 +14857,7 @@ function main_main(command) {
   sinceKolmafiaRevision(27449);
   checkGithubVersion();
   var setTimeNow = property_get(timeProperty, -1) === -1;
-  if (setTimeNow) _set(timeProperty, (0,external_kolmafia_namespaceObject.gametimeToInt)()); // Some checks to align mafia prefs
+  if (setTimeNow) _set(timeProperty, (0,external_kolmafia_namespaceObject.nowToString)("yyyyMMddhhmmssSSS")); // Some checks to align mafia prefs
 
   (0,external_kolmafia_namespaceObject.visitUrl)("museum.php?action=icehouse");
   (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
@@ -14873,7 +14884,7 @@ function main_main(command) {
     (0,external_kolmafia_namespaceObject.print)("Community Service complete!", "purple");
     (0,external_kolmafia_namespaceObject.print)("Adventures used: ".concat((0,external_kolmafia_namespaceObject.turnsPlayed)()), "purple");
     (0,external_kolmafia_namespaceObject.print)("Adventures remaining: ".concat((0,external_kolmafia_namespaceObject.myAdventures)()), "purple");
-    (0,external_kolmafia_namespaceObject.print)("Time: ".concat(convertMilliseconds((0,external_kolmafia_namespaceObject.gametimeToInt)() - property_get(timeProperty, (0,external_kolmafia_namespaceObject.gametimeToInt)())), " since first run today started"), "purple");
+    (0,external_kolmafia_namespaceObject.print)("Time: ".concat(convertMilliseconds(simpleDateDiff(property_get(timeProperty, (0,external_kolmafia_namespaceObject.nowToString)("yyyyMMddhhmmssSSS")), (0,external_kolmafia_namespaceObject.nowToString)("yyyyMMddhhmmssSSS"))), " since first run today started"), "purple");
     _set(timeProperty, -1);
   } finally {
     engine.destruct();
