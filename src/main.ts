@@ -9,7 +9,7 @@ import {
   userConfirm,
   visitUrl,
 } from "kolmafia";
-import { checkGithubVersion, convertMilliseconds, swapFamAndNCTests } from "./lib";
+import { checkGithubVersion, computeCombatFrequency, convertMilliseconds } from "./lib";
 import { get, set, sinceKolmafiaRevision } from "libram";
 import { Engine } from "./engine/engine";
 import { Args, getTasks } from "grimoire-kolmafia";
@@ -72,6 +72,9 @@ export function main(command?: string): void {
   visitUrl("museum.php?action=icehouse");
   visitUrl("main.php");
   cliExecute("refresh all");
+
+  const swapFamAndNCTests =
+    !get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95;
 
   const tasks: Task[] = getTasks([
     RunStartQuest,

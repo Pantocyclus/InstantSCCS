@@ -418,7 +418,7 @@ export function freeFightsLeft(): number {
   ]);
 }
 
-function computeCombatFrequency(): number {
+export function computeCombatFrequency(): number {
   const vipHat = have($item`Clan VIP Lounge key`) ? -5 : 0;
   const hat = vipHat;
 
@@ -515,6 +515,3 @@ function computeCombatFrequency(): number {
 
   return total;
 }
-
-export const swapFamAndNCTests =
-  !get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95;
