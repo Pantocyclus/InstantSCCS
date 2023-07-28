@@ -78,6 +78,7 @@ import {
   getSynthExpBuff,
   getValidComplexCandyPairs,
   haveCBBIngredients,
+  refillLatte,
   synthExpBuff,
   targetBaseMyst,
   targetBaseMystGap,
@@ -1418,6 +1419,7 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
         burnLibram(500);
+        refillLatte();
       },
       limit: { tries: 20 },
     },

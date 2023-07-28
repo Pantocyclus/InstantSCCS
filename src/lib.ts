@@ -521,3 +521,15 @@ export function computeCombatFrequency(): number {
 
   return total;
 }
+
+export function refillLatte(): void {
+  if (
+    !have($item`latte lovers member's mug`) ||
+    !get("_latteDrinkUsed") ||
+    get("_latteRefillsUsed") >= 3
+  )
+    return;
+
+  const lastIngredient = get("latteUnlocks").includes("carrot") ? "carrot" : "pumpkin";
+  if (get("_latteRefillsUsed") < 3) cliExecute(`latte refill cinnamon vanilla ${lastIngredient}`);
+}
