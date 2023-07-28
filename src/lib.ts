@@ -516,4 +516,5 @@ function computeCombatFrequency(): number {
   return total;
 }
 
-export const expectedCombatFrequency = computeCombatFrequency();
+export const swapFamAndNCTests =
+  !get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95;

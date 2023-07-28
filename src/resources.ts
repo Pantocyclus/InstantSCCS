@@ -185,6 +185,10 @@ const resources: Resource[] = [
     "instant_skipBishopsForRoyalty",
     "Save 3 Witchess fights for the Queen, King and Witch"
   ),
+  new Resource(
+    "instant_skipAutomaticOptimizations",
+    "Do not conduct automatic optimization of the route"
+  ),
 ];
 
 const automaticallyExcludedBuffs = Array.from(
