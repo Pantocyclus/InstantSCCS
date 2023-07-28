@@ -1,15 +1,20 @@
 import {
   cliExecute,
-  gametimeToInt,
   myAdventures,
   myAscensions,
+  nowToString,
   print,
   setAutoAttack,
   turnsPlayed,
   userConfirm,
   visitUrl,
 } from "kolmafia";
-import { checkGithubVersion, computeCombatFrequency, convertMilliseconds } from "./lib";
+import {
+  checkGithubVersion,
+  computeCombatFrequency,
+  convertMilliseconds,
+  simpleDateDiff,
+} from "./lib";
 import { get, set, sinceKolmafiaRevision } from "libram";
 import { Engine } from "./engine/engine";
 import { Args, getTasks } from "grimoire-kolmafia";
@@ -66,7 +71,7 @@ export function main(command?: string): void {
   checkGithubVersion();
 
   const setTimeNow = get(timeProperty, -1) === -1;
-  if (setTimeNow) set(timeProperty, gametimeToInt());
+  if (setTimeNow) set(timeProperty, nowToString("yyyyMMddhhmmssSSS"));
 
   // Some checks to align mafia prefs
   visitUrl("museum.php?action=icehouse");
@@ -111,7 +116,10 @@ export function main(command?: string): void {
     print(`Adventures remaining: ${myAdventures()}`, "purple");
     print(
       `Time: ${convertMilliseconds(
-        gametimeToInt() - get(timeProperty, gametimeToInt())
+        simpleDateDiff(
+          get(timeProperty, nowToString("yyyyMMddhhmmssSSS")),
+          nowToString("yyyyMMddhhmmssSSS")
+        )
       )} since first run today started`,
       "purple"
     );

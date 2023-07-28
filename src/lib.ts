@@ -73,6 +73,22 @@ export function checkGithubVersion(): void {
   }
 }
 
+export function simpleDateDiff(t1: string, t2: string): number {
+  // Returns difference in milliseconds
+  const yearDiff = toInt(t2.slice(0, 4)) - toInt(t1.slice(0, 4));
+  const monthDiff = 12 * yearDiff + toInt(t2.slice(4, 6)) - toInt(t1.slice(4, 6));
+  const dayDiff =
+    monthDiff * Math.max(toInt(t1.slice(6, 8)), toInt(t2.slice(6, 8))) +
+    toInt(t2.slice(6, 8)) -
+    toInt(t1.slice(6, 8));
+  const hourDiff = 24 * dayDiff + toInt(t2.slice(8, 10)) - toInt(t1.slice(8, 10));
+  const minDiff = 60 * hourDiff + toInt(t2.slice(10, 12)) - toInt(t1.slice(10, 12));
+  const secDiff = 60 * minDiff + toInt(t2.slice(12, 14)) - toInt(t1.slice(12, 14));
+  const msDiff = 1000 * secDiff + toInt(t2.slice(14)) - toInt(t1.slice(14));
+
+  return msDiff;
+}
+
 // From phccs
 export function convertMilliseconds(milliseconds: number): string {
   const seconds = milliseconds / 1000;
