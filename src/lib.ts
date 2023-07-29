@@ -499,7 +499,7 @@ export function computeCombatFrequency(): number {
   const darkHorse = get("horseryAvailable") ? -5 : 0;
   const others = darkHorse;
 
-  const intermediateSum = sumNumbers([
+  const total = sumNumbers([
     hat,
     shirt,
     back,
@@ -511,19 +511,9 @@ export function computeCombatFrequency(): number {
     others,
   ]);
 
-  const wish =
-    intermediateSum <= -85 &&
-    !forbiddenEffects.includes($effect`Disquiet Riot`) &&
-    ((have($item`genie bottle`) && !get("instant_saveGenie", false)) ||
-      (have($item`cursed monkey's paw`) && !get("instant_saveMonkeysPaw", false)))
-      ? -20
-      : 0;
-
-  const total = intermediateSum + wish;
-
   print("Determining if we should run NC before fam test...");
   print(
-    `Hat ${hat}, Shirt ${shirt}, Back ${back}, Offhand ${offhand}, Pants ${pants}, Accessories ${accessories}, Effects ${effects}, Others ${others}, Wish ${wish}`
+    `Hat ${hat}, Shirt ${shirt}, Back ${back}, Offhand ${offhand}, Pants ${pants}, Accessories ${accessories}, Effects ${effects}, Others ${others}`
   );
   if (total <= -95) {
     print(`Total ${total} <= -95`, "green");
