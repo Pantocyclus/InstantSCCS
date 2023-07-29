@@ -76,10 +76,10 @@ export function checkGithubVersion(): void {
     print("InstantSCCS is up to date!", "green");
   } else {
     print(
-      `InstantSCCS is out of date, and was last updated on ${localBranch.last_changed_date}.`,
+      `InstantSCCS is out of date - your version was last updated on ${localBranch.last_changed_date}.`,
       "red"
     );
-    print("Please run 'git update!'", "red");
+    print("Please run 'git update'!", "red");
     print(`Local Version: ${localSHA}.`);
     print(`Release Version: ${releaseSHA}`);
   }
