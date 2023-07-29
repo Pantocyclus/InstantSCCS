@@ -672,7 +672,7 @@ export const LevelingQuest: Quest = {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
         }
       },
-      completed: () => have($effect`Everything Looks Blue`),
+      completed: () => have($effect`Everything Looks Blue`) || haveCBBIngredients(false),
       do: powerlevelingLocation(), // if your powerleveling location is the NEP you don't immediately get the MP regen
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Curse of Weaksauce`)
@@ -702,7 +702,8 @@ export const LevelingQuest: Quest = {
       completed: () =>
         powerlevelingLocation() !== $location`The Neverending Party` ||
         haveEffect($effect`Glowing Blue`) !== 10 ||
-        myMp() >= 500,
+        myMp() >= 500 ||
+        haveCBBIngredients(false), // But we can't benefit from Blue Rocket if we are only doing free fights
       do: $location`The Dire Warren`,
       outfit: () => baseOutfit(false),
       combat: new CombatStrategy().macro(Macro.attack().repeat()),
