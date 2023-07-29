@@ -63,6 +63,7 @@ import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { baseOutfit, chooseFamiliar, unbreakableUmbrella } from "../engine/outfit";
 import { OutfitSpec } from "grimoire-kolmafia";
 
+const useParkaSpit = have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`);
 export const RunStartQuest: Quest = {
   name: "Run Start",
   completed: () => CommunityService.CoilWire.isDone(),
@@ -465,7 +466,9 @@ export const RunStartQuest: Quest = {
     {
       name: "Map Novelty Tropical Skeleton",
       prepare: (): void => {
-        if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
+        if (useParkaSpit) {
+          cliExecute("parka dilophosaur");
+        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
@@ -487,10 +490,16 @@ export const RunStartQuest: Quest = {
         })(),
       do: () => mapMonster($location`The Skeleton Store`, $monster`novelty tropical skeleton`),
       combat: new CombatStrategy().macro(
-        Macro.if_($monster`novelty tropical skeleton`, Macro.tryItem($item`yellow rocket`)).abort()
+        Macro.if_(
+          $monster`novelty tropical skeleton`,
+          (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro()).tryItem(
+            $item`yellow rocket`
+          )
+        ).abort()
       ),
       outfit: (): OutfitSpec => {
         return {
+          shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
           offhand: $item`unbreakable umbrella`,
           acc1: $item`codpiece`,
           familiar: chooseFamiliar(false),
@@ -508,7 +517,9 @@ export const RunStartQuest: Quest = {
     {
       name: "Novelty Tropical Skeleton",
       prepare: (): void => {
-        if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
+        if (useParkaSpit) {
+          cliExecute("parka dilophosaur");
+        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
@@ -523,7 +534,12 @@ export const RunStartQuest: Quest = {
         ).length >= (have($skill`Map the Monsters`) ? 2 : 3),
       do: $location`The Skeleton Store`,
       combat: new CombatStrategy().macro(
-        Macro.if_($monster`novelty tropical skeleton`, Macro.tryItem($item`yellow rocket`))
+        Macro.if_(
+          $monster`novelty tropical skeleton`,
+          (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro()).tryItem(
+            $item`yellow rocket`
+          )
+        )
           .trySkill($skill`Bowl a Curveball`)
           .trySkill($skill`Snokebomb`)
           .trySkill($skill`Monkey Slap`)
@@ -531,6 +547,7 @@ export const RunStartQuest: Quest = {
       ),
       outfit: (): OutfitSpec => {
         return {
+          shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
           offhand: $item`unbreakable umbrella`,
           acc1: $item`codpiece`,
           acc2: $item`cursed monkey's paw`,
