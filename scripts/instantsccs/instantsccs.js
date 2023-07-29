@@ -4955,8 +4955,8 @@ function checkGithubVersion() {
   if (releaseSHA === localSHA) {
     (0,external_kolmafia_namespaceObject.print)("InstantSCCS is up to date!", "green");
   } else {
-    (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date, and was last updated on ".concat(localBranch.last_changed_date, "."), "red");
-    (0,external_kolmafia_namespaceObject.print)("Please run 'git update!'", "red");
+    (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date - your version was last updated on ".concat(localBranch.last_changed_date, "."), "red");
+    (0,external_kolmafia_namespaceObject.print)("Please run 'git update'!", "red");
     (0,external_kolmafia_namespaceObject.print)("Local Version: ".concat(localSHA, "."));
     (0,external_kolmafia_namespaceObject.print)("Release Version: ".concat(releaseSHA));
   }
