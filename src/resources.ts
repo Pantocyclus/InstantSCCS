@@ -22,8 +22,7 @@ class Resource {
   }
 }
 
-const resources: Resource[] = [
-  new Resource("instant_savePorquoise", "Do not autosell your porquoise"),
+const consumptionResources: Resource[] = [
   new Resource(
     "instant_skipDistilledFortifiedWine",
     "Do not grab the DFW lucky adventure (if you have numberology)"
@@ -70,6 +69,57 @@ const resources: Resource[] = [
     "Do not eat a Roasted Vegetable of Jarlsberg for the item test"
   ),
   new Resource("instant_saveSacramentoWine", "Do not drink a Sacramento Wine for the item test"),
+  new Resource(
+    "instant_savePillkeeper",
+    "Do not acquire Hulkien, Rainbowolin and Fidoxene",
+    $effects`Hulkien, Rainbowolin, Fidoxene`
+  ),
+  new Resource("instant_skipSynthExp", "Do not use synth for the Xp% buff"),
+  new Resource(
+    "instant_saveBodySpradium",
+    "Do not chew the body spradium if we have it",
+    $effects`Boxing Day Glow`
+  ),
+];
+
+const encounterResources: Resource[] = [
+  new Resource(
+    "instant_saveWitchess",
+    "Do not fight witchess monsters nor acquire Puzzle Champ",
+    $effects`Puzzle Champ`
+  ),
+  new Resource(
+    "instant_saveBackups",
+    (n) => `Save ${n}/11 backups (set a number)`,
+    [],
+    get("instant_saveBackups", false) ? 11 : 0
+  ),
+  new Resource(
+    "instant_skipEarlyTrainsetMeat",
+    "Do not spend an adventure in the Dire Warren pre-coil grabbing meat from the trainset"
+  ),
+  new Resource("instant_saveLocketRedSkeleton", "Do not reminisce a Red Skeleton"),
+  new Resource("instant_saveLocketWitchessKing", "Do not reminisce a Witchess King"),
+  new Resource("instant_saveLocketFactoryWorker", "Do not reminisce a Factory Worker (female)"),
+  new Resource(
+    "instant_skipMappingNinja",
+    "Do not attempt to grab a li'l ninja costume for your tot"
+  ),
+  new Resource(
+    "instant_saveSBForInnerElf",
+    (n) => `Save ${n}/3 Snokebombs for Inner Elf`,
+    [],
+    get("instant_saveSBForInnerElf", false) ? 2 : 0
+  ),
+  new Resource(
+    "instant_skipBishopsForRoyalty",
+    "Save 3 Witchess fights for the Queen, King and Witch"
+  ),
+  new Resource("instant_skipCyclopsEyedrops", "Do not spend a clover on Cyclops Eyedrops"),
+];
+
+const farmingResources: Resource[] = [
+  new Resource("instant_savePorquoise", "Do not autosell your porquoise"),
   new Resource("instant_saveFloundry", "Do not create a codpiece"),
   new Resource("instant_saveFortuneTeller", "Do not consult Zatara for the myst buff"),
   new Resource(
@@ -82,11 +132,6 @@ const resources: Resource[] = [
   new Resource("instant_saveBarrelShrine", "Do not get the barrel shrine buff", [
     $effect`Warlock, Warstock, and Warbarrel`,
   ]),
-  new Resource(
-    "instant_saveWitchess",
-    "Do not fight witchess monsters nor acquire Puzzle Champ",
-    $effects`Puzzle Champ`
-  ),
   new Resource(
     "instant_saveTerminal",
     "Do not acquire items.enh and substats.enh",
@@ -103,43 +148,15 @@ const resources: Resource[] = [
   new Resource("instant_savePantogram", "Do not use your pantogram"),
   new Resource("instant_saveMummingTrunk", "Do not use your mumming trunk"),
   new Resource(
-    "instant_saveBodySpradium",
-    "Do not chew the body spradium if we have it",
-    $effects`Boxing Day Glow`
-  ),
-  new Resource("instant_saveDocBag", "Do not use Chest X-Rays"),
-  new Resource(
-    "instant_savePillkeeper",
-    "Do not acquire Hulkien, Rainbowolin and Fidoxene",
-    $effects`Hulkien, Rainbowolin, Fidoxene`
-  ),
-  new Resource(
     "instant_savePowerfulGlove",
     "Do not acquire Triple-Sized and Invisible Avatar",
     $effects`Triple-Sized, Invisible Avatar`
   ),
   new Resource("instant_saveCargoShorts", "Do not use a pull from your Cargo Shorts"),
   new Resource("instant_savePowerSeed", "Do not use any batteries", $effects`AAA-Charged`),
-  new Resource(
-    "instant_saveBackups",
-    (n) => `Save ${n}/11 backups (set a number)`,
-    [],
-    get("instant_saveBackups", false) ? 11 : 0
-  ),
   new Resource("instant_saveMayday", "Do not use your Mayday survival package"),
-  new Resource("instant_saveLocketRedSkeleton", "Do not reminisce a Red Skeleton"),
-  new Resource("instant_saveLocketWitchessKing", "Do not reminisce a Witchess King"),
-  new Resource("instant_saveLocketFactoryWorker", "Do not reminisce a Factory Worker (female)"),
   new Resource("instant_savePumpkins", "Do not use harvested pumpkins"),
-  new Resource(
-    "instant_skipEarlyTrainsetMeat",
-    "Do not spend an adventure in the Dire Warren pre-coil grabbing meat from the trainset"
-  ),
   new Resource("instant_saveSugar", "Do not spend tome uses on sugar shorts/chapeau/shank"),
-  new Resource(
-    "instant_skipMappingNinja",
-    "Do not attempt to grab a li'l ninja costume for your tot"
-  ),
   new Resource("instant_saveGarden", "Do not harvest your garden"),
   new Resource("instant_saveMoonTune", "Do not tune the moon for familiar weight test"),
   new Resource("instant_saveCinch", "Do not spend any cinch for leveling"),
@@ -159,31 +176,22 @@ const resources: Resource[] = [
     "instant_skipHighHeels",
     "Do not grab red-soled high heels from the Mr. Store Catalog"
   ),
-  new Resource("instant_skipSynthExp", "Do not use synth for the Xp% buff"),
   new Resource(
     "instant_saveNumberology",
     (n) => `Save ${n}/${get("skillLevel144") > 3 ? 3 : get("skillLevel144")} Numberology casts`,
     [],
     get("instant_saveNumberology", false) ? 3 : 0
   ),
-  new Resource("instant_skipCyclopsEyedrops", "Do not spend a clover on Cyclops Eyedrops"),
   new Resource(
     "instant_saveFavoriteBird",
     "Do not use Visit your Favorite Bird on any of the tests"
   ),
-  new Resource(
-    "instant_saveSBForInnerElf",
-    (n) => `Save ${n}/3 Snokebombs for Inner Elf`,
-    [],
-    get("instant_saveSBForInnerElf", false) ? 2 : 0
-  ),
+];
+
+const otherResources: Resource[] = [
   new Resource(
     "instant_skipGovernment",
     "Do not attempt to unlock the beach with meat to grab an anticheese"
-  ),
-  new Resource(
-    "instant_skipBishopsForRoyalty",
-    "Save 3 Witchess fights for the Queen, King and Witch"
   ),
   new Resource(
     "instant_skipAutomaticOptimizations",
@@ -191,8 +199,15 @@ const resources: Resource[] = [
   ),
 ];
 
+const allResources = [
+  ...consumptionResources,
+  ...encounterResources,
+  ...farmingResources,
+  ...otherResources,
+];
+
 const automaticallyExcludedBuffs = Array.from(
-  resources.map((resource) => resource.effects).filter((efs) => efs.length > 0)
+  allResources.map((resource) => resource.effects).filter((efs) => efs.length > 0)
 ).reduce((acc, val) => acc.concat(val), []);
 const manuallyExcludedBuffs = get("instant_explicitlyExcludedBuffs", "")
   .split(",")
@@ -203,10 +218,7 @@ export const forbiddenEffects = [
   ...manuallyExcludedBuffs.filter((ef) => !automaticallyExcludedBuffs.includes(ef)),
 ];
 
-export function checkResources(): void {
-  printHtml(
-    "Legend (prefname - helptext): <font color='black'>✓ Saved Resource</font> / <font color='#888888'>X Usable Resource"
-  );
+function printResources(resources: Resource[]) {
   resources
     .sort((a, b) => (a.pref < b.pref ? -1 : 1))
     .forEach((resource) => {
@@ -224,6 +236,21 @@ export function checkResources(): void {
       );
     });
   print();
+}
+
+export function checkResources(): void {
+  printHtml(
+    "Legend (prefname - helptext): <font color='black'>✓ Saved Resource</font> / <font color='#888888'>X Usable Resource"
+  );
+  print("--- Resources pertaining to consumption / organs ---", "blue");
+  printResources(consumptionResources);
+  print("--- Resources pertaining to combat / turn-taking encounters ---", "blue");
+  printResources(encounterResources);
+  print("--- Resources pertaining to aftercore farming profits ---", "blue");
+  printResources(farmingResources);
+  print("--- Other resources ---", "blue");
+  printResources(otherResources);
+
   print("The following are all the buffs we will not acquire in run:");
   forbiddenEffects.forEach((ef) => print(`- ${ef.name}`));
   print("The following are all the familliars we will not use during leveling:");
