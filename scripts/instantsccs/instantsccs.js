@@ -4944,11 +4944,21 @@ function lib_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.sli
 var startingClan = (0,external_kolmafia_namespaceObject.getClanName)();
 var testModifiers = new Map([[CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]], [CommunityService.Muscle, ["Muscle", "Muscle Percent"]], [CommunityService.Mysticality, ["Mysticality", "Mysticality Percent"]], [CommunityService.Moxie, ["Moxie", "Moxie Percent"]], [CommunityService.FamiliarWeight, ["Familiar Weight"]], [CommunityService.WeaponDamage, ["Weapon Damage", "Weapon Damage Percent"]], [CommunityService.SpellDamage, ["Spell Damage", "Spell Damage Percent"]], [CommunityService.Noncombat, ["Combat Rate"]], [CommunityService.BoozeDrop, ["Item Drop", "Booze Drop"]], [CommunityService.HotRes, ["Hot Resistance"]], [CommunityService.CoilWire, []]]);
 function checkGithubVersion() {
-  if ((0,external_kolmafia_namespaceObject.gitAtHead)("Pantocyclus-instantsccs-release")) {
+  var _releaseBranch$commit;
+
+  var gitBranches = JSON.parse((0,external_kolmafia_namespaceObject.visitUrl)("https://api.github.com/repos/Pantocyclus/InstantSCCS/branches"));
+  var releaseBranch = gitBranches.find(branchInfo => branchInfo.name === "release");
+  var releaseSHA = (_releaseBranch$commit = releaseBranch === null || releaseBranch === void 0 ? void 0 : releaseBranch.commit.sha) !== null && _releaseBranch$commit !== void 0 ? _releaseBranch$commit : "Not Found";
+  var localBranch = (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release");
+  var localSHA = localBranch.commit;
+
+  if (releaseSHA === localSHA) {
     (0,external_kolmafia_namespaceObject.print)("InstantSCCS is up to date!", "green");
   } else {
-    (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date. Please run 'git update!'", "red");
-    (0,external_kolmafia_namespaceObject.print)("Local Version: ".concat((0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release").commit, "."));
+    (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date, and was last updated on ".concat(localBranch.last_changed_date, "."), "red");
+    (0,external_kolmafia_namespaceObject.print)("Please run 'git update!'", "red");
+    (0,external_kolmafia_namespaceObject.print)("Local Version: ".concat(localSHA, "."));
+    (0,external_kolmafia_namespaceObject.print)("Release Version: ".concat(releaseSHA));
   }
 }
 function simpleDateDiff(t1, t2) {
@@ -14854,6 +14864,8 @@ var args = Args.create("InstantSCCS", "An automated low-shiny SCCS script.", {
   })
 });
 function main_main(command) {
+  sinceKolmafiaRevision(27449);
+  checkGithubVersion();
   Args.fill(args, command);
 
   if (args.help) {
@@ -14876,8 +14888,6 @@ function main_main(command) {
     return;
   }
 
-  sinceKolmafiaRevision(27449);
-  checkGithubVersion();
   var setTimeNow = property_get(timeProperty, -1) === -1;
   if (setTimeNow) _set(timeProperty, (0,external_kolmafia_namespaceObject.nowToString)("yyyyMMddhhmmssSSS")); // Some checks to align mafia prefs
 
