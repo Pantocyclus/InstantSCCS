@@ -48,6 +48,9 @@ export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS scri
 });
 
 export function main(command?: string): void {
+  sinceKolmafiaRevision(27449);
+  checkGithubVersion();
+
   Args.fill(args, command);
   if (args.help) {
     Args.showHelp(args);
@@ -66,9 +69,6 @@ export function main(command?: string): void {
     print("Community Service complete!", "purple");
     return;
   }
-
-  sinceKolmafiaRevision(27449);
-  checkGithubVersion();
 
   const setTimeNow = get(timeProperty, -1) === -1;
   if (setTimeNow) set(timeProperty, nowToString("yyyyMMddhhmmssSSS"));

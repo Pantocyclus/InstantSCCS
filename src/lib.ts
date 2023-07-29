@@ -3,7 +3,6 @@ import {
   Effect,
   getCampground,
   getClanName,
-  gitAtHead,
   gitInfo,
   haveEffect,
   holiday,
@@ -27,6 +26,7 @@ import {
   toStat,
   use,
   useSkill,
+  visitUrl,
 } from "kolmafia";
 import {
   $effect,
@@ -65,11 +65,23 @@ export const testModifiers = new Map([
 ]);
 
 export function checkGithubVersion(): void {
-  if (gitAtHead("Pantocyclus-instantsccs-release")) {
+  const gitBranches: { name: string; commit: { sha: string } }[] = JSON.parse(
+    visitUrl(`https://api.github.com/repos/Pantocyclus/InstantSCCS/branches`)
+  );
+  const releaseBranch = gitBranches.find((branchInfo) => branchInfo.name === "release");
+  const releaseSHA = releaseBranch?.commit.sha ?? "Not Found";
+  const localBranch = gitInfo("Pantocyclus-instantsccs-release");
+  const localSHA = localBranch.commit;
+  if (releaseSHA === localSHA) {
     print("InstantSCCS is up to date!", "green");
   } else {
-    print("InstantSCCS is out of date. Please run 'git update!'", "red");
-    print(`Local Version: ${gitInfo("Pantocyclus-instantsccs-release").commit}.`);
+    print(
+      `InstantSCCS is out of date, and was last updated on ${localBranch.last_changed_date}.`,
+      "red"
+    );
+    print("Please run 'git update!'", "red");
+    print(`Local Version: ${localSHA}.`);
+    print(`Release Version: ${releaseSHA}`);
   }
 }
 
