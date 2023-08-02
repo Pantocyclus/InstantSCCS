@@ -235,7 +235,7 @@ export const BoozeDropQuest: Quest = {
           !have($item`bottle of Cabernet Sauvignon`) &&
           get("instant_saveAugustScepter", false)) ||
         myInebriety() + 3 > inebrietyLimit() ||
-        !get("instant_skipCabernetSauvignon", false),
+        get("instant_skipCabernetSauvignon", false),
       do: (): void => {
         // eslint-disable-next-line libram/verify-constants
         if (!have($item`bottle of Cabernet Sauvignon`))
