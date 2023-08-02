@@ -80,6 +80,12 @@ const consumptionResources: Resource[] = [
     "Do not chew the body spradium if we have it",
     $effects`Boxing Day Glow`
   ),
+  new Resource(
+    "instant_skipCabernetSauvignon",
+    "Do not summon and drink a bottle of Cabernet Sauvignon",
+    // eslint-disable-next-line libram/verify-constants
+    $effects`Cabernet Hunter`
+  ),
 ];
 
 const encounterResources: Resource[] = [
@@ -185,6 +191,12 @@ const farmingResources: Resource[] = [
   new Resource(
     "instant_saveFavoriteBird",
     "Do not use Visit your Favorite Bird on any of the tests"
+  ),
+  new Resource(
+    "instant_saveAugustScepter",
+    "Do not use any August Scepter skills",
+    // eslint-disable-next-line libram/verify-constants
+    $effects`Incredibly Well Lit`
   ),
 ];
 

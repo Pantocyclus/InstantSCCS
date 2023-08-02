@@ -3,11 +3,13 @@ import {
   buy,
   create,
   Effect,
+  equippedItem,
   inebrietyLimit,
   myHash,
   myInebriety,
   myMaxhp,
   myMeat,
+  numericModifier,
   print,
   restoreHp,
   restoreMp,
@@ -22,6 +24,7 @@ import {
   $item,
   $location,
   $skill,
+  $slot,
   clamp,
   Clan,
   CommunityService,
@@ -213,6 +216,20 @@ export const WeaponDamageQuest: Quest = {
           $effect`Weapon of Mass Destruction`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+
+        if (
+          // eslint-disable-next-line libram/verify-constants
+          have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
+          !get("instant_saveAugustScepter", false) &&
+          numericModifier(equippedItem($slot`off-hand`), "Weapon Damage") +
+            numericModifier(equippedItem($slot`off-hand`), "Weapon Damage Percent") >
+            0 &&
+          CommunityService.WeaponDamage.actualCost() > 1
+        ) {
+          // eslint-disable-next-line libram/verify-constants
+          useSkill($skill`Aug. 13th: Left/Off Hander's Day!`);
+        }
+
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.WeaponDamage.actualCost() >= 7) wishFor($effect`Outer Wolf™`);
         $effects`Spit Upon, Pyramid Power`.forEach((ef) => {

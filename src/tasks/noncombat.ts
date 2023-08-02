@@ -1,6 +1,26 @@
 import { Quest } from "../engine/task";
-import { buy, cliExecute, Effect, print, runChoice, useSkill, visitUrl } from "kolmafia";
-import { $effect, $familiar, $item, $skill, CommunityService, get, have, uneffect } from "libram";
+import {
+  buy,
+  cliExecute,
+  Effect,
+  equippedItem,
+  numericModifier,
+  print,
+  runChoice,
+  useSkill,
+  visitUrl,
+} from "kolmafia";
+import {
+  $effect,
+  $familiar,
+  $item,
+  $skill,
+  $slot,
+  CommunityService,
+  get,
+  have,
+  uneffect,
+} from "libram";
 import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
@@ -69,6 +89,18 @@ export const NoncombatQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
+
+        if (
+          // eslint-disable-next-line libram/verify-constants
+          have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
+          !get("instant_saveAugustScepter", false) &&
+          numericModifier(equippedItem($slot`off-hand`), "Combat Rate") < 0 &&
+          CommunityService.Noncombat.actualCost() > 1
+        ) {
+          // eslint-disable-next-line libram/verify-constants
+          useSkill($skill`Aug. 13th: Left/Off Hander's Day!`);
+        }
+
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.Noncombat.actualCost() >= 7) wishFor($effect`Disquiet Riot`);
       },

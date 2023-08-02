@@ -225,6 +225,31 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Drink Cabernet Sauvignon",
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        have($effect`Cabernet Hunter`) ||
+        // eslint-disable-next-line libram/verify-constants
+        (!have($skill`Aug. 31st: Cabernet Sauvignon Day`) &&
+          // eslint-disable-next-line libram/verify-constants
+          !have($item`bottle of Cabernet Sauvignon`) &&
+          get("instant_saveAugustScepter", false)) ||
+        myInebriety() + 3 > inebrietyLimit() ||
+        !get("instant_skipCabernetSauvignon", false),
+      do: (): void => {
+        // eslint-disable-next-line libram/verify-constants
+        if (!have($item`bottle of Cabernet Sauvignon`))
+          // eslint-disable-next-line libram/verify-constants
+          useSkill($skill`Aug. 31st: Cabernet Sauvignon Day`);
+        if (myInebriety() + 3 <= inebrietyLimit()) {
+          tryAcquiringEffect($effect`Ode to Booze`);
+          // eslint-disable-next-line libram/verify-constants
+          drink($item`bottle of Cabernet Sauvignon`);
+          uneffect($effect`Ode to Booze`);
+        }
+      },
+    },
+    {
       name: "Deck Wheel of Fortune",
       ready: () => get("_deckCardsDrawn") <= 10,
       completed: () =>
@@ -303,6 +328,8 @@ export const BoozeDropQuest: Quest = {
           $effect`Fortunate Resolve`,
           $effect`Heart of Lavender`,
           $effect`I See Everything Thrice!`,
+          // eslint-disable-next-line libram/verify-constants
+          $effect`Incredibly Well Lit`,
           $effect`items.enh`,
           $effect`Joyful Resolve`,
           $effect`One Very Clear Eye`,
@@ -318,6 +345,17 @@ export const BoozeDropQuest: Quest = {
           useFamiliar($familiar`Trick-or-Treating Tot`);
           equip($slot`familiar`, $item`li'l ninja costume`);
         }
+
+        if (
+          // eslint-disable-next-line libram/verify-constants
+          have($skill`Aug. 26th: Toilet Paper Day!`) &&
+          have($skill`Feel Lost`) &&
+          CommunityService.BoozeDrop.actualCost() > 1
+        ) {
+          // eslint-disable-next-line libram/verify-constants
+          useSkill($skill`Aug. 26th: Toilet Paper Day!`);
+        }
+
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect`Infernal Thirst`);
       },
@@ -339,6 +377,14 @@ export const BoozeDropQuest: Quest = {
       outfit: {
         modifier:
           "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man",
+      },
+      post: (): void => {
+        // eslint-disable-next-line libram/verify-constants
+        if (have($effect`Feeling Lost`) && have($item`handful of toilet paper`))
+          // eslint-disable-next-line libram/verify-constants
+          use(1, $item`handful of toilet paper`);
+        if (have($effect`Feeling Lost`))
+          throw new Error("Failed to shrug Feeling Lost with handful of toilet paper!");
       },
       limit: { tries: 1 },
     },

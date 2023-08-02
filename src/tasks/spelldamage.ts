@@ -4,11 +4,13 @@ import {
   drink,
   Effect,
   elementalResistance,
+  equippedItem,
   inebrietyLimit,
   myAdventures,
   myHp,
   myInebriety,
   myMaxhp,
+  numericModifier,
   print,
   restoreHp,
   restoreMp,
@@ -24,6 +26,7 @@ import {
   $items,
   $location,
   $skill,
+  $slot,
   clamp,
   Clan,
   CommunityService,
@@ -176,6 +179,19 @@ export const SpellDamageQuest: Quest = {
         ) {
           tryAcquiringEffect($effect`Ode to Booze`);
           drink(wines.filter((booze) => have(booze))[0], 1);
+        }
+
+        if (
+          // eslint-disable-next-line libram/verify-constants
+          have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
+          !get("instant_saveAugustScepter", false) &&
+          numericModifier(equippedItem($slot`off-hand`), "Spell Damage") +
+            numericModifier(equippedItem($slot`off-hand`), "Spell Damage Percent") >
+            0 &&
+          CommunityService.SpellDamage.actualCost() > 1
+        ) {
+          // eslint-disable-next-line libram/verify-constants
+          useSkill($skill`Aug. 13th: Left/Off Hander's Day!`);
         }
       },
       completed: () => CommunityService.SpellDamage.isDone(),
