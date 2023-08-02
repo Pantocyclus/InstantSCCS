@@ -196,7 +196,7 @@ const farmingResources: Resource[] = [
     "instant_saveAugustScepter",
     "Do not use any August Scepter skills",
     // eslint-disable-next-line libram/verify-constants
-    $effects`Incredibly Well Lit`
+    $effects`Incredibly Well Lit, Offhand Remarkable`
   ),
 ];
 
