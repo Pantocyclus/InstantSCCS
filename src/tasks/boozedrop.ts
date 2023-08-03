@@ -248,6 +248,7 @@ export const BoozeDropQuest: Quest = {
           uneffect($effect`Ode to Booze`);
         }
       },
+      limit: { tries: 1 },
     },
     {
       name: "Deck Wheel of Fortune",
