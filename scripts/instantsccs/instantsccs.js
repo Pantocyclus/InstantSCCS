@@ -17450,8 +17450,7 @@ var BoozeDropQuest = {
   }, {
     name: "Drink Cabernet Sauvignon",
     completed: () => // eslint-disable-next-line libram/verify-constants
-    lib_have($effect(boozedrop_templateObject54 || (boozedrop_templateObject54 = boozedrop_taggedTemplateLiteral(["Cabernet Hunter"])))) || !lib_have(template_string_$skill(boozedrop_templateObject55 || (boozedrop_templateObject55 = boozedrop_taggedTemplateLiteral(["Aug. 31st: Cabernet Sauvignon Day"])))) && // eslint-disable-next-line libram/verify-constants
-    !lib_have(template_string_$item(boozedrop_templateObject56 || (boozedrop_templateObject56 = boozedrop_taggedTemplateLiteral(["bottle of Cabernet Sauvignon"])))) && property_get("instant_saveAugustScepter", false) || (0,external_kolmafia_namespaceObject.myInebriety)() + 3 > (0,external_kolmafia_namespaceObject.inebrietyLimit)() || property_get("instant_skipCabernetSauvignon", false),
+    lib_have($effect(boozedrop_templateObject54 || (boozedrop_templateObject54 = boozedrop_taggedTemplateLiteral(["Cabernet Hunter"])))) || !lib_have(template_string_$item(boozedrop_templateObject55 || (boozedrop_templateObject55 = boozedrop_taggedTemplateLiteral(["bottle of Cabernet Sauvignon"])))) && (!lib_have(template_string_$skill(boozedrop_templateObject56 || (boozedrop_templateObject56 = boozedrop_taggedTemplateLiteral(["Aug. 31st: Cabernet Sauvignon Day"])))) || property_get("instant_saveAugustScepter", false)) || (0,external_kolmafia_namespaceObject.myInebriety)() + 3 > (0,external_kolmafia_namespaceObject.inebrietyLimit)() || property_get("instant_skipCabernetSauvignon", false),
     do: () => {
       // eslint-disable-next-line libram/verify-constants
       if (!lib_have(template_string_$item(boozedrop_templateObject57 || (boozedrop_templateObject57 = boozedrop_taggedTemplateLiteral(["bottle of Cabernet Sauvignon"]))))) // eslint-disable-next-line libram/verify-constants
