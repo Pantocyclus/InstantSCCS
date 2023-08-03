@@ -17463,6 +17463,9 @@ var BoozeDropQuest = {
         (0,external_kolmafia_namespaceObject.drink)(template_string_$item(boozedrop_templateObject60 || (boozedrop_templateObject60 = boozedrop_taggedTemplateLiteral(["bottle of Cabernet Sauvignon"]))));
         uneffect($effect(boozedrop_templateObject61 || (boozedrop_templateObject61 = boozedrop_taggedTemplateLiteral(["Ode to Booze"]))));
       }
+    },
+    limit: {
+      tries: 1
     }
   }, {
     name: "Deck Wheel of Fortune",
