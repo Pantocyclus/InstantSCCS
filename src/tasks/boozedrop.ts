@@ -230,10 +230,10 @@ export const BoozeDropQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         have($effect`Cabernet Hunter`) ||
         // eslint-disable-next-line libram/verify-constants
-        (!have($skill`Aug. 31st: Cabernet Sauvignon Day`) &&
+        (!have($item`bottle of Cabernet Sauvignon`) &&
           // eslint-disable-next-line libram/verify-constants
-          !have($item`bottle of Cabernet Sauvignon`) &&
-          get("instant_saveAugustScepter", false)) ||
+          (!have($skill`Aug. 31st: Cabernet Sauvignon Day`) ||
+            get("instant_saveAugustScepter", false))) ||
         myInebriety() + 3 > inebrietyLimit() ||
         get("instant_skipCabernetSauvignon", false),
       do: (): void => {
