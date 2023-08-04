@@ -135,13 +135,11 @@ export const FamiliarWeightQuest: Quest = {
           cliExecute("maximize familiar weight");
 
           if (
-            // eslint-disable-next-line libram/verify-constants
             have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
             !get("instant_saveAugustScepter", false) &&
             numericModifier(equippedItem($slot`off-hand`), "Familiar Weight") > 0 &&
             CommunityService.FamiliarWeight.actualCost() > 1
           ) {
-            // eslint-disable-next-line libram/verify-constants
             useSkill($skill`Aug. 13th: Left/Off Hander's Day!`);
           }
         }

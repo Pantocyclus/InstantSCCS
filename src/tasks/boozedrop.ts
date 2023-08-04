@@ -227,23 +227,17 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Drink Cabernet Sauvignon",
       completed: () =>
-        // eslint-disable-next-line libram/verify-constants
         have($effect`Cabernet Hunter`) ||
-        // eslint-disable-next-line libram/verify-constants
         (!have($item`bottle of Cabernet Sauvignon`) &&
-          // eslint-disable-next-line libram/verify-constants
-          (!have($skill`Aug. 31st: Cabernet Sauvignon Day`) ||
+          (!have($skill`Aug. 31st: Cabernet Sauvignon Day!`) ||
             get("instant_saveAugustScepter", false))) ||
         myInebriety() + 3 > inebrietyLimit() ||
         get("instant_skipCabernetSauvignon", false),
       do: (): void => {
-        // eslint-disable-next-line libram/verify-constants
         if (!have($item`bottle of Cabernet Sauvignon`))
-          // eslint-disable-next-line libram/verify-constants
-          useSkill($skill`Aug. 31st: Cabernet Sauvignon Day`);
+          useSkill($skill`Aug. 31st: Cabernet Sauvignon Day!`);
         if (myInebriety() + 3 <= inebrietyLimit()) {
           tryAcquiringEffect($effect`Ode to Booze`);
-          // eslint-disable-next-line libram/verify-constants
           drink($item`bottle of Cabernet Sauvignon`);
           uneffect($effect`Ode to Booze`);
         }
@@ -289,21 +283,15 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Loathing Idol Microphone",
       completed: () =>
-        // eslint-disable-next-line libram/verify-constants
         have($effect`Spitting Rhymes`) ||
-        // eslint-disable-next-line libram/verify-constants
         !have($item`2002 Mr. Store Catalog`) ||
         get("availableMrStore2002Credits", 0) <= get("instant_saveCatalogCredits", 0) ||
-        // eslint-disable-next-line libram/verify-constants
         forbiddenEffects.includes($effect`Spitting Rhymes`),
       do: (): void => {
-        // eslint-disable-next-line libram/verify-constants
         if (!have($item`Loathing Idol Microphone`)) {
-          // eslint-disable-next-line libram/verify-constants
           visitUrl(`inv_use.php?whichitem=${toInt($item`2002 Mr. Store Catalog`)}&which=f0&pwd`);
           visitUrl("shop.php?whichshop=mrstore2002&action=buyitem&quantity=1&whichrow=1384&pwd");
         }
-        // eslint-disable-next-line libram/verify-constants
         withChoice(1505, 3, () => use($item`Loathing Idol Microphone`));
       },
       limit: { tries: 1 },
@@ -329,7 +317,6 @@ export const BoozeDropQuest: Quest = {
           $effect`Fortunate Resolve`,
           $effect`Heart of Lavender`,
           $effect`I See Everything Thrice!`,
-          // eslint-disable-next-line libram/verify-constants
           $effect`Incredibly Well Lit`,
           $effect`items.enh`,
           $effect`Joyful Resolve`,
@@ -348,12 +335,10 @@ export const BoozeDropQuest: Quest = {
         }
 
         if (
-          // eslint-disable-next-line libram/verify-constants
           have($skill`Aug. 26th: Toilet Paper Day!`) &&
           have($skill`Feel Lost`) &&
           CommunityService.BoozeDrop.actualCost() > 1
         ) {
-          // eslint-disable-next-line libram/verify-constants
           useSkill($skill`Aug. 26th: Toilet Paper Day!`);
         }
 
@@ -380,9 +365,7 @@ export const BoozeDropQuest: Quest = {
           "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man",
       },
       post: (): void => {
-        // eslint-disable-next-line libram/verify-constants
         if (have($effect`Feeling Lost`) && have($item`handful of toilet paper`))
-          // eslint-disable-next-line libram/verify-constants
           use(1, $item`handful of toilet paper`);
         if (have($effect`Feeling Lost`))
           throw new Error("Failed to shrug Feeling Lost with handful of toilet paper!");
