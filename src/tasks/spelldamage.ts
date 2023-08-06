@@ -189,7 +189,7 @@ export const SpellDamageQuest: Quest = {
             0 &&
           CommunityService.SpellDamage.actualCost() > 1
         ) {
-          useSkill($skill`Aug. 13th: Left/Off Hander's Day!`);
+          tryAcquiringEffect($effect`Offhand Remarkable`);
         }
       },
       completed: () => CommunityService.SpellDamage.isDone(),

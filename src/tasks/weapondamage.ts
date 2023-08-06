@@ -225,7 +225,7 @@ export const WeaponDamageQuest: Quest = {
             0 &&
           CommunityService.WeaponDamage.actualCost() > 1
         ) {
-          useSkill($skill`Aug. 13th: Left/Off Hander's Day!`);
+          tryAcquiringEffect($effect`Offhand Remarkable`);
         }
 
         // If it saves us >= 6 turns, try using a wish

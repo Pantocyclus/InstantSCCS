@@ -12,7 +12,6 @@ import {
   toInt,
   use,
   useFamiliar,
-  useSkill,
   visitUrl,
 } from "kolmafia";
 import {
@@ -140,7 +139,7 @@ export const FamiliarWeightQuest: Quest = {
             numericModifier(equippedItem($slot`off-hand`), "Familiar Weight") > 0 &&
             CommunityService.FamiliarWeight.actualCost() > 1
           ) {
-            useSkill($skill`Aug. 13th: Left/Off Hander's Day!`);
+            tryAcquiringEffect($effect`Offhand Remarkable`);
           }
         }
       },
