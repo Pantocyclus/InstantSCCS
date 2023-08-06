@@ -45,6 +45,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
+  $coinmaster,
   $effect,
   $effects,
   $familiar,
@@ -261,8 +262,7 @@ export const LevelingQuest: Quest = {
         forbiddenEffects.includes($effect`Hot in Herre`),
       do: (): void => {
         if (!have($item`Charter: Nellyville`)) {
-          visitUrl(`inv_use.php?whichitem=${toInt($item`2002 Mr. Store Catalog`)}&which=f0&pwd`);
-          visitUrl("shop.php?whichshop=mrstore2002&action=buyitem&quantity=1&whichrow=1385&pwd");
+          buy($coinmaster`Mr. Store 2002`, 1, $item`Charter: Nellyville`);
         }
         use($item`Charter: Nellyville`, 1);
       },

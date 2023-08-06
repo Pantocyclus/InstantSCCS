@@ -1,5 +1,6 @@
-import { create, Effect, print, toInt, use, visitUrl } from "kolmafia";
+import { buy, create, Effect, print, use } from "kolmafia";
 import {
+  $coinmaster,
   $effect,
   $effects,
   $item,
@@ -176,8 +177,7 @@ export const MoxieQuest: Quest = {
         get("instant_skipHighHeels", false),
       do: (): void => {
         if (!have($item`Letter from Carrie Bradshaw`)) {
-          visitUrl(`inv_use.php?whichitem=${toInt($item`2002 Mr. Store Catalog`)}&which=f0&pwd`);
-          visitUrl("shop.php?whichshop=mrstore2002&action=buyitem&quantity=1&whichrow=1380&pwd");
+          buy($coinmaster`Mr. Store 2002`, 1, $item`Letter from Carrie Bradshaw`);
         }
         withChoice(1506, 3, () => use($item`Letter from Carrie Bradshaw`));
       },

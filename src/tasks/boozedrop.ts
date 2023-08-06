@@ -21,13 +21,13 @@ import {
   restoreHp,
   restoreMp,
   retrieveItem,
-  toInt,
   use,
   useFamiliar,
   useSkill,
   visitUrl,
 } from "kolmafia";
 import {
+  $coinmaster,
   $effect,
   $effects,
   $familiar,
@@ -289,8 +289,7 @@ export const BoozeDropQuest: Quest = {
         forbiddenEffects.includes($effect`Spitting Rhymes`),
       do: (): void => {
         if (!have($item`Loathing Idol Microphone`)) {
-          visitUrl(`inv_use.php?whichitem=${toInt($item`2002 Mr. Store Catalog`)}&which=f0&pwd`);
-          visitUrl("shop.php?whichshop=mrstore2002&action=buyitem&quantity=1&whichrow=1384&pwd");
+          buy($coinmaster`Mr. Store 2002`, 1, $item`Loathing Idol Microphone`);
         }
         withChoice(1505, 3, () => use($item`Loathing Idol Microphone`));
       },
