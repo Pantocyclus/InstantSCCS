@@ -38,6 +38,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
+  $coinmaster,
   $effect,
   $item,
   $items,
@@ -52,6 +53,7 @@ import {
   getBanishedMonsters,
   getKramcoWandererChance,
   have,
+  haveInCampground,
   Pantogram,
   SongBoom,
 } from "libram";
@@ -150,6 +152,19 @@ export const RunStartQuest: Quest = {
         !have($item`2002 Mr. Store Catalog`) || get("_2002MrStoreCreditsCollected", true),
       do: () =>
         visitUrl(`inv_use.php?whichitem=${toInt($item`2002 Mr. Store Catalog`)}&which=f0&pwd`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Use Meat Butler",
+      completed: () =>
+        !have($item`2002 Mr. Store Catalog`) ||
+        get("availableMrStore2002Credits") <= get("instant_saveCatalogCredits", 0) ||
+        get("instant_skipMeatButler", false) ||
+        haveInCampground($item`Meat Butler`),
+      do: (): void => {
+        if (!have($item`Meat Butler`)) buy($coinmaster`Mr. Store 2002`, 1, $item`Meat Butler`);
+        use($item`Meat Butler`, 1);
+      },
       limit: { tries: 1 },
     },
     {

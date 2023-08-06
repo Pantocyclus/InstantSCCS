@@ -181,6 +181,7 @@ const farmingResources: Resource[] = [
     "instant_skipHighHeels",
     "Do not grab red-soled high heels from the Mr. Store Catalog"
   ),
+  new Resource("instant_skipMeatButler", "Do not grab the meat butler from the Mr. Store Catalog"),
   new Resource(
     "instant_saveNumberology",
     (n) => `Save ${n}/${get("skillLevel144") > 3 ? 3 : get("skillLevel144")} Numberology casts`,
