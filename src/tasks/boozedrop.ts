@@ -17,6 +17,7 @@ import {
   itemAmount,
   myInebriety,
   myMaxhp,
+  myMeat,
   print,
   restoreHp,
   restoreMp,
@@ -305,6 +306,13 @@ export const BoozeDropQuest: Quest = {
         !get("yourFavoriteBirdMods").includes("Item Drops") ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Buy Oversized Sparkler",
+      ready: () => myMeat() >= 1000,
+      completed: () => have($item`oversized sparkler`),
+      do: () => buy($item`oversized sparkler`, 1),
       limit: { tries: 1 },
     },
     {
