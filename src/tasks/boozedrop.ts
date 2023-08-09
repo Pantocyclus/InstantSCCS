@@ -159,6 +159,9 @@ export const BoozeDropQuest: Quest = {
       completed: () => get("_photocopyUsed"),
       do: (): void => {
         cliExecute("chat");
+        if (have($item`photocopied monster`) && get("photocopyMonster") !== $monster`ungulith`) {
+          cliExecute("fax send");
+        }
         if (
           (have($item`photocopied monster`) || faxbot($monster`ungulith`)) &&
           get("photocopyMonster") === $monster`ungulith`
@@ -190,7 +193,7 @@ export const BoozeDropQuest: Quest = {
           .trySkill($skill`Use the Force`)
           .default()
       ),
-      limit: { tries: 1 },
+      limit: { tries: 5 },
     },
     {
       name: "Eat roasted vegetable of Jarlsberg",
