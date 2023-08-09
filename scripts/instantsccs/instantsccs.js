@@ -17289,7 +17289,7 @@ var NoncombatQuest = {
   }]
 };
 ;// CONCATENATED MODULE: ./src/tasks/boozedrop.ts
-var boozedrop_templateObject, boozedrop_templateObject2, boozedrop_templateObject3, boozedrop_templateObject4, boozedrop_templateObject5, boozedrop_templateObject6, boozedrop_templateObject7, boozedrop_templateObject8, boozedrop_templateObject9, boozedrop_templateObject10, boozedrop_templateObject11, boozedrop_templateObject12, boozedrop_templateObject13, boozedrop_templateObject14, boozedrop_templateObject15, boozedrop_templateObject16, boozedrop_templateObject17, boozedrop_templateObject18, boozedrop_templateObject19, boozedrop_templateObject20, boozedrop_templateObject21, boozedrop_templateObject22, boozedrop_templateObject23, boozedrop_templateObject24, boozedrop_templateObject25, boozedrop_templateObject26, boozedrop_templateObject27, boozedrop_templateObject28, boozedrop_templateObject29, boozedrop_templateObject30, boozedrop_templateObject31, boozedrop_templateObject32, boozedrop_templateObject33, boozedrop_templateObject34, boozedrop_templateObject35, boozedrop_templateObject36, boozedrop_templateObject37, boozedrop_templateObject38, boozedrop_templateObject39, boozedrop_templateObject40, boozedrop_templateObject41, boozedrop_templateObject42, boozedrop_templateObject43, boozedrop_templateObject44, boozedrop_templateObject45, boozedrop_templateObject46, boozedrop_templateObject47, boozedrop_templateObject48, boozedrop_templateObject49, boozedrop_templateObject50, boozedrop_templateObject51, boozedrop_templateObject52, boozedrop_templateObject53, boozedrop_templateObject54, boozedrop_templateObject55, boozedrop_templateObject56, boozedrop_templateObject57, boozedrop_templateObject58, boozedrop_templateObject59, boozedrop_templateObject60, boozedrop_templateObject61, boozedrop_templateObject62, boozedrop_templateObject63, boozedrop_templateObject64, boozedrop_templateObject65, boozedrop_templateObject66, boozedrop_templateObject67, boozedrop_templateObject68, boozedrop_templateObject69, boozedrop_templateObject70, boozedrop_templateObject71, boozedrop_templateObject72, boozedrop_templateObject73, boozedrop_templateObject74, boozedrop_templateObject75, boozedrop_templateObject76, boozedrop_templateObject77, boozedrop_templateObject78, boozedrop_templateObject79, boozedrop_templateObject80, boozedrop_templateObject81, boozedrop_templateObject82, boozedrop_templateObject83, boozedrop_templateObject84, boozedrop_templateObject85, boozedrop_templateObject86, boozedrop_templateObject87, boozedrop_templateObject88, boozedrop_templateObject89, boozedrop_templateObject90, boozedrop_templateObject91, boozedrop_templateObject92, boozedrop_templateObject93, boozedrop_templateObject94, boozedrop_templateObject95, boozedrop_templateObject96, boozedrop_templateObject97, boozedrop_templateObject98, boozedrop_templateObject99, boozedrop_templateObject100, boozedrop_templateObject101, boozedrop_templateObject102, boozedrop_templateObject103, boozedrop_templateObject104, boozedrop_templateObject105, boozedrop_templateObject106, boozedrop_templateObject107, boozedrop_templateObject108, boozedrop_templateObject109, boozedrop_templateObject110, boozedrop_templateObject111, boozedrop_templateObject112, boozedrop_templateObject113;
+var boozedrop_templateObject, boozedrop_templateObject2, boozedrop_templateObject3, boozedrop_templateObject4, boozedrop_templateObject5, boozedrop_templateObject6, boozedrop_templateObject7, boozedrop_templateObject8, boozedrop_templateObject9, boozedrop_templateObject10, boozedrop_templateObject11, boozedrop_templateObject12, boozedrop_templateObject13, boozedrop_templateObject14, boozedrop_templateObject15, boozedrop_templateObject16, boozedrop_templateObject17, boozedrop_templateObject18, boozedrop_templateObject19, boozedrop_templateObject20, boozedrop_templateObject21, boozedrop_templateObject22, boozedrop_templateObject23, boozedrop_templateObject24, boozedrop_templateObject25, boozedrop_templateObject26, boozedrop_templateObject27, boozedrop_templateObject28, boozedrop_templateObject29, boozedrop_templateObject30, boozedrop_templateObject31, boozedrop_templateObject32, boozedrop_templateObject33, boozedrop_templateObject34, boozedrop_templateObject35, boozedrop_templateObject36, boozedrop_templateObject37, boozedrop_templateObject38, boozedrop_templateObject39, boozedrop_templateObject40, boozedrop_templateObject41, boozedrop_templateObject42, boozedrop_templateObject43, boozedrop_templateObject44, boozedrop_templateObject45, boozedrop_templateObject46, boozedrop_templateObject47, boozedrop_templateObject48, boozedrop_templateObject49, boozedrop_templateObject50, boozedrop_templateObject51, boozedrop_templateObject52, boozedrop_templateObject53, boozedrop_templateObject54, boozedrop_templateObject55, boozedrop_templateObject56, boozedrop_templateObject57, boozedrop_templateObject58, boozedrop_templateObject59, boozedrop_templateObject60, boozedrop_templateObject61, boozedrop_templateObject62, boozedrop_templateObject63, boozedrop_templateObject64, boozedrop_templateObject65, boozedrop_templateObject66, boozedrop_templateObject67, boozedrop_templateObject68, boozedrop_templateObject69, boozedrop_templateObject70, boozedrop_templateObject71, boozedrop_templateObject72, boozedrop_templateObject73, boozedrop_templateObject74, boozedrop_templateObject75, boozedrop_templateObject76, boozedrop_templateObject77, boozedrop_templateObject78, boozedrop_templateObject79, boozedrop_templateObject80, boozedrop_templateObject81, boozedrop_templateObject82, boozedrop_templateObject83, boozedrop_templateObject84, boozedrop_templateObject85, boozedrop_templateObject86, boozedrop_templateObject87, boozedrop_templateObject88, boozedrop_templateObject89, boozedrop_templateObject90, boozedrop_templateObject91, boozedrop_templateObject92, boozedrop_templateObject93, boozedrop_templateObject94, boozedrop_templateObject95, boozedrop_templateObject96, boozedrop_templateObject97, boozedrop_templateObject98, boozedrop_templateObject99, boozedrop_templateObject100, boozedrop_templateObject101, boozedrop_templateObject102, boozedrop_templateObject103, boozedrop_templateObject104, boozedrop_templateObject105, boozedrop_templateObject106, boozedrop_templateObject107, boozedrop_templateObject108, boozedrop_templateObject109, boozedrop_templateObject110, boozedrop_templateObject111, boozedrop_templateObject112, boozedrop_templateObject113, boozedrop_templateObject114, boozedrop_templateObject115;
 
 function boozedrop_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -17393,15 +17393,19 @@ var BoozeDropQuest = {
     do: () => {
       (0,external_kolmafia_namespaceObject.cliExecute)("chat");
 
-      if ((lib_have(template_string_$item(boozedrop_templateObject27 || (boozedrop_templateObject27 = boozedrop_taggedTemplateLiteral(["photocopied monster"])))) || (0,external_kolmafia_namespaceObject.faxbot)($monster(boozedrop_templateObject28 || (boozedrop_templateObject28 = boozedrop_taggedTemplateLiteral(["ungulith"]))))) && property_get("photocopyMonster") === $monster(boozedrop_templateObject29 || (boozedrop_templateObject29 = boozedrop_taggedTemplateLiteral(["ungulith"])))) {
-        (0,external_kolmafia_namespaceObject.use)(template_string_$item(boozedrop_templateObject30 || (boozedrop_templateObject30 = boozedrop_taggedTemplateLiteral(["photocopied monster"]))));
+      if (lib_have(template_string_$item(boozedrop_templateObject27 || (boozedrop_templateObject27 = boozedrop_taggedTemplateLiteral(["photocopied monster"])))) && property_get("photocopyMonster") !== $monster(boozedrop_templateObject28 || (boozedrop_templateObject28 = boozedrop_taggedTemplateLiteral(["ungulith"])))) {
+        (0,external_kolmafia_namespaceObject.cliExecute)("fax send");
+      }
+
+      if ((lib_have(template_string_$item(boozedrop_templateObject29 || (boozedrop_templateObject29 = boozedrop_taggedTemplateLiteral(["photocopied monster"])))) || (0,external_kolmafia_namespaceObject.faxbot)($monster(boozedrop_templateObject30 || (boozedrop_templateObject30 = boozedrop_taggedTemplateLiteral(["ungulith"]))))) && property_get("photocopyMonster") === $monster(boozedrop_templateObject31 || (boozedrop_templateObject31 = boozedrop_taggedTemplateLiteral(["ungulith"])))) {
+        (0,external_kolmafia_namespaceObject.use)(template_string_$item(boozedrop_templateObject32 || (boozedrop_templateObject32 = boozedrop_taggedTemplateLiteral(["photocopied monster"]))));
       }
     },
     outfit: () => ({
-      hat: nextBuff() === $effect(boozedrop_templateObject31 || (boozedrop_templateObject31 = boozedrop_taggedTemplateLiteral(["Musician's Musician's Moustache"]))) && !hasBuff() && lib_have(template_string_$item(boozedrop_templateObject32 || (boozedrop_templateObject32 = boozedrop_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) ? template_string_$item(boozedrop_templateObject33 || (boozedrop_templateObject33 = boozedrop_taggedTemplateLiteral(["Daylight Shavings Helmet"]))) : undefined,
-      back: template_string_$item(boozedrop_templateObject34 || (boozedrop_templateObject34 = boozedrop_taggedTemplateLiteral(["vampyric cloake"]))),
-      weapon: template_string_$item(boozedrop_templateObject35 || (boozedrop_templateObject35 = boozedrop_taggedTemplateLiteral(["Fourth of May Cosplay Saber"]))),
-      offhand: lib_have(template_string_$skill(boozedrop_templateObject36 || (boozedrop_templateObject36 = boozedrop_taggedTemplateLiteral(["Double-Fisted Skull Smashing"])))) ? template_string_$item(boozedrop_templateObject37 || (boozedrop_templateObject37 = boozedrop_taggedTemplateLiteral(["industrial fire extinguisher"]))) : undefined,
+      hat: nextBuff() === $effect(boozedrop_templateObject33 || (boozedrop_templateObject33 = boozedrop_taggedTemplateLiteral(["Musician's Musician's Moustache"]))) && !hasBuff() && lib_have(template_string_$item(boozedrop_templateObject34 || (boozedrop_templateObject34 = boozedrop_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) ? template_string_$item(boozedrop_templateObject35 || (boozedrop_templateObject35 = boozedrop_taggedTemplateLiteral(["Daylight Shavings Helmet"]))) : undefined,
+      back: template_string_$item(boozedrop_templateObject36 || (boozedrop_templateObject36 = boozedrop_taggedTemplateLiteral(["vampyric cloake"]))),
+      weapon: template_string_$item(boozedrop_templateObject37 || (boozedrop_templateObject37 = boozedrop_taggedTemplateLiteral(["Fourth of May Cosplay Saber"]))),
+      offhand: lib_have(template_string_$skill(boozedrop_templateObject38 || (boozedrop_templateObject38 = boozedrop_taggedTemplateLiteral(["Double-Fisted Skull Smashing"])))) ? template_string_$item(boozedrop_templateObject39 || (boozedrop_templateObject39 = boozedrop_taggedTemplateLiteral(["industrial fire extinguisher"]))) : undefined,
       familiar: chooseFamiliar(false),
       modifier: "myst",
       avoid: sugarItemsAboutToBreak()
@@ -17409,28 +17413,28 @@ var BoozeDropQuest = {
     choices: {
       1387: 3
     },
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(boozedrop_templateObject38 || (boozedrop_templateObject38 = boozedrop_taggedTemplateLiteral(["Bowl Straight Up"])))).trySkill(template_string_$skill(boozedrop_templateObject39 || (boozedrop_templateObject39 = boozedrop_taggedTemplateLiteral(["Become a Bat"])))).trySkill(template_string_$skill(boozedrop_templateObject40 || (boozedrop_templateObject40 = boozedrop_taggedTemplateLiteral(["Fire Extinguisher: Polar Vortex"])))).trySkill(template_string_$skill(boozedrop_templateObject41 || (boozedrop_templateObject41 = boozedrop_taggedTemplateLiteral(["Use the Force"])))).default()),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(boozedrop_templateObject40 || (boozedrop_templateObject40 = boozedrop_taggedTemplateLiteral(["Bowl Straight Up"])))).trySkill(template_string_$skill(boozedrop_templateObject41 || (boozedrop_templateObject41 = boozedrop_taggedTemplateLiteral(["Become a Bat"])))).trySkill(template_string_$skill(boozedrop_templateObject42 || (boozedrop_templateObject42 = boozedrop_taggedTemplateLiteral(["Fire Extinguisher: Polar Vortex"])))).trySkill(template_string_$skill(boozedrop_templateObject43 || (boozedrop_templateObject43 = boozedrop_taggedTemplateLiteral(["Use the Force"])))).default()),
     limit: {
-      tries: 1
+      tries: 5
     }
   }, {
     name: "Eat roasted vegetable of Jarlsberg",
-    completed: () => lib_have($effect(boozedrop_templateObject42 || (boozedrop_templateObject42 = boozedrop_taggedTemplateLiteral(["Wizard Sight"])))) || property_get("instant_saveRoastedVegetableItem", false) || !lib_have(template_string_$item(boozedrop_templateObject43 || (boozedrop_templateObject43 = boozedrop_taggedTemplateLiteral(["roasted vegetable of Jarlsberg"])))) && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(boozedrop_templateObject44 || (boozedrop_templateObject44 = boozedrop_taggedTemplateLiteral(["Vegetable of Jarlsberg"])))) < 2,
+    completed: () => lib_have($effect(boozedrop_templateObject44 || (boozedrop_templateObject44 = boozedrop_taggedTemplateLiteral(["Wizard Sight"])))) || property_get("instant_saveRoastedVegetableItem", false) || !lib_have(template_string_$item(boozedrop_templateObject45 || (boozedrop_templateObject45 = boozedrop_taggedTemplateLiteral(["roasted vegetable of Jarlsberg"])))) && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(boozedrop_templateObject46 || (boozedrop_templateObject46 = boozedrop_taggedTemplateLiteral(["Vegetable of Jarlsberg"])))) < 2,
     do: () => {
-      if ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(boozedrop_templateObject45 || (boozedrop_templateObject45 = boozedrop_taggedTemplateLiteral(["Vegetable of Jarlsberg"])))) >= 2 && !lib_have(template_string_$item(boozedrop_templateObject46 || (boozedrop_templateObject46 = boozedrop_taggedTemplateLiteral(["roasted vegetable of Jarlsberg"]))))) (0,external_kolmafia_namespaceObject.create)(template_string_$item(boozedrop_templateObject47 || (boozedrop_templateObject47 = boozedrop_taggedTemplateLiteral(["roasted vegetable of Jarlsberg"]))), 1);
-      (0,external_kolmafia_namespaceObject.eat)(template_string_$item(boozedrop_templateObject48 || (boozedrop_templateObject48 = boozedrop_taggedTemplateLiteral(["roasted vegetable of Jarlsberg"]))), 1);
+      if ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(boozedrop_templateObject47 || (boozedrop_templateObject47 = boozedrop_taggedTemplateLiteral(["Vegetable of Jarlsberg"])))) >= 2 && !lib_have(template_string_$item(boozedrop_templateObject48 || (boozedrop_templateObject48 = boozedrop_taggedTemplateLiteral(["roasted vegetable of Jarlsberg"]))))) (0,external_kolmafia_namespaceObject.create)(template_string_$item(boozedrop_templateObject49 || (boozedrop_templateObject49 = boozedrop_taggedTemplateLiteral(["roasted vegetable of Jarlsberg"]))), 1);
+      (0,external_kolmafia_namespaceObject.eat)(template_string_$item(boozedrop_templateObject50 || (boozedrop_templateObject50 = boozedrop_taggedTemplateLiteral(["roasted vegetable of Jarlsberg"]))), 1);
     },
     limit: {
       tries: 1
     }
   }, {
     name: "Drink Sacramento Wine",
-    completed: () => lib_have($effect(boozedrop_templateObject49 || (boozedrop_templateObject49 = boozedrop_taggedTemplateLiteral(["Sacr\xE9 Mental"])))) || !lib_have(template_string_$item(boozedrop_templateObject50 || (boozedrop_templateObject50 = boozedrop_taggedTemplateLiteral(["Sacramento wine"])))) || (0,external_kolmafia_namespaceObject.myInebriety)() >= (0,external_kolmafia_namespaceObject.inebrietyLimit)() || property_get("instant_saveSacramentoWine", false),
+    completed: () => lib_have($effect(boozedrop_templateObject51 || (boozedrop_templateObject51 = boozedrop_taggedTemplateLiteral(["Sacr\xE9 Mental"])))) || !lib_have(template_string_$item(boozedrop_templateObject52 || (boozedrop_templateObject52 = boozedrop_taggedTemplateLiteral(["Sacramento wine"])))) || (0,external_kolmafia_namespaceObject.myInebriety)() >= (0,external_kolmafia_namespaceObject.inebrietyLimit)() || property_get("instant_saveSacramentoWine", false),
     do: () => {
       if ((0,external_kolmafia_namespaceObject.myInebriety)() < (0,external_kolmafia_namespaceObject.inebrietyLimit)()) {
-        tryAcquiringEffect($effect(boozedrop_templateObject51 || (boozedrop_templateObject51 = boozedrop_taggedTemplateLiteral(["Ode to Booze"]))));
-        (0,external_kolmafia_namespaceObject.drink)(template_string_$item(boozedrop_templateObject52 || (boozedrop_templateObject52 = boozedrop_taggedTemplateLiteral(["Sacramento wine"]))), 1);
-        uneffect($effect(boozedrop_templateObject53 || (boozedrop_templateObject53 = boozedrop_taggedTemplateLiteral(["Ode to Booze"]))));
+        tryAcquiringEffect($effect(boozedrop_templateObject53 || (boozedrop_templateObject53 = boozedrop_taggedTemplateLiteral(["Ode to Booze"]))));
+        (0,external_kolmafia_namespaceObject.drink)(template_string_$item(boozedrop_templateObject54 || (boozedrop_templateObject54 = boozedrop_taggedTemplateLiteral(["Sacramento wine"]))), 1);
+        uneffect($effect(boozedrop_templateObject55 || (boozedrop_templateObject55 = boozedrop_taggedTemplateLiteral(["Ode to Booze"]))));
       }
     },
     limit: {
@@ -17438,15 +17442,15 @@ var BoozeDropQuest = {
     }
   }, {
     name: "Drink Cabernet Sauvignon",
-    completed: () => lib_have($effect(boozedrop_templateObject54 || (boozedrop_templateObject54 = boozedrop_taggedTemplateLiteral(["Cabernet Hunter"])))) || !lib_have(template_string_$item(boozedrop_templateObject55 || (boozedrop_templateObject55 = boozedrop_taggedTemplateLiteral(["bottle of Cabernet Sauvignon"])))) && (!lib_have(template_string_$skill(boozedrop_templateObject56 || (boozedrop_templateObject56 = boozedrop_taggedTemplateLiteral(["Aug. 31st: Cabernet Sauvignon Day!"])))) || property_get("instant_saveAugustScepter", false)) || (0,external_kolmafia_namespaceObject.myInebriety)() + 3 > (0,external_kolmafia_namespaceObject.inebrietyLimit)() || property_get("instant_skipCabernetSauvignon", false),
+    completed: () => lib_have($effect(boozedrop_templateObject56 || (boozedrop_templateObject56 = boozedrop_taggedTemplateLiteral(["Cabernet Hunter"])))) || !lib_have(template_string_$item(boozedrop_templateObject57 || (boozedrop_templateObject57 = boozedrop_taggedTemplateLiteral(["bottle of Cabernet Sauvignon"])))) && (!lib_have(template_string_$skill(boozedrop_templateObject58 || (boozedrop_templateObject58 = boozedrop_taggedTemplateLiteral(["Aug. 31st: Cabernet Sauvignon Day!"])))) || property_get("instant_saveAugustScepter", false)) || (0,external_kolmafia_namespaceObject.myInebriety)() + 3 > (0,external_kolmafia_namespaceObject.inebrietyLimit)() || property_get("instant_skipCabernetSauvignon", false),
     do: () => {
-      if (!lib_have(template_string_$item(boozedrop_templateObject57 || (boozedrop_templateObject57 = boozedrop_taggedTemplateLiteral(["bottle of Cabernet Sauvignon"]))))) // eslint-disable-next-line libram/verify-constants
-        (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(boozedrop_templateObject58 || (boozedrop_templateObject58 = boozedrop_taggedTemplateLiteral(["Aug. 31st: Cabernet Sauvignon Day!"]))));
+      if (!lib_have(template_string_$item(boozedrop_templateObject59 || (boozedrop_templateObject59 = boozedrop_taggedTemplateLiteral(["bottle of Cabernet Sauvignon"]))))) // eslint-disable-next-line libram/verify-constants
+        (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(boozedrop_templateObject60 || (boozedrop_templateObject60 = boozedrop_taggedTemplateLiteral(["Aug. 31st: Cabernet Sauvignon Day!"]))));
 
       if ((0,external_kolmafia_namespaceObject.myInebriety)() + 3 <= (0,external_kolmafia_namespaceObject.inebrietyLimit)()) {
-        tryAcquiringEffect($effect(boozedrop_templateObject59 || (boozedrop_templateObject59 = boozedrop_taggedTemplateLiteral(["Ode to Booze"]))));
-        (0,external_kolmafia_namespaceObject.drink)(template_string_$item(boozedrop_templateObject60 || (boozedrop_templateObject60 = boozedrop_taggedTemplateLiteral(["bottle of Cabernet Sauvignon"]))));
-        uneffect($effect(boozedrop_templateObject61 || (boozedrop_templateObject61 = boozedrop_taggedTemplateLiteral(["Ode to Booze"]))));
+        tryAcquiringEffect($effect(boozedrop_templateObject61 || (boozedrop_templateObject61 = boozedrop_taggedTemplateLiteral(["Ode to Booze"]))));
+        (0,external_kolmafia_namespaceObject.drink)(template_string_$item(boozedrop_templateObject62 || (boozedrop_templateObject62 = boozedrop_taggedTemplateLiteral(["bottle of Cabernet Sauvignon"]))));
+        uneffect($effect(boozedrop_templateObject63 || (boozedrop_templateObject63 = boozedrop_taggedTemplateLiteral(["Ode to Booze"]))));
       }
     },
     limit: {
@@ -17455,7 +17459,7 @@ var BoozeDropQuest = {
   }, {
     name: "Deck Wheel of Fortune",
     ready: () => property_get("_deckCardsDrawn") <= 10,
-    completed: () => property_get("_deckCardsDrawn") >= 15 || !lib_have(template_string_$item(boozedrop_templateObject62 || (boozedrop_templateObject62 = boozedrop_taggedTemplateLiteral(["Deck of Every Card"])))) || property_get("instant_saveDeck", false),
+    completed: () => property_get("_deckCardsDrawn") >= 15 || !lib_have(template_string_$item(boozedrop_templateObject64 || (boozedrop_templateObject64 = boozedrop_taggedTemplateLiteral(["Deck of Every Card"])))) || property_get("instant_saveDeck", false),
     do: () => {
       (0,external_kolmafia_namespaceObject.cliExecute)("cheat fortune");
     },
@@ -17464,70 +17468,70 @@ var BoozeDropQuest = {
     }
   }, {
     name: "Power Seed",
-    completed: () => !lib_have(template_string_$item(boozedrop_templateObject63 || (boozedrop_templateObject63 = boozedrop_taggedTemplateLiteral(["potted power plant"])))) || (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(boozedrop_templateObject64 || (boozedrop_templateObject64 = boozedrop_taggedTemplateLiteral(["battery (AAA)"])))) < 5 && !lib_have(template_string_$item(boozedrop_templateObject65 || (boozedrop_templateObject65 = boozedrop_taggedTemplateLiteral(["battery (lantern)"])))) || property_get("instant_savePowerSeed", false),
+    completed: () => !lib_have(template_string_$item(boozedrop_templateObject65 || (boozedrop_templateObject65 = boozedrop_taggedTemplateLiteral(["potted power plant"])))) || (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(boozedrop_templateObject66 || (boozedrop_templateObject66 = boozedrop_taggedTemplateLiteral(["battery (AAA)"])))) < 5 && !lib_have(template_string_$item(boozedrop_templateObject67 || (boozedrop_templateObject67 = boozedrop_taggedTemplateLiteral(["battery (lantern)"])))) || property_get("instant_savePowerSeed", false),
     do: () => {
-      if ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(boozedrop_templateObject66 || (boozedrop_templateObject66 = boozedrop_taggedTemplateLiteral(["battery (AAA)"])))) >= 5) (0,external_kolmafia_namespaceObject.create)(template_string_$item(boozedrop_templateObject67 || (boozedrop_templateObject67 = boozedrop_taggedTemplateLiteral(["battery (lantern)"]))), 1);
-      (0,external_kolmafia_namespaceObject.use)(template_string_$item(boozedrop_templateObject68 || (boozedrop_templateObject68 = boozedrop_taggedTemplateLiteral(["battery (lantern)"]))), 1);
+      if ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(boozedrop_templateObject68 || (boozedrop_templateObject68 = boozedrop_taggedTemplateLiteral(["battery (AAA)"])))) >= 5) (0,external_kolmafia_namespaceObject.create)(template_string_$item(boozedrop_templateObject69 || (boozedrop_templateObject69 = boozedrop_taggedTemplateLiteral(["battery (lantern)"]))), 1);
+      (0,external_kolmafia_namespaceObject.use)(template_string_$item(boozedrop_templateObject70 || (boozedrop_templateObject70 = boozedrop_taggedTemplateLiteral(["battery (lantern)"]))), 1);
     },
     limit: {
       tries: 1
     }
   }, {
     name: "Pumpkin Juice",
-    completed: () => lib_have($effect(boozedrop_templateObject69 || (boozedrop_templateObject69 = boozedrop_taggedTemplateLiteral(["Juiced and Jacked"])))) || !lib_have(template_string_$item(boozedrop_templateObject70 || (boozedrop_templateObject70 = boozedrop_taggedTemplateLiteral(["pumpkin"])))) && !lib_have(template_string_$item(boozedrop_templateObject71 || (boozedrop_templateObject71 = boozedrop_taggedTemplateLiteral(["pumpkin juice"])))) || property_get("instant_savePumpkins", false),
+    completed: () => lib_have($effect(boozedrop_templateObject71 || (boozedrop_templateObject71 = boozedrop_taggedTemplateLiteral(["Juiced and Jacked"])))) || !lib_have(template_string_$item(boozedrop_templateObject72 || (boozedrop_templateObject72 = boozedrop_taggedTemplateLiteral(["pumpkin"])))) && !lib_have(template_string_$item(boozedrop_templateObject73 || (boozedrop_templateObject73 = boozedrop_taggedTemplateLiteral(["pumpkin juice"])))) || property_get("instant_savePumpkins", false),
     do: () => {
-      if (!lib_have(template_string_$item(boozedrop_templateObject72 || (boozedrop_templateObject72 = boozedrop_taggedTemplateLiteral(["pumpkin juice"]))))) (0,external_kolmafia_namespaceObject.create)(template_string_$item(boozedrop_templateObject73 || (boozedrop_templateObject73 = boozedrop_taggedTemplateLiteral(["pumpkin juice"]))), 1);
-      (0,external_kolmafia_namespaceObject.use)(template_string_$item(boozedrop_templateObject74 || (boozedrop_templateObject74 = boozedrop_taggedTemplateLiteral(["pumpkin juice"]))), 1);
+      if (!lib_have(template_string_$item(boozedrop_templateObject74 || (boozedrop_templateObject74 = boozedrop_taggedTemplateLiteral(["pumpkin juice"]))))) (0,external_kolmafia_namespaceObject.create)(template_string_$item(boozedrop_templateObject75 || (boozedrop_templateObject75 = boozedrop_taggedTemplateLiteral(["pumpkin juice"]))), 1);
+      (0,external_kolmafia_namespaceObject.use)(template_string_$item(boozedrop_templateObject76 || (boozedrop_templateObject76 = boozedrop_taggedTemplateLiteral(["pumpkin juice"]))), 1);
     },
     limit: {
       tries: 1
     }
   }, {
     name: "Loathing Idol Microphone",
-    completed: () => lib_have($effect(boozedrop_templateObject75 || (boozedrop_templateObject75 = boozedrop_taggedTemplateLiteral(["Spitting Rhymes"])))) || !lib_have(template_string_$item(boozedrop_templateObject76 || (boozedrop_templateObject76 = boozedrop_taggedTemplateLiteral(["2002 Mr. Store Catalog"])))) || property_get("availableMrStore2002Credits", 0) <= property_get("instant_saveCatalogCredits", 0) || forbiddenEffects.includes($effect(boozedrop_templateObject77 || (boozedrop_templateObject77 = boozedrop_taggedTemplateLiteral(["Spitting Rhymes"])))),
+    completed: () => lib_have($effect(boozedrop_templateObject77 || (boozedrop_templateObject77 = boozedrop_taggedTemplateLiteral(["Spitting Rhymes"])))) || !lib_have(template_string_$item(boozedrop_templateObject78 || (boozedrop_templateObject78 = boozedrop_taggedTemplateLiteral(["2002 Mr. Store Catalog"])))) || property_get("availableMrStore2002Credits", 0) <= property_get("instant_saveCatalogCredits", 0) || forbiddenEffects.includes($effect(boozedrop_templateObject79 || (boozedrop_templateObject79 = boozedrop_taggedTemplateLiteral(["Spitting Rhymes"])))),
     do: () => {
-      if (!lib_have(template_string_$item(boozedrop_templateObject78 || (boozedrop_templateObject78 = boozedrop_taggedTemplateLiteral(["Loathing Idol Microphone"]))))) {
-        (0,external_kolmafia_namespaceObject.buy)($coinmaster(boozedrop_templateObject79 || (boozedrop_templateObject79 = boozedrop_taggedTemplateLiteral(["Mr. Store 2002"]))), 1, template_string_$item(boozedrop_templateObject80 || (boozedrop_templateObject80 = boozedrop_taggedTemplateLiteral(["Loathing Idol Microphone"]))));
+      if (!lib_have(template_string_$item(boozedrop_templateObject80 || (boozedrop_templateObject80 = boozedrop_taggedTemplateLiteral(["Loathing Idol Microphone"]))))) {
+        (0,external_kolmafia_namespaceObject.buy)($coinmaster(boozedrop_templateObject81 || (boozedrop_templateObject81 = boozedrop_taggedTemplateLiteral(["Mr. Store 2002"]))), 1, template_string_$item(boozedrop_templateObject82 || (boozedrop_templateObject82 = boozedrop_taggedTemplateLiteral(["Loathing Idol Microphone"]))));
       }
 
-      property_withChoice(1505, 3, () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(boozedrop_templateObject81 || (boozedrop_templateObject81 = boozedrop_taggedTemplateLiteral(["Loathing Idol Microphone"])))));
+      property_withChoice(1505, 3, () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(boozedrop_templateObject83 || (boozedrop_templateObject83 = boozedrop_taggedTemplateLiteral(["Loathing Idol Microphone"])))));
     },
     limit: {
       tries: 1
     }
   }, {
     name: "Favorite Bird (Item)",
-    completed: () => !lib_have(template_string_$skill(boozedrop_templateObject82 || (boozedrop_templateObject82 = boozedrop_taggedTemplateLiteral(["Visit your Favorite Bird"])))) || property_get("_favoriteBirdVisited") || !property_get("yourFavoriteBirdMods").includes("Item Drops") || property_get("instant_saveFavoriteBird", false),
-    do: () => (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(boozedrop_templateObject83 || (boozedrop_templateObject83 = boozedrop_taggedTemplateLiteral(["Visit your Favorite Bird"])))),
+    completed: () => !lib_have(template_string_$skill(boozedrop_templateObject84 || (boozedrop_templateObject84 = boozedrop_taggedTemplateLiteral(["Visit your Favorite Bird"])))) || property_get("_favoriteBirdVisited") || !property_get("yourFavoriteBirdMods").includes("Item Drops") || property_get("instant_saveFavoriteBird", false),
+    do: () => (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(boozedrop_templateObject85 || (boozedrop_templateObject85 = boozedrop_taggedTemplateLiteral(["Visit your Favorite Bird"])))),
     limit: {
       tries: 1
     }
   }, {
     name: "Buy Oversized Sparkler",
     ready: () => (0,external_kolmafia_namespaceObject.myMeat)() >= 1000,
-    completed: () => lib_have(template_string_$item(boozedrop_templateObject84 || (boozedrop_templateObject84 = boozedrop_taggedTemplateLiteral(["oversized sparkler"])))),
-    do: () => (0,external_kolmafia_namespaceObject.buy)(template_string_$item(boozedrop_templateObject85 || (boozedrop_templateObject85 = boozedrop_taggedTemplateLiteral(["oversized sparkler"]))), 1),
+    completed: () => lib_have(template_string_$item(boozedrop_templateObject86 || (boozedrop_templateObject86 = boozedrop_taggedTemplateLiteral(["oversized sparkler"])))),
+    do: () => (0,external_kolmafia_namespaceObject.buy)(template_string_$item(boozedrop_templateObject87 || (boozedrop_templateObject87 = boozedrop_taggedTemplateLiteral(["oversized sparkler"]))), 1),
     limit: {
       tries: 1
     }
   }, {
     name: "Test",
     prepare: () => {
-      var usefulEffects = [$effect(boozedrop_templateObject86 || (boozedrop_templateObject86 = boozedrop_taggedTemplateLiteral(["Blessing of the Bird"]))), $effect(boozedrop_templateObject87 || (boozedrop_templateObject87 = boozedrop_taggedTemplateLiteral(["Crunching Leaves"]))), $effect(boozedrop_templateObject88 || (boozedrop_templateObject88 = boozedrop_taggedTemplateLiteral(["Fat Leon's Phat Loot Lyric"]))), // $effect`Feeling Lost`,
-      $effect(boozedrop_templateObject89 || (boozedrop_templateObject89 = boozedrop_taggedTemplateLiteral(["Fortunate Resolve"]))), $effect(boozedrop_templateObject90 || (boozedrop_templateObject90 = boozedrop_taggedTemplateLiteral(["Heart of Lavender"]))), $effect(boozedrop_templateObject91 || (boozedrop_templateObject91 = boozedrop_taggedTemplateLiteral(["I See Everything Thrice!"]))), $effect(boozedrop_templateObject92 || (boozedrop_templateObject92 = boozedrop_taggedTemplateLiteral(["Incredibly Well Lit"]))), $effect(boozedrop_templateObject93 || (boozedrop_templateObject93 = boozedrop_taggedTemplateLiteral(["items.enh"]))), $effect(boozedrop_templateObject94 || (boozedrop_templateObject94 = boozedrop_taggedTemplateLiteral(["Joyful Resolve"]))), $effect(boozedrop_templateObject95 || (boozedrop_templateObject95 = boozedrop_taggedTemplateLiteral(["One Very Clear Eye"]))), $effect(boozedrop_templateObject96 || (boozedrop_templateObject96 = boozedrop_taggedTemplateLiteral(["Nearly All-Natural"]))), $effect(boozedrop_templateObject97 || (boozedrop_templateObject97 = boozedrop_taggedTemplateLiteral(["The Spirit of Taking"]))), $effect(boozedrop_templateObject98 || (boozedrop_templateObject98 = boozedrop_taggedTemplateLiteral(["Singer's Faithful Ocelot"]))), $effect(boozedrop_templateObject99 || (boozedrop_templateObject99 = boozedrop_taggedTemplateLiteral(["Steely-Eyed Squint"]))), $effect(boozedrop_templateObject100 || (boozedrop_templateObject100 = boozedrop_taggedTemplateLiteral(["Uncucumbered"])))];
+      var usefulEffects = [$effect(boozedrop_templateObject88 || (boozedrop_templateObject88 = boozedrop_taggedTemplateLiteral(["Blessing of the Bird"]))), $effect(boozedrop_templateObject89 || (boozedrop_templateObject89 = boozedrop_taggedTemplateLiteral(["Crunching Leaves"]))), $effect(boozedrop_templateObject90 || (boozedrop_templateObject90 = boozedrop_taggedTemplateLiteral(["Fat Leon's Phat Loot Lyric"]))), // $effect`Feeling Lost`,
+      $effect(boozedrop_templateObject91 || (boozedrop_templateObject91 = boozedrop_taggedTemplateLiteral(["Fortunate Resolve"]))), $effect(boozedrop_templateObject92 || (boozedrop_templateObject92 = boozedrop_taggedTemplateLiteral(["Heart of Lavender"]))), $effect(boozedrop_templateObject93 || (boozedrop_templateObject93 = boozedrop_taggedTemplateLiteral(["I See Everything Thrice!"]))), $effect(boozedrop_templateObject94 || (boozedrop_templateObject94 = boozedrop_taggedTemplateLiteral(["Incredibly Well Lit"]))), $effect(boozedrop_templateObject95 || (boozedrop_templateObject95 = boozedrop_taggedTemplateLiteral(["items.enh"]))), $effect(boozedrop_templateObject96 || (boozedrop_templateObject96 = boozedrop_taggedTemplateLiteral(["Joyful Resolve"]))), $effect(boozedrop_templateObject97 || (boozedrop_templateObject97 = boozedrop_taggedTemplateLiteral(["One Very Clear Eye"]))), $effect(boozedrop_templateObject98 || (boozedrop_templateObject98 = boozedrop_taggedTemplateLiteral(["Nearly All-Natural"]))), $effect(boozedrop_templateObject99 || (boozedrop_templateObject99 = boozedrop_taggedTemplateLiteral(["The Spirit of Taking"]))), $effect(boozedrop_templateObject100 || (boozedrop_templateObject100 = boozedrop_taggedTemplateLiteral(["Singer's Faithful Ocelot"]))), $effect(boozedrop_templateObject101 || (boozedrop_templateObject101 = boozedrop_taggedTemplateLiteral(["Steely-Eyed Squint"]))), $effect(boozedrop_templateObject102 || (boozedrop_templateObject102 = boozedrop_taggedTemplateLiteral(["Uncucumbered"])))];
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
 
-      if (lib_have(template_string_$familiar(boozedrop_templateObject101 || (boozedrop_templateObject101 = boozedrop_taggedTemplateLiteral(["Trick-or-Treating Tot"])))) && lib_have(template_string_$item(boozedrop_templateObject102 || (boozedrop_templateObject102 = boozedrop_taggedTemplateLiteral(["li'l ninja costume"]))))) {
-        (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(boozedrop_templateObject103 || (boozedrop_templateObject103 = boozedrop_taggedTemplateLiteral(["Trick-or-Treating Tot"]))));
-        (0,external_kolmafia_namespaceObject.equip)($slot(boozedrop_templateObject104 || (boozedrop_templateObject104 = boozedrop_taggedTemplateLiteral(["familiar"]))), template_string_$item(boozedrop_templateObject105 || (boozedrop_templateObject105 = boozedrop_taggedTemplateLiteral(["li'l ninja costume"]))));
+      if (lib_have(template_string_$familiar(boozedrop_templateObject103 || (boozedrop_templateObject103 = boozedrop_taggedTemplateLiteral(["Trick-or-Treating Tot"])))) && lib_have(template_string_$item(boozedrop_templateObject104 || (boozedrop_templateObject104 = boozedrop_taggedTemplateLiteral(["li'l ninja costume"]))))) {
+        (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(boozedrop_templateObject105 || (boozedrop_templateObject105 = boozedrop_taggedTemplateLiteral(["Trick-or-Treating Tot"]))));
+        (0,external_kolmafia_namespaceObject.equip)($slot(boozedrop_templateObject106 || (boozedrop_templateObject106 = boozedrop_taggedTemplateLiteral(["familiar"]))), template_string_$item(boozedrop_templateObject107 || (boozedrop_templateObject107 = boozedrop_taggedTemplateLiteral(["li'l ninja costume"]))));
       }
 
-      if (lib_have(template_string_$skill(boozedrop_templateObject106 || (boozedrop_templateObject106 = boozedrop_taggedTemplateLiteral(["Aug. 26th: Toilet Paper Day!"])))) && lib_have(template_string_$skill(boozedrop_templateObject107 || (boozedrop_templateObject107 = boozedrop_taggedTemplateLiteral(["Feel Lost"])))) && CommunityService.BoozeDrop.actualCost() > 1) {
-        (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(boozedrop_templateObject108 || (boozedrop_templateObject108 = boozedrop_taggedTemplateLiteral(["Aug. 26th: Toilet Paper Day!"]))));
+      if (lib_have(template_string_$skill(boozedrop_templateObject108 || (boozedrop_templateObject108 = boozedrop_taggedTemplateLiteral(["Aug. 26th: Toilet Paper Day!"])))) && lib_have(template_string_$skill(boozedrop_templateObject109 || (boozedrop_templateObject109 = boozedrop_taggedTemplateLiteral(["Feel Lost"])))) && CommunityService.BoozeDrop.actualCost() > 1) {
+        (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(boozedrop_templateObject110 || (boozedrop_templateObject110 = boozedrop_taggedTemplateLiteral(["Aug. 26th: Toilet Paper Day!"]))));
       } // If it saves us >= 6 turns, try using a wish
 
 
-      if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect(boozedrop_templateObject109 || (boozedrop_templateObject109 = boozedrop_taggedTemplateLiteral(["Infernal Thirst"]))));
+      if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect(boozedrop_templateObject111 || (boozedrop_templateObject111 = boozedrop_taggedTemplateLiteral(["Infernal Thirst"]))));
     },
     completed: () => CommunityService.BoozeDrop.isDone(),
     do: () => {
@@ -17547,8 +17551,8 @@ var BoozeDropQuest = {
       modifier: "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man"
     },
     post: () => {
-      if (lib_have($effect(boozedrop_templateObject110 || (boozedrop_templateObject110 = boozedrop_taggedTemplateLiteral(["Feeling Lost"])))) && lib_have(template_string_$item(boozedrop_templateObject111 || (boozedrop_templateObject111 = boozedrop_taggedTemplateLiteral(["handful of toilet paper"]))))) (0,external_kolmafia_namespaceObject.use)(1, template_string_$item(boozedrop_templateObject112 || (boozedrop_templateObject112 = boozedrop_taggedTemplateLiteral(["handful of toilet paper"]))));
-      if (lib_have($effect(boozedrop_templateObject113 || (boozedrop_templateObject113 = boozedrop_taggedTemplateLiteral(["Feeling Lost"]))))) throw new Error("Failed to shrug Feeling Lost with handful of toilet paper!");
+      if (lib_have($effect(boozedrop_templateObject112 || (boozedrop_templateObject112 = boozedrop_taggedTemplateLiteral(["Feeling Lost"])))) && lib_have(template_string_$item(boozedrop_templateObject113 || (boozedrop_templateObject113 = boozedrop_taggedTemplateLiteral(["handful of toilet paper"]))))) (0,external_kolmafia_namespaceObject.use)(1, template_string_$item(boozedrop_templateObject114 || (boozedrop_templateObject114 = boozedrop_taggedTemplateLiteral(["handful of toilet paper"]))));
+      if (lib_have($effect(boozedrop_templateObject115 || (boozedrop_templateObject115 = boozedrop_taggedTemplateLiteral(["Feeling Lost"]))))) throw new Error("Failed to shrug Feeling Lost with handful of toilet paper!");
     },
     limit: {
       tries: 1
