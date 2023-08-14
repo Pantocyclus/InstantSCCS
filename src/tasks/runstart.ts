@@ -542,9 +542,10 @@ export const RunStartQuest: Quest = {
       },
       completed: () =>
         have($item`cherry`) &&
-        $monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton, novelty tropical skeleton`.filter(
+        ($monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton, novelty tropical skeleton`.filter(
           (m) => Array.from(getBanishedMonsters().values()).includes(m)
-        ).length >= (have($skill`Map the Monsters`) ? 2 : 3),
+        ).length >= (have($skill`Map the Monsters`) ? 2 : 3) ||
+           get("_snokebombUsed") >= 2),
       do: $location`The Skeleton Store`,
       combat: new CombatStrategy().macro(
         Macro.if_(
