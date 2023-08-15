@@ -542,21 +542,29 @@ export const RunStartQuest: Quest = {
       },
       completed: () =>
         have($item`cherry`) &&
-        ($monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton, novelty tropical skeleton`.filter(
+        $monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton, novelty tropical skeleton`.filter(
           (m) => Array.from(getBanishedMonsters().values()).includes(m)
-        ).length >= (have($skill`Map the Monsters`) ? 2 : 3) ||
-           get("_snokebombUsed") >= 2),
+        ).length >= (have($skill`Map the Monsters`) ? 2 : 3),
       do: $location`The Skeleton Store`,
-      combat: new CombatStrategy().macro(
+      combat: new CombatStrategy().macro(() =>
         Macro.if_(
           $monster`novelty tropical skeleton`,
           (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro()).tryItem(
             $item`yellow rocket`
           )
         )
-          .trySkill($skill`Bowl a Curveball`)
-          .trySkill($skill`Snokebomb`)
-          .trySkill($skill`Monkey Slap`)
+          .externalIf(
+            !Array.from(getBanishedMonsters().keys()).includes($skill`Bowl a Curveball`),
+            Macro.trySkill($skill`Bowl a Curveball`)
+          )
+          .externalIf(
+            !Array.from(getBanishedMonsters().keys()).includes($skill`Snokebomb`),
+            Macro.trySkill($skill`Snokebomb`)
+          )
+          .externalIf(
+            !Array.from(getBanishedMonsters().keys()).includes($skill`Monkey Slap`),
+            Macro.trySkill($skill`Monkey Slap`)
+          )
           .abort()
       ),
       outfit: (): OutfitSpec => {
