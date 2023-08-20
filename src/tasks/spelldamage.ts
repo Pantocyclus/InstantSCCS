@@ -4,6 +4,7 @@ import {
   drink,
   Effect,
   elementalResistance,
+  equip,
   equippedItem,
   inebrietyLimit,
   myAdventures,
@@ -213,6 +214,7 @@ export const SpellDamageQuest: Quest = {
       outfit: { modifier: "spell dmg, switch disembodied hand, -switch left-hand man" },
       post: (): void => {
         if (have($skill`Spirit of Nothing`)) useSkill($skill`Spirit of Nothing`);
+        if (have($familiar`Left-Hand Man`)) equip($familiar`Left-Hand Man`, $item.none);
       },
       limit: { tries: 1 },
     },
