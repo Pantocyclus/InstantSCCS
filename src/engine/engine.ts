@@ -93,6 +93,7 @@ export const farmingResourceResources: trackedResource[] = [
   new trackedResource("_deckCardsDrawn", "Deck Draws", 15),
   new trackedResource("_macrometeoriteUses", "Macrometeorites", 10),
   new trackedResource("_AAABatteriesUsed", "Batteries (AAA)", 7),
+  new trackedResource("_augSkillsCasts", "August Scepter Charges", 5),
   new trackedResource("_monkeyPawWishesUsed", "Monkey Paw Wishes", 5),
   new trackedResource("tomeSummons", "Tome Summons", 3),
   new trackedResource("_genieWishesUsed", "Genie Wishes", 3),
