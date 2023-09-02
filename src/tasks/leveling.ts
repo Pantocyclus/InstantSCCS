@@ -728,7 +728,12 @@ export const LevelingQuest: Quest = {
         (!have($effect`Shadow Affinity`) && get("encountersUntilSRChoice") !== 0) ||
         !have($item`closed-circuit pay phone`),
       do: bestShadowRift(),
-      combat: new CombatStrategy().macro(Macro.tryItem($item`red rocket`).default()),
+      combat: new CombatStrategy().macro(
+        Macro.tryItem($item`red rocket`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Recall Facts: Circadian Rhythms`)
+          .default()
+      ),
       outfit: baseOutfit,
       post: (): void => {
         if (have(rufusTarget() as Item)) {
@@ -783,7 +788,10 @@ export const LevelingQuest: Quest = {
       },
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
       do: $location`The X-32-F Combat Training Snowman`,
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(
+        // eslint-disable-next-line libram/verify-constants
+        Macro.trySkill($skill`Recall Facts: Circadian Rhythms`).default()
+      ),
       outfit: baseOutfit,
       limit: { tries: 10 },
       post: (): void => {
@@ -1152,6 +1160,8 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`red rocket`)
           .trySkill($skill`Bowl Sideways`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Recall Facts: Circadian Rhythms`)
           .default(useCinch)
       ),
       post: (): void => {
@@ -1379,6 +1389,8 @@ export const LevelingQuest: Quest = {
         Macro.trySkill($skill`Feel Pride`)
           .trySkill($skill`Cincho: Confetti Extravaganza`)
           .trySkill($skill`Gulp Latte`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Recall Facts: Circadian Rhythms`)
           .trySkill($skill`Chest X-Ray`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)

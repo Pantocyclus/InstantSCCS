@@ -380,6 +380,12 @@ export const RunStartQuest: Quest = {
       do: () => cliExecute("fold broken champagne bottle"),
     },
     {
+      name: "Grab Wishes",
+      completed: () => !have($item`genie bottle`) || get("_genieWishesUsed") >= 3,
+      do: () => cliExecute("genie item pocket"),
+      limit: { tries: 3 },
+    },
+    {
       name: "Harvest Power Plant",
       completed: () =>
         !have($item`potted power plant`) ||

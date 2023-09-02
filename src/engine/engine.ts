@@ -96,7 +96,7 @@ export const farmingResourceResources: trackedResource[] = [
   new trackedResource("_augSkillsCasts", "August Scepter Charges", 5),
   new trackedResource("_monkeyPawWishesUsed", "Monkey Paw Wishes", 5),
   new trackedResource("tomeSummons", "Tome Summons", 3),
-  new trackedResource("_genieWishesUsed", "Genie Wishes", 3),
+  new trackedResource($item`pocket wish`, "Genie Wishes", 3),
   new trackedResource("_pottedTeaTreeUsed", "Tea Tree", 3),
   new trackedResource($item`peppermint sprout`, "Peppermint Sprout", 3),
   new trackedResource("_favoriteBirdVisited", "Favorite Bird", 1),
