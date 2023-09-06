@@ -21,6 +21,7 @@ import {
   Monster,
   mpCost,
   myBasestat,
+  myClass,
   myHash,
   myHp,
   myInebriety,
@@ -45,6 +46,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
+  $class,
   $coinmaster,
   $effect,
   $effects,
@@ -178,7 +180,14 @@ export function bestShadowRift(): Location {
         canAdventure: true,
         sortBy: (l: Location) => {
           const drops = getMonsters(l)
-            .map((m) => Object.keys(itemDrops(m)).map((s) => toItem(s)))
+            .map((m) =>
+              [
+                ...Object.keys(itemDrops(m)).map((s) => toItem(s)),
+                m === $monster`shadow guy` && have($skill`Just the Facts`)
+                  ? $item`pocket wish`
+                  : $item.none,
+              ].filter((i) => i !== $item.none)
+            )
             .reduce((acc, val) => acc.concat(val), []);
           return sum(drops, mallPrice);
         },
