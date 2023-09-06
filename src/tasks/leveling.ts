@@ -21,7 +21,6 @@ import {
   Monster,
   mpCost,
   myBasestat,
-  myClass,
   myHash,
   myHp,
   myInebriety,
@@ -46,7 +45,6 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
-  $class,
   $coinmaster,
   $effect,
   $effects,
