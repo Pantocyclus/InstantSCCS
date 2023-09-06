@@ -737,8 +737,7 @@ export const LevelingQuest: Quest = {
       do: bestShadowRift(),
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`red rocket`)
-          // eslint-disable-next-line libram/verify-constants
-          .trySkill($skill`Recall Facts: Circadian Rhythms`)
+          .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
           .default()
       ),
       outfit: baseOutfit,
@@ -796,8 +795,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
       do: $location`The X-32-F Combat Training Snowman`,
       combat: new CombatStrategy().macro(
-        // eslint-disable-next-line libram/verify-constants
-        Macro.trySkill($skill`Recall Facts: Circadian Rhythms`).default()
+        Macro.trySkill($skill`Recall Facts: %phylum Circadian Rhythms`).default()
       ),
       outfit: baseOutfit,
       limit: { tries: 10 },
@@ -1167,8 +1165,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`red rocket`)
           .trySkill($skill`Bowl Sideways`)
-          // eslint-disable-next-line libram/verify-constants
-          .trySkill($skill`Recall Facts: Circadian Rhythms`)
+          .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
           .default(useCinch)
       ),
       post: (): void => {
@@ -1396,8 +1393,7 @@ export const LevelingQuest: Quest = {
         Macro.trySkill($skill`Feel Pride`)
           .trySkill($skill`Cincho: Confetti Extravaganza`)
           .trySkill($skill`Gulp Latte`)
-          // eslint-disable-next-line libram/verify-constants
-          .trySkill($skill`Recall Facts: Circadian Rhythms`)
+          .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
           .trySkill($skill`Chest X-Ray`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
