@@ -346,14 +346,6 @@ export const BoozeDropQuest: Quest = {
           equip($slot`familiar`, $item`li'l ninja costume`);
         }
 
-        if (
-          have($skill`Aug. 26th: Toilet Paper Day!`) &&
-          have($skill`Feel Lost`) &&
-          CommunityService.BoozeDrop.actualCost() > 1
-        ) {
-          useSkill($skill`Aug. 26th: Toilet Paper Day!`);
-        }
-
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect`Infernal Thirst`);
       },
@@ -375,12 +367,6 @@ export const BoozeDropQuest: Quest = {
       outfit: {
         modifier:
           "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man",
-      },
-      post: (): void => {
-        if (have($effect`Feeling Lost`) && have($item`handful of toilet paper`))
-          use(1, $item`handful of toilet paper`);
-        if (have($effect`Feeling Lost`))
-          throw new Error("Failed to shrug Feeling Lost with handful of toilet paper!");
       },
       limit: { tries: 1 },
     },
