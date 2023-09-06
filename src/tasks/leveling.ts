@@ -162,10 +162,10 @@ export function powerlevelingLocation(): Location {
   if (get("neverendingPartyAlways")) return $location`The Neverending Party`;
   else if (get("stenchAirportAlways") || get("_stenchAirportToday"))
     return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`;
-  else if (get("spookyAirportAlways")) return $location`The Deep Dark Jungle`;
   else if (get("hotAirportAlways")) return $location`The SMOOCH Army HQ`;
   else if (get("coldAirportAlways")) return $location`VYKEA`;
   else if (get("sleazeAirportAlways")) return $location`Sloppy Seconds Diner`;
+  else if (get("spookyAirportAlways")) return $location`The Deep Dark Jungle`;
 
   return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`; // Default location
 }
