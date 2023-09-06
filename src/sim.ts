@@ -115,6 +115,11 @@ function buildIotmList(): Requirement[] {
       why: "Free fights, Turngen",
       optional: true,
     },
+    {
+      thing: $skill`Just the Facts`,
+      why: "More fights from locket, more wishes from rift",
+      optional: true,
+    },
   ];
 }
 

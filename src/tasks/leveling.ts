@@ -933,6 +933,33 @@ export const LevelingQuest: Quest = {
       outfit: { modifier: "myst, mp" },
     },
     {
+      name: "Monster Habitats",
+      ready: () => get("monsterHabitatsFightsLeft") > 0,
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        garbageShirt();
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
+      },
+      completed: () => get("monsterHabitatsFightsLeft") === 0,
+      do: $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(() =>
+        Macro.externalIf(
+          get("monsterHabitatsFightsLeft") <= 1 &&
+            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
+            have($skill`Recall Facts: Monster Habitats`),
+          Macro.trySkill($skill`Recall Facts: Monster Habitats`)
+        ).default(useCinch)
+      ),
+      outfit: baseOutfit,
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 15 },
+    },
+    {
       name: "Backups",
       ready: () => freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none),
       prepare: (): void => {
@@ -979,7 +1006,14 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(),
         offhand: $item`Kramco Sausage-o-Matic™`,
       }),
-      combat: new CombatStrategy().macro(Macro.default(useCinch)),
+      combat: new CombatStrategy().macro(() =>
+        Macro.externalIf(
+          get("monsterHabitatsFightsLeft") <= 1 &&
+            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
+            have($skill`Recall Facts: Monster Habitats`),
+          Macro.trySkill($skill`Recall Facts: Monster Habitats`)
+        ).default(useCinch)
+      ),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -1105,7 +1139,14 @@ export const LevelingQuest: Quest = {
         !Witchess.have() ||
         get("instant_saveWitchess", false),
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
-      combat: new CombatStrategy().macro(Macro.default(useCinch)),
+      combat: new CombatStrategy().macro(() =>
+        Macro.externalIf(
+          get("monsterHabitatsFightsLeft") <= 1 &&
+            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
+            have($skill`Recall Facts: Monster Habitats`),
+          Macro.trySkill($skill`Recall Facts: Monster Habitats`)
+        ).default(useCinch)
+      ),
       outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();
@@ -1349,7 +1390,14 @@ export const LevelingQuest: Quest = {
         get("instant_saveLocketWitchessKing", false) ||
         have($item`dented scepter`),
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
-      combat: new CombatStrategy().macro(Macro.default(useCinch)),
+      combat: new CombatStrategy().macro(() =>
+        Macro.externalIf(
+          get("monsterHabitatsFightsLeft") <= 1 &&
+            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
+            have($skill`Recall Facts: Monster Habitats`),
+          Macro.trySkill($skill`Recall Facts: Monster Habitats`)
+        ).default(useCinch)
+      ),
       outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();

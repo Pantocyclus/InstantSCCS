@@ -99,6 +99,7 @@ export const farmingResourceResources: trackedResource[] = [
   new trackedResource($item`pocket wish`, "Genie Wishes", 3),
   new trackedResource("_pottedTeaTreeUsed", "Tea Tree", 3),
   new trackedResource($item`peppermint sprout`, "Peppermint Sprout", 3),
+  new trackedResource("_monsterHabitatsRecalled", "Monster Habitats", 3),
   new trackedResource("_favoriteBirdVisited", "Favorite Bird", 1),
   new trackedResource("_clanFortuneBuffUsed", "Zatara Consult", 1),
   new trackedResource("_floundryItemCreated", "Clan Floundry", 1),

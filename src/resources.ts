@@ -197,6 +197,12 @@ const farmingResources: Resource[] = [
     "Do not use any August Scepter skills",
     $effects`Incredibly Well Lit, Offhand Remarkable`
   ),
+  new Resource(
+    "instant_saveMonsterHabitats",
+    (n) => `Save ${n}/3 Recall Facts: Monster Habitats! casts`,
+    [],
+    get("instant_saveMonsterHabitats", false) ? 3 : 0
+  ),
 ];
 
 const otherResources: Resource[] = [
