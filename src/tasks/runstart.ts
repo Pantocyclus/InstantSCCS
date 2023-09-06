@@ -138,6 +138,7 @@ export const RunStartQuest: Quest = {
       ready: () => get("_deckCardsDrawn") === 0,
       completed: () =>
         get("_deckCardsDrawn") >= 10 ||
+        (have($item`wrench`) && have($item`candlestick`)) ||
         !have($item`Deck of Every Card`) ||
         get("instant_saveDeck", false),
       do: (): void => {

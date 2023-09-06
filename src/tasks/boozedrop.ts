@@ -252,9 +252,9 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Deck Wheel of Fortune",
-      ready: () => get("_deckCardsDrawn") <= 10,
       completed: () =>
-        get("_deckCardsDrawn") >= 15 ||
+        get("_deckCardsDrawn") > 10 ||
+        have($effect`Fortune of the Wheel`) ||
         !have($item`Deck of Every Card`) ||
         get("instant_saveDeck", false),
       do: (): void => {
