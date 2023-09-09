@@ -79,6 +79,7 @@ import {
   getSynthExpBuff,
   getValidComplexCandyPairs,
   haveCBBIngredients,
+  overlevelled,
   refillLatte,
   synthExpBuff,
   targetBaseMyst,
@@ -1180,6 +1181,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         myBasestat($stat`Mysticality`) >= targetBaseMyst - targetBaseMystGap &&
         (haveCBBIngredients(false) ||
+          overlevelled() ||
           craftedCBBEffects.some((ef) => have(ef)) ||
           craftedCBBEffects.every((ef) => forbiddenEffects.includes(ef))) &&
         (powerlevelingLocation() !== $location`The Neverending Party` ||
@@ -1210,6 +1212,7 @@ export const LevelingQuest: Quest = {
           .default(useCinch)
       ),
       post: (): void => {
+        haveCBBIngredients(false, true);
         if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -1435,7 +1438,7 @@ export const LevelingQuest: Quest = {
         myBasestat($stat`Mysticality`) >= targetBaseMyst &&
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
-        haveCBBIngredients(true),
+        (haveCBBIngredients(true) || overlevelled()),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Pride`)
@@ -1473,6 +1476,7 @@ export const LevelingQuest: Quest = {
           create($item`Pete's wiley whey bar`, 1);
           eat($item`Pete's wiley whey bar`, 1);
         }
+        haveCBBIngredients(true, true);
         if (have($item`SMOOCH coffee cup`)) chew($item`SMOOCH coffee cup`, 1);
         sendAutumnaton();
         sellMiscellaneousItems();

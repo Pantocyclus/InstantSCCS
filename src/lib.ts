@@ -12,6 +12,7 @@ import {
   mpCost,
   myBasestat,
   myBuffedstat,
+  myLevel,
   myMaxhp,
   myMp,
   print,
@@ -253,9 +254,12 @@ export function wishFor(ef: Effect, useGenie = true): void {
   }
 }
 
+export function overlevelled(): boolean {
+  return myLevel() >= 18;
+}
 export const targetBaseMyst = get("instant_targetBaseMyst", 190);
 export const targetBaseMystGap = get("instant_targetBaseMystGap", 15);
-export function haveCBBIngredients(fullCheck: boolean): boolean {
+export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean {
   if (!have($familiar`Cookbookbat`)) return true;
   let yeast = 0,
     vegetable = 0,
@@ -283,6 +287,11 @@ export function haveCBBIngredients(fullCheck: boolean): boolean {
     ) {
       whey += 1;
     }
+  }
+  if (verbose) {
+    print(`Still Looking for ${Math.max(0, yeast - itemAmount($item`Yeast of Boris`))} yeasts,
+    ${Math.max(0, vegetable - itemAmount($item`Vegetable of Jarlsberg`))} vegetables and
+    ${Math.max(0, whey - itemAmount($item`St. Sneaky Pete's Whey`))} wheys`);
   }
   return (
     itemAmount($item`Yeast of Boris`) >= yeast &&
