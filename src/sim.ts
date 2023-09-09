@@ -559,7 +559,6 @@ function buildMiscList(): Requirement[] {
       thing: $skill`Evoke Eldritch Horror`,
       why: "Free Fight",
       optional: true,
-      recommended: true,
     },
 
     {
