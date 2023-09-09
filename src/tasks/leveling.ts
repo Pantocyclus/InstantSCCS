@@ -88,7 +88,7 @@ import {
   wishFor,
 } from "../lib";
 import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
-import Macro from "../combat";
+import Macro, { haveFreeBanish } from "../combat";
 import { forbiddenEffects } from "../resources";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import {
@@ -935,7 +935,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Monster Habitats",
-      ready: () => get("monsterHabitatsFightsLeft") > 0,
+      ready: () => get("monsterHabitatsFightsLeft") > 0 && haveFreeBanish(),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
@@ -943,15 +943,18 @@ export const LevelingQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
-      completed: () => get("monsterHabitatsFightsLeft") === 0,
+      completed: () => get("monsterHabitatsFightsLeft") === 0 || !haveFreeBanish(),
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() =>
-        Macro.externalIf(
-          get("monsterHabitatsFightsLeft") <= 1 &&
-            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
-            have($skill`Recall Facts: Monster Habitats`),
-          Macro.trySkill($skill`Recall Facts: Monster Habitats`)
-        ).default(useCinch)
+        Macro.if_($monster`fluffy bunny`, Macro.banish())
+          .externalIf(
+            get("monsterHabitatsFightsLeft") <= 1 &&
+              get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
+              have($skill`Recall Facts: Monster Habitats`) &&
+              haveFreeBanish(),
+            Macro.trySkill($skill`Recall Facts: Monster Habitats`)
+          )
+          .default(useCinch)
       ),
       outfit: baseOutfit,
       post: (): void => {
@@ -1011,7 +1014,8 @@ export const LevelingQuest: Quest = {
         Macro.externalIf(
           get("monsterHabitatsFightsLeft") <= 1 &&
             get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
-            have($skill`Recall Facts: Monster Habitats`),
+            have($skill`Recall Facts: Monster Habitats`) &&
+            haveFreeBanish(),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`)
         ).default(useCinch)
       ),
@@ -1144,7 +1148,8 @@ export const LevelingQuest: Quest = {
         Macro.externalIf(
           get("monsterHabitatsFightsLeft") <= 1 &&
             get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
-            have($skill`Recall Facts: Monster Habitats`),
+            have($skill`Recall Facts: Monster Habitats`) &&
+            haveFreeBanish(),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`)
         ).default(useCinch)
       ),
@@ -1397,7 +1402,8 @@ export const LevelingQuest: Quest = {
         Macro.externalIf(
           get("monsterHabitatsFightsLeft") <= 1 &&
             get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
-            have($skill`Recall Facts: Monster Habitats`),
+            have($skill`Recall Facts: Monster Habitats`) &&
+            haveFreeBanish(),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`)
         ).default(useCinch)
       ),
