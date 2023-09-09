@@ -80,11 +80,11 @@ See the run plan [here](https://github.com/Pantocyclus/InstantSCCS/blob/main/RUN
 
 ### Does this work in HC?
 
-No. This script is hardcoded to eat the 3x T4 cookbookbat foods (which are all pulled), and it is highly unlikely that you will be able to generate enough ingredients to cook all of them in HC (without any pulls).
+This script is hardcoded to eat the 3x T4 cookbookbat foods (which are all pulled), and it is highly unlikely that you will be able to generate enough ingredients to cook all of them in HC (without any pulls). However, it can be (and has been) done, although this is strongly discouraged.
 
 ### Does this script work for other classes?
 
-No. The completion criteria for the powerleveling task is hardcoded/tuned to the seeded cookbookbat ingredient drops for Saucerors. We will likely not be able to satisfy this criteria if you run any other class.
+No. The completion criteria for the powerleveling task is hardcoded/tuned to the seeded cookbookbat ingredient drops for Saucerors. We will likely not be able to satisfy this criteria if you run any other class. However, one may consider looking into [forks](https://github.com/Pantocyclus/InstantSCCS/forks) that are have implemented support for alternative classes.
 
 ### Why Sauceror?
 
@@ -104,13 +104,13 @@ InstantSCCS supports a very large number of IotMs, but, as a generalist script, 
 
 Run `instantsccs savedresources` to see a list of preferences you can set to save specific resources. You may also explicitly exclude acquiring certain buffs by typing `set instant_explicitlyExcludedBuffs=<comma-separated effect IDs>` (and confirming that the correct buffs have been excluded in the savedresources printout). <br/>
 
-![image](https://user-images.githubusercontent.com/98746573/230785325-174ee6e9-75df-4de9-96a7-71c9741309fe.png) <br/>
+![image](https://github.com/Pantocyclus/InstantSCCS/assets/98746573/3e836c0b-5e89-4a47-8b9c-bfb618ddfba0) <br/>
 
 Similarly, you may exclude using certain familiars during the leveling phase by typing `set instant_explicitlyExcludedFamiliars=<comma-separated familiar IDs>` (and confirming that the correct familiars have been excluded in the savedresources printout). <br/>
 
 ### My settings are such that the script no longer uses all 5 softcore pulls. Can I make the script pull and use some other resources?
 
-You can make the necessary softcore pulls prior to running InstantSCCS. This generally should be equipments (e.g. [Staff of the Roaring Hearth](https://kol.coldfront.net/thekolwiki/index.php/Staff_of_the_Roaring_Hearth), [repaid diaper](https://kol.coldfront.net/thekolwiki/index.php/Repaid_diaper), [meteorite necklace](https://kol.coldfront.net/thekolwiki/index.php/Meteorite_necklace) etc), since they would automatically be equipped by the maximizer for various tasks/tests. You may also consider pulling potions (that you may not have access to at your shininess level) which the script uses (e.g. [wasabi marble soda](https://kol.coldfront.net/thekolwiki/index.php/Wasabi_marble_soda), [tobiko marble soda](https://kol.coldfront.net/thekolwiki/index.php/Tobiko_marble_soda),  [Yeg's Motel toothbrush](https://kol.coldfront.net/thekolwiki/index.php/Yeg%27s_Motel_toothbrush) etc).
+You can make the necessary softcore pulls prior to running InstantSCCS. This generally should be equipments (e.g. [Staff of the Roaring Hearth](https://kol.coldfront.net/thekolwiki/index.php/Staff_of_the_Roaring_Hearth), [repaid diaper](https://kol.coldfront.net/thekolwiki/index.php/Repaid_diaper), [meteorite necklace](https://kol.coldfront.net/thekolwiki/index.php/Meteorite_necklace) etc), since they would automatically be equipped by the maximizer for various tasks/tests. You may also consider pulling potions (that you may not have access to at your shininess level) which the script uses (e.g. [wasabi marble soda](https://kol.coldfront.net/thekolwiki/index.php/Wasabi_marble_soda), [tobiko marble soda](https://kol.coldfront.net/thekolwiki/index.php/Tobiko_marble_soda), [Yeg's Motel toothbrush](https://kol.coldfront.net/thekolwiki/index.php/Yeg%27s_Motel_toothbrush) etc).
 
 ### I'm looking to improve my CS runs - what IotMs and skills should I go for next?
 
@@ -136,11 +136,9 @@ If you're scripting your own run, try eating the Deep Dish of Legend early (this
 
 ### What range of shininess is this script suitable for?
 
-This script supports runs from anywhere between 100-320 turns (assuming no manual pulls; correct as of July 2023). Check [here](http://www.koldb.com/searchresults.php?type=normal&path=cs&class=s&sign=myst&turns1=120&turns2=320&familiar=Melodramedary&sortby=dt&fneg=on&timetype=ralph&lastn=on&ndays=7&lim=200) for an updated list of successful runs using this script/route in the past 7 days.
+This script supports runs from anywhere between 90-320 turns (assuming no manual pulls; correct as of September 2023).If you are able to cap all the stat tests without using any CBB foods (including the T4 ones) because you have access to a bunch of free fights, stat% and xp% buffs, the script now fully supports running without CBB and can be pretty close to optimal (you might even want to consider setting `_instant_skip<calzone|deepDish|pizza>OfLegend` in your wrapper prior to running the script to save all 5 pulls for other manual turncutting pulls [or to run it in HC]).
 
-If you are able to cap all the stat tests without using any CBB foods (including the T4 ones) because you have access to a bunch of free fights, stat% and xp% buffs, the script now fully supports running without CBB and can be pretty close to optimal (you might even want to consider setting `_instant_skip<calzone|deepDish|pizza>OfLegend` in your wrapper prior to running the script to save all 5 pulls for other manual turncutting pulls).
-
-However, you may also consider using one of these other scripts listed [here](https://loathing-associates-scripting-society.github.io//KoL-Scripting-Resources/CS-Scripting-Resources.html) instead to eke out that last bit of efficiency. For example, [this personal script](https://github.com/Pantocyclus/InstantHCCS) is able to achieve a ~1/91 HCCS with fewer resources and organs used as compared to the ~1/102 SCCS with InstantSCCS.
+However, you may also consider using one of these other scripts listed [here](https://loathers.github.io/CS-Scripting-Resources.html) instead to eke out that last bit of efficiency. For example, [this personal script](https://github.com/Pantocyclus/InstantHCCS) is able to achieve a ~1/91 HCCS with fewer resources and organs used as compared to the ~1/93 HCCS (yes, HC) that I get with InstantSCCS (with my preferences already set to largely optimize for profits).
 
 ### Why is InstantSCCS not using the S.I.T. Course Completion Certificate?
 
