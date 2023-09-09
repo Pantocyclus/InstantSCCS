@@ -62,6 +62,7 @@ import {
   CombatLoversLocket,
   ensureEffect,
   get,
+  getBanishedMonsters,
   getKramcoWandererChance,
   have,
   SongBoom,
@@ -935,7 +936,10 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Monster Habitats",
-      ready: () => get("monsterHabitatsFightsLeft") > 0 && haveFreeBanish(),
+      ready: () =>
+        get("monsterHabitatsFightsLeft") > 0 &&
+        (haveFreeBanish() ||
+          Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
@@ -943,7 +947,7 @@ export const LevelingQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
-      completed: () => get("monsterHabitatsFightsLeft") === 0 || !haveFreeBanish(),
+      completed: () => get("monsterHabitatsFightsLeft") === 0,
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() =>
         Macro.if_($monster`fluffy bunny`, Macro.banish())
@@ -951,7 +955,8 @@ export const LevelingQuest: Quest = {
             get("monsterHabitatsFightsLeft") <= 1 &&
               get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
               have($skill`Recall Facts: Monster Habitats`) &&
-              haveFreeBanish(),
+              (haveFreeBanish() ||
+                Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
             Macro.trySkill($skill`Recall Facts: Monster Habitats`)
           )
           .default(useCinch)
@@ -1015,7 +1020,8 @@ export const LevelingQuest: Quest = {
           get("monsterHabitatsFightsLeft") <= 1 &&
             get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
             have($skill`Recall Facts: Monster Habitats`) &&
-            haveFreeBanish(),
+            (haveFreeBanish() ||
+              Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`)
         ).default(useCinch)
       ),
@@ -1149,7 +1155,8 @@ export const LevelingQuest: Quest = {
           get("monsterHabitatsFightsLeft") <= 1 &&
             get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
             have($skill`Recall Facts: Monster Habitats`) &&
-            haveFreeBanish(),
+            (haveFreeBanish() ||
+              Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`)
         ).default(useCinch)
       ),
@@ -1403,7 +1410,8 @@ export const LevelingQuest: Quest = {
           get("monsterHabitatsFightsLeft") <= 1 &&
             get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
             have($skill`Recall Facts: Monster Habitats`) &&
-            haveFreeBanish(),
+            (haveFreeBanish() ||
+              Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`)
         ).default(useCinch)
       ),
