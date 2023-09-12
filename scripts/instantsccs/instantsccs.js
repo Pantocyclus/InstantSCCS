@@ -15109,6 +15109,7 @@ var baseBoozes = template_string_$items(leveling_templateObject || (leveling_tem
 var freeFightMonsters = $monsters(leveling_templateObject2 || (leveling_templateObject2 = leveling_taggedTemplateLiteral(["Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle"])));
 var craftedCBBFoods = template_string_$items(leveling_templateObject3 || (leveling_templateObject3 = leveling_taggedTemplateLiteral(["honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone"])));
 var craftedCBBEffects = craftedCBBFoods.map(it => (0,external_kolmafia_namespaceObject.effectModifier)(it, "effect"));
+var triedCraftingCBBFoods = false;
 var usefulEffects = [// Stats
 $effect(leveling_templateObject4 || (leveling_templateObject4 = leveling_taggedTemplateLiteral(["Big"]))), $effect(leveling_templateObject5 || (leveling_templateObject5 = leveling_taggedTemplateLiteral(["Pasta Oneness"]))), $effect(leveling_templateObject6 || (leveling_templateObject6 = leveling_taggedTemplateLiteral(["Saucemastery"]))), $effect(leveling_templateObject7 || (leveling_templateObject7 = leveling_taggedTemplateLiteral(["Disdain of She-Who-Was"]))), $effect(leveling_templateObject8 || (leveling_templateObject8 = leveling_taggedTemplateLiteral(["Glittering Eyelashes"]))), $effect(leveling_templateObject9 || (leveling_templateObject9 = leveling_taggedTemplateLiteral(["Feeling Excited"]))), $effect(leveling_templateObject10 || (leveling_templateObject10 = leveling_taggedTemplateLiteral(["Triple-Sized"]))), $effect(leveling_templateObject11 || (leveling_templateObject11 = leveling_taggedTemplateLiteral(["substats.enh"]))), $effect(leveling_templateObject12 || (leveling_templateObject12 = leveling_taggedTemplateLiteral(["Hulkien"]))), $effect(leveling_templateObject13 || (leveling_templateObject13 = leveling_taggedTemplateLiteral(["Uncucumbered"]))), $effect(leveling_templateObject14 || (leveling_templateObject14 = leveling_taggedTemplateLiteral(["We're All Made of Starfish"]))), $effect(leveling_templateObject15 || (leveling_templateObject15 = leveling_taggedTemplateLiteral(["Broad-Spectrum Vaccine"]))), // $effect`Think Win-Lose`,
 // $effect`Confidence of the Votive`,
@@ -16012,7 +16013,7 @@ var LevelingQuest = {
   }, {
     name: "Craft and Eat CBB Foods",
     after: ["Powerlevel"],
-    completed: () => craftedCBBEffects.every(ef => lib_have(ef) || forbiddenEffects.includes(ef)),
+    completed: () => craftedCBBEffects.every(ef => lib_have(ef) || forbiddenEffects.includes(ef)) || triedCraftingCBBFoods,
     do: () => {
       craftedCBBFoods.forEach(it => {
         var ef = (0,external_kolmafia_namespaceObject.effectModifier)(it, "effect");
@@ -16027,6 +16028,8 @@ var LevelingQuest = {
         if (!lib_have(template_string_$item(_templateObject349 || (_templateObject349 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))))) (0,external_kolmafia_namespaceObject.create)(template_string_$item(_templateObject350 || (_templateObject350 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))), 1);
         (0,external_kolmafia_namespaceObject.eat)(template_string_$item(_templateObject351 || (_templateObject351 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))), 1);
       }
+
+      triedCraftingCBBFoods = true;
     },
     limit: {
       tries: 1
