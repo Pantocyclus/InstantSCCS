@@ -9870,7 +9870,7 @@ function wishFor(ef) {
   }
 }
 function overlevelled() {
-  return (0,external_kolmafia_namespaceObject.myLevel)() >= 18;
+  return (0,external_kolmafia_namespaceObject.myLevel)() >= 20;
 }
 var targetBaseMyst = property_get("instant_targetBaseMyst", 190);
 var targetBaseMystGap = property_get("instant_targetBaseMystGap", 15);
