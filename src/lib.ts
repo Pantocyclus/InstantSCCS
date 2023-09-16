@@ -34,9 +34,11 @@ import {
   $familiar,
   $item,
   $items,
+  $monster,
   $skill,
   $skills,
   $stat,
+  CombatLoversLocket,
   CommunityService,
   get,
   getKramcoWandererChance,
@@ -419,11 +421,24 @@ export function freeFightsLeft(): number {
   const witchess = Witchess.have() ? 5 - get("_witchessFights") : 0;
   const DMT = have($familiar`Machine Elf`) ? 5 - get("_machineTunnelsAdv") : 0;
   const LOV = get("loveTunnelAvailable") && !get("_loveTunnelToday") ? 3 : 0;
+  const olivers = get("ownsSpeakeasy") ? 3 - get("_speakeasyFreeFights", 0) : 0;
   const tentacle = get("_eldritchTentacleFought") ? 1 : 0;
   const sausageGoblin = getKramcoWandererChance() >= 1.0 ? 1 : 0;
   const XRay = have($item`Lil' Doctor™ bag`) ? 3 - get("_chestXRayUsed") : 0;
   const shatteringPunch = have($skill`Shattering Punch`) ? 3 - get("_shatteringPunchUsed") : 0;
   const mobHit = have($skill`Gingerbread Mob Hit`) && !get("_gingerbreadMobHitUsed") ? 1 : 0;
+  const locketedWitchess =
+    !Witchess.have() &&
+    CombatLoversLocket.availableLocketMonsters().includes($monster`Witchess King`) &&
+    !CombatLoversLocket.monstersReminisced().includes($monster`Witchess King`) &&
+    !get("instant_saveLocketWitchessKing", false)
+      ? 1
+      : 0;
+  const backups =
+    Witchess.have() || have($item`Kramco Sausage-o-Matic™`)
+      ? Math.max(11 - get("instant_saveBackups", 0) - get("_backUpUses"), 0)
+      : 0; // No guarantee that we hit a tentacle, so we ignore that here
+  // Currently does not consider gregs (require free banish + free fight source)
 
   return sumNumbers([
     shadowRift,
@@ -432,11 +447,14 @@ export function freeFightsLeft(): number {
     witchess,
     DMT,
     LOV,
+    olivers,
     tentacle,
     sausageGoblin,
     XRay,
     shatteringPunch,
     mobHit,
+    locketedWitchess,
+    backups,
   ]);
 }
 
