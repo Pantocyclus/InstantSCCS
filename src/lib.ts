@@ -407,8 +407,8 @@ export function burnLibram(saveMp: number): void {
   }
 }
 
-export function freeFightsLeft(): number {
-  // Only consider those where we can use the camel
+export function camelFightsLeft(): number {
+  // Only consider those free fights where we can use the camel
   const shadowRift = have($item`closed-circuit pay phone`)
     ? have($effect`Shadow Affinity`)
       ? haveEffect($effect`Shadow Affinity`)
@@ -440,6 +440,10 @@ export function freeFightsLeft(): number {
       : 0; // No guarantee that we hit a tentacle, so we ignore that here
   // Currently does not consider gregs (require free banish + free fight source)
 
+  // Include guaranteed non-free fights
+  const noveltySkeleton = have($item`cherry`) || CommunityService.CoilWire.isDone() ? 0 : 1;
+  // Red skeleton is not guaranteed since we can't guarantee we run out of yellow ray by then
+
   return sumNumbers([
     shadowRift,
     snojo,
@@ -455,6 +459,7 @@ export function freeFightsLeft(): number {
     mobHit,
     locketedWitchess,
     backups,
+    noveltySkeleton,
   ]);
 }
 

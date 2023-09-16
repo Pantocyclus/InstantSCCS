@@ -12,7 +12,7 @@ import {
   have,
   maxBy,
 } from "libram";
-import { freeFightsLeft, haveCBBIngredients } from "../lib";
+import { camelFightsLeft, haveCBBIngredients } from "../lib";
 
 export function garbageShirt(): void {
   if (
@@ -94,7 +94,7 @@ function optimisticCandle(): Familiar {
 
 function melodramedary(): Familiar {
   return have($familiar`Melodramedary`) &&
-    freeFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 3.0) &&
+    camelFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 3.0) &&
     get("camelSpit") < 100
     ? $familiar`Melodramedary`
     : $familiar.none;
