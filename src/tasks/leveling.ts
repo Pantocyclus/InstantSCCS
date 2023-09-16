@@ -103,6 +103,7 @@ const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vo
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
 const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
+let triedCraftingCBBFoods = false;
 const usefulEffects: Effect[] = [
   // Stats
   $effect`Big`,
@@ -1248,7 +1249,9 @@ export const LevelingQuest: Quest = {
     {
       name: "Craft and Eat CBB Foods",
       after: ["Powerlevel"],
-      completed: () => craftedCBBEffects.every((ef) => have(ef) || forbiddenEffects.includes(ef)),
+      completed: () =>
+        craftedCBBEffects.every((ef) => have(ef) || forbiddenEffects.includes(ef)) ||
+        triedCraftingCBBFoods,
       do: (): void => {
         craftedCBBFoods.forEach((it) => {
           const ef = effectModifier(it, "effect");
@@ -1268,6 +1271,8 @@ export const LevelingQuest: Quest = {
             create($item`baked veggie ricotta casserole`, 1);
           eat($item`baked veggie ricotta casserole`, 1);
         }
+
+        triedCraftingCBBFoods = true;
       },
       limit: { tries: 1 },
     },

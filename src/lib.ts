@@ -257,7 +257,7 @@ export function wishFor(ef: Effect, useGenie = true): void {
 }
 
 export function overlevelled(): boolean {
-  return myLevel() >= 18;
+  return myLevel() >= 20;
 }
 export const targetBaseMyst = get("instant_targetBaseMyst", 190);
 export const targetBaseMystGap = get("instant_targetBaseMystGap", 15);
