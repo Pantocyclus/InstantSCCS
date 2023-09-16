@@ -141,16 +141,7 @@ export const HotResQuest: Quest = {
           !get("instant_saveKGBClicks", false)
         )
           cliExecute("briefcase e hot");
-        if (
-          have($skill`Summon Clip Art`) &&
-          !get("instant_saveClipArt", false) &&
-          have($familiar`Exotic Parrot`) &&
-          !have($item`cracker`)
-        ) {
-          if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
-          useFamiliar($familiar`Exotic Parrot`);
-          use($item`box of Familiar Jacks`, 1);
-        }
+
         const usefulEffects: Effect[] = [
           $effect`Amazing`,
           $effect`Astral Shell`,
@@ -168,8 +159,21 @@ export const HotResQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         cliExecute("maximize hot res");
+
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.HotRes.actualCost() >= 7) wishFor($effect`Fireproof Lips`);
+
+        if (
+          CommunityService.HotRes.actualCost() > 1 &&
+          have($skill`Summon Clip Art`) &&
+          !get("instant_saveClipArt", false) &&
+          have($familiar`Exotic Parrot`) &&
+          !have($item`cracker`)
+        ) {
+          if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
+          useFamiliar($familiar`Exotic Parrot`);
+          use($item`box of Familiar Jacks`, 1);
+        }
       },
       completed: () => CommunityService.HotRes.isDone(),
       do: (): void => {
