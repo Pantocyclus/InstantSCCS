@@ -169,7 +169,7 @@ const usefulEffects: Effect[] = [
   $effect`Hulkien`,
   $effect`Broad-Spectrum Vaccine`,
   // $effect`Think Win-Lose`,
-  // $effect`Confidence of the Votive`,
+  $effect`Confidence of the Votive`,
   $effect`Song of Bravado`,
 
   // ML

@@ -16,6 +16,7 @@ import {
   hermit,
   Item,
   itemAmount,
+  myClass,
   myInebriety,
   myMaxhp,
   myMaxmp,
@@ -25,6 +26,7 @@ import {
   mySign,
   mySoulsauce,
   print,
+  random,
   restoreHp,
   restoreMp,
   retrieveItem,
@@ -36,12 +38,16 @@ import {
   totalFreeRests,
   turnsPlayed,
   use,
+  useFamiliar,
   useSkill,
   visitUrl,
+  waitq,
 } from "kolmafia";
 import {
+  $class,
   $coinmaster,
   $effect,
+  $familiar,
   $item,
   $items,
   $location,
@@ -238,6 +244,21 @@ export const RunStartQuest: Quest = {
       limit: { tries: 3 },
     },
     {
+      name: "Get Camel Hat",
+      completed: () =>
+        have($item`dromedary drinking helmet`) ||
+        get("instant_saveClipArt", false) ||
+        !have($familiar`Melodramedary`) ||
+        !get("instant_camelExperiment", true),
+      do: (): void => {
+        if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
+
+        useFamiliar($familiar`Melodramedary`);
+        use($item`box of Familiar Jacks`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Summon Sugar Sheets",
       completed: () =>
         !have($skill`Summon Sugar Sheets`) ||
@@ -346,7 +367,20 @@ export const RunStartQuest: Quest = {
     {
       name: "Vote",
       completed: () => have($item`"I Voted!" sticker`) || !get("voteAlways"),
-      do: () => cliExecute("VotingBooth.ash"),
+      do: (): void => {
+        if (myClass() == $class`Pastamancer`) {
+          visitUrl("place.php?whichplace=town_right&action=townright_vote");
+          waitq(1);
+          visitUrl(
+            "choice.php?pwd&option=1&whichchoice=1331&g=" +
+              (random(2) + 1) +
+              "&local[]=2&local[]=2",
+            true,
+            false
+          );
+          cliExecute("set _voteToday = true");
+        } else cliExecute("VotingBooth.ash");
+      },
       limit: { tries: 1 },
     },
     {

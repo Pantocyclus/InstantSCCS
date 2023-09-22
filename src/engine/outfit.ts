@@ -94,9 +94,11 @@ function optimisticCandle(): Familiar {
 }
 
 function melodramedary(): Familiar {
-  return have($familiar`Melodramedary`) &&
+  return (have($familiar`Melodramedary`) &&
     camelFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 3.0) &&
-    get("camelSpit") < 100
+    get("camelSpit") < 100) || (have($familiar`Melodramedary`) &&
+    camelFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 4.0) &&
+    get("camelSpit") < 100 && have($item`dromedary drinking helmet`))
     ? $familiar`Melodramedary`
     : $familiar.none;
 }
@@ -156,6 +158,10 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
         ? $item`Cincho de Mayo`
         : undefined,
     familiar: chooseFamiliar(allowAttackingFamiliars),
+    famequip:
+      have($item`dromedary drinking helmet`) && chooseFamiliar() == $familiar`melodramedary`
+      ? $item`dromedary drinking helmet`
+      : undefined,
     modifier: `0.25 ${statToMaximizerString(
       myPrimestat()
     )}, 0.33 ML, -equip tinsel tights, -equip wad of used tape`, //Update to check prime stat
