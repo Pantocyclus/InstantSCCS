@@ -1,5 +1,5 @@
 import { OutfitSpec } from "grimoire-kolmafia";
-import { cliExecute, equip, equippedItem, Familiar, Item, toInt } from "kolmafia";
+import { cliExecute, equip, equippedItem, Familiar, Item, myPrimestat, toInt } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -12,7 +12,7 @@ import {
   have,
   maxBy,
 } from "libram";
-import { camelFightsLeft, haveCBBIngredients } from "../lib";
+import { camelFightsLeft, haveCBBIngredients, statToMaximizerString } from "../lib";
 
 export function garbageShirt(): void {
   if (
@@ -45,6 +45,7 @@ export function sugarItemsAboutToBreak(): Item[] {
     { id: 4180, item: $item`sugar shank` },
     { id: 4181, item: $item`sugar chapeau` },
     { id: 4182, item: $item`sugar shorts` },
+    { id: 4183, item: $item`sugar shield` }, //Panto, why not Sugar Shield? Does Fam Wt not matter to you!?
   ];
   return sugarItems
     .map((entry) => {
@@ -141,16 +142,23 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
   const lovTunnelCompleted = get("_loveTunnelUsed") || !get("loveTunnelAvailable");
 
   return {
+    weapon: have($item`fish hatchet`)
+      ? $item`fish hatchet`
+      : have($item`bass clarinet`)
+      ? $item`bass clarinet`
+      : undefined,
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     offhand: $item`unbreakable umbrella`,
     back: lovTunnelCompleted ? $item`LOV Epaulettes` : undefined,
-    acc1: $item`codpiece`,
+    acc1: have($item`codpiece`) ? $item`codpiece` : undefined,
     acc2:
       have($item`Cincho de Mayo`) && get("_cinchUsed", 0) < 95 && !get("instant_saveCinch", false)
         ? $item`Cincho de Mayo`
         : undefined,
     familiar: chooseFamiliar(allowAttackingFamiliars),
-    modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+    modifier: `0.25 ${statToMaximizerString(
+      myPrimestat()
+    )}, 0.33 ML, -equip tinsel tights, -equip wad of used tape`, //Update to check prime stat
     avoid: [
       ...sugarItemsAboutToBreak(),
       ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),

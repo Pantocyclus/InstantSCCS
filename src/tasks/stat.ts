@@ -1,10 +1,11 @@
-import { buy, create, Effect, print, use } from "kolmafia";
+import { buy, create, Effect, myPrimestat, print, Stat, toInt, use, visitUrl } from "kolmafia";
 import {
   $coinmaster,
   $effect,
   $effects,
   $item,
   $items,
+  $stat,
   CommunityService,
   ensureEffect,
   get,
@@ -13,7 +14,22 @@ import {
   withChoice,
 } from "libram";
 import { Quest } from "../engine/task";
-import { logTestSetup, tryAcquiringEffect } from "../lib";
+import {
+  logTestSetup,
+  reagentBalancerEffect,
+  reagentBalancerItem,
+  tryAcquiringEffect,
+} from "../lib";
+
+function useBalancerForTest(testStat: Stat): void {
+  if (testStat === myPrimestat()) {
+    return;
+  }
+  if (!have(reagentBalancerEffect) && !have(reagentBalancerItem)) {
+    create(reagentBalancerItem, 1);
+  }
+  ensureEffect(reagentBalancerEffect);
+}
 
 export const HPQuest: Quest = {
   name: "HP",
@@ -69,10 +85,7 @@ export const MuscleQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Muscle.isDone(),
       prepare: (): void => {
-        if (!have($effect`Expert Oiliness`) && !have($item`oil of expertise`)) {
-          create($item`oil of expertise`, 1);
-        }
-        ensureEffect($effect`Expert Oiliness`);
+        useBalancerForTest($stat`Muscle`);
         if (
           !have($effect`Phorcefullness`) &&
           !have($item`philter of phorce`) &&
@@ -82,8 +95,11 @@ export const MuscleQuest: Quest = {
         }
         const usefulEffects: Effect[] = [
           $effect`Big`,
+          $effect`Disdain of the War Snapper`,
+          $effect`Feeling Excited`,
           $effect`Go Get 'Em, Tiger!`,
           $effect`Hulkien`,
+          $effect`Macaroni Coating`,
           $effect`Quiet Determination`,
           $effect`Power Ballad of the Arrowsmith`,
           $effect`Phorcefullness`,
@@ -124,8 +140,18 @@ export const MysticalityQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Mysticality.isDone(),
       prepare: (): void => {
+        useBalancerForTest($stat`Mysticality`);
+        if (
+          !have($effect`Mystically Oiled`) &&
+          !have($item`ointment of the occult`) &&
+          $items`scrumptious reagent, grapefruit`.every((it) => have(it))
+        ) {
+          create($item`ointment of the occult`, 1);
+        }
         const usefulEffects: Effect[] = [
           $effect`Big`,
+          $effect`Disdain of She-Who-Was`,
+          $effect`Feeling Excited`,
           $effect`Glittering Eyelashes`,
           $effect`Hulkien`,
           $effect`The Magical Mojomuscular Melody`,
@@ -135,6 +161,7 @@ export const MysticalityQuest: Quest = {
           $effect`Saucemastery`,
           $effect`Song of Bravado`,
           $effect`Stevedave's Shanty of Superiority`,
+          $effect`Mystically Oiled`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
@@ -187,10 +214,7 @@ export const MoxieQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Moxie.isDone(),
       prepare: (): void => {
-        if (!have($effect`Expert Oiliness`) && !have($item`oil of expertise`)) {
-          create($item`oil of expertise`, 1);
-        }
-        ensureEffect($effect`Expert Oiliness`);
+        useBalancerForTest($stat`Moxie`);
         const usefulEffects: Effect[] = [
           // $effect`Amazing`,
           $effect`Big`,
@@ -198,10 +222,13 @@ export const MoxieQuest: Quest = {
           $effect`Blubbered Up`,
           $effect`Butt-Rock Hair`,
           $effect`Disco Fever`,
+          $effect`Disco Smirk`,
           $effect`Disco State of Mind`,
+          $effect`Feeling Excited`,
           $effect`Hulkien`,
           $effect`The Moxious Madrigal`,
           $effect`Triple-Sized`,
+          $effect`Penne Fedora`,
           $effect`Pomp & Circumsands`,
           $effect`Quiet Desperation`,
           $effect`Song of Bravado`,

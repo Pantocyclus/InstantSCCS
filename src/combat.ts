@@ -1,7 +1,8 @@
-import { mpCost, myClass, toInt } from "kolmafia";
-import { $item, $skill, get, have, StrictMacro } from "libram";
+import { mpCost, myClass, myPrimestat, toInt } from "kolmafia";
+import { $item, $skill, $stat, get, have, StrictMacro } from "libram";
 
-export const mainStat = myClass().primestat;
+//export const mainStat = myClass().primestat;
+export const mainStat = myPrimestat(); //Update to select mainstat based on class derived from Libram
 
 export default class Macro extends StrictMacro {
   kill(useCinch = false): Macro {
@@ -11,17 +12,30 @@ export default class Macro extends StrictMacro {
         `!mpbelow ${mpCost($skill`Stuffed Mortar Shell`)}`,
         Macro.trySkill($skill`Stuffed Mortar Shell`)
       );
-    return (useCinch ? macroHead.trySkill($skill`Cincho: Confetti Extravaganza`) : macroHead)
-      .while_(
-        `!mpbelow ${mpCost($skill`Saucegeyser`)} && hasskill ${toInt($skill`Saucegeyser`)}`,
-        Macro.skill($skill`Saucegeyser`)
-      )
-      .while_(
-        `!mpbelow ${mpCost($skill`Saucestorm`)} && hasskill ${toInt($skill`Saucestorm`)}`,
-        Macro.skill($skill`Saucestorm`)
-      )
-      .attack()
-      .repeat();
+    if (myPrimestat() === $stat`Mysticality`) {
+      //Update to add alternative combat options for non-Mys classes
+      return (useCinch ? macroHead.trySkill($skill`Cincho: Confetti Extravaganza`) : macroHead)
+        .while_(
+          `!mpbelow ${mpCost($skill`Saucegeyser`)} && hasskill ${toInt($skill`Saucegeyser`)}`,
+          Macro.skill($skill`Saucegeyser`)
+        )
+        .while_(
+          `!mpbelow ${mpCost($skill`Saucestorm`)} && hasskill ${toInt($skill`Saucestorm`)}`,
+          Macro.skill($skill`Saucestorm`)
+        )
+        .attack()
+        .repeat();
+    } else {
+      return (useCinch ? macroHead.trySkill($skill`Cincho: Confetti Extravaganza`) : macroHead)
+        .while_(
+          `!mpbelow ${mpCost($skill`Lunging Thrust-Smack`)} && hasskill ${toInt(
+            $skill`Lunging Thrust-Smack`
+          )}`,
+          Macro.skill($skill`Lunging Thrust-Smack`)
+        )
+        .attack()
+        .repeat();
+    }
   }
 
   static kill(): Macro {

@@ -29,6 +29,7 @@ import {
   myMaxmp,
   myMeat,
   myMp,
+  myPrimestat,
   mySoulsauce,
   print,
   putCloset,
@@ -75,18 +76,30 @@ import {
 } from "libram";
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
+  abstractionXpEffect,
+  abstractionXpItem,
+  generalStoreXpEffect,
   burnLibram,
   chooseLibram,
   getSynthExpBuff,
   getValidComplexCandyPairs,
   haveCBBIngredients,
   overlevelled,
+  reagentBalancerEffect,
+  reagentBalancerIngredient,
+  reagentBalancerItem,
+  reagentBoosterEffect,
+  reagentBoosterIngredient,
+  reagentBoosterItem,
   refillLatte,
+  snapperXpItem,
+  statToMaximizerString,
   synthExpBuff,
   targetBaseMyst,
   targetBaseMystGap,
   tryAcquiringEffect,
   wishFor,
+  xpWishEffect,
 } from "../lib";
 import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
 import Macro, { haveFreeBanish } from "../combat";
@@ -103,25 +116,61 @@ const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vo
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
 const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
+
+interface StatTo<X> {
+  Muscle: X;
+  Mysticality: X;
+  Moxie: X;
+}
+
+const mainStatStr = myPrimestat().toString();
+const statEffects: StatTo<Effect[]> = {
+  Muscle: [
+    $effect`Seal Clubbing Frenzy`,
+    $effect`Patience of the Tortoise`,
+    $effect`Disdain of the War Snapper`,
+    $effect`Go Get 'Em, Tiger!`,
+    $effect`Muddled`,
+    $effect`Lack of Body-Building`,
+    $effect`Adrenaline Rush`,
+    // Weapon dmg
+    $effect`Carol of the Bulls`,
+  ],
+  Mysticality: [
+    $effect`Pasta Oneness`,
+    $effect`Saucemastery`,
+    $effect`Disdain of She-Who-Was`,
+    $effect`Glittering Eyelashes`,
+    $effect`Uncucumbered`,
+    $effect`We're All Made of Starfish`,
+    $effect`Sparkling Consciousness`,
+    // Spell dmg
+    $effect`Carol of the Hells`,
+  ],
+  Moxie: [
+    $effect`Disco State of Mind`,
+    $effect`Mariachi Mood`,
+    $effect`Butt-Rock Hair`,
+    $effect`Ten out of Ten`,
+    $effect`Pomp & Circumsands`,
+    $effect`Sneaky Serpentine Subtlety`,
+    // Weapon dmg
+    $effect`Carol of the Bulls`,
+  ],
+};
+
 let triedCraftingCBBFoods = false;
 const usefulEffects: Effect[] = [
   // Stats
   $effect`Big`,
-  $effect`Pasta Oneness`,
-  $effect`Saucemastery`,
-  $effect`Disdain of She-Who-Was`,
-  $effect`Glittering Eyelashes`,
   $effect`Feeling Excited`,
   $effect`Triple-Sized`,
   $effect`substats.enh`,
   $effect`Hulkien`,
-  $effect`Uncucumbered`,
-  $effect`We're All Made of Starfish`,
   $effect`Broad-Spectrum Vaccine`,
   // $effect`Think Win-Lose`,
   // $effect`Confidence of the Votive`,
   $effect`Song of Bravado`,
-  $effect`Sparkling Consciousness`,
 
   // ML
   $effect`Pride of the Puffin`,
@@ -137,7 +186,6 @@ const usefulEffects: Effect[] = [
   $effect`Aloysius' Antiphon of Aptitude`,
 
   // Spell dmg
-  $effect`Carol of the Hells`,
 ];
 
 const prismaticEffects: Effect[] = [
@@ -255,12 +303,22 @@ export const LevelingQuest: Quest = {
     {
       name: "Clan Shower",
       completed: () => get("_aprilShower"),
-      do: () => ensureEffect($effect`Thaumodynamic`),
+      do: (): void => {
+        const aprilShowerEffect: Effect = {
+          Muscle: $effect`Muscle Unbound`,
+          Mysticality: $effect`Thaumodynamic`,
+          Moxie: $effect`So Fresh and So Clean`,
+        }[mainStatStr];
+        ensureEffect(aprilShowerEffect);
+      },
       limit: { tries: 1 },
     },
     {
       name: "Inscrutable Gaze",
-      completed: () => have($effect`Inscrutable Gaze`) || !have($skill`Inscrutable Gaze`),
+      completed: () =>
+        have($effect`Inscrutable Gaze`) ||
+        !have($skill`Inscrutable Gaze`) ||
+        !myPrimestat() === $stat`Mysticality`,
       do: (): void => ensureEffect($effect`Inscrutable Gaze`),
     },
     {
@@ -392,46 +450,44 @@ export const LevelingQuest: Quest = {
       name: "Wish for XP% buff",
       // TODO: Make this completed if we've already wished twice with the paw (requires mafia tracking)
       completed: () =>
-        have($effect`Different Way of Seeing Things`) ||
+        have(xpWishEffect) ||
         !have($item`cursed monkey's paw`) ||
-        forbiddenEffects.includes($effect`Different Way of Seeing Things`) ||
+        forbiddenEffects.includes(xpWishEffect) ||
         get("instant_saveMonkeysPaw", false) ||
-        myBasestat($stat`Mysticality`) >= targetBaseMyst - targetBaseMystGap ||
+        myBasestat(myPrimestat()) >= targetBaseMyst - targetBaseMystGap ||
         get("_monkeyPawWishesUsed", 0) >= 2,
-      do: () => wishFor($effect`Different Way of Seeing Things`, false),
+      do: (): void => {
+        wishFor(xpWishEffect, false);
+      },
     },
     {
-      name: "Pull Non-Euclidean Angle",
+      name: "Pull Snapper XP Buff", //Made this name generic
       completed: () =>
         get("_roninStoragePulls").split(",").length >= 5 ||
-        get("_roninStoragePulls")
-          .split(",")
-          .includes(toInt($item`non-Euclidean angle`).toString()) ||
-        have($item`non-Euclidean angle`) ||
-        have($effect`Different Way of Seeing Things`) ||
-        storageAmount($item`non-Euclidean angle`) === 0 ||
+        get("_roninStoragePulls").split(",").includes(toInt(snapperXpItem).toString()) ||
+        have(snapperXpItem) ||
+        have(xpWishEffect) ||
+        storageAmount(snapperXpItem) === 0 ||
         get("instant_saveEuclideanAngle", false) ||
         !have($item`a ten-percent bonus`),
       do: (): void => {
-        takeStorage($item`non-Euclidean angle`, 1);
-        chew($item`non-Euclidean angle`, 1);
+        takeStorage(snapperXpItem, 1);
+        chew(snapperXpItem, 1);
       },
       limit: { tries: 1 },
     },
     {
-      name: "Pull Abstraction: Category",
+      name: "Pull Abstraction item",
       completed: () =>
         get("_roninStoragePulls").split(",").length >= 5 ||
-        get("_roninStoragePulls")
-          .split(",")
-          .includes(toInt($item`abstraction: category`).toString()) ||
-        have($item`abstraction: category`) ||
-        have($effect`Category`) ||
-        storageAmount($item`abstraction: category`) === 0 ||
+        get("_roninStoragePulls").split(",").includes(toInt(abstractionXpItem).toString()) ||
+        have(abstractionXpItem) ||
+        have(abstractionXpEffect) ||
+        storageAmount(abstractionXpItem) === 0 ||
         get("instant_saveAbstraction", false),
       do: (): void => {
-        takeStorage($item`abstraction: category`, 1);
-        chew($item`abstraction: category`, 1);
+        takeStorage(abstractionXpItem, 1);
+        chew(abstractionXpItem, 1);
       },
       limit: { tries: 1 },
     },
@@ -553,15 +609,15 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Consult Gorgonzola",
+      name: "Consult Fortune Teller",
       completed: () => get("_clanFortuneBuffUsed") || get("instant_saveFortuneTeller", false),
-      do: () => cliExecute("fortune buff mys"),
+      do: () => cliExecute(`fortune buff ${statToMaximizerString(myPrimestat())}`),
       limit: { tries: 1 },
     },
     {
-      name: "Use Glittery Mascara",
-      completed: () => have($effect`Glittering Eyelashes`),
-      do: () => ensureEffect($effect`Glittering Eyelashes`),
+      name: "Use General Store Statboost",
+      completed: () => have(generalStoreXpEffect),
+      do: () => ensureEffect(generalStoreXpEffect),
     },
     {
       name: "Buy Oversized Sparkler",
@@ -653,12 +709,16 @@ export const LevelingQuest: Quest = {
             .default()
         ).abort()
       ),
-      outfit: {
+      outfit: () => ({
+        ...baseOutfit,
+        familiar: $familiar`Trick-or-Treating Tot`,
+      }),
+      /* outfit: {
         offhand: $item`unbreakable umbrella`,
         acc1: $item`codpiece`,
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },
+      },*/ //I commented most of this out to defer to the outfit function
       post: () => sellMiscellaneousItems(),
       limit: { tries: 1 },
     },
@@ -754,33 +814,37 @@ export const LevelingQuest: Quest = {
       limit: { tries: 12 },
     },
     {
-      name: "Use Ointment of the Occult",
+      name: "Use Reagent Booster",
       completed: () =>
-        (!have($item`grapefruit`) && !have($item`ointment of the occult`)) ||
-        have($effect`Mystically Oiled`),
+        (!have(reagentBoosterIngredient) && !have(reagentBoosterItem)) ||
+        have(reagentBoosterEffect),
       do: (): void => {
-        if (!have($item`ointment of the occult`)) {
+        print(
+          `Completed condition: ${!have(reagentBoosterIngredient) && !have(reagentBoosterItem)}`
+        );
+        if (!have(reagentBoosterItem)) {
           if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
-          create($item`ointment of the occult`, 1);
+          create(reagentBoosterItem, 1);
         }
-        ensureEffect($effect`Mystically Oiled`);
+        ensureEffect(reagentBoosterEffect);
       },
     },
     {
-      name: "Use Oil of Expertise",
+      name: "Use Reagent Balancer",
       ready: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
       completed: () =>
-        (!have($item`cherry`) && itemAmount($item`oil of expertise`) <= 1) ||
-        have($effect`Expert Oiliness`),
+        (!have(reagentBalancerIngredient) && itemAmount(reagentBalancerItem) <= 1) ||
+        have(reagentBalancerEffect) ||
+        itemAmount(reagentBalancerItem) === 1,
       do: (): void => {
-        if (!have($item`oil of expertise`)) {
+        if (!have(reagentBalancerItem)) {
           if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
-          create($item`oil of expertise`, 1);
+          create(reagentBalancerItem, 1);
         }
-        if (itemAmount($item`oil of expertise`) > 1)
-          use($item`oil of expertise`, itemAmount($item`oil of expertise`) - 1);
-        if (have($item`cherry`) && have($effect`Expert Oiliness`))
-          putCloset(itemAmount($item`cherry`), $item`cherry`);
+        if (itemAmount(reagentBalancerItem) > 1)
+          use(reagentBalancerItem, itemAmount(reagentBalancerItem) - 1);
+        if (have(reagentBalancerIngredient) && have(reagentBalancerEffect))
+          putCloset(itemAmount(reagentBalancerIngredient), reagentBalancerIngredient);
       },
       limit: { tries: 1 },
     },
@@ -938,7 +1002,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Monster Habitats",
       ready: () =>
-        get("monsterHabitatsFightsLeft") > 0 &&
+        toInt(get("monsterHabitatsFightsLeft")) > 0 &&
         (haveFreeBanish() ||
           Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
       prepare: (): void => {
@@ -948,13 +1012,14 @@ export const LevelingQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
-      completed: () => get("monsterHabitatsFightsLeft") === 0,
+      completed: () => toInt(get("monsterHabitatsFightsLeft")) === 0,
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() =>
         Macro.if_($monster`fluffy bunny`, Macro.banish())
           .externalIf(
-            get("monsterHabitatsFightsLeft") <= 1 &&
-              get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
+            toInt(get("monsterHabitatsFightsLeft")) <= 1 &&
+              toInt(get("_monsterHabitatsRecalled")) <
+                3 - toInt(get("instant_saveMonsterHabitats", 0)) &&
               have($skill`Recall Facts: Monster Habitats`) &&
               (haveFreeBanish() ||
                 Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
@@ -983,7 +1048,7 @@ export const LevelingQuest: Quest = {
         !have($item`backup camera`) ||
         !freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none) ||
         get("_backUpUses") >= 11 - clamp(get("instant_saveBackups", 0), 0, 11) ||
-        myBasestat($stat`Mysticality`) >= 190, // no longer need to back up Witchess Kings
+        myBasestat(myPrimestat()) >= 190, // no longer need to back up Witchess Kings
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Back-Up to your Last Enemy`).default(useCinch)
@@ -1018,8 +1083,8 @@ export const LevelingQuest: Quest = {
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
-          get("monsterHabitatsFightsLeft") <= 1 &&
-            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
+          toInt(get("monsterHabitatsFightsLeft")) <= 1 &&
+            toInt(get("_monsterHabitatsRecalled")) < 3 - get("instant_saveMonsterHabitats", 0) &&
             have($skill`Recall Facts: Monster Habitats`) &&
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
@@ -1153,8 +1218,8 @@ export const LevelingQuest: Quest = {
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
-          get("monsterHabitatsFightsLeft") <= 1 &&
-            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
+          toInt(get("monsterHabitatsFightsLeft")) <= 1 &&
+            toInt(get("_monsterHabitatsRecalled")) < 3 - get("instant_saveMonsterHabitats", 0) &&
             have($skill`Recall Facts: Monster Habitats`) &&
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
@@ -1192,7 +1257,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Powerlevel",
       completed: () =>
-        myBasestat($stat`Mysticality`) >= targetBaseMyst - targetBaseMystGap &&
+        myBasestat(myPrimestat()) >= targetBaseMyst - targetBaseMystGap && // I don't know if this will cause issues.
         (haveCBBIngredients(false) ||
           overlevelled() ||
           craftedCBBEffects.some((ef) => have(ef)) ||
@@ -1412,7 +1477,7 @@ export const LevelingQuest: Quest = {
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
-          get("monsterHabitatsFightsLeft") <= 1 &&
+          toInt(get("monsterHabitatsFightsLeft")) <= 1 &&
             get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
             have($skill`Recall Facts: Monster Habitats`) &&
             (haveFreeBanish() ||
@@ -1454,7 +1519,7 @@ export const LevelingQuest: Quest = {
           };
       },
       completed: () =>
-        myBasestat($stat`Mysticality`) >= targetBaseMyst &&
+        myBasestat(myPrimestat()) >= targetBaseMyst &&
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         (haveCBBIngredients(true) || overlevelled()),
