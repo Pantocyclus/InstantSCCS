@@ -78,9 +78,9 @@ import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   abstractionXpEffect,
   abstractionXpItem,
-  generalStoreXpEffect,
   burnLibram,
   chooseLibram,
+  generalStoreXpEffect,
   getSynthExpBuff,
   getValidComplexCandyPairs,
   haveCBBIngredients,
@@ -116,12 +116,6 @@ const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vo
 const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
 const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
-
-interface StatTo<X> {
-  Muscle: X;
-  Mysticality: X;
-  Moxie: X;
-}
 
 const mainStatStr = myPrimestat().toString();
 const muscleList: Effect[] = [

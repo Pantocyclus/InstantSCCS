@@ -1,4 +1,4 @@
-import { buy, create, Effect, myPrimestat, print, Stat, toInt, use, visitUrl } from "kolmafia";
+import { buy, create, Effect, itemAmount, myPrimestat, print, Stat, use } from "kolmafia";
 import {
   $coinmaster,
   $effect,
@@ -93,6 +93,13 @@ export const MuscleQuest: Quest = {
         ) {
           create($item`philter of phorce`, 1);
         }
+        if (!have(reagentBalancerEffect)) {
+          if (!have(reagentBalancerItem)) {
+            create(reagentBalancerItem, 1);
+          }
+          if (itemAmount(reagentBalancerItem) > 1)
+            use(reagentBalancerItem, itemAmount(reagentBalancerItem) - 1);
+        }
         const usefulEffects: Effect[] = [
           $effect`Big`,
           $effect`Disdain of the War Snapper`,
@@ -147,6 +154,13 @@ export const MysticalityQuest: Quest = {
           $items`scrumptious reagent, grapefruit`.every((it) => have(it))
         ) {
           create($item`ointment of the occult`, 1);
+        }
+        if (!have(reagentBalancerEffect)) {
+          if (!have(reagentBalancerItem)) {
+            create(reagentBalancerItem, 1);
+          }
+          if (itemAmount(reagentBalancerItem) > 1)
+            use(reagentBalancerItem, itemAmount(reagentBalancerItem) - 1);
         }
         const usefulEffects: Effect[] = [
           $effect`Big`,
@@ -215,6 +229,13 @@ export const MoxieQuest: Quest = {
       completed: () => CommunityService.Moxie.isDone(),
       prepare: (): void => {
         useBalancerForTest($stat`Moxie`);
+        if (!have(reagentBalancerEffect)) {
+          if (!have(reagentBalancerItem)) {
+            create(reagentBalancerItem, 1);
+          }
+          if (itemAmount(reagentBalancerItem) > 1)
+            use(reagentBalancerItem, itemAmount(reagentBalancerItem) - 1);
+        }
         const usefulEffects: Effect[] = [
           // $effect`Amazing`,
           $effect`Big`,
