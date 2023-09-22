@@ -492,6 +492,70 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Pull Repaid Diaper",
+      completed: () =>
+        get("_roninStoragePulls").split(",").length >= 5 ||
+        get("_roninStoragePulls")
+          .split(",")
+          .includes(toInt($item`repaid diaper`).toString()) ||
+        have($item`repaid diaper`) ||
+        storageAmount($item`repaid diaper`) === 0 ||
+        !get("instant_experimentPulls", true),
+      do: (): void => {
+        takeStorage($item`repaid diaper`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Pull Beastly Trousers",
+      completed: () =>
+        get("_roninStoragePulls").split(",").length >= 5 ||
+        get("_roninStoragePulls")
+          .split(",")
+          .includes(toInt($item`Great Wolf's beastly trousers`).toString()) ||
+        get("_roninStoragePulls")
+          .split(",")
+          .includes(toInt($item`repaid diaper`).toString()) ||
+        have($item`Great Wolf's beastly trousers`) ||
+        storageAmount($item`Great Wolf's beastly trousers`) === 0 ||
+        !get("instant_experimentPulls", true),
+      do: (): void => {
+        takeStorage($item`Great Wolf's beastly trousers`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Pull Stick Knife",
+      completed: () =>
+        get("_roninStoragePulls").split(",").length >= 5 ||
+        get("_roninStoragePulls")
+          .split(",")
+          .includes(toInt($item`Stick-Knife of Loathing`).toString()) ||
+        have($item`Stick-Knife of Loathing`) ||
+        storageAmount($item`Stick-Knife of Loathing`) === 0 ||
+        !myPrimestat() === $stat`Muscle` ||
+        !get("instant_experimentPulls", true),
+      do: (): void => {
+        takeStorage($item`Stick-Knife of Loathing`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Pull Marble Soda",
+      completed: () =>
+        get("_roninStoragePulls").split(",").length >= 5 ||
+        get("_roninStoragePulls")
+          .split(",")
+          .includes(toInt($item`tobiko marble soda`).toString()) ||
+        have($item`tobiko marble soda`) ||
+        storageAmount($item`tobiko marble soda`) === 0 ||
+        !get("instant_experimentPulls", true),
+      do: (): void => {
+        takeStorage($item`tobiko marble soda`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Use Ten-Percent Bonus",
       prepare: (): void => {
         if (get("getawayCampsiteUnlocked"))
