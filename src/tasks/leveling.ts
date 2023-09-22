@@ -124,40 +124,40 @@ interface StatTo<X> {
 }
 
 const mainStatStr = myPrimestat().toString();
-const statEffects: StatTo<Effect[]> = {
-  Muscle: [
-    $effect`Seal Clubbing Frenzy`,
-    $effect`Patience of the Tortoise`,
-    $effect`Disdain of the War Snapper`,
-    $effect`Go Get 'Em, Tiger!`,
-    $effect`Muddled`,
-    $effect`Lack of Body-Building`,
-    $effect`Adrenaline Rush`,
-    // Weapon dmg
-    $effect`Carol of the Bulls`,
-  ],
-  Mysticality: [
-    $effect`Pasta Oneness`,
-    $effect`Saucemastery`,
-    $effect`Disdain of She-Who-Was`,
-    $effect`Glittering Eyelashes`,
-    $effect`Uncucumbered`,
-    $effect`We're All Made of Starfish`,
-    $effect`Sparkling Consciousness`,
-    // Spell dmg
-    $effect`Carol of the Hells`,
-  ],
-  Moxie: [
-    $effect`Disco State of Mind`,
-    $effect`Mariachi Mood`,
-    $effect`Butt-Rock Hair`,
-    $effect`Ten out of Ten`,
-    $effect`Pomp & Circumsands`,
-    $effect`Sneaky Serpentine Subtlety`,
-    // Weapon dmg
-    $effect`Carol of the Bulls`,
-  ],
-};
+const muscleList: Effect[] = [
+  $effect`Seal Clubbing Frenzy`,
+  $effect`Patience of the Tortoise`,
+  $effect`Disdain of the War Snapper`,
+  $effect`Go Get 'Em, Tiger!`,
+  $effect`Muddled`,
+  $effect`Lack of Body-Building`,
+  $effect`Adrenaline Rush`,
+  // Weapon dmg
+  $effect`Carol of the Bulls`,
+];
+
+const mysticalityList: Effect[] = [
+  $effect`Pasta Oneness`,
+  $effect`Saucemastery`,
+  $effect`Disdain of She-Who-Was`,
+  $effect`Glittering Eyelashes`,
+  $effect`Uncucumbered`,
+  $effect`We're All Made of Starfish`,
+  $effect`Sparkling Consciousness`,
+  // Spell dmg
+  $effect`Carol of the Hells`,
+];
+
+const moxieList: Effect[] = [
+  $effect`Disco State of Mind`,
+  $effect`Mariachi Mood`,
+  $effect`Butt-Rock Hair`,
+  $effect`Ten out of Ten`,
+  $effect`Pomp & Circumsands`,
+  $effect`Sneaky Serpentine Subtlety`,
+  // Weapon dmg
+  $effect`Carol of the Bulls`,
+];
 
 let triedCraftingCBBFoods = false;
 const usefulEffects: Effect[] = [
@@ -777,12 +777,6 @@ export const LevelingQuest: Quest = {
         ...baseOutfit,
         familiar: $familiar`Trick-or-Treating Tot`,
       }),
-      /* outfit: {
-        offhand: $item`unbreakable umbrella`,
-        acc1: $item`codpiece`,
-        familiar: $familiar`Trick-or-Treating Tot`,
-        modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
-      },*/ //I commented most of this out to defer to the outfit function
       post: () => sellMiscellaneousItems(),
       limit: { tries: 1 },
     },
@@ -1333,6 +1327,15 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
+        if (mainStatStr === `Muscle`) {
+          muscleList.forEach((ef) => tryAcquiringEffect(ef));
+        }
+        if (mainStatStr === `Mysticality`) {
+          mysticalityList.forEach((ef) => tryAcquiringEffect(ef));
+        }
+        if (mainStatStr === `Moxie`) {
+          moxieList.forEach((ef) => tryAcquiringEffect(ef));
+        }
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
