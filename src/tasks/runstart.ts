@@ -368,7 +368,7 @@ export const RunStartQuest: Quest = {
       name: "Vote",
       completed: () => have($item`"I Voted!" sticker`) || !get("voteAlways"),
       do: (): void => {
-        if (myClass() == $class`Pastamancer`) {
+        if (myClass() === $class`Pastamancer`) {
           visitUrl("place.php?whichplace=town_right&action=townright_vote");
           waitq(1);
           visitUrl(
