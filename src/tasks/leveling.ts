@@ -1054,7 +1054,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Monster Habitats",
       ready: () =>
-        toInt(get("monsterHabitatsFightsLeft")) > 0 &&
+        get("_monsterHabitatsFightsLeft") > 0 &&
         (haveFreeBanish() ||
           Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
       prepare: (): void => {
@@ -1064,12 +1064,12 @@ export const LevelingQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
-      completed: () => toInt(get("monsterHabitatsFightsLeft")) === 0,
+      completed: () => get("_monsterHabitatsFightsLeft") === 0,
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() =>
         Macro.if_($monster`fluffy bunny`, Macro.banish())
           .externalIf(
-            toInt(get("monsterHabitatsFightsLeft")) <= 1 &&
+            get("_monsterHabitatsFightsLeft") <= 1 &&
               toInt(get("_monsterHabitatsRecalled")) <
                 3 - toInt(get("instant_saveMonsterHabitats", 0)) &&
               have($skill`Recall Facts: Monster Habitats`) &&
@@ -1135,7 +1135,7 @@ export const LevelingQuest: Quest = {
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
-          toInt(get("monsterHabitatsFightsLeft")) <= 1 &&
+          get("_monsterHabitatsFightsLeft") <= 1 &&
             toInt(get("_monsterHabitatsRecalled")) < 3 - get("instant_saveMonsterHabitats", 0) &&
             have($skill`Recall Facts: Monster Habitats`) &&
             (haveFreeBanish() ||
@@ -1270,7 +1270,7 @@ export const LevelingQuest: Quest = {
       do: () => Witchess.fightPiece($monster`Witchess Bishop`),
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
-          toInt(get("monsterHabitatsFightsLeft")) <= 1 &&
+          get("_monsterHabitatsFightsLeft") <= 1 &&
             toInt(get("_monsterHabitatsRecalled")) < 3 - get("instant_saveMonsterHabitats", 0) &&
             have($skill`Recall Facts: Monster Habitats`) &&
             (haveFreeBanish() ||
@@ -1538,7 +1538,7 @@ export const LevelingQuest: Quest = {
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
-          toInt(get("monsterHabitatsFightsLeft")) <= 1 &&
+          get("_monsterHabitatsFightsLeft") <= 1 &&
             get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
             have($skill`Recall Facts: Monster Habitats`) &&
             (haveFreeBanish() ||
