@@ -17,6 +17,7 @@ import {
   restoreMp,
   retrieveItem,
   useSkill,
+  visitUrl,
 } from "kolmafia";
 import {
   $effect,

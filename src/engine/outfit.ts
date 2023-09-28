@@ -96,9 +96,11 @@ function optimisticCandle(): Familiar {
 function melodramedary(): Familiar {
   return (have($familiar`Melodramedary`) &&
     camelFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 3.0) &&
-    get("camelSpit") < 100) || (have($familiar`Melodramedary`) &&
-    camelFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 4.0) &&
-    get("camelSpit") < 100 && have($item`dromedary drinking helmet`))
+    get("camelSpit") < 100) ||
+    (have($familiar`Melodramedary`) &&
+      camelFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 4.0) &&
+      get("camelSpit") < 100 &&
+      have($item`dromedary drinking helmet`))
     ? $familiar`Melodramedary`
     : $familiar.none;
 }
@@ -154,14 +156,16 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     back: lovTunnelCompleted ? $item`LOV Epaulettes` : undefined,
     acc1: have($item`codpiece`) ? $item`codpiece` : undefined,
     acc2:
-      have($item`Cincho de Mayo`) && get("_cinchUsed", 0) < 95 && !get("instant_saveCinch", false)
+      have($item`Cincho de Mayo`) &&
+      get("_cinchUsed", 0) < 95 &&
+      100 - get("_cinchUsed", 0) < get("instant_saveCinch", 0)
         ? $item`Cincho de Mayo`
         : undefined,
     familiar: chooseFamiliar(allowAttackingFamiliars),
     famequip:
-      have($item`dromedary drinking helmet`) && chooseFamiliar() == $familiar`melodramedary`
-      ? $item`dromedary drinking helmet`
-      : undefined,
+      have($item`dromedary drinking helmet`) && chooseFamiliar() === $familiar`Melodramedary`
+        ? $item`dromedary drinking helmet`
+        : undefined,
     modifier: `0.25 ${statToMaximizerString(
       myPrimestat()
     )}, 0.33 ML, -equip tinsel tights, -equip wad of used tape`, //Update to check prime stat

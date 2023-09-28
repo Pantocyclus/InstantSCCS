@@ -158,13 +158,22 @@ const farmingResources: Resource[] = [
     $effects`Triple-Sized, Invisible Avatar`
   ),
   new Resource("instant_saveCargoShorts", "Do not use a pull from your Cargo Shorts"),
+  new Resource(
+    "instant_experimentalCargoShorts",
+    "Use Cargo Shorts for Spell Damage instead of Weapon Damage?"
+  ),
   new Resource("instant_savePowerSeed", "Do not use any batteries", $effects`AAA-Charged`),
   new Resource("instant_saveMayday", "Do not use your Mayday survival package"),
   new Resource("instant_savePumpkins", "Do not use harvested pumpkins"),
   new Resource("instant_saveSugar", "Do not spend tome uses on sugar shorts/chapeau/shank"),
   new Resource("instant_saveGarden", "Do not harvest your garden"),
   new Resource("instant_saveMoonTune", "Do not tune the moon for familiar weight test"),
-  new Resource("instant_saveCinch", "Do not spend any cinch for leveling"),
+  new Resource(
+    "instant_saveCinch",
+    (n) => `Save ${n}/100 Cinch; set to 100 to avoid using any!`,
+    [],
+    get("instant_saveSBForInnerElf", false) ? 100 : 0
+  ),
   new Resource(
     "instant_saveFreeRests",
     (n) => `Save ${n}/${totalFreeRests()} free rests (set a number)`,
@@ -213,6 +222,14 @@ const otherResources: Resource[] = [
   new Resource(
     "instant_skipAutomaticOptimizations",
     "Do not conduct automatic optimization of the route"
+  ),
+  new Resource(
+    "instant_experimentPulls",
+    "Automatically use pulls for Stick Knife, Soda, Diaper and/or Trousers?"
+  ),
+  new Resource(
+    "instant_camelExperiment",
+    "Automatically use a Box of Familiar Jacks to accrue Camel Spit?"
   ),
 ];
 
