@@ -21,6 +21,7 @@ import {
   Monster,
   mpCost,
   myBasestat,
+  myClass,
   myHash,
   myHp,
   myInebriety,
@@ -46,6 +47,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
+  $class,
   $coinmaster,
   $effect,
   $effects,
@@ -226,7 +228,9 @@ export function bestShadowRift(): Location {
             .map((m) =>
               [
                 ...Object.keys(itemDrops(m)).map((s) => toItem(s)),
-                m === $monster`shadow guy` && have($skill`Just the Facts`)
+                m === $monster`shadow guy` &&
+                have($skill`Just the Facts`) &&
+                myClass() === $class`Pastamancer`
                   ? $item`pocket wish`
                   : $item.none,
               ].filter((i) => i !== $item.none)
@@ -771,6 +775,43 @@ export const LevelingQuest: Quest = {
         ...baseOutfit,
         familiar: $familiar`Trick-or-Treating Tot`,
       }),
+      post: () => sellMiscellaneousItems(),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Map Pocket Wishes",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`)) {
+          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
+          buy($item`blue rocket`, 1);
+        }
+        unbreakableUmbrella();
+        docBag();
+        restoreMp(50);
+        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
+          if (myMeat() >= 250) buy($item`red rocket`, 1);
+        }
+      },
+      completed: () =>
+        !have($skill`Map the Monsters`) ||
+        !have($skill`Just the Facts`) ||
+        get("_monstersMapped") >= 3 ||
+        have($item`pocket wish`) ||
+        get("instant_saveGenie", false) ||
+        myClass() !== $class`Seal Clubber`,
+      do: () => mapMonster($location`The Haunted Kitchen`, $monster`paper towelgeist`),
+      combat: new CombatStrategy().macro(
+        Macro.if_(
+          $monster`paper towelgeist`,
+          Macro.tryItem($item`blue rocket`)
+            .tryItem($item`red rocket`)
+            .trySkill($skill`Chest X-Ray`)
+            .trySkill($skill`Gingerbread Mob Hit`)
+            .trySkill($skill`Shattering Punch`)
+            .default()
+        ).abort()
+      ),
       post: () => sellMiscellaneousItems(),
       limit: { tries: 1 },
     },

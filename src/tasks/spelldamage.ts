@@ -59,7 +59,7 @@ export const SpellDamageQuest: Quest = {
         get("_cargoPocketEmptied") ||
         !have($item`Cargo Cultist Shorts`) ||
         get("instant_saveCargoShorts", false) ||
-        !get("instant_experimentalCargoShorts", true),
+        !get("instant_experimentalCargoShorts", false),
       do: (): void => {
         visitUrl("inventory.php?action=pocket");
         visitUrl("choice.php?whichchoice=1420&option=1&pocket=177");

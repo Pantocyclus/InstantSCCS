@@ -312,6 +312,17 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Infernal Thirst",
+      completed: () =>
+        have($effect`Infernal Thirst`) ||
+        get("instant_saveMonkeysPaw", false) ||
+        get("instant_saveGenie", false) ||
+        (get("instant_saveMonkeysPaw", false) && get("_monkeyPawWishesUsed", 0) >= 5) ||
+        (!have($item`pocket wish`) && get("instant_saveGenie", false)),
+      do: () => wishFor($effect`Infernal Thirst`),
+      limit: { tries: 1 },
+    },
+    {
       name: "Buy Oversized Sparkler",
       ready: () => myMeat() >= 1000,
       completed: () => have($item`oversized sparkler`),

@@ -150,6 +150,8 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
       ? $item`fish hatchet`
       : have($item`bass clarinet`)
       ? $item`bass clarinet`
+      : have($item`June cleaver`) && myPrimestat() === `Muscle`
+      ? $item`June cleaver`
       : undefined,
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     offhand: $item`unbreakable umbrella`,
@@ -158,7 +160,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     acc2:
       have($item`Cincho de Mayo`) &&
       get("_cinchUsed", 0) < 95 &&
-      100 - get("_cinchUsed", 0) < get("instant_saveCinch", 0)
+      100 - get("_cinchUsed", 0) >= get("instant_saveCinch", 0)
         ? $item`Cincho de Mayo`
         : undefined,
     familiar: chooseFamiliar(allowAttackingFamiliars),
