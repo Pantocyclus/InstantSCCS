@@ -232,6 +232,10 @@ export function bestShadowRift(): Location {
                 have($skill`Just the Facts`) &&
                 myClass() === $class`Pastamancer`
                   ? $item`pocket wish`
+                  : m === $monster`shadow spider` &&
+                    have($skill`Just the Facts`) &&
+                    myClass() === $class`Accordion Thief`
+                  ? $item`pocket wish`
                   : $item.none,
               ].filter((i) => i !== $item.none)
             )
@@ -797,9 +801,11 @@ export const LevelingQuest: Quest = {
         !have($skill`Map the Monsters`) ||
         !have($skill`Just the Facts`) ||
         get("_monstersMapped") >= 3 ||
-        have($item`pocket wish`) ||
+        have($item`pocket wish`, 3) ||
         get("instant_saveGenie", false) ||
-        myClass() !== $class`Seal Clubber`,
+        myClass() !== $class`Seal Clubber` ||
+        ((get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
+          (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`))),
       do: () => mapMonster($location`The Haunted Kitchen`, $monster`paper towelgeist`),
       combat: new CombatStrategy().macro(
         Macro.if_(
