@@ -1,6 +1,7 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
   buy,
+  cliExecute,
   drink,
   Effect,
   elementalResistance,
@@ -8,6 +9,7 @@ import {
   equippedItem,
   inebrietyLimit,
   myAdventures,
+  myClass,
   myHp,
   myInebriety,
   myMaxhp,
@@ -20,6 +22,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
+  $class,
   $effect,
   $effects,
   $element,
@@ -36,7 +39,7 @@ import {
   have,
 } from "libram";
 import { Quest } from "../engine/task";
-import { logTestSetup, startingClan, tryAcquiringEffect } from "../lib";
+import { logTestSetup, shrugAT, startingClan, tryAcquiringEffect } from "../lib";
 import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { forbiddenEffects } from "../resources";
@@ -52,6 +55,17 @@ export const SpellDamageQuest: Quest = {
       completed: () => have($effect`Simmering`) || !have($skill`Simmer`),
       do: () => useSkill($skill`Simmer`),
       limit: { tries: 1 },
+    },
+    {
+      name: "Elron's Explosive Etude",
+      completed: () =>
+        !have($skill`Elron's Explosive Etude`) ||
+        have($effect`Elron's Explosive Etude`) ||
+        myClass() !== $class`Accordion Thief`,
+      do: (): void => {
+        shrugAT();
+        cliExecute("cast 1 Elron's Explosive Etude");
+      },
     },
     {
       name: "Cargo Shorts",

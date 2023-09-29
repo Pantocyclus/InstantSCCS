@@ -6,6 +6,7 @@ import {
   equippedItem,
   haveEffect,
   itemAmount,
+  myClass,
   mySign,
   numericModifier,
   print,
@@ -15,6 +16,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
+  $class,
   $effect,
   $familiar,
   $familiars,
@@ -27,7 +29,7 @@ import {
   have,
 } from "libram";
 import { Quest } from "../engine/task";
-import { logTestSetup, tryAcquiringEffect } from "../lib";
+import { logTestSetup, shrugAT, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import {
   avoidDaylightShavingsHelm,
@@ -49,6 +51,18 @@ export const FamiliarWeightQuest: Quest = {
         mySign() === "Platypus",
       do: (): void => {
         cliExecute("spoon platypus");
+      },
+    },
+    {
+      name: "Chorale of Companionship",
+      completed: () =>
+        !have($skill`Chorale of Companionship`) ||
+        have($effect`Chorale of Companionship`) ||
+        myClass() !== $class`Accordion Thief` ||
+        get("instant_saveLimitedAT", false),
+      do: (): void => {
+        shrugAT();
+        cliExecute("cast 1 Chorale of Companionship");
       },
     },
     {

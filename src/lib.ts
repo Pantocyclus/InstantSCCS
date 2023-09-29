@@ -40,6 +40,7 @@ import {
   $skill,
   $skills,
   $stat,
+  canRememberSong,
   CombatLoversLocket,
   CommunityService,
   get,
@@ -567,6 +568,18 @@ export function refillLatte(): void {
 
 export function statToMaximizerString(stat: Stat): string {
   return stat === $stat`Muscle` ? "mus" : stat === $stat`Mysticality` ? "myst" : "mox";
+}
+
+export function shrugAT(): void {
+  if (canRememberSong(1)) return;
+  else {
+    cliExecute("shrug Stevedave's Shanty of Superiority");
+    cliExecute("shrug Carol of the Thrills");
+    cliExecute("shrug Stevedave's Shanty of Superiority");
+    cliExecute("shrug Ur-Kel's Aria of Annoyance");
+    cliExecute("shrug Aloysius' Antiphon of Aptitude");
+    return;
+  }
 }
 
 //Define how to determine mainstat and define certain effects, incrediants, and reagant needs based on mainstat

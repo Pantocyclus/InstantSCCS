@@ -212,6 +212,11 @@ const farmingResources: Resource[] = [
     [],
     get("instant_saveMonsterHabitats", false) ? 3 : 0
   ),
+  new Resource(
+    "instant_saveLimitedAT",
+    "Do not use Chorale of Companionship charges",
+    $effects`Chorale of Companionship`
+  ),
 ];
 
 const otherResources: Resource[] = [
