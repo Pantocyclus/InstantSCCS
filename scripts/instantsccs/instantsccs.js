@@ -13613,7 +13613,7 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
       engine_get(engine_getPrototypeOf(Engine.prototype), "execute", this).call(this, task);
 
       if (lib_have($effect(engine_templateObject3 || (engine_templateObject3 = engine_engine_taggedTemplateLiteral(["Beaten Up"]))))) {
-        if (property_get("lastEncounter") === "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl") uneffect($effect(engine_templateObject4 || (engine_templateObject4 = engine_engine_taggedTemplateLiteral(["Beaten Up"]))));else throw "Fight was lost; stop.";
+        if (["Poetic Justice", "Lost and Found", "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(property_get("lastEncounter"))) uneffect($effect(engine_templateObject4 || (engine_templateObject4 = engine_engine_taggedTemplateLiteral(["Beaten Up"]))));else throw "Fight was lost; stop.";
       }
 
       originalValues.forEach(_ref2 => {
