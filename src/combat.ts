@@ -11,7 +11,7 @@ export default class Macro extends StrictMacro {
         `!mpbelow ${mpCost($skill`Stuffed Mortar Shell`)}`,
         Macro.trySkill($skill`Stuffed Mortar Shell`)
       );
-    if (!mainStat === $stat`Muscle`) {
+    if (mainStat !== $stat`Muscle`) {
       //Update to add alternative combat options for non-Mys classes
       return (useCinch ? macroHead.trySkill($skill`Cincho: Confetti Extravaganza`) : macroHead)
         .while_(

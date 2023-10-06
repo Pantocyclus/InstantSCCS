@@ -565,7 +565,7 @@ export function refillLatte(): void {
   if (get("_latteRefillsUsed") < 3) cliExecute(`latte refill cinnamon vanilla ${lastIngredient}`);
 }
 
-export function statToMaximizerString(stat: Stat): string {
+export const statToMaximizerString = (stat: Stat): string => {
   return stat === $stat`Muscle` ? "mus" : stat === $stat`Mysticality` ? "myst" : "mox";
 }
 

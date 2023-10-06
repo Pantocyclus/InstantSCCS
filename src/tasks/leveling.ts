@@ -118,47 +118,48 @@ const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of 
 const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
 let triedCraftingCBBFoods = false;
 
-interface StatTo<X> {
-  Muscle: X;
-  Mysticality: X;
-  Moxie: X;
-}
-
 const mainStatStr = myPrimestat().toString();
-const statEffects: StatTo<Effect[]> = {
-  Muscle: [
-    $effect`Seal Clubbing Frenzy`,
-    $effect`Patience of the Tortoise`,
-    $effect`Disdain of the War Snapper`,
-    $effect`Go Get 'Em, Tiger!`,
-    $effect`Muddled`,
-    $effect`Lack of Body-Building`,
-    $effect`Adrenaline Rush`,
-    // Weapon dmg
-    $effect`Carol of the Bulls`,
-  ],
-  Mysticality: [
-    $effect`Pasta Oneness`,
-    $effect`Saucemastery`,
-    $effect`Disdain of She-Who-Was`,
-    $effect`Glittering Eyelashes`,
-    $effect`Uncucumbered`,
-    $effect`We're All Made of Starfish`,
-    $effect`Sparkling Consciousness`,
-    // Spell dmg
-    $effect`Carol of the Hells`,
-  ],
-  Moxie: [
-    $effect`Disco State of Mind`,
-    $effect`Mariachi Mood`,
-    $effect`Butt-Rock Hair`,
-    $effect`Ten out of Ten`,
-    $effect`Pomp & Circumsands`,
-    $effect`Sneaky Serpentine Subtlety`,
-    // Weapon dmg
-    $effect`Carol of the Bulls`,
-  ],
-};
+const muscleList: Effect[] = [
+  $effect`Seal Clubbing Frenzy`,
+  $effect`Patience of the Tortoise`,
+  $effect`Disdain of the War Snapper`,
+  $effect`Go Get 'Em, Tiger!`,
+  $effect`Muddled`,
+  $effect`Lack of Body-Building`,
+  $effect`Adrenaline Rush`,
+  // Weapon dmg
+  $effect`Carol of the Bulls`,
+];
+
+const mysticalityList: Effect[] = [
+  $effect`Pasta Oneness`,
+  $effect`Saucemastery`,
+  $effect`Disdain of She-Who-Was`,
+  $effect`Glittering Eyelashes`,
+  $effect`Uncucumbered`,
+  $effect`We're All Made of Starfish`,
+  $effect`Sparkling Consciousness`,
+  // Spell dmg
+  $effect`Carol of the Hells`,
+];
+
+const moxieList: Effect[] = [
+  $effect`Disco State of Mind`,
+  $effect`Mariachi Mood`,
+  $effect`Butt-Rock Hair`,
+  $effect`Ten out of Ten`,
+  $effect`Pomp & Circumsands`,
+  $effect`Sneaky Serpentine Subtlety`,
+  // Weapon dmg
+  $effect`Carol of the Bulls`,
+];
+
+const statEffects = 
+  mainStatStr === `Muscle`
+  ? muscleList
+  : mainStatStr === `Mysticality`
+  ? mysticalityList
+  : moxieList;
 
 const usefulEffects: Effect[] = [
   // Stats
@@ -934,7 +935,10 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         tryAcquiringEffect($effect`Comic Violence`);
       },
       completed: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
@@ -1003,7 +1007,10 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
       completed: () => get("_monsterHabitatsFightsLeft") === 0,
@@ -1034,7 +1041,10 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
       completed: () =>
@@ -1064,7 +1074,10 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
       ready: () => getKramcoWandererChance() >= 1.0,
@@ -1159,7 +1172,10 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
       completed: () => get("_godLobsterFights") >= 3 || !have($familiar`God Lobster`),
@@ -1182,7 +1198,10 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
       completed: () => get("_eldritchHorrorEvoked") || !have($skill`Evoke Eldritch Horror`),
@@ -1201,7 +1220,10 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
       completed: () =>
@@ -1231,7 +1253,10 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
       completed: () => get("_machineTunnelsAdv") >= 5 || !have($familiar`Machine Elf`),
@@ -1262,7 +1287,10 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
@@ -1362,6 +1390,7 @@ export const LevelingQuest: Quest = {
           ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
           ...prismaticEffects,
           ...wdmgEffects,
+          ...statEffects,
         ].forEach((ef) => tryAcquiringEffect(ef));
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         restoreMp(50);
@@ -1388,6 +1417,7 @@ export const LevelingQuest: Quest = {
           ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
           ...prismaticEffects,
           ...wdmgEffects,
+          ...statEffects,
         ].forEach((ef) => tryAcquiringEffect(ef));
         if (get("_hotTubSoaks") < 5 && myHp() < myMaxhp()) cliExecute("hottub");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
@@ -1427,6 +1457,7 @@ export const LevelingQuest: Quest = {
           ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
           ...prismaticEffects,
           ...wdmgEffects,
+          ...statEffects,
         ].forEach((ef) => tryAcquiringEffect(ef));
         if (get("_hotTubSoaks") < 5 && myHp() < myMaxhp()) cliExecute("hottub");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
@@ -1459,7 +1490,10 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
       completed: () =>
@@ -1495,7 +1529,10 @@ export const LevelingQuest: Quest = {
         }
         garbageShirt();
         docBag();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        [
+          ...usefulEffects,
+          ...statEffects,
+        ].forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
       outfit: (): OutfitSpec => {

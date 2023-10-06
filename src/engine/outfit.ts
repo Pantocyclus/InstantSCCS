@@ -142,12 +142,13 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
   const lovTunnelCompleted = get("_loveTunnelUsed") || !get("loveTunnelAvailable");
 
   return {
-    weapon: myPrimestat() === $stat`Muscle` && have($item`june cleaver`)
-      ? $item`june cleaver`
-      : have($item`fish hatchet`)
+    weapon: 
+      have($item`fish hatchet`)
       ? $item`fish hatchet`
       : have($item`bass clarinet`)
       ? $item`bass clarinet`
+      : myPrimestat() === $stat`Muscle` && have($item`june cleaver`)
+      ? $item`june cleaver`
       : undefined,
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     offhand: $item`unbreakable umbrella`,
