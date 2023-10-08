@@ -248,7 +248,7 @@ export const LevelingQuest: Quest = {
       name: "LED Candle",
       // eslint-disable-next-line libram/verify-constants
       completed: () => !have($item`LED candle`) || get("ledCandleMode", "") === "reading",
-      do: () => cliExecute("jillcandle stats"),
+      do: () => cliExecute("jillcandle reading"),
       limit: { tries: 1 },
     },
     {
