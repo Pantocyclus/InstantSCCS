@@ -245,6 +245,13 @@ export const LevelingQuest: Quest = {
   completed: () => get("csServicesPerformed").split(",").length > 1,
   tasks: [
     {
+      name: "LED Candle",
+      // eslint-disable-next-line libram/verify-constants
+      completed: () => !have($item`LED candle`) || get("ledCandleMode", "") === "reading",
+      do: () => cliExecute("jillcandle stats"),
+      limit: { tries: 1 },
+    },
+    {
       name: "Soul Food",
       ready: () => mySoulsauce() >= 5,
       completed: () => mySoulsauce() < 5 || myMp() > myMaxmp() - 15 || !have($skill`Soul Food`),
