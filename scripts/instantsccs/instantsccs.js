@@ -15865,7 +15865,7 @@ var LevelingQuest = {
       sellMiscellaneousItems();
     },
     limit: {
-      tries: 15
+      tries: 16
     }
   }, {
     name: "Backups",
