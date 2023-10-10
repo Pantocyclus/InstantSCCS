@@ -974,7 +974,7 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
-      limit: { tries: 15 },
+      limit: { tries: 16 },
     },
     {
       name: "Backups",
