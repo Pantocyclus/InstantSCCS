@@ -215,7 +215,6 @@ export const MoxieQuest: Quest = {
       completed: () => CommunityService.Moxie.isDone(),
       prepare: (): void => {
         useBalancerForTest($stat`Moxie`);
-        ensureEffect($effect`Expert Oiliness`);
         const usefulEffects: Effect[] = [
           // $effect`Amazing`,
           $effect`Big`,
