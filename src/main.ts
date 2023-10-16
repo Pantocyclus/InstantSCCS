@@ -51,6 +51,13 @@ export function main(command?: string): void {
   sinceKolmafiaRevision(27593);
   checkGithubVersion();
 
+  if (get("instant_targetBaseMyst", false) && get("instant_targetBaseMainStat", false)) {
+    set("instant_targetBaseMainStat", get("instant_targetBaseMyst"))
+  }
+  if (get("instant_targetBaseMystGap", false) && get("instant_targetBaseMainStatGap", false)) {
+    set("instant_targetBaseMainStatGap", get("instant_targetBaseMystGap"))
+  }
+  
   Args.fill(args, command);
   if (args.help) {
     Args.showHelp(args);

@@ -62,7 +62,7 @@ import {
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
-import { getGarden, statToMaximizerString, tryAcquiringEffect } from "../lib";
+import { getGarden, mainStatStr, statToMaximizerString, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { baseOutfit, chooseFamiliar, unbreakableUmbrella } from "../engine/outfit";
@@ -129,14 +129,14 @@ export const RunStartQuest: Quest = {
       name: "Get Floundry item",
       completed: () => get("_floundryItemCreated") || get("instant_saveFloundry", false),
       do: (): void => {
-        if (myPrimestat() === $stat`Muscle`) {
+        if (mainStatStr === $stat`Muscle`) {
           retrieveItem($item`fish hatchet`);
-        } else if (myPrimestat() === $stat`Mysticality`) {
+        } else if (mainStatStr === $stat`Mysticality`) {
           retrieveItem($item`codpiece`, 1);
           use($item`codpiece`, 1);
           create($item`oil cap`, 1);
           autosell($item`oil cap`, 1);
-        } else if (myPrimestat() === $stat`Moxie`) {
+        } else if (mainStatStr === $stat`Moxie`) {
           retrieveItem($item`bass clarinet`);
           use($item`bass clarinet`, 1);
           autosell($item`white pixel`, 10);
@@ -307,7 +307,7 @@ export const RunStartQuest: Quest = {
         get("instant_savePantogram", false),
       do: (): void => {
         Pantogram.makePants(
-          myPrimestat().toString(),
+          mainStatStr,
           "Hot Resistance: 2",
           "Maximum HP: 40",
           "Combat Rate: -5",
@@ -319,7 +319,7 @@ export const RunStartQuest: Quest = {
     {
       name: "Mummery",
       completed: () =>
-        get("_mummeryMods").includes(`Experience (${myPrimestat().toString()})`) ||
+        get("_mummeryMods").includes(`Experience (${mainStatStr})`) ||
         !have($item`mumming trunk`) ||
         get("instant_saveMummingTrunk", false),
         do: (): void => {
@@ -449,7 +449,7 @@ export const RunStartQuest: Quest = {
           Muscle: Station.BRAWN_SILO,
           Mysticality: Station.BRAIN_SILO,
           Moxie: Station.GROIN_SILO,
-        }[myPrimestat().toString()];
+        }[mainStatStr];
         use($item`model train set`);
         setConfiguration([
           Station.GAIN_MEAT, // meat (we don't gain meat during free banishes)
@@ -493,8 +493,7 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Use Mind Control Device",
-      completed: () =>
-        currentMcd() >= 10 || !["platypus", "opossum", "marmot"].includes(mySign().toLowerCase()),
+      completed: () => currentMcd() >= 10 || !canadiaAvailable(),
       do: () => changeMcd(11),
       limit: { tries: 1 },
     },

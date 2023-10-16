@@ -95,8 +95,8 @@ import {
   snapperXpItem,
   statToMaximizerString,
   synthExpBuff,
-  targetBaseMyst,
-  targetBaseMystGap,
+  targetBaseMainStat,
+  targetBaseMainStatGap,
   tryAcquiringEffect,
   wishFor,
   xpWishEffect,
@@ -455,7 +455,7 @@ export const LevelingQuest: Quest = {
         !have($item`cursed monkey's paw`) ||
         forbiddenEffects.includes(xpWishEffect) ||
         get("instant_saveMonkeysPaw", false) ||
-        myBasestat(myPrimestat()) >= targetBaseMyst - targetBaseMystGap  || /*Dearest Seraphiii - Update this later*/
+        myBasestat(myPrimestat()) >= targetBaseMainStat - targetBaseMainStatGap || /*Dearest Seraphiii - Update this later*/
         get("_monkeyPawWishesUsed", 0) >= 2,
       do: (): void => {
         wishFor(xpWishEffect, false);
@@ -1275,7 +1275,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Powerlevel",
       completed: () =>
-        myBasestat(myPrimestat()) >= targetBaseMyst - targetBaseMystGap &&
+        myBasestat(myPrimestat()) >= targetBaseMainStat - targetBaseMainStatGap &&
         (haveCBBIngredients(false) ||
           overlevelled() ||
           craftedCBBEffects.some((ef) => have(ef)) ||
@@ -1549,7 +1549,7 @@ export const LevelingQuest: Quest = {
           };
       },
       completed: () =>
-        myBasestat(myPrimestat()) >= targetBaseMyst &&
+        myBasestat(myPrimestat()) >= targetBaseMainStat &&
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         (haveCBBIngredients(true) || overlevelled()),

@@ -261,8 +261,8 @@ export function wishFor(ef: Effect, useGenie = true): void {
 export function overlevelled(): boolean {
   return myLevel() >= 20;
 }
-export const targetBaseMyst = get("instant_targetBaseMyst", 190);
-export const targetBaseMystGap = get("instant_targetBaseMystGap", 15);
+export const targetBaseMainStat = get("instant_targetBaseMainStat", 190);
+export const targetBaseMainStatGap = get("instant_targetBaseMainStatGap", 15);
 export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean {
   if (!have($familiar`Cookbookbat`)) return true;
   let yeast = 0,
@@ -287,7 +287,7 @@ export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean
     if (
       !get("instant_saveWileyWheyBar", false) &&
       !have($effect`Awfully Wily`) &&
-      myBasestat($stat`Mysticality`) < targetBaseMyst
+      myBasestat($stat`Mysticality`) < targetBaseMainStat
     ) {
       whey += 1;
     }
@@ -570,7 +570,7 @@ export const statToMaximizerString = (stat: Stat): string => {
 }
 
 //Define how to determine mainstat and define certain effects, incrediants, and reagant needs based on mainstat
-const mainStatStr = myPrimestat().toString();
+export const mainStatStr = myPrimestat().toString();
 
 export const reagentBalancerEffect: Effect = {
   Muscle: $effect`Stabilizing Oiliness`,
