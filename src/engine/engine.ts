@@ -259,6 +259,7 @@ export class Engine extends BaseEngine {
       hpAutoRecoveryItems: hpItems,
       mpAutoRecoveryItems: mpItems,
       shadowLabyrinthGoal: "effects",
+      requireBoxServants: false,
     });
   }
 }
