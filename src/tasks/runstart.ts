@@ -1,4 +1,4 @@
-import { CombatStrategy } from "grimoire-kolmafia";
+import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   adv1,
   autosell,
@@ -21,8 +21,6 @@ import {
   myMaxmp,
   myMeat,
   myMp,
-  myPrimestat,
-  mySign,
   mySoulsauce,
   print,
   restoreHp,
@@ -62,11 +60,10 @@ import {
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
-import { getGarden, mainStatStr, statToMaximizerString, tryAcquiringEffect } from "../lib";
+import { getGarden, mainStatStr, mainStatMaximizerString, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { baseOutfit, chooseFamiliar, unbreakableUmbrella } from "../engine/outfit";
-import { OutfitSpec } from "grimoire-kolmafia";
 
 const useParkaSpit = have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`);
 export const RunStartQuest: Quest = {
@@ -323,8 +320,7 @@ export const RunStartQuest: Quest = {
         !have($item`mumming trunk`) ||
         get("instant_saveMummingTrunk", false),
         do: (): void => {
-          const statString = statToMaximizerString(myPrimestat());
-          cliExecute(`mummery ${statString}`);
+          cliExecute(`mummery ${mainStatMaximizerString}`);
         },
       outfit: { familiar: chooseFamiliar() },
       limit: { tries: 1 },

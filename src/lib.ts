@@ -51,7 +51,6 @@ import {
 } from "libram";
 import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
-import { mainStat } from "./combat";
 
 export const startingClan = getClanName();
 
@@ -150,6 +149,8 @@ export function logTestSetup(whichTest: CommunityService): void {
   );
   set(`_CSTest${whichTest.id}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
 }
+
+export const mainStatMaximizerString = myPrimestat() === $stat`Muscle` ? "mus" : myPrimestat() === $stat`Mysticality` ? "myst" : "mox";
 
 export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   // Try acquiring an effect
@@ -305,9 +306,9 @@ export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean
 }
 
 export const synthExpBuff =
-  mainStat === $stat`Muscle`
+mainStatMaximizerString === $stat`Muscle`
     ? $effect`Synthesis: Movement`
-    : mainStat === $stat`Mysticality`
+    : mainStatMaximizerString === $stat`Mysticality`
     ? $effect`Synthesis: Learning`
     : $effect`Synthesis: Style`;
 
@@ -344,7 +345,7 @@ function haveCandies(a: Item, b: Item): boolean {
   return Array.from(candiesRequired.values()).every((val) => val === 1);
 }
 
-const rem = mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4;
+const rem = mainStatMaximizerString === $stat`Muscle` ? 2 : mainStatMaximizerString === $stat`Mysticality` ? 3 : 4;
 const complexCandyPairs = complexCandies
   .map((a, i) => complexCandies.slice(i).map((b) => [a, b]))
   .reduce((acc, val) => acc.concat(val), [])
@@ -563,10 +564,6 @@ export function refillLatte(): void {
 
   const lastIngredient = get("latteUnlocks").includes("carrot") ? "carrot" : "pumpkin";
   if (get("_latteRefillsUsed") < 3) cliExecute(`latte refill cinnamon vanilla ${lastIngredient}`);
-}
-
-export const statToMaximizerString = (stat: Stat): string => {
-  return stat === $stat`Muscle` ? "mus" : stat === $stat`Mysticality` ? "myst" : "mox";
 }
 
 //Define how to determine mainstat and define certain effects, incrediants, and reagant needs based on mainstat

@@ -93,7 +93,7 @@ import {
   reagentBoosterIngredient,
   reagentBoosterItem,
   snapperXpItem,
-  statToMaximizerString,
+  mainStatMaximizerString,
   synthExpBuff,
   targetBaseMainStat,
   targetBaseMainStatGap,
@@ -612,7 +612,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Consult Fortune Teller",
       completed: () => get("_clanFortuneBuffUsed") || get("instant_saveFortuneTeller", false),
-      do: () => cliExecute(`fortune buff ${statToMaximizerString(myPrimestat())}`),
+      do: () => cliExecute(`fortune buff ${mainStatMaximizerString}`),
       limit: { tries: 1 },
     },
     {
