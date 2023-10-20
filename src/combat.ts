@@ -1,7 +1,5 @@
-import { mpCost, myClass, toInt } from "kolmafia";
+import { mpCost, toInt } from "kolmafia";
 import { $item, $skill, get, have, StrictMacro } from "libram";
-
-export const mainStat = myClass().primestat;
 
 export default class Macro extends StrictMacro {
   kill(useCinch = false): Macro {
