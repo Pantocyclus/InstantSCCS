@@ -152,6 +152,9 @@ export function logTestSetup(whichTest: CommunityService): void {
 
 export const mainStatMaximizerString = myPrimestat() === $stat`Muscle` ? "mus" : myPrimestat() === $stat`Mysticality` ? "myst" : "mox";
 
+//Define how to determine mainstat and define certain effects, incrediants, and reagant needs based on mainstat
+export const mainStatStr = myPrimestat().toString();
+
 export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   // Try acquiring an effect
   if (have(ef)) return;
@@ -345,7 +348,7 @@ function haveCandies(a: Item, b: Item): boolean {
   return Array.from(candiesRequired.values()).every((val) => val === 1);
 }
 
-const rem = mainStatMaximizerString === $stat`Muscle` ? 2 : mainStatMaximizerString === $stat`Mysticality` ? 3 : 4;
+const rem = mainStatStr === $stat`Muscle` ? 2 : mainStatMaximizerString === $stat`Mysticality` ? 3 : 4;
 const complexCandyPairs = complexCandies
   .map((a, i) => complexCandies.slice(i).map((b) => [a, b]))
   .reduce((acc, val) => acc.concat(val), [])
@@ -566,8 +569,7 @@ export function refillLatte(): void {
   if (get("_latteRefillsUsed") < 3) cliExecute(`latte refill cinnamon vanilla ${lastIngredient}`);
 }
 
-//Define how to determine mainstat and define certain effects, incrediants, and reagant needs based on mainstat
-export const mainStatStr = myPrimestat().toString();
+
 
 export const reagentBalancerEffect: Effect = {
   Muscle: $effect`Stabilizing Oiliness`,

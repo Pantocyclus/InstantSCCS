@@ -93,13 +93,13 @@ import {
   reagentBoosterIngredient,
   reagentBoosterItem,
   snapperXpItem,
-  mainStatMaximizerString,
   synthExpBuff,
   targetBaseMainStat,
   targetBaseMainStatGap,
   tryAcquiringEffect,
   wishFor,
   xpWishEffect,
+  mainStatStr,
 } from "../lib";
 import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
 import Macro, { haveFreeBanish } from "../combat";
@@ -118,7 +118,7 @@ const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of 
 const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
 let triedCraftingCBBFoods = false;
 
-const mainStatStr = myPrimestat().toString();
+
 const muscleList: Effect[] = [
   $effect`Seal Clubbing Frenzy`,
   $effect`Patience of the Tortoise`,
@@ -613,7 +613,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Consult Fortune Teller",
       completed: () => get("_clanFortuneBuffUsed") || get("instant_saveFortuneTeller", false),
-      do: () => cliExecute(`fortune buff ${mainStatMaximizerString}`),
+      do: () => cliExecute(`fortune buff ${mainStatStr}`),
       limit: { tries: 1 },
     },
     {

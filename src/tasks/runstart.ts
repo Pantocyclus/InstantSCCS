@@ -60,7 +60,7 @@ import {
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
-import { getGarden, mainStatStr, mainStatMaximizerString, tryAcquiringEffect } from "../lib";
+import { getGarden, mainStatStr, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { baseOutfit, chooseFamiliar, unbreakableUmbrella } from "../engine/outfit";
@@ -320,7 +320,7 @@ export const RunStartQuest: Quest = {
         !have($item`mumming trunk`) ||
         get("instant_saveMummingTrunk", false),
         do: (): void => {
-          cliExecute(`mummery ${mainStatMaximizerString}`);
+          cliExecute(`mummery ${mainStatStr}`);
         },
       outfit: { familiar: chooseFamiliar() },
       limit: { tries: 1 },
