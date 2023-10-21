@@ -174,7 +174,7 @@ export const RunStartQuest: Quest = {
         get("_kgbClicksUsed") > 0 ||
         !have($item`Kremlin's Greatest Briefcase`) ||
         get("instant_saveKGBClicks", false),
-      do: () => cliExecute("briefcase e ml"),
+      do: () => cliExecute("Briefcase e ml"),
       limit: { tries: 1 },
     },
     {

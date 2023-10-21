@@ -140,7 +140,7 @@ export const HotResQuest: Quest = {
           have($item`Kremlin's Greatest Briefcase`) &&
           !get("instant_saveKGBClicks", false)
         )
-          cliExecute("briefcase e hot");
+          cliExecute("Briefcase e hot");
 
         const usefulEffects: Effect[] = [
           $effect`Amazing`,
