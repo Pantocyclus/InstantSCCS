@@ -137,7 +137,13 @@ export class Engine extends BaseEngine {
 
     super.execute(task);
     if (have($effect`Beaten Up`)) {
-      if (get("lastEncounter") === "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl")
+      if (
+        [
+          "Poetic Justice",
+          "Lost and Found",
+          "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl",
+        ].includes(get("lastEncounter"))
+      )
         uneffect($effect`Beaten Up`);
       else throw "Fight was lost; stop.";
     }
@@ -253,6 +259,7 @@ export class Engine extends BaseEngine {
       hpAutoRecoveryItems: hpItems,
       mpAutoRecoveryItems: mpItems,
       shadowLabyrinthGoal: "effects",
+      requireBoxServants: false,
     });
   }
 }

@@ -230,6 +230,12 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Drink Cabernet Sauvignon",
+      prepare: (): void => {
+        if (have($familiar`Left-Hand Man`)) {
+          useFamiliar($familiar`Left-Hand Man`);
+          equip($slot`familiar`, $item.none);
+        }
+      },
       completed: () =>
         have($effect`Cabernet Hunter`) ||
         (!have($item`bottle of Cabernet Sauvignon`) &&

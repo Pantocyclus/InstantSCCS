@@ -70,7 +70,7 @@ export const NoncombatQuest: Quest = {
           have($item`Kremlin's Greatest Briefcase`) &&
           !get("instant_saveKGBClicks", false)
         )
-          cliExecute("briefcase e -combat");
+          cliExecute("Briefcase e -combat");
         const usefulEffects: Effect[] = [
           $effect`A Rose by Any Other Material`,
           $effect`Feeling Lonely`,
