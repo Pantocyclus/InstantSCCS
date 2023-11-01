@@ -153,7 +153,7 @@ export function logTestSetup(whichTest: CommunityService): void {
 export const mainStatMaximizerString = myPrimestat() === $stat`Muscle` ? "mus" : myPrimestat() === $stat`Mysticality` ? "myst" : "mox";
 
 //Define how to determine mainstat and define certain effects, incrediants, and reagant needs based on mainstat
-export const mainStatStr = myPrimestat().toString();
+export const mainStatStr = myPrimestat();
 
 export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   // Try acquiring an effect

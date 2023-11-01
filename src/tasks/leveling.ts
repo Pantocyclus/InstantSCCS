@@ -310,7 +310,7 @@ export const LevelingQuest: Quest = {
           Muscle: $effect`Muscle Unbound`,
           Mysticality: $effect`Thaumodynamic`,
           Moxie: $effect`So Fresh and So Clean`,
-        }[mainStatStr];
+        }[mainStatStr.toString()];
         ensureEffect(aprilShowerEffect);
       },
       limit: { tries: 1 },

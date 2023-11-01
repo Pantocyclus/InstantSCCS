@@ -304,11 +304,11 @@ export const RunStartQuest: Quest = {
         get("instant_savePantogram", false),
       do: (): void => {
         Pantogram.makePants(
-          mainStatStr,
+          mainStatStr.toString(),
           "Hot Resistance: 2",
           "Maximum HP: 40",
           "Combat Rate: -5",
-          "Weapon Damage: 20"
+          "Spell Damage Percent: 20"
         );
       },
       limit: { tries: 1 },
@@ -445,7 +445,7 @@ export const RunStartQuest: Quest = {
           Muscle: Station.BRAWN_SILO,
           Mysticality: Station.BRAIN_SILO,
           Moxie: Station.GROIN_SILO,
-        }[mainStatStr];
+        }[mainStatStr.toString()];
         use($item`model train set`);
         setConfiguration([
           Station.GAIN_MEAT, // meat (we don't gain meat during free banishes)
