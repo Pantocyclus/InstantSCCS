@@ -60,7 +60,7 @@ import {
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
-import { getGarden, mainStatStr, tryAcquiringEffect } from "../lib";
+import { getGarden, mainStat, mainStatStr, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { baseOutfit, chooseFamiliar, unbreakableUmbrella } from "../engine/outfit";
@@ -126,14 +126,14 @@ export const RunStartQuest: Quest = {
       name: "Get Floundry item",
       completed: () => get("_floundryItemCreated") || get("instant_saveFloundry", false),
       do: (): void => {
-        if (mainStatStr === $stat`Muscle`) {
+        if (mainStat === $stat`Muscle`) {
           retrieveItem($item`fish hatchet`);
-        } else if (mainStatStr === $stat`Mysticality`) {
+        } else if (mainStat === $stat`Mysticality`) {
           retrieveItem($item`codpiece`, 1);
           use($item`codpiece`, 1);
           create($item`oil cap`, 1);
           autosell($item`oil cap`, 1);
-        } else if (mainStatStr === $stat`Moxie`) {
+        } else if (mainStat === $stat`Moxie`) {
           retrieveItem($item`bass clarinet`);
           use($item`bass clarinet`, 1);
           autosell($item`white pixel`, 10);
@@ -304,7 +304,7 @@ export const RunStartQuest: Quest = {
         get("instant_savePantogram", false),
       do: (): void => {
         Pantogram.makePants(
-          mainStatStr.toString(),
+          mainStatStr,
           "Hot Resistance: 2",
           "Maximum HP: 40",
           "Combat Rate: -5",
@@ -445,7 +445,7 @@ export const RunStartQuest: Quest = {
           Muscle: Station.BRAWN_SILO,
           Mysticality: Station.BRAIN_SILO,
           Moxie: Station.GROIN_SILO,
-        }[mainStatStr.toString()];
+        }[mainStatStr];
         use($item`model train set`);
         setConfiguration([
           Station.GAIN_MEAT, // meat (we don't gain meat during free banishes)

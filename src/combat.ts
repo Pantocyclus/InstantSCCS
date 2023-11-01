@@ -1,6 +1,6 @@
 import { Skill, mpCost, toInt } from "kolmafia";
 import { $item, $skill, $stat, get, have, StrictMacro } from "libram";
-import { mainStatStr } from "./lib";
+import { mainStat } from "./lib";
 
 export default class Macro extends StrictMacro {
   kill(useCinch = false): Macro {
@@ -17,7 +17,7 @@ export default class Macro extends StrictMacro {
 
     return (useCinch ? macroHead.trySkill($skill`Cincho: Confetti Extravaganza`) : macroHead)
       .externalIf(
-        mainStatStr === $stat`Muscle`,
+        mainStat === $stat`Muscle`,
         Macro.while_(...whileCondition($skill`Lunging Thrust-Smack`)),
         Macro.while_(...whileCondition($skill`Saucegeyser`)).while_(
           ...whileCondition($skill`Saucestorm`)
