@@ -346,7 +346,7 @@ function haveCandies(a: Item, b: Item): boolean {
   return Array.from(candiesRequired.values()).every((val) => val === 1);
 }
 
-const rem = mainStatStr === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4;
+const rem = mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4;
 const complexCandyPairs = complexCandies
   .map((a, i) => complexCandies.slice(i).map((b) => [a, b]))
   .reduce((acc, val) => acc.concat(val), [])
