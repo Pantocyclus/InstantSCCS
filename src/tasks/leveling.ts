@@ -29,7 +29,6 @@ import {
   myMaxmp,
   myMeat,
   myMp,
-  myPrimestat,
   mySoulsauce,
   print,
   putCloset,
@@ -100,6 +99,7 @@ import {
   wishFor,
   xpWishEffect,
   mainStatStr,
+  mainStat,
 } from "../lib";
 import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
 import Macro, { haveFreeBanish } from "../combat";
@@ -323,12 +323,23 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Inscrutable Gaze",
+      name: "Mainstat Gaze",
       completed: () =>
-      have($effect`Inscrutable Gaze`) ||
-      !have($skill`Inscrutable Gaze`) ||
-      myPrimestat() !== $stat`Mysticality`,
-      do: (): void => ensureEffect($effect`Inscrutable Gaze`),
+        ((have($effect`Inscrutable Gaze`) || !have($skill`Inscrutable Gaze`)) &&
+          mainStat === $stat`Mysticality`) ||
+        ((have($effect`Patient Smile`) || !have($skill`Patient Smile`)) &&
+          mainStat === $stat`Muscle`) ||
+        ((have($effect`Knowing Smile`) || !have($skill`Knowing Smile`)) &&
+          mainStat === $stat`Moxie`),
+      do: (): void => {
+        const mainStatGainEffect: Effect = {
+          Muscle: $effect`Patient Smile`,
+          Mysticality: $effect`Inscrutable Gaze`,
+          Moxie: $effect`Knowing Smile`,
+        }[mainStatStr];
+        ensureEffect(mainStatGainEffect);
+      },
+      limit: { tries: 1 },
     },
     {
       name: "Hot in Herre",
@@ -463,7 +474,7 @@ export const LevelingQuest: Quest = {
         !have($item`cursed monkey's paw`) ||
         forbiddenEffects.includes(xpWishEffect) ||
         get("instant_saveMonkeysPaw", false) ||
-        myBasestat(myPrimestat()) >= targetBaseMainStat - targetBaseMainStatGap || /*Dearest Seraphiii - Update this later*/
+        myBasestat(mainStat) >= targetBaseMainStat - targetBaseMainStatGap ||
         get("_monkeyPawWishesUsed", 0) >= 2,
       do: (): void => {
         wishFor(xpWishEffect, false);
@@ -823,9 +834,6 @@ export const LevelingQuest: Quest = {
         (!have(reagentBoosterIngredient) && !have(reagentBoosterItem)) ||
         have(reagentBoosterEffect),
       do: (): void => {
-        print(
-          `Completed condition: ${!have(reagentBoosterIngredient) && !have(reagentBoosterItem)}`
-        );
         if (!have(reagentBoosterItem)) {
           create(reagentBoosterItem, 1);
         }
@@ -1050,7 +1058,7 @@ export const LevelingQuest: Quest = {
         !have($item`backup camera`) ||
         !freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none) ||
         get("_backUpUses") >= 11 - clamp(get("instant_saveBackups", 0), 0, 11) ||
-        myBasestat(myPrimestat()) >= 190, // no longer need to back up Witchess Kings
+        myBasestat(mainStat) >= 190, // no longer need to back up Witchess Kings
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Back-Up to your Last Enemy`).default(useCinch)
@@ -1259,7 +1267,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Powerlevel",
       completed: () =>
-        myBasestat(myPrimestat()) >= targetBaseMainStat - targetBaseMainStatGap &&
+        myBasestat(mainStat) >= targetBaseMainStat - targetBaseMainStatGap &&
         (haveCBBIngredients(false) ||
           overlevelled() ||
           craftedCBBEffects.some((ef) => have(ef)) ||
@@ -1521,7 +1529,7 @@ export const LevelingQuest: Quest = {
           };
       },
       completed: () =>
-        myBasestat(myPrimestat()) >= targetBaseMainStat &&
+        myBasestat(mainStat) >= targetBaseMainStat &&
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         (haveCBBIngredients(true) || overlevelled()),

@@ -1,4 +1,4 @@
-import { buy, create, Effect, myPrimestat, print, Stat, toInt, use, visitUrl } from "kolmafia";
+import { buy, create, Effect, print, Stat, use } from "kolmafia";
 import {
   $coinmaster,
   $effect,
@@ -16,13 +16,14 @@ import {
 import { Quest } from "../engine/task";
 import {
   logTestSetup,
+  mainStat,
   reagentBalancerEffect,
   reagentBalancerItem,
   tryAcquiringEffect,
 } from "../lib";
 
 function useBalancerForTest(testStat: Stat): void {
-  if (testStat === myPrimestat()) {
+  if (testStat === mainStat) {
     return;
   }
   if (!have(reagentBalancerEffect) && !have(reagentBalancerItem)) {

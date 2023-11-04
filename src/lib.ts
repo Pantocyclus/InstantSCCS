@@ -289,7 +289,7 @@ export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean
     if (
       !get("instant_saveWileyWheyBar", false) &&
       !have($effect`Awfully Wily`) &&
-      myBasestat($stat`Mysticality`) < targetBaseMainStat
+      myBasestat(mainStat) < targetBaseMainStat
     ) {
       whey += 1;
     }
