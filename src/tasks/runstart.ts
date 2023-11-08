@@ -320,7 +320,7 @@ export const RunStartQuest: Quest = {
         !have($item`mumming trunk`) ||
         get("instant_saveMummingTrunk", false),
         do: (): void => {
-          cliExecute(`mummery ${mainStat}`);
+          cliExecute(`mummery ${mainStatStr.substring(0,3)}`);
         },
       outfit: { familiar: chooseFamiliar() },
       limit: { tries: 1 },

@@ -848,8 +848,8 @@ export const LevelingQuest: Quest = {
         have(reagentBalancerEffect) ||
         itemAmount(reagentBalancerItem) === 1,
       do: (): void => {
+        if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
         if (!have(reagentBalancerItem)) {
-          if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
             create(reagentBalancerItem, 1);
         }
         if (itemAmount(reagentBalancerItem) > 1)
