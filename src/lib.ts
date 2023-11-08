@@ -1,10 +1,13 @@
 import {
   cliExecute,
   Effect,
+  equip,
+  equippedItem,
   getCampground,
   getClanName,
   gitInfo,
   haveEffect,
+  haveEquipped,
   holiday,
   Item,
   itemAmount,
@@ -39,6 +42,7 @@ import {
   $monster,
   $skill,
   $skills,
+  $slot,
   $stat,
   CombatLoversLocket,
   CommunityService,
@@ -174,7 +178,15 @@ export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   if (tryRegardless || canAcquireEffect(ef)) {
     const efDefault = ef.default;
     if (efDefault.split(" ")[0] === "cargo") return; // Don't acquire effects with cargo (items are usually way more useful)
+
+    const usePowerfulGlove =
+      efDefault.includes("CHEAT CODE") &&
+      have($item`Powerful Glove`) &&
+      !haveEquipped($item`Powerful Glove`);
+    const currentAcc = equippedItem($slot`acc3`);
+    if (usePowerfulGlove) equip($slot`acc3`, $item`Powerful Glove`);
     cliExecute(efDefault.replace(/cast 1 /g, "cast "));
+    if (usePowerfulGlove) equip($slot`acc3`, currentAcc);
   }
 }
 
