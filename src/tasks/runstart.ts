@@ -316,11 +316,11 @@ export const RunStartQuest: Quest = {
     {
       name: "Mummery",
       completed: () =>
-        get("_mummeryMods").includes(`Experience (${mainStatStr})`) ||
+        get("_mummeryMods").includes(`Experience (${mainStat})`) ||
         !have($item`mumming trunk`) ||
         get("instant_saveMummingTrunk", false),
         do: (): void => {
-          cliExecute(`mummery ${mainStatStr}`);
+          cliExecute(`mummery ${mainStat}`);
         },
       outfit: { familiar: chooseFamiliar() },
       limit: { tries: 1 },

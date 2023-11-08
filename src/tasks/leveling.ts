@@ -631,7 +631,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Consult Fortune Teller",
       completed: () => get("_clanFortuneBuffUsed") || get("instant_saveFortuneTeller", false),
-      do: () => cliExecute(`fortune buff ${mainStatStr}`),
+      do: () => cliExecute(`fortune buff ${mainStat}`),
       limit: { tries: 1 },
     },
     {
