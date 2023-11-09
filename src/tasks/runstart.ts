@@ -60,12 +60,15 @@ import {
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
-import { getGarden, mainStat, mainStatStr, statToMaximizerString, tryAcquiringEffect } from "../lib";
+import { getGarden, goVote, mainStat, mainStatStr, statToMaximizerString, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { baseOutfit, chooseFamiliar, unbreakableUmbrella } from "../engine/outfit";
 
 const useParkaSpit = have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`);
+
+
+
 export const RunStartQuest: Quest = {
   name: "Run Start",
   completed: () => CommunityService.CoilWire.isDone(),
@@ -341,7 +344,10 @@ export const RunStartQuest: Quest = {
     {
       name: "Vote",
       completed: () => have($item`"I Voted!" sticker`) || !get("voteAlways"),
-      do: () => cliExecute("VotingBooth.ash"),
+      do: (): void =>{
+        visitUrl("place.php?whichplace=town_right&action=townright_vote");
+        goVote();
+      },
       limit: { tries: 1 },
     },
     {

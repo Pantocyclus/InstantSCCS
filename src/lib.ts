@@ -49,6 +49,7 @@ import {
   get,
   getKramcoWandererChance,
   have,
+  maxBy,
   set,
   sumNumbers,
   Witchess,
@@ -649,3 +650,74 @@ export const generalStoreXpEffect: Effect = {
   Mysticality: $effect`Glittering Eyelashes`,
   Moxie: $effect`Butt-Rock Hair`,
 }[mainStatStr];
+
+export function goVote(): void {
+
+const initPriority: Map<string, number> = new Map([
+  ["Meat Drop: +30", 1,],
+  ["Item Drop: +15", 4],
+  ["Booze Drop: +30", 4],
+  ["Adventures: +1", 3],
+  ["Familiar Experience: +2", 2],
+  ["Monster Level: +10", 3],
+  [`${mainStat} Percent: +25`, 3],
+  [`Experience (${mainStat}): +4`, 2],
+  ["Meat Drop: -30", -4],
+  ["Item Drop: -15", -4],
+  ["Familiar Experience: -2", -4],
+  ["Hot Resistance: +3", 2],
+  ["Weapon Damage Percent: +100", 5],
+  ["Spell Damage Percent: +20", 3]
+]);
+
+const voteLocalPriorityArr = [1, 2, 3, 4].map((index) => ({
+  urlString: index - 1,
+  value:
+    initPriority.get(get(`_voteLocal${index}`)) ??
+    (get(`_voteLocal${index}`).includes("-") ? -1 : 1),
+}));
+
+const init = maxBy(voteLocalPriorityArr, "value").urlString;
+
+
+//Dear Panto,
+//For the purposes of this script it *makes sense* to rotate through monsters like Garbo would, but it is less than optimal.
+//Optimal would be always pick terrible mutant. It offers a small benefit to some people (+wDmg%). However, this could warp the voters space.
+//If you would prefer to exclude this code, let me know and I will revert. If you would prefer another solution, let me know.
+//For now, I have chosen optimal. Terrible mutant when we can, likely profit when we can't, outfit stuff last.
+const voterValueTable = [
+  {
+    monster: $monster`terrible mutant`,
+    value: 3,
+  },
+  {
+    monster: $monster`angry ghost`,
+    value: 2,
+  },
+  {
+    monster: $monster`government bureaucrat`,
+    value: 2,
+  },
+  {
+    monster: $monster`annoyed snake`,
+    value: 1,
+  },
+  {
+    monster: $monster`slime blob`,
+    value: 1,
+  },
+];
+
+const votingMonsterPriority = voterValueTable
+  .sort((a, b) => b.value - a.value)
+  .map((element) => element.monster.name);
+
+const monsterVote =
+  votingMonsterPriority.indexOf(get("_voteMonster1")) <
+  votingMonsterPriority.indexOf(get("_voteMonster2"))
+    ? 1
+    : 2;
+
+visitUrl(`choice.php?option=1&whichchoice=1331&g=${monsterVote}&local[]=${init}&local[]=${init}`);
+
+}
