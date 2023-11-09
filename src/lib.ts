@@ -654,20 +654,26 @@ export const generalStoreXpEffect: Effect = {
 export function goVote(): void {
 
 const initPriority: Map<string, number> = new Map([
-  ["Meat Drop: +30", 1,],
+  ["Weapon Damage Percent: +100", 5],
   ["Item Drop: +15", 4],
   ["Booze Drop: +30", 4],
-  ["Adventures: +1", 3],
-  ["Familiar Experience: +2", 2],
   ["Monster Level: +10", 3],
   [`${mainStat} Percent: +25`, 3],
+  ["Adventures: +1", 3],
+  ["Spell Damage Percent: +20", 3],
+  ["Familiar Experience: +2", 2],
   [`Experience (${mainStat}): +4`, 2],
-  ["Meat Drop: -30", -4],
+  ["Hot Resistance: +3", 2],
+  ["Meat Drop: +30", 1,],
+  [`Experience: +3`, 1],
+  ["Meat Drop: -30", -2],
   ["Item Drop: -15", -4],
   ["Familiar Experience: -2", -4],
-  ["Hot Resistance: +3", 2],
-  ["Weapon Damage Percent: +100", 5],
-  ["Spell Damage Percent: +20", 3]
+  [`Experience: -3`, -4],
+  [`Maximum HP Percent: -50`, -4],
+  ["Weapon Damage Percent: -50", -6],
+  ["Spell Damage Percent: -50", -6],
+  ["Adventures: -2", -6],
 ]);
 
 const voteLocalPriorityArr = [1, 2, 3, 4].map((index) => ({
