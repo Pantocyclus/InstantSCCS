@@ -686,23 +686,19 @@ const voteLocalPriorityArr = [1, 2, 3, 4].map((index) => ({
 const init = maxBy(voteLocalPriorityArr, "value").urlString;
 
 
-//Dear Panto,
-//For the purposes of this script it *makes sense* to rotate through monsters like Garbo would, but it is less than optimal.
-//Optimal would be always pick terrible mutant. It offers a small benefit to some people (+wDmg%). However, this could warp the voters space.
-//If you would prefer to exclude this code, let me know and I will revert. If you would prefer another solution, let me know.
-//For now, I have chosen optimal. Terrible mutant when we can, likely profit when we can't, outfit stuff last.
+const voteOptimally = get("instant_voteOptimically", false) ? 2 : 1;
 const voterValueTable = [
   {
     monster: $monster`terrible mutant`,
-    value: 3,
+    value: voteOptimally,
   },
   {
     monster: $monster`angry ghost`,
-    value: 2,
+    value: 1,
   },
   {
     monster: $monster`government bureaucrat`,
-    value: 2,
+    value: 1,
   },
   {
     monster: $monster`annoyed snake`,
