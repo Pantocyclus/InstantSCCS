@@ -686,7 +686,7 @@ const voteLocalPriorityArr = [1, 2, 3, 4].map((index) => ({
 const init = maxBy(voteLocalPriorityArr, "value").urlString;
 
 
-const voteOptimally = get("instant_voteOptimically", false) ? 2 : 1;
+const voteOptimally = get("instant_voteOptimally", false) ? 2 : 1;
 const voterValueTable = [
   {
     monster: $monster`terrible mutant`,
