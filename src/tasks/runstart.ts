@@ -594,7 +594,10 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Chewing Gum",
-      completed: () => myMeat() <= 600 || get("_cloversPurchased") >= 1,
+      completed: () =>
+        myMeat() <= 600 ||
+        get("_cloversPurchased") >= 1 ||
+        get("instant_skipDistilledFortifiedWine", false),
       do: (): void => {
         buy(1, $item`chewing gum on a string`);
         use(1, $item`chewing gum on a string`);
