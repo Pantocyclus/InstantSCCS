@@ -17208,7 +17208,7 @@ var RunStartQuest = {
     }
   }, {
     name: "Chewing Gum",
-    completed: () => (0,external_kolmafia_namespaceObject.myMeat)() <= 600 || property_get("_cloversPurchased") >= 1,
+    completed: () => (0,external_kolmafia_namespaceObject.myMeat)() <= 600 || property_get("_cloversPurchased") >= 1 || property_get("instant_skipDistilledFortifiedWine", false),
     do: () => {
       (0,external_kolmafia_namespaceObject.buy)(1, template_string_$item(runstart_templateObject123 || (runstart_templateObject123 = runstart_taggedTemplateLiteral(["chewing gum on a string"]))));
       (0,external_kolmafia_namespaceObject.use)(1, template_string_$item(runstart_templateObject124 || (runstart_templateObject124 = runstart_taggedTemplateLiteral(["chewing gum on a string"]))));
