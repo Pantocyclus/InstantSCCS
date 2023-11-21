@@ -339,7 +339,7 @@ export const LevelingQuest: Quest = {
         }[mainStatStr];
         ensureEffect(mainStatGainEffect);
       },
-      limit: { tries: 1 },
+      limit: { tries: 5 },
     },
     {
       name: "Hot in Herre",
