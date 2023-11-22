@@ -1,5 +1,5 @@
 import { OutfitSpec } from "grimoire-kolmafia";
-import { cliExecute, equip, equippedItem, Familiar, Item, toInt } from "kolmafia";
+import { cliExecute, equip, equippedItem, Familiar, Item, myPrimestat, toInt } from "kolmafia";
 import {
   $effect,
   $familiar,
@@ -7,12 +7,13 @@ import {
   $item,
   $skill,
   $slot,
+  $stat,
   DaylightShavings,
   get,
   have,
   maxBy,
 } from "libram";
-import { camelFightsLeft, haveCBBIngredients } from "../lib";
+import { camelFightsLeft, haveCBBIngredients, mainStat, mainStatStr, statToMaximizerString } from "../lib";
 
 export function garbageShirt(): void {
   if (
@@ -144,16 +145,26 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
   const lovTunnelCompleted = get("_loveTunnelUsed") || !get("loveTunnelAvailable");
 
   return {
+    weapon: 
+      have($item`fish hatchet`)
+      ? $item`fish hatchet`
+      : have($item`bass clarinet`)
+      ? $item`bass clarinet`
+      : myPrimestat() === $stat`Muscle` && have($item`june cleaver`)
+      ? $item`june cleaver`
+      : undefined,
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     offhand: $item`unbreakable umbrella`,
     back: lovTunnelCompleted ? $item`LOV Epaulettes` : undefined,
-    acc1: $item`codpiece`,
+    acc1: myPrimestat() === $stat`Mysticality`
+    ? $item`codpiece`
+    : undefined,
     acc2:
       have($item`Cincho de Mayo`) && get("_cinchUsed", 0) < 95 && !get("instant_saveCinch", false)
         ? $item`Cincho de Mayo`
         : undefined,
     familiar: chooseFamiliar(allowAttackingFamiliars),
-    modifier: "0.25 mys, 0.33 ML, -equip tinsel tights, -equip wad of used tape",
+    modifier: `0.25 ${statToMaximizerString(mainStat)}, 0.33 ML, -equip tinsel tights, -equip wad of used tape`,
     avoid: [
       ...sugarItemsAboutToBreak(),
       ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),

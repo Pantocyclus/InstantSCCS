@@ -18,11 +18,13 @@ import {
   myLevel,
   myMaxhp,
   myMp,
+  myPrimestat,
   print,
   restoreMp,
   retrieveItem,
   retrievePrice,
   Skill,
+  Stat,
   sweetSynthesis,
   toInt,
   toItem,
@@ -47,13 +49,13 @@ import {
   get,
   getKramcoWandererChance,
   have,
+  maxBy,
   set,
   sumNumbers,
   Witchess,
 } from "libram";
 import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
-import { mainStat } from "./combat";
 
 export const startingClan = getClanName();
 
@@ -151,6 +153,12 @@ export function logTestSetup(whichTest: CommunityService): void {
     "blue"
   );
   set(`_CSTest${whichTest.id}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
+}
+
+export const mainStat = myPrimestat();
+export const mainStatStr = mainStat.toString();
+export function statToMaximizerString(stat: Stat): string {
+  return stat === $stat`Muscle` ? "mus" : stat === $stat`Mysticality` ? "myst" : "mox";
 }
 
 export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
@@ -271,8 +279,8 @@ export function wishFor(ef: Effect, useGenie = true): void {
 export function overlevelled(): boolean {
   return myLevel() >= 20;
 }
-export const targetBaseMyst = get("instant_targetBaseMyst", 190);
-export const targetBaseMystGap = get("instant_targetBaseMystGap", 15);
+export const targetBaseMainStat = get("instant_targetBaseMainStat", 190);
+export const targetBaseMainStatGap = get("instant_targetBaseMainStatGap", 15);
 export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean {
   if (!have($familiar`Cookbookbat`)) return true;
   let yeast = 0,
@@ -297,7 +305,7 @@ export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean
     if (
       !get("instant_saveWileyWheyBar", false) &&
       !have($effect`Awfully Wily`) &&
-      myBasestat($stat`Mysticality`) < targetBaseMyst
+      myBasestat(mainStat) < targetBaseMainStat
     ) {
       whey += 1;
     }
@@ -315,7 +323,7 @@ export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean
 }
 
 export const synthExpBuff =
-  mainStat === $stat`Muscle`
+mainStat === $stat`Muscle`
     ? $effect`Synthesis: Movement`
     : mainStat === $stat`Mysticality`
     ? $effect`Synthesis: Learning`
@@ -573,4 +581,145 @@ export function refillLatte(): void {
 
   const lastIngredient = get("latteUnlocks").includes("carrot") ? "carrot" : "pumpkin";
   if (get("_latteRefillsUsed") < 3) cliExecute(`latte refill cinnamon vanilla ${lastIngredient}`);
+}
+
+
+
+export const reagentBalancerEffect: Effect = {
+  Muscle: $effect`Stabilizing Oiliness`,
+  Mysticality: $effect`Expert Oiliness`,
+  Moxie: $effect`Slippery Oiliness`,
+}[mainStatStr];
+
+export const reagentBalancerItem: Item = {
+  Muscle: $item`oil of stability`,
+  Mysticality: $item`oil of expertise`,
+  Moxie: $item`oil of slipperiness`,
+}[mainStatStr];
+
+export const reagentBalancerIngredient: Item = {
+  Muscle: $item`lime`,
+  Mysticality: $item`cherry`,
+  Moxie: $item`jumbo olive`,
+}[mainStatStr];
+
+export const reagentBoosterEffect: Effect = {
+  Muscle: $effect`Phorcefullness`,
+  Mysticality: $effect`Mystically Oiled`,
+  Moxie: $effect`Superhuman Sarcasm`,
+}[mainStatStr];
+
+export const reagentBoosterItem: Item = {
+  Muscle: $item`philter of phorce`,
+  Mysticality: $item`ointment of the occult`,
+  Moxie: $item`serum of sarcasm`,
+}[mainStatStr];
+
+export const reagentBoosterIngredient: Item = {
+  Muscle: $item`lemon`,
+  Mysticality: $item`grapefruit`,
+  Moxie: $item`olive`,
+}[mainStatStr];
+
+export const xpWishEffect: Effect = {
+  Muscle: $effect`HGH-charged`,
+  Mysticality: $effect`Different Way of Seeing Things`,
+  Moxie: $effect`Thou Shant Not Sing`,
+}[mainStatStr];
+
+export const snapperXpItem: Item = {
+  Muscle: $item`vial of humanoid growth hormone`,
+  Mysticality: $item`non-Euclidean angle`,
+  Moxie: $item`Shantix™`,
+}[mainStatStr];
+
+export const abstractionXpItem: Item = {
+  Muscle: $item`abstraction: purpose`,
+  Mysticality: $item`abstraction: category`,
+  Moxie: $item`abstraction: perception`,
+}[mainStatStr];
+
+export const abstractionXpEffect: Effect = {
+  Muscle: $effect`Purpose`,
+  Mysticality: $effect`Category`,
+  Moxie: $effect`Perception`,
+}[mainStatStr];
+
+export const generalStoreXpEffect: Effect = {
+  Muscle: $effect`Go Get 'Em, Tiger!`,
+  Mysticality: $effect`Glittering Eyelashes`,
+  Moxie: $effect`Butt-Rock Hair`,
+}[mainStatStr];
+
+export function goVote(): void {
+
+const initPriority: Map<string, number> = new Map([
+  ["Weapon Damage Percent: +100", 5],
+  ["Item Drop: +15", 4],
+  ["Booze Drop: +30", 4],
+  ["Monster Level: +10", 3],
+  [`${mainStat} Percent: +25`, 3],
+  ["Adventures: +1", 3],
+  ["Spell Damage Percent: +20", 3],
+  ["Familiar Experience: +2", 2],
+  [`Experience (${mainStat}): +4`, 2],
+  ["Hot Resistance: +3", 2],
+  ["Meat Drop: +30", 1,],
+  [`Experience: +3`, 1],
+  ["Meat Drop: -30", -2],
+  ["Item Drop: -15", -4],
+  ["Familiar Experience: -2", -4],
+  [`Experience: -3`, -4],
+  [`Maximum HP Percent: -50`, -4],
+  ["Weapon Damage Percent: -50", -6],
+  ["Spell Damage Percent: -50", -6],
+  ["Adventures: -2", -6],
+]);
+
+const voteLocalPriorityArr = [1, 2, 3, 4].map((index) => ({
+  urlString: index - 1,
+  value:
+    initPriority.get(get(`_voteLocal${index}`)) ??
+    (get(`_voteLocal${index}`).includes("-") ? -1 : 1),
+}));
+
+const init = maxBy(voteLocalPriorityArr, "value").urlString;
+
+
+const voteOptimally = get("instant_voteOptimally", false) ? 2 : 1;
+const voterValueTable = [
+  {
+    monster: $monster`terrible mutant`,
+    value: voteOptimally,
+  },
+  {
+    monster: $monster`angry ghost`,
+    value: 1,
+  },
+  {
+    monster: $monster`government bureaucrat`,
+    value: 1,
+  },
+  {
+    monster: $monster`annoyed snake`,
+    value: 1,
+  },
+  {
+    monster: $monster`slime blob`,
+    value: 1,
+  },
+];
+
+const votingMonsterPriority = voterValueTable
+  .sort((a, b) => b.value - a.value)
+  .map((element) => element.monster.name);
+
+const monsterVote =
+  votingMonsterPriority.indexOf(get("_voteMonster1")) <
+  votingMonsterPriority.indexOf(get("_voteMonster2"))
+    ? 1
+    : 2;
+
+visitUrl(`choice.php?option=1&whichchoice=1331&g=${monsterVote}&local[]=${init}&local[]=${init}`);
+
 }
