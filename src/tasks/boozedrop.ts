@@ -52,7 +52,7 @@ import {
   setConfiguration,
   Station,
 } from "libram/dist/resources/2022/TrainSet";
-import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro, { haveFreeBanish } from "../combat";
@@ -353,6 +353,8 @@ export const BoozeDropQuest: Quest = {
           useFamiliar($familiar`Trick-or-Treating Tot`);
           equip($slot`familiar`, $item`li'l ninja costume`);
         }
+
+        get("instant_boozeTestPulls").split(",").forEach(handleCustomPull);
 
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect`Infernal Thirst`);

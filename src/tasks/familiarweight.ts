@@ -27,7 +27,7 @@ import {
   have,
 } from "libram";
 import { Quest } from "../engine/task";
-import { logTestSetup, tryAcquiringEffect } from "../lib";
+import { handleCustomPull, logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import {
   avoidDaylightShavingsHelm,
@@ -131,6 +131,9 @@ export const FamiliarWeightQuest: Quest = {
             else useFamiliar($familiar`Exotic Parrot`);
             use($item`box of Familiar Jacks`, 1);
           }
+
+          get("instant_famTestPulls").split(",").forEach(handleCustomPull);
+
           cliExecute("maximize familiar weight");
 
           if (

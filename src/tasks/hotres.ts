@@ -26,7 +26,7 @@ import {
   uneffect,
 } from "libram";
 import { Quest } from "../engine/task";
-import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import Macro from "../combat";
 
@@ -158,6 +158,7 @@ export const HotResQuest: Quest = {
           $effect`Robot Friends`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        get("instant_hotTestPulls").split(",").forEach(handleCustomPull);
         cliExecute("maximize hot res");
 
         // If it saves us >= 6 turns, try using a wish

@@ -21,7 +21,7 @@ import {
   have,
   uneffect,
 } from "libram";
-import { logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 
@@ -88,6 +88,7 @@ export const NoncombatQuest: Quest = {
           $effect`Puzzle Champ`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        get("instant_comTestPulls").split(",").forEach(handleCustomPull);
         cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
 
         if (

@@ -35,7 +35,7 @@ import {
 import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { Quest } from "../engine/task";
-import { logTestSetup, startingClan, tryAcquiringEffect, wishFor } from "../lib";
+import { handleCustomPull, logTestSetup, startingClan, tryAcquiringEffect, wishFor } from "../lib";
 import { powerlevelingLocation } from "./leveling";
 import { forbiddenEffects } from "../resources";
 
@@ -217,6 +217,7 @@ export const WeaponDamageQuest: Quest = {
           $effect`Weapon of Mass Destruction`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        get("instant_weaponTestPulls").split(",").forEach(handleCustomPull);
 
         if (
           have($skill`Aug. 13th: Left/Off Hander's Day!`) &&

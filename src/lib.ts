@@ -1,5 +1,8 @@
 import {
+  chew,
   cliExecute,
+  drink,
+  eat,
   Effect,
   equip,
   equippedItem,
@@ -25,7 +28,9 @@ import {
   retrievePrice,
   Skill,
   Stat,
+  storageAmount,
   sweetSynthesis,
+  takeStorage,
   toInt,
   toItem,
   toSkill,
@@ -247,6 +252,34 @@ export function canAcquireEffect(ef: Effect): boolean {
       }
     })
     .some((b) => b);
+}
+
+export function handleCustomPull(pullStr: string): void {
+  // Pull a given item and use it if we can
+  // Note: We should be running this in prepare(), which occurs after equipping
+  // If the user wants to pull equips, they should pre-pull them
+  const pullID = toInt(pullStr);
+  const it = toItem(pullID);
+
+  if (
+    get("_roninStoragePulls").split(",").length >= 5 || // We are out of pulls
+    get("_roninStoragePulls").split(",").includes(pullStr) || // We have already pulled this item
+    storageAmount(it) === 0 // We don't have this item
+  )
+    return;
+
+  takeStorage(it, 1);
+
+  if (it.inebriety > 0) {
+    tryAcquiringEffect($effect`Ode to Booze`);
+    drink(it, 1);
+  } else if (it.fullness > 0) {
+    eat(it, 1);
+  } else if (it.spleen > 0) {
+    chew(it, 1);
+  } else if (it.usable) {
+    use(it, 1);
+  }
 }
 
 // Adapted from goorbo

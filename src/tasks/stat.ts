@@ -15,6 +15,7 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import {
+  handleCustomPull,
   logTestSetup,
   mainStat,
   reagentBalancerEffect,
@@ -58,6 +59,7 @@ export const HPQuest: Quest = {
           $effect`Triple-Sized`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        get("instant_hpTestPulls").split(",").forEach(handleCustomPull);
       },
       do: (): void => {
         const maxTurns = get("instant_hpTestTurnLimit", 1);
@@ -110,6 +112,7 @@ export const MuscleQuest: Quest = {
           $effect`Triple-Sized`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        get("instant_musTestPulls").split(",").forEach(handleCustomPull);
       },
       do: (): void => {
         const maxTurns = get("instant_musTestTurnLimit", 2);
@@ -165,6 +168,7 @@ export const MysticalityQuest: Quest = {
           $effect`Mystically Oiled`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        get("instant_mystTestPulls").split(",").forEach(handleCustomPull);
       },
       do: (): void => {
         const maxTurns = get("instant_mystTestTurnLimit", 1);
@@ -237,6 +241,7 @@ export const MoxieQuest: Quest = {
           $effect`Unrunnable Face`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        get("instant_moxTestPulls").split(",").forEach(handleCustomPull);
       },
       do: (): void => {
         const maxTurns = get("instant_moxTestTurnLimit", 5);

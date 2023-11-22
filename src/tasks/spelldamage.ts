@@ -35,7 +35,7 @@ import {
   have,
 } from "libram";
 import { Quest } from "../engine/task";
-import { logTestSetup, startingClan, tryAcquiringEffect } from "../lib";
+import { handleCustomPull, logTestSetup, startingClan, tryAcquiringEffect } from "../lib";
 import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { forbiddenEffects } from "../resources";
@@ -171,6 +171,8 @@ export const SpellDamageQuest: Quest = {
           $effect`We're All Made of Starfish`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+
+        get("instant_spellTestPulls").split(",").forEach(handleCustomPull);
 
         const wines = $items`Sacramento wine, distilled fortified wine`;
         while (
