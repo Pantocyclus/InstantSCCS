@@ -13,7 +13,7 @@ import {
   have,
   maxBy,
 } from "libram";
-import { camelFightsLeft, haveCBBIngredients, mainStat, mainStatStr, statToMaximizerString } from "../lib";
+import { camelFightsLeft, haveCBBIngredients, mainStat, statToMaximizerString } from "../lib";
 
 export function garbageShirt(): void {
   if (
@@ -145,26 +145,25 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
   const lovTunnelCompleted = get("_loveTunnelUsed") || !get("loveTunnelAvailable");
 
   return {
-    weapon: 
-      have($item`fish hatchet`)
+    weapon: have($item`fish hatchet`)
       ? $item`fish hatchet`
       : have($item`bass clarinet`)
       ? $item`bass clarinet`
-      : myPrimestat() === $stat`Muscle` && have($item`june cleaver`)
-      ? $item`june cleaver`
+      : myPrimestat() === $stat`Muscle` && have($item`June cleaver`)
+      ? $item`June cleaver`
       : undefined,
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     offhand: $item`unbreakable umbrella`,
     back: lovTunnelCompleted ? $item`LOV Epaulettes` : undefined,
-    acc1: myPrimestat() === $stat`Mysticality`
-    ? $item`codpiece`
-    : undefined,
+    acc1: myPrimestat() === $stat`Mysticality` ? $item`codpiece` : undefined,
     acc2:
       have($item`Cincho de Mayo`) && get("_cinchUsed", 0) < 95 && !get("instant_saveCinch", false)
         ? $item`Cincho de Mayo`
         : undefined,
     familiar: chooseFamiliar(allowAttackingFamiliars),
-    modifier: `0.25 ${statToMaximizerString(mainStat)}, 0.33 ML, -equip tinsel tights, -equip wad of used tape`,
+    modifier: `0.25 ${statToMaximizerString(
+      mainStat
+    )}, 0.33 ML, -equip tinsel tights, -equip wad of used tape`,
     avoid: [
       ...sugarItemsAboutToBreak(),
       ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),

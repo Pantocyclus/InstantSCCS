@@ -60,14 +60,19 @@ import {
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
-import { getGarden, goVote, mainStat, mainStatStr, statToMaximizerString, tryAcquiringEffect } from "../lib";
+import {
+  getGarden,
+  goVote,
+  mainStat,
+  mainStatStr,
+  statToMaximizerString,
+  tryAcquiringEffect,
+} from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { baseOutfit, chooseFamiliar, unbreakableUmbrella } from "../engine/outfit";
 
 const useParkaSpit = have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`);
-
-
 
 export const RunStartQuest: Quest = {
   name: "Run Start",
@@ -322,9 +327,9 @@ export const RunStartQuest: Quest = {
         get("_mummeryMods").includes(`Experience (${mainStat})`) ||
         !have($item`mumming trunk`) ||
         get("instant_saveMummingTrunk", false),
-        do: (): void => {
-          cliExecute(`mummery ${statToMaximizerString(mainStat)}`);
-        },
+      do: (): void => {
+        cliExecute(`mummery ${statToMaximizerString(mainStat)}`);
+      },
       outfit: { familiar: chooseFamiliar() },
       limit: { tries: 1 },
     },
@@ -344,7 +349,7 @@ export const RunStartQuest: Quest = {
     {
       name: "Vote",
       completed: () => have($item`"I Voted!" sticker`) || !get("voteAlways"),
-      do: (): void =>{
+      do: (): void => {
         visitUrl("place.php?whichplace=town_right&action=townright_vote");
         goVote();
       },
@@ -535,9 +540,9 @@ export const RunStartQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(false),
-          shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
-          modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
-        }),
+        shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
+        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
+      }),
       post: (): void => {
         if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
           use($item`MayDay™ supply package`, 1);
@@ -591,8 +596,7 @@ export const RunStartQuest: Quest = {
           offhand: $item`unbreakable umbrella`,
           acc3: $item`cursed monkey's paw`,
           familiar: chooseFamiliar(false),
-          modifier:
-          `${baseOutfit().modifier}, -equip miniature crystal ball`,
+          modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
         };
       },
       post: (): void => {

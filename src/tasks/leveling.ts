@@ -77,20 +77,22 @@ import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   abstractionXpEffect,
   abstractionXpItem,
-  generalStoreXpEffect,
   burnLibram,
   chooseLibram,
+  generalStoreXpEffect,
   getSynthExpBuff,
   getValidComplexCandyPairs,
   haveCBBIngredients,
+  mainStat,
+  mainStatStr,
   overlevelled,
-  refillLatte,
   reagentBalancerEffect,
   reagentBalancerIngredient,
   reagentBalancerItem,
   reagentBoosterEffect,
   reagentBoosterIngredient,
   reagentBoosterItem,
+  refillLatte,
   snapperXpItem,
   synthExpBuff,
   targetBaseMainStat,
@@ -98,8 +100,6 @@ import {
   tryAcquiringEffect,
   wishFor,
   xpWishEffect,
-  mainStatStr,
-  mainStat,
 } from "../lib";
 import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
 import Macro, { haveFreeBanish } from "../combat";
@@ -117,7 +117,6 @@ const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, W
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
 const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
 let triedCraftingCBBFoods = false;
-
 
 const muscleList: Effect[] = [
   $effect`Seal Clubbing Frenzy`,
@@ -154,12 +153,12 @@ const moxieList: Effect[] = [
   $effect`Carol of the Bulls`,
 ];
 
-const statEffects = 
+const statEffects =
   mainStatStr === `Muscle`
-  ? muscleList
-  : mainStatStr === `Mysticality`
-  ? mysticalityList
-  : moxieList;
+    ? muscleList
+    : mainStatStr === `Mysticality`
+    ? mysticalityList
+    : moxieList;
 
 const usefulEffects: Effect[] = [
   // Stats
@@ -470,7 +469,7 @@ export const LevelingQuest: Quest = {
       name: "Wish for XP% buff",
       // TODO: Make this completed if we've already wished twice with the paw (requires mafia tracking)
       completed: () =>
-        have(xpWishEffect)  ||
+        have(xpWishEffect) ||
         !have($item`cursed monkey's paw`) ||
         forbiddenEffects.includes(xpWishEffect) ||
         get("instant_saveMonkeysPaw", false) ||
@@ -732,7 +731,6 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit,
         familiar: $familiar`Trick-or-Treating Tot`,
-        
       }),
       post: () => sellMiscellaneousItems(),
       limit: { tries: 1 },
@@ -850,7 +848,7 @@ export const LevelingQuest: Quest = {
       do: (): void => {
         if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
         if (!have(reagentBalancerItem)) {
-            create(reagentBalancerItem, 1);
+          create(reagentBalancerItem, 1);
         }
         if (itemAmount(reagentBalancerItem) > 1)
           use(reagentBalancerItem, itemAmount(reagentBalancerItem) - 1);

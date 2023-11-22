@@ -1,8 +1,8 @@
-import { Skill, mpCost, toInt } from "kolmafia";
+import { mpCost, toInt } from "kolmafia";
 import { $item, $skill, $stat, get, have, StrictMacro } from "libram";
 import { mainStat } from "./lib";
 
-const damageSkill = mainStat === $stat`Muscle` ? $skill`Lunging Thrust-Smack` : $skill`Saucegeyser`
+const damageSkill = mainStat === $stat`Muscle` ? $skill`Lunging Thrust-Smack` : $skill`Saucegeyser`;
 
 export default class Macro extends StrictMacro {
   kill(useCinch = false): Macro {

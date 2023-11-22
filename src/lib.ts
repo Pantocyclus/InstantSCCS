@@ -323,7 +323,7 @@ export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean
 }
 
 export const synthExpBuff =
-mainStat === $stat`Muscle`
+  mainStat === $stat`Muscle`
     ? $effect`Synthesis: Movement`
     : mainStat === $stat`Mysticality`
     ? $effect`Synthesis: Learning`
@@ -583,8 +583,6 @@ export function refillLatte(): void {
   if (get("_latteRefillsUsed") < 3) cliExecute(`latte refill cinnamon vanilla ${lastIngredient}`);
 }
 
-
-
 export const reagentBalancerEffect: Effect = {
   Muscle: $effect`Stabilizing Oiliness`,
   Mysticality: $effect`Expert Oiliness`,
@@ -652,74 +650,71 @@ export const generalStoreXpEffect: Effect = {
 }[mainStatStr];
 
 export function goVote(): void {
+  const initPriority: Map<string, number> = new Map([
+    ["Weapon Damage Percent: +100", 5],
+    ["Item Drop: +15", 4],
+    ["Booze Drop: +30", 4],
+    ["Monster Level: +10", 3],
+    [`${mainStat} Percent: +25`, 3],
+    ["Adventures: +1", 3],
+    ["Spell Damage Percent: +20", 3],
+    ["Familiar Experience: +2", 2],
+    [`Experience (${mainStat}): +4`, 2],
+    ["Hot Resistance: +3", 2],
+    ["Meat Drop: +30", 1],
+    [`Experience: +3`, 1],
+    ["Meat Drop: -30", -2],
+    ["Item Drop: -15", -4],
+    ["Familiar Experience: -2", -4],
+    [`Experience: -3`, -4],
+    [`Maximum HP Percent: -50`, -4],
+    ["Weapon Damage Percent: -50", -6],
+    ["Spell Damage Percent: -50", -6],
+    ["Adventures: -2", -6],
+  ]);
 
-const initPriority: Map<string, number> = new Map([
-  ["Weapon Damage Percent: +100", 5],
-  ["Item Drop: +15", 4],
-  ["Booze Drop: +30", 4],
-  ["Monster Level: +10", 3],
-  [`${mainStat} Percent: +25`, 3],
-  ["Adventures: +1", 3],
-  ["Spell Damage Percent: +20", 3],
-  ["Familiar Experience: +2", 2],
-  [`Experience (${mainStat}): +4`, 2],
-  ["Hot Resistance: +3", 2],
-  ["Meat Drop: +30", 1,],
-  [`Experience: +3`, 1],
-  ["Meat Drop: -30", -2],
-  ["Item Drop: -15", -4],
-  ["Familiar Experience: -2", -4],
-  [`Experience: -3`, -4],
-  [`Maximum HP Percent: -50`, -4],
-  ["Weapon Damage Percent: -50", -6],
-  ["Spell Damage Percent: -50", -6],
-  ["Adventures: -2", -6],
-]);
+  const voteLocalPriorityArr = [1, 2, 3, 4].map((index) => ({
+    urlString: index - 1,
+    value:
+      initPriority.get(get(`_voteLocal${index}`)) ??
+      (get(`_voteLocal${index}`).includes("-") ? -1 : 1),
+  }));
 
-const voteLocalPriorityArr = [1, 2, 3, 4].map((index) => ({
-  urlString: index - 1,
-  value:
-    initPriority.get(get(`_voteLocal${index}`)) ??
-    (get(`_voteLocal${index}`).includes("-") ? -1 : 1),
-}));
+  const init = maxBy(voteLocalPriorityArr, "value").urlString;
 
-const init = maxBy(voteLocalPriorityArr, "value").urlString;
+  const voteOptimally = get("instant_voteOptimally", false) ? 2 : 1;
+  const voterValueTable = [
+    {
+      monster: $monster`terrible mutant`,
+      value: voteOptimally,
+    },
+    {
+      monster: $monster`angry ghost`,
+      value: 1,
+    },
+    {
+      monster: $monster`government bureaucrat`,
+      value: 1,
+    },
+    {
+      monster: $monster`annoyed snake`,
+      value: 1,
+    },
+    {
+      monster: $monster`slime blob`,
+      value: 1,
+    },
+  ];
 
+  const votingMonsterPriority = voterValueTable
+    .sort((a, b) => b.value - a.value)
+    .map((element) => element.monster.name);
 
-const voteOptimally = get("instant_voteOptimally", false) ? 2 : 1;
-const voterValueTable = [
-  {
-    monster: $monster`terrible mutant`,
-    value: voteOptimally,
-  },
-  {
-    monster: $monster`angry ghost`,
-    value: 1,
-  },
-  {
-    monster: $monster`government bureaucrat`,
-    value: 1,
-  },
-  {
-    monster: $monster`annoyed snake`,
-    value: 1,
-  },
-  {
-    monster: $monster`slime blob`,
-    value: 1,
-  },
-];
+  const monsterVote =
+    votingMonsterPriority.indexOf(get("_voteMonster1")) <
+    votingMonsterPriority.indexOf(get("_voteMonster2"))
+      ? 1
+      : 2;
 
-const votingMonsterPriority = voterValueTable
-  .sort((a, b) => b.value - a.value)
-  .map((element) => element.monster.name);
-
-const monsterVote =
-  votingMonsterPriority.indexOf(get("_voteMonster1")) <
-  votingMonsterPriority.indexOf(get("_voteMonster2"))
-    ? 1
-    : 2;
-
-visitUrl(`choice.php?option=1&whichchoice=1331&g=${monsterVote}&local[]=${init}&local[]=${init}`);
-
+  visitUrl(`choice.php?option=1&whichchoice=1331&g=${monsterVote}&local[]=${init}&local[]=${init}`);
 }
