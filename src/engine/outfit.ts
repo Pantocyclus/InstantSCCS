@@ -13,7 +13,7 @@ import {
   have,
   maxBy,
 } from "libram";
-import { camelFightsLeft, haveCBBIngredients, mainStat, statToMaximizerString } from "../lib";
+import { camelFightsLeft, haveCBBIngredients, mainStatMaximizerStr } from "../lib";
 
 export function garbageShirt(): void {
   if (
@@ -161,9 +161,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
         ? $item`Cincho de Mayo`
         : undefined,
     familiar: chooseFamiliar(allowAttackingFamiliars),
-    modifier: `0.25 ${statToMaximizerString(
-      mainStat
-    )}, 0.33 ML, -equip tinsel tights, -equip wad of used tape`,
+    modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape`,
     avoid: [
       ...sugarItemsAboutToBreak(),
       ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
