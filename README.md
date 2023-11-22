@@ -96,6 +96,8 @@ We will also need 2 Vegetable of Jarlsberg drops in those same ~55 turns in orde
 
 A Seal Clubber route might be viable for mid-to-high shiny, but the MP regen from curse of weaksauce and soul food from being a Sauceror tends to be invaluable to low shiny accounts.
 
+Note: As of 22 Nov 2023, preliminary support has been added for all Mus and Myst classes.
+
 ### What IotMs are currently supported and how are they being used by the script?
 
 InstantSCCS supports a very large number of IotMs, but, as a generalist script, may not be able to eke out every last benefit from each IotM. For exact specifics, refer to [this list](https://github.com/Pantocyclus/InstantSCCS/blob/main/ITEMS.md).

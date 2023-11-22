@@ -950,6 +950,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        if (mainStat === $stat`Muscle`) prismaticEffects.forEach((ef) => tryAcquiringEffect(ef));
         tryAcquiringEffect($effect`Comic Violence`);
       },
       completed: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),

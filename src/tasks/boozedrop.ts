@@ -328,6 +328,7 @@ export const BoozeDropQuest: Quest = {
       name: "Test",
       prepare: (): void => {
         const usefulEffects: Effect[] = [
+          $effect`Beer Barrel Polka`,
           $effect`Blessing of the Bird`,
           $effect`Crunching Leaves`,
           $effect`Fat Leon's Phat Loot Lyric`,
@@ -339,6 +340,7 @@ export const BoozeDropQuest: Quest = {
           $effect`items.enh`,
           $effect`Joyful Resolve`,
           $effect`One Very Clear Eye`,
+          $effect`Pork Barrel`,
           $effect`Nearly All-Natural`,
           $effect`The Spirit of Taking`,
           $effect`Singer's Faithful Ocelot`,
