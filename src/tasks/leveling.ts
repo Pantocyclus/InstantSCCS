@@ -833,6 +833,7 @@ export const LevelingQuest: Quest = {
         (!have(reagentBoosterIngredient) && !have(reagentBoosterItem)) ||
         have(reagentBoosterEffect),
       do: (): void => {
+        if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
         if (!have(reagentBoosterItem)) {
           create(reagentBoosterItem, 1);
         }
