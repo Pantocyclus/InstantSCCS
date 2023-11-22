@@ -27,7 +27,6 @@ import {
   retrieveItem,
   retrievePrice,
   Skill,
-  Stat,
   storageAmount,
   sweetSynthesis,
   takeStorage,
@@ -162,9 +161,8 @@ export function logTestSetup(whichTest: CommunityService): void {
 
 export const mainStat = myPrimestat();
 export const mainStatStr = mainStat.toString();
-export function statToMaximizerString(stat: Stat): string {
-  return stat === $stat`Muscle` ? "mus" : stat === $stat`Mysticality` ? "myst" : "mox";
-}
+export const mainStatMaximizerStr =
+  mainStat === $stat`Muscle` ? "mus" : mainStat === $stat`Mysticality` ? "myst" : "mox";
 
 export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   // Try acquiring an effect

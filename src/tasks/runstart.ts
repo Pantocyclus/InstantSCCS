@@ -64,8 +64,8 @@ import {
   getGarden,
   goVote,
   mainStat,
+  mainStatMaximizerStr,
   mainStatStr,
-  statToMaximizerString,
   tryAcquiringEffect,
 } from "../lib";
 import Macro from "../combat";
@@ -328,7 +328,7 @@ export const RunStartQuest: Quest = {
         !have($item`mumming trunk`) ||
         get("instant_saveMummingTrunk", false),
       do: (): void => {
-        cliExecute(`mummery ${statToMaximizerString(mainStat)}`);
+        cliExecute(`mummery ${mainStatMaximizerStr}`);
       },
       outfit: { familiar: chooseFamiliar() },
       limit: { tries: 1 },

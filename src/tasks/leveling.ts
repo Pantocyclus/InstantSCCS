@@ -84,6 +84,7 @@ import {
   getValidComplexCandyPairs,
   haveCBBIngredients,
   mainStat,
+  mainStatMaximizerStr,
   mainStatStr,
   overlevelled,
   reagentBalancerEffect,
@@ -630,7 +631,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Consult Fortune Teller",
       completed: () => get("_clanFortuneBuffUsed") || get("instant_saveFortuneTeller", false),
-      do: () => cliExecute(`fortune buff ${mainStat}`),
+      do: () => cliExecute(`fortune buff ${mainStatMaximizerStr}`),
       limit: { tries: 1 },
     },
     {
