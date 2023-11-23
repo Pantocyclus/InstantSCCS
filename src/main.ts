@@ -49,7 +49,7 @@ export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS scri
 });
 
 export function main(command?: string): void {
-  sinceKolmafiaRevision(27637);
+  sinceKolmafiaRevision(27695);
   checkGithubVersion();
 
   if (get("instant_targetBaseMyst", false)) {

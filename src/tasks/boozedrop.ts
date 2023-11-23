@@ -239,15 +239,13 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         have($effect`Cabernet Hunter`) ||
         (!have($item`bottle of Cabernet Sauvignon`) &&
-          // eslint-disable-next-line libram/verify-constants
-          (!have($skill`Aug. 31st: Cabernet Sauvignon Day!`) ||
+          (!have($skill`Aug. 31st: Cabernet Sauvignon  Day!`) ||
             get("instant_saveAugustScepter", false))) ||
         myInebriety() + 3 > inebrietyLimit() ||
         get("instant_skipCabernetSauvignon", false),
       do: (): void => {
         if (!have($item`bottle of Cabernet Sauvignon`))
-          // eslint-disable-next-line libram/verify-constants
-          useSkill($skill`Aug. 31st: Cabernet Sauvignon Day!`);
+          useSkill($skill`Aug. 31st: Cabernet Sauvignon  Day!`);
         if (myInebriety() + 3 <= inebrietyLimit()) {
           tryAcquiringEffect($effect`Ode to Booze`);
           drink($item`bottle of Cabernet Sauvignon`);
