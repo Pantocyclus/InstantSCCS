@@ -738,6 +738,20 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Free Fight Leafy Boys",
+      ready: () => !have($effect`Shadow Affinity`),
+      completed: () => get("_leafMonstersFought", 0) >= 5 || !have($item`inflammable leaf`, 11) || get("instant_saveLeafFights", false),
+      do: (): void => {
+        visitUrl("campground.php?preaction=leaves");
+        visitUrl("choice.php?pwd&whichchoice=1510&option=1&leaves=11");
+      },
+      combat: new CombatStrategy().macro(Macro.default()),
+      post: (): void => {
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 5 },
+    },
+    {
       name: "Restore MP with Glowing Blue",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
