@@ -294,12 +294,14 @@ export const LevelingQuest: Quest = {
   name: "Leveling",
   completed: () => get("csServicesPerformed").split(",").length > 1,
   tasks: [
+    /*
     {
       name: "LED Candle",
       completed: () => !have($item`LED candle`) || get("ledCandleMode", "") === "reading",
       do: () => cliExecute("ledcandle reading"),
       limit: { tries: 1 },
     },
+    */
     {
       name: "Soul Food",
       ready: () => mySoulsauce() >= 5,
