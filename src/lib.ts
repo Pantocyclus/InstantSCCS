@@ -496,9 +496,10 @@ export function camelFightsLeft(): number {
   const noveltySkeleton = have($item`cherry`) || CommunityService.CoilWire.isDone() ? 0 : 1;
   // Red skeleton is not guaranteed since we can't guarantee we run out of yellow ray by then
 
-  const leafFreeFights = haveInCampground($item`A Guide to Burning Leaves`) && !get("instant_saveLeafFights", false)
-    ? 5 - toInt(get("_leafMonstersFought", 0))
-    : 0; //It's possible we get fewer than 5 fights; it has not happened to me in almost a month of testing
+  const leafFreeFights =
+    haveInCampground($item`A Guide to Burning Leaves`) && !get("instant_saveLeafFights", false)
+      ? 5 - toInt(get("_leafMonstersFought", 0))
+      : 0; //It's possible we get fewer than 5 fights; it has not happened to me in almost a month of testing
 
   return sumNumbers([
     shadowRift,

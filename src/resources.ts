@@ -147,10 +147,7 @@ const farmingResources: Resource[] = [
     "Do not acquire shoe gum with cop dollars",
     $effects`Gummed Shoes`
   ),
-  new Resource(
-    "instant_saveLeafFights",
-    "Do not use burning leaf free-fights to charge camel"
-  ),
+  new Resource("instant_saveLeafFights", "Do not use burning leaf free-fights to charge camel"),
   new Resource("instant_saveKGBClicks", "Do not use any KGB clicks"),
   new Resource("instant_saveGenie", "Do not use any genie wishes"),
   new Resource("instant_saveMonkeysPaw", "Do not use any monkey's paw wishes"),
