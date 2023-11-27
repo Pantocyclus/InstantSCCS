@@ -18,6 +18,23 @@ env:
   node-version: "18"
 
 jobs:
+  lint-all:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout source code
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Setup Nodejs
+      - name: Use Node.js ${{ env.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.node-version }}
+          cache: yarn
+      - run: yarn install --immutable --immutable-cache
+      - run: yarn run lint
+
   build-push:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
