@@ -18,6 +18,7 @@ import {
   mpCost,
   myBasestat,
   myBuffedstat,
+  myClass,
   myLevel,
   myMaxhp,
   myMp,
@@ -39,6 +40,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
+  $class,
   $effect,
   $familiar,
   $item,
@@ -314,7 +316,7 @@ export function overlevelled(): boolean {
 export const targetBaseMainStat = get("instant_targetBaseMainStat", 190);
 export const targetBaseMainStatGap = get("instant_targetBaseMainStatGap", 15);
 export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean {
-  if (!have($familiar`Cookbookbat`)) return true;
+  if (!have($familiar`Cookbookbat`) || myClass() !== $class`Sauceror`) return true;
   let yeast = 0,
     vegetable = 0,
     whey = 0;
