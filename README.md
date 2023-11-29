@@ -82,21 +82,17 @@ See the run plan [here](https://github.com/Pantocyclus/InstantSCCS/blob/main/RUN
 
 This script is hardcoded to eat the 3x T4 cookbookbat foods (which are all pulled), and it is highly unlikely that you will be able to generate enough ingredients to cook all of them in HC (without any pulls). However, it can be (and has been) done, although this is strongly discouraged.
 
-### Does this script work for other classes?
+### Does this script work for other classes / Why Sauceror?
 
-No. The completion criteria for the powerleveling task is hardcoded/tuned to the seeded cookbookbat ingredient drops for Saucerors. We will likely not be able to satisfy this criteria if you run any other class. However, one may consider looking into [forks](https://github.com/Pantocyclus/InstantSCCS/forks) that are have implemented support for alternative classes.
+There is currently only 1 facial expression that gives xp% - Inscrutable Gaze (for myst xp%). For low shinies, this can make or break the run, so this largely limits us to only myst classes.<br/>
 
-### Why Sauceror?
-
-There is currently only 1 facial expression that gives xp% - Inscrutable Gaze (for myst xp%). For low shinies, this can make or break the run, so this limits us to only myst classes.<br/>
-
-We will also need to craft both the offstat T3 cookbookbat foods for the stat% they give (to clear the stat tests), which necessitates having all the different ingredients dropping before our powerleveling ends in ~55 turns (excess turns result in increased turncount, requiring more turngen). This rules out Pastamancer and Disco Bandit. <br/>
+With minimal resources, we will also need to craft both the offstat T3 cookbookbat foods for the stat% they give (to clear the stat tests), which necessitates having all the different ingredients dropping before our powerleveling ends in ~55 turns (excess turns result in increased turncount, requiring more turngen). This rules out Pastamancer and Disco Bandit. <br/>
 
 We will also need 2 Vegetable of Jarlsberg drops in those same ~55 turns in order to craft the myst T2 (for item%; on top of the T3 foods we're crafting above), and this additionally rules out Turtle Tamer and Accordion Thief.<br/>
 
 A Seal Clubber route might be viable for mid-to-high shiny, but the MP regen from curse of weaksauce and soul food from being a Sauceror tends to be invaluable to low shiny accounts.
 
-Note: As of 22 Nov 2023, preliminary support has been added for all Mus and Myst classes.
+Note: As of 22 Nov 2023, preliminary support has been added for all Mus and Myst classes. This requires [Prevent Scurvy and Sobriety](https://kol.coldfront.net/thekolwiki/index.php/Prevent_Scurvy_and_Sobriety) permed for Mus classes, as well as having 0 reliance on any CBB foods that are crafted in run.
 
 ### What IotMs are currently supported and how are they being used by the script?
 
