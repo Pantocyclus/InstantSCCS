@@ -156,7 +156,7 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Fax Ungulith",
-      completed: () => get("_photocopyUsed"),
+      completed: () => get("_photocopyUsed") || have($item`corrupted marrow`),
       do: (): void => {
         cliExecute("chat");
         if (have($item`photocopied monster`) && get("photocopyMonster") !== $monster`ungulith`) {
