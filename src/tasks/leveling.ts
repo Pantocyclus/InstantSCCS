@@ -732,8 +732,9 @@ export const LevelingQuest: Quest = {
         ).abort()
       ),
       outfit: () => ({
-        ...baseOutfit,
+        ...baseOutfit(),
         familiar: $familiar`Trick-or-Treating Tot`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco`,
       }),
       post: () => sellMiscellaneousItems(),
       limit: { tries: 1 },
@@ -760,7 +761,10 @@ export const LevelingQuest: Quest = {
           .tryItem($item`red rocket`)
           .default()
       ),
-      outfit: () => baseOutfit(false),
+      outfit: () => ({
+        ...baseOutfit(false),
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco`,
+      }),
       post: () => sellMiscellaneousItems(),
       choices: {
         1094: 5,
@@ -785,7 +789,10 @@ export const LevelingQuest: Quest = {
         myMp() >= 500 ||
         haveCBBIngredients(false), // But we can't benefit from Blue Rocket if we are only doing free fights
       do: $location`The Dire Warren`,
-      outfit: () => baseOutfit(false),
+      outfit: () => ({
+        ...baseOutfit(false),
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco`,
+      }),
       combat: new CombatStrategy().macro(Macro.attack().repeat()),
       post: (): void => {
         sendAutumnaton();
@@ -819,7 +826,10 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
           .default()
       ),
-      outfit: baseOutfit,
+      outfit: () => ({
+        ...baseOutfit(),
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco`,
+      }),
       post: (): void => {
         if (have(rufusTarget() as Item)) {
           withChoice(1498, 1, () => use($item`closed-circuit pay phone`));
@@ -877,7 +887,10 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Recall Facts: %phylum Circadian Rhythms`).default()
       ),
-      outfit: baseOutfit,
+      outfit: () => ({
+        ...baseOutfit(),
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco`,
+      }),
       limit: { tries: 10 },
       post: (): void => {
         if (get("_snojoFreeFights") >= 10) cliExecute("hottub");
@@ -903,10 +916,10 @@ export const LevelingQuest: Quest = {
         visitUrl("choice.php?pwd&whichchoice=1510&option=1&leaves=11");
       },
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Otoscope`).default()),
-      outfit: {
+      outfit: () => ({
         ...baseOutfit(),
-        modifier: "Item Drop",
-      },
+        modifier: "Item Drop, -equip tinsel tights, -equip wad of used tape, -equip kramco",
+      }),
       limit: { tries: 5 },
       post: (): void => {
         sellMiscellaneousItems();
@@ -922,7 +935,10 @@ export const LevelingQuest: Quest = {
       completed: () => get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Snokebomb`).abort()),
-      outfit: baseOutfit,
+      outfit: () => ({
+        ...baseOutfit(),
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco`,
+      }),
       choices: {
         1094: 5,
         1115: 6,
@@ -967,7 +983,10 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Feel Envy`)
           .default()
       ),
-      outfit: () => baseOutfit(false),
+      outfit: () => ({
+        ...baseOutfit(false),
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco`,
+      }),
       post: (): void => {
         use($item`red box`, 1);
         sendAutumnaton();
@@ -1010,6 +1029,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(false),
         weapon: $item`Fourth of May Cosplay Saber`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco`,
       }),
       limit: { tries: 1 },
       post: (): void => {
