@@ -15807,8 +15807,9 @@ var LevelingQuest = {
     completed: () => !lib_have(template_string_$skill(_templateObject208 || (_templateObject208 = leveling_taggedTemplateLiteral(["Map the Monsters"])))) || property_get("_monstersMapped") >= 3 || lib_have(template_string_$item(_templateObject209 || (_templateObject209 = leveling_taggedTemplateLiteral(["li'l ninja costume"])))) || !lib_have(template_string_$familiar(_templateObject210 || (_templateObject210 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"])))) || property_get("instant_skipMappingNinja", false),
     do: () => mapMonster($location(_templateObject211 || (_templateObject211 = leveling_taggedTemplateLiteral(["The Haiku Dungeon"]))), $monster(_templateObject212 || (_templateObject212 = leveling_taggedTemplateLiteral(["amateur ninja"])))),
     combat: new CombatStrategy().macro(combat_Macro.if_($monster(_templateObject213 || (_templateObject213 = leveling_taggedTemplateLiteral(["amateur ninja"]))), combat_Macro.tryItem(template_string_$item(_templateObject214 || (_templateObject214 = leveling_taggedTemplateLiteral(["blue rocket"])))).tryItem(template_string_$item(_templateObject215 || (_templateObject215 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject216 || (_templateObject216 = leveling_taggedTemplateLiteral(["Chest X-Ray"])))).trySkill(template_string_$skill(_templateObject217 || (_templateObject217 = leveling_taggedTemplateLiteral(["Gingerbread Mob Hit"])))).trySkill(template_string_$skill(_templateObject218 || (_templateObject218 = leveling_taggedTemplateLiteral(["Shattering Punch"])))).default()).abort()),
-    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit), {}, {
-      familiar: template_string_$familiar(_templateObject219 || (_templateObject219 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"])))
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
+      familiar: template_string_$familiar(_templateObject219 || (_templateObject219 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"]))),
+      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco")
     }),
     post: () => sellMiscellaneousItems(),
     limit: {
@@ -15835,7 +15836,9 @@ var LevelingQuest = {
     do: powerlevelingLocation(),
     // if your powerleveling location is the NEP you don't immediately get the MP regen
     combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject227 || (_templateObject227 = leveling_taggedTemplateLiteral(["Curse of Weaksauce"])))).tryItem(template_string_$item(_templateObject228 || (_templateObject228 = leveling_taggedTemplateLiteral(["blue rocket"])))).tryItem(template_string_$item(_templateObject229 || (_templateObject229 = leveling_taggedTemplateLiteral(["red rocket"])))).default()),
-    outfit: () => baseOutfit(false),
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit(false)), {}, {
+      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco")
+    }),
     post: () => sellMiscellaneousItems(),
     choices: {
       1094: 5,
@@ -15858,7 +15861,9 @@ var LevelingQuest = {
     completed: () => powerlevelingLocation() !== $location(_templateObject230 || (_templateObject230 = leveling_taggedTemplateLiteral(["The Neverending Party"]))) || (0,external_kolmafia_namespaceObject.haveEffect)(template_string_$effect(_templateObject231 || (_templateObject231 = leveling_taggedTemplateLiteral(["Glowing Blue"])))) !== 10 || (0,external_kolmafia_namespaceObject.myMp)() >= 500 || haveCBBIngredients(false),
     // But we can't benefit from Blue Rocket if we are only doing free fights
     do: $location(_templateObject232 || (_templateObject232 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
-    outfit: () => baseOutfit(false),
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit(false)), {}, {
+      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco")
+    }),
     combat: new CombatStrategy().macro(combat_Macro.attack().repeat()),
     post: () => {
       sendAutumnaton();
@@ -15888,7 +15893,9 @@ var LevelingQuest = {
     completed: () => lib_have(template_string_$item(_templateObject237 || (_templateObject237 = leveling_taggedTemplateLiteral(["Rufus's shadow lodestone"])))) || !lib_have(template_string_$effect(_templateObject238 || (_templateObject238 = leveling_taggedTemplateLiteral(["Shadow Affinity"])))) && property_get("encountersUntilSRChoice") !== 0 || !lib_have(template_string_$item(_templateObject239 || (_templateObject239 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"])))),
     do: bestShadowRift(),
     combat: new CombatStrategy().macro(combat_Macro.tryItem(template_string_$item(_templateObject240 || (_templateObject240 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject241 || (_templateObject241 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).default()),
-    outfit: baseOutfit,
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
+      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco")
+    }),
     post: () => {
       if (lib_have(rufusTarget())) {
         property_withChoice(1498, 1, () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject242 || (_templateObject242 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"])))));
@@ -15945,7 +15952,9 @@ var LevelingQuest = {
     completed: () => property_get("_snojoFreeFights") >= 10 || !property_get("snojoAvailable"),
     do: $location(_templateObject245 || (_templateObject245 = leveling_taggedTemplateLiteral(["The X-32-F Combat Training Snowman"]))),
     combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject246 || (_templateObject246 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).default()),
-    outfit: baseOutfit,
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
+      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco")
+    }),
     limit: {
       tries: 10
     },
@@ -15968,8 +15977,8 @@ var LevelingQuest = {
       (0,external_kolmafia_namespaceObject.visitUrl)("choice.php?pwd&whichchoice=1510&option=1&leaves=11");
     },
     combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject251 || (_templateObject251 = leveling_taggedTemplateLiteral(["Otoscope"])))).default()),
-    outfit: leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      modifier: "Item Drop"
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
+      modifier: "Item Drop, -equip tinsel tights, -equip wad of used tape, -equip kramco"
     }),
     limit: {
       tries: 5
@@ -15987,7 +15996,9 @@ var LevelingQuest = {
     completed: () => property_get("_snokebombUsed") >= 3 - property_get("instant_saveSBForInnerElf", 0),
     do: powerlevelingLocation(),
     combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject252 || (_templateObject252 = leveling_taggedTemplateLiteral(["Snokebomb"])))).abort()),
-    outfit: baseOutfit,
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
+      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco")
+    }),
     choices: {
       1094: 5,
       1115: 6,
@@ -16027,7 +16038,9 @@ var LevelingQuest = {
     completed: () => monstersReminisced().includes($monster(_templateObject262 || (_templateObject262 = leveling_taggedTemplateLiteral(["red skeleton"])))) || !availableLocketMonsters().includes($monster(_templateObject263 || (_templateObject263 = leveling_taggedTemplateLiteral(["red skeleton"])))) || property_get("instant_saveLocketRedSkeleton", false),
     do: () => reminisce($monster(_templateObject264 || (_templateObject264 = leveling_taggedTemplateLiteral(["red skeleton"])))),
     combat: new CombatStrategy().macro(combat_Macro.if_("!haseffect Everything Looks Yellow", combat_Macro.tryItem(template_string_$item(_templateObject265 || (_templateObject265 = leveling_taggedTemplateLiteral(["yellow rocket"]))))).trySkill(template_string_$skill(_templateObject266 || (_templateObject266 = leveling_taggedTemplateLiteral(["Feel Envy"])))).default()),
-    outfit: () => baseOutfit(false),
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit(false)), {}, {
+      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco")
+    }),
     post: () => {
       (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject267 || (_templateObject267 = leveling_taggedTemplateLiteral(["red box"]))), 1);
       sendAutumnaton();
@@ -16049,7 +16062,8 @@ var LevelingQuest = {
     do: () => fightAll("LOV Epaulettes", "Open Heart Surgery", "LOV Extraterrestrial Chocolate"),
     combat: new CombatStrategy().macro(combat_Macro.if_($monster(_templateObject270 || (_templateObject270 = leveling_taggedTemplateLiteral(["LOV Enforcer"]))), combat_Macro.attack().repeat()).if_($monster(_templateObject271 || (_templateObject271 = leveling_taggedTemplateLiteral(["LOV Engineer"]))), combat_Macro.while_("!mpbelow ".concat((0,external_kolmafia_namespaceObject.mpCost)(template_string_$skill(_templateObject272 || (_templateObject272 = leveling_taggedTemplateLiteral(["Toynado"])))), " && hasskill ").concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(_templateObject273 || (_templateObject273 = leveling_taggedTemplateLiteral(["Toynado"]))))), combat_Macro.skill(template_string_$skill(_templateObject274 || (_templateObject274 = leveling_taggedTemplateLiteral(["Toynado"]))))).while_("!mpbelow ".concat((0,external_kolmafia_namespaceObject.mpCost)(template_string_$skill(_templateObject275 || (_templateObject275 = leveling_taggedTemplateLiteral(["Saucestorm"])))), " && hasskill ").concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(_templateObject276 || (_templateObject276 = leveling_taggedTemplateLiteral(["Saucestorm"]))))), combat_Macro.skill(template_string_$skill(_templateObject277 || (_templateObject277 = leveling_taggedTemplateLiteral(["Saucestorm"]))))).default()).if_($monster(_templateObject278 || (_templateObject278 = leveling_taggedTemplateLiteral(["LOV Equivocator"]))), combat_Macro["default"]())),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit(false)), {}, {
-      weapon: template_string_$item(_templateObject279 || (_templateObject279 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))
+      weapon: template_string_$item(_templateObject279 || (_templateObject279 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"]))),
+      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco")
     }),
     limit: {
       tries: 1
