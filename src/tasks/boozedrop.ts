@@ -166,7 +166,7 @@ export const BoozeDropQuest: Quest = {
 
         // If we're whitelisted to the CSLooping clan, use that to grab the ungulith instead
         if (Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")) {
-          Clan.with("CSLoopers Unite", () => cliExecute("fax get"));
+          Clan.with("CSLoopers Unite", () => cliExecute("fax receive"));
         }
 
         if (
