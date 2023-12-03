@@ -18245,7 +18245,7 @@ var BoozeDropQuest = {
 
 
       if (Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite")) {
-        Clan["with"]("CSLoopers Unite", () => (0,external_kolmafia_namespaceObject.cliExecute)("fax get"));
+        Clan["with"]("CSLoopers Unite", () => (0,external_kolmafia_namespaceObject.cliExecute)("fax receive"));
       }
 
       if ((lib_have(template_string_$item(boozedrop_templateObject30 || (boozedrop_templateObject30 = boozedrop_taggedTemplateLiteral(["photocopied monster"])))) || (0,external_kolmafia_namespaceObject.faxbot)($monster(boozedrop_templateObject31 || (boozedrop_templateObject31 = boozedrop_taggedTemplateLiteral(["ungulith"]))))) && property_get("photocopyMonster") === $monster(boozedrop_templateObject32 || (boozedrop_templateObject32 = boozedrop_taggedTemplateLiteral(["ungulith"])))) {
