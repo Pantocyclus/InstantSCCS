@@ -116,6 +116,8 @@ export const FamiliarWeightQuest: Quest = {
             $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)))
         ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
+          useFamiliar(chooseHeaviestFamiliar());
+          const heaviestTurns = CommunityService.FamiliarWeight.actualCost();
           if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam))) {
             useFamiliar($familiar`Homemade Robot`);
             use($item`box of Familiar Jacks`, 1);
@@ -126,6 +128,11 @@ export const FamiliarWeightQuest: Quest = {
               )}&pwd`
             );
             visitUrl("charpane.php");
+            const commaTurns = CommunityService.FamiliarWeight.actualCost();
+            if (commaTurns > heaviestTurns) {
+              print(`Using Comma Chameleon expected to take ${commaTurns}, which is more than ${heaviestTurns} using a normal familiar, use more parts on Homemade Robot.`, "red");
+              useFamiliar(chooseHeaviestFamiliar());
+            }
           } else {
             if (have($familiar`Mini-Trainbot`)) useFamiliar($familiar`Mini-Trainbot`);
             else useFamiliar($familiar`Exotic Parrot`);
