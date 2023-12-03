@@ -38,6 +38,7 @@ import {
   $skill,
   $slot,
   clamp,
+  Clan,
   CommunityService,
   DaylightShavings,
   get,
@@ -162,6 +163,12 @@ export const BoozeDropQuest: Quest = {
         if (have($item`photocopied monster`) && get("photocopyMonster") !== $monster`ungulith`) {
           cliExecute("fax send");
         }
+
+        // If we're whitelisted to the CSLooping clan, use that to grab the ungulith instead
+        if (Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")) {
+          Clan.with("CSLoopers Unite", () => cliExecute("fax get"));
+        }
+
         if (
           (have($item`photocopied monster`) || faxbot($monster`ungulith`)) &&
           get("photocopyMonster") === $monster`ungulith`
