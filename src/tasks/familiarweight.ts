@@ -149,9 +149,10 @@ export const FamiliarWeightQuest: Quest = {
           ) {
             tryAcquiringEffect($effect`Offhand Remarkable`);
           }
-        } else if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
-            heaviestWeight > commaWeight) {
-          print(`Comma Chameleon weighs ${heaviestWeight - commaWeight} lbs less than heaviest normal familiar, use more parts on Homemade Robot.`, "red");
+        }
+        if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+            commaWeight < 111) {
+          print(`Comma Chameleon is not at max weight, use ${10 - get("homemadeRobotUpgrades")} more parts on Homemade Robot.`, "red");
         }
       },
       do: (): void => {
