@@ -116,11 +116,12 @@ export const FamiliarWeightQuest: Quest = {
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&
           ($familiars`Mini-Trainbot, Exotic Parrot`.some((fam) => have(fam)) ||
-            $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
-              heaviestWeight < commaWeight)
+          ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+              heaviestWeight < commaWeight))
         ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
-          if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam))) {
+          if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+              heaviestWeight < commaWeight) {
             useFamiliar($familiar`Homemade Robot`);
             use($item`box of Familiar Jacks`, 1);
             useFamiliar($familiar`Comma Chameleon`);
