@@ -115,7 +115,8 @@ export const FamiliarWeightQuest: Quest = {
         if (
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&
-          ($familiars`Mini-Trainbot, Exotic Parrot`.some((fam) => have(fam)) ||
+          ((have($familiar`Mini-Trainbot`) && ((familiarWeight($familiar`Mini-Trainbot`) + 25) > heaviestWeight)) ||
+          (have($familiar`Exotic Parrot`) && ((familiarWeight($familiar`Exotic Parrot`) + 15) > heaviestWeight)) ||
           ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
               heaviestWeight < commaWeight))
         ) {
