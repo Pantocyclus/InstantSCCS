@@ -110,8 +110,8 @@ export const FamiliarWeightQuest: Quest = {
             ),
             $item`love song of icy revenge`
           );
-        const heaviestWeight = familiarWeight(chooseHeaviestFamiliar());
-        const commaWeight = 1 + 11 * get("homemadeRobotUpgrades");
+        const heaviestWeight = familiarWeight(chooseHeaviestFamiliar()) + (have($item`astral pet sweater`) ? 10 : 0);
+        const commaWeight = 6 + 11 * get("homemadeRobotUpgrades");
         if (
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&
