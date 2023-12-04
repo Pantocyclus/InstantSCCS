@@ -4,6 +4,7 @@ import {
   create,
   Effect,
   equippedItem,
+  familiarWeight,
   haveEffect,
   itemAmount,
   mySign,
@@ -109,15 +110,16 @@ export const FamiliarWeightQuest: Quest = {
             ),
             $item`love song of icy revenge`
           );
+        const heaviestWeight = familiarWeight(chooseHeaviestFamiliar());
+        const commaWeight = 1 + 11 * get("homemadeRobotUpgrades");
         if (
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&
           ($familiars`Mini-Trainbot, Exotic Parrot`.some((fam) => have(fam)) ||
-            $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)))
+            $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+              heaviestWeight < commaWeight)
         ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
-          useFamiliar(chooseHeaviestFamiliar());
-          const heaviestTurns = CommunityService.FamiliarWeight.actualCost();
           if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam))) {
             useFamiliar($familiar`Homemade Robot`);
             use($item`box of Familiar Jacks`, 1);
@@ -128,11 +130,6 @@ export const FamiliarWeightQuest: Quest = {
               )}&pwd`
             );
             visitUrl("charpane.php");
-            const commaTurns = CommunityService.FamiliarWeight.actualCost();
-            if (commaTurns > heaviestTurns) {
-              print(`Using Comma Chameleon expected to take ${commaTurns}, which is more than ${heaviestTurns} using a normal familiar, use more parts on Homemade Robot.`, "red");
-              useFamiliar(chooseHeaviestFamiliar());
-            }
           } else {
             if (have($familiar`Mini-Trainbot`)) useFamiliar($familiar`Mini-Trainbot`);
             else useFamiliar($familiar`Exotic Parrot`);
@@ -151,6 +148,9 @@ export const FamiliarWeightQuest: Quest = {
           ) {
             tryAcquiringEffect($effect`Offhand Remarkable`);
           }
+        } else if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+            heaviestWeight > commaWeight) {
+          print(`Comma Chameleon weighs ${heaviestWeight - commaWeight} lbs less than heaviest normal familiar, use more parts on Homemade Robot.`, "red");
         }
       },
       do: (): void => {
