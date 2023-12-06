@@ -112,17 +112,19 @@ export const FamiliarWeightQuest: Quest = {
           );
         const heaviestWeight = familiarWeight(chooseHeaviestFamiliar()) + (have($item`astral pet sweater`) ? 10 : 0);
         const commaWeight = 6 + 11 * get("homemadeRobotUpgrades");
+        const useComma = ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+            commaWeight > heaviestWeight);
+        const useTrainbot = have($familiar`Mini-Trainbot`) &&
+            ((familiarWeight($familiar`Mini-Trainbot`) + 25) > heaviestWeight);
+        const useParrot = have($familiar`Exotic Parrot`) &&
+            ((familiarWeight($familiar`Exotic Parrot`) + 15) > heaviestWeight);
         if (
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&
-          ((have($familiar`Mini-Trainbot`) && ((familiarWeight($familiar`Mini-Trainbot`) + 25) > heaviestWeight)) ||
-          (have($familiar`Exotic Parrot`) && ((familiarWeight($familiar`Exotic Parrot`) + 15) > heaviestWeight)) ||
-          ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
-              heaviestWeight < commaWeight))
+          (useTrainbot||useParrot||useComma)
         ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
-          if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
-              heaviestWeight < commaWeight) {
+          if (useComma) {
             useFamiliar($familiar`Homemade Robot`);
             use($item`box of Familiar Jacks`, 1);
             useFamiliar($familiar`Comma Chameleon`);
@@ -133,7 +135,7 @@ export const FamiliarWeightQuest: Quest = {
             );
             visitUrl("charpane.php");
           } else {
-            if (have($familiar`Mini-Trainbot`)) useFamiliar($familiar`Mini-Trainbot`);
+            if (useTrainbot) useFamiliar($familiar`Mini-Trainbot`);
             else useFamiliar($familiar`Exotic Parrot`);
             use($item`box of Familiar Jacks`, 1);
           }
