@@ -154,8 +154,8 @@ export const FamiliarWeightQuest: Quest = {
           }
         }
         if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
-            commaWeight < 111) {
-          print(`Comma Chameleon is not at max weight, use ${10 - get("homemadeRobotUpgrades")} more parts on Homemade Robot.`, "red");
+            commaWeight < 105) {
+          print(`Comma Chameleon is not at max weight, use ${9 - get("homemadeRobotUpgrades")} more parts on Homemade Robot.`, "red");
         }
       },
       do: (): void => {
