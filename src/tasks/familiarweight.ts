@@ -110,14 +110,20 @@ export const FamiliarWeightQuest: Quest = {
             ),
             $item`love song of icy revenge`
           );
+
         const heaviestWeight = familiarWeight(chooseHeaviestFamiliar()) + (have($item`astral pet sweater`) ? 10 : 0);
         const commaWeight = 6 + 11 * get("homemadeRobotUpgrades");
         const useComma = ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
             commaWeight > heaviestWeight);
+        if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+            commaWeight < 105) {
+          print(`Comma Chameleon is not at max weight, use ${9 - get("homemadeRobotUpgrades")} more parts on Homemade Robot.`, "red");
+        }
         const useTrainbot = have($familiar`Mini-Trainbot`) &&
             ((familiarWeight($familiar`Mini-Trainbot`) + 25) > heaviestWeight);
         const useParrot = have($familiar`Exotic Parrot`) &&
             ((familiarWeight($familiar`Exotic Parrot`) + 15) > heaviestWeight);
+
         if (
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&
@@ -152,10 +158,6 @@ export const FamiliarWeightQuest: Quest = {
           ) {
             tryAcquiringEffect($effect`Offhand Remarkable`);
           }
-        }
-        if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
-            commaWeight < 105) {
-          print(`Comma Chameleon is not at max weight, use ${9 - get("homemadeRobotUpgrades")} more parts on Homemade Robot.`, "red");
         }
       },
       do: (): void => {
