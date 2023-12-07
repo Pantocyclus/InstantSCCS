@@ -112,12 +112,14 @@ export const FamiliarWeightQuest: Quest = {
           );
 
         const heaviestWeight = familiarWeight(chooseHeaviestFamiliar()) + (have($item`astral pet sweater`) ? 10 : 0);
-        const commaWeight = 6 + 11 * get("homemadeRobotUpgrades");
+        const calcCommaWeight = (upgrades: number) => 6 + 11 * upgrades;
+        const maxRobotUpgrades = 9;
+        const commaWeight = calcCommaWeight(get("homemadeRobotUpgrades"));
         const useComma = ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
             commaWeight > heaviestWeight);
         if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
-            commaWeight < 105) {
-          print(`Comma Chameleon is not at max weight, use ${9 - get("homemadeRobotUpgrades")} more parts on Homemade Robot.`, "red");
+            commaWeight < calcCommaWeight(maxRobotUpgrades)) {
+          print(`Comma Chameleon is not at max weight, use ${maxRobotUpgrades - get("homemadeRobotUpgrades")} more parts on Homemade Robot.`, "red");
         }
         const useTrainbot = have($familiar`Mini-Trainbot`) &&
             ((familiarWeight($familiar`Mini-Trainbot`) + 25) > heaviestWeight);
