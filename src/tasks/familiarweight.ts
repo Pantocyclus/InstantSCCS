@@ -111,25 +111,34 @@ export const FamiliarWeightQuest: Quest = {
             $item`love song of icy revenge`
           );
 
-        const heaviestWeight = familiarWeight(chooseHeaviestFamiliar()) + (have($item`astral pet sweater`) ? 10 : 0);
-        const calcCommaWeight = (upgrades: number) => 6 + 11 * upgrades;
-        const maxRobotUpgrades = 9;
-        const commaWeight = calcCommaWeight(get("homemadeRobotUpgrades"));
-        const useComma = ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
-            commaWeight > heaviestWeight);
-        if ($familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
-            commaWeight < calcCommaWeight(maxRobotUpgrades)) {
-          print(`Comma Chameleon is not at max weight, use ${maxRobotUpgrades - get("homemadeRobotUpgrades")} more parts on Homemade Robot.`, "red");
+        const heaviestWeight =
+          familiarWeight(chooseHeaviestFamiliar()) + (have($item`astral pet sweater`) ? 10 : 0);
+        const commaWeight = 6 + 11 * get("homemadeRobotUpgrades");
+        const useComma =
+          $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+          commaWeight > heaviestWeight;
+        if (
+          $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+          get("homemadeRobotUpgrades") < 9
+        ) {
+          print(
+            `Comma Chameleon is not at max weight, use ${
+              9 - get("homemadeRobotUpgrades")
+            } more parts on Homemade Robot.`,
+            "red"
+          );
         }
-        const useTrainbot = have($familiar`Mini-Trainbot`) &&
-            ((familiarWeight($familiar`Mini-Trainbot`) + 25) > heaviestWeight);
-        const useParrot = have($familiar`Exotic Parrot`) &&
-            ((familiarWeight($familiar`Exotic Parrot`) + 15) > heaviestWeight);
+        const useTrainbot =
+          have($familiar`Mini-Trainbot`) &&
+          familiarWeight($familiar`Mini-Trainbot`) + 25 > heaviestWeight;
+        const useParrot =
+          have($familiar`Exotic Parrot`) &&
+          familiarWeight($familiar`Exotic Parrot`) + 15 > heaviestWeight;
 
         if (
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&
-          (useTrainbot||useParrot||useComma)
+          (useTrainbot || useParrot || useComma)
         ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
           if (useComma) {
