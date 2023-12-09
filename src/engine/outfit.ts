@@ -104,6 +104,12 @@ function melodramedary(): Familiar {
     : $familiar.none;
 }
 
+function hoboInSheepsClothing(): Familiar {
+  return have($familiar`Hobo in Sheep's Clothing`) && !have($item`grubby wool`, 2)
+    ? $familiar`Hobo in Sheep's Clothing`
+    : $familiar.none;
+}
+
 export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
   const ignoredFamiliars = get("instant_explicitlyExcludedFamiliars", "")
     .split(",")
@@ -117,6 +123,7 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
     optimisticCandle,
     rockinRobin,
     melodramedary,
+    hoboInSheepsClothing,
     sombrero,
   ]
     .map((fn) => fn(allowAttackingFamiliars))

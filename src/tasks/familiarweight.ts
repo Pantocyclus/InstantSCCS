@@ -59,6 +59,12 @@ export const FamiliarWeightQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Grubby Wool Pants",
+      completed: () => !have($item`grubby wool`) || have($item`grubby wool trousers`),
+      do: () => create($item`grubby wool trousers`, 1),
+      limit: { tries: 1 },
+    },
+    {
       name: "Meteor Shower",
       completed: () =>
         have($effect`Meteor Showered`) ||

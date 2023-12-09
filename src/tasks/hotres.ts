@@ -121,6 +121,12 @@ export const HotResQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Grubby Wool Scarf",
+      completed: () => !have($item`grubby wool`) || have($item`grubby wool scarf`),
+      do: () => create($item`grubby wool scarf`, 1),
+      limit: { tries: 1 },
+    },
+    {
       name: "Favorite Bird (Hot Res)",
       completed: () =>
         !have($skill`Visit your Favorite Bird`) ||
