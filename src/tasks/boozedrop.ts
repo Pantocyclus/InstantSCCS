@@ -159,7 +159,6 @@ export const BoozeDropQuest: Quest = {
       name: "Fax Ungulith",
       completed: () => get("_photocopyUsed") || have($item`corrupted marrow`),
       do: (): void => {
-        cliExecute("chat");
         if (have($item`photocopied monster`) && get("photocopyMonster") !== $monster`ungulith`) {
           cliExecute("fax send");
         }
@@ -167,6 +166,8 @@ export const BoozeDropQuest: Quest = {
         // If we're whitelisted to the CSLooping clan, use that to grab the ungulith instead
         if (Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")) {
           Clan.with("CSLoopers Unite", () => cliExecute("fax receive"));
+        } else {
+          cliExecute("chat");
         }
 
         if (
