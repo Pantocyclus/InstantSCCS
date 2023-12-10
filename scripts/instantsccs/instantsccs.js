@@ -18258,8 +18258,6 @@ var BoozeDropQuest = {
     name: "Fax Ungulith",
     completed: () => property_get("_photocopyUsed") || lib_have(template_string_$item(boozedrop_templateObject27 || (boozedrop_templateObject27 = boozedrop_taggedTemplateLiteral(["corrupted marrow"])))),
     do: () => {
-      (0,external_kolmafia_namespaceObject.cliExecute)("chat");
-
       if (lib_have(template_string_$item(boozedrop_templateObject28 || (boozedrop_templateObject28 = boozedrop_taggedTemplateLiteral(["photocopied monster"])))) && property_get("photocopyMonster") !== $monster(boozedrop_templateObject29 || (boozedrop_templateObject29 = boozedrop_taggedTemplateLiteral(["ungulith"])))) {
         (0,external_kolmafia_namespaceObject.cliExecute)("fax send");
       } // If we're whitelisted to the CSLooping clan, use that to grab the ungulith instead
@@ -18267,6 +18265,8 @@ var BoozeDropQuest = {
 
       if (Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite")) {
         Clan["with"]("CSLoopers Unite", () => (0,external_kolmafia_namespaceObject.cliExecute)("fax receive"));
+      } else {
+        (0,external_kolmafia_namespaceObject.cliExecute)("chat");
       }
 
       if ((lib_have(template_string_$item(boozedrop_templateObject30 || (boozedrop_templateObject30 = boozedrop_taggedTemplateLiteral(["photocopied monster"])))) || (0,external_kolmafia_namespaceObject.faxbot)($monster(boozedrop_templateObject31 || (boozedrop_templateObject31 = boozedrop_taggedTemplateLiteral(["ungulith"]))))) && property_get("photocopyMonster") === $monster(boozedrop_templateObject32 || (boozedrop_templateObject32 = boozedrop_taggedTemplateLiteral(["ungulith"])))) {
