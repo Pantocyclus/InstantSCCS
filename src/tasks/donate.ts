@@ -60,13 +60,7 @@ function printResourceUsage(tResource: trackedResource): void {
         n ?? "?"
       } ${localResourceValue}`
     );
-  else if (typeof resourceValue === "number") {
-    print(
-      `${name}: ${Math.max(0, n ? n - resourceValue : resourceValue)}/${
-        n ?? "?"
-      } ${localResourceValue}`
-    );
-  } else print(`${name}: ${resourceValue}/${n ?? "?"} ${localResourceValue}`);
+  else print(`${name}: ${resourceValue}/${n ?? "?"} ${localResourceValue}`);
 }
 
 function logResourceUsage(): void {
