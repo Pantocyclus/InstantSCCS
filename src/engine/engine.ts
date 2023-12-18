@@ -81,6 +81,7 @@ export const freeFightResources: trackedResource[] = [
 
 export const potentiallyFreeFightResources: trackedResource[] = [
   new trackedResource("_backUpUses", "Backup Camera", 11),
+  new trackedResource("_leafMonstersFought", "Flaming Leaflets", 5),
   new trackedResource("_locketMonstersFought", "Locket Reminisces", 3),
   new trackedResource("_photocopyUsed", "Fax Machine", 1),
   new trackedResource("_chateauMonsterFought", "Chateau Painting", 1),
