@@ -18285,6 +18285,11 @@ var BoozeDropQuest = {
       if (Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite")) {
         Clan["with"]("CSLoopers Unite", () => (0,external_kolmafia_namespaceObject.cliExecute)("fax receive"));
       } else {
+        if (!(0,external_kolmafia_namespaceObject.visitUrl)("messages.php?box=Outbox").includes("#3626664")) {
+          (0,external_kolmafia_namespaceObject.print)("Requesting whitelist to CS clan...", "blue");
+          (0,external_kolmafia_namespaceObject.cliExecute)("csend to 3626664 || Requesting access to CS clan");
+        }
+
         (0,external_kolmafia_namespaceObject.cliExecute)("chat");
       }
 
