@@ -167,6 +167,10 @@ export const BoozeDropQuest: Quest = {
         if (Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")) {
           Clan.with("CSLoopers Unite", () => cliExecute("fax receive"));
         } else {
+          if (!visitUrl("messages.php?box=Outbox").includes("#3626664")) {
+            print("Requesting whitelist to CS clan...", "blue");
+            cliExecute("csend to 3626664 || Requesting access to CS clan");
+          }
           cliExecute("chat");
         }
 
