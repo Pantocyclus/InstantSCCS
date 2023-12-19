@@ -18584,6 +18584,9 @@ var HotResQuest = {
       modifier: "hot res",
       familiar: template_string_$familiar(hotres_templateObject67 || (hotres_templateObject67 = hotres_taggedTemplateLiteral(["Exotic Parrot"])))
     },
+    post: () => {
+      if (property_get("_horsery") === "pale horse") (0,external_kolmafia_namespaceObject.cliExecute)("horsery dark");
+    },
     limit: {
       tries: 1
     }
