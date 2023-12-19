@@ -201,6 +201,9 @@ export const HotResQuest: Quest = {
         modifier: "hot res",
         familiar: $familiar`Exotic Parrot`,
       },
+      post: (): void => {
+        if (get("_horsery") === "pale horse") cliExecute("horsery dark");
+      },
       limit: { tries: 1 },
     },
   ],
