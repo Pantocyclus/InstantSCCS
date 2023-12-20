@@ -262,14 +262,16 @@ export function handleCustomPull(pullStr: string): void {
   const pullID = toInt(pullStr);
   const it = toItem(pullID);
 
-  if (
-    get("_roninStoragePulls").split(",").length >= 5 || // We are out of pulls
-    get("_roninStoragePulls").split(",").includes(pullStr) || // We have already pulled this item
-    storageAmount(it) === 0 // We don't have this item
-  )
-    return;
+  if (!have(it)) {
+    if (
+      get("_roninStoragePulls").split(",").length >= 5 || // We are out of pulls
+      get("_roninStoragePulls").split(",").includes(pullStr) || // We have already pulled this item
+      storageAmount(it) === 0 // We don't have this item
+    )
+      return;
 
-  takeStorage(it, 1);
+    takeStorage(it, 1);
+  }
 
   if (it.inebriety > 0) {
     tryAcquiringEffect($effect`Ode to Booze`);
