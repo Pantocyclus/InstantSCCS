@@ -8961,11 +8961,14 @@ function handleCustomPull(pullStr) {
   // If the user wants to pull equips, they should pre-pull them
   var pullID = (0,external_kolmafia_namespaceObject.toInt)(pullStr);
   var it = (0,external_kolmafia_namespaceObject.toItem)(pullID);
-  if (property_get("_roninStoragePulls").split(",").length >= 5 || // We are out of pulls
-  property_get("_roninStoragePulls").split(",").includes(pullStr) || // We have already pulled this item
-  (0,external_kolmafia_namespaceObject.storageAmount)(it) === 0 // We don't have this item
-  ) return;
-  (0,external_kolmafia_namespaceObject.takeStorage)(it, 1);
+
+  if (!lib_have(it)) {
+    if (property_get("_roninStoragePulls").split(",").length >= 5 || // We are out of pulls
+    property_get("_roninStoragePulls").split(",").includes(pullStr) || // We have already pulled this item
+    (0,external_kolmafia_namespaceObject.storageAmount)(it) === 0 // We don't have this item
+    ) return;
+    (0,external_kolmafia_namespaceObject.takeStorage)(it, 1);
+  }
 
   if (it.inebriety > 0) {
     tryAcquiringEffect(template_string_$effect(lib_templateObject18 || (lib_templateObject18 = lib_taggedTemplateLiteral(["Ode to Booze"]))));
