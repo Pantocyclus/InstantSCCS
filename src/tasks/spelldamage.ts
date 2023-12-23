@@ -35,7 +35,13 @@ import {
   have,
 } from "libram";
 import { Quest } from "../engine/task";
-import { handleCustomPull, logTestSetup, startingClan, tryAcquiringEffect } from "../lib";
+import {
+  handleCustomPull,
+  logTestSetup,
+  motherSlimeClan,
+  startingClan,
+  tryAcquiringEffect,
+} from "../lib";
 import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { forbiddenEffects } from "../resources";
@@ -80,13 +86,13 @@ export const SpellDamageQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         restoreMp(50);
-        Clan.join(get("instant_motherSlimeClan", ""));
+        Clan.join(motherSlimeClan);
       },
       completed: () =>
         !have($familiar`Machine Elf`) ||
         !haveMotherSlimeBanish() ||
         have($effect`Inner Elf`) ||
-        get("instant_motherSlimeClan", "").length === 0,
+        motherSlimeClan === "",
       do: $location`The Slime Tube`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`KGB tranquilizer dart`)

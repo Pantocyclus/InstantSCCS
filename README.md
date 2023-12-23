@@ -155,6 +155,12 @@ The drops from the S.I.T. Course Completion Certificate aren't used in the route
 
 As with the usage of the S.I.T Course Voucher prior to invoking InstantSCCS, you may find a few community looping scripts/wrappers that would do so for you. At the present moment these are not natively shipped together with InstantSCCS.
 
+### I'm having some issues with faxing in an ungulith. Does the script support locketing the ungulith instead?
+
+Consider getting a whitelist to CSLoopers Unite, a clan with an ungulith in the fax machine, set up specifically to address faxbot issues (the clan does not whitelist any faxbots so as to prevent accidental faxing in of other monsters). The script automatically sends a kmail to my clan sitter - Pantocyclus (#3626664), but you may also kmail me on my main - WARriorer (#1634187) to request a whitelist.
+
 ### Does the script support switching between a clan for VIP Lounge items and a clan with Mother Slime set up for Inner Elf?
 
-The script assumes you are already in the VIP clan. You will have to `set instant_motherSlimeClan=<clan name>` for InstantSCCS to attempt grabbing Inner Elf - this may be the same clan as your VIP clan, or a different one altogether.
+The script assumes you are already in the VIP clan (i.e. you should whitelist into your VIP clan before running the script).
+
+If you are already whitelisted to CSLoopers Unite, the script will already have access to Mother Slime. Otherwise, you will have to `set instant_motherSlimeClan=<clan name>` for InstantSCCS to attempt grabbing Inner Elf - this may be the same clan as your VIP clan, or a different one altogether (note that if this is set, the script will default to using your clan of choice instead, as it reduces congestion of the CSLoopers Unite Slime Tube).

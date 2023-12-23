@@ -50,6 +50,7 @@ import {
   $skills,
   $slot,
   $stat,
+  Clan,
   CombatLoversLocket,
   CommunityService,
   get,
@@ -65,6 +66,13 @@ import { printModtrace } from "libram/dist/modifier";
 import { forbiddenEffects } from "./resources";
 
 export const startingClan = getClanName();
+export const motherSlimeClan = Clan.getWhitelisted().find(
+  (c) => c.name.toLowerCase() === get("instant_motherSlimeClan", "").toLowerCase()
+)
+  ? get("instant_motherSlimeClan", "")
+  : Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")
+  ? "CSLoopers Unite"
+  : "";
 
 export const testModifiers = new Map([
   [CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]],
