@@ -135,7 +135,10 @@ const farmingResources: Resource[] = [
   new Resource("instant_saveClipArt", "Only summon borrowed time"),
   new Resource("instant_saveDeck", "Do not use any deck summons"),
   new Resource("instant_saveBarrelShrine", "Do not get the barrel shrine buff", [
+    $effect`Barrel Chested`,
+    $effect`Pork Barrel`,
     $effect`Warlock, Warstock, and Warbarrel`,
+    $effect`Beer Barrel Polka`,
   ]),
   new Resource(
     "instant_saveTerminal",
