@@ -79,6 +79,7 @@ import {
   abstractionXpEffect,
   abstractionXpItem,
   burnLibram,
+  canPull,
   chooseLibram,
   generalStoreXpEffect,
   getSynthExpBuff,
@@ -485,11 +486,9 @@ export const LevelingQuest: Quest = {
     {
       name: "Pull Snapper XP Buff",
       completed: () =>
-        get("_roninStoragePulls").split(",").length >= 5 ||
-        get("_roninStoragePulls").split(",").includes(toInt(snapperXpItem).toString()) ||
+        !canPull(toInt(snapperXpItem)) ||
         have(snapperXpItem) ||
         have(xpWishEffect) ||
-        storageAmount(snapperXpItem) === 0 ||
         get("instant_saveEuclideanAngle", false) ||
         !have($item`a ten-percent bonus`),
       do: (): void => {
@@ -501,16 +500,31 @@ export const LevelingQuest: Quest = {
     {
       name: "Pull Abstraction item",
       completed: () =>
-        get("_roninStoragePulls").split(",").length >= 5 ||
-        get("_roninStoragePulls").split(",").includes(toInt(abstractionXpItem).toString()) ||
+        !canPull(toInt(abstractionXpItem)) ||
         have(abstractionXpItem) ||
         have(abstractionXpEffect) ||
-        storageAmount(abstractionXpItem) === 0 ||
         get("instant_saveAbstraction", false),
       do: (): void => {
         takeStorage(abstractionXpItem, 1);
         chew(abstractionXpItem, 1);
       },
+      limit: { tries: 1 },
+    },
+    {
+      // Only do pre-pulls after we're done with important default route pulls
+      name: "Pre-pulls",
+      completed: () =>
+        !get("instant_prePulls", "0")
+          .split(",")
+          .map((id) => toInt(id))
+          .some(canPull),
+      do: () =>
+        get("instant_prePulls", "0")
+          .split(",")
+          .forEach((id) => {
+            const it = toItem(toInt(id));
+            if (!have(it) && canPull(toInt(id))) takeStorage(it, 1);
+          }),
       limit: { tries: 1 },
     },
     {

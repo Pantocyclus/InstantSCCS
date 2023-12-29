@@ -1,6 +1,6 @@
 # InstantSCCS
 
-`InstantSCCS` is a softcore one-day Community Service script meant for looping in Kingdom of Loathing, and designed to work for low-to-mid-shiny accounts (i.e. accounts with minimal expensive items/skills). The user is expected to have a bunch of softcore-permed skills, and at least ~7 IotMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
+`InstantSCCS` is a softcore one-day Community Service script meant for looping in Kingdom of Loathing, and is designed to work for low-to-mid-shiny accounts (i.e. accounts with minimal expensive items/skills). The user is expected to have a bunch of softcore-permed skills, and at least ~7 IotMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
 
 ## Installation
 
@@ -46,7 +46,7 @@ Because we rely heavily on the [cookbookbat](https://kol.coldfront.net/thekolwik
 ### Required IotMs
 
 IotMs are incredibly expensive, and they tend to increase in price the longer they have existed due to the artificial supply limit. Unfortunately, they are incredibly powerful too, and so we will need to rely on them to enable a 1-day SCCS. There is a hard requirement on the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key), as it is one of the few "IotMs" that are recurring (and thus are not gated by the same artificial supply limit as mentioned above), and it provides access to >= 30 Mr. A's-worth of IotMs. <br />
-One of the hardest tasks in CS is levelling, due to the limited resources we have access to to optimise for the stat tests (HP, Mus, Myst, Mox). The other required IotMs thus have to provide incredible statgain and/or turngen/turnsave potential. The current routing is built around the following 6 other IotMs.
+One of the hardest tasks in CS is leveling, due to the limited resources we have access to to optimise for the stat tests (HP, Mus, Myst, Mox). The other required IotMs thus have to provide incredible statgain and/or turngen/turnsave potential. The current routing is built around the following 6 other IotMs.
 
 | IotM                                                                                                | Use         |
 | --------------------------------------------------------------------------------------------------- | ----------- |
@@ -105,7 +105,7 @@ Note: As of 22 Nov 2023, preliminary support has been added for all Mus and Myst
 
 InstantSCCS supports a very large number of IotMs, but, as a generalist script, may not be able to eke out every last benefit from each IotM. For exact specifics, refer to [this list](https://github.com/Pantocyclus/InstantSCCS/blob/main/ITEMS.md).
 
-### I'm pretty shiny - can I get the script to save certain resources?
+### I'm pretty shiny - can I get the script to save certain resources/organs?
 
 Run `instantsccs savedresources` to see a list of preferences you can set to save specific resources. You may also explicitly exclude acquiring certain buffs by typing `set instant_explicitlyExcludedBuffs=<comma-separated effect IDs>` (and confirming that the correct buffs have been excluded in the savedresources printout). <br/>
 
@@ -117,7 +117,7 @@ Similarly, you may exclude using certain familiars during the leveling phase by 
 
 You can make the necessary softcore pulls prior to running InstantSCCS. This generally should be equipments (e.g. [Staff of the Roaring Hearth](https://kol.coldfront.net/thekolwiki/index.php/Staff_of_the_Roaring_Hearth), [repaid diaper](https://kol.coldfront.net/thekolwiki/index.php/Repaid_diaper), [meteorite necklace](https://kol.coldfront.net/thekolwiki/index.php/Meteorite_necklace) etc), since they would automatically be equipped by the maximizer for various tasks/tests.
 
-For potions and consumables, you may set `instant_<testName>TestPulls=<comma-separated item IDs>` to pull and use them right before triggering the tests. For example, `set instant_spellTestPulls=5020,10607` to automatically pull and use the [tobiko marble soda](https://kol.coldfront.net/thekolwiki/index.php/Tobiko_marble_soda) and [Yeg's Motel hand soap](https://kol.coldfront.net/thekolwiki/index.php/Yeg%27s_Motel_hand_soap) for the Spell Damage Test. (`<testName>` should be one of `hp|mus|myst|mox|hot|com|fam|spell|weapon|booze`)
+For potions and consumables, you may set `instant_<testName>TestPulls=<comma-separated item IDs>` to pull and use them right before triggering the tests. For example, `set instant_spellTestPulls=5020,10607` to automatically pull and use the [tobiko marble soda](https://kol.coldfront.net/thekolwiki/index.php/Tobiko_marble_soda) and [Yeg's Motel hand soap](https://kol.coldfront.net/thekolwiki/index.php/Yeg%27s_Motel_hand_soap) for the Spell Damage Test (`<testName>` should be one of `hp|mus|myst|mox|hot|com|fam|spell|weapon|booze`). For equipment and other stuff, `set instant_prePulls=<comma-separated item IDs>` to pull said items just prior to the leveling portion of the script.
 
 ### I'm looking to improve my CS runs - what IotMs and skills should I go for next?
 

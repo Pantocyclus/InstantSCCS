@@ -768,3 +768,14 @@ export function goVote(): void {
 
   visitUrl(`choice.php?option=1&whichchoice=1331&g=${monsterVote}&local[]=${init}&local[]=${init}`);
 }
+
+export function canPull(id: number): boolean {
+  if (
+    get("_roninStoragePulls").split(",").length >= 5 ||
+    id <= 0 ||
+    get("_roninStoragePulls").split(",").includes(id.toString()) ||
+    storageAmount(toItem(id)) === 0
+  )
+    return false;
+  return true;
+}
