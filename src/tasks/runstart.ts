@@ -49,6 +49,7 @@ import {
   $slot,
   $stat,
   clamp,
+  CombatLoversLocket,
   CommunityService,
   get,
   getBanishedMonsters,
@@ -505,6 +506,41 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Locket Evil Olive",
+      prepare: (): void => {
+        if (useParkaSpit) {
+          cliExecute("parka dilophosaur");
+        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
+          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
+          buy($item`yellow rocket`, 1);
+        }
+        unbreakableUmbrella();
+        if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
+      },
+      completed: () =>
+        mainStat !== $stat`Moxie` ||
+        CombatLoversLocket.monstersReminisced().includes($monster`Evil Olive`) ||
+        !CombatLoversLocket.availableLocketMonsters().includes($monster`Evil Olive`) ||
+        have($item`jumbo olive`),
+      do: () => CombatLoversLocket.reminisce($monster`Evil Olive`),
+      combat: new CombatStrategy().macro(
+        (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
+          .tryItem($item`yellow rocket`)
+          .abort()
+      ),
+      outfit: () => ({
+        ...baseOutfit(false),
+        shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
+        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
+      }),
+      post: (): void => {
+        if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
+          use($item`MayDay™ supply package`, 1);
+        if (have($item`space blanket`)) autosell($item`space blanket`, 1);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Map Novelty Tropical Skeleton",
       prepare: (): void => {
         if (useParkaSpit) {
@@ -517,6 +553,7 @@ export const RunStartQuest: Quest = {
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
       completed: () =>
+        mainStat === $stat`Moxie` ||
         !have($skill`Map the Monsters`) ||
         get("_monstersMapped") >= 3 ||
         have($item`cherry`) ||
@@ -564,10 +601,11 @@ export const RunStartQuest: Quest = {
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
       completed: () =>
-        have($item`cherry`) &&
-        $monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton, novelty tropical skeleton`.filter(
-          (m) => Array.from(getBanishedMonsters().values()).includes(m)
-        ).length >= (have($skill`Map the Monsters`) ? 2 : 3),
+        mainStat === $stat`Moxie` ||
+        (have($item`cherry`) &&
+          $monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton, novelty tropical skeleton`.filter(
+            (m) => Array.from(getBanishedMonsters().values()).includes(m)
+          ).length >= (have($skill`Map the Monsters`) ? 2 : 3)),
       do: $location`The Skeleton Store`,
       combat: new CombatStrategy().macro(() =>
         Macro.if_(
