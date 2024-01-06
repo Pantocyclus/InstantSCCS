@@ -578,7 +578,11 @@ export function computeCombatFrequency(): number {
   const shoeGum = get("hasDetectiveSchool") && !get("instant_saveCopDollars", false) ? -5 : 0;
   const silentRunning = -5;
   const feelingLonely = have($skill`Feel Lonely`) ? -5 : 0;
-  const offhandRemarkable = have($skill`Aug. 13th: Left/Off Hander's Day!`) && !forbiddenEffects.includes($effect`Offhand Remarkable`) ? offhand : 0;
+  const offhandRemarkable =
+    have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
+    !forbiddenEffects.includes($effect`Offhand Remarkable`)
+      ? offhand
+      : 0;
   const effects = sumNumbers([
     rose,
     smoothMovements,
@@ -589,7 +593,7 @@ export function computeCombatFrequency(): number {
     shoeGum,
     silentRunning,
     feelingLonely,
-    offhandRemarkable
+    offhandRemarkable,
   ]);
 
   const disgeist = have($familiar`Disgeist`) ? -5 : 0;
