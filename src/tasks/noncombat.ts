@@ -92,9 +92,11 @@ export const NoncombatQuest: Quest = {
         cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
 
         if (
+          // Seems to be a bug where numericModifier doesn't recognize the -10 granted by an unbreakable umbrella, so check for that manually
           have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
           !get("instant_saveAugustScepter", false) &&
-          numericModifier(equippedItem($slot`off-hand`), "Combat Rate") < 0 &&
+          (numericModifier(equippedItem($slot`off-hand`), "Combat Rate") < 0 ||
+            equippedItem($slot`off-hand`) === $item`unbreakable umbrella`) &&
           CommunityService.Noncombat.actualCost() > 1
         ) {
           tryAcquiringEffect($effect`Offhand Remarkable`);
