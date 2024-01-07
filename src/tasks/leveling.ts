@@ -713,6 +713,28 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "June Cleaver NC",
+      completed: () => !have($item`June cleaver`) || get("_juneCleaverFightsLeft") > 0,
+      do: $location`Noob Cave`,
+      outfit: { weapon: $item`June cleaver` },
+      combat: new CombatStrategy().macro(Macro.abort()),
+      choices: {
+        1467: 3, // Grab adv
+        1468: mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Moxie` ? 1 : 4, // Grab main substats else skip
+        1469: 3, // Grab meat
+        1470: mainStat === $stat`Muscle` ? 3 : 4, // Grab main substats else skip
+        1471: mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 1, // Grab main substats else savings bond
+        1472: 1, // Grab trampled ticket stub
+        1473: mainStat === $stat`Muscle` ? 1 : 3, // Grab main substats else hot res
+        1474: mainStat === $stat`Muscle` ? 3 : mainStat === $stat`Mysticality` ? 1 : 4, // Grab main substats else skip
+        1475: mainStat === $stat`Muscle` ? 2 : 1, // Grab main substats else mother necklace
+      },
+      post: (): void => {
+        if (have($effect`Beaten Up`)) cliExecute("hottub");
+      },
+      limit: { tries: 10 },
+    },
+    {
       name: "Map Amateur Ninja",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
