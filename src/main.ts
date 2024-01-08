@@ -16,7 +16,7 @@ import {
   convertMilliseconds,
   simpleDateDiff,
 } from "./lib";
-import { get, set, sinceKolmafiaRevision } from "libram";
+import { $effect, $skill, get, have, set, sinceKolmafiaRevision } from "libram";
 import { Engine } from "./engine/engine";
 import { Args, getTasks } from "grimoire-kolmafia";
 import { Task } from "./engine/task";
@@ -32,7 +32,7 @@ import { WeaponDamageQuest } from "./tasks/weapondamage";
 import { DonateQuest } from "./tasks/donate";
 import { SpellDamageQuest } from "./tasks/spelldamage";
 import { checkRequirements } from "./sim";
-import { checkResources } from "./resources";
+import { checkResources, forbiddenEffects } from "./resources";
 
 const timeProperty = "fullday_elapsedTime";
 
@@ -91,7 +91,10 @@ export function main(command?: string): void {
   cliExecute("refresh all");
 
   const swapFamAndNCTests =
-    !get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95;
+    !get("instant_skipAutomaticOptimizations", false) &&
+    computeCombatFrequency() <= -95 &&
+    have($skill`Aug. 13th: Left/Off Hander's Day!`) && // Offhand Remarkable can be carried on for the remaining tests
+    !forbiddenEffects.includes($effect`Offhand Remarkable`); // and shouldn't be burnt on the famwt test
 
   const tasks: Task[] = getTasks([
     RunStartQuest,

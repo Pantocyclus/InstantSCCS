@@ -578,11 +578,16 @@ export function computeCombatFrequency(): number {
   const shoeGum = get("hasDetectiveSchool") && !get("instant_saveCopDollars", false) ? -5 : 0;
   const silentRunning = -5;
   const feelingLonely = have($skill`Feel Lonely`) ? -5 : 0;
-  const offhandRemarkable =
-    have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
-    !forbiddenEffects.includes($effect`Offhand Remarkable`)
-      ? offhand
-      : 0;
+
+  // Since Offhand Remarkable is useful for tests after famwt + NC, if it is being used at all,
+  // we should not burn most of its turns on famwt (i.e. NC -> famwt)
+  // This means we should only swap NC before famwt if we can hit <= -95 if we are not using Offhand Remarkable at all
+  // const offhandRemarkable =
+  //   have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
+  //   !forbiddenEffects.includes($effect`Offhand Remarkable`)
+  //     ? offhand
+  //     : 0;
+
   const effects = sumNumbers([
     rose,
     smoothMovements,
@@ -593,7 +598,7 @@ export function computeCombatFrequency(): number {
     shoeGum,
     silentRunning,
     feelingLonely,
-    offhandRemarkable,
+    // offhandRemarkable,
   ]);
 
   const disgeist = have($familiar`Disgeist`) ? -5 : 0;
