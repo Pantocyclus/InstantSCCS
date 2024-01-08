@@ -320,7 +320,7 @@ export function wishFor(ef: Effect, useGenie = true): void {
   }
 }
 
-export function overlevelled(): boolean {
+export function overleveled(): boolean {
   return myLevel() >= 20;
 }
 export const targetBaseMainStat = get("instant_targetBaseMainStat", 190);

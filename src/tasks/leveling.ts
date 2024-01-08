@@ -88,7 +88,7 @@ import {
   mainStat,
   mainStatMaximizerStr,
   mainStatStr,
-  overlevelled,
+  overleveled,
   reagentBalancerEffect,
   reagentBalancerIngredient,
   reagentBalancerItem,
@@ -1362,7 +1362,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         myBasestat(mainStat) >= targetBaseMainStat - targetBaseMainStatGap &&
         (haveCBBIngredients(false) ||
-          overlevelled() ||
+          overleveled() ||
           craftedCBBEffects.some((ef) => have(ef)) ||
           craftedCBBEffects.every((ef) => forbiddenEffects.includes(ef))) &&
         (powerlevelingLocation() !== $location`The Neverending Party` ||
@@ -1625,7 +1625,7 @@ export const LevelingQuest: Quest = {
         myBasestat(mainStat) >= targetBaseMainStat &&
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
-        (haveCBBIngredients(true) || overlevelled()),
+        (haveCBBIngredients(true) || overleveled()),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Pride`)
