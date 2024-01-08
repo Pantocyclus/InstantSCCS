@@ -20269,8 +20269,8 @@ function main_main(command) {
   (0,external_kolmafia_namespaceObject.visitUrl)("museum.php?action=icehouse");
   (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
   (0,external_kolmafia_namespaceObject.cliExecute)("refresh all");
-  var swapFamAndNCTests = !property_get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95 && lib_have(template_string_$skill(main_templateObject || (main_templateObject = main_taggedTemplateLiteral(["Aug. 13th: Left/Off Hander's Day!"])))) && // Offhand Remarkable can be carried on for the remaining tests
-  !forbiddenEffects.includes(template_string_$effect(main_templateObject2 || (main_templateObject2 = main_taggedTemplateLiteral(["Offhand Remarkable"])))); // and shouldn't be burnt on the famwt test
+  var swapFamAndNCTests = !property_get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95 && (!lib_have(template_string_$skill(main_templateObject || (main_templateObject = main_taggedTemplateLiteral(["Aug. 13th: Left/Off Hander's Day!"])))) || // Offhand Remarkable can be carried on for the remaining tests
+  forbiddenEffects.includes(template_string_$effect(main_templateObject2 || (main_templateObject2 = main_taggedTemplateLiteral(["Offhand Remarkable"]))))); // and shouldn't be burnt on the famwt test
 
   var tasks = getTasks([RunStartQuest, CoilWireQuest, LevelingQuest, MysticalityQuest, HPQuest, MoxieQuest, MuscleQuest, swapFamAndNCTests ? NoncombatQuest : FamiliarWeightQuest, swapFamAndNCTests ? FamiliarWeightQuest : NoncombatQuest, BoozeDropQuest, HotResQuest, WeaponDamageQuest, SpellDamageQuest, DonateQuest]);
   var engine = new engine_Engine(tasks);
