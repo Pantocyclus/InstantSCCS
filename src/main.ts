@@ -93,8 +93,8 @@ export function main(command?: string): void {
   const swapFamAndNCTests =
     !get("instant_skipAutomaticOptimizations", false) &&
     computeCombatFrequency() <= -95 &&
-    have($skill`Aug. 13th: Left/Off Hander's Day!`) && // Offhand Remarkable can be carried on for the remaining tests
-    !forbiddenEffects.includes($effect`Offhand Remarkable`); // and shouldn't be burnt on the famwt test
+    (!have($skill`Aug. 13th: Left/Off Hander's Day!`) || // Offhand Remarkable can be carried on for the remaining tests
+      forbiddenEffects.includes($effect`Offhand Remarkable`)); // and shouldn't be burnt on the famwt test
 
   const tasks: Task[] = getTasks([
     RunStartQuest,
