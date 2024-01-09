@@ -80,8 +80,7 @@ function garbageFire(): Familiar {
 function sombrero(allowAttackingFamiliars = true): Familiar {
   const sombreros = [
     ...(allowAttackingFamiliars
-      ? // eslint-disable-next-line libram/verify-constants
-        $familiars`Jill-of-All-Trades, Patriotic Eagle, Galloping Grill`
+      ? $familiars`Jill-of-All-Trades, Patriotic Eagle, Galloping Grill`
       : []),
     $familiar`Baby Sandworm`,
     $familiar`Hovering Sombrero`,
@@ -148,13 +147,9 @@ export function avoidDaylightShavingsHelm(): boolean {
   );
 }
 
-// eslint-disable-next-line libram/verify-constants
-const candySword = $item`candy cane sword cane`;
-
 function useCandyCaneSword(): boolean {
-  if (!have(candySword)) return false;
-  if (get("instant_saveCandySword", false)) return false;
-  examine(candySword);
+  if (!have($item`candy cane sword cane`) || get("instant_saveCandySword", false)) return false;
+  examine($item`candy cane sword cane`);
   if (get("_surprisinglySweetSlashUsed", 0) < 11 || get("_surprisinglySweetStabUsed", 0) < 11) {
     return true;
   }
@@ -167,7 +162,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
 
   return {
     weapon: useCandyCaneSword()
-      ? candySword
+      ? $item`candy cane sword cane`
       : have($item`fish hatchet`)
       ? $item`fish hatchet`
       : have($item`bass clarinet`)
