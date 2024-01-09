@@ -9,6 +9,10 @@ export default class Macro extends StrictMacro {
     const macroHead = this.trySkill($skill`Curse of Weaksauce`)
       .trySkill($skill`Micrometeorite`)
       .trySkill($skill`Sing Along`)
+      // eslint-disable-next-line libram/verify-constants
+      .trySkill($skill`Surprisingly Sweet Stab`)
+      // eslint-disable-next-line libram/verify-constants
+      .trySkill($skill`Surprisingly Sweet Slash`)
       .if_(
         `!mpbelow ${mpCost($skill`Stuffed Mortar Shell`)}`,
         Macro.trySkill($skill`Stuffed Mortar Shell`)

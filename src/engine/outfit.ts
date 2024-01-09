@@ -164,8 +164,6 @@ function useCandyCaneSword(): boolean {
   if (!have(candySword)) return false;
   if (get("instant_saveCandySword", false)) return false;
   examine(candySword);
-  // eslint-disable-next-line libram/verify-constants
-  if (haveEffect($effect`Peppermint Rush`) >= 401) return false;
   if (get("_surprisinglySweetSlashUsed", 0) < 11 || get("_surprisinglySweetStabUsed", 0) < 11) {
     return true;
   }
