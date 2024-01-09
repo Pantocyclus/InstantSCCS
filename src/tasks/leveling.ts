@@ -860,13 +860,10 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`red rocket`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
-          .trySkill($skill`Surprisingly Sweet Slash`)
-          .trySkill($skill`Surprisingly Sweet Stab`)
           .default()
       ),
       outfit: () => ({
         ...baseOutfit(),
-        weapon: $item`candy cane sword cane`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco`,
       }),
       post: (): void => {
@@ -924,14 +921,10 @@ export const LevelingQuest: Quest = {
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
       do: $location`The X-32-F Combat Training Snowman`,
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
-          .trySkill($skill`Surprisingly Sweet Slash`)
-          .trySkill($skill`Surprisingly Sweet Stab`)
-          .default()
+        Macro.trySkill($skill`Recall Facts: %phylum Circadian Rhythms`).default()
       ),
       outfit: () => ({
         ...baseOutfit(),
-        weapon: $item`candy cane sword cane`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip kramco`,
       }),
       limit: { tries: 10 },
