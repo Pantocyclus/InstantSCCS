@@ -621,7 +621,7 @@ export function computeCombatFrequency(): number {
 
   print("Determining if we should run NC before fam test...");
   print(
-    `Hat ${hat}, Shirt ${shirt}, Back ${back}, Offhand ${offhand}, Pants ${pants}, Accessories ${accessories}, Effects ${effects}, Others ${others}`
+    `Hat ${hat}, Shirt ${shirt}, Back ${back}, Offhand ${offhand}, Pants ${pants}, Accessories ${accessories}, Effects ${effects}, Familiar ${familiar}, Others ${others}`
   );
   if (total <= -95) {
     print(`Total ${total} <= -95`, "green");
