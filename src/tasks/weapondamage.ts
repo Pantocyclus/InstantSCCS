@@ -11,6 +11,7 @@ import {
   myInebriety,
   myMaxhp,
   myMeat,
+  myThrall,
   numericModifier,
   outfit,
   print,
@@ -29,6 +30,7 @@ import {
   $location,
   $skill,
   $slot,
+  $thrall,
   clamp,
   Clan,
   CommunityService,
@@ -199,13 +201,14 @@ export const WeaponDamageQuest: Quest = {
         get("instant_stickKnifeOutfit") !== "" &&
         myClass() === $class`Pastamancer` &&
         have($item`Stick-Knife of Loathing`) &&
-        have($skill`Bind Undead Elbow Macaroni`),
+        (have($skill`Bind Undead Elbow Macaroni`) || myThrall() === $thrall`Undead Elbow Macaroni`),
       completed: () => haveEquipped($item`Stick-Knife of Loathing`),
       do: (): void => {
-        useSkill($skill`Bind Undead Elbow Macaroni`);
+        if (myThrall() !== $thrall`Undead Elbow Macaroni`)
+          useSkill($skill`Bind Undead Elbow Macaroni`);
         outfit(get("instant_stickKnifeOutfit"));
       },
-      limit: { tries: 2 },
+      limit: { tries: 1 },
     },
     {
       name: "Test",
