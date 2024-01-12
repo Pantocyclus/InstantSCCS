@@ -4,12 +4,17 @@ import {
   create,
   Effect,
   equippedItem,
+  haveEquipped,
   inebrietyLimit,
+  myBasestat,
+  myClass,
   myHash,
   myInebriety,
   myMaxhp,
   myMeat,
+  myThrall,
   numericModifier,
+  outfit,
   print,
   restoreHp,
   restoreMp,
@@ -18,6 +23,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
+  $class,
   $effect,
   $effects,
   $familiar,
@@ -25,6 +31,8 @@ import {
   $location,
   $skill,
   $slot,
+  $stat,
+  $thrall,
   clamp,
   Clan,
   CommunityService,
@@ -187,6 +195,25 @@ export const WeaponDamageQuest: Quest = {
         !get("yourFavoriteBirdMods").includes("Weapon Damage") ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Stick-Knife Trick",
+      ready: () =>
+        get("instant_stickKnifeOutfit") !== "" &&
+        myClass() === $class`Pastamancer` &&
+        have($item`Stick-Knife of Loathing`) &&
+        (have($skill`Bind Undead Elbow Macaroni`) || myThrall() === $thrall`Undead Elbow Macaroni`),
+      completed: () =>
+        haveEquipped($item`Stick-Knife of Loathing`) ||
+        have($familiar`Disembodied Hand`) ||
+        myBasestat($stat`Mysticality`) < 150 ||
+        myBasestat($stat`Muscle`) >= 150,
+      do: (): void => {
+        if (myThrall() !== $thrall`Undead Elbow Macaroni`)
+          useSkill($skill`Bind Undead Elbow Macaroni`);
+        outfit(get("instant_stickKnifeOutfit"));
+      },
       limit: { tries: 1 },
     },
     {
