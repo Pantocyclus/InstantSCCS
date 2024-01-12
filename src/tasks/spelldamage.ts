@@ -6,12 +6,15 @@ import {
   elementalResistance,
   equip,
   equippedItem,
+  haveEquipped,
   inebrietyLimit,
   myAdventures,
+  myClass,
   myHp,
   myInebriety,
   myMaxhp,
   numericModifier,
+  outfit,
   print,
   restoreHp,
   restoreMp,
@@ -19,6 +22,7 @@ import {
   useSkill,
 } from "kolmafia";
 import {
+  $class,
   $effect,
   $effects,
   $element,
@@ -150,6 +154,20 @@ export const SpellDamageQuest: Quest = {
       },
       outfit: { modifier: "HP 500max, Spooky Resistance", familiar: $familiar`Exotic Parrot` },
       limit: { tries: 1 },
+    },
+    {
+      name: "Stick-Knife Trick",
+      ready: () =>
+        get("instant_stickKnifeOutfit") !== "" &&
+        myClass() === $class`Pastamancer` &&
+        have($item`Stick-Knife of Loathing`) &&
+        have($skill`Bind Undead Elbow Macaroni`),
+      completed: () => haveEquipped($item`Stick-Knife of Loathing`),
+      do: (): void => {
+        useSkill($skill`Bind Undead Elbow Macaroni`);
+        outfit(get("instant_stickKnifeOutfit"));
+      },
+      limit: { tries: 2 },
     },
     {
       name: "Test",
