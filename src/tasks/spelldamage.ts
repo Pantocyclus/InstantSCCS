@@ -166,11 +166,11 @@ export const SpellDamageQuest: Quest = {
         myClass() === $class`Pastamancer` &&
         have($item`Stick-Knife of Loathing`) &&
         (have($skill`Bind Undead Elbow Macaroni`) || myThrall() === $thrall`Undead Elbow Macaroni`),
-      completed: () => 
-        haveEquipped($item`Stick-Knife of Loathing`) || 
-        have($familiar`Disembodied Hand`) || 
-        myBasestat($stat'Mysticality') < 150 ||
-        myBasestat($stat'Muscle') >= 150,
+      completed: () =>
+        haveEquipped($item`Stick-Knife of Loathing`) ||
+        have($familiar`Disembodied Hand`) ||
+        myBasestat($stat`Mysticality`) < 150 ||
+        myBasestat($stat`Muscle`) >= 150,
       do: (): void => {
         if (myThrall() !== $thrall`Undead Elbow Macaroni`)
           useSkill($skill`Bind Undead Elbow Macaroni`);
