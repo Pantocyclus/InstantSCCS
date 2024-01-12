@@ -9619,7 +9619,7 @@ function computeCombatFrequency() {
   var others = darkHorse;
   var total = sumNumbers([hat, shirt, back, offhand, pants, accessories, effects, familiar, others]);
   (0,external_kolmafia_namespaceObject.print)("Determining if we should run NC before fam test...");
-  (0,external_kolmafia_namespaceObject.print)("Hat ".concat(hat, ", Shirt ").concat(shirt, ", Back ").concat(back, ", Offhand ").concat(offhand, ", Pants ").concat(pants, ", Accessories ").concat(accessories, ", Effects ").concat(effects, ", Others ").concat(others));
+  (0,external_kolmafia_namespaceObject.print)("Hat ".concat(hat, ", Shirt ").concat(shirt, ", Back ").concat(back, ", Offhand ").concat(offhand, ", Pants ").concat(pants, ", Accessories ").concat(accessories, ", Effects ").concat(effects, ", Familiar ").concat(familiar, ", Others ").concat(others));
 
   if (total <= -95) {
     (0,external_kolmafia_namespaceObject.print)("Total ".concat(total, " <= -95"), "green");
