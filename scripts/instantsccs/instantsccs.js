@@ -16283,7 +16283,10 @@ var LevelingQuest = {
   }, {
     name: "June Cleaver NC",
     completed: () => !lib_have(template_string_$item(_templateObject202 || (_templateObject202 = leveling_taggedTemplateLiteral(["June cleaver"])))) || property_get("_juneCleaverFightsLeft") > 0,
-    do: $location(_templateObject203 || (_templateObject203 = leveling_taggedTemplateLiteral(["Noob Cave"]))),
+    do: () => {
+      (0,external_kolmafia_namespaceObject.adv1)($location(_templateObject203 || (_templateObject203 = leveling_taggedTemplateLiteral(["Noob Cave"]))));
+      _set("lastEncounter", "");
+    },
     outfit: {
       weapon: template_string_$item(_templateObject204 || (_templateObject204 = leveling_taggedTemplateLiteral(["June cleaver"])))
     },
