@@ -1,5 +1,6 @@
 import { Quest } from "../engine/task";
 import {
+  adv1,
   autosell,
   buy,
   chew,
@@ -66,6 +67,7 @@ import {
   getBanishedMonsters,
   getKramcoWandererChance,
   have,
+  set,
   SongBoom,
   SourceTerminal,
   sum,
@@ -715,7 +717,10 @@ export const LevelingQuest: Quest = {
     {
       name: "June Cleaver NC",
       completed: () => !have($item`June cleaver`) || get("_juneCleaverFightsLeft") > 0,
-      do: $location`Noob Cave`,
+      do: (): void => {
+        adv1($location`Noob Cave`);
+        set("lastEncounter", "");
+      },
       outfit: { weapon: $item`June cleaver` },
       combat: new CombatStrategy().macro(Macro.abort()),
       choices: {
