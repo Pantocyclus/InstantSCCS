@@ -619,6 +619,12 @@ export const RunStartQuest: Quest = {
             Macro.trySkill($skill`Bowl a Curveball`)
           )
           .externalIf(
+            // eslint-disable-next-line libram/verify-constants
+            !have($effect`Everything Looks Green`) && haveEquipped($item`spring shoes`),
+            // eslint-disable-next-line libram/verify-constants
+            Macro.trySkill($skill`Spring Kick`).trySkill($skill`Spring Away`)
+          )
+          .externalIf(
             !Array.from(getBanishedMonsters().keys()).includes($skill`Snokebomb`),
             Macro.trySkill($skill`Snokebomb`)
           )
@@ -632,7 +638,7 @@ export const RunStartQuest: Quest = {
         return {
           shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
           offhand: $item`unbreakable umbrella`,
-          acc3: $item`cursed monkey's paw`,
+          acc2: $item`cursed monkey's paw`,
           familiar: chooseFamiliar(false),
           modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
         };
