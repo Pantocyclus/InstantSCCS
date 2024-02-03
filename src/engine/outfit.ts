@@ -179,7 +179,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
         ? $item`Cincho de Mayo`
         : undefined,
     // eslint-disable-next-line libram/verify-constants
-    acc3: $item`spring shoes`,
+    // acc3: $item`spring shoes`,
     familiar: chooseFamiliar(allowAttackingFamiliars),
     modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape`,
     avoid: [
