@@ -162,8 +162,8 @@ const statEffects =
   mainStatStr === `Muscle`
     ? muscleList
     : mainStatStr === `Mysticality`
-    ? mysticalityList
-    : moxieList;
+      ? mysticalityList
+      : moxieList;
 
 const usefulEffects: Effect[] = [
   // Stats
@@ -241,7 +241,7 @@ export function bestShadowRift(): Location {
                 m === $monster`shadow guy` && have($skill`Just the Facts`)
                   ? $item`pocket wish`
                   : $item.none,
-              ].filter((i) => i !== $item.none)
+              ].filter((i) => i !== $item.none),
             )
             .reduce((acc, val) => acc.concat(val), []);
           return sum(drops, mallPrice);
@@ -395,7 +395,7 @@ export const LevelingQuest: Quest = {
           print("Consider pulling something to make up for the turngen and 300%mus,", "red");
           print(
             "then type 'set _instant_skipDeepDishOfLegend=true' before re-running instantsccs",
-            "red"
+            "red",
           );
         }
         takeStorage($item`Deep Dish of Legend`, 1);
@@ -416,11 +416,11 @@ export const LevelingQuest: Quest = {
           print("Uh oh! You do not seem to have a Calzone of Legend in Hagnk's", "red");
           print(
             "Consider pulling something to make up for the turngen and 300%myst (e.g. a roasted vegetable focaccia),",
-            "red"
+            "red",
           );
           print(
             "then type 'set _instant_skipCalzoneOfLegend=true' before re-running instantsccs",
-            "red"
+            "red",
           );
         }
         takeStorage($item`Calzone of Legend`, 1);
@@ -442,7 +442,7 @@ export const LevelingQuest: Quest = {
           print("Consider pulling something to make up for the turngen and 300%mox,", "red");
           print(
             "then type 'set _instant_skipPizzaOfLegend=true' before re-running instantsccs",
-            "red"
+            "red",
           );
         }
         takeStorage($item`Pizza of Legend`, 1);
@@ -459,11 +459,11 @@ export const LevelingQuest: Quest = {
         if (storageAmount($item`one-day ticket to Dinseylandfill`) === 0) {
           print(
             "Uh oh! You do not seem to have a one-day ticket to Dinseylandfill in Hagnk's",
-            "red"
+            "red",
           );
           print(
             "Try to purchase one from the mall with your meat from Hagnk's before re-running instantsccs",
-            "red"
+            "red",
           );
         }
         takeStorage($item`one-day ticket to Dinseylandfill`, 1);
@@ -769,8 +769,8 @@ export const LevelingQuest: Quest = {
             .trySkill($skill`Chest X-Ray`)
             .trySkill($skill`Gingerbread Mob Hit`)
             .trySkill($skill`Shattering Punch`)
-            .default()
-        ).abort()
+            .default(),
+        ).abort(),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -800,7 +800,7 @@ export const LevelingQuest: Quest = {
         Macro.trySkill($skill`Curse of Weaksauce`)
           .tryItem($item`blue rocket`)
           .tryItem($item`red rocket`)
-          .default()
+          .default(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
@@ -865,7 +865,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`red rocket`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
-          .default()
+          .default(),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -926,7 +926,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
       do: $location`The X-32-F Combat Training Snowman`,
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Recall Facts: %phylum Circadian Rhythms`).default()
+        Macro.trySkill($skill`Recall Facts: %phylum Circadian Rhythms`).default(),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -1022,7 +1022,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.if_("!haseffect Everything Looks Yellow", Macro.tryItem($item`yellow rocket`))
           .trySkill($skill`Feel Envy`)
-          .default()
+          .default(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
@@ -1049,7 +1049,7 @@ export const LevelingQuest: Quest = {
         TunnelOfLove.fightAll(
           "LOV Epaulettes",
           "Open Heart Surgery",
-          "LOV Extraterrestrial Chocolate"
+          "LOV Extraterrestrial Chocolate",
         ),
       combat: new CombatStrategy().macro(
         Macro.if_($monster`LOV Enforcer`, Macro.attack().repeat())
@@ -1057,15 +1057,15 @@ export const LevelingQuest: Quest = {
             $monster`LOV Engineer`,
             Macro.while_(
               `!mpbelow ${mpCost($skill`Toynado`)} && hasskill ${toInt($skill`Toynado`)}`,
-              Macro.skill($skill`Toynado`)
+              Macro.skill($skill`Toynado`),
             )
               .while_(
                 `!mpbelow ${mpCost($skill`Saucestorm`)} && hasskill ${toInt($skill`Saucestorm`)}`,
-                Macro.skill($skill`Saucestorm`)
+                Macro.skill($skill`Saucestorm`),
               )
-              .default()
+              .default(),
           )
-          .if_($monster`LOV Equivocator`, Macro.default())
+          .if_($monster`LOV Equivocator`, Macro.default()),
       ),
       outfit: () => ({
         ...baseOutfit(false),
@@ -1124,9 +1124,9 @@ export const LevelingQuest: Quest = {
               have($skill`Recall Facts: Monster Habitats`) &&
               (haveFreeBanish() ||
                 Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
-            Macro.trySkill($skill`Recall Facts: Monster Habitats`)
+            Macro.trySkill($skill`Recall Facts: Monster Habitats`),
           )
-          .default(useCinch)
+          .default(useCinch),
       ),
       outfit: baseOutfit,
       post: (): void => {
@@ -1152,7 +1152,7 @@ export const LevelingQuest: Quest = {
         myBasestat(mainStat) >= 190, // no longer need to back up Witchess Kings
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Back-Up to your Last Enemy`).default(useCinch)
+        Macro.trySkill($skill`Back-Up to your Last Enemy`).default(useCinch),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -1189,8 +1189,8 @@ export const LevelingQuest: Quest = {
             have($skill`Recall Facts: Monster Habitats`) &&
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
-          Macro.trySkill($skill`Recall Facts: Monster Habitats`)
-        ).default(useCinch)
+          Macro.trySkill($skill`Recall Facts: Monster Habitats`),
+        ).default(useCinch),
       ),
       post: (): void => {
         sendAutumnaton();
@@ -1214,7 +1214,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Envy`)
           .trySkill($skill`Portscan`)
-          .default()
+          .default(),
       ),
       outfit: baseOutfit,
       limit: { tries: 1 },
@@ -1324,8 +1324,8 @@ export const LevelingQuest: Quest = {
             have($skill`Recall Facts: Monster Habitats`) &&
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
-          Macro.trySkill($skill`Recall Facts: Monster Habitats`)
-        ).default(useCinch)
+          Macro.trySkill($skill`Recall Facts: Monster Habitats`),
+        ).default(useCinch),
       ),
       outfit: baseOutfit,
       post: (): void => {
@@ -1388,7 +1388,7 @@ export const LevelingQuest: Quest = {
         Macro.tryItem($item`red rocket`)
           .trySkill($skill`Bowl Sideways`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
-          .default(useCinch)
+          .default(useCinch),
       ),
       post: (): void => {
         haveCBBIngredients(false, true);
@@ -1510,7 +1510,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Curse of Weaksauce`)
           .attack()
-          .repeat()
+          .repeat(),
       ),
       outfit: {
         ...baseOutfit(),
@@ -1583,8 +1583,8 @@ export const LevelingQuest: Quest = {
             have($skill`Recall Facts: Monster Habitats`) &&
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
-          Macro.trySkill($skill`Recall Facts: Monster Habitats`)
-        ).default(useCinch)
+          Macro.trySkill($skill`Recall Facts: Monster Habitats`),
+        ).default(useCinch),
       ),
       outfit: baseOutfit,
       post: (): void => {
@@ -1634,7 +1634,7 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
           .trySkill($skill`Bowl Sideways`)
-          .default(useCinch)
+          .default(useCinch),
       ),
       choices: {
         1094: 5,

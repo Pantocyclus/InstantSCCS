@@ -133,10 +133,10 @@ export function main(command?: string): void {
       `Time: ${convertMilliseconds(
         simpleDateDiff(
           get(timeProperty, nowToString("yyyyMMddhhmmssSSS")),
-          nowToString("yyyyMMddhhmmssSSS")
-        )
+          nowToString("yyyyMMddhhmmssSSS"),
+        ),
       )} since first run today started`,
-      "purple"
+      "purple",
     );
     set(timeProperty, -1);
   } finally {

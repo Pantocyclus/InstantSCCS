@@ -49,7 +49,7 @@ function buildIotmList(): Requirement[] {
           storageAmount($item`cosmic bowling ball`) > 0 ||
           get("cosmicBowlingBallReturnCombats", -1) >= 0 ||
           have($item`cursed monkey's paw`),
-        "Cosmic bowling ball (or Cursed Monkey's Paw)"
+        "Cosmic bowling ball (or Cursed Monkey's Paw)",
       ),
       why: "Leveling + banish",
     },
@@ -96,7 +96,7 @@ function buildIotmList(): Requirement[] {
           get("coldAirportAlways") ||
           get("sleazeAirportAlways") ||
           get("neverendingPartyAlways"),
-        "Scaler Zone Access"
+        "Scaler Zone Access",
       ),
       why: "Scalers for leveling",
     },
@@ -362,14 +362,14 @@ function buildMiscList(): Requirement[] {
       thing: new Hardcoded(
         // These unknownRecipe properties are false when the user knows the recipe
         !get("unknownRecipe10972"),
-        "Recipe of Yore: Roasted vegetable of Jarlsberg"
+        "Recipe of Yore: Roasted vegetable of Jarlsberg",
       ),
       why: "Food we'll cook in-run",
     },
     {
       thing: new Hardcoded(
         !get("unknownRecipe10974"),
-        "Recipe of Yore: Pete's Pete's wily whey bar"
+        "Recipe of Yore: Pete's Pete's wily whey bar",
       ),
       why: "Food we'll cook in-run",
     },
@@ -392,7 +392,7 @@ function buildMiscList(): Requirement[] {
     {
       thing: new Hardcoded(
         !get("unknownRecipe10988"),
-        "Recipe of Yore: baked veggie ricotta casserole"
+        "Recipe of Yore: baked veggie ricotta casserole",
       ),
       why: "Food we'll cook in-run",
     },
@@ -410,17 +410,17 @@ function buildMiscList(): Requirement[] {
           const iceHouseIndex = banishes.map((string) => string.toLowerCase()).indexOf("ice house");
           if (iceHouseIndex === -1) return false;
           return ["remaindered skeleton", "factory-irregular skeleton", "swarm of skulls"].includes(
-            banishes[iceHouseIndex - 1]
+            banishes[iceHouseIndex - 1],
           );
         })(),
-        "Cartography / Ice Housed Skeleton Store Monster"
+        "Cartography / Ice Housed Skeleton Store Monster",
       ),
       why: "Ensures Novelty Tropical Skeleton",
     },
     {
       thing: new Hardcoded(
         get("knownAscensions") >= 10,
-        "Access to all-purpose flower in the Gift Shop"
+        "Access to all-purpose flower in the Gift Shop",
       ),
       why: "Muscle test",
     },
@@ -578,7 +578,7 @@ function buildMiscList(): Requirement[] {
         have($item`borrowed time`) ||
           storageAmount($item`borrowed time`) > 0 ||
           have($skill`Summon Clip Art`),
-        "borrowed time"
+        "borrowed time",
       ),
       why: "Turngen",
     },
@@ -601,7 +601,7 @@ function checkThing(thing: Thing): [boolean, string] {
   if (thing instanceof Skill)
     return [
       [Lifestyle.softcore, Lifestyle.hardcore].some(
-        (lifestyle) => lifestyle === permedSkills().get(thing)
+        (lifestyle) => lifestyle === permedSkills().get(thing),
       ),
       thing.name,
     ];
@@ -645,7 +645,7 @@ export function checkRequirements(): void {
     ["Miscellany (Optional)", buildMiscList().filter((req) => req.optional && !req.recommended)],
   ];
   printHtml(
-    "Checking your character... Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional"
+    "Checking your character... Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional",
   );
   for (const [name, requirements] of categories) {
     if (requirements.length === 0) continue;
@@ -666,13 +666,13 @@ export function checkRequirements(): void {
   if (missing > 0) {
     print(
       `You are missing ${missing} required things. This script will not yet work for you.`,
-      "red"
+      "red",
     );
     if (missing_optional > 0) print(`You are also missing ${missing_optional} optional things.`);
   } else {
     if (missing_optional > 0) {
       print(
-        `You are missing ${missing_optional} optional things. This script should work, but it could do better.`
+        `You are missing ${missing_optional} optional things. This script should work, but it could do better.`,
       );
     } else {
       print(`You have everything! You are the shiniest star. This script should work great.`);

@@ -62,7 +62,7 @@ export const HotResQuest: Quest = {
           .trySkill($skill`Use the Force`)
           .trySkill($skill`Shocking Lick`)
           .tryItem($item`yellow rocket`)
-          .default()
+          .default(),
       ),
       limit: { tries: 1 },
     },
@@ -87,7 +87,7 @@ export const HotResQuest: Quest = {
         Macro.trySkill($skill`Become a Cloud of Mist`)
           .skill($skill`Fire Extinguisher: Foam Yourself`)
           .skill($skill`Use the Force`)
-          .abort()
+          .abort(),
       ),
       limit: { tries: 1 },
     },
@@ -192,7 +192,7 @@ export const HotResQuest: Quest = {
           print("Manually complete the test if you think this is fine.", "red");
           print(
             "You may also increase the turn limit by typing 'set instant_hotTestTurnLimit=<new limit>'",
-            "red"
+            "red",
           );
         }
         CommunityService.HotRes.run(() => logTestSetup(CommunityService.HotRes), maxTurns);

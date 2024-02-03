@@ -130,7 +130,7 @@ export class Engine extends BaseEngine {
     const originalValues = trackedResources.map(({ resource }) =>
       typeof resource === "string"
         ? [resource, get(resource).toString()]
-        : [resource.name, `${itemAmount(resource)}`]
+        : [resource.name, `${itemAmount(resource)}`],
     );
     const organUsage = () => [myFullness(), myInebriety(), mySpleenUse()];
     const originalOrgans = organUsage();
@@ -213,7 +213,7 @@ export class Engine extends BaseEngine {
               `Ignoring slot ${slotName} because we don't have ${itemOrItems
                 .map((it) => it.name)
                 .join(", ")}`,
-              "red"
+              "red",
             );
             spec[slotName] = undefined;
           }
@@ -248,7 +248,7 @@ export class Engine extends BaseEngine {
       .filter((s) => !bannedAutoHpRestorers.includes(s))
       .join(";");
     const mpItems = Array.from(
-      new Set([...get("mpAutoRecoveryItems").split(";"), "doc galaktik's invigorating tonic"])
+      new Set([...get("mpAutoRecoveryItems").split(";"), "doc galaktik's invigorating tonic"]),
     )
       .filter((s) => !bannedAutoMpRestorers.includes(s))
       .join(";");

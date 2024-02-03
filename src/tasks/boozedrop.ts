@@ -73,7 +73,7 @@ export const BoozeDropQuest: Quest = {
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
-          (ef) => have(ef)
+          (ef) => have(ef),
         ),
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(Macro.banish().abort()),
@@ -203,7 +203,7 @@ export const BoozeDropQuest: Quest = {
           .trySkill($skill`Become a Bat`)
           .trySkill($skill`Fire Extinguisher: Polar Vortex`)
           .trySkill($skill`Use the Force`)
-          .default()
+          .default(),
       ),
       limit: { tries: 5 },
     },
@@ -379,7 +379,7 @@ export const BoozeDropQuest: Quest = {
           print("Manually complete the test if you think this is fine.", "red");
           print(
             "You may also increase the turn limit by typing 'set instant_boozeTestTurnLimit=<new limit>'",
-            "red"
+            "red",
           );
         }
         CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns);

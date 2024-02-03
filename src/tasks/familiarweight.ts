@@ -75,7 +75,7 @@ export const FamiliarWeightQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Meteor Shower`)
           .trySkill($skill`Use the Force`)
-          .abort()
+          .abort(),
       ),
       outfit: () => ({
         weapon: $item`Fourth of May Cosplay Saber`,
@@ -112,9 +112,9 @@ export const FamiliarWeightQuest: Quest = {
           use(
             Math.min(
               4 - Math.floor(haveEffect($effect`Cold Hearted`) / 5),
-              itemAmount($item`love song of icy revenge`)
+              itemAmount($item`love song of icy revenge`),
             ),
-            $item`love song of icy revenge`
+            $item`love song of icy revenge`,
           );
 
         const heaviestWeight =
@@ -131,7 +131,7 @@ export const FamiliarWeightQuest: Quest = {
             `Comma Chameleon is not at max weight, use ${
               9 - get("homemadeRobotUpgrades")
             } more parts on Homemade Robot.`,
-            "red"
+            "red",
           );
         }
         const useTrainbot =
@@ -153,8 +153,8 @@ export const FamiliarWeightQuest: Quest = {
             useFamiliar($familiar`Comma Chameleon`);
             visitUrl(
               `inv_equip.php?which=2&action=equip&whichitem=${toInt(
-                $item`homemade robot gear`
-              )}&pwd`
+                $item`homemade robot gear`,
+              )}&pwd`,
             );
             visitUrl("charpane.php");
           } else {
@@ -186,12 +186,12 @@ export const FamiliarWeightQuest: Quest = {
           print("Manually complete the test if you think this is fine.", "red");
           print(
             "You may also increase the turn limit by typing 'set instant_famTestTurnLimit=<new limit>'",
-            "red"
+            "red",
           );
         }
         CommunityService.FamiliarWeight.run(
           () => logTestSetup(CommunityService.FamiliarWeight),
-          maxTurns
+          maxTurns,
         );
       },
       outfit: () => ({ modifier: "familiar weight", familiar: chooseHeaviestFamiliar() }),

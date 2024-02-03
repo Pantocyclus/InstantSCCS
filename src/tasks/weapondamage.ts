@@ -104,7 +104,7 @@ export const WeaponDamageQuest: Quest = {
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
-          (ef) => have(ef)
+          (ef) => have(ef),
         ),
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(Macro.banish().abort()),
@@ -133,7 +133,7 @@ export const WeaponDamageQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`KGB tranquilizer dart`)
           .trySkill($skill`Snokebomb`)
-          .abort()
+          .abort(),
       ),
       choices: { 326: 1 },
       outfit: {
@@ -167,7 +167,7 @@ export const WeaponDamageQuest: Quest = {
         Macro.trySkill($skill`Meteor Shower`)
           .trySkill($skill`%fn, spit on me!`)
           .trySkill($skill`Use the Force`)
-          .abort()
+          .abort(),
       ),
       outfit: (): OutfitSpec => {
         return attemptKFH
@@ -281,12 +281,12 @@ export const WeaponDamageQuest: Quest = {
           print("Manually complete the test if you think this is fine.", "red");
           print(
             "You may also increase the turn limit by typing 'set instant_wpnTestTurnLimit=<new limit>'",
-            "red"
+            "red",
           );
         }
         CommunityService.WeaponDamage.run(
           () => logTestSetup(CommunityService.WeaponDamage),
-          maxTurns
+          maxTurns,
         );
       },
       outfit: { modifier: "weapon dmg, switch disembodied hand, -switch left-hand man" },

@@ -227,7 +227,7 @@ export const RunStartQuest: Quest = {
           print("Uh oh! You do not seem to have a borrowed time in Hagnk's", "red");
           print(
             "Try to purchase one from the mall with your meat from Hagnk's before re-running instantsccs",
-            "red"
+            "red",
           );
         }
         use($item`borrowed time`, 1);
@@ -294,7 +294,7 @@ export const RunStartQuest: Quest = {
       name: "Detective Badge",
       completed: () =>
         $items`plastic detective badge, bronze detective badge, silver detective badge, gold detective badge`.some(
-          (badge) => have(badge)
+          (badge) => have(badge),
         ) || !get("hasDetectiveSchool"),
       do: () => visitUrl("place.php?whichplace=town_wrong&action=townwrong_precinct"),
       limit: { tries: 1 },
@@ -317,7 +317,7 @@ export const RunStartQuest: Quest = {
           "Hot Resistance: 2",
           "Maximum HP: 40",
           "Combat Rate: -5",
-          "Weapon Damage: 20"
+          "Weapon Damage: 20",
         );
       },
       limit: { tries: 1 },
@@ -337,7 +337,8 @@ export const RunStartQuest: Quest = {
     {
       name: "BoomBox",
       completed: () =>
-        SongBoom.song() === "These Fists Were Made for Punchin'" || !have($item`SongBoom™ BoomBox`),
+        SongBoom.song() === "These Fists Were Made for Punchin'" ||
+        !have($item`SongBoom™ BoomBox`),
       do: () => SongBoom.setSong("These Fists Were Made for Punchin'"),
       limit: { tries: 1 },
     },
@@ -526,7 +527,7 @@ export const RunStartQuest: Quest = {
       combat: new CombatStrategy().macro(
         (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
           .tryItem($item`yellow rocket`)
-          .abort()
+          .abort(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
@@ -563,7 +564,7 @@ export const RunStartQuest: Quest = {
           const iceHouseIndex = banishes.map((string) => string.toLowerCase()).indexOf("ice house");
           if (iceHouseIndex === -1) return false;
           return ["remaindered skeleton", "factory-irregular skeleton", "swarm of skulls"].includes(
-            banishes[iceHouseIndex - 1]
+            banishes[iceHouseIndex - 1],
           );
         })(),
       do: () => mapMonster($location`The Skeleton Store`, $monster`novelty tropical skeleton`),
@@ -571,9 +572,9 @@ export const RunStartQuest: Quest = {
         Macro.if_(
           $monster`novelty tropical skeleton`,
           (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro()).tryItem(
-            $item`yellow rocket`
-          )
-        ).abort()
+            $item`yellow rocket`,
+          ),
+        ).abort(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
@@ -604,35 +605,35 @@ export const RunStartQuest: Quest = {
         mainStat === $stat`Moxie` ||
         (have($item`cherry`) &&
           $monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton, novelty tropical skeleton`.filter(
-            (m) => Array.from(getBanishedMonsters().values()).includes(m)
+            (m) => Array.from(getBanishedMonsters().values()).includes(m),
           ).length >= (have($skill`Map the Monsters`) ? 2 : 3)),
       do: $location`The Skeleton Store`,
       combat: new CombatStrategy().macro(() =>
         Macro.if_(
           $monster`novelty tropical skeleton`,
           (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro()).tryItem(
-            $item`yellow rocket`
-          )
+            $item`yellow rocket`,
+          ),
         )
           .externalIf(
             !Array.from(getBanishedMonsters().keys()).includes($skill`Bowl a Curveball`),
-            Macro.trySkill($skill`Bowl a Curveball`)
+            Macro.trySkill($skill`Bowl a Curveball`),
           )
           .externalIf(
             // eslint-disable-next-line libram/verify-constants
             !have($effect`Everything Looks Green`) && haveEquipped($item`spring shoes`),
             // eslint-disable-next-line libram/verify-constants
-            Macro.trySkill($skill`Spring Kick`).trySkill($skill`Spring Away`)
+            Macro.trySkill($skill`Spring Kick`).trySkill($skill`Spring Away`),
           )
           .externalIf(
             !Array.from(getBanishedMonsters().keys()).includes($skill`Snokebomb`),
-            Macro.trySkill($skill`Snokebomb`)
+            Macro.trySkill($skill`Snokebomb`),
           )
           .externalIf(
             !Array.from(getBanishedMonsters().keys()).includes($skill`Monkey Slap`),
-            Macro.trySkill($skill`Monkey Slap`)
+            Macro.trySkill($skill`Monkey Slap`),
           )
-          .abort()
+          .abort(),
       ),
       outfit: (): OutfitSpec => {
         return {

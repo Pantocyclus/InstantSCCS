@@ -135,7 +135,7 @@ const specialEquipFamiliars = $familiars`Disembodied Hand, Left-Hand Man, Mad Ha
 export function chooseHeaviestFamiliar(): Familiar {
   return maxBy(
     Familiar.all().filter((fam) => have(fam) && !specialEquipFamiliars.includes(fam)),
-    (fam) => fam.experience
+    (fam) => fam.experience,
   );
 }
 
@@ -164,12 +164,12 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     weapon: useCandyCaneSword()
       ? $item`candy cane sword cane`
       : have($item`fish hatchet`)
-      ? $item`fish hatchet`
-      : have($item`bass clarinet`)
-      ? $item`bass clarinet`
-      : myPrimestat() === $stat`Muscle` && have($item`June cleaver`)
-      ? $item`June cleaver`
-      : undefined,
+        ? $item`fish hatchet`
+        : have($item`bass clarinet`)
+          ? $item`bass clarinet`
+          : myPrimestat() === $stat`Muscle` && have($item`June cleaver`)
+            ? $item`June cleaver`
+            : undefined,
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     offhand: $item`unbreakable umbrella`,
     back: lovTunnelCompleted ? $item`LOV Epaulettes` : undefined,

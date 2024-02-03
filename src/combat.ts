@@ -13,14 +13,14 @@ export default class Macro extends StrictMacro {
       .trySkill($skill`Surprisingly Sweet Slash`)
       .if_(
         `!mpbelow ${mpCost($skill`Stuffed Mortar Shell`)}`,
-        Macro.trySkill($skill`Stuffed Mortar Shell`)
+        Macro.trySkill($skill`Stuffed Mortar Shell`),
       );
 
     return (useCinch ? macroHead.trySkill($skill`Cincho: Confetti Extravaganza`) : macroHead)
       .while_(`!mpbelow ${damageSkill} && hasskill ${toInt(damageSkill)}`, Macro.skill(damageSkill))
       .while_(
         `!mpbelow ${mpCost($skill`Saucestorm`)} && hasskill ${toInt($skill`Saucestorm`)}`,
-        Macro.skill($skill`Saucestorm`)
+        Macro.skill($skill`Saucestorm`),
       )
       .attack()
       .repeat();

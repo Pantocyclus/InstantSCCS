@@ -41,7 +41,7 @@ export const HPQuest: Quest = {
       completed: () => CommunityService.HP.isDone(),
       prepare: (): void => {
         $effects`Ur-Kel's Aria of Annoyance, Aloysius' Antiphon of Aptitude, Ode to Booze`.forEach(
-          (ef) => uneffect(ef)
+          (ef) => uneffect(ef),
         );
         const usefulEffects: Effect[] = [
           $effect`A Few Extra Pounds`,
@@ -70,7 +70,7 @@ export const HPQuest: Quest = {
           print("Manually complete the test if you think this is fine.", "red");
           print(
             "You may also increase the turn limit by typing 'set instant_hpTestTurnLimit=<new limit>'",
-            "red"
+            "red",
           );
         }
         CommunityService.HP.run(() => logTestSetup(CommunityService.HP), maxTurns);
@@ -123,7 +123,7 @@ export const MuscleQuest: Quest = {
           print("Manually complete the test if you think this is fine.", "red");
           print(
             "You may also increase the turn limit by typing 'set instant_musTestTurnLimit=<new limit>'",
-            "red"
+            "red",
           );
         }
         CommunityService.Muscle.run(() => logTestSetup(CommunityService.Muscle), maxTurns);
@@ -179,12 +179,12 @@ export const MysticalityQuest: Quest = {
           print("Manually complete the test if you think this is fine.", "red");
           print(
             "You may also increase the turn limit by typing 'set instant_mystTestTurnLimit=<new limit>'",
-            "red"
+            "red",
           );
         }
         CommunityService.Mysticality.run(
           () => logTestSetup(CommunityService.Mysticality),
-          maxTurns
+          maxTurns,
         );
       },
       outfit: { modifier: "Mysticality, switch disembodied hand, -switch left-hand man" },
@@ -252,7 +252,7 @@ export const MoxieQuest: Quest = {
           print("Manually complete the test if you think this is fine.", "red");
           print(
             "You may also increase the turn limit by typing 'set instant_moxTestTurnLimit=<new limit>'",
-            "red"
+            "red",
           );
         }
         CommunityService.Moxie.run(() => logTestSetup(CommunityService.Moxie), maxTurns);

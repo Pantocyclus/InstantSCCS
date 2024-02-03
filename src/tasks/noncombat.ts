@@ -117,7 +117,7 @@ export const NoncombatQuest: Quest = {
           print("Manually complete the test if you think this is fine.", "red");
           print(
             "You may also increase the turn limit by typing 'set instant_comTestTurnLimit=<new limit>'",
-            "red"
+            "red",
           );
         }
         CommunityService.Noncombat.run(() => logTestSetup(CommunityService.Noncombat), maxTurns);

@@ -13,8 +13,8 @@
     "noImplicitReturns": true,
     "pretty": true,
     "strict": true,
-    "target": "es2018"
+    "target": "es2018",
   },
   "include": ["src/**/*.ts", "test/**/*.ts"],
-  "isolatedModules": true /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
+  "isolatedModules": true /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */,
 }
