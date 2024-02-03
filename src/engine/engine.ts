@@ -140,8 +140,8 @@ export class Engine extends BaseEngine {
     if (have($effect`Beaten Up`)) {
       if (
         [
-          "Poetic Justice",
-          "Lost and Found",
+          // "Poetic Justice", // grimoire automatically re-runs certain tasks here (https://github.com/loathers/grimoire/blob/main/src/engine.ts#L525)
+          // "Lost and Found", // this includes all cleaver non-combats, so the script would never see these in lastEncounter
           "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl",
         ].includes(get("lastEncounter"))
       )
