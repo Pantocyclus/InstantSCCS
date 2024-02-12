@@ -619,12 +619,12 @@ export const RunStartQuest: Quest = {
             !Array.from(getBanishedMonsters().keys()).includes($skill`Bowl a Curveball`),
             Macro.trySkill($skill`Bowl a Curveball`),
           )
-          // .externalIf(
-          //   // eslint-disable-next-line libram/verify-constants
-          //   !have($effect`Everything Looks Green`) && haveEquipped($item`spring shoes`),
-          //   // eslint-disable-next-line libram/verify-constants
-          //   Macro.trySkill($skill`Spring Kick`).trySkill($skill`Spring Away`),
-          // )
+          .externalIf(
+            // eslint-disable-next-line libram/verify-constants
+            !have($effect`Everything Looks Green`) && haveEquipped($item`spring shoes`),
+            // eslint-disable-next-line libram/verify-constants
+            Macro.trySkill($skill`Spring Kick`).trySkill($skill`Spring Away`),
+          )
           .externalIf(
             !Array.from(getBanishedMonsters().keys()).includes($skill`Snokebomb`),
             Macro.trySkill($skill`Snokebomb`),
