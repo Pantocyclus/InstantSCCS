@@ -1668,7 +1668,7 @@ export const LevelingQuest: Quest = {
         burnLibram(500);
         refillLatte();
       },
-      limit: { tries: 20 },
+      limit: { tries: 22 },
     },
     {
       name: "Open wardrobe-o-matic", // Assume we won't be leveling any more, even in aftercore, for the rest of the day
