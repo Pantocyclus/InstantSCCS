@@ -1118,7 +1118,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_monsterHabitatsFightsLeft") === 0,
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() =>
-        Macro.if_($monster`fluffy bunny`, Macro.banish())
+        Macro.if_($monster`fluffy bunny`, Macro.banish().abort())
           .externalIf(
             get("_monsterHabitatsFightsLeft") <= 1 &&
               get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
