@@ -14,6 +14,7 @@ import {
   equippedItem,
   getMonsters,
   haveEffect,
+  haveEquipped,
   inebrietyLimit,
   Item,
   itemAmount,
@@ -1109,7 +1110,7 @@ export const LevelingQuest: Quest = {
           Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
+        if (!haveEquipped($item`latte lovers member's mug`)) unbreakableUmbrella();
         garbageShirt();
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
@@ -1128,7 +1129,16 @@ export const LevelingQuest: Quest = {
           )
           .default(useCinch),
       ),
-      outfit: baseOutfit,
+      outfit: () => ({
+        ...baseOutfit,
+        ...(Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)
+          ? {}
+          : {
+              offhand: $item`latte lovers member's mug`,
+              acc1: $item`Kremlin's Greatest Briefcase`,
+              acc2: $item`Lil' Doctor™ bag`,
+            }),
+      }),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
