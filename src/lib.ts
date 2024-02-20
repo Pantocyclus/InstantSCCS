@@ -67,12 +67,12 @@ import { forbiddenEffects } from "./resources";
 
 export const startingClan = getClanName();
 export const motherSlimeClan = Clan.getWhitelisted().find(
-  (c) => c.name.toLowerCase() === get("instant_motherSlimeClan", "").toLowerCase(),
+  (c) => c.name.toLowerCase() === get("instant_motherSlimeClan", "").toLowerCase()
 )
   ? get("instant_motherSlimeClan", "")
   : Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")
-    ? "CSLoopers Unite"
-    : "";
+  ? "CSLoopers Unite"
+  : "";
 
 export const testModifiers = new Map([
   [CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]],
@@ -90,7 +90,7 @@ export const testModifiers = new Map([
 
 export function checkGithubVersion(): void {
   const gitBranches: { name: string; commit: { sha: string } }[] = JSON.parse(
-    visitUrl(`https://api.github.com/repos/Pantocyclus/InstantSCCS/branches`),
+    visitUrl(`https://api.github.com/repos/Pantocyclus/InstantSCCS/branches`)
   );
   const releaseBranch = gitBranches.find((branchInfo) => branchInfo.name === "release");
   const releaseSHA = releaseBranch?.commit.sha ?? "Not Found";
@@ -101,7 +101,7 @@ export function checkGithubVersion(): void {
   } else {
     print(
       `InstantSCCS is out of date - your version was last updated on ${localBranch.last_changed_date}.`,
-      "red",
+      "red"
     );
     print("Please run 'git update'!", "red");
     print(`Local Version: ${localSHA}.`);
@@ -142,13 +142,13 @@ export function convertMilliseconds(milliseconds: number): string {
 function logRelevantStats(whichTest: CommunityService): void {
   if (
     [CommunityService.Muscle, CommunityService.Mysticality, CommunityService.Moxie].includes(
-      whichTest,
+      whichTest
     )
   ) {
     const testStat = toStat(whichTest.statName);
     const statString = testStat.toString().slice(0, 3);
     print(
-      `Base ${statString}: ${myBasestat(testStat)}; Buffed ${statString}: ${myBuffedstat(testStat)}`,
+      `Base ${statString}: ${myBasestat(testStat)}; Buffed ${statString}: ${myBuffedstat(testStat)}`
     );
   } else if (whichTest === CommunityService.HP) {
     print(`Buffed Mus: ${myBuffedstat($stat`Muscle`)}; HP: ${myMaxhp()};`);
@@ -165,7 +165,7 @@ export function logTestSetup(whichTest: CommunityService): void {
     } takes ${testTurns} adventure${testTurns === 1 ? "" : "s"} (predicted: ${
       whichTest.prediction
     }).`,
-    "blue",
+    "blue"
   );
   set(`_CSTest${whichTest.id}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
 }
@@ -229,7 +229,9 @@ export function canAcquireEffect(ef: Effect): boolean {
         case "synthesize":
           return false; // We currently don't support sweet synthesis
         case "barrelprayer":
-          return get("barrelShrineUnlocked") && !get("_barrelPrayer");
+          return (
+            get("barrelShrineUnlocked") && !get("_barrelPrayer") && myClass() === $class`Sauceror`
+          );
         case "witchess":
           return Witchess.have() && get("puzzleChampBonus") >= 20 && !get("_witchessBuff");
         case "telescope":
@@ -370,8 +372,8 @@ export const synthExpBuff =
   mainStat === $stat`Muscle`
     ? $effect`Synthesis: Movement`
     : mainStat === $stat`Mysticality`
-      ? $effect`Synthesis: Learning`
-      : $effect`Synthesis: Style`;
+    ? $effect`Synthesis: Learning`
+    : $effect`Synthesis: Style`;
 
 export const complexCandies = $items``.filter((candy) => candy.candyType === "complex");
 const peppermintCandiesCosts = new Map<Item, number>([
@@ -384,7 +386,7 @@ const peppermintCandiesCosts = new Map<Item, number>([
   [$item`cane-mail shirt`, 15],
 ]);
 const nonPeppermintCandies = complexCandies.filter(
-  (candy) => !Array.from(peppermintCandiesCosts.keys()).includes(candy),
+  (candy) => !Array.from(peppermintCandiesCosts.keys()).includes(candy)
 );
 
 function haveCandies(a: Item, b: Item): boolean {
@@ -395,7 +397,7 @@ function haveCandies(a: Item, b: Item): boolean {
     else
       candiesRequired.set(
         $item`peppermint sprout`,
-        currentAmount + (peppermintCandiesCosts.get(candy) ?? Infinity),
+        currentAmount + (peppermintCandiesCosts.get(candy) ?? Infinity)
       );
   });
 
@@ -424,7 +426,7 @@ export function getSynthExpBuff(): void {
     left.map((it) => retrievePrice(it)).reduce((acc, val) => acc + val) <
     right.map((it) => retrievePrice(it)).reduce((acc, val) => acc + val)
       ? left
-      : right,
+      : right
   );
   if (bestPair[0] === bestPair[1]) retrieveItem(bestPair[0], 2);
   else bestPair.forEach((it) => retrieveItem(it));
@@ -477,8 +479,8 @@ export function camelFightsLeft(): number {
     ? have($effect`Shadow Affinity`)
       ? haveEffect($effect`Shadow Affinity`)
       : get("_shadowAffinityToday")
-        ? 11
-        : 0
+      ? 11
+      : 0
     : 0;
   const snojo = get("snojoAvailable") ? 10 - get("_snojoFreeFights") : 0;
   const NEP = get("neverendingPartyAlways") ? 10 - get("_neverendingPartyFreeTurns") : 0;
@@ -569,7 +571,7 @@ export function computeCombatFrequency(): number {
             .split(", ")
             .filter((s) => s.includes("Combat Frequency"))
             .join("")
-            .split(": ")[1],
+            .split(": ")[1]
         )
       : 0;
   const shadowWaters = have($item`closed-circuit pay phone`) ? -10 : 0;
@@ -621,7 +623,7 @@ export function computeCombatFrequency(): number {
 
   print("Determining if we should run NC before fam test...");
   print(
-    `Hat ${hat}, Shirt ${shirt}, Back ${back}, Offhand ${offhand}, Pants ${pants}, Accessories ${accessories}, Effects ${effects}, Familiar ${familiar}, Others ${others}`,
+    `Hat ${hat}, Shirt ${shirt}, Back ${back}, Offhand ${offhand}, Pants ${pants}, Accessories ${accessories}, Effects ${effects}, Familiar ${familiar}, Others ${others}`
   );
   if (total <= -95) {
     print(`Total ${total} <= -95`, "green");
