@@ -157,9 +157,6 @@ function useCandyCaneSword(): boolean {
 }
 
 export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
-  // Only try equipping/nag LOV Epaulettes if we are done with the LOV tunnel
-  const lovTunnelCompleted = get("_loveTunnelUsed") || !get("loveTunnelAvailable");
-
   return {
     weapon: useCandyCaneSword()
       ? $item`candy cane sword cane`
@@ -172,7 +169,6 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
             : undefined,
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     offhand: $item`unbreakable umbrella`,
-    back: lovTunnelCompleted ? $item`LOV Epaulettes` : undefined,
     acc1: myPrimestat() === $stat`Mysticality` ? $item`codpiece` : undefined,
     acc2:
       have($item`Cincho de Mayo`) && get("_cinchUsed", 0) < 95 && !get("instant_saveCinch", false)
@@ -181,7 +177,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     // eslint-disable-next-line libram/verify-constants
     acc3: $item`spring shoes`,
     familiar: chooseFamiliar(allowAttackingFamiliars),
-    modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape`,
+    modifier: `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent, -equip tinsel tights, -equip wad of used tape`,
     avoid: [
       ...sugarItemsAboutToBreak(),
       ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
