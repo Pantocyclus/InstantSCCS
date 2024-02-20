@@ -177,7 +177,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     // eslint-disable-next-line libram/verify-constants
     acc3: $item`spring shoes`,
     familiar: chooseFamiliar(allowAttackingFamiliars),
-    modifier: `4 ${mainStatMaximizerStr}, 4 ML, 3 ${mainStatMaximizerStr} exp, 1.33 exp, 30 ${mainStatMaximizerStr} experience percent, 3 familiar exp, -equip tinsel tights, -equip wad of used tape`,
+    modifier: `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent, -equip tinsel tights, -equip wad of used tape`,
     avoid: [
       ...sugarItemsAboutToBreak(),
       ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
