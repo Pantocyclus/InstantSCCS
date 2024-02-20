@@ -229,7 +229,9 @@ export function canAcquireEffect(ef: Effect): boolean {
         case "synthesize":
           return false; // We currently don't support sweet synthesis
         case "barrelprayer":
-          return get("barrelShrineUnlocked") && !get("_barrelPrayer");
+          return (
+            get("barrelShrineUnlocked") && !get("_barrelPrayer") && myClass() === $class`Sauceror`
+          );
         case "witchess":
           return Witchess.have() && get("puzzleChampBonus") >= 20 && !get("_witchessBuff");
         case "telescope":
