@@ -1105,7 +1105,41 @@ export const LevelingQuest: Quest = {
     {
       name: "Monster Habitats",
       ready: () =>
-        get("_monsterHabitatsFightsLeft") > 0 &&
+        get("_monsterHabitatsFightsLeft") > 1 &&
+        (haveFreeBanish() ||
+          Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        if (!haveEquipped($item`latte lovers member's mug`)) unbreakableUmbrella();
+        garbageShirt();
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
+      },
+      completed: () => get("_monsterHabitatsFightsLeft") <= 1,
+      do: $location`The Dire Warren`,
+      combat: new CombatStrategy().macro(() =>
+        Macro.if_($monster`fluffy bunny`, Macro.banish().abort()).default(useCinch),
+      ),
+      outfit: () => ({
+        ...baseOutfit,
+        ...(Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)
+          ? {}
+          : {
+              offhand: $item`latte lovers member's mug`,
+              acc1: $item`Kremlin's Greatest Briefcase`,
+              acc2: $item`Lil' Doctor™ bag`,
+            }),
+      }),
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 13 },
+    },
+    {
+      name: "Monster Habitats (Re-application)",
+      ready: () =>
+        get("_monsterHabitatsFightsLeft") === 1 &&
         (haveFreeBanish() ||
           Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
       prepare: (): void => {
@@ -1120,8 +1154,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(() =>
         Macro.if_($monster`fluffy bunny`, Macro.banish().abort())
           .externalIf(
-            get("_monsterHabitatsFightsLeft") <= 1 &&
-              get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
+            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
               have($skill`Recall Facts: Monster Habitats`) &&
               (haveFreeBanish() ||
                 Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
@@ -1143,7 +1176,7 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
-      limit: { tries: 16 },
+      limit: { tries: 4 },
     },
     {
       name: "Backups",
