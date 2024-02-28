@@ -124,6 +124,13 @@ const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of 
 const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
 let triedCraftingCBBFoods = false;
 
+const LOVEquip =
+  mainStatStr === $stat`Muscle`
+    ? "LOV Eardigan"
+    : mainStatStr === $stat`Mysticality`
+      ? "LOV Epaulettes"
+      : "LOV Earring";
+
 const muscleList: Effect[] = [
   $effect`Seal Clubbing Frenzy`,
   $effect`Patience of the Tortoise`,
@@ -1047,11 +1054,7 @@ export const LevelingQuest: Quest = {
       },
       completed: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
       do: () =>
-        TunnelOfLove.fightAll(
-          "LOV Epaulettes",
-          "Open Heart Surgery",
-          "LOV Extraterrestrial Chocolate",
-        ),
+        TunnelOfLove.fightAll(LOVEquip, "Open Heart Surgery", "LOV Extraterrestrial Chocolate"),
       combat: new CombatStrategy().macro(
         Macro.if_($monster`LOV Enforcer`, Macro.attack().repeat())
           .if_(
