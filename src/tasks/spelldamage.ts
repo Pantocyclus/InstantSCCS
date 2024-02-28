@@ -209,6 +209,7 @@ export const SpellDamageQuest: Quest = {
           $effect`Mental A-cue-ity`,
           $effect`Pisces in the Skyces`,
           $effect`Song of Sauce`,
+          $effect`Sigils of Yeg`,
           $effect`Spirit of Peppermint`,
           $effect`The Magic of LOV`,
           $effect`Warlock, Warstock, and Warbarrel`,
