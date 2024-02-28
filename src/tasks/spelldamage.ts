@@ -22,6 +22,7 @@ import {
   restoreMp,
   retrieveItem,
   useSkill,
+  visitUrl,
 } from "kolmafia";
 import {
   $class,
@@ -64,6 +65,16 @@ export const SpellDamageQuest: Quest = {
       name: "Simmer",
       completed: () => have($effect`Simmering`) || !have($skill`Simmer`),
       do: () => useSkill($skill`Simmer`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Cargo Shorts",
+      ready: () => !get("instant_saveCargoShorts", false),
+      completed: () => get("_cargoPocketEmptied") || !have($item`Cargo Cultist Shorts`),
+      do: (): void => {
+        visitUrl("inventory.php?action=pocket");
+        visitUrl("choice.php?whichchoice=1420&option=1&pocket=177");
+      },
       limit: { tries: 1 },
     },
     {
@@ -198,6 +209,7 @@ export const SpellDamageQuest: Quest = {
           $effect`Mental A-cue-ity`,
           $effect`Pisces in the Skyces`,
           $effect`Song of Sauce`,
+          $effect`Sigils of Yeg`,
           $effect`Spirit of Peppermint`,
           $effect`The Magic of LOV`,
           $effect`Warlock, Warstock, and Warbarrel`,

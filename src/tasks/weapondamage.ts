@@ -83,18 +83,6 @@ export const WeaponDamageQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Cargo Shorts",
-      completed: () =>
-        get("_cargoPocketEmptied") ||
-        !have($item`Cargo Cultist Shorts`) ||
-        get("instant_saveCargoShorts", false),
-      do: (): void => {
-        visitUrl("inventory.php?action=pocket");
-        visitUrl("choice.php?whichchoice=1420&option=1&pocket=284");
-      },
-      limit: { tries: 1 },
-    },
-    {
       name: "Carol Ghost Buff",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
@@ -270,6 +258,16 @@ export const WeaponDamageQuest: Quest = {
         $effects`Spit Upon, Pyramid Power`.forEach((ef) => {
           if (CommunityService.WeaponDamage.actualCost() >= 5) wishFor(ef); // The effects each save 2 turns on spelltest as well
         });
+
+        if (
+          CommunityService.WeaponDamage.actualCost() >= 5 &&
+          !get("_cargoPocketEmptied") &&
+          have($item`Cargo Cultist Shorts`) &&
+          !get("instant_saveCargoShorts", false)
+        ) {
+          visitUrl("inventory.php?action=pocket");
+          visitUrl("choice.php?whichchoice=1420&option=1&pocket=284");
+        }
       },
       completed: () => CommunityService.WeaponDamage.isDone(),
       do: (): void => {
