@@ -13,7 +13,8 @@ Furthermore, the script seeks to craft the following foods:<br/>
 | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | [plain calzone](https://kol.coldfront.net/thekolwiki/index.php/Plain_calzone) | 2 | | 2 |
 | [baked veggie ricotta casserole](https://kol.coldfront.net/thekolwiki/index.php/Baked_veggie_ricotta_casserole) | | 2 | 2 |
-| [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg) x2 | | 2 x 2 = 4 | |
+| [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg) (stats) | | 2 | |
+| [roasted vegetable of Jarlsberg](https://kol.coldfront.net/thekolwiki/index.php/Roasted_vegetable_of_Jarlsberg) (item) | | 2 | |
 | [Pete's Rich Ricotta](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_rich_ricotta) | | | 2 |
 | [honey bun of Boris](https://kol.coldfront.net/thekolwiki/index.php/Honey_bun_of_Boris) | 1 | | |
 | [Pete's wiley whey bar](https://kol.coldfront.net/thekolwiki/index.php/Pete%27s_wiley_whey_bar) | | | 1 |
