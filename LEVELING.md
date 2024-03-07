@@ -4,9 +4,11 @@ In the process of powerleveling, the script also seeks to craft the [CBB](https:
 
 To remedy this, you will have to tell the script which CBB foods you no longer need (for turngen and their corresponding stat% buffs). Note that you do not have to exclude every CBB food; you will only need to exclude some. Further note that, for accounts that are not too shiny, one may observe a reduction in turns spent leveling together with an increase in turns spent on the stat tests. You should remove CBB foods accordingly to strike a good balance (where the decrease in leveling turns more than offsets the increase in test turns).<br/>
 
-The common advice as to the general approach for deciding which CBB foods to exclude is as follows: One should note that the CBB ingredients are [seeded](https://docs.google.com/spreadsheets/d/10j0B1DTw64a-CaaBwMjiCJTTsGWOx0h4_KWpiAItB8s/edit). Specifically, note that for CS Day 1, the seeded CBB ingredient drops for Saucerors are in the following fixed/seeded order: 3J 3B 3SP 3SP 3J 3SP (total: 3B 6J 9SP)...<br/>
+The common advice as to the general approach for deciding which CBB foods to exclude is as follows: One should note that the CBB ingredients are [seeded](https://docs.google.com/spreadsheets/d/10j0B1DTw64a-CaaBwMjiCJTTsGWOx0h4_KWpiAItB8s/edit). Specifically, note that for CS Day 1, the seeded CBB ingredient drops for Saucerors are in the following fixed order: 3J 3B 3SP 3SP 3J 3SP (total: 3B 6J 9SP)...<br/>
 
-Furthermore, the script seeks to craft the following foods:<br/>
+Furthermore, the script seeks to craft the following foods (listed here with the CBB ingredients needed to craft them):<br/>
+
+| | CBB ingredients used ||
 | | [B](https://kol.coldfront.net/thekolwiki/index.php/Yeast_of_Boris) | [J](https://kol.coldfront.net/thekolwiki/index.php/Vegetable_of_Jarlsberg) | [SP](https://kol.coldfront.net/thekolwiki/index.php/St._Sneaky_Pete%27s_Whey) |
 | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | [plain calzone](https://kol.coldfront.net/thekolwiki/index.php/Plain_calzone) | 2 | | 2 |
