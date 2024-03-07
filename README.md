@@ -123,7 +123,11 @@ For equipment and other stuff, `set instant_prePulls=<comma-separated item IDs>`
 
 ### I am severely overlevelling. What preferences can I change to make the script spend fewer turns powerleveling?
 
-Refer to the following detailed [post](https://github.com/Pantocyclus/InstantSCCS/blob/main/LEVELING.md).<br/>
+The number of turns spent on powerleveling is not solely dependent on your level, but, unintuitively, depends on whether you have collected sufficient CBB ingredients to craft the foods that the script wants to consume (assuming you have a cookbookbat).</br>
+
+If you're severely overleveled, the likely bottleneck would be the script trying to find the last few CBB ingredients (for the food buffs that you no longer need). The solution would thus be to exclude certain specific CBB foods to prevent the script from unnecessarily looking for their ingredients.<br/>
+
+For more details, refer to the following [post](https://github.com/Pantocyclus/InstantSCCS/blob/main/LEVELING.md).<br/>
 
 ### I'm looking to improve my CS runs - what IotMs and skills should I go for next?
 
