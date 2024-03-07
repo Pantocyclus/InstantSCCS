@@ -89,11 +89,11 @@ You may, of course, remove any CBB foods as necessary in order to reduce organ u
 
 | CBB drops reduced | Foods excluded                                                                | Fullness saved | Significant buffs lost                     |
 | ----------------- | ----------------------------------------------------------------------------- | -------------- | ------------------------------------------ |
-| 1                 | Pete's wiley whey bar                                                         | 1              | 50% moxie                                  |
-| 2                 | roasted vegetable of Jarlsberg x2, Pete's wiley whey bar                      | 3              | 100% myst, 50% moxie, 100% item            |
-| 2                 | baked veggie ricotta casserole, roasted vegetable of Jarlsberg                | 3              | 200% moxie, 100% myst OR 100% item         |
+| 1                 | Pete's wiley whey bar                                                         | 1              | 50% mox                                  |
+| 2                 | roasted vegetable of Jarlsberg x2, Pete's wiley whey bar                      | 3              | 100% myst, 50% mox, 100% item            |
+| 2                 | baked veggie ricotta casserole, roasted vegetable of Jarlsberg                | 3              | 200% mox, 100% myst OR 100% item         |
 | 3                 | plain calzone, baked veggie ricotta casserole, roasted vegetable of Jarlsberg | 5              | 200% mus, 200% mox, 100% myst OR 100% item |
-| 3                 | baked veggie ricotta casserole, Pete's Rich Ricotta                           | 3              | 300% moxie                                 |
+| 3                 | baked veggie ricotta casserole, Pete's Rich Ricotta                           | 3              | 300% mox                                 |
 
 <sub><sup>\*It does stop powerleveling once you hit level 20.</sub></sup><br/>
 <sub><sup>\*\*The [autumn-aton](https://kol.coldfront.net/thekolwiki/index.php/Autumn-aton) also drops random/non-seeded CBB ingredients if you have a cookbookbat. This may result in the script obtaining sufficient ingredients earlier (even without running through all 6 seeded CBB drops); however, this also adds a large deal of variance to the script's turncount.</sub></sup><br/>
