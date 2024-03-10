@@ -18156,7 +18156,7 @@ var RunStartQuest = {
     do: $location(runstart_templateObject80 || (runstart_templateObject80 = runstart_taggedTemplateLiteral(["The Dire Warren"]))),
     combat: new CombatStrategy().macro(combat_Macro.attack()),
     outfit: () => runstart_objectSpread(runstart_objectSpread({}, baseOutfit(false)), {}, {
-      modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball, -equip backup camera")
+      modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball, -equip backup camera, -equip kramco")
     }),
     limit: {
       tries: 1
@@ -18228,7 +18228,7 @@ var RunStartQuest = {
     combat: new CombatStrategy().macro(combat_Macro.if_($monster(runstart_templateObject110 || (runstart_templateObject110 = runstart_taggedTemplateLiteral(["novelty tropical skeleton"]))), (useParkaSpit ? combat_Macro.trySkill(template_string_$skill(runstart_templateObject111 || (runstart_templateObject111 = runstart_taggedTemplateLiteral(["Spit jurassic acid"])))) : new combat_Macro()).tryItem(template_string_$item(runstart_templateObject112 || (runstart_templateObject112 = runstart_taggedTemplateLiteral(["yellow rocket"]))))).abort()),
     outfit: () => runstart_objectSpread(runstart_objectSpread({}, baseOutfit(false)), {}, {
       shirt: useParkaSpit ? template_string_$item(runstart_templateObject113 || (runstart_templateObject113 = runstart_taggedTemplateLiteral(["Jurassic Parka"]))) : undefined,
-      modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball")
+      modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball, -equip kramco")
     }),
     post: () => {
       if (lib_have(template_string_$item(runstart_templateObject114 || (runstart_templateObject114 = runstart_taggedTemplateLiteral(["MayDay\u2122 supply package"])))) && !property_get("instant_saveMayday", false)) (0,external_kolmafia_namespaceObject.use)(template_string_$item(runstart_templateObject115 || (runstart_templateObject115 = runstart_taggedTemplateLiteral(["MayDay\u2122 supply package"]))), 1);
@@ -18262,7 +18262,7 @@ var RunStartQuest = {
         offhand: template_string_$item(runstart_templateObject143 || (runstart_templateObject143 = runstart_taggedTemplateLiteral(["unbreakable umbrella"]))),
         acc2: template_string_$item(runstart_templateObject144 || (runstart_templateObject144 = runstart_taggedTemplateLiteral(["cursed monkey's paw"]))),
         familiar: chooseFamiliar(false),
-        modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball")
+        modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball, -equip kramco")
       };
     },
     post: () => {

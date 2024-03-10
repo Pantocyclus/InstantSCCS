@@ -121,6 +121,14 @@ For potions and consumables, you may set `instant_<testName>TestPulls=<comma-sep
 
 For equipment and other stuff, `set instant_prePulls=<comma-separated item IDs>` to pull said items just prior to the leveling portion of the script.<br/>
 
+### I am severely overlevelling. What preferences can I change to make the script spend fewer turns powerleveling?
+
+The number of turns spent on powerleveling is not solely dependent on your level, but, unintuitively, depends on whether you have collected sufficient CBB ingredients to craft the foods that the script wants to consume (assuming you have a cookbookbat).</br>
+
+If you're severely overleveled, the likely bottleneck would be the script trying to find the last few CBB ingredients (for the food buffs that you no longer need). The solution would thus be to exclude certain specific CBB foods to prevent the script from unnecessarily looking for their ingredients.<br/>
+
+For more details, refer to the following [post](https://github.com/Pantocyclus/InstantSCCS/blob/main/LEVELING.md).<br/>
+
 ### I'm looking to improve my CS runs - what IotMs and skills should I go for next?
 
 `instantsccs sim` groups various resources by how impactful they are. You may also refer to [this slightly more comprehensive list](https://github.com/Pantocyclus/InstantSCCS/blob/main/RECOMMENDATIONS.md) for suggestions.<br/>
