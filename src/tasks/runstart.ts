@@ -488,7 +488,7 @@ export const RunStartQuest: Quest = {
       combat: new CombatStrategy().macro(Macro.attack()),
       outfit: () => ({
         ...baseOutfit(false),
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip backup camera`,
+        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip backup camera, -equip kramco`,
       }),
       limit: { tries: 1 },
     },
@@ -579,7 +579,7 @@ export const RunStartQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
+        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip kramco`,
       }),
       post: (): void => {
         if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
@@ -642,7 +642,7 @@ export const RunStartQuest: Quest = {
           offhand: $item`unbreakable umbrella`,
           acc2: $item`cursed monkey's paw`,
           familiar: chooseFamiliar(false),
-          modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
+          modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip kramco`,
         };
       },
       post: (): void => {
