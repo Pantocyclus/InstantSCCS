@@ -9790,7 +9790,7 @@ function goVote() {
   (0,external_kolmafia_namespaceObject.visitUrl)("choice.php?option=1&whichchoice=1331&g=".concat(monsterVote, "&local[]=").concat(init, "&local[]=").concat(init));
 }
 function canPull(id) {
-  if (property_get("_roninStoragePulls").split(",").length >= 5 || id <= 0 || property_get("_roninStoragePulls").split(",").includes(id.toString()) || (0,external_kolmafia_namespaceObject.storageAmount)((0,external_kolmafia_namespaceObject.toItem)(id)) === 0) return false;
+  if ((0,external_kolmafia_namespaceObject.inHardcore)()) return false;else if (property_get("_roninStoragePulls").split(",").length >= 5 || id <= 0 || property_get("_roninStoragePulls").split(",").includes(id.toString()) || (0,external_kolmafia_namespaceObject.storageAmount)((0,external_kolmafia_namespaceObject.toItem)(id)) === 0) return false;
   return true;
 }
 ;// CONCATENATED MODULE: ./node_modules/libram/dist/since.js
@@ -16219,7 +16219,8 @@ var LevelingQuest = {
     }
   }, {
     name: "Pull Deep Dish of Legend",
-    completed: () => lib_have(template_string_$item(leveling_templateObject124 || (leveling_templateObject124 = leveling_taggedTemplateLiteral(["Deep Dish of Legend"])))) || lib_have(template_string_$effect(leveling_templateObject125 || (leveling_templateObject125 = leveling_taggedTemplateLiteral(["In the Depths"])))) || property_get("_roninStoragePulls").split(",").includes((0,external_kolmafia_namespaceObject.toInt)(template_string_$item(leveling_templateObject126 || (leveling_templateObject126 = leveling_taggedTemplateLiteral(["Deep Dish of Legend"])))).toString()) || property_get("_instant_skipDeepDishOfLegend", false),
+    completed: () => (0,external_kolmafia_namespaceObject.inHardcore)() || // Assume user consciously chose HC and accepts the consequences that come with it
+    lib_have(template_string_$item(leveling_templateObject124 || (leveling_templateObject124 = leveling_taggedTemplateLiteral(["Deep Dish of Legend"])))) || lib_have(template_string_$effect(leveling_templateObject125 || (leveling_templateObject125 = leveling_taggedTemplateLiteral(["In the Depths"])))) || property_get("_roninStoragePulls").split(",").includes((0,external_kolmafia_namespaceObject.toInt)(template_string_$item(leveling_templateObject126 || (leveling_templateObject126 = leveling_taggedTemplateLiteral(["Deep Dish of Legend"])))).toString()) || property_get("_instant_skipDeepDishOfLegend", false),
     do: () => {
       if ((0,external_kolmafia_namespaceObject.storageAmount)(template_string_$item(leveling_templateObject127 || (leveling_templateObject127 = leveling_taggedTemplateLiteral(["Deep Dish of Legend"])))) === 0) {
         (0,external_kolmafia_namespaceObject.print)("Uh oh! You do not seem to have a Deep Dish of Legend in Hagnk's", "red");
@@ -16234,7 +16235,8 @@ var LevelingQuest = {
     }
   }, {
     name: "Pull Calzone of Legend",
-    completed: () => lib_have(template_string_$item(leveling_templateObject129 || (leveling_templateObject129 = leveling_taggedTemplateLiteral(["Calzone of Legend"])))) || lib_have(template_string_$effect(leveling_templateObject130 || (leveling_templateObject130 = leveling_taggedTemplateLiteral(["In the 'zone zone!"])))) || property_get("_roninStoragePulls").split(",").includes((0,external_kolmafia_namespaceObject.toInt)(template_string_$item(leveling_templateObject131 || (leveling_templateObject131 = leveling_taggedTemplateLiteral(["Calzone of Legend"])))).toString()) || property_get("_instant_skipCalzoneOfLegend", false),
+    completed: () => (0,external_kolmafia_namespaceObject.inHardcore)() || // Assume user consciously chose HC and accepts the consequences that come with it
+    lib_have(template_string_$item(leveling_templateObject129 || (leveling_templateObject129 = leveling_taggedTemplateLiteral(["Calzone of Legend"])))) || lib_have(template_string_$effect(leveling_templateObject130 || (leveling_templateObject130 = leveling_taggedTemplateLiteral(["In the 'zone zone!"])))) || property_get("_roninStoragePulls").split(",").includes((0,external_kolmafia_namespaceObject.toInt)(template_string_$item(leveling_templateObject131 || (leveling_templateObject131 = leveling_taggedTemplateLiteral(["Calzone of Legend"])))).toString()) || property_get("_instant_skipCalzoneOfLegend", false),
     do: () => {
       if ((0,external_kolmafia_namespaceObject.storageAmount)(template_string_$item(leveling_templateObject132 || (leveling_templateObject132 = leveling_taggedTemplateLiteral(["Calzone of Legend"])))) === 0) {
         (0,external_kolmafia_namespaceObject.print)("Uh oh! You do not seem to have a Calzone of Legend in Hagnk's", "red");
@@ -16249,7 +16251,8 @@ var LevelingQuest = {
     }
   }, {
     name: "Pull Pizza of Legend",
-    completed: () => lib_have(template_string_$item(leveling_templateObject134 || (leveling_templateObject134 = leveling_taggedTemplateLiteral(["Pizza of Legend"])))) || lib_have(template_string_$effect(leveling_templateObject135 || (leveling_templateObject135 = leveling_taggedTemplateLiteral(["Endless Drool"])))) || property_get("_roninStoragePulls").split(",").includes((0,external_kolmafia_namespaceObject.toInt)(template_string_$item(leveling_templateObject136 || (leveling_templateObject136 = leveling_taggedTemplateLiteral(["Pizza of Legend"])))).toString()) || property_get("_instant_skipPizzaOfLegend", false),
+    completed: () => (0,external_kolmafia_namespaceObject.inHardcore)() || // Assume user consciously chose HC and accepts the consequences that come with it
+    lib_have(template_string_$item(leveling_templateObject134 || (leveling_templateObject134 = leveling_taggedTemplateLiteral(["Pizza of Legend"])))) || lib_have(template_string_$effect(leveling_templateObject135 || (leveling_templateObject135 = leveling_taggedTemplateLiteral(["Endless Drool"])))) || property_get("_roninStoragePulls").split(",").includes((0,external_kolmafia_namespaceObject.toInt)(template_string_$item(leveling_templateObject136 || (leveling_templateObject136 = leveling_taggedTemplateLiteral(["Pizza of Legend"])))).toString()) || property_get("_instant_skipPizzaOfLegend", false),
     do: () => {
       if ((0,external_kolmafia_namespaceObject.storageAmount)(template_string_$item(leveling_templateObject137 || (leveling_templateObject137 = leveling_taggedTemplateLiteral(["Pizza of Legend"])))) === 0) {
         (0,external_kolmafia_namespaceObject.print)("Uh oh! You do not seem to have a Pizza of Legend in Hagnk's", "red");
