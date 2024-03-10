@@ -12,6 +12,7 @@ import {
   haveEffect,
   haveEquipped,
   holiday,
+  inHardcore,
   Item,
   itemAmount,
   monkeyPaw,
@@ -781,7 +782,8 @@ export function goVote(): void {
 }
 
 export function canPull(id: number): boolean {
-  if (
+  if (inHardcore()) return false;
+  else if (
     get("_roninStoragePulls").split(",").length >= 5 ||
     id <= 0 ||
     get("_roninStoragePulls").split(",").includes(id.toString()) ||

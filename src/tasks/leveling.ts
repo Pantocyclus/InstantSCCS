@@ -16,6 +16,7 @@ import {
   haveEffect,
   haveEquipped,
   inebrietyLimit,
+  inHardcore,
   Item,
   itemAmount,
   itemDrops,
@@ -391,6 +392,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Pull Deep Dish of Legend",
       completed: () =>
+        inHardcore() || // Assume user consciously chose HC and accepts the consequences that come with it
         have($item`Deep Dish of Legend`) ||
         have($effect`In the Depths`) ||
         get("_roninStoragePulls")
@@ -413,6 +415,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Pull Calzone of Legend",
       completed: () =>
+        inHardcore() || // Assume user consciously chose HC and accepts the consequences that come with it
         have($item`Calzone of Legend`) ||
         have($effect`In the 'zone zone!`) ||
         get("_roninStoragePulls")
@@ -438,6 +441,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Pull Pizza of Legend",
       completed: () =>
+        inHardcore() || // Assume user consciously chose HC and accepts the consequences that come with it
         have($item`Pizza of Legend`) ||
         have($effect`Endless Drool`) ||
         get("_roninStoragePulls")
