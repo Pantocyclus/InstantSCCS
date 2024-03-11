@@ -174,7 +174,6 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
       have($item`Cincho de Mayo`) && get("_cinchUsed", 0) < 95 && !get("instant_saveCinch", false)
         ? $item`Cincho de Mayo`
         : undefined,
-    // eslint-disable-next-line libram/verify-constants
     acc3: $item`spring shoes`,
     familiar: chooseFamiliar(allowAttackingFamiliars),
     modifier: `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent, -equip tinsel tights, -equip wad of used tape`,
