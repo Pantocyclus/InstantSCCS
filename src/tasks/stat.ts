@@ -40,6 +40,7 @@ export const HPQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.HP.isDone(),
       prepare: (): void => {
+        useBalancerForTest($stat`Muscle`);
         $effects`Ur-Kel's Aria of Annoyance, Aloysius' Antiphon of Aptitude, Ode to Booze`.forEach(
           (ef) => uneffect(ef),
         );
