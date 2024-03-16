@@ -261,6 +261,7 @@ export const WeaponDamageQuest: Quest = {
         });
 
         if (
+          !have($effect`Rictus of Yeg`) &&
           CommunityService.WeaponDamage.actualCost() >= 5 &&
           !get("_cargoPocketEmptied") &&
           have($item`Cargo Cultist Shorts`) &&
@@ -268,6 +269,7 @@ export const WeaponDamageQuest: Quest = {
         ) {
           visitUrl("inventory.php?action=pocket");
           visitUrl("choice.php?whichchoice=1420&option=1&pocket=284");
+          tryAcquiringEffect($effect`Rictus of Yeg`);
         }
       },
       completed: () => CommunityService.WeaponDamage.isDone(),
