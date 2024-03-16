@@ -144,15 +144,20 @@ export const FamiliarWeightQuest: Quest = {
           have($familiar`Exotic Parrot`) &&
           familiarWeight($familiar`Exotic Parrot`) + 15 > heaviestWeight;
 
+        const haveFamEquip = // We only need to check for robot gear since that has special handling
+          have($item`box of Familiar Jacks`) || (useComma && have($item`homemade robot gear`));
         if (
           ((have($skill`Summon Clip Art`) && !get("instant_saveClipArt", false)) || // Either we can summon a box of jacks
-            have($item`box of Familiar Jacks`)) && // or we already have one
+            haveFamEquip) && // or we already have one
           (useTrainbot || useParrot || useComma)
         ) {
-          if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
+          if (!have($item`box of Familiar Jacks`) && have($skill`Summon Clip Art`))
+            create($item`box of Familiar Jacks`, 1);
           if (useComma) {
-            useFamiliar($familiar`Homemade Robot`);
-            use($item`box of Familiar Jacks`, 1);
+            if (!have($item`homemade robot gear`)) {
+              useFamiliar($familiar`Homemade Robot`);
+              use($item`box of Familiar Jacks`, 1);
+            }
             useFamiliar($familiar`Comma Chameleon`);
             visitUrl(
               `inv_equip.php?which=2&action=equip&whichitem=${toInt(
