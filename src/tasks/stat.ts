@@ -15,13 +15,18 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import {
-  handleCustomPull,
+  handleCustomPulls,
   logTestSetup,
   mainStat,
   reagentBalancerEffect,
   reagentBalancerItem,
   tryAcquiringEffect,
 } from "../lib";
+
+const hpTestMaximizerString = "HP, switch disembodied hand, -switch left-hand man";
+const musTestMaximizerString = "Muscle, switch disembodied hand, -switch left-hand man";
+const mystTestMaximizerString = "Mysticality, switch disembodied hand, -switch left-hand man";
+const moxTestMaximizerString = "Mox, switch disembodied hand, -switch left-hand man";
 
 function useBalancerForTest(testStat: Stat): void {
   if (testStat === mainStat) {
@@ -60,7 +65,7 @@ export const HPQuest: Quest = {
           $effect`Triple-Sized`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-        get("instant_hpTestPulls").split(",").forEach(handleCustomPull);
+        handleCustomPulls("instant_hpTestPulls", hpTestMaximizerString);
       },
       do: (): void => {
         const maxTurns = get("instant_hpTestTurnLimit", 1);
@@ -76,7 +81,7 @@ export const HPQuest: Quest = {
         }
         CommunityService.HP.run(() => logTestSetup(CommunityService.HP), maxTurns);
       },
-      outfit: { modifier: "HP, switch disembodied hand, -switch left-hand man" },
+      outfit: { modifier: hpTestMaximizerString },
       limit: { tries: 1 },
     },
   ],
@@ -113,7 +118,7 @@ export const MuscleQuest: Quest = {
           $effect`Triple-Sized`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-        get("instant_musTestPulls").split(",").forEach(handleCustomPull);
+        handleCustomPulls("instant_musTestPulls", musTestMaximizerString);
       },
       do: (): void => {
         const maxTurns = get("instant_musTestTurnLimit", 2);
@@ -129,7 +134,7 @@ export const MuscleQuest: Quest = {
         }
         CommunityService.Muscle.run(() => logTestSetup(CommunityService.Muscle), maxTurns);
       },
-      outfit: { modifier: "Muscle, switch disembodied hand, -switch left-hand man" },
+      outfit: { modifier: musTestMaximizerString },
       post: (): void => {
         uneffect($effect`Power Ballad of the Arrowsmith`);
       },
@@ -169,7 +174,7 @@ export const MysticalityQuest: Quest = {
           $effect`Mystically Oiled`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-        get("instant_mystTestPulls").split(",").forEach(handleCustomPull);
+        handleCustomPulls("instant_mystTestPulls", mystTestMaximizerString);
       },
       do: (): void => {
         const maxTurns = get("instant_mystTestTurnLimit", 1);
@@ -188,7 +193,7 @@ export const MysticalityQuest: Quest = {
           maxTurns,
         );
       },
-      outfit: { modifier: "Mysticality, switch disembodied hand, -switch left-hand man" },
+      outfit: { modifier: mystTestMaximizerString },
       post: (): void => {
         uneffect($effect`The Magical Mojomuscular Melody`);
       },
@@ -242,7 +247,7 @@ export const MoxieQuest: Quest = {
           $effect`Unrunnable Face`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-        get("instant_moxTestPulls").split(",").forEach(handleCustomPull);
+        handleCustomPulls("instant_moxTestPulls", moxTestMaximizerString);
       },
       do: (): void => {
         const maxTurns = get("instant_moxTestTurnLimit", 5);
@@ -258,7 +263,7 @@ export const MoxieQuest: Quest = {
         }
         CommunityService.Moxie.run(() => logTestSetup(CommunityService.Moxie), maxTurns);
       },
-      outfit: { modifier: "Moxie, switch disembodied hand, -switch left-hand man" },
+      outfit: { modifier: moxTestMaximizerString },
       limit: { tries: 1 },
     },
   ],

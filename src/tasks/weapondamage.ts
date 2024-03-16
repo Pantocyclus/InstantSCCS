@@ -44,7 +44,7 @@ import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { Quest } from "../engine/task";
 import {
-  handleCustomPull,
+  handleCustomPulls,
   logTestSetup,
   motherSlimeClan,
   startingClan,
@@ -55,6 +55,7 @@ import { powerlevelingLocation } from "./leveling";
 import { forbiddenEffects } from "../resources";
 
 const attemptKFH = have($skill`Kung Fu Hustler`) && have($familiar`Disembodied Hand`);
+const wpnTestMaximizerString = "weapon dmg, switch disembodied hand, -switch left-hand man";
 
 export const WeaponDamageQuest: Quest = {
   name: "Weapon Damage",
@@ -240,7 +241,7 @@ export const WeaponDamageQuest: Quest = {
           $effect`Weapon of Mass Destruction`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-        get("instant_weaponTestPulls").split(",").forEach(handleCustomPull);
+        handleCustomPulls("instant_weaponTestPulls", wpnTestMaximizerString);
 
         if (
           have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
@@ -287,7 +288,7 @@ export const WeaponDamageQuest: Quest = {
           maxTurns,
         );
       },
-      outfit: { modifier: "weapon dmg, switch disembodied hand, -switch left-hand man" },
+      outfit: { modifier: wpnTestMaximizerString },
       limit: { tries: 1 },
     },
   ],

@@ -21,9 +21,11 @@ import {
   have,
   uneffect,
 } from "libram";
-import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { handleCustomPulls, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
+
+const comTestMaximizerString = "-combat";
 
 export const NoncombatQuest: Quest = {
   name: "Noncombat",
@@ -90,8 +92,9 @@ export const NoncombatQuest: Quest = {
           $effect`Puzzle Champ`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-        get("instant_comTestPulls").split(",").forEach(handleCustomPull);
-        cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
+        if (!handleCustomPulls("instant_comTestPulls", comTestMaximizerString)) {
+          cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
+        }
 
         if (
           // Seems to be a bug where numericModifier doesn't recognize the -10 granted by an unbreakable umbrella, so check for that manually
@@ -123,7 +126,7 @@ export const NoncombatQuest: Quest = {
       },
       outfit: {
         familiar: $familiar`Disgeist`,
-        modifier: "-combat",
+        modifier: comTestMaximizerString,
       },
       post: (): void => {
         uneffect($effect`The Sonata of Sneakiness`);

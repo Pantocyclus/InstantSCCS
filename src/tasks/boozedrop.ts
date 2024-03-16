@@ -53,11 +53,14 @@ import {
   setConfiguration,
   Station,
 } from "libram/dist/resources/2022/TrainSet";
-import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { handleCustomPulls, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro, { haveFreeBanish } from "../combat";
 import { forbiddenEffects } from "../resources";
+
+const boozeTestMaximizerString =
+  "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man";
 
 export const BoozeDropQuest: Quest = {
   name: "Booze Drop",
@@ -363,8 +366,7 @@ export const BoozeDropQuest: Quest = {
           useFamiliar($familiar`Trick-or-Treating Tot`);
           equip($slot`familiar`, $item`li'l ninja costume`);
         }
-
-        get("instant_boozeTestPulls").split(",").forEach(handleCustomPull);
+        handleCustomPulls("instant_boozeTestPulls", boozeTestMaximizerString);
 
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect`Infernal Thirst`);
@@ -385,8 +387,7 @@ export const BoozeDropQuest: Quest = {
         CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns);
       },
       outfit: {
-        modifier:
-          "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man",
+        modifier: boozeTestMaximizerString,
       },
       limit: { tries: 1 },
     },

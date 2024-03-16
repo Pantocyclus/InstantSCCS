@@ -45,7 +45,7 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import {
-  handleCustomPull,
+  handleCustomPulls,
   logTestSetup,
   motherSlimeClan,
   startingClan,
@@ -56,6 +56,7 @@ import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { forbiddenEffects } from "../resources";
 
 let triedDeepDark = false;
+const spellTestMaximizerString = "spell dmg, switch disembodied hand, -switch left-hand man";
 
 export const SpellDamageQuest: Quest = {
   name: "Spell Damage",
@@ -216,8 +217,7 @@ export const SpellDamageQuest: Quest = {
           $effect`We're All Made of Starfish`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-
-        get("instant_spellTestPulls").split(",").forEach(handleCustomPull);
+        handleCustomPulls("instant_spellTestPulls", spellTestMaximizerString);
 
         const wines = $items`Sacramento wine, distilled fortified wine`;
         while (
@@ -258,7 +258,7 @@ export const SpellDamageQuest: Quest = {
           maxTurns,
         );
       },
-      outfit: { modifier: "spell dmg, switch disembodied hand, -switch left-hand man" },
+      outfit: { modifier: spellTestMaximizerString },
       post: (): void => {
         if (have($skill`Spirit of Nothing`)) useSkill($skill`Spirit of Nothing`);
         if (have($familiar`Left-Hand Man`)) equip($familiar`Left-Hand Man`, $item.none);

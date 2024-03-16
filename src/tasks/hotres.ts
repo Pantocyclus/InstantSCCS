@@ -26,9 +26,11 @@ import {
   uneffect,
 } from "libram";
 import { Quest } from "../engine/task";
-import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { handleCustomPulls, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import Macro from "../combat";
+
+const hotTestMaximizerString = "hot res";
 
 export const HotResQuest: Quest = {
   name: "Hot Res",
@@ -164,8 +166,7 @@ export const HotResQuest: Quest = {
           $effect`Robot Friends`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-        get("instant_hotTestPulls").split(",").forEach(handleCustomPull);
-        cliExecute("maximize hot res");
+        handleCustomPulls("instant_hotTestPulls", hotTestMaximizerString);
 
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.HotRes.actualCost() >= 7) wishFor($effect`Fireproof Lips`);
@@ -198,7 +199,7 @@ export const HotResQuest: Quest = {
         CommunityService.HotRes.run(() => logTestSetup(CommunityService.HotRes), maxTurns);
       },
       outfit: {
-        modifier: "hot res",
+        modifier: hotTestMaximizerString,
         familiar: $familiar`Exotic Parrot`,
       },
       post: (): void => {

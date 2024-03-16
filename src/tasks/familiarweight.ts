@@ -28,7 +28,7 @@ import {
   have,
 } from "libram";
 import { Quest } from "../engine/task";
-import { handleCustomPull, logTestSetup, tryAcquiringEffect } from "../lib";
+import { handleCustomPulls, logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import {
   avoidDaylightShavingsHelm,
@@ -36,6 +36,8 @@ import {
   chooseHeaviestFamiliar,
   sugarItemsAboutToBreak,
 } from "../engine/outfit";
+
+const famTestMaximizerString = "familiar weight";
 
 export const FamiliarWeightQuest: Quest = {
   name: "Familiar Weight",
@@ -107,6 +109,7 @@ export const FamiliarWeightQuest: Quest = {
           $effect`Shortly Stacked`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        handleCustomPulls("instant_famTestPulls", famTestMaximizerString);
 
         if (have($item`love song of icy revenge`))
           use(
@@ -163,18 +166,16 @@ export const FamiliarWeightQuest: Quest = {
             use($item`box of Familiar Jacks`, 1);
           }
 
-          get("instant_famTestPulls").split(",").forEach(handleCustomPull);
-
           cliExecute("maximize familiar weight");
+        }
 
-          if (
-            have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
-            !get("instant_saveAugustScepter", false) &&
-            numericModifier(equippedItem($slot`off-hand`), "Familiar Weight") > 0 &&
-            CommunityService.FamiliarWeight.actualCost() > 1
-          ) {
-            tryAcquiringEffect($effect`Offhand Remarkable`);
-          }
+        if (
+          have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
+          !get("instant_saveAugustScepter", false) &&
+          numericModifier(equippedItem($slot`off-hand`), "Familiar Weight") > 0 &&
+          CommunityService.FamiliarWeight.actualCost() > 1
+        ) {
+          tryAcquiringEffect($effect`Offhand Remarkable`);
         }
       },
       do: (): void => {
@@ -194,7 +195,7 @@ export const FamiliarWeightQuest: Quest = {
           maxTurns,
         );
       },
-      outfit: () => ({ modifier: "familiar weight", familiar: chooseHeaviestFamiliar() }),
+      outfit: () => ({ modifier: famTestMaximizerString, familiar: chooseHeaviestFamiliar() }),
       limit: { tries: 1 },
     },
   ],
