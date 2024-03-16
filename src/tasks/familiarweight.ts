@@ -142,8 +142,8 @@ export const FamiliarWeightQuest: Quest = {
           familiarWeight($familiar`Exotic Parrot`) + 15 > heaviestWeight;
 
         if (
-          have($skill`Summon Clip Art`) &&
-          !get("instant_saveClipArt", false) &&
+          ((have($skill`Summon Clip Art`) && !get("instant_saveClipArt", false)) || // Either we can summon a box of jacks
+            have($item`box of Familiar Jacks`)) && // or we already have one
           (useTrainbot || useParrot || useComma)
         ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);
