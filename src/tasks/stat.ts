@@ -1,10 +1,11 @@
-import { buy, create, Effect, print, Stat, use } from "kolmafia";
+import { buy, create, Effect, itemAmount, print, Stat, use, useSkill } from "kolmafia";
 import {
   $coinmaster,
   $effect,
   $effects,
   $item,
   $items,
+  $skill,
   $stat,
   CommunityService,
   ensureEffect,
@@ -248,6 +249,8 @@ export const MoxieQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         handleCustomPulls("instant_moxTestPulls", moxTestMaximizerString);
+        if (have($skill`Acquire Rhinestones`)) useSkill($skill`Acquire Rhinestones`);
+        if (have($item`rhinestone`)) use($item`rhinestone`, itemAmount($item`rhinestone`));
       },
       do: (): void => {
         const maxTurns = get("instant_moxTestTurnLimit", 5);
