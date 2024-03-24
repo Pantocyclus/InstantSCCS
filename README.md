@@ -169,8 +169,10 @@ As with the usage of the S.I.T Course Voucher prior to invoking InstantSCCS, you
 
 Consider getting a whitelist to CSLoopers Unite, a clan with an ungulith in the fax machine, set up specifically to address faxbot issues (the clan does not whitelist any faxbots so as to prevent accidental faxing in of other monsters). The script automatically sends a kmail to my clan sitter - Pantocyclus (#3626664), but you may also kmail me on my main - WARriorer (#1634187) to request a whitelist.<br/>
 
-### Does the script support switching between a clan for VIP Lounge items and a clan with Mother Slime set up for Inner Elf?
+### Does the script support switching between a clans (e.g. for VIP Lounge items and a clan with Mother Slime set up for Inner Elf)?
 
 The script assumes you are already in the VIP clan (i.e. you should whitelist into your VIP clan before running the script).<br/>
 
 If you are already whitelisted to CSLoopers Unite, the script will already have access to Mother Slime. Otherwise, you will have to `set instant_motherSlimeClan=<clan name>` for InstantSCCS to attempt grabbing Inner Elf - this may be the same clan as your VIP clan, or a different one altogether (note that if this is set, the script will default to using your clan of choice instead, as it reduces congestion of the CSLoopers Unite Slime Tube).<br/>
+
+The script also defaults to using the VIP clan for the [Floundry](<https://kol.coldfront.net/thekolwiki/index.php/Clan_Floundry_(VIP_Lounge)>). To change this, you will also need to `set instant_floundryClan=<clan name>`.<br/>
