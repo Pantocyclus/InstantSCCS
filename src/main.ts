@@ -4,7 +4,6 @@ import {
   myAscensions,
   nowToString,
   print,
-  removeProperty,
   setAutoAttack,
   turnsPlayed,
   userConfirm,
@@ -51,17 +50,6 @@ export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS scri
 export function main(command?: string): void {
   sinceKolmafiaRevision(27854);
   checkGithubVersion();
-
-  if (get("instant_targetBaseMyst", false)) {
-    if (!get("instant_targetBaseMainStat", false))
-      set("instant_targetBaseMainStat", get("instant_targetBaseMyst"));
-    removeProperty("instant_targetBaseMyst");
-  }
-  if (get("instant_targetBaseMystGap", false)) {
-    if (!get("instant_targetBaseMainStatGap", false))
-      set("instant_targetBaseMainStatGap", get("instant_targetBaseMystGap"));
-    removeProperty("instant_targetBaseMystGap");
-  }
 
   Args.fill(args, command);
   if (args.help) {
