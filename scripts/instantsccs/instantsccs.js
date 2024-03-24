@@ -17872,18 +17872,23 @@ var RunStartQuest = {
     name: "Get Floundry item",
     completed: () => property_get("_floundryItemCreated") || property_get("instant_saveFloundry", false),
     do: () => {
-      if (mainStat === template_string_$stat(runstart_templateObject13 || (runstart_templateObject13 = runstart_taggedTemplateLiteral(["Muscle"])))) {
-        (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(runstart_templateObject14 || (runstart_templateObject14 = runstart_taggedTemplateLiteral(["fish hatchet"]))));
-      } else if (mainStat === template_string_$stat(runstart_templateObject15 || (runstart_templateObject15 = runstart_taggedTemplateLiteral(["Mysticality"])))) {
-        (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(runstart_templateObject16 || (runstart_templateObject16 = runstart_taggedTemplateLiteral(["codpiece"]))), 1);
-        (0,external_kolmafia_namespaceObject.use)(template_string_$item(runstart_templateObject17 || (runstart_templateObject17 = runstart_taggedTemplateLiteral(["codpiece"]))), 1);
-        (0,external_kolmafia_namespaceObject.create)(template_string_$item(runstart_templateObject18 || (runstart_templateObject18 = runstart_taggedTemplateLiteral(["oil cap"]))), 1);
-        (0,external_kolmafia_namespaceObject.autosell)(template_string_$item(runstart_templateObject19 || (runstart_templateObject19 = runstart_taggedTemplateLiteral(["oil cap"]))), 1);
-      } else if (mainStat === template_string_$stat(runstart_templateObject20 || (runstart_templateObject20 = runstart_taggedTemplateLiteral(["Moxie"])))) {
-        (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(runstart_templateObject21 || (runstart_templateObject21 = runstart_taggedTemplateLiteral(["bass clarinet"]))));
-        (0,external_kolmafia_namespaceObject.use)(template_string_$item(runstart_templateObject22 || (runstart_templateObject22 = runstart_taggedTemplateLiteral(["bass clarinet"]))), 1);
-        (0,external_kolmafia_namespaceObject.autosell)(template_string_$item(runstart_templateObject23 || (runstart_templateObject23 = runstart_taggedTemplateLiteral(["white pixel"]))), 10);
-      }
+      var getFloundryItem = () => {
+        if (mainStat === template_string_$stat(runstart_templateObject13 || (runstart_templateObject13 = runstart_taggedTemplateLiteral(["Muscle"])))) {
+          (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(runstart_templateObject14 || (runstart_templateObject14 = runstart_taggedTemplateLiteral(["fish hatchet"]))));
+        } else if (mainStat === template_string_$stat(runstart_templateObject15 || (runstart_templateObject15 = runstart_taggedTemplateLiteral(["Mysticality"])))) {
+          (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(runstart_templateObject16 || (runstart_templateObject16 = runstart_taggedTemplateLiteral(["codpiece"]))), 1);
+          (0,external_kolmafia_namespaceObject.use)(template_string_$item(runstart_templateObject17 || (runstart_templateObject17 = runstart_taggedTemplateLiteral(["codpiece"]))), 1);
+          (0,external_kolmafia_namespaceObject.create)(template_string_$item(runstart_templateObject18 || (runstart_templateObject18 = runstart_taggedTemplateLiteral(["oil cap"]))), 1);
+          (0,external_kolmafia_namespaceObject.autosell)(template_string_$item(runstart_templateObject19 || (runstart_templateObject19 = runstart_taggedTemplateLiteral(["oil cap"]))), 1);
+        } else if (mainStat === template_string_$stat(runstart_templateObject20 || (runstart_templateObject20 = runstart_taggedTemplateLiteral(["Moxie"])))) {
+          (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(runstart_templateObject21 || (runstart_templateObject21 = runstart_taggedTemplateLiteral(["bass clarinet"]))));
+          (0,external_kolmafia_namespaceObject.use)(template_string_$item(runstart_templateObject22 || (runstart_templateObject22 = runstart_taggedTemplateLiteral(["bass clarinet"]))), 1);
+          (0,external_kolmafia_namespaceObject.autosell)(template_string_$item(runstart_templateObject23 || (runstart_templateObject23 = runstart_taggedTemplateLiteral(["white pixel"]))), 10);
+        }
+      };
+
+      var floundryClan = property_get("instant_floundryClan", "");
+      if (floundryClan.length === 0) getFloundryItem();else Clan["with"](floundryClan, getFloundryItem);
     },
     limit: {
       tries: 1
@@ -20557,17 +20562,6 @@ var args = Args.create("InstantSCCS", "An automated low-shiny SCCS script.", {
 function main_main(command) {
   sinceKolmafiaRevision(27854);
   checkGithubVersion();
-
-  if (property_get("instant_targetBaseMyst", false)) {
-    if (!property_get("instant_targetBaseMainStat", false)) _set("instant_targetBaseMainStat", property_get("instant_targetBaseMyst"));
-    (0,external_kolmafia_namespaceObject.removeProperty)("instant_targetBaseMyst");
-  }
-
-  if (property_get("instant_targetBaseMystGap", false)) {
-    if (!property_get("instant_targetBaseMainStatGap", false)) _set("instant_targetBaseMainStatGap", property_get("instant_targetBaseMystGap"));
-    (0,external_kolmafia_namespaceObject.removeProperty)("instant_targetBaseMystGap");
-  }
-
   Args.fill(args, command);
 
   if (args.help) {
