@@ -175,6 +175,19 @@ export const FamiliarWeightQuest: Quest = {
         }
 
         if (
+          have($item`Apriling band piccolo`) &&
+          get("_aprilBandPiccoloUses", 0) < 3 &&
+          CommunityService.FamiliarWeight.actualCost() > 1
+        ) {
+          Array(3 - get("_aprilBandPiccoloUses", 0)).forEach(() =>
+            visitUrl(
+              `inventory.php?pwd&iid=${$item`Apriling band piccolo`.id}&action=aprilplay`,
+              false,
+            ),
+          );
+        }
+
+        if (
           have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
           !get("instant_saveAugustScepter", false) &&
           numericModifier(equippedItem($slot`off-hand`), "Familiar Weight") > 0 &&
