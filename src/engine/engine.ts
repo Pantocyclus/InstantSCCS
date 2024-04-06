@@ -75,6 +75,7 @@ export const freeFightResources: trackedResource[] = [
   new trackedResource("_voteFreeFights", "Voters", 3),
   new trackedResource("_godLobsterFights", "God Lobster", 3),
   new trackedResource("_speakeasyFreeFights", "Oliver's Place", 3),
+  new trackedResource("_aprilBandTomUses", "Apriling Band Quad Tom", 3),
   new trackedResource("_eldritchHorrorEvoked", "Eldritch Tentacle", 1),
   new trackedResource("_sausageFights", "Sausage Goblins"),
 ];
@@ -92,6 +93,7 @@ export const farmingResourceResources: trackedResource[] = [
   new trackedResource("_cinchUsed", "Cinch", 100),
   new trackedResource("_kgbClicksUsed", "KGB Clicks", 22),
   new trackedResource("_deckCardsDrawn", "Deck Draws", 15),
+  new trackedResource("_mimicEggsObtained", "Mimic Eggs", 11),
   new trackedResource("_macrometeoriteUses", "Macrometeorites", 10),
   new trackedResource("_AAABatteriesUsed", "Batteries (AAA)", 7),
   new trackedResource("_augSkillsCasts", "August Scepter Charges", 5),
@@ -101,6 +103,7 @@ export const farmingResourceResources: trackedResource[] = [
   new trackedResource("_pottedTeaTreeUsed", "Tea Tree", 3),
   new trackedResource($item`peppermint sprout`, "Peppermint Sprout", 3),
   new trackedResource("_monsterHabitatsRecalled", "Monster Habitats", 3),
+  new trackedResource("_aprilBandInstruments", "April Band Instruments", 2),
   new trackedResource("_favoriteBirdVisited", "Favorite Bird", 1),
   new trackedResource("_clanFortuneBuffUsed", "Zatara Consult", 1),
   new trackedResource("_floundryItemCreated", "Clan Floundry", 1),

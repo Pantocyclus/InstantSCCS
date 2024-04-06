@@ -22,6 +22,7 @@ import {
   restoreHp,
   restoreMp,
   retrieveItem,
+  runChoice,
   use,
   useFamiliar,
   useSkill,
@@ -117,6 +118,7 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Acquire Clover",
       completed: () =>
+        have($item`Apriling band saxophone`) ||
         have($item`11-leaf clover`) ||
         get("_cloversPurchased") >= 2 ||
         get("instant_skipCyclopsEyedrops", false),
@@ -134,6 +136,12 @@ export const BoozeDropQuest: Quest = {
         have($effect`One Very Clear Eye`) ||
         get("instant_skipCyclopsEyedrops", false),
       do: (): void => {
+        if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`)) {
+          visitUrl(
+            `inventory.php?pwd&iid=${$item`Apriling band saxophone`.id}&action=aprilplay`,
+            false,
+          );
+        }
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);
         if (!have($item`cyclops eyedrops`)) adv1($location`The Limerick Dungeon`, -1);
       },
@@ -335,6 +343,17 @@ export const BoozeDropQuest: Quest = {
       ready: () => myMeat() >= 1000,
       completed: () => have($item`oversized sparkler`),
       do: () => buy($item`oversized sparkler`, 1),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Set Apriling Band Helmet (Booze)",
+      completed: () => !have($item`Apriling band helmet`) || get("nextAprilBandTurn", 0) > 0,
+      do: (): void => {
+        visitUrl("inventory.php?&pwd&action=apriling");
+        runChoice(3); // Get Apriling Band Patrol Beat
+        runChoice(9); // March On
+        visitUrl("main.php");
+      },
       limit: { tries: 1 },
     },
     {

@@ -16,6 +16,7 @@ import {
   hermit,
   Item,
   itemAmount,
+  min,
   myInebriety,
   myMaxhp,
   myMaxmp,
@@ -40,6 +41,7 @@ import {
 import {
   $coinmaster,
   $effect,
+  $familiar,
   $item,
   $items,
   $location,
@@ -72,7 +74,14 @@ import {
 } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
-import { baseOutfit, chooseFamiliar, unbreakableUmbrella } from "../engine/outfit";
+import {
+  baseOutfit,
+  chooseFamiliar,
+  cookbookbat,
+  melodramedary,
+  unbreakableUmbrella,
+} from "../engine/outfit";
+import { excludedFamiliars } from "../resources";
 
 const useParkaSpit = have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`);
 
@@ -505,6 +514,79 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Set Apriling Band Helmet (NC)",
+      completed: () => !have($item`Apriling band helmet`) || get("nextAprilBandTurn", 0) > 0,
+      do: (): void => {
+        visitUrl("inventory.php?&pwd&action=apriling");
+        runChoice(1); // Get Apriling Band Patrol Beat
+        runChoice(9); // March On
+        visitUrl("main.php");
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Get Apriling Band Instruments",
+      completed: () =>
+        !have($item`Apriling band helmet`) ||
+        get("_aprilBandInstruments", 0) >=
+          min(
+            2,
+            [
+              "instant_saveAprilingBandQuadTom",
+              "instant_saveAprilingBandSaxophone",
+              "instant_saveAprilingBandStaff",
+              "instant_saveAprilingBandPiccolo",
+            ].filter((pref) => !get(pref, false)).length,
+          ),
+      do: (): void => {
+        visitUrl("inventory.php?&pwd&action=apriling"); // Enter the choice adventure
+
+        let quadTomValue = 4; // Free sandworm fights (saves 3 CBB turns)
+        let saxophoneValue = 3; // 2 hotres (saves 2 hot test turns) + Lucky!
+        const staffValue = 2; // +10% myst, +20sdmg, +10%sdmg
+        let piccoloValue = 1; // +10 famwt, +120 famxp (potentially great for chest mimic)
+
+        // If we aren't using the CBB nor melodramedary, we probably have enough fam turns
+        if (!cookbookbat() && !melodramedary) quadTomValue -= 10;
+
+        // If we can saber run with extinguisher, the hot res is probably not very useful
+        if (have($item`Fourth of May Cosplay Saber`) && have($item`industrial fire extinguisher`))
+          saxophoneValue -= 10;
+
+        // If we can benefit greatly from the famxp, we should highly prioritize the piccolo
+        // (to consider: but it isn't very useful if we already have other copyable sources available)
+        if (
+          (have($familiar`Chest Mimic`) &&
+            excludedFamiliars.includes(toInt($familiar`Chest Mimic`))) ||
+          (have($item`backup camera`) && get("instant_saveBackups", 0) < 11) // ||
+          // (mainStat === $stat`Moxie` && !have($item`combat lover's locket`)) // to be added if we want to support mimic-egging an evil olive
+        )
+          piccoloValue += 10;
+
+        // Pick the instruments
+        [
+          ...new Map<Item, [number, number]>([
+            [$item`Apriling band quad tom`, [quadTomValue, 5]],
+            [$item`Apriling band saxophone`, [saxophoneValue, 4]],
+            [$item`Apriling band staff`, [staffValue, 7]],
+            [$item`Apriling band piccolo`, [piccoloValue, 8]],
+          ]),
+        ]
+          .filter(
+            ([it]) =>
+              !have(it) && // Remove option if we already have the item
+              !get(`instant_save${it.name.replace(/( \w)/, (_, g) => g.toUpperCase())}`, false), // or if we chose to not acquire it
+          )
+          .sort(([, [, a]], [, [, b]]) => b - a) // Sort the instruments in decreasing priority value (the higher the better)
+          .slice(0, 2 - get("_aprilBandInstruments", 0)) // We can acquire at most 2 instruments
+          .forEach(([, [, choiceNumber]]) => runChoice(choiceNumber)); // Acquire the instrument
+
+        runChoice(9); // March On
+        visitUrl("main.php");
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Soul Food",
       ready: () => mySoulsauce() >= 5,
       completed: () => mySoulsauce() < 5 || myMp() > myMaxmp() - 15 || !have($skill`Soul Food`),
@@ -665,6 +747,7 @@ export const RunStartQuest: Quest = {
     {
       name: "Chewing Gum",
       completed: () =>
+        have($item`Apriling band saxophone`) ||
         myMeat() <= 600 ||
         get("_cloversPurchased") >= 1 ||
         get("instant_skipDistilledFortifiedWine", false),
@@ -678,9 +761,18 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Get Distilled Fortified Wine",
-      ready: () => have($item`11-leaf clover`) || have($effect`Lucky!`),
+      ready: () =>
+        have($item`Apriling band saxophone`) ||
+        have($item`11-leaf clover`) ||
+        have($effect`Lucky!`),
       completed: () => myInebriety() >= 1 || get("instant_skipDistilledFortifiedWine", false),
       do: (): void => {
+        if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`)) {
+          visitUrl(
+            `inventory.php?pwd&iid=${$item`Apriling band saxophone`.id}&action=aprilplay`,
+            false,
+          );
+        }
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);
         if (!have($item`distilled fortified wine`)) adv1($location`The Sleazy Back Alley`, -1);
         while (have($item`distilled fortified wine`) && myInebriety() < 1) {

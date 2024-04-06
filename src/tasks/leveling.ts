@@ -26,6 +26,7 @@ import {
   Monster,
   mpCost,
   myBasestat,
+  myFamiliar,
   myHash,
   myHp,
   myInebriety,
@@ -46,6 +47,7 @@ import {
   toItem,
   totalFreeRests,
   use,
+  useFamiliar,
   useSkill,
   visitUrl,
 } from "kolmafia";
@@ -1514,6 +1516,58 @@ export const LevelingQuest: Quest = {
       do: (): void => {
         tryAcquiringEffect($effect`Favored by Lyle`);
         tryAcquiringEffect($effect`Starry-Eyed`);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Apriling Band Quad Tom Sandworms",
+      completed: () => !have($item`Apriling band quad tom`) || get("_aprilBandTomUses", 0) >= 3,
+      do: (): void => {
+        visitUrl(
+          `inventory.php?pwd&iid=${$item`Apriling band quad tom`.id}&action=aprilplay`,
+          false,
+        );
+      },
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
+      outfit: baseOutfit,
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 3 },
+    },
+    {
+      name: "Mimic Sausage Goblins",
+      completed: () =>
+        get("instant_saveMimicEggs", false) ||
+        get("_mimicEggsObtained") > 0 ||
+        !have($familiar`Chest Mimic`) ||
+        (!(have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) &&
+          !(have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses", 0) < 3)),
+      do: (): void => {
+        const currentFamiliar = myFamiliar();
+        if (have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) {
+          useFamiliar($familiar`Shorter-Order Cook`);
+          equip($slot`familiar`, $item`blue plate`);
+        }
+        useFamiliar($familiar`Chest Mimic`);
+        if (have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses", 0) < 3) {
+          Array(3 - get("_aprilBandPiccoloUses", 0)).forEach(() =>
+            visitUrl(
+              `inventory.php?pwd&iid=${$item`Apriling band piccolo`.id}&action=aprilplay`,
+              false,
+            ),
+          );
+        }
+        visitUrl(`choice.php?pwd&whichchoice=1517&mid=${toInt($monster`sausage goblin`)}&option=2`);
+        useFamiliar(currentFamiliar);
+        use($item`mimic egg`);
+      },
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
+      outfit: baseOutfit,
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
       },
       limit: { tries: 1 },
     },

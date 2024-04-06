@@ -207,6 +207,11 @@ const farmingResources: Resource[] = [
     [],
     get("instant_saveMonsterHabitats", false) ? 3 : 0,
   ),
+  new Resource("instant_saveMimicEggs", "Do not acquire any Chest Mimic eggs"),
+  new Resource("instant_saveAprilingBandQuadTom", "Do not acquire the Apriling Band Quad Tom"),
+  new Resource("instant_saveAprilingBandSaxophone", "Do not acquire the Apriling Band Saxophone"),
+  new Resource("instant_saveAprilingBandStaff", "Do not acquire the Apriling Band Staff"),
+  new Resource("instant_saveAprilingBandPiccolo", "Do not acquire the Apriling Band Piccolo"),
 ];
 
 const otherResources: Resource[] = [
@@ -239,6 +244,9 @@ export const forbiddenEffects = [
   ...automaticallyExcludedBuffs,
   ...manuallyExcludedBuffs.filter((ef) => !automaticallyExcludedBuffs.includes(ef)),
 ];
+export const excludedFamiliars = get("instant_explicitlyExcludedFamiliars")
+  .split(",")
+  .map((i) => toInt(i));
 
 function printResources(resources: Resource[]) {
   resources
@@ -276,9 +284,6 @@ export function checkResources(): void {
   print("The following are all the buffs we will not acquire in run:");
   forbiddenEffects.forEach((ef) => print(`- ${ef.name}`));
   print("The following are all the familliars we will not use during leveling:");
-  const excludedFamiliars = get("instant_explicitlyExcludedFamiliars")
-    .split(",")
-    .map((i) => toInt(i));
   Familiar.all()
     .filter((fam) => excludedFamiliars.includes(toInt(fam)))
     .forEach((fam) => print(`- ${fam}`));

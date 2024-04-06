@@ -15,6 +15,7 @@ import {
   maxBy,
 } from "libram";
 import { camelFightsLeft, haveCBBIngredients, mainStatMaximizerStr } from "../lib";
+import { excludedFamiliars } from "../resources";
 
 export function garbageShirt(): void {
   if (
@@ -63,7 +64,7 @@ function nanorhino(allowAttackingFamiliars = false): Familiar {
     : $familiar.none;
 }
 
-function cookbookbat(): Familiar {
+export function cookbookbat(): Familiar {
   return !haveCBBIngredients(true) ? $familiar`Cookbookbat` : $familiar.none;
 }
 
@@ -96,7 +97,7 @@ function optimisticCandle(): Familiar {
   return !have($item`glob of melted wax`) ? $familiar`Optimistic Candle` : $familiar.none;
 }
 
-function melodramedary(): Familiar {
+export function melodramedary(): Familiar {
   return have($familiar`Melodramedary`) &&
     camelFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 3.0) &&
     get("camelSpit") < 100
@@ -111,9 +112,6 @@ function hoboInSheepsClothing(): Familiar {
 }
 
 export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
-  const ignoredFamiliars = get("instant_explicitlyExcludedFamiliars", "")
-    .split(",")
-    .map((i) => toInt(i));
   const defaultFam = have($familiar`Cookbookbat`) ? $familiar`Cookbookbat` : $familiar.none;
   const familiars = [
     cookbookbat,
@@ -127,7 +125,7 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
     sombrero,
   ]
     .map((fn) => fn(allowAttackingFamiliars))
-    .filter((fam) => have(fam) && !ignoredFamiliars.includes(toInt(fam)));
+    .filter((fam) => have(fam) && !excludedFamiliars.includes(toInt(fam)));
   return familiars.length > 0 ? familiars[0] : defaultFam;
 }
 
