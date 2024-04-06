@@ -23,7 +23,7 @@
     "babel-loader": "^8.2.2",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-libram": "^0.4.3",
+    "eslint-plugin-libram": "^0.4.5",
     "prettier": "^3.2.4",
     "typescript": "^5.3.3",
     "webpack": "^5.61.0",
@@ -32,7 +32,7 @@
   "dependencies": {
     "core-js": "^3.35.1",
     "grimoire-kolmafia": "^0.3.26",
-    "kolmafia": "^5.27854.0",
+    "kolmafia": "^5.27888.0",
     "libram": "^0.8.24"
   },
   "author": "Pantocyclus",

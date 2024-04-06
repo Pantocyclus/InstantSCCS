@@ -260,6 +260,7 @@ export class Engine extends BaseEngine {
       hpAutoRecoveryItems: hpItems,
       mpAutoRecoveryItems: mpItems,
       shadowLabyrinthGoal: "effects",
+      choiceAdventureScript: "instantsccs_choice.ash",
       requireBoxServants: false,
     });
   }

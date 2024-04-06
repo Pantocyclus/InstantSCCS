@@ -491,9 +491,15 @@ export const RunStartQuest: Quest = {
         get("hasMaydayContract") ||
         get("instant_skipEarlyTrainsetMeat", false),
       do: $location`The Dire Warren`,
-      combat: new CombatStrategy().macro(Macro.attack()),
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Darts: Aim for the Bullseye`).attack(),
+      ),
       outfit: () => ({
         ...baseOutfit(false),
+        acc1:
+          have($item`Everfull Dart Holster`) && !have($effect`Everything Looks Red`)
+            ? $item`Everfull Dart Holster`
+            : undefined,
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip backup camera, -equip Kramco Sausage-o-Matic™`,
       }),
       limit: { tries: 1 },
