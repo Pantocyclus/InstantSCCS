@@ -17222,7 +17222,8 @@ var LevelingQuest = {
     name: "Apriling Band Quad Tom Sandworms",
     completed: () => !lib_have(template_string_$item(_templateObject376 || (_templateObject376 = leveling_taggedTemplateLiteral(["Apriling band quad tom"])))) || property_get("_aprilBandTomUses", 0) >= 3,
     do: () => {
-      (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd&iid=".concat(template_string_$item(_templateObject377 || (_templateObject377 = leveling_taggedTemplateLiteral(["Apriling band quad tom"]))).id, "&action=aprilplay"), false);
+      (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd&iid=".concat(template_string_$item(_templateObject377 || (_templateObject377 = leveling_taggedTemplateLiteral(["Apriling band quad tom"]))).id, "&action=aprilplay"), false, true);
+      (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     },
     combat: new CombatStrategy().macro(combat_Macro["default"](useCinch)),
     outfit: baseOutfit,
@@ -17247,12 +17248,13 @@ var LevelingQuest = {
       (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject387 || (_templateObject387 = leveling_taggedTemplateLiteral(["Chest Mimic"]))));
 
       if (lib_have(template_string_$item(_templateObject388 || (_templateObject388 = leveling_taggedTemplateLiteral(["Apriling band piccolo"])))) && property_get("_aprilBandPiccoloUses", 0) < 3) {
-        Array(3 - property_get("_aprilBandPiccoloUses", 0)).forEach(() => (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd&iid=".concat(template_string_$item(_templateObject389 || (_templateObject389 = leveling_taggedTemplateLiteral(["Apriling band piccolo"]))).id, "&action=aprilplay"), false));
+        Array(3 - property_get("_aprilBandPiccoloUses", 0)).fill(0).forEach(() => (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd&iid=".concat(template_string_$item(_templateObject389 || (_templateObject389 = leveling_taggedTemplateLiteral(["Apriling band piccolo"]))).id, "&action=aprilplay"), false, true));
       }
 
-      (0,external_kolmafia_namespaceObject.visitUrl)("choice.php?pwd&whichchoice=1517&mid=".concat((0,external_kolmafia_namespaceObject.toInt)($monster(_templateObject390 || (_templateObject390 = leveling_taggedTemplateLiteral(["sausage goblin"])))), "&option=2"));
+      (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=town_right&action=townright_dna");
+      (0,external_kolmafia_namespaceObject.visitUrl)("choice.php?pwd&whichchoice=1517&mid=".concat($monster(_templateObject390 || (_templateObject390 = leveling_taggedTemplateLiteral(["sausage goblin"]))).id, "&option=2"));
       (0,external_kolmafia_namespaceObject.useFamiliar)(currentFamiliar);
-      (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject391 || (_templateObject391 = leveling_taggedTemplateLiteral(["mimic egg"]))));
+      (0,external_kolmafia_namespaceObject.visitUrl)("choice.php?pwd&whichchoice=1516&mid=".concat($monster(_templateObject391 || (_templateObject391 = leveling_taggedTemplateLiteral(["sausage goblin"]))).id, "&option=1"));
     },
     combat: new CombatStrategy().macro(combat_Macro["default"](useCinch)),
     outfit: baseOutfit,
@@ -18470,7 +18472,7 @@ var RunStartQuest = {
     completed: () => (0,external_kolmafia_namespaceObject.myInebriety)() >= 1 || property_get("instant_skipDistilledFortifiedWine", false),
     do: () => {
       if (lib_have(template_string_$item(runstart_templateObject172 || (runstart_templateObject172 = runstart_taggedTemplateLiteral(["Apriling band saxophone"])))) && !lib_have(template_string_$effect(runstart_templateObject173 || (runstart_templateObject173 = runstart_taggedTemplateLiteral(["Lucky!"]))))) {
-        (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd&iid=".concat(template_string_$item(runstart_templateObject174 || (runstart_templateObject174 = runstart_taggedTemplateLiteral(["Apriling band saxophone"]))).id, "&action=aprilplay"), false);
+        (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd=".concat((0,external_kolmafia_namespaceObject.myHash)(), "&iid=").concat(template_string_$item(runstart_templateObject174 || (runstart_templateObject174 = runstart_taggedTemplateLiteral(["Apriling band saxophone"]))).id, "&action=aprilplay"), false, true);
       }
 
       if (!lib_have(template_string_$effect(runstart_templateObject175 || (runstart_templateObject175 = runstart_taggedTemplateLiteral(["Lucky!"]))))) (0,external_kolmafia_namespaceObject.use)(template_string_$item(runstart_templateObject176 || (runstart_templateObject176 = runstart_taggedTemplateLiteral(["11-leaf clover"]))));
@@ -18605,7 +18607,7 @@ var FamiliarWeightQuest = {
       }
 
       if (lib_have(template_string_$item(familiarweight_templateObject51 || (familiarweight_templateObject51 = familiarweight_taggedTemplateLiteral(["Apriling band piccolo"])))) && property_get("_aprilBandPiccoloUses", 0) < 3 && CommunityService.FamiliarWeight.actualCost() > 1) {
-        Array(3 - property_get("_aprilBandPiccoloUses", 0)).forEach(() => (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd&iid=".concat(template_string_$item(familiarweight_templateObject52 || (familiarweight_templateObject52 = familiarweight_taggedTemplateLiteral(["Apriling band piccolo"]))).id, "&action=aprilplay"), false));
+        Array(3 - property_get("_aprilBandPiccoloUses", 0)).forEach(() => (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd=".concat((0,external_kolmafia_namespaceObject.myHash)(), "&iid=").concat(template_string_$item(familiarweight_templateObject52 || (familiarweight_templateObject52 = familiarweight_taggedTemplateLiteral(["Apriling band piccolo"]))).id, "&action=aprilplay"), false, true));
       }
 
       if (lib_have(template_string_$skill(familiarweight_templateObject53 || (familiarweight_templateObject53 = familiarweight_taggedTemplateLiteral(["Aug. 13th: Left/Off Hander's Day!"])))) && !property_get("instant_saveAugustScepter", false) && (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(familiarweight_templateObject54 || (familiarweight_templateObject54 = familiarweight_taggedTemplateLiteral(["off-hand"])))), "Familiar Weight") > 0 && CommunityService.FamiliarWeight.actualCost() > 1) {
@@ -18802,7 +18804,7 @@ var BoozeDropQuest = {
     completed: () => lib_have(template_string_$item(boozedrop_templateObject14 || (boozedrop_templateObject14 = boozedrop_taggedTemplateLiteral(["cyclops eyedrops"])))) || lib_have(template_string_$effect(boozedrop_templateObject15 || (boozedrop_templateObject15 = boozedrop_taggedTemplateLiteral(["One Very Clear Eye"])))) || property_get("instant_skipCyclopsEyedrops", false),
     do: () => {
       if (lib_have(template_string_$item(boozedrop_templateObject16 || (boozedrop_templateObject16 = boozedrop_taggedTemplateLiteral(["Apriling band saxophone"])))) && !lib_have(template_string_$effect(boozedrop_templateObject17 || (boozedrop_templateObject17 = boozedrop_taggedTemplateLiteral(["Lucky!"]))))) {
-        (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd&iid=".concat(template_string_$item(boozedrop_templateObject18 || (boozedrop_templateObject18 = boozedrop_taggedTemplateLiteral(["Apriling band saxophone"]))).id, "&action=aprilplay"), false);
+        (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd=".concat((0,external_kolmafia_namespaceObject.myHash)(), "&iid=").concat(template_string_$item(boozedrop_templateObject18 || (boozedrop_templateObject18 = boozedrop_taggedTemplateLiteral(["Apriling band saxophone"]))).id, "&action=aprilplay"), false, true);
       }
 
       if (!lib_have(template_string_$effect(boozedrop_templateObject19 || (boozedrop_templateObject19 = boozedrop_taggedTemplateLiteral(["Lucky!"]))))) (0,external_kolmafia_namespaceObject.use)(template_string_$item(boozedrop_templateObject20 || (boozedrop_templateObject20 = boozedrop_taggedTemplateLiteral(["11-leaf clover"]))));
