@@ -17222,7 +17222,7 @@ var LevelingQuest = {
     name: "Apriling Band Quad Tom Sandworms",
     completed: () => !lib_have(template_string_$item(_templateObject376 || (_templateObject376 = leveling_taggedTemplateLiteral(["Apriling band quad tom"])))) || property_get("_aprilBandTomUses", 0) >= 3,
     do: () => {
-      (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd&iid=".concat(template_string_$item(_templateObject377 || (_templateObject377 = leveling_taggedTemplateLiteral(["Apriling band quad tom"]))).id, "&action=aprilplay"), false, true);
+      (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd=".concat((0,external_kolmafia_namespaceObject.myHash)(), "&iid=").concat(template_string_$item(_templateObject377 || (_templateObject377 = leveling_taggedTemplateLiteral(["Apriling band quad tom"]))).id, "&action=aprilplay"), false, true);
       (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     },
     combat: new CombatStrategy().macro(combat_Macro["default"](useCinch)),
@@ -17248,7 +17248,7 @@ var LevelingQuest = {
       (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject387 || (_templateObject387 = leveling_taggedTemplateLiteral(["Chest Mimic"]))));
 
       if (lib_have(template_string_$item(_templateObject388 || (_templateObject388 = leveling_taggedTemplateLiteral(["Apriling band piccolo"])))) && property_get("_aprilBandPiccoloUses", 0) < 3) {
-        Array(3 - property_get("_aprilBandPiccoloUses", 0)).fill(0).forEach(() => (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd&iid=".concat(template_string_$item(_templateObject389 || (_templateObject389 = leveling_taggedTemplateLiteral(["Apriling band piccolo"]))).id, "&action=aprilplay"), false, true));
+        Array(3 - property_get("_aprilBandPiccoloUses", 0)).fill(0).forEach(() => (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd=".concat((0,external_kolmafia_namespaceObject.myHash)(), "&iid=").concat(template_string_$item(_templateObject389 || (_templateObject389 = leveling_taggedTemplateLiteral(["Apriling band piccolo"]))).id, "&action=aprilplay"), false, true));
       }
 
       (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=town_right&action=townright_dna");
