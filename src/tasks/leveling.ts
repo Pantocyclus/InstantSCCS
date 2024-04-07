@@ -1524,7 +1524,7 @@ export const LevelingQuest: Quest = {
       completed: () => !have($item`Apriling band quad tom`) || get("_aprilBandTomUses", 0) >= 3,
       do: (): void => {
         visitUrl(
-          `inventory.php?pwd&iid=${$item`Apriling band quad tom`.id}&action=aprilplay`,
+          `inventory.php?pwd=${myHash()}&iid=${$item`Apriling band quad tom`.id}&action=aprilplay`,
           false,
           true,
         );
@@ -1558,7 +1558,7 @@ export const LevelingQuest: Quest = {
             .fill(0)
             .forEach(() =>
               visitUrl(
-                `inventory.php?pwd&iid=${$item`Apriling band piccolo`.id}&action=aprilplay`,
+                `inventory.php?pwd=${myHash()}&iid=${$item`Apriling band piccolo`.id}&action=aprilplay`,
                 false,
                 true,
               ),
