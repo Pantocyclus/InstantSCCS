@@ -18610,7 +18610,8 @@ var FamiliarWeightQuest = {
         Array(3 - property_get("_aprilBandPiccoloUses", 0)).forEach(() => (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?pwd=".concat((0,external_kolmafia_namespaceObject.myHash)(), "&iid=").concat(template_string_$item(familiarweight_templateObject52 || (familiarweight_templateObject52 = familiarweight_taggedTemplateLiteral(["Apriling band piccolo"]))).id, "&action=aprilplay"), false, true));
       }
 
-      if (lib_have(template_string_$skill(familiarweight_templateObject53 || (familiarweight_templateObject53 = familiarweight_taggedTemplateLiteral(["Aug. 13th: Left/Off Hander's Day!"])))) && !property_get("instant_saveAugustScepter", false) && (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(familiarweight_templateObject54 || (familiarweight_templateObject54 = familiarweight_taggedTemplateLiteral(["off-hand"])))), "Familiar Weight") > 0 && CommunityService.FamiliarWeight.actualCost() > 1) {
+      if (lib_have(template_string_$skill(familiarweight_templateObject53 || (familiarweight_templateObject53 = familiarweight_taggedTemplateLiteral(["Aug. 13th: Left/Off Hander's Day!"])))) && !property_get("instant_saveAugustScepter", false) && (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(familiarweight_templateObject54 || (familiarweight_templateObject54 = familiarweight_taggedTemplateLiteral(["off-hand"])))), "Familiar Weight") > 0 && CommunityService.FamiliarWeight.actualCost() > 1 && CommunityService.FamiliarWeight.actualCost() <= 26 // We should really only be using this here if we have a chance of carrying OHR over to the other tests
+      ) {
         tryAcquiringEffect(template_string_$effect(familiarweight_templateObject55 || (familiarweight_templateObject55 = familiarweight_taggedTemplateLiteral(["Offhand Remarkable"]))));
       }
     },
@@ -18694,7 +18695,8 @@ var NoncombatQuest = {
       }
 
       if ( // Seems to be a bug where numericModifier doesn't recognize the -10 granted by an unbreakable umbrella, so check for that manually
-      lib_have(template_string_$skill(noncombat_templateObject23 || (noncombat_templateObject23 = noncombat_taggedTemplateLiteral(["Aug. 13th: Left/Off Hander's Day!"])))) && !property_get("instant_saveAugustScepter", false) && ((0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(noncombat_templateObject24 || (noncombat_templateObject24 = noncombat_taggedTemplateLiteral(["off-hand"])))), "Combat Rate") < 0 || (0,external_kolmafia_namespaceObject.equippedItem)($slot(noncombat_templateObject25 || (noncombat_templateObject25 = noncombat_taggedTemplateLiteral(["off-hand"])))) === template_string_$item(noncombat_templateObject26 || (noncombat_templateObject26 = noncombat_taggedTemplateLiteral(["unbreakable umbrella"])))) && CommunityService.Noncombat.actualCost() > 1) {
+      lib_have(template_string_$skill(noncombat_templateObject23 || (noncombat_templateObject23 = noncombat_taggedTemplateLiteral(["Aug. 13th: Left/Off Hander's Day!"])))) && !property_get("instant_saveAugustScepter", false) && ((0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(noncombat_templateObject24 || (noncombat_templateObject24 = noncombat_taggedTemplateLiteral(["off-hand"])))), "Combat Rate") < 0 || (0,external_kolmafia_namespaceObject.equippedItem)($slot(noncombat_templateObject25 || (noncombat_templateObject25 = noncombat_taggedTemplateLiteral(["off-hand"])))) === template_string_$item(noncombat_templateObject26 || (noncombat_templateObject26 = noncombat_taggedTemplateLiteral(["unbreakable umbrella"])))) && CommunityService.Noncombat.actualCost() > 1 && CommunityService.FamiliarWeight.isDone() // Only do this after the famwt test is done (if it isn't, we really shouldn't have shifted NC before famwt)
+      ) {
         tryAcquiringEffect(template_string_$effect(noncombat_templateObject27 || (noncombat_templateObject27 = noncombat_taggedTemplateLiteral(["Offhand Remarkable"]))));
       } // If it saves us >= 6 turns, try using a wish
 
@@ -20694,10 +20696,6 @@ function checkRequirements() {
   }
 }
 ;// CONCATENATED MODULE: ./src/main.ts
-var main_templateObject, main_templateObject2;
-
-function main_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
 
 
 
@@ -20761,11 +20759,16 @@ function main_main(command) {
 
   (0,external_kolmafia_namespaceObject.visitUrl)("museum.php?action=icehouse");
   (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
-  (0,external_kolmafia_namespaceObject.cliExecute)("refresh all");
-  var swapFamAndNCTests = !property_get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95 && (!lib_have(template_string_$skill(main_templateObject || (main_templateObject = main_taggedTemplateLiteral(["Aug. 13th: Left/Off Hander's Day!"])))) || // Offhand Remarkable can be carried on for the remaining tests
-  forbiddenEffects.includes(template_string_$effect(main_templateObject2 || (main_templateObject2 = main_taggedTemplateLiteral(["Offhand Remarkable"]))))); // and shouldn't be burnt on the famwt test
+  (0,external_kolmafia_namespaceObject.cliExecute)("refresh all"); // This does not factor in Offhand Remarkable, since if we do have it
+  // we want to be able to benefit from it in the sdmg and wdmg tests
+  // Running fam test -> NC test allows us to use OHR in the NC test and carry it on into the subsequent tests
+  // Running NC test -> fam test would result in the OHR (obtained in the NC test) potentially being completely burnt in the fam test
 
-  var tasks = getTasks([RunStartQuest, CoilWireQuest, LevelingQuest, MysticalityQuest, HPQuest, MoxieQuest, MuscleQuest, swapFamAndNCTests ? NoncombatQuest : FamiliarWeightQuest, swapFamAndNCTests ? FamiliarWeightQuest : NoncombatQuest, BoozeDropQuest, HotResQuest, WeaponDamageQuest, SpellDamageQuest, DonateQuest]);
+  var swapFamAndNCTests = !property_get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95;
+  var questList = [RunStartQuest, CoilWireQuest, LevelingQuest, MysticalityQuest, HPQuest, MoxieQuest, MuscleQuest, swapFamAndNCTests ? NoncombatQuest : FamiliarWeightQuest, swapFamAndNCTests ? FamiliarWeightQuest : NoncombatQuest, BoozeDropQuest, HotResQuest, WeaponDamageQuest, SpellDamageQuest, DonateQuest];
+  var tasks = getTasks(questList);
+  (0,external_kolmafia_namespaceObject.print)("Running the Quests in the following order:", "blue");
+  questList.forEach(quest => (0,external_kolmafia_namespaceObject.print)(quest.name, "blue"));
   var engine = new engine_Engine(tasks);
 
   try {
