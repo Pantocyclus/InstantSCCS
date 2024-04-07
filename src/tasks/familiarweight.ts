@@ -7,6 +7,7 @@ import {
   familiarWeight,
   haveEffect,
   itemAmount,
+  myHash,
   mySign,
   numericModifier,
   print,
@@ -181,8 +182,9 @@ export const FamiliarWeightQuest: Quest = {
         ) {
           Array(3 - get("_aprilBandPiccoloUses", 0)).forEach(() =>
             visitUrl(
-              `inventory.php?pwd&iid=${$item`Apriling band piccolo`.id}&action=aprilplay`,
+              `inventory.php?pwd=${myHash()}&iid=${$item`Apriling band piccolo`.id}&action=aprilplay`,
               false,
+              true,
             ),
           );
         }

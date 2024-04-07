@@ -1526,7 +1526,9 @@ export const LevelingQuest: Quest = {
         visitUrl(
           `inventory.php?pwd&iid=${$item`Apriling band quad tom`.id}&action=aprilplay`,
           false,
+          true,
         );
+        visitUrl("main.php");
       },
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: baseOutfit,
@@ -1552,16 +1554,20 @@ export const LevelingQuest: Quest = {
         }
         useFamiliar($familiar`Chest Mimic`);
         if (have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses", 0) < 3) {
-          Array(3 - get("_aprilBandPiccoloUses", 0)).forEach(() =>
-            visitUrl(
-              `inventory.php?pwd&iid=${$item`Apriling band piccolo`.id}&action=aprilplay`,
-              false,
-            ),
-          );
+          Array(3 - get("_aprilBandPiccoloUses", 0))
+            .fill(0)
+            .forEach(() =>
+              visitUrl(
+                `inventory.php?pwd&iid=${$item`Apriling band piccolo`.id}&action=aprilplay`,
+                false,
+                true,
+              ),
+            );
         }
-        visitUrl(`choice.php?pwd&whichchoice=1517&mid=${toInt($monster`sausage goblin`)}&option=2`);
+        visitUrl(`place.php?whichplace=town_right&action=townright_dna`);
+        visitUrl(`choice.php?pwd&whichchoice=1517&mid=${$monster`sausage goblin`.id}&option=2`);
         useFamiliar(currentFamiliar);
-        use($item`mimic egg`);
+        visitUrl(`choice.php?pwd&whichchoice=1516&mid=${$monster`sausage goblin`.id}&option=1`);
       },
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: baseOutfit,

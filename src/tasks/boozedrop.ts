@@ -15,6 +15,7 @@ import {
   inebrietyLimit,
   inMuscleSign,
   itemAmount,
+  myHash,
   myInebriety,
   myMaxhp,
   myMeat,
@@ -138,8 +139,9 @@ export const BoozeDropQuest: Quest = {
       do: (): void => {
         if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`)) {
           visitUrl(
-            `inventory.php?pwd&iid=${$item`Apriling band saxophone`.id}&action=aprilplay`,
+            `inventory.php?pwd=${myHash()}&iid=${$item`Apriling band saxophone`.id}&action=aprilplay`,
             false,
+            true,
           );
         }
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);
