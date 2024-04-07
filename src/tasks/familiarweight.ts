@@ -193,7 +193,8 @@ export const FamiliarWeightQuest: Quest = {
           have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
           !get("instant_saveAugustScepter", false) &&
           numericModifier(equippedItem($slot`off-hand`), "Familiar Weight") > 0 &&
-          CommunityService.FamiliarWeight.actualCost() > 1
+          CommunityService.FamiliarWeight.actualCost() > 1 &&
+          CommunityService.FamiliarWeight.actualCost() <= 26 // We should really only be using this here if we have a chance of carrying OHR over to the other tests
         ) {
           tryAcquiringEffect($effect`Offhand Remarkable`);
         }

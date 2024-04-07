@@ -102,7 +102,8 @@ export const NoncombatQuest: Quest = {
           !get("instant_saveAugustScepter", false) &&
           (numericModifier(equippedItem($slot`off-hand`), "Combat Rate") < 0 ||
             equippedItem($slot`off-hand`) === $item`unbreakable umbrella`) &&
-          CommunityService.Noncombat.actualCost() > 1
+          CommunityService.Noncombat.actualCost() > 1 &&
+          CommunityService.FamiliarWeight.isDone() // Only do this after the famwt test is done (if it isn't, we really shouldn't have shifted NC before famwt)
         ) {
           tryAcquiringEffect($effect`Offhand Remarkable`);
         }
