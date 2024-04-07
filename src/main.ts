@@ -15,10 +15,10 @@ import {
   convertMilliseconds,
   simpleDateDiff,
 } from "./lib";
-import { $effect, $skill, get, have, set, sinceKolmafiaRevision } from "libram";
+import { get, set, sinceKolmafiaRevision } from "libram";
 import { Engine } from "./engine/engine";
 import { Args, getTasks } from "grimoire-kolmafia";
-import { Task } from "./engine/task";
+import { Quest, Task } from "./engine/task";
 import { HPQuest, MoxieQuest, MuscleQuest, MysticalityQuest } from "./tasks/stat";
 import { LevelingQuest } from "./tasks/leveling";
 import { CoilWireQuest } from "./tasks/coilwire";
@@ -31,7 +31,7 @@ import { WeaponDamageQuest } from "./tasks/weapondamage";
 import { DonateQuest } from "./tasks/donate";
 import { SpellDamageQuest } from "./tasks/spelldamage";
 import { checkRequirements } from "./sim";
-import { checkResources, forbiddenEffects } from "./resources";
+import { checkResources } from "./resources";
 
 const timeProperty = "fullday_elapsedTime";
 
@@ -78,13 +78,14 @@ export function main(command?: string): void {
   visitUrl("main.php");
   cliExecute("refresh all");
 
+  // This does not factor in Offhand Remarkable, since if we do have it
+  // we want to be able to benefit from it in the sdmg and wdmg tests
+  // Running fam test -> NC test allows us to use OHR in the NC test and carry it on into the subsequent tests
+  // Running NC test -> fam test would result in the OHR (obtained in the NC test) potentially being completely burnt in the fam test
   const swapFamAndNCTests =
-    !get("instant_skipAutomaticOptimizations", false) &&
-    computeCombatFrequency() <= -95 &&
-    (!have($skill`Aug. 13th: Left/Off Hander's Day!`) || // Offhand Remarkable can be carried on for the remaining tests
-      forbiddenEffects.includes($effect`Offhand Remarkable`)); // and shouldn't be burnt on the famwt test
+    !get("instant_skipAutomaticOptimizations", false) && computeCombatFrequency() <= -95;
 
-  const tasks: Task[] = getTasks([
+  const questList: Quest[] = [
     RunStartQuest,
     CoilWireQuest,
     LevelingQuest,
@@ -99,7 +100,12 @@ export function main(command?: string): void {
     WeaponDamageQuest,
     SpellDamageQuest,
     DonateQuest,
-  ]);
+  ];
+  const tasks: Task[] = getTasks(questList);
+
+  print("Running the Quests in the following order:", "blue");
+  questList.forEach((quest) => print(quest.name, "blue"));
+
   const engine = new Engine(tasks);
   try {
     setAutoAttack(0);
