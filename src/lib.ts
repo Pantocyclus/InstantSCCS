@@ -599,8 +599,9 @@ export function computeCombatFrequency(): number {
   const powerfulGlove =
     have($item`Powerful Glove`) && !forbiddenEffects.includes($effect`Invisible Avatar`) ? -10 : 0;
   const shoeGum = get("hasDetectiveSchool") && !get("instant_saveCopDollars", false) ? -5 : 0;
-  const silentRunning = -5;
+  const silentRunning = have($item`Clan VIP Lounge key`) ? -5 : 0;
   const feelingLonely = have($skill`Feel Lonely`) ? -5 : 0;
+  const aprilingBandPatrolBeat = have($item`Apriling band helmet`) ? -10 : 0;
 
   // Since Offhand Remarkable is useful for tests after famwt + NC, if it is being used at all,
   // we should not burn most of its turns on famwt (i.e. NC -> famwt)
@@ -621,6 +622,7 @@ export function computeCombatFrequency(): number {
     shoeGum,
     silentRunning,
     feelingLonely,
+    aprilingBandPatrolBeat,
     // offhandRemarkable,
   ]);
 
