@@ -1506,7 +1506,7 @@ export const LevelingQuest: Quest = {
       do: (): void => {
         if (myMeat() < 500) throw new Error("Insufficient Meat to purchase Bee's Knees!");
         tryAcquiringEffect($effect`Ode to Booze`);
-        visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=5&pwd=${+myHash()}`); // Bee's Knees
+        visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=5&pwd=${myHash()}`); // Bee's Knees
       },
       limit: { tries: 1 },
     },
@@ -1521,13 +1521,9 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Apriling Band Quad Tom Sandworms",
-      completed: () => !have($item`Apriling band quad tom`) || get("_aprilBandTomUses", 0) >= 3,
+      completed: () => !have($item`Apriling band quad tom`) || get("_aprilBandTomUses") >= 3,
       do: (): void => {
-        visitUrl(
-          `inventory.php?pwd=${myHash()}&iid=${$item`Apriling band quad tom`.id}&action=aprilplay`,
-          false,
-          true,
-        );
+        cliExecute("aprilband play quad");
         visitUrl("main.php");
       },
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
@@ -1545,7 +1541,7 @@ export const LevelingQuest: Quest = {
         get("_mimicEggsObtained") > 0 ||
         !have($familiar`Chest Mimic`) ||
         (!(have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) &&
-          !(have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses", 0) < 3)),
+          !(have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3)),
       do: (): void => {
         const currentFamiliar = myFamiliar();
         if (have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) {
@@ -1553,16 +1549,10 @@ export const LevelingQuest: Quest = {
           equip($slot`familiar`, $item`blue plate`);
         }
         useFamiliar($familiar`Chest Mimic`);
-        if (have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses", 0) < 3) {
+        if (have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3) {
           Array(3 - get("_aprilBandPiccoloUses", 0))
             .fill(0)
-            .forEach(() =>
-              visitUrl(
-                `inventory.php?pwd=${myHash()}&iid=${$item`Apriling band piccolo`.id}&action=aprilplay`,
-                false,
-                true,
-              ),
-            );
+            .forEach(() => cliExecute("aprilband play picc"));
         }
         visitUrl(`place.php?whichplace=town_right&action=townright_dna`);
         visitUrl(`choice.php?pwd&whichchoice=1517&mid=${$monster`sausage goblin`.id}&option=2`);

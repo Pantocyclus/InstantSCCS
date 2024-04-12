@@ -7,7 +7,6 @@ import {
   familiarWeight,
   haveEffect,
   itemAmount,
-  myHash,
   mySign,
   numericModifier,
   print,
@@ -177,15 +176,11 @@ export const FamiliarWeightQuest: Quest = {
 
         if (
           have($item`Apriling band piccolo`) &&
-          get("_aprilBandPiccoloUses", 0) < 3 &&
+          get("_aprilBandPiccoloUses") < 3 &&
           CommunityService.FamiliarWeight.actualCost() > 1
         ) {
           Array(3 - get("_aprilBandPiccoloUses", 0)).forEach(() =>
-            visitUrl(
-              `inventory.php?pwd=${myHash()}&iid=${$item`Apriling band piccolo`.id}&action=aprilplay`,
-              false,
-              true,
-            ),
+            cliExecute("aprilband play picc"),
           );
         }
 

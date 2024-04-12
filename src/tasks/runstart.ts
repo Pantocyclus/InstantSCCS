@@ -17,7 +17,6 @@ import {
   Item,
   itemAmount,
   min,
-  myHash,
   myInebriety,
   myMaxhp,
   myMaxmp,
@@ -516,20 +515,15 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Set Apriling Band Helmet (NC)",
-      completed: () => !have($item`Apriling band helmet`) || get("nextAprilBandTurn", 0) > 0,
-      do: (): void => {
-        visitUrl("inventory.php?&pwd&action=apriling");
-        runChoice(1); // Get Apriling Band Patrol Beat
-        runChoice(9); // March On
-        visitUrl("main.php");
-      },
+      completed: () => !have($item`Apriling band helmet`) || get("nextAprilBandTurn") > 0,
+      do: () => cliExecute("aprilband effect nc"),
       limit: { tries: 1 },
     },
     {
       name: "Get Apriling Band Instruments",
       completed: () =>
         !have($item`Apriling band helmet`) ||
-        get("_aprilBandInstruments", 0) >=
+        get("_aprilBandInstruments") >=
           min(
             2,
             [
@@ -540,8 +534,6 @@ export const RunStartQuest: Quest = {
             ].filter((pref) => !get(pref, false)).length,
           ),
       do: (): void => {
-        visitUrl("inventory.php?&pwd&action=apriling"); // Enter the choice adventure
-
         let quadTomValue = 4; // Free sandworm fights (saves 3 CBB turns)
         let saxophoneValue = 3; // 2 hotres (saves 2 hot test turns) + Lucky!
         const staffValue = 2; // +10% myst, +20sdmg, +10%sdmg
@@ -564,13 +556,12 @@ export const RunStartQuest: Quest = {
         )
           piccoloValue += 10;
 
-        // Pick the instruments
         [
-          ...new Map<Item, [number, number]>([
-            [$item`Apriling band quad tom`, [quadTomValue, 5]],
-            [$item`Apriling band saxophone`, [saxophoneValue, 4]],
-            [$item`Apriling band staff`, [staffValue, 7]],
-            [$item`Apriling band piccolo`, [piccoloValue, 8]],
+          ...new Map<Item, number>([
+            [$item`Apriling band quad tom`, quadTomValue],
+            [$item`Apriling band saxophone`, saxophoneValue],
+            [$item`Apriling band staff`, staffValue],
+            [$item`Apriling band piccolo`, piccoloValue],
           ]),
         ]
           .filter(
@@ -578,12 +569,12 @@ export const RunStartQuest: Quest = {
               !have(it) && // Remove option if we already have the item
               !get(`instant_save${it.name.replace(/( \w)/, (_, g) => g.toUpperCase())}`, false), // or if we chose to not acquire it
           )
-          .sort(([, [, a]], [, [, b]]) => b - a) // Sort the instruments in decreasing priority value (the higher the better)
-          .slice(0, 2 - get("_aprilBandInstruments", 0)) // We can acquire at most 2 instruments
-          .forEach(([, [, choiceNumber]]) => runChoice(choiceNumber)); // Acquire the instrument
-
-        runChoice(9); // March On
-        visitUrl("main.php");
+          .sort(([, a], [, b]) => b - a) // Sort the instruments in decreasing priority value (the higher the better)
+          .slice(0, 2 - get("_aprilBandInstruments")) // We can acquire at most 2 instruments
+          .forEach(([it]) => {
+            const instrument = it.name.split("Apriling band ")[1].split(" ")[0];
+            cliExecute(`aprilband item ${instrument}`);
+          }); // Acquire the instrument
       },
       limit: { tries: 1 },
     },
@@ -768,13 +759,8 @@ export const RunStartQuest: Quest = {
         have($effect`Lucky!`),
       completed: () => myInebriety() >= 1 || get("instant_skipDistilledFortifiedWine", false),
       do: (): void => {
-        if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`)) {
-          visitUrl(
-            `inventory.php?pwd=${myHash()}&iid=${$item`Apriling band saxophone`.id}&action=aprilplay`,
-            false,
-            true,
-          );
-        }
+        if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`))
+          cliExecute("aprilband play sax");
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);
         if (!have($item`distilled fortified wine`)) adv1($location`The Sleazy Back Alley`, -1);
         while (have($item`distilled fortified wine`) && myInebriety() < 1) {
