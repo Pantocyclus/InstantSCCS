@@ -99,7 +99,7 @@ We will also need 2 Vegetable of Jarlsberg drops in those same ~55 turns in orde
 
 As an added benefit, the MP regen from curse of weaksauce and soul food from being a Sauceror, as well as the additional crafted reagent potions for powerleveling, tends to be invaluable to low shiny accounts.<br/>
 
-However, if you are sufficiently shiny, the script has been proven to work with all classes. Note that this requires having 0 reliance on any CBB foods that are crafted in run. Additionally, we require [Prevent Scurvy and Sobriety](https://kol.coldfront.net/thekolwiki/index.php/Prevent_Scurvy_and_Sobriety) to be permed for Mus classes and an [Evil Olive](https://kol.coldfront.net/thekolwiki/index.php/Evil_Olive) available in your [locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket) for Mox classes.<br/>
+However, if you are sufficiently shiny, the script has been proven to work with all classes. Note that this requires having 0 reliance on any CBB foods that are crafted in run. Additionally, we require [Prevent Scurvy and Sobriety](https://kol.coldfront.net/thekolwiki/index.php/Prevent_Scurvy_and_Sobriety) to be permed for Mus classes; for Mox classes, you must have an [Evil Olive](https://kol.coldfront.net/thekolwiki/index.php/Evil_Olive) available in your [locket](https://kol.coldfront.net/thekolwiki/index.php/Combat_lover%27s_locket), or own both a [Chest Mimic](https://kol.coldfront.net/thekolwiki/index.php/Chest_Mimic) familiar and an [Apriling band helmet](https://kol.coldfront.net/thekolwiki/index.php/Apriling_band_helmet).<br/>
 
 ### What IotMs are currently supported and how are they being used by the script?
 

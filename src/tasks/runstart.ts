@@ -17,6 +17,7 @@ import {
   Item,
   itemAmount,
   min,
+  myFamiliar,
   myInebriety,
   myMaxhp,
   myMaxmp,
@@ -35,6 +36,7 @@ import {
   totalFreeRests,
   turnsPlayed,
   use,
+  useFamiliar,
   useSkill,
   visitUrl,
 } from "kolmafia";
@@ -554,12 +556,10 @@ export const RunStartQuest: Quest = {
           (have($item`backup camera`) && get("instant_saveBackups", 0) < 11) ||
           (have($skill`Recall Facts: Monster Habitats`) &&
             get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0));
-        if (
-          canUseMimic &&
-          canUseCopier // ||
-          // (mainStat === $stat`Moxie` && !have($item`combat lover's locket`)) // to be added if we want to support mimic-egging an evil olive
-        )
-          piccoloValue += 10;
+        const needOlive =
+          mainStat === $stat`Moxie` &&
+          !CombatLoversLocket.availableLocketMonsters().includes($monster`Evil Olive`);
+        if (canUseMimic && (canUseCopier || needOlive)) piccoloValue += 10;
 
         [
           ...new Map<Item, number>([
@@ -595,6 +595,62 @@ export const RunStartQuest: Quest = {
       name: "Use Mind Control Device",
       completed: () => currentMcd() >= 10 || !canadiaAvailable(),
       do: () => changeMcd(11),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Mimic Evil Olive",
+      prepare: (): void => {
+        if (useParkaSpit) {
+          cliExecute("parka dilophosaur");
+        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
+          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
+          buy($item`yellow rocket`, 1);
+        }
+        unbreakableUmbrella();
+        if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
+      },
+      completed: () =>
+        mainStat !== $stat`Moxie` ||
+        CombatLoversLocket.availableLocketMonsters().includes($monster`Evil Olive`) ||
+        have($item`jumbo olive`) ||
+        get("instant_saveMimicEggs", false) ||
+        get("_mimicEggsObtained") > 0 ||
+        !have($familiar`Chest Mimic`) ||
+        (!(have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) &&
+          !(have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3)),
+      do: (): void => {
+        const currentFamiliar = myFamiliar();
+        if (have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) {
+          useFamiliar($familiar`Shorter-Order Cook`);
+          equip($slot`familiar`, $item`blue plate`);
+        }
+        useFamiliar($familiar`Chest Mimic`);
+        if (have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3) {
+          retrieveItem($item`Apriling band piccolo`); // We can't play the piccolo if it's equipped on a non-current familiar
+          Array(3 - get("_aprilBandPiccoloUses"))
+            .fill(0)
+            .forEach(() => cliExecute("aprilband play picc"));
+        }
+        visitUrl(`place.php?whichplace=town_right&action=townright_dna`);
+        visitUrl(`choice.php?pwd&whichchoice=1517&mid=${$monster`Evil Olive`.id}&option=2`);
+        useFamiliar(currentFamiliar);
+        visitUrl(`choice.php?pwd&whichchoice=1516&mid=${$monster`Evil Olive`.id}&option=1`);
+      },
+      combat: new CombatStrategy().macro(
+        (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
+          .tryItem($item`yellow rocket`)
+          .abort(),
+      ),
+      outfit: () => ({
+        ...baseOutfit(false),
+        shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
+        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
+      }),
+      post: (): void => {
+        if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
+          use($item`MayDay™ supply package`, 1);
+        if (have($item`space blanket`)) autosell($item`space blanket`, 1);
+      },
       limit: { tries: 1 },
     },
     {
