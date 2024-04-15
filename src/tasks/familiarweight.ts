@@ -10,6 +10,7 @@ import {
   mySign,
   numericModifier,
   print,
+  retrieveItem,
   toInt,
   use,
   useFamiliar,
@@ -179,6 +180,7 @@ export const FamiliarWeightQuest: Quest = {
           get("_aprilBandPiccoloUses") < 3 &&
           CommunityService.FamiliarWeight.actualCost() > 1
         ) {
+          retrieveItem($item`Apriling band piccolo`); // We can't play the piccolo if it's equipped on a non-current familiar
           Array(3 - get("_aprilBandPiccoloUses")).forEach(() => cliExecute("aprilband play picc"));
         }
 
