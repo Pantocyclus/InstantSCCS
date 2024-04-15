@@ -18360,7 +18360,7 @@ var RunStartQuest = {
       var piccoloValue = 1; // +10 famwt, +120 famxp (potentially great for chest mimic)
       // If we aren't using the CBB nor melodramedary, we probably have enough fam turns
 
-      if (!cookbookbat() && !melodramedary) quadTomValue -= 10; // If we can saber run with extinguisher, the hot res is probably not very useful
+      if (!cookbookbat() && !melodramedary()) quadTomValue -= 10; // If we can saber run with extinguisher, the hot res is probably not very useful
 
       if (lib_have(template_string_$item(runstart_templateObject87 || (runstart_templateObject87 = runstart_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) && lib_have(template_string_$item(runstart_templateObject88 || (runstart_templateObject88 = runstart_taggedTemplateLiteral(["industrial fire extinguisher"]))))) saxophoneValue -= 10; // If we can benefit greatly from the famxp, we should highly prioritize the piccolo
       // (to consider: but it isn't very useful if we already have other copyable sources available)
