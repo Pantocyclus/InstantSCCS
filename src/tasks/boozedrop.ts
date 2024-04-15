@@ -313,7 +313,7 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         have($effect`Spitting Rhymes`) ||
         !have($item`2002 Mr. Store Catalog`) ||
-        get("availableMrStore2002Credits", 0) <= get("instant_saveCatalogCredits", 0) ||
+        get("availableMrStore2002Credits") <= get("instant_saveCatalogCredits", 0) ||
         forbiddenEffects.includes($effect`Spitting Rhymes`),
       do: (): void => {
         if (!have($item`Loathing Idol Microphone`)) {

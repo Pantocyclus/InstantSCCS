@@ -363,7 +363,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         have($effect`Hot in Herre`) ||
         !have($item`2002 Mr. Store Catalog`) ||
-        get("availableMrStore2002Credits", 0) <= get("instant_saveCatalogCredits", 0) ||
+        get("availableMrStore2002Credits") <= get("instant_saveCatalogCredits", 0) ||
         forbiddenEffects.includes($effect`Hot in Herre`),
       do: (): void => {
         if (!have($item`Charter: Nellyville`)) {
@@ -376,7 +376,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Crimbo Candy",
       completed: () =>
-        get("_candySummons", 0) > 0 ||
+        get("_candySummons") > 0 ||
         !have($skill`Summon Crimbo Candy`) ||
         !have($skill`Sweet Synthesis`),
       do: () => useSkill($skill`Summon Crimbo Candy`),
@@ -495,7 +495,7 @@ export const LevelingQuest: Quest = {
         forbiddenEffects.includes(xpWishEffect) ||
         get("instant_saveMonkeysPaw", false) ||
         myBasestat(mainStat) >= targetBaseMainStat - targetBaseMainStatGap ||
-        get("_monkeyPawWishesUsed", 0) >= 2,
+        get("_monkeyPawWishesUsed") >= 2,
       do: (): void => {
         wishFor(xpWishEffect, false);
       },
@@ -967,7 +967,7 @@ export const LevelingQuest: Quest = {
         restoreMp(50);
       },
       completed: () =>
-        get("_leafMonstersFought", 0) >= 5 ||
+        get("_leafMonstersFought") >= 5 ||
         !have($item`inflammable leaf`, 11) ||
         get("instant_saveLeafFights", false),
       do: (): void => {
@@ -1100,7 +1100,7 @@ export const LevelingQuest: Quest = {
       name: "Restore cinch",
       completed: () =>
         get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0) ||
-        get("_cinchUsed", 0) <= 95 ||
+        get("_cinchUsed") <= 95 ||
         !useCinch,
       prepare: (): void => {
         if (have($item`Newbiesport™ tent`)) use($item`Newbiesport™ tent`);
@@ -1263,7 +1263,7 @@ export const LevelingQuest: Quest = {
         if (SourceTerminal.have()) cliExecute("terminal educate portscan");
       },
       completed: () =>
-        get("_speakeasyFreeFights", 0) >= 1 ||
+        get("_speakeasyFreeFights") >= 1 ||
         !get("ownsSpeakeasy") ||
         !have($skill`Map the Monsters`) ||
         get("_monstersMapped") >= 3,
@@ -1289,7 +1289,7 @@ export const LevelingQuest: Quest = {
         if (SourceTerminal.have()) cliExecute("terminal educate portscan");
       },
       completed: () =>
-        get("_speakeasyFreeFights", 0) >= 2 ||
+        get("_speakeasyFreeFights") >= 2 ||
         !get("ownsSpeakeasy") ||
         !SourceTerminal.have() ||
         get("_sourceTerminalPortscanUses") > 0,
@@ -1309,7 +1309,7 @@ export const LevelingQuest: Quest = {
         unbreakableUmbrella();
         restoreMp(50);
       },
-      completed: () => get("_speakeasyFreeFights", 0) >= 3 || !get("ownsSpeakeasy"),
+      completed: () => get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy"),
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(Macro.default()),
       outfit: baseOutfit,
@@ -1550,7 +1550,7 @@ export const LevelingQuest: Quest = {
         }
         useFamiliar($familiar`Chest Mimic`);
         if (have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3) {
-          Array(3 - get("_aprilBandPiccoloUses", 0))
+          Array(3 - get("_aprilBandPiccoloUses"))
             .fill(0)
             .forEach(() => cliExecute("aprilband play picc"));
         }

@@ -333,7 +333,7 @@ export function wishFor(ef: Effect, useGenie = true): void {
   if (
     have($item`cursed monkey's paw`) &&
     !get("instant_saveMonkeysPaw", false) &&
-    get("_monkeyPawWishesUsed", 0) < 5
+    get("_monkeyPawWishesUsed") < 5
   ) {
     if (monkeyPaw(ef)) return;
   }
@@ -508,7 +508,7 @@ export function camelFightsLeft(): number {
   const witchess = Witchess.have() ? 5 - get("_witchessFights") : 0;
   const DMT = have($familiar`Machine Elf`) ? 5 - get("_machineTunnelsAdv") : 0;
   const LOV = get("loveTunnelAvailable") && !get("_loveTunnelToday") ? 3 : 0;
-  const olivers = get("ownsSpeakeasy") ? 3 - get("_speakeasyFreeFights", 0) : 0;
+  const olivers = get("ownsSpeakeasy") ? 3 - get("_speakeasyFreeFights") : 0;
   const tentacle = get("_eldritchTentacleFought") ? 1 : 0;
   const sausageGoblin = getKramcoWandererChance() >= 1.0 ? 1 : 0;
   const XRay = have($item`Lil' Doctor™ bag`) ? 3 - get("_chestXRayUsed") : 0;
@@ -533,7 +533,7 @@ export function camelFightsLeft(): number {
 
   const leafFreeFights =
     haveInCampground($item`A Guide to Burning Leaves`) && !get("instant_saveLeafFights", false)
-      ? 5 - toInt(get("_leafMonstersFought", 0))
+      ? 5 - toInt(get("_leafMonstersFought"))
       : 0; //It's possible we get fewer than 5 fights; it has not happened to me in almost a month of testing
 
   return sumNumbers([

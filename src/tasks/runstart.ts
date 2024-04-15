@@ -316,7 +316,7 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Detective School",
-      completed: () => get("_detectiveCasesCompleted", 0) >= 3 || !get("hasDetectiveSchool"),
+      completed: () => get("_detectiveCasesCompleted") >= 3 || !get("hasDetectiveSchool"),
       do: () => cliExecute("Detective Solver"),
       limit: { tries: 3 },
     },

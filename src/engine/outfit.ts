@@ -59,7 +59,7 @@ export function sugarItemsAboutToBreak(): Item[] {
 }
 
 function nanorhino(allowAttackingFamiliars = false): Familiar {
-  return allowAttackingFamiliars && get("_nanorhinoCharge", 0) === 100
+  return allowAttackingFamiliars && get("_nanorhinoCharge") === 100
     ? $familiar`Nanorhino`
     : $familiar.none;
 }
@@ -148,7 +148,7 @@ export function avoidDaylightShavingsHelm(): boolean {
 function useCandyCaneSword(): boolean {
   if (!have($item`candy cane sword cane`) || get("instant_saveCandySword", false)) return false;
   examine($item`candy cane sword cane`);
-  if (get("_surprisinglySweetSlashUsed", 0) < 11 || get("_surprisinglySweetStabUsed", 0) < 11) {
+  if (get("_surprisinglySweetSlashUsed") < 11 || get("_surprisinglySweetStabUsed") < 11) {
     return true;
   }
   return false;
@@ -169,7 +169,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     offhand: $item`unbreakable umbrella`,
     acc1: myPrimestat() === $stat`Mysticality` ? $item`codpiece` : undefined,
     acc2:
-      have($item`Cincho de Mayo`) && get("_cinchUsed", 0) < 95 && !get("instant_saveCinch", false)
+      have($item`Cincho de Mayo`) && get("_cinchUsed") < 95 && !get("instant_saveCinch", false)
         ? $item`Cincho de Mayo`
         : undefined,
     acc3: $item`spring shoes`,

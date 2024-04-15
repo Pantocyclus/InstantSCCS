@@ -179,9 +179,7 @@ export const FamiliarWeightQuest: Quest = {
           get("_aprilBandPiccoloUses") < 3 &&
           CommunityService.FamiliarWeight.actualCost() > 1
         ) {
-          Array(3 - get("_aprilBandPiccoloUses", 0)).forEach(() =>
-            cliExecute("aprilband play picc"),
-          );
+          Array(3 - get("_aprilBandPiccoloUses")).forEach(() => cliExecute("aprilband play picc"));
         }
 
         if (

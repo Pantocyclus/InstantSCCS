@@ -212,7 +212,7 @@ export const MoxieQuest: Quest = {
       completed: () =>
         have($item`red-soled high heels`) ||
         !have($item`2002 Mr. Store Catalog`) ||
-        get("availableMrStore2002Credits", 0) <= get("instant_saveCatalogCredits", 0) ||
+        get("availableMrStore2002Credits") <= get("instant_saveCatalogCredits", 0) ||
         get("instant_skipHighHeels", false),
       do: (): void => {
         if (!have($item`Letter from Carrie Bradshaw`)) {
