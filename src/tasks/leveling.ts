@@ -1561,7 +1561,16 @@ export const LevelingQuest: Quest = {
         useFamiliar(currentFamiliar);
         visitUrl(`choice.php?pwd&whichchoice=1516&mid=${$monster`sausage goblin`.id}&option=1`);
       },
-      combat: new CombatStrategy().macro(Macro.default(useCinch)),
+      combat: new CombatStrategy().macro(() =>
+        Macro.externalIf(
+          get("_monsterHabitatsFightsLeft") <= 1 &&
+            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
+            have($skill`Recall Facts: Monster Habitats`) &&
+            (haveFreeBanish() ||
+              Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
+          Macro.trySkill($skill`Recall Facts: Monster Habitats`),
+        ).default(useCinch),
+      ),
       outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();

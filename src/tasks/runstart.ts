@@ -547,11 +547,16 @@ export const RunStartQuest: Quest = {
           saxophoneValue -= 10;
 
         // If we can benefit greatly from the famxp, we should highly prioritize the piccolo
-        // (to consider: but it isn't very useful if we already have other copyable sources available)
+        // (to consider: but it isn't very useful if we already have other copyable sources available [e.g. kramco])
+        const canUseMimic =
+          have($familiar`Chest Mimic`) && excludedFamiliars.includes(toInt($familiar`Chest Mimic`));
+        const canUseCopier =
+          (have($item`backup camera`) && get("instant_saveBackups", 0) < 11) ||
+          (have($skill`Recall Facts: Monster Habitats`) &&
+            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0));
         if (
-          (have($familiar`Chest Mimic`) &&
-            excludedFamiliars.includes(toInt($familiar`Chest Mimic`))) ||
-          (have($item`backup camera`) && get("instant_saveBackups", 0) < 11) // ||
+          canUseMimic &&
+          canUseCopier // ||
           // (mainStat === $stat`Moxie` && !have($item`combat lover's locket`)) // to be added if we want to support mimic-egging an evil olive
         )
           piccoloValue += 10;
