@@ -14414,7 +14414,7 @@ function orderByRoute(tasks, routing, ignore_missing_tasks) {
 
 
 ;// CONCATENATED MODULE: ./src/engine/engine.ts
-var engine_engine_templateObject, engine_engine_templateObject2, engine_templateObject3, engine_templateObject4, engine_templateObject5;
+var engine_engine_templateObject, engine_engine_templateObject2, engine_templateObject3, engine_templateObject4, engine_templateObject5, engine_templateObject6;
 
 function engine_engine_toConsumableArray(arr) { return engine_engine_arrayWithoutHoles(arr) || engine_engine_iterableToArray(arr) || engine_engine_unsupportedIterableToArray(arr) || engine_engine_nonIterableSpread(); }
 
@@ -14487,7 +14487,7 @@ var freeKillResources = [new trackedResource("_chestXRayUsed", "Chest X-Ray", 3)
 var notableSkillResources = [new trackedResource("_saberForceUses", "Saber Forces", 5), new trackedResource("_monstersMapped", "Monsters Mapped", 3), new trackedResource("_feelEnvyUsed", "Feel Envy", 3), new trackedResource("_sourceTerminalDigitizeUses", "Digitize", 3), new trackedResource("_sourceTerminalPortscanUses", "Portscan", 3), new trackedResource("_sourceTerminalEnhanceUses", "Source Terminal Enhances", 3), new trackedResource("_sourceTerminalDuplicateUses", "Duplicate", 1)];
 var freeFightResources = [new trackedResource("_shadowAffinityToday", "Shadow Rift", 11), new trackedResource("_snojoFreeFights", "Snojo", 10), new trackedResource("_neverendingPartyFreeTurns", "NEP", 10), new trackedResource("_witchessFights", "Witchess", 5), new trackedResource("_machineTunnelsAdv", "DMT", 5), new trackedResource("_loveTunnelUsed", "LOV Tunnel", 3), new trackedResource("_voteFreeFights", "Voters", 3), new trackedResource("_godLobsterFights", "God Lobster", 3), new trackedResource("_speakeasyFreeFights", "Oliver's Place", 3), new trackedResource("_aprilBandTomUses", "Apriling Band Quad Tom", 3), new trackedResource("_eldritchHorrorEvoked", "Eldritch Tentacle", 1), new trackedResource("_sausageFights", "Sausage Goblins")];
 var potentiallyFreeFightResources = [new trackedResource("_backUpUses", "Backup Camera", 11), new trackedResource("_leafMonstersFought", "Flaming Leaflets", 5), new trackedResource("_locketMonstersFought", "Locket Reminisces", 3), new trackedResource("_photocopyUsed", "Fax Machine", 1), new trackedResource("_chateauMonsterFought", "Chateau Painting", 1)];
-var farmingResourceResources = [new trackedResource("_powerfulGloveBatteryPowerUsed", "Powerful Glove Charges", 100), new trackedResource("_cinchUsed", "Cinch", 100), new trackedResource("_kgbClicksUsed", "KGB Clicks", 22), new trackedResource("_deckCardsDrawn", "Deck Draws", 15), new trackedResource("_mimicEggsObtained", "Mimic Eggs", 11), new trackedResource("_macrometeoriteUses", "Macrometeorites", 10), new trackedResource("_AAABatteriesUsed", "Batteries (AAA)", 7), new trackedResource("_augSkillsCasts", "August Scepter Charges", 5), new trackedResource("_monkeyPawWishesUsed", "Monkey Paw Wishes", 5), new trackedResource("tomeSummons", "Tome Summons", 3), new trackedResource(template_string_$item(engine_engine_templateObject || (engine_engine_templateObject = engine_engine_taggedTemplateLiteral(["pocket wish"]))), "Genie Wishes", 3), new trackedResource("_pottedTeaTreeUsed", "Tea Tree", 3), new trackedResource(template_string_$item(engine_engine_templateObject2 || (engine_engine_templateObject2 = engine_engine_taggedTemplateLiteral(["peppermint sprout"]))), "Peppermint Sprout", 3), new trackedResource("_monsterHabitatsRecalled", "Monster Habitats", 3), new trackedResource("_aprilBandInstruments", "April Band Instruments", 2), new trackedResource("_favoriteBirdVisited", "Favorite Bird", 1), new trackedResource("_clanFortuneBuffUsed", "Zatara Consult", 1), new trackedResource("_floundryItemCreated", "Clan Floundry", 1), new trackedResource("_gingerbreadCityNoonCompleted", "GingerbreadCity Noon", 1), new trackedResource("_gingerbreadCityMidnightCompleted", "GingerbreadCity Midnight", 1), new trackedResource("_pantogramModifier", "Pantogram", 1), new trackedResource("_cargoPocketEmptied", "Cargo Shorts", 1), new trackedResource("_freePillKeeperUsed", "Pillkeeper", 1), new trackedResource("timesRested", "Free Rests", (0,external_kolmafia_namespaceObject.totalFreeRests)())];
+var farmingResourceResources = [new trackedResource("_powerfulGloveBatteryPowerUsed", "Powerful Glove Charges", 100), new trackedResource("_cinchUsed", "Cinch", 100), new trackedResource("_kgbClicksUsed", "KGB Clicks", 22), new trackedResource("_deckCardsDrawn", "Deck Draws", 15), new trackedResource("_mimicEggsObtained", "Mimic Eggs", 11), new trackedResource("_macrometeoriteUses", "Macrometeorites", 10), new trackedResource(template_string_$item(engine_engine_templateObject || (engine_engine_templateObject = engine_engine_taggedTemplateLiteral(["battery (AAA)"]))), "Batteries (AAA)", 7), new trackedResource(template_string_$item(engine_engine_templateObject2 || (engine_engine_templateObject2 = engine_engine_taggedTemplateLiteral(["pocket wish"]))), "Pocket Wishes (Genie + BofA)", 6), new trackedResource("_augSkillsCasts", "August Scepter Charges", 5), new trackedResource("_monkeyPawWishesUsed", "Monkey Paw Wishes", 5), new trackedResource("tomeSummons", "Tome Summons", 3), new trackedResource("_pottedTeaTreeUsed", "Tea Tree", 3), new trackedResource(template_string_$item(engine_templateObject3 || (engine_templateObject3 = engine_engine_taggedTemplateLiteral(["peppermint sprout"]))), "Peppermint Sprout", 3), new trackedResource("_monsterHabitatsRecalled", "Monster Habitats", 3), new trackedResource("_aprilBandInstruments", "April Band Instruments", 2), new trackedResource("_favoriteBirdVisited", "Favorite Bird", 1), new trackedResource("_clanFortuneBuffUsed", "Zatara Consult", 1), new trackedResource("_floundryItemCreated", "Clan Floundry", 1), new trackedResource("_gingerbreadCityNoonCompleted", "GingerbreadCity Noon", 1), new trackedResource("_gingerbreadCityMidnightCompleted", "GingerbreadCity Midnight", 1), new trackedResource("_pantogramModifier", "Pantogram", 1), new trackedResource("_cargoPocketEmptied", "Cargo Shorts", 1), new trackedResource("_freePillKeeperUsed", "Pillkeeper", 1), new trackedResource("timesRested", "Free Rests", (0,external_kolmafia_namespaceObject.totalFreeRests)())];
 var trackedResources = [].concat(freeBanishResources, freeKillResources, notableSkillResources, freeFightResources, potentiallyFreeFightResources, farmingResourceResources);
 var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
   engine_inherits(Engine, _BaseEngine);
@@ -14520,10 +14520,10 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
 
       engine_get(engine_getPrototypeOf(Engine.prototype), "execute", this).call(this, task);
 
-      if (lib_have(template_string_$effect(engine_templateObject3 || (engine_templateObject3 = engine_engine_taggedTemplateLiteral(["Beaten Up"]))))) {
+      if (lib_have(template_string_$effect(engine_templateObject4 || (engine_templateObject4 = engine_engine_taggedTemplateLiteral(["Beaten Up"]))))) {
         if ([// "Poetic Justice", // grimoire automatically re-runs certain tasks here (https://github.com/loathers/grimoire/blob/main/src/engine.ts#L525)
         // "Lost and Found", // this includes all cleaver non-combats, so the script would never see these in lastEncounter
-        "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(property_get("lastEncounter"))) uneffect(template_string_$effect(engine_templateObject4 || (engine_templateObject4 = engine_engine_taggedTemplateLiteral(["Beaten Up"]))));else throw "Fight was lost; stop.";
+        "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(property_get("lastEncounter"))) uneffect(template_string_$effect(engine_templateObject5 || (engine_templateObject5 = engine_engine_taggedTemplateLiteral(["Beaten Up"]))));else throw "Fight was lost; stop.";
       }
 
       originalValues.forEach(_ref2 => {
@@ -14531,11 +14531,18 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
             resource = _ref3[0],
             val = _ref3[1];
 
-        if (property_get(resource, "").toString().length > 0 ? val !== property_get(resource).toString() : (0,external_kolmafia_namespaceObject.itemAmount)((0,external_kolmafia_namespaceObject.toItem)(resource)) < (0,external_kolmafia_namespaceObject.toInt)(val)) {
-          var s = "_instant".concat(resource);
+        var trackingMafiaPref = property_get(resource, "").toString().length > 0;
+
+        if (trackingMafiaPref ? val !== property_get(resource).toString() : (0,external_kolmafia_namespaceObject.itemAmount)((0,external_kolmafia_namespaceObject.toItem)(resource)) < (0,external_kolmafia_namespaceObject.toInt)(val)) {
+          var s = "_instant_".concat(resource).replace("__", "_");
           var arr = property_get(s, "").split(",");
           arr.push(task.name);
           _set(s, arr.filter((v, i, a) => v.length > 0 && a.indexOf(v) === i).join(","));
+
+          if (!trackingMafiaPref) {
+            var usagePref = "".concat(s, "_used").replace("__", "_");
+            _set(usagePref, property_get(usagePref, 0) + (0,external_kolmafia_namespaceObject.toInt)(val) - (0,external_kolmafia_namespaceObject.itemAmount)((0,external_kolmafia_namespaceObject.toItem)(resource)));
+          }
         }
       });
       organUsage().forEach((organUse, idx) => {
@@ -14630,7 +14637,7 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
     value: function prepare(task) {
       engine_get(engine_getPrototypeOf(Engine.prototype), "prepare", this).call(this, task);
 
-      if (task.combat !== undefined && (0,external_kolmafia_namespaceObject.myHp)() < (0,external_kolmafia_namespaceObject.myMaxhp)() * 0.9) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(engine_templateObject5 || (engine_templateObject5 = engine_engine_taggedTemplateLiteral(["Cannelloni Cocoon"]))));
+      if (task.combat !== undefined && (0,external_kolmafia_namespaceObject.myHp)() < (0,external_kolmafia_namespaceObject.myMaxhp)() * 0.9) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(engine_templateObject6 || (engine_templateObject6 = engine_engine_taggedTemplateLiteral(["Cannelloni Cocoon"]))));
     }
   }, {
     key: "initPropertiesManager",
@@ -18360,7 +18367,7 @@ var RunStartQuest = {
       var piccoloValue = 1; // +10 famwt, +120 famxp (potentially great for chest mimic)
       // If we aren't using the CBB nor melodramedary, we probably have enough fam turns
 
-      if (!cookbookbat() && !melodramedary()) quadTomValue -= 10; // If we can saber run with extinguisher, the hot res is probably not very useful
+      if (cookbookbat() === template_string_$familiar.none && melodramedary() === template_string_$familiar.none) quadTomValue -= 10; // If we can saber run with extinguisher, the hot res is probably not very useful
 
       if (lib_have(template_string_$item(runstart_templateObject87 || (runstart_templateObject87 = runstart_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) && lib_have(template_string_$item(runstart_templateObject88 || (runstart_templateObject88 = runstart_taggedTemplateLiteral(["industrial fire extinguisher"]))))) saxophoneValue -= 10; // If we can benefit greatly from the famxp, we should highly prioritize the piccolo
       // (to consider: but it isn't very useful if we already have other copyable sources available [e.g. kramco])
@@ -19456,8 +19463,8 @@ function printResourceUsage(tResource) {
   var resource = tResource.resource;
   var name = tResource.name;
   var n = tResource.maxUses;
-  var localResourceValue = property_get("_instant".concat(resource), "").split(",").join(", ");
-  var resourceValue = typeof resource === "string" ? property_get(resource) : (0,external_kolmafia_namespaceObject.itemAmount)(resource);
+  var localResourceValue = property_get("_instant_".concat(resource).replace("__", "_"), "").split(",").join(", ");
+  var resourceValue = typeof resource === "string" ? property_get(resource) : property_get("_instant_".concat(resource, "_used").replace("__", "_"), "");
   var resourceValueLength = resourceValue.toString() !== "" ? resourceValue.toString().split(",").length : 0;
   if (typeof resourceValue === "boolean" || resourceValue === "true" || resourceValue === "false") (0,external_kolmafia_namespaceObject.print)("".concat(name, ": ").concat(resourceValue || resourceValue === "true" ? n !== null && n !== void 0 ? n : 1 : 0, "/").concat(n !== null && n !== void 0 ? n : "?", " ").concat(localResourceValue));else if (typeof resourceValue === "string" && (isNaN(parseInt(resourceValue)) || resourceValue.includes(",") || parseInt(resourceValue) > (n !== null && n !== void 0 ? n : 1))) (0,external_kolmafia_namespaceObject.print)("".concat(name, ": ").concat(resourceValueLength > (n !== null && n !== void 0 ? n : 1) ? n !== null && n !== void 0 ? n : 1 : resourceValueLength, "/").concat(n !== null && n !== void 0 ? n : "?", " ").concat(localResourceValue));else (0,external_kolmafia_namespaceObject.print)("".concat(name, ": ").concat(resourceValue, "/").concat(n !== null && n !== void 0 ? n : "?", " ").concat(localResourceValue));
 }
