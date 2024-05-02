@@ -542,7 +542,8 @@ export const RunStartQuest: Quest = {
         let piccoloValue = 1; // +10 famwt, +120 famxp (potentially great for chest mimic)
 
         // If we aren't using the CBB nor melodramedary, we probably have enough fam turns
-        if (!cookbookbat() && !melodramedary()) quadTomValue -= 10;
+        if (cookbookbat() === $familiar.none && melodramedary() === $familiar.none)
+          quadTomValue -= 10;
 
         // If we can saber run with extinguisher, the hot res is probably not very useful
         if (have($item`Fourth of May Cosplay Saber`) && have($item`industrial fire extinguisher`))
