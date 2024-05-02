@@ -2,7 +2,6 @@ import {
   cliExecute,
   fullnessLimit,
   inebrietyLimit,
-  itemAmount,
   myAscensions,
   myFullness,
   myInebriety,
@@ -38,8 +37,13 @@ function printResourceUsage(tResource: trackedResource): void {
   const name = tResource.name;
   const n = tResource.maxUses;
 
-  const localResourceValue = get(`_instant${resource}`, "").split(",").join(", ");
-  const resourceValue = typeof resource === "string" ? get(resource) : itemAmount(resource);
+  const localResourceValue = get(`_instant_${resource}`.replace("__", "_"), "")
+    .split(",")
+    .join(", ");
+  const resourceValue =
+    typeof resource === "string"
+      ? get(resource)
+      : get(`_instant_${resource}_used`.replace("__", "_"), "");
   const resourceValueLength =
     resourceValue.toString() !== "" ? resourceValue.toString().split(",").length : 0;
 
