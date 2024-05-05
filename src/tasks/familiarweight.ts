@@ -123,7 +123,9 @@ export const FamiliarWeightQuest: Quest = {
 
         const heaviestWeight =
           familiarWeight(chooseHeaviestFamiliar()) +
-          (have($item`astral pet sweater`) || have($item`Apriling band piccolo`) ? 10 : 0);
+          ([$item`Apriling band piccolo`, $item`amulet coin`, $item`astral pet sweater`].some(have)
+            ? 10
+            : 0);
         const commaWeight = 6 + 11 * get("homemadeRobotUpgrades");
         const useComma =
           $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
