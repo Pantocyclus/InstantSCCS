@@ -32,7 +32,6 @@ import Macro from "../combat";
 import {
   avoidDaylightShavingsHelm,
   chooseFamiliar,
-  chooseHeaviestFamiliar,
   sugarItemsAboutToBreak,
 } from "../engine/outfit";
 import { Quest } from "../engine/task";
@@ -215,7 +214,10 @@ export const FamiliarWeightQuest: Quest = {
           maxTurns,
         );
       },
-      outfit: () => ({ modifier: famTestMaximizerString, familiar: chooseHeaviestFamiliar() }),
+      outfit: () => ({
+        modifier: famTestMaximizerString,
+        familiar: chooseHeaviestEquippedFamiliar().familiar,
+      }),
       limit: { tries: 1 },
     },
   ],
