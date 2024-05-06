@@ -1,4 +1,4 @@
-import { buy, create, Effect, itemAmount, print, Stat, use, useSkill } from "kolmafia";
+import { buy, cliExecute, create, Effect, itemAmount, print, Stat, use, useSkill } from "kolmafia";
 import {
   $coinmaster,
   $effect,
@@ -42,6 +42,15 @@ function useBalancerForTest(testStat: Stat): void {
 export const HPQuest: Quest = {
   name: "HP",
   tasks: [
+    {
+      name: "Mayam Calendar (Post-leveling)",
+      completed: () =>
+        get("instant_saveMayamCalendar", false) || get("_mayamSymbolsUsed").includes("explosion"),
+      do: (): void => {
+        cliExecute(`mayam rings eye bottle wall explosion`);
+      },
+      limit: { tries: 1 },
+    },
     {
       name: "Test",
       completed: () => CommunityService.HP.isDone(),

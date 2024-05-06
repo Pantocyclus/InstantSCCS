@@ -78,7 +78,7 @@ function garbageFire(): Familiar {
   return !have($item`burning newspaper`) ? $familiar`Garbage Fire` : $familiar.none;
 }
 
-function sombrero(allowAttackingFamiliars = true): Familiar {
+export function sombrero(allowAttackingFamiliars = true): Familiar {
   const sombreros = [
     ...(allowAttackingFamiliars
       ? $familiars`Jill-of-All-Trades, Patriotic Eagle, Galloping Grill`

@@ -300,6 +300,7 @@ function sellMiscellaneousItems(): void {
     $item`dorky glasses`,
     $item`ponytail clip`,
     $item`paint palette`,
+    $item`goat cheese`,
     ...baseBoozes,
   ];
   items.forEach((it) => {
@@ -721,6 +722,18 @@ export const LevelingQuest: Quest = {
       },
       post: () => autosell($item`meat stack`, itemAmount($item`meat stack`)),
       limit: { tries: 23 },
+    },
+    {
+      name: "Mayam Calendar (Leveling)",
+      completed: () =>
+        get("instant_saveMayamCalendar", false) || get("_mayamSymbolsUsed").includes("yam4"),
+      do: (): void => {
+        const sym1 = mainStat === $stat`Muscle` ? "sword" : "vessel";
+        const sym2 = mainStat === $stat`Mysticality` ? "lightning" : "meat";
+        const sym3 = mainStat === $stat`Moxie` ? "eyepatch" : "cheese";
+        cliExecute(`mayam rings ${sym1} ${sym2} ${sym3} yam`);
+      },
+      limit: { tries: 1 },
     },
     {
       name: "BoomBox Meat",

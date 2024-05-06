@@ -223,7 +223,8 @@ const otherResources: Resource[] = [
     "instant_skipAutomaticOptimizations",
     "Do not conduct automatic optimization of the route",
   ),
-  new Resource("instant_saveCandySword", "Do not use Candy Cane Sword Cane's Stab and Slash."),
+  new Resource("instant_saveCandySword", "Do not use Candy Cane Sword Cane's Stab and Slash"),
+  new Resource("instant_saveMayamCalendar", "Do not Consider the Calendar"),
 ];
 
 const allResources = [
