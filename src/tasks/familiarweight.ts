@@ -28,8 +28,6 @@ import {
   get,
   have,
 } from "libram";
-import { Quest } from "../engine/task";
-import { handleCustomPulls, logTestSetup, tryAcquiringEffect } from "../lib";
 import Macro from "../combat";
 import {
   avoidDaylightShavingsHelm,
@@ -37,6 +35,13 @@ import {
   chooseHeaviestFamiliar,
   sugarItemsAboutToBreak,
 } from "../engine/outfit";
+import { Quest } from "../engine/task";
+import {
+  chooseHeaviestEquippedFamiliar,
+  handleCustomPulls,
+  logTestSetup,
+  tryAcquiringEffect,
+} from "../lib";
 
 const famTestMaximizerString = "familiar weight";
 
@@ -121,11 +126,7 @@ export const FamiliarWeightQuest: Quest = {
             $item`love song of icy revenge`,
           );
 
-        const heaviestWeight =
-          familiarWeight(chooseHeaviestFamiliar()) +
-          ([$item`Apriling band piccolo`, $item`amulet coin`, $item`astral pet sweater`].some(have)
-            ? 10
-            : 0);
+        const heaviestWeight = chooseHeaviestEquippedFamiliar().expectedWeight;
         const commaWeight = 6 + 11 * get("homemadeRobotUpgrades");
         const useComma =
           $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&

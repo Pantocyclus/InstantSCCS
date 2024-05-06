@@ -1,4 +1,5 @@
 import {
+  canEquip,
   chew,
   cliExecute,
   drink,
@@ -6,6 +7,8 @@ import {
   Effect,
   equip,
   equippedItem,
+  Familiar,
+  familiarWeight,
   getCampground,
   getClanName,
   gitInfo,
@@ -24,6 +27,7 @@ import {
   myMaxhp,
   myMp,
   myPrimestat,
+  numericModifier,
   print,
   restoreMp,
   retrieveItem,
@@ -492,6 +496,36 @@ export function burnLibram(saveMp: number): void {
   while (myMp() >= mpCost(chooseLibram()) + saveMp) {
     useSkill(chooseLibram());
   }
+}
+
+export function bestFamiliarEquip(checkedFamiliar: Familiar): Item {
+  const validEquips = Item.all().filter(
+    (it) => have(it) && numericModifier(it, "Familiar Weight") > 0 && canEquip(checkedFamiliar, it),
+  );
+  if (validEquips.length === 0) return $item.none;
+
+  return validEquips.reduce((a, b) =>
+    numericModifier(a, "Familiar Weight") > numericModifier(b, "Familiar Weight") ? a : b,
+  );
+}
+
+export function chooseHeaviestEquippedFamiliar(checkedFamiliars?: Familiar[]): {
+  familiar: Familiar;
+  equip: Item;
+  expectedWeight: number;
+} {
+  return (checkedFamiliars ?? Familiar.all())
+    .filter(have)
+    .map((familiar) => {
+      const bestEquip = bestFamiliarEquip(familiar);
+
+      return {
+        familiar,
+        equip: bestEquip,
+        expectedWeight: familiarWeight(familiar) + numericModifier(bestEquip, "Familiar Weight"),
+      };
+    })
+    .reduce((a, b) => (a.expectedWeight > b.expectedWeight ? a : b));
 }
 
 export function camelFightsLeft(): number {
