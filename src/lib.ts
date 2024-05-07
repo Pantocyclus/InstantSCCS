@@ -48,6 +48,7 @@ import {
   $class,
   $effect,
   $familiar,
+  $familiars,
   $item,
   $items,
   $monster,
@@ -509,13 +510,14 @@ export function bestFamiliarEquip(checkedFamiliar: Familiar): Item {
   );
 }
 
+const specialEquipFamiliars = $familiars`Disembodied Hand, Left-Hand Man, Mad Hatrack, Fancypants Scarecrow, Ghost of Crimbo Carols, Ghost of Crimbo Cheer, Ghost of Crimbo Commerce`;
 export function chooseHeaviestEquippedFamiliar(checkedFamiliars?: Familiar[]): {
   familiar: Familiar;
   equip: Item;
   expectedWeight: number;
 } {
   return (checkedFamiliars ?? Familiar.all())
-    .filter(have)
+    .filter((familiar) => have(familiar) && !specialEquipFamiliars.includes(familiar))
     .map((familiar) => {
       const bestEquip = bestFamiliarEquip(familiar);
 

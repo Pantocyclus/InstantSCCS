@@ -129,14 +129,6 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
   return familiars.length > 0 ? familiars[0] : defaultFam;
 }
 
-const specialEquipFamiliars = $familiars`Disembodied Hand, Left-Hand Man, Mad Hatrack, Fancypants Scarecrow, Ghost of Crimbo Carols, Ghost of Crimbo Cheer, Ghost of Crimbo Commerce`;
-export function chooseHeaviestFamiliar(): Familiar {
-  return maxBy(
-    Familiar.all().filter((fam) => have(fam) && !specialEquipFamiliars.includes(fam)),
-    (fam) => fam.experience,
-  );
-}
-
 export function avoidDaylightShavingsHelm(): boolean {
   return (
     DaylightShavings.nextBuff() === $effect`Musician's Musician's Moustache` ||
