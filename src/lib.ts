@@ -48,7 +48,6 @@ import {
   $class,
   $effect,
   $familiar,
-  $familiars,
   $item,
   $items,
   $monster,
@@ -69,7 +68,7 @@ import {
   Witchess,
 } from "libram";
 import { printModtrace } from "libram/dist/modifier";
-import { forbiddenEffects } from "./resources";
+import { excludedFamiliars, forbiddenEffects } from "./resources";
 
 export const startingClan = getClanName();
 export const motherSlimeClan = Clan.getWhitelisted().find(
@@ -510,14 +509,13 @@ export function bestFamiliarEquip(checkedFamiliar: Familiar): Item {
   );
 }
 
-const specialEquipFamiliars = $familiars`Disembodied Hand, Left-Hand Man, Mad Hatrack, Fancypants Scarecrow, Ghost of Crimbo Carols, Ghost of Crimbo Cheer, Ghost of Crimbo Commerce`;
 export function chooseHeaviestEquippedFamiliar(checkedFamiliars?: Familiar[]): {
   familiar: Familiar;
   equip: Item;
   expectedWeight: number;
 } {
   return (checkedFamiliars ?? Familiar.all())
-    .filter((familiar) => have(familiar) && !specialEquipFamiliars.includes(familiar))
+    .filter((familiar) => have(familiar) && !excludedFamiliars.includes(familiar.id))
     .map((familiar) => {
       const bestEquip = bestFamiliarEquip(familiar);
 
