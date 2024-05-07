@@ -12,7 +12,6 @@ import {
   examine,
   get,
   have,
-  maxBy,
 } from "libram";
 import { camelFightsLeft, haveCBBIngredients, mainStatMaximizerStr } from "../lib";
 import { excludedFamiliars } from "../resources";
