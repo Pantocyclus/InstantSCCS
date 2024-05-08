@@ -12,7 +12,6 @@ import {
   examine,
   get,
   have,
-  maxBy,
 } from "libram";
 import { camelFightsLeft, haveCBBIngredients, mainStatMaximizerStr } from "../lib";
 import { excludedFamiliars } from "../resources";
@@ -127,14 +126,6 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
     .map((fn) => fn(allowAttackingFamiliars))
     .filter((fam) => have(fam) && !excludedFamiliars.includes(toInt(fam)));
   return familiars.length > 0 ? familiars[0] : defaultFam;
-}
-
-const specialEquipFamiliars = $familiars`Disembodied Hand, Left-Hand Man, Mad Hatrack, Fancypants Scarecrow, Ghost of Crimbo Carols, Ghost of Crimbo Cheer, Ghost of Crimbo Commerce`;
-export function chooseHeaviestFamiliar(): Familiar {
-  return maxBy(
-    Familiar.all().filter((fam) => have(fam) && !specialEquipFamiliars.includes(fam)),
-    (fam) => fam.experience,
-  );
 }
 
 export function avoidDaylightShavingsHelm(): boolean {
