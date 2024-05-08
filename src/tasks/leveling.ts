@@ -726,7 +726,9 @@ export const LevelingQuest: Quest = {
     {
       name: "Mayam Calendar (Leveling)",
       completed: () =>
-        get("instant_saveMayamCalendar", false) || get("_mayamSymbolsUsed").includes("yam4"),
+        get("instant_saveMayamCalendar", false) ||
+        get("_mayamSymbolsUsed").includes("yam4") ||
+        !have($item`Mayam Calendar`),
       do: (): void => {
         const sym1 = mainStat === $stat`Muscle` ? "sword" : "vessel";
         const sym2 = mainStat === $stat`Mysticality` ? "lightning" : "meat";

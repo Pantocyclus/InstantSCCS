@@ -45,7 +45,9 @@ export const HPQuest: Quest = {
     {
       name: "Mayam Calendar (Post-leveling)",
       completed: () =>
-        get("instant_saveMayamCalendar", false) || get("_mayamSymbolsUsed").includes("explosion"),
+        get("instant_saveMayamCalendar", false) ||
+        get("_mayamSymbolsUsed").includes("explosion") ||
+        !have($item`Mayam Calendar`),
       do: (): void => {
         cliExecute(`mayam rings eye bottle wall explosion`);
       },
