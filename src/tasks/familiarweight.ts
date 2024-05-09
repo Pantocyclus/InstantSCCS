@@ -125,9 +125,9 @@ export const FamiliarWeightQuest: Quest = {
             $item`love song of icy revenge`,
           );
 
-        const heaviestWeight = 
+        const heaviestWeight =
           chooseHeaviestEquippedFamiliar(
-            $familiars``.filter((f) => f !== $familiar`homemade robot`)
+            $familiars``.filter((f) => f !== $familiar`Homemade Robot`)
           ).expectedWeight;
         const commaWeight = 6 + 11 * get("homemadeRobotUpgrades");
         const useComma =
@@ -220,7 +220,7 @@ export const FamiliarWeightQuest: Quest = {
       outfit: () => ({
         modifier: famTestMaximizerString,
         familiar: chooseHeaviestEquippedFamiliar(
-          $familiars``.filter((f) => f !== $familiar`homemade robot`)
+          $familiars``.filter((f) => f !== $familiar`Homemade Robot`)
         ).familiar,
       }),
       limit: { tries: 1 },
