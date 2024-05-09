@@ -37,7 +37,7 @@ jobs:
 
   build-push:
     runs-on: ubuntu-latest
-    # needs: [lint-all]
+    needs: [lint-all]
     if: github.ref == 'refs/heads/main'
 
     steps:
