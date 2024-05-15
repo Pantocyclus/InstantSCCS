@@ -79,7 +79,8 @@ export const WeaponDamageQuest: Quest = {
       completed: () =>
         have($item`potion of potency`) ||
         have($effect`Pronounced Potency`) ||
-        !have($item`scrumptious reagent`),
+        !have($item`scrumptious reagent`) ||
+        !have($item`orange`),
       do: () => create($item`potion of potency`, 1),
       limit: { tries: 1 },
     },
