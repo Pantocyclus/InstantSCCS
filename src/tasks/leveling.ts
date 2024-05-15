@@ -1611,7 +1611,12 @@ export const LevelingQuest: Quest = {
         !Witchess.have() ||
         get("instant_saveWitchess", false),
       do: () => Witchess.fightPiece($monster`Witchess King`),
-      combat: new CombatStrategy().macro(Macro.default(useCinch)),
+      combat: new CombatStrategy().macro(
+        Macro.while_(
+          `!mpbelow ${mpCost($skill`Toynado`)} && hasskill ${toInt($skill`Toynado`)}`,
+          Macro.skill($skill`Toynado`),
+        ).default(useCinch),
+      ),
       outfit: baseOutfit,
       post: (): void => {
         sendAutumnaton();
@@ -1715,7 +1720,12 @@ export const LevelingQuest: Quest = {
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),
-        ).default(useCinch),
+        )
+          .while_(
+            `!mpbelow ${mpCost($skill`Toynado`)} && hasskill ${toInt($skill`Toynado`)}`,
+            Macro.skill($skill`Toynado`),
+          )
+          .default(useCinch),
       ),
       outfit: baseOutfit,
       post: (): void => {
