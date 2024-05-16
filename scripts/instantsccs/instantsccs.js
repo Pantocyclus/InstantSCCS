@@ -14761,7 +14761,7 @@ var HPQuest = {
   name: "HP",
   tasks: [{
     name: "Mayam Calendar (Post-leveling)",
-    completed: () => property_get("instant_saveMayamCalendar", false) || property_get("_mayamSymbolsUsed").includes("explosion") || !lib_have(template_string_$item(stat_templateObject || (stat_templateObject = stat_taggedTemplateLiteral(["Mayam Calendar"])))),
+    completed: () => property_get("instant_saveMayamCalendar", false) || property_get("_mayamSymbolsUsed").split("),").length >= 12 || !lib_have(template_string_$item(stat_templateObject || (stat_templateObject = stat_taggedTemplateLiteral(["Mayam Calendar"])))),
     do: () => {
       (0,external_kolmafia_namespaceObject.cliExecute)("mayam rings eye bottle wall explosion");
     },
@@ -16674,7 +16674,7 @@ var LevelingQuest = {
     }
   }, {
     name: "Mayam Calendar (Leveling)",
-    completed: () => property_get("instant_saveMayamCalendar", false) || property_get("_mayamSymbolsUsed").includes("yam4") || !lib_have(template_string_$item(_templateObject203 || (_templateObject203 = leveling_taggedTemplateLiteral(["Mayam Calendar"])))),
+    completed: () => property_get("instant_saveMayamCalendar", false) || property_get("_mayamSymbolsUsed").split("),").length >= 8 || !lib_have(template_string_$item(_templateObject203 || (_templateObject203 = leveling_taggedTemplateLiteral(["Mayam Calendar"])))),
     do: () => {
       var sym1 = mainStat === template_string_$stat(_templateObject204 || (_templateObject204 = leveling_taggedTemplateLiteral(["Muscle"]))) ? "sword" : "vessel";
       var sym2 = mainStat === template_string_$stat(_templateObject205 || (_templateObject205 = leveling_taggedTemplateLiteral(["Mysticality"]))) ? "lightning" : "meat";
@@ -18492,7 +18492,7 @@ var RunStartQuest = {
     }
   }, {
     name: "Mayam Calendar (Pre-coil)",
-    completed: () => property_get("instant_saveMayamCalendar", false) || property_get("_mayamSymbolsUsed").includes("clock") || !lib_have(template_string_$item(runstart_templateObject99 || (runstart_templateObject99 = runstart_taggedTemplateLiteral(["Mayam Calendar"])))),
+    completed: () => property_get("instant_saveMayamCalendar", false) || property_get("_mayamSymbolsUsed").split("),").length >= 4 || !lib_have(template_string_$item(runstart_templateObject99 || (runstart_templateObject99 = runstart_taggedTemplateLiteral(["Mayam Calendar"])))),
     do: () => {
       if (lib_have(template_string_$familiar(runstart_templateObject100 || (runstart_templateObject100 = runstart_taggedTemplateLiteral(["Chest Mimic"])))) && !excludedFamiliars.includes((0,external_kolmafia_namespaceObject.toInt)(template_string_$familiar(runstart_templateObject101 || (runstart_templateObject101 = runstart_taggedTemplateLiteral(["Chest Mimic"]))))) && !property_get("instant_saveMimicEggs", false)) {
         (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(runstart_templateObject102 || (runstart_templateObject102 = runstart_taggedTemplateLiteral(["Chest Mimic"]))));
