@@ -592,7 +592,7 @@ export const RunStartQuest: Quest = {
       name: "Mayam Calendar (Pre-coil)",
       completed: () =>
         get("instant_saveMayamCalendar", false) ||
-        get("_mayamSymbolsUsed").includes("clock") ||
+        get("_mayamSymbolsUsed").split("),").length >= 4 ||
         !have($item`Mayam Calendar`),
       do: (): void => {
         if (
