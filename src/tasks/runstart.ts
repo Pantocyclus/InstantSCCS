@@ -577,7 +577,10 @@ export const RunStartQuest: Quest = {
           .filter(
             ([it]) =>
               !have(it) && // Remove option if we already have the item
-              !get(`instant_save${it.name.replace(/( \w)/, (_, g) => g.toUpperCase())}`, false), // or if we chose to not acquire it
+              !get(
+                `instant_save${it.name.replace(/(\s)(\w)/g, (_1, _2, g) => g.toUpperCase())}`,
+                false,
+              ), // or if we chose to not acquire it
           )
           .sort(([, a], [, b]) => b - a) // Sort the instruments in decreasing priority value (the higher the better)
           .slice(0, 2 - get("_aprilBandInstruments")) // We can acquire at most 2 instruments
