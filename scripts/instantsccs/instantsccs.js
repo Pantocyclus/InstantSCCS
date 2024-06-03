@@ -18466,7 +18466,7 @@ var RunStartQuest = {
             it = _ref2[0];
 
         return !lib_have(it) && // Remove option if we already have the item
-        !property_get("instant_save".concat(it.name.replace(/( \w)/, (_, g) => g.toUpperCase())), false);
+        !property_get("instant_save".concat(it.name.replace(/(\s)(\w)/g, (_1, _2, g) => g.toUpperCase())), false);
       } // or if we chose to not acquire it
       ).sort((_ref3, _ref4) => {
         var _ref5 = runstart_slicedToArray(_ref3, 2),
