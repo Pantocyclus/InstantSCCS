@@ -77,15 +77,9 @@ import {
 } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
-import {
-  baseOutfit,
-  chooseFamiliar,
-  cookbookbat,
-  melodramedary,
-  sombrero,
-  unbreakableUmbrella,
-} from "../engine/outfit";
+import { baseOutfit, unbreakableUmbrella } from "../outfit";
 import { excludedFamiliars } from "../resources";
+import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
 
 const useParkaSpit = have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`);
 

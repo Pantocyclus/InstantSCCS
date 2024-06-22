@@ -52,8 +52,9 @@ import {
   tryAcquiringEffect,
 } from "../lib";
 import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
-import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
+import { sugarItemsAboutToBreak } from "../outfit";
 import { forbiddenEffects } from "../resources";
+import { chooseFamiliar } from "../familiars";
 
 let triedDeepDark = false;
 const spellTestMaximizerString = "spell dmg, switch disembodied hand, -switch left-hand man";

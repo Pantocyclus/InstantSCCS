@@ -112,7 +112,7 @@ import {
   wishFor,
   xpWishEffect,
 } from "../lib";
-import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../engine/outfit";
+import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../outfit";
 import Macro, { haveFreeBanish } from "../combat";
 import { forbiddenEffects } from "../resources";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";

@@ -646,6 +646,10 @@ export function computeCombatFrequency(): number {
   //     ? offhand
   //     : 0;
 
+  // Not considering mini kiwi for now because of the unreliable drop rate
+  // const hippyAntimilitarism =
+  //   have($familiar`Mini Kiwi`) && !excludedFamiliars.includes($familiar`Mini Kiwi`) ? -10 : 0;
+
   const effects = sumNumbers([
     rose,
     smoothMovements,
@@ -658,6 +662,7 @@ export function computeCombatFrequency(): number {
     feelingLonely,
     aprilingBandPatrolBeat,
     // offhandRemarkable,
+    // hippyAntimilitarism,
   ]);
 
   const disgeist = have($familiar`Disgeist`) ? -5 : 0;

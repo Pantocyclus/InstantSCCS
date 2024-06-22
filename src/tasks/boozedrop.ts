@@ -54,10 +54,11 @@ import {
   Station,
 } from "libram/dist/resources/2022/TrainSet";
 import { handleCustomPulls, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
-import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
+import { sugarItemsAboutToBreak } from "../outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro, { haveFreeBanish } from "../combat";
 import { forbiddenEffects } from "../resources";
+import { chooseFamiliar } from "../familiars";
 
 const boozeTestMaximizerString =
   "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man";
@@ -334,8 +335,18 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Mini Kiwi Icepick",
+      completed: () => have($item`mini kiwi icepick`) || !have($item`mini kiwi`, 4),
+      do: () => create($item`mini kiwi icepick`, 1),
+      limit: { tries: 1 },
+    },
+    {
       name: "Buy Oversized Sparkler",
-      ready: () => myMeat() >= 1000,
+      ready: () =>
+        myMeat() >= 1000 ||
+        (have($item`mini kiwi icepick`) &&
+          !have($skill`Double-Fisted Skull Smashing`) &&
+          !have($familiar`Disembodied Hand`)),
       completed: () => have($item`oversized sparkler`),
       do: () => buy($item`oversized sparkler`, 1),
       limit: { tries: 1 },

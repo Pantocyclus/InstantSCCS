@@ -2,6 +2,7 @@ import { Quest } from "../engine/task";
 import {
   buy,
   cliExecute,
+  create,
   Effect,
   equippedItem,
   numericModifier,
@@ -106,6 +107,18 @@ export const NoncombatQuest: Quest = {
           CommunityService.FamiliarWeight.isDone() // Only do this after the famwt test is done (if it isn't, we really shouldn't have shifted NC before famwt)
         ) {
           tryAcquiringEffect($effect`Offhand Remarkable`);
+        }
+
+        if (
+          CommunityService.Noncombat.actualCost() >= 7 &&
+          (have($item`mini kiwi`, 3) || have($item`mini kiwi antimilitaristic hippy petition`))
+        ) {
+          if (
+            !have($item`mini kiwi antimilitaristic hippy petition`) &&
+            !have($effect`Hippy Antimilitarism`)
+          )
+            create($item`mini kiwi antimilitaristic hippy petition`, 1);
+          tryAcquiringEffect($effect`Hippy Antimilitarism`);
         }
 
         // If it saves us >= 6 turns, try using a wish

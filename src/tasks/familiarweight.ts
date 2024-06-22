@@ -29,11 +29,7 @@ import {
   have,
 } from "libram";
 import Macro from "../combat";
-import {
-  avoidDaylightShavingsHelm,
-  chooseFamiliar,
-  sugarItemsAboutToBreak,
-} from "../engine/outfit";
+import { avoidDaylightShavingsHelm, sugarItemsAboutToBreak } from "../outfit";
 import { Quest } from "../engine/task";
 import {
   chooseHeaviestEquippedFamiliar,
@@ -41,6 +37,7 @@ import {
   logTestSetup,
   tryAcquiringEffect,
 } from "../lib";
+import { chooseFamiliar } from "../familiars";
 
 const famTestMaximizerString = "familiar weight";
 

@@ -27,8 +27,9 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import { handleCustomPulls, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
-import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
+import { sugarItemsAboutToBreak } from "../outfit";
 import Macro from "../combat";
+import { chooseFamiliar } from "../familiars";
 
 const hotTestMaximizerString = "hot res";
 
@@ -167,6 +168,15 @@ export const HotResQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         handleCustomPulls("instant_hotTestPulls", hotTestMaximizerString);
+
+        if (
+          CommunityService.HotRes.actualCost() >= 4 &&
+          (have($item`mini kiwi`, 3) || have($item`mini kiwi illicit antibiotic`))
+        ) {
+          if (!have($item`mini kiwi illicit antibiotic`) && !have($effect`Incredibly Healthy`))
+            create($item`mini kiwi illicit antibiotic`, 1);
+          tryAcquiringEffect($effect`Incredibly Healthy`);
+        }
 
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.HotRes.actualCost() >= 7) wishFor($effect`Fireproof Lips`);
