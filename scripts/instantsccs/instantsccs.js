@@ -18796,7 +18796,7 @@ var RunStartQuest = {
 
       if (lib_have(template_string_$familiar(runstart_templateObject237 || (runstart_templateObject237 = runstart_taggedTemplateLiteral(["Left-Hand Man"])))) && lib_have(template_string_$item(runstart_templateObject238 || (runstart_templateObject238 = runstart_taggedTemplateLiteral(["Roman Candelabra"])))) && !lib_have(template_string_$effect(runstart_templateObject239 || (runstart_templateObject239 = runstart_taggedTemplateLiteral(["Everything Looks Purple"]))))) {
         (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(runstart_templateObject240 || (runstart_templateObject240 = runstart_taggedTemplateLiteral(["Left-Hand Man"]))));
-        (0,external_kolmafia_namespaceObject.equip)($slot(runstart_templateObject241 || (runstart_templateObject241 = runstart_taggedTemplateLiteral(["famequip"]))), template_string_$item(runstart_templateObject242 || (runstart_templateObject242 = runstart_taggedTemplateLiteral(["Roman Candelabra"]))));
+        (0,external_kolmafia_namespaceObject.equip)($slot(runstart_templateObject241 || (runstart_templateObject241 = runstart_taggedTemplateLiteral(["familiar"]))), template_string_$item(runstart_templateObject242 || (runstart_templateObject242 = runstart_taggedTemplateLiteral(["Roman Candelabra"]))));
       }
     },
     ready: () => getKramcoWandererChance() >= 1.0,
