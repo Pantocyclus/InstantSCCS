@@ -11,6 +11,7 @@ import {
   familiarWeight,
   getCampground,
   getClanName,
+  getMonsters,
   gitInfo,
   haveEffect,
   haveEquipped,
@@ -18,6 +19,9 @@ import {
   inHardcore,
   Item,
   itemAmount,
+  itemDrops,
+  Location,
+  mallPrice,
   monkeyPaw,
   mpCost,
   myBasestat,
@@ -50,11 +54,13 @@ import {
   $familiar,
   $item,
   $items,
+  $location,
   $monster,
   $skill,
   $skills,
   $slot,
   $stat,
+  AutumnAton,
   Clan,
   CombatLoversLocket,
   CommunityService,
@@ -64,11 +70,13 @@ import {
   haveInCampground,
   maxBy,
   set,
+  sum,
   sumNumbers,
   Witchess,
 } from "libram";
 import { printModtrace } from "libram/dist/modifier";
 import { excludedFamiliars, forbiddenEffects } from "./resources";
+import { chooseRift } from "libram/dist/resources/2023/ClosedCircuitPayphone";
 
 export const startingClan = getClanName();
 export const motherSlimeClan = Clan.getWhitelisted().find(
@@ -854,4 +862,36 @@ export function canPull(id: number): boolean {
   )
     return false;
   return true;
+}
+
+let _bestShadowRift: Location | null = null;
+export function bestShadowRift(): Location {
+  if (!_bestShadowRift) {
+    _bestShadowRift =
+      chooseRift({
+        canAdventure: true,
+        sortBy: (l: Location) => {
+          const drops = getMonsters(l)
+            .map((m) =>
+              [
+                ...Object.keys(itemDrops(m)).map((s) => toItem(s)),
+                m === $monster`shadow guy` && have($skill`Just the Facts`)
+                  ? $item`pocket wish`
+                  : $item.none,
+              ].filter((i) => i !== $item.none),
+            )
+            .reduce((acc, val) => acc.concat(val), []);
+          return sum(drops, mallPrice);
+        },
+      }) ?? $location.none;
+    if (_bestShadowRift === $location.none && have($item`closed-circuit pay phone`)) {
+      throw new Error("Failed to find a suitable Shadow Rift to adventure in");
+    }
+  }
+  return _bestShadowRift;
+}
+
+export function sendAutumnaton(): void {
+  if (AutumnAton.availableLocations().includes(bestShadowRift()) && have($item`autumn-aton`))
+    AutumnAton.sendTo(bestShadowRift());
 }

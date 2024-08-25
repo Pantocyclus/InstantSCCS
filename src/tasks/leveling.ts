@@ -12,7 +12,6 @@ import {
   effectModifier,
   equip,
   equippedItem,
-  getMonsters,
   haveEffect,
   haveEquipped,
   holiday,
@@ -20,9 +19,7 @@ import {
   inHardcore,
   Item,
   itemAmount,
-  itemDrops,
   Location,
-  mallPrice,
   Monster,
   mpCost,
   myBasestat,
@@ -65,7 +62,6 @@ import {
   $skill,
   $slot,
   $stat,
-  AutumnAton,
   clamp,
   CombatLoversLocket,
   ensureEffect,
@@ -76,7 +72,6 @@ import {
   set,
   SongBoom,
   SourceTerminal,
-  sum,
   TunnelOfLove,
   uneffect,
   Witchess,
@@ -86,6 +81,7 @@ import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   abstractionXpEffect,
   abstractionXpItem,
+  bestShadowRift,
   burnLibram,
   canPull,
   chooseLibram,
@@ -104,6 +100,7 @@ import {
   reagentBoosterIngredient,
   reagentBoosterItem,
   refillLatte,
+  sendAutumnaton,
   snapperXpItem,
   synthExpBuff,
   targetBaseMainStat,
@@ -116,11 +113,7 @@ import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../outfit
 import Macro, { haveFreeBanish } from "../combat";
 import { forbiddenEffects } from "../resources";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
-import {
-  chooseQuest,
-  chooseRift,
-  rufusTarget,
-} from "libram/dist/resources/2023/ClosedCircuitPayphone";
+import { chooseQuest, rufusTarget } from "libram/dist/resources/2023/ClosedCircuitPayphone";
 
 const useCinch = !get("instant_saveCinch", false);
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
@@ -238,38 +231,6 @@ export function powerlevelingLocation(): Location {
   else if (get("spookyAirportAlways")) return $location`The Deep Dark Jungle`;
 
   return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`; // Default location
-}
-
-let _bestShadowRift: Location | null = null;
-export function bestShadowRift(): Location {
-  if (!_bestShadowRift) {
-    _bestShadowRift =
-      chooseRift({
-        canAdventure: true,
-        sortBy: (l: Location) => {
-          const drops = getMonsters(l)
-            .map((m) =>
-              [
-                ...Object.keys(itemDrops(m)).map((s) => toItem(s)),
-                m === $monster`shadow guy` && have($skill`Just the Facts`)
-                  ? $item`pocket wish`
-                  : $item.none,
-              ].filter((i) => i !== $item.none),
-            )
-            .reduce((acc, val) => acc.concat(val), []);
-          return sum(drops, mallPrice);
-        },
-      }) ?? $location.none;
-    if (_bestShadowRift === $location.none && have($item`closed-circuit pay phone`)) {
-      throw new Error("Failed to find a suitable Shadow Rift to adventure in");
-    }
-  }
-  return _bestShadowRift;
-}
-
-function sendAutumnaton(): void {
-  if (AutumnAton.availableLocations().includes(bestShadowRift()) && have($item`autumn-aton`))
-    AutumnAton.sendTo(bestShadowRift());
 }
 
 function sellMiscellaneousItems(): void {
@@ -1381,7 +1342,11 @@ export const LevelingQuest: Quest = {
       name: "Witchess Bishop",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
+        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Purple`)) {
+          equip($slot`offhand`, $item`Roman Candelabra`);
+        } else {
+          unbreakableUmbrella();
+        }
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         restoreMp(50);
       },
@@ -1389,7 +1354,10 @@ export const LevelingQuest: Quest = {
         get("_witchessFights") >= 4 - (get("instant_skipBishopsForRoyalty", false) ? 2 : 0) ||
         !Witchess.have() ||
         get("instant_saveWitchess", false),
-      do: () => Witchess.fightPiece($monster`Witchess Bishop`),
+      do: (): void => {
+        Witchess.fightPiece($monster`Witchess Bishop`);
+        visitUrl("main.php");
+      },
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
           get("_monsterHabitatsFightsLeft") <= 1 &&
@@ -1398,10 +1366,13 @@ export const LevelingQuest: Quest = {
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),
-        ).default(useCinch),
+        )
+          .trySkill($skill`Blow the Purple Candle!`)
+          .default(useCinch),
       ),
       outfit: baseOutfit,
       post: (): void => {
+        visitUrl("main.php");
         sendAutumnaton();
         sellMiscellaneousItems();
       },
@@ -1552,6 +1523,16 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Mimic Sausage Goblins",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Purple`)) {
+          equip($slot`offhand`, $item`Roman Candelabra`);
+        } else {
+          unbreakableUmbrella();
+        }
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        restoreMp(50);
+      },
       completed: () =>
         get("instant_saveMimicEggs", false) ||
         get("_mimicEggsObtained") > 0 ||
@@ -1575,6 +1556,7 @@ export const LevelingQuest: Quest = {
         visitUrl(`choice.php?pwd&whichchoice=1517&mid=${$monster`sausage goblin`.id}&option=2`);
         useFamiliar(currentFamiliar);
         visitUrl(`choice.php?pwd&whichchoice=1516&mid=${$monster`sausage goblin`.id}&option=1`);
+        visitUrl("main.php");
       },
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
@@ -1584,10 +1566,13 @@ export const LevelingQuest: Quest = {
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),
-        ).default(useCinch),
+        )
+          .trySkill($skill`Blow the Purple Candle!`)
+          .default(useCinch),
       ),
       outfit: baseOutfit,
       post: (): void => {
+        visitUrl("main.php");
         sendAutumnaton();
         sellMiscellaneousItems();
       },

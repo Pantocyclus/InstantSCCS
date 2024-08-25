@@ -73,6 +73,7 @@ import {
   mainStat,
   mainStatMaximizerStr,
   mainStatStr,
+  sendAutumnaton,
   tryAcquiringEffect,
 } from "../lib";
 import Macro from "../combat";
@@ -666,12 +667,19 @@ export const RunStartQuest: Quest = {
       },
       combat: new CombatStrategy().macro(
         (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
+          .externalIf(
+            have($item`Roman Candelabra`),
+            Macro.trySkill($skill`Blow the Yellow Candle!`).trySkill(
+              $skill`Blow the Green Candle!`,
+            ),
+          )
           .tryItem($item`yellow rocket`)
           .abort(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
+        offhand: $item`Roman Candelabra`,
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
       }),
       post: (): void => {
@@ -701,12 +709,19 @@ export const RunStartQuest: Quest = {
       do: () => CombatLoversLocket.reminisce($monster`Evil Olive`),
       combat: new CombatStrategy().macro(
         (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
+          .externalIf(
+            have($item`Roman Candelabra`),
+            Macro.trySkill($skill`Blow the Yellow Candle!`).trySkill(
+              $skill`Blow the Green Candle!`,
+            ),
+          )
           .tryItem($item`yellow rocket`)
           .abort(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
+        offhand: $item`Roman Candelabra`,
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
       }),
       post: (): void => {
@@ -746,14 +761,20 @@ export const RunStartQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.if_(
           $monster`novelty tropical skeleton`,
-          (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro()).tryItem(
-            $item`yellow rocket`,
-          ),
+          (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
+            .externalIf(
+              have($item`Roman Candelabra`),
+              Macro.trySkill($skill`Blow the Yellow Candle!`).trySkill(
+                $skill`Blow the Green Candle!`,
+              ),
+            )
+            .tryItem($item`yellow rocket`),
         ).abort(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
+        offhand: $item`Roman Candelabra`,
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
       }),
       post: (): void => {
@@ -772,7 +793,11 @@ export const RunStartQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
-        unbreakableUmbrella();
+        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Yellow`)) {
+          equip($slot`offhand`, $item`Roman Candelabra`);
+        } else {
+          unbreakableUmbrella();
+        }
         if (get("_snokebombUsed") === 0) restoreMp(50);
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
@@ -787,9 +812,14 @@ export const RunStartQuest: Quest = {
       combat: new CombatStrategy().macro(() =>
         Macro.if_(
           $monster`novelty tropical skeleton`,
-          (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro()).tryItem(
-            $item`yellow rocket`,
-          ),
+          (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
+            .externalIf(
+              have($item`Roman Candelabra`),
+              Macro.trySkill($skill`Blow the Yellow Candle!`).trySkill(
+                $skill`Blow the Green Candle!`,
+              ),
+            )
+            .tryItem($item`yellow rocket`),
         )
           .externalIf(
             !Array.from(getBanishedMonsters().keys()).includes($skill`Bowl a Curveball`),
@@ -812,7 +842,6 @@ export const RunStartQuest: Quest = {
       outfit: (): OutfitSpec => {
         return {
           shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
-          offhand: $item`unbreakable umbrella`,
           acc2: $item`cursed monkey's paw`,
           familiar: chooseFamiliar(false),
           modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
@@ -864,15 +893,58 @@ export const RunStartQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         restoreMp(50);
+        if (
+          have($familiar`Left-Hand Man`) &&
+          have($item`Roman Candelabra`) &&
+          !have($effect`Everything Looks Purple`)
+        ) {
+          useFamiliar($familiar`Left-Hand Man`);
+          equip($slot`famequip`, $item`Roman Candelabra`);
+        }
       },
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
-      do: $location`Noob Cave`,
+      do: (): void => {
+        adv1($location`Noob Cave`);
+        visitUrl("main.php");
+      },
       outfit: () => ({
         ...baseOutfit(),
         offhand: $item`Kramco Sausage-o-Matic™`,
       }),
-      combat: new CombatStrategy().macro(Macro.default()),
+      post: (): void => {
+        visitUrl("main.php");
+      },
+      combat: new CombatStrategy().macro(Macro.trySkill($skill`Blow the Purple Candle!`).default()),
+    },
+    {
+      name: "Eldritch Tentacle + ELP",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        restoreMp(50);
+      },
+      completed: () =>
+        get("_eldritchHorrorEvoked") ||
+        !have($skill`Evoke Eldritch Horror`) ||
+        !have($item`Roman Candelabra`) ||
+        have($effect`Everything Looks Purple`),
+      do: (): void => {
+        useSkill($skill`Evoke Eldritch Horror`);
+        visitUrl("main.php");
+      },
+      post: (): void => {
+        visitUrl("main.php");
+        if (have($effect`Beaten Up`)) cliExecute("hottub");
+        sendAutumnaton();
+      },
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Blow the Purple Candle!`).default(!get("instant_saveCinch", false)),
+      ),
+      outfit: () => ({
+        ...baseOutfit(),
+        offhand: $item`Roman Candelabra`,
+      }),
+      limit: { tries: 1 },
     },
   ],
 };
