@@ -899,7 +899,7 @@ export const RunStartQuest: Quest = {
           !have($effect`Everything Looks Purple`)
         ) {
           useFamiliar($familiar`Left-Hand Man`);
-          equip($slot`famequip`, $item`Roman Candelabra`);
+          equip($slot`familiar`, $item`Roman Candelabra`);
         }
       },
       ready: () => getKramcoWandererChance() >= 1.0,
