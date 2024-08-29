@@ -75,14 +75,13 @@ import {
   mainStatStr,
   sendAutumnaton,
   tryAcquiringEffect,
+  useParkaSpit,
 } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { baseOutfit, unbreakableUmbrella } from "../outfit";
 import { excludedFamiliars } from "../resources";
 import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
-
-const useParkaSpit = have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`);
 
 export const RunStartQuest: Quest = {
   name: "Run Start",
@@ -666,15 +665,12 @@ export const RunStartQuest: Quest = {
         visitUrl(`choice.php?pwd&whichchoice=1516&mid=${$monster`Evil Olive`.id}&option=1`);
       },
       combat: new CombatStrategy().macro(
-        (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
-          .externalIf(
-            have($item`Roman Candelabra`),
-            Macro.trySkill($skill`Blow the Yellow Candle!`).trySkill(
-              $skill`Blow the Green Candle!`,
-            ),
-          )
-          .tryItem($item`yellow rocket`)
-          .abort(),
+        Macro.if_(
+          "!haseffect Everything Looks Yellow",
+          Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+            .trySkill($skill`Blow the Yellow Candle!`)
+            .tryItem($item`yellow rocket`),
+        ).abort(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
@@ -708,15 +704,12 @@ export const RunStartQuest: Quest = {
         have($item`jumbo olive`),
       do: () => CombatLoversLocket.reminisce($monster`Evil Olive`),
       combat: new CombatStrategy().macro(
-        (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
-          .externalIf(
-            have($item`Roman Candelabra`),
-            Macro.trySkill($skill`Blow the Yellow Candle!`).trySkill(
-              $skill`Blow the Green Candle!`,
-            ),
-          )
-          .tryItem($item`yellow rocket`)
-          .abort(),
+        Macro.if_(
+          "!haseffect Everything Looks Yellow",
+          Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+            .trySkill($skill`Blow the Yellow Candle!`)
+            .tryItem($item`yellow rocket`),
+        ).abort(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
@@ -760,15 +753,13 @@ export const RunStartQuest: Quest = {
       do: () => mapMonster($location`The Skeleton Store`, $monster`novelty tropical skeleton`),
       combat: new CombatStrategy().macro(
         Macro.if_(
-          $monster`novelty tropical skeleton`,
-          (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
-            .externalIf(
-              have($item`Roman Candelabra`),
-              Macro.trySkill($skill`Blow the Yellow Candle!`).trySkill(
-                $skill`Blow the Green Candle!`,
-              ),
-            )
-            .tryItem($item`yellow rocket`),
+          "!haseffect Everything Looks Yellow",
+          Macro.if_(
+            $monster`novelty tropical skeleton`,
+            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+              .trySkill($skill`Blow the Yellow Candle!`)
+              .tryItem($item`yellow rocket`),
+          ),
         ).abort(),
       ),
       outfit: () => ({
@@ -811,15 +802,13 @@ export const RunStartQuest: Quest = {
       do: $location`The Skeleton Store`,
       combat: new CombatStrategy().macro(() =>
         Macro.if_(
-          $monster`novelty tropical skeleton`,
-          (useParkaSpit ? Macro.trySkill($skill`Spit jurassic acid`) : new Macro())
-            .externalIf(
-              have($item`Roman Candelabra`),
-              Macro.trySkill($skill`Blow the Yellow Candle!`).trySkill(
-                $skill`Blow the Green Candle!`,
-              ),
-            )
-            .tryItem($item`yellow rocket`),
+          "!haseffect Everything Looks Yellow",
+          Macro.if_(
+            $monster`novelty tropical skeleton`,
+            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+              .trySkill($skill`Blow the Yellow Candle!`)
+              .tryItem($item`yellow rocket`),
+          ),
         )
           .externalIf(
             !Array.from(getBanishedMonsters().keys()).includes($skill`Bowl a Curveball`),

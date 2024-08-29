@@ -106,6 +106,7 @@ import {
   targetBaseMainStat,
   targetBaseMainStatGap,
   tryAcquiringEffect,
+  useParkaSpit,
   wishFor,
   xpWishEffect,
 } from "../lib";
@@ -1004,21 +1005,35 @@ export const LevelingQuest: Quest = {
         (have($skill`Feel Envy`) && get("_feelEnvyUsed") < 3),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
+        if (useParkaSpit) {
+          cliExecute("parka dilophosaur");
+        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
-        unbreakableUmbrella();
+        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Yellow`)) {
+          equip($slot`offhand`, $item`Roman Candelabra`);
+        } else {
+          unbreakableUmbrella();
+        }
       },
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`red skeleton`) ||
         !CombatLoversLocket.availableLocketMonsters().includes($monster`red skeleton`) ||
         get("instant_saveLocketRedSkeleton", false),
       do: () => CombatLoversLocket.reminisce($monster`red skeleton`),
-      combat: new CombatStrategy().macro(
-        Macro.if_("!haseffect Everything Looks Yellow", Macro.tryItem($item`yellow rocket`))
-          .trySkill($skill`Feel Envy`)
-          .default(),
+      combat: new CombatStrategy().macro(() =>
+        Macro.if_(
+          "!haseffect Everything Looks Yellow",
+          Macro.if_(
+            $monster`novelty tropical skeleton`,
+            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+              .trySkill($skill`Blow the Yellow Candle!`)
+              .tryItem($item`yellow rocket`)
+              .trySkill($skill`Feel Envy`)
+              .default(),
+          ),
+        ),
       ),
       outfit: () => ({
         ...baseOutfit(false),

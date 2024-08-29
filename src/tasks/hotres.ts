@@ -26,7 +26,7 @@ import {
   uneffect,
 } from "libram";
 import { Quest } from "../engine/task";
-import { handleCustomPulls, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { handleCustomPulls, logTestSetup, tryAcquiringEffect, useParkaSpit, wishFor } from "../lib";
 import { sugarItemsAboutToBreak } from "../outfit";
 import Macro from "../combat";
 import { chooseFamiliar } from "../familiars";
@@ -40,8 +40,11 @@ export const HotResQuest: Quest = {
     {
       name: "Reminisce Factory Worker (female)",
       prepare: (): void => {
-        if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`))
+        if (useParkaSpit) {
+          cliExecute("parka dilophosaur");
+        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
           buy($item`yellow rocket`, 1);
+        }
       },
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`factory worker (female)`) ||
@@ -50,10 +53,11 @@ export const HotResQuest: Quest = {
       do: () => CombatLoversLocket.reminisce($monster`factory worker (female)`),
       outfit: () => ({
         back: $item`vampyric cloake`,
+        shirt: $item`Jurassic Parka`,
         weapon: $item`Fourth of May Cosplay Saber`,
         offhand: have($skill`Double-Fisted Skull Smashing`)
           ? $item`industrial fire extinguisher`
-          : undefined,
+          : $item`Roman Candelabra`,
         familiar: chooseFamiliar(false),
         modifier: "Item Drop",
         avoid: sugarItemsAboutToBreak(),
@@ -64,7 +68,12 @@ export const HotResQuest: Quest = {
           .trySkill($skill`Fire Extinguisher: Foam Yourself`)
           .trySkill($skill`Use the Force`)
           .trySkill($skill`Shocking Lick`)
-          .tryItem($item`yellow rocket`)
+          .if_(
+            "!haseffect Everything Looks Yellow",
+            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+              .trySkill($skill`Blow the Yellow Candle!`)
+              .tryItem($item`yellow rocket`),
+          )
           .default(),
       ),
       limit: { tries: 1 },

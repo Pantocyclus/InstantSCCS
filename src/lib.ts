@@ -86,6 +86,7 @@ export const motherSlimeClan = Clan.getWhitelisted().find(
   : Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")
     ? "CSLoopers Unite"
     : "";
+export const useParkaSpit = have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`);
 
 export const testModifiers = new Map([
   [CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]],
