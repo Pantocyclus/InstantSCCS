@@ -1025,14 +1025,11 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(() =>
         Macro.if_(
           "!haseffect Everything Looks Yellow",
-          Macro.if_(
-            $monster`novelty tropical skeleton`,
-            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
-              .trySkill($skill`Blow the Yellow Candle!`)
-              .tryItem($item`yellow rocket`)
-              .trySkill($skill`Feel Envy`)
-              .default(),
-          ),
+          Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+            .trySkill($skill`Blow the Yellow Candle!`)
+            .tryItem($item`yellow rocket`)
+            .trySkill($skill`Feel Envy`)
+            .default(),
         ),
       ),
       outfit: () => ({
