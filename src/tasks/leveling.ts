@@ -1027,10 +1027,10 @@ export const LevelingQuest: Quest = {
           "!haseffect Everything Looks Yellow",
           Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
             .trySkill($skill`Blow the Yellow Candle!`)
-            .tryItem($item`yellow rocket`)
-            .trySkill($skill`Feel Envy`)
-            .default(),
-        ),
+            .tryItem($item`yellow rocket`),
+        )
+          .trySkill($skill`Feel Envy`)
+          .default(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
