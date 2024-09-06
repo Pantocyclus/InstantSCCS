@@ -12,6 +12,7 @@ import {
   effectModifier,
   equip,
   equippedItem,
+  getWorkshed,
   haveEffect,
   haveEquipped,
   holiday,
@@ -517,6 +518,50 @@ export const LevelingQuest: Quest = {
       completed: () => !have($item`a ten-percent bonus`),
       do: () => use($item`a ten-percent bonus`, 1),
       limit: { tries: 1 },
+    },
+    {
+      name: "Sept-ember Mouthwash",
+      ready: () => getWorkshed() !== $item`model train set` || have($effect`Hot Soupy Garbage`),
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        !have($item`Sept-Ember Censer`) ||
+        // eslint-disable-next-line libram/verify-constants
+        have($item`bembershoot`) ||
+        get("instant_saveEmbers", false),
+      do: (): void => {
+        // Grab Embers
+        visitUrl("shop.php?whichshop=september");
+
+        // If we can grab Fireproof Foam Suit, we probably don't need the blade of dismemberment
+        // and so we can get an additional bembershoot
+        const bembershootQuantity =
+          get("instant_skipEmberJacket", false) ||
+          !have($skill`Torso Awareness`) ||
+          (have($item`Fourth of May Cosplay Saber`) &&
+            have($item`industrial fire extinguisher`) &&
+            have($skill`Double-Fisted Skull Smashing`))
+            ? 3
+            : 2;
+
+        // Grab Bembershoots
+        visitUrl(
+          `shop.php?whichshop=september&action=buyitem&quantity=${bembershootQuantity}&whichrow=1516&pwd`,
+        );
+
+        // Grab Mouthwashes
+        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=2&whichrow=1512&pwd");
+
+        // Re-maximize cold res after getting bembershoots
+        cliExecute("maximize cold res");
+
+        // eslint-disable-next-line libram/verify-constants
+        use($item`Mmm-brr! brand mouthwash`, 2);
+      },
+      limit: { tries: 1 },
+      outfit: {
+        modifier: "cold res",
+        familiar: $familiar`Exotic Parrot`,
+      },
     },
     {
       name: "Bastille",

@@ -11,6 +11,7 @@ import {
   use,
   useFamiliar,
   useSkill,
+  visitUrl,
 } from "kolmafia";
 import {
   $effect,
@@ -146,6 +147,21 @@ export const HotResQuest: Quest = {
         !get("yourFavoriteBirdMods").includes("Hot Resistance") ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Embers-Only Jacket",
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        !have($item`Sept-Ember Censer`) ||
+        // eslint-disable-next-line libram/verify-constants
+        have($item`embers-only jacket`) ||
+        get("instant_saveEmbers", false) ||
+        get("instant_skipEmberJacket", false) ||
+        // eslint-disable-next-line libram/verify-constants
+        have($item`bembershoot`, 3),
+      do: () =>
+        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=1&whichrow=1515&pwd"), // Grab Jacket
       limit: { tries: 1 },
     },
     {
