@@ -16682,7 +16682,7 @@ var LevelingQuest = {
       // Synth gives +9 cold res
       if (!property_get("instant_skipSynthCold", false)) getSynthColdBuff(); // +9 cold res from this Lucky! effect
 
-      if (!forbiddenEffects.includes(template_string_$effect(_templateObject152 || (_templateObject152 = leveling_taggedTemplateLiteral(["Fever From the Flavor"])))) && !property_get("instant_saveMonkeysPaw", false) && property_get("_monkeyPawWishesUsed") < 2) {
+      if (!forbiddenEffects.includes(template_string_$effect(_templateObject152 || (_templateObject152 = leveling_taggedTemplateLiteral(["Fever From the Flavor"])))) && !property_get("instant_saveMonkeysPaw", false)) {
         wishFor(template_string_$effect(_templateObject153 || (_templateObject153 = leveling_taggedTemplateLiteral(["Fever From the Flavor"]))), false);
       }
 
