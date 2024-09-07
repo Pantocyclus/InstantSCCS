@@ -619,6 +619,9 @@ export const LevelingQuest: Quest = {
         modifier: "cold res",
         familiar: $familiar`Exotic Parrot`,
       },
+      post: (): void => {
+        if (have($effect`Scarysauce`)) cliExecute("shrug scarysauce");
+      },
     },
     {
       name: "Alice Army",
