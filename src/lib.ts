@@ -410,6 +410,7 @@ export const synthExpBuff =
       : $effect`Synthesis: Style`;
 
 export const complexCandies = $items``.filter((candy) => candy.candyType === "complex");
+export const simpleCandies = $items``.filter((candy) => candy.candyType === "simple");
 const peppermintCandiesCosts = new Map<Item, number>([
   [$item`peppermint sprout`, 1],
   [$item`peppermint twist`, 1],
@@ -442,21 +443,43 @@ function haveCandies(a: Item, b: Item): boolean {
   return Array.from(candiesRequired.values()).every((val) => val === 1);
 }
 
-const rem = mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4;
-const complexCandyPairs = complexCandies
-  .map((a, i) => complexCandies.slice(i).map((b) => [a, b]))
-  .reduce((acc, val) => acc.concat(val), [])
-  .filter(([a, b]) => (toInt(a) + toInt(b)) % 5 === rem);
-
-export function getValidComplexCandyPairs(): Item[][] {
-  return complexCandyPairs.filter(([a, b]) => haveCandies(a, b));
+function complexCandyPairs(rem: number): Item[][] {
+  return complexCandies
+    .map((a, i) => complexCandies.slice(i).map((b) => [a, b]))
+    .reduce((acc, val) => acc.concat(val), [])
+    .filter(([a, b]) => (toInt(a) + toInt(b)) % 5 === rem);
 }
 
-export function getSynthExpBuff(): void {
-  const filteredComplexCandyPairs = getValidComplexCandyPairs();
-  if (filteredComplexCandyPairs.length === 0) return;
+function simpleCandyPairs(rem: number): Item[][] {
+  return simpleCandies
+    .map((a, i) => simpleCandies.slice(i).map((b) => [a, b]))
+    .reduce((acc, val) => acc.concat(val), [])
+    .filter(([a, b]) => (toInt(a) + toInt(b)) % 5 === rem);
+}
 
-  const bestPair = filteredComplexCandyPairs.reduce((left, right) =>
+// function simpleComplexCandyPairs(rem: number): Item[][] {
+//   return simpleCandies
+//     .map((a, i) => complexCandies.slice(i).map((b) => [a, b]))
+//     .reduce((acc, val) => acc.concat(val), [])
+//     .filter(([a, b]) => (toInt(a) + toInt(b)) % 5 === rem);
+// }
+
+export function getValidComplexCandyPairs(rem: number): Item[][] {
+  return complexCandyPairs(rem).filter(([a, b]) => haveCandies(a, b));
+}
+
+export function getValidSimpleCandyPairs(rem: number): Item[][] {
+  return simpleCandyPairs(rem).filter(([a, b]) => haveCandies(a, b));
+}
+
+// export function getValidSimpleComplexCandyPairs(rem: number): Item[][] {
+//   return simpleComplexCandyPairs(rem).filter(([a, b]) => haveCandies(a, b));
+// }
+
+function synthBestPair(filteredPairs: Item[][]): void {
+  if (filteredPairs.length === 0) return;
+
+  const bestPair = filteredPairs.reduce((left, right) =>
     left.map((it) => retrievePrice(it)).reduce((acc, val) => acc + val) <
     right.map((it) => retrievePrice(it)).reduce((acc, val) => acc + val)
       ? left
@@ -465,6 +488,18 @@ export function getSynthExpBuff(): void {
   if (bestPair[0] === bestPair[1]) retrieveItem(bestPair[0], 2);
   else bestPair.forEach((it) => retrieveItem(it));
   sweetSynthesis(bestPair[0], bestPair[1]);
+}
+
+export function getSynthExpBuff(): void {
+  const filteredComplexCandyPairs = getValidComplexCandyPairs(
+    mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4,
+  );
+  synthBestPair(filteredComplexCandyPairs);
+}
+
+export function getSynthColdBuff(): void {
+  const filteredSimpleCandyPairs = getValidSimpleCandyPairs(1);
+  synthBestPair(filteredSimpleCandyPairs);
 }
 
 const allTomes = $skills`Summon Resolutions, Summon Love Song, Summon Candy Heart, Summon Taffy, Summon BRICKOs, Summon Party Favor, Summon Dice`;

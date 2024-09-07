@@ -24,6 +24,7 @@ import {
   Monster,
   mpCost,
   myBasestat,
+  myClass,
   myFamiliar,
   myHash,
   myHp,
@@ -51,6 +52,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
+  $class,
   $coinmaster,
   $effect,
   $effects,
@@ -87,6 +89,7 @@ import {
   canPull,
   chooseLibram,
   generalStoreXpEffect,
+  getSynthColdBuff,
   getSynthExpBuff,
   getValidComplexCandyPairs,
   haveCBBIngredients,
@@ -353,7 +356,9 @@ export const LevelingQuest: Quest = {
         !have($skill`Sweet Synthesis`) ||
         get("instant_skipSynthExp", false) ||
         have(synthExpBuff) ||
-        getValidComplexCandyPairs().length === 0,
+        getValidComplexCandyPairs(
+          mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4,
+        ).length === 0,
       do: (): void => getSynthExpBuff(),
       limit: { tries: 5 },
     },
@@ -520,50 +525,6 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Sept-ember Mouthwash",
-      ready: () => getWorkshed() !== $item`model train set` || have($effect`Hot Soupy Garbage`),
-      completed: () =>
-        // eslint-disable-next-line libram/verify-constants
-        !have($item`Sept-Ember Censer`) ||
-        // eslint-disable-next-line libram/verify-constants
-        have($item`bembershoot`) ||
-        get("instant_saveEmbers", false),
-      do: (): void => {
-        // Grab Embers
-        visitUrl("shop.php?whichshop=september");
-
-        // If we can grab Fireproof Foam Suit, we probably don't need the blade of dismemberment
-        // and so we can get an additional bembershoot
-        const bembershootQuantity =
-          get("instant_skipEmberJacket", false) ||
-          !have($skill`Torso Awareness`) ||
-          (have($item`Fourth of May Cosplay Saber`) &&
-            have($item`industrial fire extinguisher`) &&
-            have($skill`Double-Fisted Skull Smashing`))
-            ? 3
-            : 2;
-
-        // Grab Bembershoots
-        visitUrl(
-          `shop.php?whichshop=september&action=buyitem&quantity=${bembershootQuantity}&whichrow=1516&pwd`,
-        );
-
-        // Grab Mouthwashes
-        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=2&whichrow=1512&pwd");
-
-        // Re-maximize cold res after getting bembershoots
-        cliExecute("maximize cold res");
-
-        // eslint-disable-next-line libram/verify-constants
-        use($item`Mmm-brr! brand mouthwash`, 2);
-      },
-      limit: { tries: 1 },
-      outfit: {
-        modifier: "cold res",
-        familiar: $familiar`Exotic Parrot`,
-      },
-    },
-    {
       name: "Bastille",
       completed: () => get("_bastilleGames") > 0 || !have($item`Bastille Battalion control rig`),
       do: () => cliExecute("bastille.ash mainstat brutalist"),
@@ -587,6 +548,78 @@ export const LevelingQuest: Quest = {
         }
       },
       outfit: { modifier: "myst, mp, -tie" },
+    },
+    {
+      name: "Sept-ember Mouthwash",
+      ready: () => getWorkshed() !== $item`model train set` || have($effect`Hot Soupy Garbage`),
+      completed: () =>
+        !have($item`Sept-Ember Censer`) ||
+        have($item`bembershoot`) ||
+        get("instant_saveEmbers", false),
+      prepare: (): void => {
+        // Synth gives +9 cold res
+        if (!get("instant_skipSynthCold", false)) getSynthColdBuff();
+
+        // +9 cold res from this Lucky! effect
+        if (
+          !forbiddenEffects.includes($effect`Fever From the Flavor`) &&
+          !get("instant_saveMonkeysPaw", false) &&
+          get("_monkeyPawWishesUsed") < 2
+        ) {
+          wishFor($effect`Fever From the Flavor`, false);
+        }
+
+        restoreMp(50);
+        const usefulEffects: Effect[] = [
+          $effect`Frosty Hand`, // +5 cold res from Cargo Shorts
+          $effect`Rainbowolin`, // +4 cold res from Pillkeeper
+          $effect`Cold as Nice`, // +3 cold res from Beach Comb
+          $effect`Egged On`, // +3 cold res from Rockin' Robin's drop
+          $effect`Scarysauce`, // +2 cold res
+          $effect`Elemental Saucesphere`, // +2 cold res
+          $effect`Feeling Peaceful`, // +2 cold res from Emotion Chip
+          $effect`Astral Shell`, // +1 cold res
+        ];
+        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+      },
+      do: (): void => {
+        // Grab Embers
+        visitUrl("shop.php?whichshop=september");
+
+        // If we can grab Fireproof Foam Suit, we probably don't need the Ember Jacket
+        // and so we can get an additional bembershoot
+        const bembershootQuantity =
+          get("instant_skipEmberJacket", false) ||
+          !have($skill`Torso Awareness`) ||
+          (have($item`Fourth of May Cosplay Saber`) &&
+            have($item`industrial fire extinguisher`) &&
+            have($skill`Double-Fisted Skull Smashing`))
+            ? 3
+            : 2;
+        // Ditto for the Rainbow Vaccine
+        if (
+          have($item`Fourth of May Cosplay Saber`) &&
+          have($item`industrial fire extinguisher`) &&
+          have($skill`Double-Fisted Skull Smashing`)
+        )
+          tryAcquiringEffect($effect`Rainbow Vaccine`);
+
+        // Grab Bembershoots
+        visitUrl(
+          `shop.php?whichshop=september&action=buyitem&quantity=${bembershootQuantity}&whichrow=1516&pwd`,
+        );
+
+        // Grab Mouthwashes
+        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=2&whichrow=1512&pwd");
+
+        cliExecute("maximize cold res");
+        use($item`Mmm-brr! brand mouthwash`, 2);
+      },
+      limit: { tries: 1 },
+      outfit: {
+        modifier: "cold res",
+        familiar: $familiar`Exotic Parrot`,
+      },
     },
     {
       name: "Alice Army",
@@ -739,7 +772,7 @@ export const LevelingQuest: Quest = {
       do: (): void => {
         const sym1 = mainStat === $stat`Muscle` ? "sword" : "vessel";
         const sym2 = mainStat === $stat`Mysticality` ? "lightning" : "meat";
-        const sym3 = mainStat === $stat`Moxie` ? "eyepatch" : "cheese";
+        const sym3 = mainStat === $stat`Moxie` ? "eyepatch" : "wall";
         cliExecute(`mayam rings ${sym1} ${sym2} ${sym3} yam`);
       },
       limit: { tries: 1 },
@@ -897,6 +930,16 @@ export const LevelingQuest: Quest = {
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
         }
+
+        if (
+          myClass() === $class`Pastamancer` &&
+          have($item`Sept-Ember Censer`) &&
+          have($item`Daylight Shavings Helmet`) &&
+          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+          !get("instant_saveEmbers", false) &&
+          !have($item`bembershoot`) // We have not used the mouthwash yet
+        )
+          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
       },
       completed: () =>
         have($item`Rufus's shadow lodestone`) ||
@@ -963,6 +1006,16 @@ export const LevelingQuest: Quest = {
         }
         unbreakableUmbrella();
         restoreMp(50);
+
+        if (
+          myClass() === $class`Pastamancer` &&
+          have($item`Sept-Ember Censer`) &&
+          have($item`Daylight Shavings Helmet`) &&
+          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+          !get("instant_saveEmbers", false) &&
+          !have($item`bembershoot`) // We have not used the mouthwash yet
+        )
+          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
       },
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
       do: $location`The X-32-F Combat Training Snowman`,
@@ -988,6 +1041,16 @@ export const LevelingQuest: Quest = {
         if (have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3)
           equip($slot`acc3`, $item`Lil' Doctor™ bag`);
         restoreMp(50);
+
+        if (
+          myClass() === $class`Pastamancer` &&
+          have($item`Sept-Ember Censer`) &&
+          have($item`Daylight Shavings Helmet`) &&
+          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+          !get("instant_saveEmbers", false) &&
+          !have($item`bembershoot`) // We have not used the mouthwash yet
+        )
+          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
       },
       completed: () =>
         get("_leafMonstersFought") >= 5 ||
@@ -1014,6 +1077,16 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         restoreMp(50);
+
+        if (
+          myClass() === $class`Pastamancer` &&
+          have($item`Sept-Ember Censer`) &&
+          have($item`Daylight Shavings Helmet`) &&
+          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+          !get("instant_saveEmbers", false) &&
+          !have($item`bembershoot`) // We have not used the mouthwash yet
+        )
+          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
       },
       completed: () => get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0),
       do: powerlevelingLocation(),
@@ -1061,6 +1134,16 @@ export const LevelingQuest: Quest = {
         } else {
           unbreakableUmbrella();
         }
+
+        if (
+          myClass() === $class`Pastamancer` &&
+          have($item`Sept-Ember Censer`) &&
+          have($item`Daylight Shavings Helmet`) &&
+          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+          !get("instant_saveEmbers", false) &&
+          !have($item`bembershoot`) // We have not used the mouthwash yet
+        )
+          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
       },
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`red skeleton`) ||

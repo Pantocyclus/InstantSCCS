@@ -75,6 +75,7 @@ const consumptionResources: Resource[] = [
     $effects`Hulkien, Rainbowolin, Fidoxene`,
   ),
   new Resource("instant_skipSynthExp", "Do not use synth for the Xp% buff"),
+  new Resource("instant_skipSynthCold", "Do not use synth for the Cold Res buff"),
   new Resource(
     "instant_saveBodySpradium",
     "Do not chew the body spradium if we have it",

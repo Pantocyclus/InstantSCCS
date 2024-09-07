@@ -49,7 +49,8 @@ export const HPQuest: Quest = {
         get("_mayamSymbolsUsed").includes("explosion") ||
         !have($item`Mayam Calendar`),
       do: (): void => {
-        cliExecute(`mayam rings eye bottle wall explosion`);
+        const sym3 = get("_mayamSymbolsUsed").includes("wall") ? "cheese" : "wall";
+        cliExecute(`mayam rings eye bottle ${sym3} explosion`);
       },
       limit: { tries: 1 },
     },

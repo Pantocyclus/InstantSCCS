@@ -152,13 +152,10 @@ export const HotResQuest: Quest = {
     {
       name: "Embers-Only Jacket",
       completed: () =>
-        // eslint-disable-next-line libram/verify-constants
         !have($item`Sept-Ember Censer`) ||
-        // eslint-disable-next-line libram/verify-constants
         have($item`embers-only jacket`) ||
         get("instant_saveEmbers", false) ||
         get("instant_skipEmberJacket", false) ||
-        // eslint-disable-next-line libram/verify-constants
         have($item`bembershoot`, 3),
       do: () =>
         visitUrl("shop.php?whichshop=september&action=buyitem&quantity=1&whichrow=1515&pwd"), // Grab Jacket
@@ -184,6 +181,7 @@ export const HotResQuest: Quest = {
           $effect`Feeling Peaceful`,
           $effect`Hot-Headed`,
           $effect`Rainbowolin`,
+          $effect`Rainbow Vaccine`,
 
           // Famwt Buffs
           $effect`Blood Bond`,
