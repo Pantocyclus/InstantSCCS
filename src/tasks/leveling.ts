@@ -563,8 +563,7 @@ export const LevelingQuest: Quest = {
         // +9 cold res from this Lucky! effect
         if (
           !forbiddenEffects.includes($effect`Fever From the Flavor`) &&
-          !get("instant_saveMonkeysPaw", false) &&
-          get("_monkeyPawWishesUsed") < 2
+          !get("instant_saveMonkeysPaw", false)
         ) {
           wishFor($effect`Fever From the Flavor`, false);
         }
