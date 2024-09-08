@@ -597,7 +597,10 @@ export const LevelingQuest: Quest = {
           tryAcquiringEffect($effect`Rainbow Vaccine`);
 
         // Grab Bembershoots
-        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=3&whichrow=1516&pwd");
+        const bembershootQty = get("instant_skipBembershootForJacket", false) ? 2 : 3;
+        visitUrl(
+          `shop.php?whichshop=september&action=buyitem&quantity=${bembershootQty}&whichrow=1516&pwd`,
+        );
 
         // Grab Mouthwashes
         visitUrl("shop.php?whichshop=september&action=buyitem&quantity=2&whichrow=1512&pwd");
