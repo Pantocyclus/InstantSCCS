@@ -11,7 +11,6 @@ import {
   use,
   useFamiliar,
   useSkill,
-  visitUrl,
 } from "kolmafia";
 import {
   $effect,
@@ -149,18 +148,18 @@ export const HotResQuest: Quest = {
       do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },
     },
-    {
-      name: "Embers-Only Jacket",
-      completed: () =>
-        !have($item`Sept-Ember Censer`) ||
-        have($item`embers-only jacket`) ||
-        get("instant_saveEmbers", false) ||
-        get("instant_skipEmberJacket", false) ||
-        have($item`bembershoot`, 3),
-      do: () =>
-        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=1&whichrow=1515&pwd"), // Grab Jacket
-      limit: { tries: 1 },
-    },
+    // {
+    //   name: "Embers-Only Jacket",
+    //   completed: () =>
+    //     !have($item`Sept-Ember Censer`) ||
+    //     have($item`embers-only jacket`) ||
+    //     get("instant_saveEmbers", false) ||
+    //     get("instant_skipEmberJacket", false) ||
+    //     have($item`bembershoot`, 3),
+    //   do: () =>
+    //     visitUrl("shop.php?whichshop=september&action=buyitem&quantity=1&whichrow=1515&pwd"), // Grab Jacket
+    //   limit: { tries: 1 },
+    // },
     {
       name: "Test",
       prepare: (): void => {

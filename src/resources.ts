@@ -214,7 +214,7 @@ const farmingResources: Resource[] = [
   new Resource("instant_saveAprilingBandStaff", "Do not acquire the Apriling Band Staff"),
   new Resource("instant_saveAprilingBandPiccolo", "Do not acquire the Apriling Band Piccolo"),
   new Resource("instant_saveEmbers", "Do not use any Sept-Ember Censer Embers"),
-  new Resource("instant_skipEmberJacket", "Do not acquire an Embers-Only Jacket"),
+  // new Resource("instant_skipEmberJacket", "Do not acquire an Embers-Only Jacket"),
 ];
 
 const otherResources: Resource[] = [

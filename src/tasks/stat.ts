@@ -22,6 +22,7 @@ import {
   reagentBalancerEffect,
   reagentBalancerItem,
   tryAcquiringEffect,
+  useCenser,
 } from "../lib";
 
 const hpTestMaximizerString = "HP, switch disembodied hand, -switch left-hand man";
@@ -49,8 +50,11 @@ export const HPQuest: Quest = {
         get("_mayamSymbolsUsed").includes("explosion") ||
         !have($item`Mayam Calendar`),
       do: (): void => {
-        const sym3 = get("_mayamSymbolsUsed").includes("wall") ? "cheese" : "wall";
-        cliExecute(`mayam rings eye bottle ${sym3} explosion`);
+        if (useCenser) {
+          cliExecute("mayam rings eye bottle cheese explosion");
+        } else {
+          cliExecute("mayam rings eye bottle wall explosion");
+        }
       },
       limit: { tries: 1 },
     },

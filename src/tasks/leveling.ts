@@ -110,6 +110,7 @@ import {
   targetBaseMainStat,
   targetBaseMainStatGap,
   tryAcquiringEffect,
+  useCenser,
   useParkaSpit,
   wishFor,
   xpWishEffect,
@@ -552,11 +553,13 @@ export const LevelingQuest: Quest = {
     {
       name: "Sept-ember Mouthwash",
       ready: () => getWorkshed() !== $item`model train set` || have($effect`Hot Soupy Garbage`),
-      completed: () =>
-        !have($item`Sept-Ember Censer`) ||
-        have($item`bembershoot`) ||
-        get("instant_saveEmbers", false),
+      completed: () => !useCenser || have($item`bembershoot`),
       prepare: (): void => {
+        // Ready to Survive gives +1 cold res
+        if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
+          use($item`MayDay™ supply package`, 1);
+        if (have($item`space blanket`)) autosell($item`space blanket`, 1);
+
         // Synth gives +9 cold res
         if (!get("instant_skipSynthCold", false)) getSynthColdBuff();
 
@@ -585,17 +588,7 @@ export const LevelingQuest: Quest = {
         // Grab Embers
         visitUrl("shop.php?whichshop=september");
 
-        // If we can grab Fireproof Foam Suit, we probably don't need the Ember Jacket
-        // and so we can get an additional bembershoot
-        const bembershootQuantity =
-          get("instant_skipEmberJacket", false) ||
-          !have($skill`Torso Awareness`) ||
-          (have($item`Fourth of May Cosplay Saber`) &&
-            have($item`industrial fire extinguisher`) &&
-            have($skill`Double-Fisted Skull Smashing`))
-            ? 3
-            : 2;
-        // Ditto for the Rainbow Vaccine
+        // If we can get the Fireproof Foam Suit, we probably don't need the Rainbow Vaccine for the hot test
         if (
           have($item`Fourth of May Cosplay Saber`) &&
           have($item`industrial fire extinguisher`) &&
@@ -604,9 +597,7 @@ export const LevelingQuest: Quest = {
           tryAcquiringEffect($effect`Rainbow Vaccine`);
 
         // Grab Bembershoots
-        visitUrl(
-          `shop.php?whichshop=september&action=buyitem&quantity=${bembershootQuantity}&whichrow=1516&pwd`,
-        );
+        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=3&whichrow=1516&pwd");
 
         // Grab Mouthwashes
         visitUrl("shop.php?whichshop=september&action=buyitem&quantity=2&whichrow=1512&pwd");
@@ -772,10 +763,14 @@ export const LevelingQuest: Quest = {
         get("_mayamSymbolsUsed").includes("yam4") ||
         !have($item`Mayam Calendar`),
       do: (): void => {
-        const sym1 = mainStat === $stat`Muscle` ? "sword" : "vessel";
-        const sym2 = mainStat === $stat`Mysticality` ? "lightning" : "meat";
-        const sym3 = mainStat === $stat`Moxie` ? "eyepatch" : "wall";
-        cliExecute(`mayam rings ${sym1} ${sym2} ${sym3} yam`);
+        if (useCenser) {
+          cliExecute("mayam rings fur yam wall yam");
+        } else {
+          const sym1 = mainStat === $stat`Muscle` ? "sword" : "vessel";
+          const sym2 = mainStat === $stat`Mysticality` ? "lightning" : "meat";
+          const sym3 = mainStat === $stat`Moxie` ? "eyepatch" : "cheese";
+          cliExecute(`mayam rings ${sym1} ${sym2} ${sym3} yam`);
+        }
       },
       limit: { tries: 1 },
     },

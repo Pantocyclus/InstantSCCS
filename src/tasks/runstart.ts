@@ -75,6 +75,7 @@ import {
   mainStatStr,
   sendAutumnaton,
   tryAcquiringEffect,
+  useCenser,
   useParkaSpit,
 } from "../lib";
 import Macro from "../combat";
@@ -594,22 +595,26 @@ export const RunStartQuest: Quest = {
         get("_mayamSymbolsUsed").includes("clock") ||
         !have($item`Mayam Calendar`),
       do: (): void => {
-        if (
-          have($familiar`Chest Mimic`) &&
-          !excludedFamiliars.includes(toInt($familiar`Chest Mimic`)) &&
-          !get("instant_saveMimicEggs", false)
-        ) {
-          useFamiliar($familiar`Chest Mimic`);
-        } else if (sombrero() !== $familiar.none) {
-          useFamiliar(sombrero());
+        if (useCenser) {
+          cliExecute(`mayam rings chair meat yam clock`);
         } else {
-          // Choose a potentially useful familiar
-          const potentialFamiliars =
-            $familiars`Comma Chameleon, Mini-Trainbot, Exotic Parrot`.filter(have);
-          useFamiliar(potentialFamiliars.at(0) ?? chooseFamiliar());
+          if (
+            have($familiar`Chest Mimic`) &&
+            !excludedFamiliars.includes(toInt($familiar`Chest Mimic`)) &&
+            !get("instant_saveMimicEggs", false)
+          ) {
+            useFamiliar($familiar`Chest Mimic`);
+          } else if (sombrero() !== $familiar.none) {
+            useFamiliar(sombrero());
+          } else {
+            // Choose a potentially useful familiar
+            const potentialFamiliars =
+              $familiars`Comma Chameleon, Mini-Trainbot, Exotic Parrot`.filter(have);
+            useFamiliar(potentialFamiliars.at(0) ?? chooseFamiliar());
+          }
+          const sym2 = mainStat === $stat`Mysticality` ? "meat" : "yam";
+          cliExecute(`mayam rings fur ${sym2} yam clock`);
         }
-        const sym2 = mainStat === $stat`Mysticality` ? "meat" : "yam";
-        cliExecute(`mayam rings fur ${sym2} yam clock`);
       },
       limit: { tries: 1 },
     },
@@ -681,9 +686,11 @@ export const RunStartQuest: Quest = {
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
       }),
       post: (): void => {
-        if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
-          use($item`MayDay™ supply package`, 1);
-        if (have($item`space blanket`)) autosell($item`space blanket`, 1);
+        if (!useCenser) {
+          if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
+            use($item`MayDay™ supply package`, 1);
+          if (have($item`space blanket`)) autosell($item`space blanket`, 1);
+        }
       },
       limit: { tries: 1 },
     },
