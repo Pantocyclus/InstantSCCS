@@ -37,6 +37,7 @@ import {
   $monster,
   $skill,
   $slot,
+  AprilingBandHelmet,
   clamp,
   Clan,
   CommunityService,
@@ -137,7 +138,7 @@ export const BoozeDropQuest: Quest = {
         get("instant_skipCyclopsEyedrops", false),
       do: (): void => {
         if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`))
-          cliExecute("aprilband play sax");
+          AprilingBandHelmet.play($item`Apriling band saxophone`);
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);
         if (!have($item`cyclops eyedrops`)) adv1($location`The Limerick Dungeon`, -1);
       },
@@ -353,8 +354,8 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Set Apriling Band Helmet (Booze)",
-      completed: () => !have($item`Apriling band helmet`) || get("nextAprilBandTurn") > 0,
-      do: () => cliExecute("aprilband effect drop"),
+      completed: () => !AprilingBandHelmet.canChangeSong(),
+      do: () => AprilingBandHelmet.conduct($effect`Apriling Band Celebration Bop`),
       limit: { tries: 1 },
     },
     {

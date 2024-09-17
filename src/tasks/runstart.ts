@@ -53,6 +53,8 @@ import {
   $skill,
   $slot,
   $stat,
+  AprilingBandHelmet,
+  ChestMimic,
   clamp,
   Clan,
   CombatLoversLocket,
@@ -62,6 +64,7 @@ import {
   getKramcoWandererChance,
   have,
   haveInCampground,
+  MayamCalendar,
   Pantogram,
   SongBoom,
 } from "libram";
@@ -184,6 +187,15 @@ export const RunStartQuest: Quest = {
         !have($item`2002 Mr. Store Catalog`) || get("_2002MrStoreCreditsCollected", true),
       do: () =>
         visitUrl(`inv_use.php?whichitem=${toInt($item`2002 Mr. Store Catalog`)}&which=f0&pwd`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Grab Embers",
+      completed: () =>
+        get("instant_saveEmbers", false) ||
+        get("availableSeptEmbers") > 0 ||
+        !have($item`Sept-Ember Censer`),
+      do: () => visitUrl("shop.php?whichshop=september"),
       limit: { tries: 1 },
     },
     {
@@ -516,8 +528,8 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Set Apriling Band Helmet (NC)",
-      completed: () => !have($item`Apriling band helmet`) || get("nextAprilBandTurn") > 0,
-      do: () => cliExecute("aprilband effect nc"),
+      completed: () => !AprilingBandHelmet.canChangeSong(),
+      do: () => AprilingBandHelmet.conduct($effect`Apriling Band Patrol Beat`),
       limit: { tries: 1 },
     },
     {
@@ -581,10 +593,7 @@ export const RunStartQuest: Quest = {
           )
           .sort(([, a], [, b]) => b - a) // Sort the instruments in decreasing priority value (the higher the better)
           .slice(0, 2 - get("_aprilBandInstruments")) // We can acquire at most 2 instruments
-          .forEach(([it]) => {
-            const instrument = it.name.split("Apriling band ")[1].split(" ")[0];
-            cliExecute(`aprilband item ${instrument}`);
-          }); // Acquire the instrument
+          .forEach(([it]) => AprilingBandHelmet.conduct(it)); // Acquire the instrument
       },
       limit: { tries: 1 },
     },
@@ -596,7 +605,9 @@ export const RunStartQuest: Quest = {
         !have($item`Mayam Calendar`),
       do: (): void => {
         if (useCenser) {
-          cliExecute(`mayam rings chair meat yam clock`);
+          MayamCalendar.submit(
+            MayamCalendar.toCombinationString(["chair", "meat", "yam3", "clock"]),
+          );
         } else {
           if (
             have($familiar`Chest Mimic`) &&
@@ -612,8 +623,8 @@ export const RunStartQuest: Quest = {
               $familiars`Comma Chameleon, Mini-Trainbot, Exotic Parrot`.filter(have);
             useFamiliar(potentialFamiliars.at(0) ?? chooseFamiliar());
           }
-          const sym2 = mainStat === $stat`Mysticality` ? "meat" : "yam";
-          cliExecute(`mayam rings fur ${sym2} yam clock`);
+          const sym2 = mainStat === $stat`Mysticality` ? "meat" : "yam2";
+          MayamCalendar.submit(MayamCalendar.toCombinationString(["fur", sym2, "yam3", "clock"]));
         }
       },
       limit: { tries: 1 },
@@ -664,12 +675,11 @@ export const RunStartQuest: Quest = {
           retrieveItem($item`Apriling band piccolo`); // We can't play the piccolo if it's equipped on a non-current familiar
           Array(3 - get("_aprilBandPiccoloUses"))
             .fill(0)
-            .forEach(() => cliExecute("aprilband play picc"));
+            .forEach(() => AprilingBandHelmet.play($item`Apriling band piccolo`));
         }
-        visitUrl(`place.php?whichplace=town_right&action=townright_dna`);
-        visitUrl(`choice.php?pwd&whichchoice=1517&mid=${$monster`Evil Olive`.id}&option=2`);
+        ChestMimic.receive($monster`Evil Olive`);
         useFamiliar(currentFamiliar);
-        visitUrl(`choice.php?pwd&whichchoice=1516&mid=${$monster`Evil Olive`.id}&option=1`);
+        ChestMimic.differentiate($monster`Evil Olive`);
       },
       combat: new CombatStrategy().macro(
         Macro.if_(
@@ -876,7 +886,7 @@ export const RunStartQuest: Quest = {
       completed: () => myInebriety() >= 1 || get("instant_skipDistilledFortifiedWine", false),
       do: (): void => {
         if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`))
-          cliExecute("aprilband play sax");
+          AprilingBandHelmet.play($item`Apriling band saxophone`);
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);
         if (!have($item`distilled fortified wine`)) adv1($location`The Sleazy Back Alley`, -1);
         while (have($item`distilled fortified wine`) && myInebriety() < 1) {

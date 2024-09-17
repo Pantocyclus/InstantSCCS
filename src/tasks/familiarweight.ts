@@ -24,6 +24,7 @@ import {
   $location,
   $skill,
   $slot,
+  AprilingBandHelmet,
   CommunityService,
   get,
   have,
@@ -183,7 +184,9 @@ export const FamiliarWeightQuest: Quest = {
           CommunityService.FamiliarWeight.actualCost() > 1
         ) {
           retrieveItem($item`Apriling band piccolo`); // We can't play the piccolo if it's equipped on a non-current familiar
-          Array(3 - get("_aprilBandPiccoloUses")).forEach(() => cliExecute("aprilband play picc"));
+          Array(3 - get("_aprilBandPiccoloUses")).forEach(() =>
+            AprilingBandHelmet.play($item`Apriling band piccolo`),
+          );
         }
 
         if (

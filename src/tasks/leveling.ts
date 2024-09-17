@@ -65,6 +65,8 @@ import {
   $skill,
   $slot,
   $stat,
+  AprilingBandHelmet,
+  ChestMimic,
   clamp,
   CombatLoversLocket,
   ensureEffect,
@@ -72,6 +74,7 @@ import {
   getBanishedMonsters,
   getKramcoWandererChance,
   have,
+  MayamCalendar,
   set,
   SongBoom,
   SourceTerminal,
@@ -553,7 +556,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Sept-ember Mouthwash",
       ready: () => getWorkshed() !== $item`model train set` || have($effect`Hot Soupy Garbage`),
-      completed: () => !useCenser || have($item`bembershoot`),
+      completed: () => !useCenser || get("availableSeptEmbers") === 0,
       prepare: (): void => {
         // Ready to Survive gives +1 cold res
         if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
@@ -585,9 +588,6 @@ export const LevelingQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       do: (): void => {
-        // Grab Embers
-        visitUrl("shop.php?whichshop=september");
-
         // If we can get the Fireproof Foam Suit, we probably don't need the Rainbow Vaccine for the hot test
         if (
           have($item`Fourth of May Cosplay Saber`) &&
@@ -767,12 +767,12 @@ export const LevelingQuest: Quest = {
         !have($item`Mayam Calendar`),
       do: (): void => {
         if (useCenser) {
-          cliExecute("mayam rings fur yam wall yam");
+          MayamCalendar.submit(MayamCalendar.toCombinationString(["fur", "yam2", "wall", "yam4"]));
         } else {
           const sym1 = mainStat === $stat`Muscle` ? "sword" : "vessel";
           const sym2 = mainStat === $stat`Mysticality` ? "lightning" : "meat";
           const sym3 = mainStat === $stat`Moxie` ? "eyepatch" : "cheese";
-          cliExecute(`mayam rings ${sym1} ${sym2} ${sym3} yam`);
+          MayamCalendar.submit(MayamCalendar.toCombinationString([sym1, sym2, sym3, "yam4"]));
         }
       },
       limit: { tries: 1 },
@@ -1650,7 +1650,7 @@ export const LevelingQuest: Quest = {
       name: "Apriling Band Quad Tom Sandworms",
       completed: () => !have($item`Apriling band quad tom`) || get("_aprilBandTomUses") >= 3,
       do: (): void => {
-        cliExecute("aprilband play quad");
+        AprilingBandHelmet.play($item`Apriling band quad tom`);
         visitUrl("main.php");
       },
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
@@ -1690,13 +1690,11 @@ export const LevelingQuest: Quest = {
           retrieveItem($item`Apriling band piccolo`); // We can't play the piccolo if it's equipped on a non-current familiar
           Array(3 - get("_aprilBandPiccoloUses"))
             .fill(0)
-            .forEach(() => cliExecute("aprilband play picc"));
+            .forEach(() => AprilingBandHelmet.play($item`Apriling band piccolo`));
         }
-        visitUrl(`place.php?whichplace=town_right&action=townright_dna`);
-        visitUrl(`choice.php?pwd&whichchoice=1517&mid=${$monster`sausage goblin`.id}&option=2`);
+        ChestMimic.receive($monster`sausage goblin`);
         useFamiliar(currentFamiliar);
-        visitUrl(`choice.php?pwd&whichchoice=1516&mid=${$monster`sausage goblin`.id}&option=1`);
-        visitUrl("main.php");
+        ChestMimic.differentiate($monster`sausage goblin`);
       },
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(

@@ -1,4 +1,4 @@
-import { buy, cliExecute, create, Effect, itemAmount, print, Stat, use, useSkill } from "kolmafia";
+import { buy, create, Effect, itemAmount, print, Stat, use, useSkill } from "kolmafia";
 import {
   $coinmaster,
   $effect,
@@ -11,6 +11,7 @@ import {
   ensureEffect,
   get,
   have,
+  MayamCalendar,
   uneffect,
   withChoice,
 } from "libram";
@@ -50,11 +51,10 @@ export const HPQuest: Quest = {
         get("_mayamSymbolsUsed").includes("explosion") ||
         !have($item`Mayam Calendar`),
       do: (): void => {
-        if (useCenser) {
-          cliExecute("mayam rings eye bottle cheese explosion");
-        } else {
-          cliExecute("mayam rings eye bottle wall explosion");
-        }
+        const sym3 = useCenser ? "cheese" : "wall";
+        MayamCalendar.submit(
+          MayamCalendar.toCombinationString(["eye", "bottle", sym3, "explosion"]),
+        );
       },
       limit: { tries: 1 },
     },
