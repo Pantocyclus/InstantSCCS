@@ -77,7 +77,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     offhand: $item`unbreakable umbrella`,
     acc1: myPrimestat() === $stat`Mysticality` ? $item`codpiece` : undefined,
     acc2:
-      have($item`Cincho de Mayo`) && get("_cinchUsed") < 95 && !get("instant_saveCinch", false)
+      have($item`Cincho de Mayo`) && get("_cinchUsed") <= 95 && !get("instant_saveCinch", false)
         ? $item`Cincho de Mayo`
         : undefined,
     acc3: $item`spring shoes`,
