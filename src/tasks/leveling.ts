@@ -749,6 +749,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Eat Magical Sausages",
       completed: () =>
+        !have($item`Kramco Sausage-o-Matic™`) ||
         (!have($item`magical sausage`) && !have($item`magical sausage casing`)) ||
         myMeat() <= 3000 ||
         get("_sausagesMade") >= 3,
