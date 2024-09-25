@@ -19634,7 +19634,7 @@ var RunStartQuest = {
       acc2: lib_have(template_string_$item(runstart_templateObject251 || (runstart_templateObject251 = runstart_taggedTemplateLiteral(["spring shoes"])))) ? template_string_$item(runstart_templateObject252 || (runstart_templateObject252 = runstart_taggedTemplateLiteral(["spring shoes"]))) : undefined
     }),
     post: () => {
-      (0,external_kolmafia_namespaceObject.cliExecute)("set _instant_pledgeUsed = true");
+      _set("_instant_pledgeUsed", true);
     },
     limit: {
       tries: 2
