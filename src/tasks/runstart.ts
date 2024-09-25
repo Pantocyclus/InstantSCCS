@@ -66,6 +66,7 @@ import {
   haveInCampground,
   MayamCalendar,
   Pantogram,
+  set,
   SongBoom,
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
@@ -948,7 +949,7 @@ export const RunStartQuest: Quest = {
         acc2: have($item`spring shoes`) ? $item`spring shoes` : undefined,
       }),
       post: (): void => {
-        cliExecute("set _instant_pledgeUsed = true");
+        set("_instant_pledgeUsed", true);
       },
       limit: { tries: 2 },
     },
