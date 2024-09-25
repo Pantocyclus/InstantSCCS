@@ -1180,6 +1180,15 @@ export const LevelingQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
         if (mainStat === $stat`Muscle`) prismaticEffects.forEach((ef) => tryAcquiringEffect(ef));
         tryAcquiringEffect($effect`Comic Violence`);
+
+        // Try acquiring at least +100% item for guaranteed drops
+        const itemDropEffects = [
+          $effect`Fat Leon's Phat Loot Lyric`,
+          $effect`Singer's Faithful Ocelot`,
+          $effect`The Spirit of Taking`,
+        ];
+        if (myClass() !== $class`Pastamancer`) itemDropEffects.push($effect`Spice Haze`);
+        itemDropEffects.forEach((ef) => tryAcquiringEffect(ef));
       },
       completed: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
       do: () =>
