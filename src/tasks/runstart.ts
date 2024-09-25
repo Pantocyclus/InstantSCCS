@@ -933,12 +933,12 @@ export const RunStartQuest: Quest = {
         have($effect`Citizen of a Zone`) ||
         !have($familiar`Patriotic Eagle`) ||
         get("_citizenZone").includes("Madness Bakery") ||
-        get("_pledgeCheck", false),
+        get("_instant_pledgeUsed", false),
       do: $location`Madness Bakery`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`%fn, let's pledge allegiance to a Zone`)
           .trySkill($skill`Spring Away`)
-          .trySkill($skill`Blow the Yellow Candle!`)
+          .trySkill($skill`Blow the Green Candle!`)
           .default(),
       ),
       outfit: () => ({
@@ -948,7 +948,7 @@ export const RunStartQuest: Quest = {
         acc2: have($item`spring shoes`) ? $item`spring shoes` : undefined,
       }),
       post: (): void => {
-        cliExecute("set _pledgeCheck = true");
+        cliExecute("set _instant_pledgeUsed = true");
       },
       limit: { tries: 2 },
     },
