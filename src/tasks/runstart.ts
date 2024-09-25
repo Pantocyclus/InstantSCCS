@@ -73,6 +73,7 @@ import { Quest } from "../engine/task";
 import {
   getGarden,
   goVote,
+  haveFreeRunSource,
   mainStat,
   mainStatMaximizerStr,
   mainStatStr,
@@ -924,6 +925,32 @@ export const RunStartQuest: Quest = {
         visitUrl("main.php");
       },
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Blow the Purple Candle!`).default()),
+    },
+    {
+      name: "Bakery Pledge",
+      ready: () => have($familiar`Patriotic Eagle`) && haveFreeRunSource(),
+      completed: () =>
+        have($effect`Citizen of a Zone`) ||
+        !have($familiar`Patriotic Eagle`) ||
+        get("_citizenZone").includes("Madness Bakery") ||
+        get("_pledgeCheck", false),
+      do: $location`Madness Bakery`,
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`%fn, let's pledge allegiance to a Zone`)
+          .trySkill($skill`Spring Away`)
+          .trySkill($skill`Blow the Yellow Candle!`)
+          .default(),
+      ),
+      outfit: () => ({
+        ...baseOutfit,
+        familiar: $familiar`Patriotic Eagle`,
+        offhand: have($item`Roman Candelabra`) ? $item`Roman Candelabra` : undefined,
+        acc2: have($item`spring shoes`) ? $item`spring shoes` : undefined,
+      }),
+      post: (): void => {
+        cliExecute("set _pledgeCheck = true");
+      },
+      limit: { tries: 2 },
     },
     {
       name: "Eldritch Tentacle + ELP",

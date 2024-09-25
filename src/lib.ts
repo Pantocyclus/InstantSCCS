@@ -932,3 +932,10 @@ export function sendAutumnaton(): void {
   if (AutumnAton.availableLocations().includes(bestShadowRift()) && have($item`autumn-aton`))
     AutumnAton.sendTo(bestShadowRift());
 }
+
+export function haveFreeRunSource(): boolean {
+  return (
+    !have($effect`Everything Looks Green`) &&
+    have($item`spring shoes` || have($item`Roman Candelabra`))
+  );
+}
