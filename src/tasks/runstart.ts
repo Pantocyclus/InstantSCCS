@@ -223,7 +223,16 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Restore mp",
+      name: "Restore mp (Bat Wings)",
+      completed: () =>
+        !have($item`bat wings`) ||
+        get("_batWingsRestUsed") >= 11 ||
+        myMp() >= Math.min(200, myMaxmp()),
+      do: () => useSkill($skill`Rest upside down`),
+      limit: { tries: 11 },
+    },
+    {
+      name: "Restore mp (Free Rests)",
       completed: () =>
         get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0) ||
         myMp() >= Math.min(200, myMaxmp()),

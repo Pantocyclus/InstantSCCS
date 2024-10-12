@@ -64,7 +64,13 @@ function printResourceUsage(tResource: trackedResource): void {
         n ?? "?"
       } ${localResourceValue}`,
     );
-  else print(`${name}: ${resourceValue}/${n ?? "?"} ${localResourceValue}`);
+  else {
+    if (n && !isNaN(parseInt(resourceValue)) && n < 0) {
+      print(`${name}: ${-n - parseInt(resourceValue)}/${-n} ${localResourceValue}`);
+    } else {
+      print(`${name}: ${resourceValue}/${n ?? "?"} ${localResourceValue}`);
+    }
+  }
 }
 
 function logResourceUsage(): void {
