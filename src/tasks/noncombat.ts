@@ -43,7 +43,7 @@ export const NoncombatQuest: Quest = {
       name: "Photobooth NC Photo",
       ready: () => have($item`Clan VIP Lounge key`),
       completed: () => have($effect`Wild and Westy!`) || get("_photoBoothEffects", 0) >= 3,
-      do: () => cliExecute("photobooth effect Wild and Westy"),
+      do: () => cliExecute("photobooth effect wild"),
       limit: { tries: 1 },
     },
     {
