@@ -40,7 +40,7 @@ export const NoncombatQuest: Quest = {
     },
     {
       name: "Photobooth NC Photo",
-      completed: () => have($effect`Wild and Westy`) || get("_photoBoothEffects", 0) >= 3,
+      completed: () => have($effect`Wild and Westy!`) || get("_photoBoothEffects", 0) >= 3,
       do: () => cliExecute("photobooth effect Wild and Westy"),
       limit: { tries: 1 },
     },
