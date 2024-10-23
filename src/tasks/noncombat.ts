@@ -34,8 +34,16 @@ export const NoncombatQuest: Quest = {
   tasks: [
     {
       name: "Buy Porkpie-mounted Popper",
+      ready: () => have($item`Clan VIP Lounge key`),
       completed: () => have($item`porkpie-mounted popper`),
       do: () => buy($item`porkpie-mounted popper`, 1),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Photobooth NC Photo",
+      ready: () => have($item`Clan VIP Lounge key`),
+      completed: () => have($effect`Wild and Westy!`) || get("_photoBoothEffects", 0) >= 3,
+      do: () => cliExecute("photobooth effect Wild and Westy"),
       limit: { tries: 1 },
     },
     {
