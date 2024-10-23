@@ -39,6 +39,12 @@ export const NoncombatQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Photobooth NC Photo",
+      completed: () => have($effect`Wild and Westy`) || get("_photoBoothEffects", 0) >= 3,
+      do: () => cliExecute("photobooth effect Wild and Westy"),
+      limit: { tries: 1 },
+    },
+    {
       name: "Use Shadow Lodestone",
       ready: () => have($item`Rufus's shadow lodestone`),
       completed: () => have($effect`Shadow Waters`),

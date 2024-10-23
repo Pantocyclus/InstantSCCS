@@ -201,6 +201,17 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Grab Photobooth Props",
+      completed: () =>
+        get("instant_savePhotoboothProps", false) || get("_photoBoothEquipment", 0) >= 3,
+      do: (): void => {
+        cliExecute("photobooth item fake arrow-through-the-head");
+        cliExecute("photobooth item oversized monocle on a stick");
+        cliExecute("photobooth item fake huge beard");
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Use Meat Butler",
       completed: () =>
         !have($item`2002 Mr. Store Catalog`) ||
