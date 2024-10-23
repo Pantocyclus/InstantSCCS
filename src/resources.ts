@@ -218,6 +218,7 @@ const farmingResources: Resource[] = [
     "instant_skipBembershootForJacket",
     "Acquire 2 bembershoots and 1 jacket instead of 3 bembershoots",
   ),
+  new Resource("instant_savePhotoboothProps", "Do not acquire photobooth props"),
 ];
 
 const otherResources: Resource[] = [
