@@ -206,9 +206,12 @@ export const RunStartQuest: Quest = {
       completed: () =>
         get("instant_savePhotoboothProps", false) || get("_photoBoothEquipment", 0) >= 3,
       do: (): void => {
-        cliExecute("photobooth item fake arrow-through-the-head");
+        cliExecute("photobooth item fake arrow-through-the-head"); // First guaranteed item
         cliExecute("photobooth item oversized monocle on a stick");
-        cliExecute("photobooth item fake huge beard");
+        if (!get("instant_saveEmbers", false) && have($item`Sept-Ember Censer`))
+          cliExecute("photobooth item astronaut helmet");
+        cliExecute("photobooth item fake huge beard"); // Second guranteed item (if we have not hit 3 items yet)
+        cliExecute("photobooth item photo booth supply list"); // Third guranteed item (if we have not hit 3 items yet)
       },
       limit: { tries: 1 },
     },
