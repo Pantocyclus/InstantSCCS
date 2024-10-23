@@ -202,6 +202,7 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Grab Photobooth Props",
+      ready: () => have($item`Clan VIP Lounge key`),
       completed: () =>
         get("instant_savePhotoboothProps", false) || get("_photoBoothEquipment", 0) >= 3,
       do: (): void => {
