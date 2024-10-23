@@ -19890,7 +19890,7 @@ var NoncombatQuest = {
     name: "Photobooth NC Photo",
     ready: () => lib_have(template_string_$item(noncombat_templateObject4 || (noncombat_templateObject4 = noncombat_taggedTemplateLiteral(["Clan VIP Lounge key"])))),
     completed: () => lib_have(template_string_$effect(noncombat_templateObject5 || (noncombat_templateObject5 = noncombat_taggedTemplateLiteral(["Wild and Westy!"])))) || property_get("_photoBoothEffects", 0) >= 3,
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("photobooth effect Wild and Westy"),
+    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("photobooth effect wild"),
     limit: {
       tries: 1
     }
