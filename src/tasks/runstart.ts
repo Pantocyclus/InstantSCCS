@@ -148,15 +148,11 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Set up Sweatsuit",
-      // eslint-disable-next-line libram/verify-constants
-      ready: () => have($familiar`quantized familiar`) && have($item`tiny stillsuit`),
-      // eslint-disable-next-line libram/verify-constants
+      ready: () => have($familiar`quantum entangler`) && have($item`tiny stillsuit`),
       completed: () =>
-        // eslint-disable-next-line libram/verify-constants
-        familiarEquippedEquipment($familiar`quantized familiar`) === $item`tiny stillsuit`,
+        familiarEquippedEquipment($familiar`quantum entangler`) === $item`tiny stillsuit`,
       do: (): void => {
-        // eslint-disable-next-line libram/verify-constants
-        equip($familiar`quantized familiar`, $item`tiny stillsuit`);
+        equip($familiar`quantum entangler`, $item`tiny stillsuit`);
       },
       limit: { tries: 1 },
     },

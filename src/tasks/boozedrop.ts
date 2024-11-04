@@ -361,10 +361,8 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Drink Stillsuit Distillate",
-      // eslint-disable-next-line libram/verify-constants
       ready: () =>
-        // eslint-disable-next-line libram/verify-constants
-        familiarEquippedEquipment($familiar`quantized familiar`) === $item`tiny stillsuit` &&
+        familiarEquippedEquipment($familiar`quantum entangler`) === $item`tiny stillsuit` &&
         !get("instant_saveStillsuit", false),
       completed: () =>
         get("familiarSweat") < 23 || // 23 is "tier 2" on adventures and effect gains
