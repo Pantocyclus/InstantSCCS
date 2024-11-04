@@ -10,6 +10,7 @@ import {
   currentMcd,
   drink,
   equip,
+  familiarEquippedEquipment,
   getCampground,
   getWorkshed,
   haveEquipped,
@@ -142,6 +143,20 @@ export const RunStartQuest: Quest = {
         autosell($item`baconstone`, itemAmount($item`baconstone`));
         if (!get("instant_savePorquoise", false))
           autosell($item`porquoise`, itemAmount($item`porquoise`));
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Set up Sweatsuit",
+      // eslint-disable-next-line libram/verify-constants
+      ready: () => have($familiar`quantized familiar`) && have($item`tiny stillsuit`),
+      // eslint-disable-next-line libram/verify-constants
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        familiarEquippedEquipment($familiar`quantized familiar`) === $item`tiny stillsuit`,
+      do: (): void => {
+        // eslint-disable-next-line libram/verify-constants
+        equip($familiar`quantized familiar`, $item`tiny stillsuit`);
       },
       limit: { tries: 1 },
     },

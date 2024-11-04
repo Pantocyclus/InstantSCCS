@@ -9,6 +9,7 @@ import {
   eat,
   Effect,
   equip,
+  familiarEquippedEquipment,
   faxbot,
   getWorkshed,
   hermit,
@@ -356,6 +357,19 @@ export const BoozeDropQuest: Quest = {
       name: "Set Apriling Band Helmet (Booze)",
       completed: () => !AprilingBandHelmet.canChangeSong(),
       do: () => AprilingBandHelmet.conduct($effect`Apriling Band Celebration Bop`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Drink Stillsuit Distillate",
+      // eslint-disable-next-line libram/verify-constants
+      ready: () =>
+        // eslint-disable-next-line libram/verify-constants
+        familiarEquippedEquipment($familiar`quantized familiar`) === $item`tiny stillsuit` &&
+        !get("instant_saveStillsuit", false),
+      completed: () =>
+        get("familiarSweat") < 23 || // 23 is "tier 2" on adventures and effect gains
+        myInebriety() + 1 > inebrietyLimit(),
+      do: () => cliExecute("drink stillsuit distillate"),
       limit: { tries: 1 },
     },
     {
