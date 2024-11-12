@@ -9,7 +9,6 @@ import {
   eat,
   Effect,
   equip,
-  familiarEquippedEquipment,
   faxbot,
   getWorkshed,
   hermit,
@@ -45,6 +44,7 @@ import {
   DaylightShavings,
   get,
   have,
+  StillSuit,
   TrainSet,
   uneffect,
   withChoice,
@@ -362,12 +362,11 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Drink Stillsuit Distillate",
       ready: () =>
-        familiarEquippedEquipment($familiar`quantum entangler`) === $item`tiny stillsuit` &&
-        !get("instant_saveStillsuit", false),
+        StillSuit.distillateModifier("Item Drop") >= 15 && !get("instant_saveStillsuit", false),
       completed: () =>
         get("familiarSweat") < 23 || // 23 is "tier 2" on adventures and effect gains
         myInebriety() + 1 > inebrietyLimit(),
-      do: () => cliExecute("drink stillsuit distillate"),
+      do: () => StillSuit.drinkDistillate,
       limit: { tries: 1 },
     },
     {
@@ -400,6 +399,14 @@ export const BoozeDropQuest: Quest = {
           equip($slot`familiar`, $item`li'l ninja costume`);
         }
         handleCustomPulls("instant_boozeTestPulls", boozeTestMaximizerString);
+
+        if (
+          CommunityService.BoozeDrop.actualCost() > 1 &&
+          StillSuit.distillateModifier("Item Drop") >= 15 &&
+          !get("instant_saveStillsuit", false) &&
+          myInebriety() + 1 < inebrietyLimit()
+        )
+          StillSuit.drinkDistillate();
 
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect`Infernal Thirst`);

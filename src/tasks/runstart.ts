@@ -90,6 +90,14 @@ import { baseOutfit, unbreakableUmbrella } from "../outfit";
 import { excludedFamiliars } from "../resources";
 import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
 
+const bestStillsuitFamiliar = have($familiar`quantum entangler`)
+  ? $familiar`quantum entangler`
+  : have($familiar`Gelatinous Cubeling`)
+    ? $familiar`Gelatinous Cubeling`
+    : have($familiar`Blood-Faced Volleyball`)
+      ? $familiar`Blood-Faced Volleyball`
+      : $familiar`Mosquito`;
+
 export const RunStartQuest: Quest = {
   name: "Run Start",
   completed: () => CommunityService.CoilWire.isDone(),
@@ -148,11 +156,10 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Set up Sweatsuit",
-      ready: () => have($familiar`quantum entangler`) && have($item`tiny stillsuit`),
-      completed: () =>
-        familiarEquippedEquipment($familiar`quantum entangler`) === $item`tiny stillsuit`,
+      ready: () => have($item`tiny stillsuit`),
+      completed: () => familiarEquippedEquipment(bestStillsuitFamiliar) === $item`tiny stillsuit`,
       do: (): void => {
-        equip($familiar`quantum entangler`, $item`tiny stillsuit`);
+        equip(bestStillsuitFamiliar, $item`tiny stillsuit`);
       },
       limit: { tries: 1 },
     },
