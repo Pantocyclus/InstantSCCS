@@ -360,16 +360,6 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Drink Stillsuit Distillate",
-      ready: () =>
-        StillSuit.distillateModifier("Item Drop") >= 15 && !get("instant_saveStillsuit", false),
-      completed: () =>
-        get("familiarSweat") < 23 || // 23 is "tier 2" on adventures and effect gains
-        myInebriety() + 1 > inebrietyLimit(),
-      do: () => StillSuit.drinkDistillate,
-      limit: { tries: 1 },
-    },
-    {
       name: "Test",
       prepare: (): void => {
         const usefulEffects: Effect[] = [
@@ -404,7 +394,8 @@ export const BoozeDropQuest: Quest = {
           CommunityService.BoozeDrop.actualCost() > 1 &&
           StillSuit.distillateModifier("Item Drop") >= 15 &&
           !get("instant_saveStillsuit", false) &&
-          myInebriety() + 1 < inebrietyLimit()
+          myInebriety() + 1 < inebrietyLimit() &&
+          !have($effect`Buzzed on Distillate`)
         )
           StillSuit.drinkDistillate();
 
