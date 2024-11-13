@@ -26,10 +26,7 @@ import { handleCustomPulls, logTestSetup, tryAcquiringEffect, wishFor } from "..
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 
-const haveTurkey = have($familiar`Peace Turkey`);
-const rate = haveTurkey ? 0.2 : 0.133; // If we have peace turkey, familiar weight scales better
-const cap = haveTurkey ? 50 : 75; // If we have peace turkey, more than 50 lbs isn't helpful; 75 for disgeist
-const comTestMaximizerString = `-combat, ${rate} familiar weight ${cap} max`;
+const comTestMaximizerString = `-combat`;
 
 export const NoncombatQuest: Quest = {
   name: "Noncombat",
