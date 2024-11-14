@@ -69,6 +69,7 @@ import {
   Pantogram,
   set,
   SongBoom,
+  StillSuit,
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
@@ -90,13 +91,7 @@ import { baseOutfit, unbreakableUmbrella } from "../outfit";
 import { excludedFamiliars } from "../resources";
 import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
 
-const bestStillsuitFamiliar = have($familiar`quantum entangler`)
-  ? $familiar`quantum entangler`
-  : have($familiar`Gelatinous Cubeling`)
-    ? $familiar`Gelatinous Cubeling`
-    : have($familiar`Blood-Faced Volleyball`)
-      ? $familiar`Blood-Faced Volleyball`
-      : $familiar`Mosquito`;
+const bestStillsuitFamiliar = StillSuit.bestFamiliar("Item Drop");
 
 export const RunStartQuest: Quest = {
   name: "Run Start",
