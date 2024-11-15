@@ -19865,7 +19865,7 @@ var FamiliarWeightQuest = {
   }]
 };
 ;// CONCATENATED MODULE: ./src/tasks/noncombat.ts
-var noncombat_templateObject, noncombat_templateObject2, noncombat_templateObject3, noncombat_templateObject4, noncombat_templateObject5, noncombat_templateObject6, noncombat_templateObject7, noncombat_templateObject8, noncombat_templateObject9, noncombat_templateObject10, noncombat_templateObject11, noncombat_templateObject12, noncombat_templateObject13, noncombat_templateObject14, noncombat_templateObject15, noncombat_templateObject16, noncombat_templateObject17, noncombat_templateObject18, noncombat_templateObject19, noncombat_templateObject20, noncombat_templateObject21, noncombat_templateObject22, noncombat_templateObject23, noncombat_templateObject24, noncombat_templateObject25, noncombat_templateObject26, noncombat_templateObject27, noncombat_templateObject28, noncombat_templateObject29, noncombat_templateObject30, noncombat_templateObject31, noncombat_templateObject32, noncombat_templateObject33, noncombat_templateObject34, noncombat_templateObject35, noncombat_templateObject36, noncombat_templateObject37, noncombat_templateObject38, noncombat_templateObject39;
+var noncombat_templateObject, noncombat_templateObject2, noncombat_templateObject3, noncombat_templateObject4, noncombat_templateObject5, noncombat_templateObject6, noncombat_templateObject7, noncombat_templateObject8, noncombat_templateObject9, noncombat_templateObject10, noncombat_templateObject11, noncombat_templateObject12, noncombat_templateObject13, noncombat_templateObject14, noncombat_templateObject15, noncombat_templateObject16, noncombat_templateObject17, noncombat_templateObject18, noncombat_templateObject19, noncombat_templateObject20, noncombat_templateObject21, noncombat_templateObject22, noncombat_templateObject23, noncombat_templateObject24, noncombat_templateObject25, noncombat_templateObject26, noncombat_templateObject27, noncombat_templateObject28, noncombat_templateObject29, noncombat_templateObject30, noncombat_templateObject31, noncombat_templateObject32, noncombat_templateObject33, noncombat_templateObject34, noncombat_templateObject35, noncombat_templateObject36, noncombat_templateObject37, noncombat_templateObject38, noncombat_templateObject39, noncombat_templateObject40, noncombat_templateObject41;
 
 function noncombat_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -19958,11 +19958,11 @@ var NoncombatQuest = {
       CommunityService.Noncombat.run(() => logTestSetup(CommunityService.Noncombat), maxTurns);
     },
     outfit: {
-      familiar: template_string_$familiar(noncombat_templateObject38 || (noncombat_templateObject38 = noncombat_taggedTemplateLiteral(["Disgeist"]))),
+      familiar: lib_have(template_string_$familiar(noncombat_templateObject38 || (noncombat_templateObject38 = noncombat_taggedTemplateLiteral(["Peace Turkey"])))) ? template_string_$familiar(noncombat_templateObject39 || (noncombat_templateObject39 = noncombat_taggedTemplateLiteral(["Peace Turkey"]))) : template_string_$familiar(noncombat_templateObject40 || (noncombat_templateObject40 = noncombat_taggedTemplateLiteral(["Disgeist"]))),
       modifier: comTestMaximizerString
     },
     post: () => {
-      uneffect(template_string_$effect(noncombat_templateObject39 || (noncombat_templateObject39 = noncombat_taggedTemplateLiteral(["The Sonata of Sneakiness"]))));
+      uneffect(template_string_$effect(noncombat_templateObject41 || (noncombat_templateObject41 = noncombat_taggedTemplateLiteral(["The Sonata of Sneakiness"]))));
     },
     limit: {
       tries: 1
@@ -21999,7 +21999,7 @@ var args = Args.create("InstantSCCS", "An automated low-shiny SCCS script.", {
   })
 });
 function main_main(command) {
-  sinceKolmafiaRevision(28099);
+  sinceKolmafiaRevision(28122);
   checkGithubVersion();
   Args.fill(args, command);
 
