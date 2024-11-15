@@ -219,6 +219,7 @@ const farmingResources: Resource[] = [
     "Acquire 2 bembershoots and 1 jacket instead of 3 bembershoots",
   ),
   new Resource("instant_savePhotoboothProps", "Do not acquire photobooth props"),
+  new Resource("instant_saveStillsuit", "Do not drink stillsuit distillate for the item test"),
 ];
 
 const otherResources: Resource[] = [

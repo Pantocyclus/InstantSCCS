@@ -44,6 +44,7 @@ import {
   DaylightShavings,
   get,
   have,
+  StillSuit,
   TrainSet,
   uneffect,
   withChoice,
@@ -388,6 +389,15 @@ export const BoozeDropQuest: Quest = {
           equip($slot`familiar`, $item`li'l ninja costume`);
         }
         handleCustomPulls("instant_boozeTestPulls", boozeTestMaximizerString);
+
+        if (
+          CommunityService.BoozeDrop.actualCost() > 1 &&
+          StillSuit.distillateModifier("Item Drop") >= 15 &&
+          !get("instant_saveStillsuit", false) &&
+          myInebriety() + 1 < inebrietyLimit() &&
+          !have($effect`Buzzed on Distillate`)
+        )
+          StillSuit.drinkDistillate();
 
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect`Infernal Thirst`);
