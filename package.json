@@ -23,7 +23,7 @@
     "babel-loader": "^8.2.2",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-libram": "^0.4.14",
+    "eslint-plugin-libram": "^0.4.16",
     "prettier": "^3.2.4",
     "typescript": "^5.3.3",
     "webpack": "^5.61.0",

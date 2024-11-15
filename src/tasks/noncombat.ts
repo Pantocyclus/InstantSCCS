@@ -26,7 +26,7 @@ import { handleCustomPulls, logTestSetup, tryAcquiringEffect, wishFor } from "..
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 
-const comTestMaximizerString = "-combat";
+const comTestMaximizerString = `-combat`;
 
 export const NoncombatQuest: Quest = {
   name: "Noncombat",
@@ -147,7 +147,7 @@ export const NoncombatQuest: Quest = {
         CommunityService.Noncombat.run(() => logTestSetup(CommunityService.Noncombat), maxTurns);
       },
       outfit: {
-        familiar: $familiar`Disgeist`,
+        familiar: have($familiar`Peace Turkey`) ? $familiar`Peace Turkey` : $familiar`Disgeist`,
         modifier: comTestMaximizerString,
       },
       post: (): void => {
