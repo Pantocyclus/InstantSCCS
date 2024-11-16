@@ -91,7 +91,7 @@ import { baseOutfit, unbreakableUmbrella } from "../outfit";
 import { excludedFamiliars } from "../resources";
 import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
 
-const bestStillsuitFamiliar = StillSuit.bestFamiliar("Item Drop");
+const bestStillsuitFamiliar = StillSuit.bestFamiliar("item drop");
 
 export const RunStartQuest: Quest = {
   name: "Run Start",
