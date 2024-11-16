@@ -10,6 +10,7 @@ import {
   currentMcd,
   drink,
   equip,
+  Familiar,
   familiarEquippedEquipment,
   getCampground,
   getWorkshed,
@@ -62,14 +63,15 @@ import {
   CommunityService,
   get,
   getBanishedMonsters,
+  getFamiliarTags,
   getKramcoWandererChance,
   have,
   haveInCampground,
+  maxBy,
   MayamCalendar,
   Pantogram,
   set,
   SongBoom,
-  StillSuit,
 } from "libram";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
@@ -91,7 +93,12 @@ import { baseOutfit, unbreakableUmbrella } from "../outfit";
 import { excludedFamiliars } from "../resources";
 import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
 
-const bestStillsuitFamiliar = StillSuit.bestFamiliar("item drop");
+const itemDropTags = ["haseyes", "object", "haslegs"];
+const bestStillsuitFamiliar = maxBy(Familiar.all().filter(have), (familiar: Familiar) => {
+  const tags = getFamiliarTags(familiar);
+  const usefulTags = tags.filter((tag) => itemDropTags.includes(tag));
+  return usefulTags.length / (tags.length + 1);
+});
 
 export const RunStartQuest: Quest = {
   name: "Run Start",
