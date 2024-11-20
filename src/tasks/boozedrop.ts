@@ -48,6 +48,7 @@ import {
   TrainSet,
   uneffect,
   withChoice,
+  withProperty,
 } from "libram";
 import {
   canConfigure,
@@ -415,7 +416,10 @@ export const BoozeDropQuest: Quest = {
             "red",
           );
         }
-        CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns);
+        // Temporary fix till CommunityService and MummingTrunk gets fixed in Libram
+        withProperty("_mummeryMods", "", () =>
+          CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns),
+        );
       },
       outfit: {
         modifier: boozeTestMaximizerString,
