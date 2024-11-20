@@ -5610,7 +5610,7 @@ function splitByCommasWithEscapes(str) {
  * @returns Best element by optimizer function
  */
 
-function utils_maxBy(array, optimizer) {
+function maxBy(array, optimizer) {
   var reverse = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
   if (!array.length) throw new Error("Cannot call maxBy on an empty array!");
 
@@ -7423,7 +7423,7 @@ var familiarTags = Object.freeze(["animal", "insect", "haseyes", "haswings", "fa
  * @returns An array of the familiar's tags
  */
 
-function lib_getFamiliarTags(familiar) {
+function getFamiliarTags(familiar) {
   return familiar.attributes.split("; ").filter(Boolean);
 }
 ;// CONCATENATED MODULE: ./node_modules/libram/dist/logger.js
@@ -10077,7 +10077,7 @@ function chooseRift(options) {
   var validRifts = ClosedCircuitPayphone_toConsumableArray(RIFTS).filter(filterFunction);
 
   if (!validRifts.length) return null;
-  return options.sortBy ? utils_maxBy(validRifts, options.sortBy) : validRifts[0];
+  return options.sortBy ? maxBy(validRifts, options.sortBy) : validRifts[0];
 }
 /**
  * Choose a quest based on the options available to us
@@ -10711,7 +10711,7 @@ function goVote() {
       value: (_initPriority$get = initPriority.get(property_get("_voteLocal".concat(index)))) !== null && _initPriority$get !== void 0 ? _initPriority$get : property_get("_voteLocal".concat(index)).includes("-") ? -1 : 1
     };
   });
-  var init = utils_maxBy(voteLocalPriorityArr, "value").urlString;
+  var init = maxBy(voteLocalPriorityArr, "value").urlString;
   var voteOptimally = property_get("instant_voteOptimally", false) ? 2 : 1;
   var voterValueTable = [{
     monster: $monster(_templateObject141 || (_templateObject141 = lib_taggedTemplateLiteral(["terrible mutant"]))),
@@ -18626,6 +18626,159 @@ var CoilWireQuest = {
     }
   }]
 };
+;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2022/Stillsuit.js
+var Stillsuit_templateObject;
+
+function Stillsuit_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function Stillsuit_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Stillsuit_ownKeys(Object(source), true).forEach(function (key) { Stillsuit_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Stillsuit_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function Stillsuit_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function Stillsuit_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+
+
+/**
+ * Do you own a still-suit?
+ * @returns Whether you have the tiny stillsuit
+ */
+
+function Stillsuit_have() {
+  return lib_have(template_string_$item(Stillsuit_templateObject || (Stillsuit_templateObject = Stillsuit_taggedTemplateLiteral(["tiny stillsuit"]))));
+}
+/**
+ * @returns the expected adventures from drinking stillsuit distillate
+ */
+
+function distillateAdventures() {
+  if (!Stillsuit_have()) return 0;
+  var sweat = get("familiarSweat");
+  return Math.round(Math.pow(sweat, 0.4));
+}
+/**
+ * Drinks stillsuit distillate
+ * @returns whether distillate was successfully drunk
+ */
+
+function drinkDistillate() {
+  if (!Stillsuit_have() || property_get("familiarSweat") <= 0) return false;
+  return (0,external_kolmafia_namespaceObject.cliExecute)("drink stillsuit distillate");
+}
+
+var distillateModifiers = pref => parseModifiers(pref);
+/**
+ * @returns A `Modifiers` object that contains your next Distillate modifiers
+ */
+
+
+function nextDistillateModifiers() {
+  visitUrl("inventory.php?action=distill&pwd");
+  return distillateModifiers("nextDistillateMods");
+}
+/**
+ * @returns A `Modifiers` object that contains your current Distillate modifiers
+ */
+
+function currentDistillateModifiers() {
+  return distillateModifiers("currentDistillateMods");
+}
+/**
+ * Checks distillate for specific modifiers
+ * @param modifier determines what modifier to check stillsuit buffs against
+ * @returns the modifier value for the given modifier
+ */
+
+function distillateModifier(modifier) {
+  (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?action=distill&pwd");
+  var value = (0,external_kolmafia_namespaceObject.splitModifiers)("currentDistillateMods")[modifier];
+  return value ? Number(value) : 0;
+}
+var MODIFIER_TAGS = Object.freeze({
+  mineral: "Muscle",
+  robot: "Muscle",
+  organic: "Muscle",
+  hasbones: "Muscle",
+  technological: "Mysticality",
+  orb: "Mysticality",
+  sentient: "Mysticality",
+  polygonal: "Mysticality",
+  software: "Mysticality",
+  cantalk: "Mysticality",
+  humanoid: "Moxie",
+  hashands: "Moxie",
+  cute: "Moxie",
+  good: "Moxie",
+  phallic: "Moxie",
+  animatedart: "Moxie",
+  person: "Moxie",
+  haseyes: "Item Drop",
+  object: "Item Drop",
+  haslegs: "Item Drop",
+  food: "Food Drop",
+  vegetable: "Food Drop",
+  edible: "Food Drop",
+  animal: "Damage Reduction",
+  insect: "Damage Reduction",
+  wearsclothes: "Damage Reduction",
+  isclothes: "Damage Reduction",
+  hasshell: "Damage Reduction",
+  haswings: "Initiative",
+  fast: "Initiative",
+  flies: "Initiative",
+  hovers: "Initiative",
+  swims: "Initiative",
+  aquatic: "Initiative",
+  spooky: "Spooky Damage",
+  undead: "Spooky Damage",
+  evil: "Spooky Damage",
+  reallyevil: "Spooky Damage",
+  hot: "Hot Damage",
+  cold: "Cold Damage",
+  sleaze: "Sleaze Damage",
+  stench: "Stench Damage",
+  bite: "Weapon Damage",
+  hasclaws: "Weapon Damage",
+  hasbeak: "Weapon Damage",
+  hasstinger: "Weapon Damage",
+  hard: "Weapon Damage"
+});
+
+function isStillsuitTag(tag) {
+  return tag in MODIFIER_TAGS;
+}
+/**
+ * Calculate the ratio of stillsuit modifiers for a particular familiar.
+ * @param familiar The familiar in question
+ * @returns An object whose keys are NumericModifiers potentially granted by the stillsuit distillate from this familiar, and whose values are the relative weights of those modifiers
+ */
+
+
+function modifierRatio(familiar) {
+  var tags = getFamiliarTags(familiar);
+  return tags.filter(isStillsuitTag).reduce((acc, tag) => {
+    var _acc$MODIFIER_TAGS$ta;
+
+    return Stillsuit_objectSpread(Stillsuit_objectSpread({}, acc), {}, Stillsuit_defineProperty({}, MODIFIER_TAGS[tag], (((_acc$MODIFIER_TAGS$ta = acc[MODIFIER_TAGS[tag]]) !== null && _acc$MODIFIER_TAGS$ta !== void 0 ? _acc$MODIFIER_TAGS$ta : 0) + 1) / tags.length));
+  }, {});
+}
+/**
+ * Identify the best familiar you have to generate stillsuit distillate for a given modifier
+ * @param modifier The modifier in question
+ * @returns The familiar you currently `have` that returns the best stillsuit distillate for that modifier.
+ */
+
+function bestFamiliar(modifier) {
+  return maxBy(external_kolmafia_namespaceObject.Familiar.all().filter(Stillsuit_have), familiar => {
+    var _modifierRatio$modifi;
+
+    return (_modifierRatio$modifi = modifierRatio(familiar)[modifier]) !== null && _modifierRatio$modifi !== void 0 ? _modifierRatio$modifi : 0;
+  });
+}
 ;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2017/Pantogram.js
 var Pantogram_templateObject, Pantogram_templateObject2, _Alignment, _Element, Pantogram_templateObject3, Pantogram_templateObject4, Pantogram_templateObject5, Pantogram_templateObject6, Pantogram_templateObject7, Pantogram_templateObject8, Pantogram_templateObject9, _LeftSacrifice, Pantogram_templateObject10, Pantogram_templateObject11, Pantogram_templateObject12, Pantogram_templateObject13, Pantogram_templateObject14, Pantogram_templateObject15, Pantogram_templateObject16, Pantogram_templateObject17, Pantogram_templateObject18, _MiddleSacrifice, Pantogram_templateObject19, Pantogram_templateObject20, Pantogram_templateObject21, Pantogram_templateObject22, Pantogram_templateObject23, Pantogram_templateObject24, Pantogram_templateObject25, Pantogram_templateObject26, Pantogram_templateObject27, Pantogram_templateObject28, _RightSacrifice;
 
@@ -19083,12 +19236,7 @@ function runstart_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = string
 
 
 
-var itemDropTags = ["haseyes", "object", "haslegs"];
-var bestStillsuitFamiliar = utils_maxBy(external_kolmafia_namespaceObject.Familiar.all().filter(lib_have), familiar => {
-  var tags = lib_getFamiliarTags(familiar);
-  var usefulTags = tags.filter(tag => itemDropTags.includes(tag));
-  return usefulTags.length / (tags.length + 1);
-});
+var bestStillsuitFamiliar = bestFamiliar("Item Drop");
 var RunStartQuest = {
   name: "Run Start",
   completed: () => CommunityService.CoilWire.isDone(),
@@ -20106,159 +20254,6 @@ var NoncombatQuest = {
     }
   }]
 };
-;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2022/Stillsuit.js
-var Stillsuit_templateObject;
-
-function Stillsuit_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function Stillsuit_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Stillsuit_ownKeys(Object(source), true).forEach(function (key) { Stillsuit_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Stillsuit_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function Stillsuit_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function Stillsuit_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-
-
-
-
-
-/**
- * Do you own a still-suit?
- * @returns Whether you have the tiny stillsuit
- */
-
-function Stillsuit_have() {
-  return lib_have(template_string_$item(Stillsuit_templateObject || (Stillsuit_templateObject = Stillsuit_taggedTemplateLiteral(["tiny stillsuit"]))));
-}
-/**
- * @returns the expected adventures from drinking stillsuit distillate
- */
-
-function distillateAdventures() {
-  if (!Stillsuit_have()) return 0;
-  var sweat = get("familiarSweat");
-  return Math.round(Math.pow(sweat, 0.4));
-}
-/**
- * Drinks stillsuit distillate
- * @returns whether distillate was successfully drunk
- */
-
-function drinkDistillate() {
-  if (!Stillsuit_have() || property_get("familiarSweat") <= 0) return false;
-  return (0,external_kolmafia_namespaceObject.cliExecute)("drink stillsuit distillate");
-}
-
-var distillateModifiers = pref => parseModifiers(pref);
-/**
- * @returns A `Modifiers` object that contains your next Distillate modifiers
- */
-
-
-function nextDistillateModifiers() {
-  visitUrl("inventory.php?action=distill&pwd");
-  return distillateModifiers("nextDistillateMods");
-}
-/**
- * @returns A `Modifiers` object that contains your current Distillate modifiers
- */
-
-function currentDistillateModifiers() {
-  return distillateModifiers("currentDistillateMods");
-}
-/**
- * Checks distillate for specific modifiers
- * @param modifier determines what modifier to check stillsuit buffs against
- * @returns the modifier value for the given modifier
- */
-
-function distillateModifier(modifier) {
-  (0,external_kolmafia_namespaceObject.visitUrl)("inventory.php?action=distill&pwd");
-  var value = (0,external_kolmafia_namespaceObject.splitModifiers)("currentDistillateMods")[modifier];
-  return value ? Number(value) : 0;
-}
-var MODIFIER_TAGS = Object.freeze({
-  mineral: "Muscle",
-  robot: "Muscle",
-  organic: "Muscle",
-  hasbones: "Muscle",
-  technological: "Mysticality",
-  orb: "Mysticality",
-  sentient: "Mysticality",
-  polygonal: "Mysticality",
-  software: "Mysticality",
-  cantalk: "Mysticality",
-  humanoid: "Moxie",
-  hashands: "Moxie",
-  cute: "Moxie",
-  good: "Moxie",
-  phallic: "Moxie",
-  animatedart: "Moxie",
-  person: "Moxie",
-  haseyes: "Item Drop",
-  object: "Item Drop",
-  haslegs: "Item Drop",
-  food: "Food Drop",
-  vegetable: "Food Drop",
-  edible: "Food Drop",
-  animal: "Damage Reduction",
-  insect: "Damage Reduction",
-  wearsclothes: "Damage Reduction",
-  isclothes: "Damage Reduction",
-  hasshell: "Damage Reduction",
-  haswings: "Initiative",
-  fast: "Initiative",
-  flies: "Initiative",
-  hovers: "Initiative",
-  swims: "Initiative",
-  aquatic: "Initiative",
-  spooky: "Spooky Damage",
-  undead: "Spooky Damage",
-  evil: "Spooky Damage",
-  reallyevil: "Spooky Damage",
-  hot: "Hot Damage",
-  cold: "Cold Damage",
-  sleaze: "Sleaze Damage",
-  stench: "Stench Damage",
-  bite: "Weapon Damage",
-  hasclaws: "Weapon Damage",
-  hasbeak: "Weapon Damage",
-  hasstinger: "Weapon Damage",
-  hard: "Weapon Damage"
-});
-
-function isStillsuitTag(tag) {
-  return tag in MODIFIER_TAGS;
-}
-/**
- * Calculate the ratio of stillsuit modifiers for a particular familiar.
- * @param familiar The familiar in question
- * @returns An object whose keys are NumericModifiers potentially granted by the stillsuit distillate from this familiar, and whose values are the relative weights of those modifiers
- */
-
-
-function modifierRatio(familiar) {
-  var tags = getFamiliarTags(familiar);
-  return tags.filter(isStillsuitTag).reduce((acc, tag) => {
-    var _acc$MODIFIER_TAGS$ta;
-
-    return Stillsuit_objectSpread(Stillsuit_objectSpread({}, acc), {}, Stillsuit_defineProperty({}, MODIFIER_TAGS[tag], (((_acc$MODIFIER_TAGS$ta = acc[MODIFIER_TAGS[tag]]) !== null && _acc$MODIFIER_TAGS$ta !== void 0 ? _acc$MODIFIER_TAGS$ta : 0) + 1) / tags.length));
-  }, {});
-}
-/**
- * Identify the best familiar you have to generate stillsuit distillate for a given modifier
- * @param modifier The modifier in question
- * @returns The familiar you currently `have` that returns the best stillsuit distillate for that modifier.
- */
-
-function bestFamiliar(modifier) {
-  return maxBy(Familiar.all().filter(Stillsuit_have), familiar => {
-    var _modifierRatio$modifi;
-
-    return (_modifierRatio$modifi = modifierRatio(familiar)[modifier]) !== null && _modifierRatio$modifi !== void 0 ? _modifierRatio$modifi : 0;
-  });
-}
 ;// CONCATENATED MODULE: ./src/tasks/boozedrop.ts
 var boozedrop_templateObject, boozedrop_templateObject2, boozedrop_templateObject3, boozedrop_templateObject4, boozedrop_templateObject5, boozedrop_templateObject6, boozedrop_templateObject7, boozedrop_templateObject8, boozedrop_templateObject9, boozedrop_templateObject10, boozedrop_templateObject11, boozedrop_templateObject12, boozedrop_templateObject13, boozedrop_templateObject14, boozedrop_templateObject15, boozedrop_templateObject16, boozedrop_templateObject17, boozedrop_templateObject18, boozedrop_templateObject19, boozedrop_templateObject20, boozedrop_templateObject21, boozedrop_templateObject22, boozedrop_templateObject23, boozedrop_templateObject24, boozedrop_templateObject25, boozedrop_templateObject26, boozedrop_templateObject27, boozedrop_templateObject28, boozedrop_templateObject29, boozedrop_templateObject30, boozedrop_templateObject31, boozedrop_templateObject32, boozedrop_templateObject33, boozedrop_templateObject34, boozedrop_templateObject35, boozedrop_templateObject36, boozedrop_templateObject37, boozedrop_templateObject38, boozedrop_templateObject39, boozedrop_templateObject40, boozedrop_templateObject41, boozedrop_templateObject42, boozedrop_templateObject43, boozedrop_templateObject44, boozedrop_templateObject45, boozedrop_templateObject46, boozedrop_templateObject47, boozedrop_templateObject48, boozedrop_templateObject49, boozedrop_templateObject50, boozedrop_templateObject51, boozedrop_templateObject52, boozedrop_templateObject53, boozedrop_templateObject54, boozedrop_templateObject55, boozedrop_templateObject56, boozedrop_templateObject57, boozedrop_templateObject58, boozedrop_templateObject59, boozedrop_templateObject60, boozedrop_templateObject61, boozedrop_templateObject62, boozedrop_templateObject63, boozedrop_templateObject64, boozedrop_templateObject65, boozedrop_templateObject66, boozedrop_templateObject67, boozedrop_templateObject68, boozedrop_templateObject69, boozedrop_templateObject70, boozedrop_templateObject71, boozedrop_templateObject72, boozedrop_templateObject73, boozedrop_templateObject74, boozedrop_templateObject75, boozedrop_templateObject76, boozedrop_templateObject77, boozedrop_templateObject78, boozedrop_templateObject79, boozedrop_templateObject80, boozedrop_templateObject81, boozedrop_templateObject82, boozedrop_templateObject83, boozedrop_templateObject84, boozedrop_templateObject85, boozedrop_templateObject86, boozedrop_templateObject87, boozedrop_templateObject88, boozedrop_templateObject89, boozedrop_templateObject90, boozedrop_templateObject91, boozedrop_templateObject92, boozedrop_templateObject93, boozedrop_templateObject94, boozedrop_templateObject95, boozedrop_templateObject96, boozedrop_templateObject97, boozedrop_templateObject98, boozedrop_templateObject99, boozedrop_templateObject100, boozedrop_templateObject101, boozedrop_templateObject102, boozedrop_templateObject103, boozedrop_templateObject104, boozedrop_templateObject105, boozedrop_templateObject106, boozedrop_templateObject107, boozedrop_templateObject108, boozedrop_templateObject109, boozedrop_templateObject110, boozedrop_templateObject111, boozedrop_templateObject112, boozedrop_templateObject113, boozedrop_templateObject114, boozedrop_templateObject115, boozedrop_templateObject116, boozedrop_templateObject117, boozedrop_templateObject118, boozedrop_templateObject119, boozedrop_templateObject120, boozedrop_templateObject121, boozedrop_templateObject122, boozedrop_templateObject123, boozedrop_templateObject124, boozedrop_templateObject125, boozedrop_templateObject126, boozedrop_templateObject127;
 
@@ -20543,9 +20538,10 @@ var BoozeDropQuest = {
         (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
         (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
         (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_boozeTestTurnLimit=<new limit>'", "red");
-      }
+      } // Temporary fix till CommunityService and MummingTrunk gets fixed in Libram
 
-      CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns);
+
+      withProperty("_mummeryMods", "", () => CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns));
     },
     outfit: {
       modifier: boozeTestMaximizerString
