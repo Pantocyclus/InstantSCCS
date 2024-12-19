@@ -94,6 +94,9 @@ export const NoncombatQuest: Quest = {
           $effect`Throwing Some Shade`,
           $effect`Ultra-Soft Steps`,
 
+          // eslint-disable-next-line libram/verify-constants
+          $effect`Hiding from Seekers`,
+
           // Famwt for Disgeist
           $effect`Blood Bond`,
           $effect`Leash of Linguini`,
