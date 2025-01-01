@@ -682,6 +682,7 @@ export function computeCombatFrequency(): number {
   const feelingLonely = have($skill`Feel Lonely`) ? -5 : 0;
   const aprilingBandPatrolBeat = have($item`Apriling band helmet`) ? -10 : 0;
   const photoBoothEffect = have($item`Clan VIP Lounge key`) ? -5 : 0;
+  const hidingFromSeekers = have($skill`Hide From Seekers`) ? -5 : 0;
 
   // Since Offhand Remarkable is useful for tests after famwt + NC, if it is being used at all,
   // we should not burn most of its turns on famwt (i.e. NC -> famwt)
@@ -708,6 +709,7 @@ export function computeCombatFrequency(): number {
     feelingLonely,
     aprilingBandPatrolBeat,
     photoBoothEffect,
+    hidingFromSeekers,
     // offhandRemarkable,
     // hippyAntimilitarism,
   ]);
