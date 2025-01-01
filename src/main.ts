@@ -15,7 +15,7 @@ import {
   convertMilliseconds,
   simpleDateDiff,
 } from "./lib";
-import { get, set, sinceKolmafiaRevision } from "libram";
+import { get, set, setCombatFlags, sinceKolmafiaRevision } from "libram";
 import { Engine } from "./engine/engine";
 import { Args, getTasks } from "grimoire-kolmafia";
 import { Quest, Task } from "./engine/task";
@@ -48,7 +48,7 @@ export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS scri
 });
 
 export function main(command?: string): void {
-  sinceKolmafiaRevision(28128);
+  sinceKolmafiaRevision(28186);
   checkGithubVersion();
 
   Args.fill(args, command);
@@ -109,6 +109,7 @@ export function main(command?: string): void {
   const engine = new Engine(tasks);
   try {
     setAutoAttack(0);
+    setCombatFlags({ flag: "aabosses", value: true }, { flag: "bothcombatinterf", value: false });
 
     while (!runComplete()) {
       const task = engine.getNextTask();
