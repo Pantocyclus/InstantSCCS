@@ -540,7 +540,12 @@ export const LevelingQuest: Quest = {
         !have($item`bat wings`) ||
         get("_batWingsRestUsed") >= 11 ||
         myMp() >= Math.min(200, myMaxmp()),
-      do: () => useSkill($skill`Rest upside down`),
+      do: (): void => {
+        equip($slot`back`, $item`bat wings`);
+        if (myMp() < Math.min(200, myMaxmp())) {
+          useSkill($skill`Rest upside down`);
+        }
+      },
       limit: { tries: 11 },
     },
     {
