@@ -715,8 +715,10 @@ export function computeCombatFrequency(): number {
     // hippyAntimilitarism,
   ]);
 
-  const disgeist = have($familiar`Disgeist`) ? -5 : 0;
-  const familiar = disgeist;
+  // No good way of determining familiar weight for the NC test yet
+  const disgeist = have($familiar`Disgeist`) ? -5 : 0; // -min(10, floor(weight / 7.5))
+  const peaceTurkey = have($familiar`Peace Turkey`) ? -5 : 0; // -min(10, floor(weight / 5.0))
+  const familiar = sumNumbers([disgeist, peaceTurkey].sort().slice(0, 1));
 
   const darkHorse = get("horseryAvailable") ? -5 : 0;
   const others = darkHorse;
