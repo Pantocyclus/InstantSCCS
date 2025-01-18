@@ -610,6 +610,16 @@ export const LevelingQuest: Quest = {
         )
           tryAcquiringEffect($effect`Rainbow Vaccine`);
 
+        if (
+          have($item`server room key`) &&
+          forbiddenEffects.includes($effect`Cyber Resist x2000`)
+        ) {
+          if (!have($item`Synapse Blaster`)) {
+            buy($item`Synapse Blaster`, 1);
+          }
+          tryAcquiringEffect($effect`Cyber Resist x2000`);
+        }
+
         // Grab Bembershoots
         const bembershootQty = get("instant_skipBembershootForJacket", false) ? 2 : 3;
         visitUrl(
