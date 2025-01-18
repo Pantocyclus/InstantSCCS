@@ -251,6 +251,12 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Open McHugeLarge Duffel Bag",
+      completed: () => !have($item`McHugeLarge duffel bag`) || have($item`McHugeLarge left ski`),
+      do: () => cliExecute("inventory.php?action=skiduffel&pwd"),
+      limit: { tries: 1 },
+    },
+    {
       name: "Restore mp (Bat Wings)",
       completed: () =>
         !have($item`bat wings`) ||

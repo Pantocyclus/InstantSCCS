@@ -657,7 +657,8 @@ export function computeCombatFrequency(): number {
   const codpiece =
     have($item`Clan VIP Lounge key`) && !get("instant_saveFloundry", false) ? -10 : 0;
   const atlas = get("hasMaydayContract") && !get("instant_saveMayday", false) ? -5 : 0;
-  const accessories = sumNumbers([kgb, codpiece, atlas]);
+  const mcHugeLargeLeftSki = have($item`McHugeLarge duffel bag`) ? -5 : 0;
+  const accessories = sumNumbers([kgb, codpiece, atlas, mcHugeLargeLeftSki].sort().slice(0, 3));
 
   const rose = -20;
   const smoothMovements = have($skill`Smooth Movement`) ? -5 : 0;
