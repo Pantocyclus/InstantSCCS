@@ -525,6 +525,31 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "FantasyRealm G. E. M.",
+      ready: () => get("frAlways") || get("_frToday"),
+      completed: () => have($item`FantasyRealm G. E. M.`),
+      do: () => {
+        visitUrl("place.php?whichplace=realm_fantasy&action=fr_initcenter");
+        runChoice(-1);
+      },
+      choices: { 1280: 1 },
+      limit: { tries: 1 },
+    },
+    {
+      name: "PirateRealm eyepatch",
+      ready: () => get("prAlways") || get("_prToday"),
+      completed: () => have($item`PirateRealm eyepatch`),
+      do: () => visitUrl("place.php?whichplace=realm_pirate&action=pr_port"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Personal Ventilation Unit",
+      ready: () => get("spookyAirportAlways") || get("_spookyAirportToday"),
+      completed: () => have($item`Personal Ventilation Unit`),
+      do: $location`The Secret Government Laboratory`,
+      limit: { tries: 1 },
+    },
+    {
       name: "Configure Trainset",
       completed: () =>
         !have($item`model train set`) ||

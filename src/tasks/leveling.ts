@@ -938,6 +938,75 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "CyberSpace Zone 1",
+      prepare: (): void => {
+        if (!have($item`datastick`))
+          visitUrl("place.php?whichplace=serverroom&action=serverroom_chipdrawer");
+        $effects`Honeypotted, Null Afternoon, Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach(
+          (e) => tryAcquiringEffect(e),
+        );
+      },
+      completed: () =>
+        !have($skill`OVERCLOCK(10)`) ||
+        get("_cyberZone1Turns") >= Math.min(get("instant_saveCyberRealmFights", 0), 9),
+      do: $location`Cyberzone 1`,
+      combat: new CombatStrategy().macro(
+        Macro.if_("monstername hacker", Macro.default()).trySkillRepeat($skill`Throw Cyber Rock`),
+      ),
+      outfit: () => ({
+        ...baseOutfit(),
+        acc1: $item`datastick`,
+        acc3: $items`PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit`.filter(
+          have,
+        )?.[0],
+      }),
+      post: (): void => {
+        sendAutumnaton();
+        if (get("_cyberZone1Turns") >= get("instant_saveCyberRealmFights", 0)) {
+          $effects`Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach((e) =>
+            cliExecute(`shrug ${e}`),
+          );
+        }
+      },
+      limit: { tries: 9 },
+    },
+    {
+      name: "CyberSpace Zone 2",
+      prepare: (): void => {
+        if (!have($item`datastick`))
+          visitUrl("place.php?whichplace=serverroom&action=serverroom_chipdrawer");
+        $effects`Honeypotted, Null Afternoon, Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach(
+          (e) => tryAcquiringEffect(e),
+        );
+      },
+      completed: () =>
+        !have($skill`OVERCLOCK(10)`) ||
+        get("_cyberZone1Turns") + get("_cyberZone2Turns") >= get("instant_saveCyberRealmFights", 0),
+      do: $location`Cyberzone 2`,
+      combat: new CombatStrategy().macro(
+        Macro.if_("monstername hacker", Macro.default()).trySkillRepeat($skill`Throw Cyber Rock`),
+      ),
+      outfit: () => ({
+        ...baseOutfit(),
+        acc1: $item`datastick`,
+        acc3: $items`PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit`.filter(
+          have,
+        )?.[0],
+      }),
+      post: (): void => {
+        sendAutumnaton();
+        if (
+          get("_cyberZone1Turns") + get("_cyberZone2Turns") >=
+          get("instant_saveCyberRealmFights", 0)
+        ) {
+          $effects`Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach((e) =>
+            cliExecute(`shrug ${e}`),
+          );
+        }
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Get Rufus Quest",
       completed: () => get("_shadowAffinityToday") || !have($item`closed-circuit pay phone`),
       do: (): void => {

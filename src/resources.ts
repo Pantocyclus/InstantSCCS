@@ -1,5 +1,5 @@
 import { Effect, Familiar, print, printHtml, toEffect, toInt, totalFreeRests } from "kolmafia";
-import { $effect, $effects, get, set } from "libram";
+import { $effect, $effects, $skill, get, have, set } from "libram";
 
 class Resource {
   pref: string;
@@ -122,6 +122,13 @@ const encounterResources: Resource[] = [
     "Save 3 Witchess fights for the Queen, King and Witch",
   ),
   new Resource("instant_skipCyclopsEyedrops", "Do not spend a clover on Cyclops Eyedrops"),
+  new Resource(
+    "instant_saveCyberRealmFights",
+    (n) =>
+      `Save ${n}/${have($skill`OVERCLOCK(10)`) ? 10 : 0} CyberRealm free fights (set a number)`,
+    [],
+    get("instant_saveCyberRealmFights", false) ? 10 : 0,
+  ),
 ];
 
 const farmingResources: Resource[] = [
