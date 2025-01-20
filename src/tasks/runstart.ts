@@ -156,7 +156,7 @@ export const RunStartQuest: Quest = {
       do: (): void => {
         equip(bestStillsuitFamiliar, $item`tiny stillsuit`);
       },
-      limit: { tries: 1 },
+      limit: { skip: 1 },
     },
     {
       name: "Get Floundry item",
