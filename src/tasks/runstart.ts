@@ -647,7 +647,7 @@ export const RunStartQuest: Quest = {
         // (to consider: but it isn't very useful if we already have other copyable sources available [e.g. kramco])
         const canUseMimic =
           have($familiar`Chest Mimic`) &&
-          !excludedFamiliars.includes(toInt($familiar`Chest Mimic`)) &&
+          !excludedFamiliars.includes($familiar`Chest Mimic`) &&
           !get("instant_saveMimicEggs", false);
         const canUseCopier =
           (have($item`backup camera`) && get("instant_saveBackups", 0) < 11) ||
@@ -694,7 +694,7 @@ export const RunStartQuest: Quest = {
         } else {
           if (
             have($familiar`Chest Mimic`) &&
-            !excludedFamiliars.includes(toInt($familiar`Chest Mimic`)) &&
+            !excludedFamiliars.includes($familiar`Chest Mimic`) &&
             !get("instant_saveMimicEggs", false)
           ) {
             useFamiliar($familiar`Chest Mimic`);

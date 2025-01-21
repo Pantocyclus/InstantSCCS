@@ -1,4 +1,13 @@
-import { Effect, Familiar, print, printHtml, toEffect, toInt, totalFreeRests } from "kolmafia";
+import {
+  Effect,
+  Familiar,
+  print,
+  printHtml,
+  toEffect,
+  toFamiliar,
+  toInt,
+  totalFreeRests,
+} from "kolmafia";
 import { $effect, $effects, $skill, get, have, set } from "libram";
 
 class Resource {
@@ -240,6 +249,7 @@ const otherResources: Resource[] = [
   ),
   new Resource("instant_saveCandySword", "Do not use Candy Cane Sword Cane's Stab and Slash"),
   new Resource("instant_saveMayamCalendar", "Do not Consider the Calendar"),
+  new Resource("instant_skipPatrioticScreech", "Do not use Patriotic Screech to banish constructs"),
 ];
 
 const allResources = [
@@ -262,7 +272,7 @@ export const forbiddenEffects = [
 ];
 export const excludedFamiliars = get("instant_explicitlyExcludedFamiliars")
   .split(",")
-  .map((i) => toInt(i));
+  .map((i) => toFamiliar(toInt(i)));
 
 function printResources(resources: Resource[]) {
   resources
@@ -301,7 +311,7 @@ export function checkResources(): void {
   forbiddenEffects.forEach((ef) => print(`- ${ef.name}`));
   print("The following are all the familliars we will not use during leveling:");
   Familiar.all()
-    .filter((fam) => excludedFamiliars.includes(toInt(fam)))
+    .filter((fam) => excludedFamiliars.includes(fam))
     .forEach((fam) => print(`- ${fam}`));
   print();
   print("Type 'set <prefname>=<true/false(/or number)>' in the CLI to set your preferences");

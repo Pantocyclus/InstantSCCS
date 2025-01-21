@@ -1,4 +1,4 @@
-import { Familiar, toInt } from "kolmafia";
+import { Familiar } from "kolmafia";
 import { $familiar, $familiars, $item, get, have } from "libram";
 import { camelFightsLeft, haveCBBIngredients } from "./lib";
 import { excludedFamiliars } from "./resources";
@@ -77,6 +77,6 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
     sombrero,
   ]
     .map((fn) => fn(allowAttackingFamiliars))
-    .filter((fam) => have(fam) && !excludedFamiliars.includes(toInt(fam)));
+    .filter((fam) => have(fam) && !excludedFamiliars.includes(fam));
   return familiars.length > 0 ? familiars[0] : defaultFam;
 }

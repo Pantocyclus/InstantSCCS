@@ -561,7 +561,7 @@ export function chooseHeaviestEquippedFamiliar(checkedFamiliars?: Familiar[]): {
   expectedWeight: number;
 } {
   return (checkedFamiliars ?? Familiar.all())
-    .filter((familiar) => have(familiar) && !excludedFamiliars.includes(familiar.id))
+    .filter((familiar) => have(familiar) && !excludedFamiliars.includes(familiar))
     .map((familiar) => {
       const bestEquip = bestFamiliarEquip(familiar);
 
@@ -972,7 +972,12 @@ export function cyberRealmZone(): Location {
 }
 
 export function canScreech(): boolean {
-  if (!have($familiar`Patriotic Eagle`)) return false;
+  if (
+    !have($familiar`Patriotic Eagle`) ||
+    excludedFamiliars.includes($familiar`Patriotic Eagle`) ||
+    get("instant_skipPatrioticScreech", false)
+  )
+    return false;
   const screechTurns = get("banishedPhyla").match(/Patriotic Screech:(\d+)/)?.[1];
   if (screechTurns) return toInt(screechTurns) <= myTurncount();
   return true;
