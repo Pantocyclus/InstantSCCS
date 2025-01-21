@@ -74,6 +74,8 @@ import {
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
 import {
+  canScreech,
+  cyberRealmTurnsAvailable,
   getGarden,
   goVote,
   haveFreeRunSource,
@@ -587,9 +589,11 @@ export const RunStartQuest: Quest = {
         turnsPlayed() > 0 ||
         get("hasMaydayContract") ||
         get("instant_skipEarlyTrainsetMeat", false),
-      do: $location`The Dire Warren`,
+      do: () => (canScreech() ? $location`Noob Cave` : $location`The Dire Warren`), // Use a non-wanderer zone unless we need to screech
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Darts: Aim for the Bullseye`).attack(),
+        Macro.if_("monstername crate", Macro.trySkill($skill`%fn\, Release the Patriotic Screech!`))
+          .trySkill($skill`Darts: Aim for the Bullseye`)
+          .attack(),
       ),
       outfit: () => ({
         ...baseOutfit(false),
@@ -597,6 +601,10 @@ export const RunStartQuest: Quest = {
           have($item`Everfull Dart Holster`) && !have($effect`Everything Looks Red`)
             ? $item`Everfull Dart Holster`
             : undefined,
+        familiar:
+          canScreech() && cyberRealmTurnsAvailable() > 0
+            ? $familiar`Patriotic Eagle`
+            : chooseFamiliar(false),
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip backup camera, -equip Kramco Sausage-o-Matic™`,
       }),
       limit: { tries: 1 },

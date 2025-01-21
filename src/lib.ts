@@ -31,6 +31,7 @@ import {
   myMaxhp,
   myMp,
   myPrimestat,
+  myTurncount,
   numericModifier,
   print,
   restoreMp,
@@ -945,4 +946,34 @@ export function haveFreeRunSource(): boolean {
     !have($effect`Everything Looks Green`) &&
     have($item`spring shoes` || have($item`Roman Candelabra`))
   );
+}
+
+export function cyberRealmTurnsRun(): number {
+  return get("_cyberZone1Turns") + get("_cyberZone2Turns") + get("_cyberZone3Turns");
+}
+
+export function cyberRealmTurnsAvailable(): number {
+  const availableFreeFights = have($skill`OVERCLOCK(10)`) ? 10 : 0;
+  return Math.max(0, availableFreeFights - cyberRealmTurnsRun());
+}
+
+export function cyberRealmZone(): Location {
+  const screechTurns = get("banishedPhyla").match(/Patriotic Screech:(\d+)/)?.[1];
+  // If we don't have an active banish (or it ran out), prioritize lower zones
+  if (toInt(screechTurns ?? "-1") <= myTurncount()) {
+    if (get("_cyberZone1Turns") < 9) return $location`Cyberzone 1`;
+    else if (get("_cyberZone2Turns") < 9) return $location`Cyberzone 2`;
+    return $location`Cyberzone 3`;
+  }
+  // Else prioritize higher zones
+  if (get("_cyberZone3Turns") < 9) return $location`Cyberzone 3`;
+  else if (get("_cyberZone2Turns") < 9) return $location`Cyberzone 2`;
+  return $location`Cyberzone 1`;
+}
+
+export function canScreech(): boolean {
+  if (!have($familiar`Patriotic Eagle`)) return false;
+  const screechTurns = get("banishedPhyla").match(/Patriotic Screech:(\d+)/)?.[1];
+  if (screechTurns) return toInt(screechTurns) <= myTurncount();
+  return true;
 }

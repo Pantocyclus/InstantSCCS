@@ -90,7 +90,10 @@ import {
   bestShadowRift,
   burnLibram,
   canPull,
+  canScreech,
   chooseLibram,
+  cyberRealmTurnsAvailable,
+  cyberRealmZone,
   generalStoreXpEffect,
   getSynthColdBuff,
   getSynthExpBuff,
@@ -123,6 +126,7 @@ import Macro, { haveFreeBanish } from "../combat";
 import { forbiddenEffects } from "../resources";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { chooseQuest, rufusTarget } from "libram/dist/resources/2023/ClosedCircuitPayphone";
+import { chooseFamiliar } from "../familiars";
 
 const useCinch = !get("instant_saveCinch", false);
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
@@ -925,84 +929,23 @@ export const LevelingQuest: Quest = {
         haveEffect($effect`Glowing Blue`) !== 10 ||
         myMp() >= 500 ||
         haveCBBIngredients(false), // But we can't benefit from Blue Rocket if we are only doing free fights
-      do: $location`The Dire Warren`,
+      do: () => (canScreech() ? $location`Noob Cave` : $location`The Dire Warren`), // Use a non-wanderer zone unless we need to screech
       outfit: () => ({
         ...baseOutfit(false),
+        familiar:
+          canScreech() && cyberRealmTurnsAvailable() > 0
+            ? $familiar`Patriotic Eagle`
+            : chooseFamiliar(false),
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
       }),
-      combat: new CombatStrategy().macro(Macro.attack().repeat()),
+      combat: new CombatStrategy().macro(
+        Macro.if_("monstername crate", Macro.trySkill($skill`%fn\, Release the Patriotic Screech!`))
+          .attack()
+          .repeat(),
+      ),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
-      },
-      limit: { tries: 1 },
-    },
-    {
-      name: "CyberSpace Zone 1",
-      prepare: (): void => {
-        if (!have($item`datastick`))
-          visitUrl("place.php?whichplace=serverroom&action=serverroom_chipdrawer");
-        $effects`Honeypotted, Null Afternoon, Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach(
-          (e) => tryAcquiringEffect(e),
-        );
-      },
-      completed: () =>
-        !have($skill`OVERCLOCK(10)`) ||
-        get("_cyberZone1Turns") >= Math.min(get("instant_saveCyberRealmFights", 0), 9),
-      do: $location`Cyberzone 1`,
-      combat: new CombatStrategy().macro(
-        Macro.if_("monstername hacker", Macro.default()).trySkillRepeat($skill`Throw Cyber Rock`),
-      ),
-      outfit: () => ({
-        ...baseOutfit(),
-        acc1: $item`datastick`,
-        acc3: $items`PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit`.filter(
-          have,
-        )?.[0],
-      }),
-      post: (): void => {
-        sendAutumnaton();
-        if (get("_cyberZone1Turns") >= get("instant_saveCyberRealmFights", 0)) {
-          $effects`Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach((e) =>
-            cliExecute(`shrug ${e}`),
-          );
-        }
-      },
-      limit: { tries: 9 },
-    },
-    {
-      name: "CyberSpace Zone 2",
-      prepare: (): void => {
-        if (!have($item`datastick`))
-          visitUrl("place.php?whichplace=serverroom&action=serverroom_chipdrawer");
-        $effects`Honeypotted, Null Afternoon, Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach(
-          (e) => tryAcquiringEffect(e),
-        );
-      },
-      completed: () =>
-        !have($skill`OVERCLOCK(10)`) ||
-        get("_cyberZone1Turns") + get("_cyberZone2Turns") >= get("instant_saveCyberRealmFights", 0),
-      do: $location`Cyberzone 2`,
-      combat: new CombatStrategy().macro(
-        Macro.if_("monstername hacker", Macro.default()).trySkillRepeat($skill`Throw Cyber Rock`),
-      ),
-      outfit: () => ({
-        ...baseOutfit(),
-        acc1: $item`datastick`,
-        acc3: $items`PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit`.filter(
-          have,
-        )?.[0],
-      }),
-      post: (): void => {
-        sendAutumnaton();
-        if (
-          get("_cyberZone1Turns") + get("_cyberZone2Turns") >=
-          get("instant_saveCyberRealmFights", 0)
-        ) {
-          $effects`Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach((e) =>
-            cliExecute(`shrug ${e}`),
-          );
-        }
       },
       limit: { tries: 1 },
     },
@@ -1114,10 +1057,16 @@ export const LevelingQuest: Quest = {
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
       do: $location`The X-32-F Combat Training Snowman`,
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Recall Facts: %phylum Circadian Rhythms`).default(),
+        Macro.trySkill($skill`%fn\, Release the Patriotic Screech!`)
+          .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
+          .default(),
       ),
       outfit: () => ({
         ...baseOutfit(),
+        familiar:
+          canScreech() && cyberRealmTurnsAvailable() > 0
+            ? $familiar`Patriotic Eagle`
+            : chooseFamiliar(true),
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
       }),
       limit: { tries: 10 },
@@ -1126,6 +1075,37 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
+    },
+    {
+      name: "CyberSpace Zone",
+      prepare: (): void => {
+        if (!have($item`datastick`))
+          visitUrl("place.php?whichplace=serverroom&action=serverroom_chipdrawer");
+        $effects`Honeypotted, Null Afternoon, Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach(
+          (e) => tryAcquiringEffect(e),
+        );
+      },
+      completed: () => cyberRealmTurnsAvailable() <= 0,
+      do: () => cyberRealmZone(),
+      combat: new CombatStrategy().macro(
+        Macro.if_("monstername hacker", Macro.default()).trySkillRepeat($skill`Throw Cyber Rock`),
+      ),
+      outfit: () => ({
+        ...baseOutfit(),
+        acc1: $item`datastick`,
+        acc3: $items`PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit`.filter(
+          have,
+        )?.[0],
+      }),
+      post: (): void => {
+        sendAutumnaton();
+        if (cyberRealmTurnsAvailable() <= 0) {
+          $effects`Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach((e) =>
+            cliExecute(`shrug ${e}`),
+          );
+        }
+      },
+      limit: { tries: 10 },
     },
     {
       name: "Flaming Leaflets",
