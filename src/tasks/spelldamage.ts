@@ -205,6 +205,7 @@ export const SpellDamageQuest: Quest = {
           $effect`Carol of the Hells`,
           $effect`Cowrruption`,
           $effect`Destructive Resolve`,
+          $effect`Grumpy and Ornery`,
           $effect`Imported Strength`,
           $effect`Jackasses' Symphony of Destruction`,
           $effect`Mental A-cue-ity`,

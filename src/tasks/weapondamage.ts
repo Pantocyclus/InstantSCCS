@@ -227,6 +227,7 @@ export const WeaponDamageQuest: Quest = {
           $effect`Faboooo`,
           $effect`Feeling Punchy`,
           $effect`Frenzied, Bloody`,
+          $effect`Grumpy and Ornery`,
           $effect`Imported Strength`,
           $effect`Jackasses' Symphony of Destruction`,
           $effect`Lack of Body-Building`,

@@ -1733,6 +1733,12 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Cross Streams",
+      completed: () => get("_streamsCrossed") || !have($item`protonic accelerator pack`),
+      do: () => cliExecute("crossstreams"),
+      limit: { tries: 1 },
+    },
+    {
       name: "Apriling Band Quad Tom Sandworms",
       completed: () => !have($item`Apriling band quad tom`) || get("_aprilBandTomUses") >= 3,
       do: (): void => {
