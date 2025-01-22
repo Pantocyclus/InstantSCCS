@@ -939,7 +939,7 @@ export const LevelingQuest: Quest = {
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
       }),
       combat: new CombatStrategy().macro(
-        Macro.if_("monstername crate", Macro.trySkill($skill`%fn\, Release the Patriotic Screech!`))
+        Macro.if_("monstername crate", Macro.trySkill($skill`%fn, Release the Patriotic Screech!`))
           .attack()
           .repeat(),
       ),
@@ -1057,7 +1057,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
       do: $location`The X-32-F Combat Training Snowman`,
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`%fn\, Release the Patriotic Screech!`)
+        Macro.trySkill($skill`%fn, Release the Patriotic Screech!`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
           .default(),
       ),

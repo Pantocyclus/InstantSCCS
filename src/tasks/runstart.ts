@@ -591,7 +591,7 @@ export const RunStartQuest: Quest = {
         get("instant_skipEarlyTrainsetMeat", false),
       do: () => (canScreech() ? $location`Noob Cave` : $location`The Dire Warren`), // Use a non-wanderer zone unless we need to screech
       combat: new CombatStrategy().macro(
-        Macro.if_("monstername crate", Macro.trySkill($skill`%fn\, Release the Patriotic Screech!`))
+        Macro.if_("monstername crate", Macro.trySkill($skill`%fn, Release the Patriotic Screech!`))
           .trySkill($skill`Darts: Aim for the Bullseye`)
           .attack(),
       ),
