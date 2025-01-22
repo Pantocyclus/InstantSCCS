@@ -17835,7 +17835,7 @@ var LevelingQuest = {
       familiar: canScreech() && cyberRealmTurnsAvailable() > 0 ? template_string_$familiar(_templateObject284 || (_templateObject284 = leveling_taggedTemplateLiteral(["Patriotic Eagle"]))) : chooseFamiliar(false),
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
-    combat: new CombatStrategy().macro(combat_Macro.if_("monstername crate", combat_Macro.trySkill(template_string_$skill(_templateObject285 || (_templateObject285 = leveling_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"], ["%fn\\, Release the Patriotic Screech!"]))))).attack().repeat()),
+    combat: new CombatStrategy().macro(combat_Macro.if_("monstername crate", combat_Macro.trySkill(template_string_$skill(_templateObject285 || (_templateObject285 = leveling_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"]))))).attack().repeat()),
     post: () => {
       sendAutumnaton();
       sellMiscellaneousItems();
@@ -17932,7 +17932,7 @@ var LevelingQuest = {
     },
     completed: () => property_get("_snojoFreeFights") >= 10 || !property_get("snojoAvailable"),
     do: $location(_templateObject310 || (_templateObject310 = leveling_taggedTemplateLiteral(["The X-32-F Combat Training Snowman"]))),
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject311 || (_templateObject311 = leveling_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"], ["%fn\\, Release the Patriotic Screech!"])))).trySkill(template_string_$skill(_templateObject312 || (_templateObject312 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).default()),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject311 || (_templateObject311 = leveling_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"])))).trySkill(template_string_$skill(_templateObject312 || (_templateObject312 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).default()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
       familiar: canScreech() && cyberRealmTurnsAvailable() > 0 ? template_string_$familiar(_templateObject313 || (_templateObject313 = leveling_taggedTemplateLiteral(["Patriotic Eagle"]))) : chooseFamiliar(true),
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
@@ -19776,7 +19776,7 @@ var RunStartQuest = {
     completed: () => property_get("trainsetPosition") > 0 || (0,external_kolmafia_namespaceObject.turnsPlayed)() > 0 || property_get("hasMaydayContract") || property_get("instant_skipEarlyTrainsetMeat", false),
     do: () => canScreech() ? $location(runstart_templateObject95 || (runstart_templateObject95 = runstart_taggedTemplateLiteral(["Noob Cave"]))) : $location(runstart_templateObject96 || (runstart_templateObject96 = runstart_taggedTemplateLiteral(["The Dire Warren"]))),
     // Use a non-wanderer zone unless we need to screech
-    combat: new CombatStrategy().macro(combat_Macro.if_("monstername crate", combat_Macro.trySkill(template_string_$skill(runstart_templateObject97 || (runstart_templateObject97 = runstart_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"], ["%fn\\, Release the Patriotic Screech!"]))))).trySkill(template_string_$skill(runstart_templateObject98 || (runstart_templateObject98 = runstart_taggedTemplateLiteral(["Darts: Aim for the Bullseye"])))).attack()),
+    combat: new CombatStrategy().macro(combat_Macro.if_("monstername crate", combat_Macro.trySkill(template_string_$skill(runstart_templateObject97 || (runstart_templateObject97 = runstart_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"]))))).trySkill(template_string_$skill(runstart_templateObject98 || (runstart_templateObject98 = runstart_taggedTemplateLiteral(["Darts: Aim for the Bullseye"])))).attack()),
     outfit: () => runstart_objectSpread(runstart_objectSpread({}, baseOutfit(false)), {}, {
       acc1: lib_have(template_string_$item(runstart_templateObject99 || (runstart_templateObject99 = runstart_taggedTemplateLiteral(["Everfull Dart Holster"])))) && !lib_have(template_string_$effect(runstart_templateObject100 || (runstart_templateObject100 = runstart_taggedTemplateLiteral(["Everything Looks Red"])))) ? template_string_$item(runstart_templateObject101 || (runstart_templateObject101 = runstart_taggedTemplateLiteral(["Everfull Dart Holster"]))) : undefined,
       familiar: canScreech() && cyberRealmTurnsAvailable() > 0 ? template_string_$familiar(runstart_templateObject102 || (runstart_templateObject102 = runstart_taggedTemplateLiteral(["Patriotic Eagle"]))) : chooseFamiliar(false),
