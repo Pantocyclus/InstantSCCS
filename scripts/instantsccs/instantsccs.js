@@ -20904,7 +20904,7 @@ var WeaponDamageQuest = {
       acc2: template_string_$item(weapondamage_templateObject23 || (weapondamage_templateObject23 = weapondamage_taggedTemplateLiteral(["Eight Days a Week Pill Keeper"]))),
       // survive first hit if it occurs
       familiar: template_string_$familiar(weapondamage_templateObject24 || (weapondamage_templateObject24 = weapondamage_taggedTemplateLiteral(["Machine Elf"]))),
-      modifier: "HP"
+      modifier: "init"
     },
     post: () => Clan.join(startingClan),
     limit: {
@@ -21208,7 +21208,7 @@ var SpellDamageQuest = {
       acc2: template_string_$item(spelldamage_templateObject18 || (spelldamage_templateObject18 = spelldamage_taggedTemplateLiteral(["Eight Days a Week Pill Keeper"]))),
       // survive first hit if it occurs
       familiar: template_string_$familiar(spelldamage_templateObject19 || (spelldamage_templateObject19 = spelldamage_taggedTemplateLiteral(["Machine Elf"]))),
-      modifier: "HP"
+      modifier: "init"
     },
     post: () => Clan.join(startingClan),
     limit: {
