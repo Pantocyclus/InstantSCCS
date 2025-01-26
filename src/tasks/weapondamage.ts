@@ -1,6 +1,7 @@
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   buy,
+  cliExecute,
   create,
   Effect,
   equippedItem,
@@ -9,6 +10,7 @@ import {
   myBasestat,
   myClass,
   myHash,
+  myHp,
   myInebriety,
   myMaxhp,
   myMeat,
@@ -28,6 +30,7 @@ import {
   $effects,
   $familiar,
   $item,
+  $items,
   $location,
   $skill,
   $slot,
@@ -111,7 +114,15 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Inner Elf",
       prepare: (): void => {
+        if (have($item`Jurassic Parka`)) cliExecute("parka pterodactyl");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        if (
+          myHp() > 30 &&
+          !$items`Jurassic Parka, Eight Days a Week Pill Keeper`.some((i) => haveEquipped(i))
+        ) {
+          tryAcquiringEffect($effect`Blood Bubble`);
+          restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        }
         restoreMp(50);
         Clan.join(motherSlimeClan);
       },
@@ -128,8 +139,9 @@ export const WeaponDamageQuest: Quest = {
       ),
       choices: { 326: 1 },
       outfit: {
+        shirt: $item`Jurassic Parka`,
         acc1: $item`Kremlin's Greatest Briefcase`,
-        acc2: $item`Eight Days a Week Pill Keeper`, // survive first hit if it occurs
+        acc2: $item`Eight Days a Week Pill Keeper`,
         familiar: $familiar`Machine Elf`,
         modifier: "init",
       },

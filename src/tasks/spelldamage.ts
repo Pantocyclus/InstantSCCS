@@ -1,6 +1,7 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
   buy,
+  cliExecute,
   drink,
   Effect,
   elementalResistance,
@@ -105,7 +106,15 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Inner Elf",
       prepare: (): void => {
+        if (have($item`Jurassic Parka`)) cliExecute("parka pterodactyl");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        if (
+          myHp() > 30 &&
+          !$items`Jurassic Parka, Eight Days a Week Pill Keeper`.some((i) => haveEquipped(i))
+        ) {
+          tryAcquiringEffect($effect`Blood Bubble`);
+          restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        }
         restoreMp(50);
         Clan.join(motherSlimeClan);
       },
@@ -122,8 +131,9 @@ export const SpellDamageQuest: Quest = {
       ),
       choices: { 326: 1 },
       outfit: {
+        shirt: $item`Jurassic Parka`,
         acc1: $item`Kremlin's Greatest Briefcase`,
-        acc2: $item`Eight Days a Week Pill Keeper`, // survive first hit if it occurs
+        acc2: $item`Eight Days a Week Pill Keeper`,
         familiar: $familiar`Machine Elf`,
         modifier: "init",
       },
