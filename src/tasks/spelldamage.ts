@@ -125,7 +125,7 @@ export const SpellDamageQuest: Quest = {
         acc1: $item`Kremlin's Greatest Briefcase`,
         acc2: $item`Eight Days a Week Pill Keeper`, // survive first hit if it occurs
         familiar: $familiar`Machine Elf`,
-        modifier: "HP",
+        modifier: "init",
       },
       post: () => Clan.join(startingClan),
       limit: { tries: 1 },
