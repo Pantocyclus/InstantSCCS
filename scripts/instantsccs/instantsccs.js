@@ -17525,7 +17525,7 @@ var LevelingQuest = {
       // If we can get the Fireproof Foam Suit, we probably don't need the Rainbow Vaccine for the hot test
       if (lib_have(template_string_$item(_templateObject168 || (_templateObject168 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) && lib_have(template_string_$item(_templateObject169 || (_templateObject169 = leveling_taggedTemplateLiteral(["industrial fire extinguisher"])))) && lib_have(template_string_$skill(_templateObject170 || (_templateObject170 = leveling_taggedTemplateLiteral(["Double-Fisted Skull Smashing"]))))) tryAcquiringEffect(template_string_$effect(_templateObject171 || (_templateObject171 = leveling_taggedTemplateLiteral(["Rainbow Vaccine"]))));
 
-      if (lib_have(template_string_$item(_templateObject172 || (_templateObject172 = leveling_taggedTemplateLiteral(["server room key"])))) && forbiddenEffects.includes(template_string_$effect(_templateObject173 || (_templateObject173 = leveling_taggedTemplateLiteral(["Cyber Resist x2000"]))))) {
+      if (lib_have(template_string_$item(_templateObject172 || (_templateObject172 = leveling_taggedTemplateLiteral(["server room key"])))) && !forbiddenEffects.includes(template_string_$effect(_templateObject173 || (_templateObject173 = leveling_taggedTemplateLiteral(["Cyber Resist x2000"]))))) {
         if (!lib_have(template_string_$item(_templateObject174 || (_templateObject174 = leveling_taggedTemplateLiteral(["Synapse Blaster"]))))) {
           (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject175 || (_templateObject175 = leveling_taggedTemplateLiteral(["Synapse Blaster"]))), 1);
         }
