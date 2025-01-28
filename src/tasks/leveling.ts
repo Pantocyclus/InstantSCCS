@@ -616,7 +616,7 @@ export const LevelingQuest: Quest = {
 
         if (
           have($item`server room key`) &&
-          forbiddenEffects.includes($effect`Cyber Resist x2000`)
+          !forbiddenEffects.includes($effect`Cyber Resist x2000`)
         ) {
           if (!have($item`Synapse Blaster`)) {
             buy($item`Synapse Blaster`, 1);
