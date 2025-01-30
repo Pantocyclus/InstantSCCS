@@ -1030,7 +1030,8 @@ export const RunStartQuest: Quest = {
         acc2: have($item`spring shoes`) ? $item`spring shoes` : undefined,
       }),
       post: (): void => {
-        set("_instant_pledgeUsed", true);
+        if (get("lastEncounter") !== "Our Bakery in the Middle of Our Street")
+          set("_instant_pledgeUsed", true);
       },
       limit: { tries: 2 },
     },
