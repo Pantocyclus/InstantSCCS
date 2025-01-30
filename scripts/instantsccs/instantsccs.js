@@ -19372,12 +19372,12 @@ var RunStartQuest = {
   }, {
     name: "Set up Sweatsuit",
     ready: () => lib_have(template_string_$item(runstart_templateObject11 || (runstart_templateObject11 = runstart_taggedTemplateLiteral(["tiny stillsuit"])))),
-    completed: () => (0,external_kolmafia_namespaceObject.familiarEquippedEquipment)(bestStillsuitFamiliar) === template_string_$item(runstart_templateObject12 || (runstart_templateObject12 = runstart_taggedTemplateLiteral(["tiny stillsuit"]))),
+    completed: () => (0,external_kolmafia_namespaceObject.equippedAmount)(template_string_$item(runstart_templateObject12 || (runstart_templateObject12 = runstart_taggedTemplateLiteral(["tiny stillsuit"]))), true) >= 1,
     do: () => {
       (0,external_kolmafia_namespaceObject.equip)(bestStillsuitFamiliar, template_string_$item(runstart_templateObject13 || (runstart_templateObject13 = runstart_taggedTemplateLiteral(["tiny stillsuit"]))));
     },
     limit: {
-      skip: 1
+      tries: 1
     }
   }, {
     name: "Get Floundry item",
@@ -20100,7 +20100,7 @@ var RunStartQuest = {
       acc2: lib_have(template_string_$item(runstart_templateObject269 || (runstart_templateObject269 = runstart_taggedTemplateLiteral(["spring shoes"])))) ? template_string_$item(runstart_templateObject270 || (runstart_templateObject270 = runstart_taggedTemplateLiteral(["spring shoes"]))) : undefined
     }),
     post: () => {
-      _set("_instant_pledgeUsed", true);
+      if (property_get("lastEncounter") !== "Our Bakery in the Middle of Our Street") _set("_instant_pledgeUsed", true);
     },
     limit: {
       tries: 2
