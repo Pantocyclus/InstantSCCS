@@ -10,7 +10,7 @@ import {
   currentMcd,
   drink,
   equip,
-  familiarEquippedEquipment,
+  equippedAmount,
   getCampground,
   getWorkshed,
   haveEquipped,
@@ -154,11 +154,11 @@ export const RunStartQuest: Quest = {
     {
       name: "Set up Sweatsuit",
       ready: () => have($item`tiny stillsuit`),
-      completed: () => familiarEquippedEquipment(bestStillsuitFamiliar) === $item`tiny stillsuit`,
+      completed: () => equippedAmount($item`tiny stillsuit`, true) >= 1,
       do: (): void => {
         equip(bestStillsuitFamiliar, $item`tiny stillsuit`);
       },
-      limit: { skip: 1 },
+      limit: { tries: 1 },
     },
     {
       name: "Get Floundry item",
