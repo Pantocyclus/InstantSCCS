@@ -953,6 +953,7 @@ export function cyberRealmTurnsRun(): number {
 }
 
 export function cyberRealmTurnsAvailable(): number {
+  if (!have($item`server room key`)) return 0;
   const availableFreeFights = have($skill`OVERCLOCK(10)`) ? 10 : 0;
   return Math.max(0, availableFreeFights - cyberRealmTurnsRun());
 }
