@@ -250,6 +250,12 @@ const otherResources: Resource[] = [
   new Resource("instant_saveCandySword", "Do not use Candy Cane Sword Cane's Stab and Slash"),
   new Resource("instant_saveMayamCalendar", "Do not Consider the Calendar"),
   new Resource("instant_skipPatrioticScreech", "Do not use Patriotic Screech to banish constructs"),
+  new Resource(
+    "instant_saveShowerGlobs",
+    (n) => `Save at least ${n} globs of wet paper`,
+    [],
+    get("instant_saveShowerGlobs", false) ? 4 : 0,
+  ),
 ];
 
 const allResources = [

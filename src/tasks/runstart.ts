@@ -552,6 +552,13 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "April Shower Globs",
+      completed: () =>
+        !have($item`April Shower Thoughts shield`) || get("_aprilShowerGlobsCollected", false),
+      do: () => visitUrl("inventory.php?action=shower"),
+      limit: { tries: 1 },
+    },
+    {
       name: "Configure Trainset",
       completed: () =>
         !have($item`model train set`) ||

@@ -73,6 +73,7 @@ import {
   set,
   sum,
   sumNumbers,
+  unequip,
   Witchess,
 } from "libram";
 import { printModtrace } from "libram/dist/modifier";
@@ -183,13 +184,28 @@ export function logTestSetup(whichTest: CommunityService): void {
     }).`,
     "blue",
   );
-  set(`_CSTest${whichTest.id}`, testTurns + (have($effect`Simmering`) ? 1 : 0));
+  set(
+    `_CSTest${whichTest.id}`,
+    testTurns + (have($effect`Simmering`) && !have($item`April Shower Thoughts shield`) ? 1 : 0),
+  );
 }
 
 export const mainStat = myPrimestat();
 export const mainStatStr = mainStat.toString();
 export const mainStatMaximizerStr =
   mainStat === $stat`Muscle` ? "mus" : mainStat === $stat`Mysticality` ? "myst" : "mox";
+
+const improvedShowerSkills = new Map([
+  [$effect`Slippery as a Seal`, $skill`Seal Clubbing Frenzy`],
+  [$effect`Strength of the Tortoise`, $skill`Patience of the Tortoise`],
+  [$effect`Thoughtful Empathy`, $skill`Empathy of the Newt`],
+  [$effect`Tubes of Universal Meat`, $skill`Manicotti Meditation`],
+  [$effect`Leash of Linguini`, $skill`Leash of Linguini`],
+  [$effect`Lubricating Sauce`, $skill`Sauce Contemplation`],
+  [$effect`Simmering`, $skill`Simmer`],
+  [$effect`Disco over Matter`, $skill`Disco Aerobics`],
+  [$effect`Mariachi Moisture`, $skill`Moxie of the Mariachi`],
+]);
 
 export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
   // Try acquiring an effect
@@ -201,6 +217,25 @@ export function tryAcquiringEffect(ef: Effect, tryRegardless = false): void {
     // This has no ef.default for some reason
     if (holiday() === "Dependence Day" && !get("_fireworkUsed") && retrieveItem($item`sparkler`, 1))
       use($item`sparkler`, 1);
+    return;
+  } else if (ef === $effect`Empathy`) {
+    if (!have($skill`Empathy of the Newt`)) return;
+    const currentOffhandItem = equippedItem($slot`offhand`);
+    if (currentOffhandItem === $item`April Shower Thoughts shield`) unequip($slot`offhand`);
+    cliExecute("cast Empathy of the Newt");
+    if (currentOffhandItem === $item`April Shower Thoughts shield`)
+      equip($slot`offhand`, currentOffhandItem);
+    return;
+  }
+  if (improvedShowerSkills.has(ef)) {
+    const sk = improvedShowerSkills.get(ef) ?? $skill.none;
+    if (!have($item`April Shower Thoughts shield`) || !have(sk)) return;
+    const currentOffhandItem = equippedItem($slot`offhand`);
+    if (currentOffhandItem !== $item`April Shower Thoughts shield`)
+      equip($slot`offhand`, $item`April Shower Thoughts shield`);
+    cliExecute(`cast ${sk}`);
+    if (currentOffhandItem !== $item`April Shower Thoughts shield`)
+      equip($slot`offhand`, currentOffhandItem);
     return;
   }
   if (!ef.default) return; // No way to acquire?
@@ -825,6 +860,18 @@ export const generalStoreXpEffect: Effect = {
   Muscle: $effect`Go Get 'Em, Tiger!`,
   Mysticality: $effect`Glittering Eyelashes`,
   Moxie: $effect`Butt-Rock Hair`,
+}[mainStatStr];
+
+export const showerGlobXpItem: Item = {
+  Muscle: $item`wet paper weights`,
+  Mysticality: $item`wet paperback`,
+  Moxie: $item`wet paper cup`,
+}[mainStatStr];
+
+export const showerGlobXpEffect: Effect = {
+  Muscle: $effect`Lifting Wets`,
+  Mysticality: $effect`Moisticality`,
+  Moxie: $effect`[2994]In Your Cups`,
 }[mainStatStr];
 
 export function goVote(): void {

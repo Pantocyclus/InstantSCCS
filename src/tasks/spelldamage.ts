@@ -68,6 +68,9 @@ export const SpellDamageQuest: Quest = {
       name: "Simmer",
       completed: () => have($effect`Simmering`) || !have($skill`Simmer`),
       do: () => useSkill($skill`Simmer`),
+      outfit: {
+        offhand: $item`April Shower Thoughts shield`,
+      },
       limit: { tries: 1 },
     },
     {

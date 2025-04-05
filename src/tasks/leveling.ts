@@ -111,6 +111,8 @@ import {
   reagentBoosterItem,
   refillLatte,
   sendAutumnaton,
+  showerGlobXpEffect,
+  showerGlobXpItem,
   snapperXpItem,
   synthExpBuff,
   targetBaseMainStat,
@@ -145,6 +147,8 @@ const LOVEquip =
 const muscleList: Effect[] = [
   $effect`Seal Clubbing Frenzy`,
   $effect`Patience of the Tortoise`,
+  $effect`Strength of the Tortoise`,
+  $effect`Disco over Matter`,
   $effect`Disdain of the War Snapper`,
   $effect`Go Get 'Em, Tiger!`,
   $effect`Muddled`,
@@ -156,6 +160,8 @@ const muscleList: Effect[] = [
 
 const mysticalityList: Effect[] = [
   $effect`Pasta Oneness`,
+  $effect`Tubes of Universal Meat`,
+  $effect`Mariachi Moisture`,
   $effect`Saucemastery`,
   $effect`Disdain of She-Who-Was`,
   $effect`Glittering Eyelashes`,
@@ -168,6 +174,8 @@ const mysticalityList: Effect[] = [
 
 const moxieList: Effect[] = [
   $effect`Disco State of Mind`,
+  $effect`Slippery as a Seal`,
+  $effect`Lubricating Sauce`,
   $effect`Mariachi Mood`,
   $effect`Butt-Rock Hair`,
   $effect`Ten out of Ten`,
@@ -210,7 +218,19 @@ const usefulEffects: Effect[] = [
   $effect`Ur-Kel's Aria of Annoyance`,
   $effect`Aloysius' Antiphon of Aptitude`,
 
-  // Spell dmg
+  // Famwt
+  $effect`Empathy`,
+  $effect`Leash of Linguini`,
+  $effect`Thoughtful Empathy`,
+
+  // Combat Initiative
+  $effect`Slippery as a Seal`,
+
+  // Mp Regen
+  $effect`Strength of the Tortoise`,
+
+  // Hp Regen
+  $effect`Disco over Matter`,
 ];
 
 const prismaticEffects: Effect[] = [
@@ -369,6 +389,18 @@ export const LevelingQuest: Quest = {
         ).length === 0,
       do: (): void => getSynthExpBuff(),
       limit: { tries: 5 },
+    },
+    {
+      name: "Shower Glob Stat Gain Buff",
+      completed: () =>
+        !have($item`April Shower Thoughts shield`) ||
+        itemAmount($item`glob of wet paper`) - 2 < get("instant_saveShowerGlobs", 0) ||
+        have(showerGlobXpEffect),
+      do: () => {
+        buy($coinmaster`Using your Shower Thoughts`, 1, showerGlobXpItem);
+        use(showerGlobXpItem, 1);
+      },
+      limit: { tries: 1 },
     },
     {
       name: "Pull Deep Dish of Legend",
@@ -593,7 +625,7 @@ export const LevelingQuest: Quest = {
         }
 
         restoreMp(50);
-        const usefulEffects: Effect[] = [
+        const coldResEffects: Effect[] = [
           $effect`Frosty Hand`, // +5 cold res from Cargo Shorts
           $effect`Rainbowolin`, // +4 cold res from Pillkeeper
           $effect`Cold as Nice`, // +3 cold res from Beach Comb
@@ -603,7 +635,7 @@ export const LevelingQuest: Quest = {
           $effect`Feeling Peaceful`, // +2 cold res from Emotion Chip
           $effect`Astral Shell`, // +1 cold res
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        coldResEffects.forEach((ef) => tryAcquiringEffect(ef, true));
       },
       do: (): void => {
         // If we can get the Fireproof Foam Suit, we probably don't need the Rainbow Vaccine for the hot test
@@ -1194,7 +1226,8 @@ export const LevelingQuest: Quest = {
       name: "Red Skeleton",
       ready: () =>
         !have($effect`Everything Looks Yellow`) ||
-        (have($skill`Feel Envy`) && get("_feelEnvyUsed") < 3),
+        (have($skill`Feel Envy`) && get("_feelEnvyUsed") < 3) ||
+        (have($item`April Shower Thoughts shield`) && have($skill`Northern Explosion`)),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (useParkaSpit) {
@@ -1205,6 +1238,8 @@ export const LevelingQuest: Quest = {
         }
         if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Yellow`)) {
           equip($slot`offhand`, $item`Roman Candelabra`);
+        } else if (have($item`April Shower Thoughts shield`) && have($skill`Northern Explosion`)) {
+          equip($slot`offhand`, $item`April Shower Thoughts shield`);
         } else {
           unbreakableUmbrella();
         }
@@ -1231,6 +1266,10 @@ export const LevelingQuest: Quest = {
             .trySkill($skill`Blow the Yellow Candle!`)
             .tryItem($item`yellow rocket`),
         )
+          .externalIf(
+            have($item`April Shower Thoughts shield`),
+            Macro.trySkill($skill`Northern Explosion`),
+          )
           .trySkill($skill`Feel Envy`)
           .default(),
       ),

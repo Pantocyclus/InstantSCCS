@@ -6,6 +6,7 @@ import {
   drink,
   Effect,
   inebrietyLimit,
+  itemAmount,
   myInebriety,
   print,
   use,
@@ -14,6 +15,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
+  $coinmaster,
   $effect,
   $familiar,
   $item,
@@ -39,6 +41,18 @@ export const HotResQuest: Quest = {
   completed: () => CommunityService.HotRes.isDone(),
   tasks: [
     {
+      name: "Grab Spitball",
+      completed: () =>
+        !have($item`April Shower Thoughts shield`) ||
+        itemAmount($item`glob of wet paper`) - 1 < get("instant_saveShowerGlobs", 0) ||
+        have($effect`Everything Looks Yellow`) ||
+        have($item`spitball`),
+      do: () => {
+        buy($coinmaster`Using your Shower Thoughts`, 1, $item`spitball`);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Reminisce Factory Worker (female)",
       prepare: (): void => {
         if (useParkaSpit) {
@@ -58,7 +72,9 @@ export const HotResQuest: Quest = {
         weapon: $item`Fourth of May Cosplay Saber`,
         offhand: have($skill`Double-Fisted Skull Smashing`)
           ? $item`industrial fire extinguisher`
-          : $item`Roman Candelabra`,
+          : have($effect`Everything Looks Yellow`)
+            ? $item`April Shower Thoughts shield`
+            : $item`Roman Candelabra`,
         familiar: chooseFamiliar(false),
         modifier: "Item Drop",
         avoid: sugarItemsAboutToBreak(),
@@ -72,8 +88,13 @@ export const HotResQuest: Quest = {
           .if_(
             "!haseffect Everything Looks Yellow",
             Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+              .tryItem($item`spitball`)
               .trySkill($skill`Blow the Yellow Candle!`)
               .tryItem($item`yellow rocket`),
+          )
+          .externalIf(
+            have($item`April Shower Thoughts shield`),
+            Macro.trySkill($skill`Northern Explosion`),
           )
           .default(),
       ),
@@ -187,6 +208,7 @@ export const HotResQuest: Quest = {
           $effect`Empathy`,
           $effect`Leash of Linguini`,
           $effect`Robot Friends`,
+          $effect`Thoughtful Empathy`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         handleCustomPulls("instant_hotTestPulls", hotTestMaximizerString);
