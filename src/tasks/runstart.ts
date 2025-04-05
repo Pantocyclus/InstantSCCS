@@ -9,6 +9,7 @@ import {
   create,
   currentMcd,
   drink,
+  Effect,
   equip,
   equippedAmount,
   getCampground,
@@ -25,6 +26,7 @@ import {
   myMeat,
   myMp,
   mySoulsauce,
+  numericModifier,
   print,
   restoreHp,
   restoreMp,
@@ -44,6 +46,7 @@ import {
 import {
   $coinmaster,
   $effect,
+  $effects,
   $familiar,
   $familiars,
   $item,
@@ -92,6 +95,17 @@ import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { baseOutfit, unbreakableUmbrella } from "../outfit";
 import { excludedFamiliars } from "../resources";
 import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
+import {
+  discoveredFurniture,
+  FURNITURE_PIECES,
+  FurniturePiece,
+  getStats,
+  installedFurniture,
+  NEEDS,
+  rearrangesRemaining,
+  Result,
+  setFurniture,
+} from "libram/dist/resources/2025/Leprecondo";
 
 const bestStillsuitFamiliar = StillSuit.bestFamiliar("Item Drop");
 
@@ -556,6 +570,68 @@ export const RunStartQuest: Quest = {
       completed: () =>
         !have($item`April Shower Thoughts shield`) || get("_aprilShowerGlobsCollected", false),
       do: () => visitUrl("inventory.php?action=shower"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Configure Leprecondo",
+      completed: () =>
+        !have($item`Leprecondo`) ||
+        get("instant_skipLeprecondo", false) ||
+        rearrangesRemaining() <= 0 ||
+        installedFurniture().filter((furniture) => furniture !== "empty").length >=
+          Math.min(4, discoveredFurniture().length),
+      do: () => {
+        visitUrl("inv_use.php?whichitem=11861&which=f0&pwd"); // Update discovered furnitures
+
+        // Dictate the priority of the effects we want (starting from the most desirable)
+        const effectPriorityList = [
+          $effect`Your Days Are Numbed`,
+          $effect`Vicarious Sweat`,
+          $effect`Alone with Your Thoughts`,
+          $effect`Work Out Smarter, Not Harder`,
+          $effect`Moist Night's Sleep`,
+          $effect`Spacious Night's Sleep`,
+          $effect`Tired Muscles`,
+          ...$effects`Gym Bros, Well Stimulated, Wasting Time`.sort(
+            (a, b) =>
+              numericModifier(a, `${mainStatStr.toString()} Percent`) -
+              numericModifier(b, `${mainStatStr.toString()} Percent`),
+          ),
+          $effect`You Might Have Gotten Wet`,
+          $effect`Counter Intelligence`,
+          $effect`Good Night's Sleep`,
+          $effect`Sur La Table`,
+        ];
+
+        function getResultEffect(result: Result): Effect {
+          if (result instanceof Item) return $effect.none;
+          else if (result instanceof Array) return $effect.none;
+          else return result.effect;
+        }
+
+        function priorityValue(furniture: FurniturePiece): number {
+          if (furniture === FURNITURE_PIECES[0]) return 2000;
+          const furnitureStats = getStats(furniture);
+          const values = NEEDS.map((need) => {
+            if (!Object.keys(furnitureStats).includes(need)) return 1000;
+            const idx = effectPriorityList.indexOf(
+              getResultEffect(furnitureStats[need] ?? $item.none),
+            );
+            return idx >= 0 ? idx : 1000;
+          });
+          return Math.min(...values);
+        }
+
+        const availableFurnitures = discoveredFurniture();
+        availableFurnitures.sort((a, b) => priorityValue(a) - priorityValue(b)).slice(0, 4);
+
+        setFurniture(
+          availableFurnitures.at(0) ?? FURNITURE_PIECES[0],
+          availableFurnitures.at(1) ?? FURNITURE_PIECES[0],
+          availableFurnitures.at(2) ?? FURNITURE_PIECES[0],
+          availableFurnitures.at(3) ?? FURNITURE_PIECES[0],
+        );
+      },
       limit: { tries: 1 },
     },
     {
