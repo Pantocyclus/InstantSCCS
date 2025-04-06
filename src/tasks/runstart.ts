@@ -594,8 +594,8 @@ export const RunStartQuest: Quest = {
           $effect`Tired Muscles`,
           ...$effects`Gym Bros, Well Stimulated, Wasting Time`.sort(
             (a, b) =>
-              numericModifier(a, `${mainStatStr.toString()} Percent`) -
-              numericModifier(b, `${mainStatStr.toString()} Percent`),
+              numericModifier(a, `${mainStatStr} Percent`) -
+              numericModifier(b, `${mainStatStr} Percent`),
           ),
           $effect`You Might Have Gotten Wet`,
           $effect`Counter Intelligence`,
