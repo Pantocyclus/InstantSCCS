@@ -26,7 +26,7 @@ import { handleCustomPulls, logTestSetup, tryAcquiringEffect, wishFor } from "..
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 
-const comTestMaximizerString = `-combat`;
+const comTestMaximizerString = `-raw combat rate`;
 
 export const NoncombatQuest: Quest = {
   name: "Noncombat",
