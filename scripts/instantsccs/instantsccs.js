@@ -20834,7 +20834,7 @@ function noncombat_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strin
 
 
 
-var comTestMaximizerString = "-combat";
+var comTestMaximizerString = "-raw combat rate";
 var NoncombatQuest = {
   name: "Noncombat",
   completed: () => CommunityService.Noncombat.isDone(),
@@ -22996,7 +22996,7 @@ var args = Args.create("InstantSCCS", "An automated low-shiny SCCS script.", {
   })
 });
 function main_main(command) {
-  sinceKolmafiaRevision(28490);
+  sinceKolmafiaRevision(28500);
   checkGithubVersion();
   Args.fill(args, command);
 
