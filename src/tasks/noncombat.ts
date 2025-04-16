@@ -81,7 +81,7 @@ export const NoncombatQuest: Quest = {
           have($item`Kremlin's Greatest Briefcase`) &&
           !get("instant_saveKGBClicks", false)
         )
-          cliExecute("Briefcase e -combat");
+          cliExecute(`Briefcase e ${comTestMaximizerString}`);
         const usefulEffects: Effect[] = [
           $effect`A Rose by Any Other Material`,
           $effect`Feeling Lonely`,
@@ -103,7 +103,7 @@ export const NoncombatQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         if (!handleCustomPulls("instant_comTestPulls", comTestMaximizerString)) {
-          cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
+          cliExecute(`maximize ${comTestMaximizerString}`); // To avoid maximizer bug, we invoke this once more
         }
 
         if (
