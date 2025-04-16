@@ -10555,7 +10555,7 @@ function handleCustomPulls(prefName) {
   // Takes a test preference and tries to pull all valid items
   // Returns true if we managed any successful pull
   if (property_get(prefName).split(",").map(handleCustomPull).some(success => success)) {
-    if (maximizerString.length > 0) (0,external_kolmafia_namespaceObject.cliExecute)(maximizerString); // If we managed to pull an item, we might need to re-maximize
+    if (maximizerString.length > 0) (0,external_kolmafia_namespaceObject.cliExecute)("maximize ".concat(maximizerString)); // If we managed to pull an item, we might need to re-maximize
 
     return true;
   }
