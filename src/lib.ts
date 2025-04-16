@@ -360,7 +360,7 @@ export function handleCustomPulls(prefName: string, maximizerString = ""): boole
       .map(handleCustomPull)
       .some((success) => success)
   ) {
-    if (maximizerString.length > 0) cliExecute(maximizerString); // If we managed to pull an item, we might need to re-maximize
+    if (maximizerString.length > 0) cliExecute(`maximize ${maximizerString}`); // If we managed to pull an item, we might need to re-maximize
     return true;
   }
   return false;
