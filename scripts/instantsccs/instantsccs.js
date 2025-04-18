@@ -10517,9 +10517,9 @@ function canAcquireEffect(ef) {
 function tryAcquiringEffects(efs) {
   var tryRegardless = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   // Try acquiring songs
-  tryAcquiringSongs(efs.filter(ef => ef.song)); // Try acquiring everything else
+  tryAcquiringSongs(efs.filter(ef => isSong(ef))); // Try acquiring everything else
 
-  efs.filter(ef => !ef.song).forEach(ef => tryAcquiringEffect(ef, tryRegardless));
+  efs.filter(ef => !isSong(ef)).forEach(ef => tryAcquiringEffect(ef, tryRegardless));
 }
 
 function handleCustomPull(pullStr) {
@@ -10562,7 +10562,7 @@ function tryAcquiringOdeToBooze() {
 function tryAcquiringSongs(songs) {
   var activeSongs = getActiveSongs();
   var hoboSongs = $effects(_templateObject56 || (_templateObject56 = lib_taggedTemplateLiteral(["The Ballad of Richie Thingfinder, Benetton's Medley of Diversity, Elron's Explosive Etude, Chorale of Companionship, Prelude of Precision"])));
-  var acquirableSongs = songs.filter(song => song.song && // This must be a song
+  var acquirableSongs = songs.filter(song => isSong(song) && // This must be a song
   lib_have((0,external_kolmafia_namespaceObject.toSkill)(song)) && (!hoboSongs.includes(song) || (0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject57 || (_templateObject57 = lib_taggedTemplateLiteral(["Accordion Thief"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= 15) // ... or we are a L15+ AT
   ).sort((a, b) => (0,external_kolmafia_namespaceObject.mpCost)((0,external_kolmafia_namespaceObject.toSkill)(b)) - (0,external_kolmafia_namespaceObject.mpCost)((0,external_kolmafia_namespaceObject.toSkill)(a))) // More expensive songs are probably better
   .slice(0, getSongLimit()); // We can only have a limited number of songs in memory
