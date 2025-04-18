@@ -73,6 +73,7 @@ import {
   getSongLimit,
   have,
   haveInCampground,
+  isSong,
   maxBy,
   set,
   sum,
@@ -321,9 +322,9 @@ export function canAcquireEffect(ef: Effect): boolean {
 
 export function tryAcquiringEffects(efs: Effect[], tryRegardless = false) {
   // Try acquiring songs
-  tryAcquiringSongs(efs.filter((ef) => ef.song));
+  tryAcquiringSongs(efs.filter((ef) => isSong(ef)));
   // Try acquiring everything else
-  efs.filter((ef) => !ef.song).forEach((ef) => tryAcquiringEffect(ef, tryRegardless));
+  efs.filter((ef) => !isSong(ef)).forEach((ef) => tryAcquiringEffect(ef, tryRegardless));
 }
 
 function handleCustomPull(pullStr: string): boolean {
@@ -373,7 +374,7 @@ export function tryAcquiringSongs(songs: Effect[]): void {
   const acquirableSongs = songs
     .filter(
       (song) =>
-        song.song && // This must be a song
+        isSong(song) && // This must be a song
         have(toSkill(song)) && // We must have the skill to cast this
         (!hoboSongs.includes(song) || // Either this isn't a hobo song...
           (myClass() === $class`Accordion Thief` && myLevel() >= 15)), // ... or we are a L15+ AT
