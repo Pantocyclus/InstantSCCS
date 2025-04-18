@@ -51,6 +51,8 @@ import {
   motherSlimeClan,
   startingClan,
   tryAcquiringEffect,
+  tryAcquiringEffects,
+  tryAcquiringOdeToBooze,
 } from "../lib";
 import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { sugarItemsAboutToBreak } from "../outfit";
@@ -172,8 +174,7 @@ export const SpellDamageQuest: Quest = {
         forbiddenEffects.includes($effect`Visions of the Deep Dark Deeps`) ||
         !have($skill`Deep Dark Visions`) ||
         triedDeepDark,
-      prepare: () =>
-        $effects`Astral Shell, Elemental Saucesphere`.forEach((ef) => tryAcquiringEffect(ef)),
+      prepare: () => tryAcquiringEffects($effects`Astral Shell, Elemental Saucesphere`),
       do: (): void => {
         triedDeepDark = true;
         const resist = 1 - elementalResistance($element`spooky`) / 100;
@@ -218,6 +219,7 @@ export const SpellDamageQuest: Quest = {
           $effect`Carol of the Hells`,
           $effect`Cowrruption`,
           $effect`Destructive Resolve`,
+          $effect`Elron's Explosive Etude`,
           $effect`Grumpy and Ornery`,
           $effect`Imported Strength`,
           $effect`Jackasses' Symphony of Destruction`,
@@ -230,7 +232,7 @@ export const SpellDamageQuest: Quest = {
           $effect`Warlock, Warstock, and Warbarrel`,
           $effect`We're All Made of Starfish`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_spellTestPulls", spellTestMaximizerString);
 
         const wines = $items`Sacramento wine, distilled fortified wine`;
@@ -239,7 +241,7 @@ export const SpellDamageQuest: Quest = {
           myInebriety() < inebrietyLimit() &&
           wines.some((booze) => have(booze))
         ) {
-          tryAcquiringEffect($effect`Ode to Booze`);
+          tryAcquiringOdeToBooze();
           drink(wines.filter((booze) => have(booze))[0], 1);
         }
 

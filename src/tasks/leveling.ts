@@ -118,6 +118,8 @@ import {
   targetBaseMainStat,
   targetBaseMainStatGap,
   tryAcquiringEffect,
+  tryAcquiringEffects,
+  tryAcquiringOdeToBooze,
   useCenser,
   useParkaSpit,
   wishFor,
@@ -635,7 +637,7 @@ export const LevelingQuest: Quest = {
           $effect`Feeling Peaceful`, // +2 cold res from Emotion Chip
           $effect`Astral Shell`, // +1 cold res
         ];
-        coldResEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        tryAcquiringEffects(coldResEffects, true);
       },
       do: (): void => {
         // If we can get the Fireproof Foam Suit, we probably don't need the Rainbow Vaccine for the hot test
@@ -727,7 +729,7 @@ export const LevelingQuest: Quest = {
         !baseBoozes.some((it) => have(it)) ||
         get("instant_savePerfectFreeze", false),
       do: (): void => {
-        tryAcquiringEffect($effect`Ode to Booze`);
+        tryAcquiringOdeToBooze();
         const baseBooze = baseBoozes.filter((it) => have(it))[0];
         let booze;
         switch (baseBooze) {
@@ -791,7 +793,7 @@ export const LevelingQuest: Quest = {
         myInebriety() >= inebrietyLimit() ||
         (!have($item`astral six-pack`) &&
           itemAmount($item`astral pilsner`) <= get("instant_saveAstralPilsners", 0)),
-      prepare: () => tryAcquiringEffect($effect`Ode to Booze`),
+      prepare: () => tryAcquiringOdeToBooze(),
       do: (): void => {
         if (have($item`astral six-pack`)) use($item`astral six-pack`, 1);
         if (itemAmount($item`astral pilsner`) > get("instant_saveAstralPilsners", 0))
@@ -1113,8 +1115,8 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         if (!have($item`datastick`))
           visitUrl("place.php?whichplace=serverroom&action=serverroom_chipdrawer");
-        $effects`Honeypotted, Null Afternoon, Feeling Nervous, Scarysauce, Jalapeño Saucesphere`.forEach(
-          (e) => tryAcquiringEffect(e),
+        tryAcquiringEffects(
+          $effects`Honeypotted, Null Afternoon, Feeling Nervous, Scarysauce, Jalapeño Saucesphere`,
         );
       },
       completed: () => cyberRealmTurnsAvailable() <= 0,
@@ -1289,8 +1291,8 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
-        if (mainStat === $stat`Muscle`) prismaticEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
+        if (mainStat === $stat`Muscle`) tryAcquiringEffects(prismaticEffects);
         tryAcquiringEffect($effect`Comic Violence`);
 
         // Try acquiring at least +100% item for guaranteed drops
@@ -1300,7 +1302,7 @@ export const LevelingQuest: Quest = {
           $effect`The Spirit of Taking`,
         ];
         if (myClass() !== $class`Pastamancer`) itemDropEffects.push($effect`Spice Haze`);
-        itemDropEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(itemDropEffects);
       },
       completed: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
       do: () =>
@@ -1365,7 +1367,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!haveEquipped($item`latte lovers member's mug`)) unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       completed: () => get("_monsterHabitatsFightsLeft") <= 1,
@@ -1399,7 +1401,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!haveEquipped($item`latte lovers member's mug`)) unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       completed: () => get("_monsterHabitatsFightsLeft") === 0,
@@ -1438,7 +1440,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       completed: () =>
@@ -1468,7 +1470,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       ready: () => getKramcoWandererChance() >= 1.0,
@@ -1563,7 +1565,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       completed: () => get("_godLobsterFights") >= 3 || !have($familiar`God Lobster`),
@@ -1586,7 +1588,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       completed: () => get("_eldritchHorrorEvoked") || !have($skill`Evoke Eldritch Horror`),
@@ -1609,7 +1611,7 @@ export const LevelingQuest: Quest = {
         } else {
           unbreakableUmbrella();
         }
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       completed: () =>
@@ -1645,7 +1647,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       completed: () => get("_machineTunnelsAdv") >= 5 || !have($familiar`Machine Elf`),
@@ -1676,7 +1678,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
@@ -1757,7 +1759,7 @@ export const LevelingQuest: Quest = {
       completed: () => have($effect`On the Trolley`) || get("instant_saveBeesKnees", false),
       do: (): void => {
         if (myMeat() < 500) throw new Error("Insufficient Meat to purchase Bee's Knees!");
-        tryAcquiringEffect($effect`Ode to Booze`);
+        tryAcquiringOdeToBooze();
         visitUrl(`clan_viplounge.php?preaction=speakeasydrink&drink=5&pwd=${myHash()}`); // Bee's Knees
       },
       limit: { tries: 1 },
@@ -1765,10 +1767,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Acquire Lyle's Buff",
       completed: () => get("_lyleFavored"),
-      do: (): void => {
-        tryAcquiringEffect($effect`Favored by Lyle`);
-        tryAcquiringEffect($effect`Starry-Eyed`);
-      },
+      do: () => tryAcquiringEffects($effects`Favored by Lyle, Starry-Eyed`),
       limit: { tries: 1 },
     },
     {
@@ -1801,7 +1800,7 @@ export const LevelingQuest: Quest = {
         } else {
           unbreakableUmbrella();
         }
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       completed: () =>
@@ -1851,11 +1850,11 @@ export const LevelingQuest: Quest = {
       name: "Witchess King",
       prepare: (): void => {
         garbageShirt();
-        [
+        tryAcquiringEffects([
           ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
           ...prismaticEffects,
           ...wdmgEffects,
-        ].forEach((ef) => tryAcquiringEffect(ef));
+        ]);
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         restoreMp(50);
       },
@@ -1882,11 +1881,11 @@ export const LevelingQuest: Quest = {
       name: "Witchess Witch",
       prepare: (): void => {
         garbageShirt();
-        [
+        tryAcquiringEffects([
           ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
           ...prismaticEffects,
           ...wdmgEffects,
-        ].forEach((ef) => tryAcquiringEffect(ef));
+        ]);
         if (get("_hotTubSoaks") < 5 && myHp() < myMaxhp()) cliExecute("hottub");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         restoreMp(50);
@@ -1921,11 +1920,11 @@ export const LevelingQuest: Quest = {
       name: "Witchess Queen",
       prepare: (): void => {
         garbageShirt();
-        [
+        tryAcquiringEffects([
           ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
           ...prismaticEffects,
           ...wdmgEffects,
-        ].forEach((ef) => tryAcquiringEffect(ef));
+        ]);
         if (get("_hotTubSoaks") < 5 && myHp() < myMaxhp()) cliExecute("hottub");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         restoreMp(50);
@@ -1957,7 +1956,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       completed: () =>
@@ -1998,7 +1997,7 @@ export const LevelingQuest: Quest = {
         }
         garbageShirt();
         docBag();
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef));
+        tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
       outfit: (): OutfitSpec => {

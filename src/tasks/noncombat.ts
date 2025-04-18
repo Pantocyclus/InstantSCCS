@@ -22,7 +22,13 @@ import {
   have,
   uneffect,
 } from "libram";
-import { handleCustomPulls, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import {
+  handleCustomPulls,
+  logTestSetup,
+  tryAcquiringEffect,
+  tryAcquiringEffects,
+  wishFor,
+} from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
 
@@ -101,7 +107,7 @@ export const NoncombatQuest: Quest = {
           $effect`Empathy`,
           $effect`Puzzle Champ`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        tryAcquiringEffects(usefulEffects, true);
         if (!handleCustomPulls("instant_comTestPulls", comTestMaximizerString)) {
           cliExecute(`maximize ${comTestMaximizerString}`); // To avoid maximizer bug, we invoke this once more
         }

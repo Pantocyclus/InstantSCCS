@@ -29,7 +29,15 @@ import {
   uneffect,
 } from "libram";
 import { Quest } from "../engine/task";
-import { handleCustomPulls, logTestSetup, tryAcquiringEffect, useParkaSpit, wishFor } from "../lib";
+import {
+  handleCustomPulls,
+  logTestSetup,
+  tryAcquiringEffect,
+  tryAcquiringEffects,
+  tryAcquiringOdeToBooze,
+  useParkaSpit,
+  wishFor,
+} from "../lib";
 import { sugarItemsAboutToBreak } from "../outfit";
 import Macro from "../combat";
 import { chooseFamiliar } from "../familiars";
@@ -134,7 +142,7 @@ export const HotResQuest: Quest = {
         myInebriety() >= inebrietyLimit() ||
         get("instant_saveBorisBeer", false),
       do: (): void => {
-        tryAcquiringEffect($effect`Ode to Booze`);
+        tryAcquiringOdeToBooze();
         if (have($item`Yeast of Boris`) && have($item`bowl of cottage cheese`))
           create($item`Boris's beer`, 1);
         if (have($item`Boris's beer`)) drink($item`Boris's beer`, 1);
@@ -210,7 +218,7 @@ export const HotResQuest: Quest = {
           $effect`Robot Friends`,
           $effect`Thoughtful Empathy`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_hotTestPulls", hotTestMaximizerString);
 
         if (

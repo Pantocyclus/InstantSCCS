@@ -22,7 +22,7 @@ import {
   mainStat,
   reagentBalancerEffect,
   reagentBalancerItem,
-  tryAcquiringEffect,
+  tryAcquiringEffects,
   useCenser,
 } from "../lib";
 
@@ -81,7 +81,7 @@ export const HPQuest: Quest = {
           $effect`Stevedave's Shanty of Superiority`,
           $effect`Triple-Sized`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_hpTestPulls", hpTestMaximizerString);
       },
       do: (): void => {
@@ -137,7 +137,7 @@ export const MuscleQuest: Quest = {
           $effect`Strength of the Tortoise`,
           $effect`Triple-Sized`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_musTestPulls", musTestMaximizerString);
       },
       do: (): void => {
@@ -195,7 +195,7 @@ export const MysticalityQuest: Quest = {
           $effect`Pasta Oneness`,
           $effect`Quiet Judgement`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_mystTestPulls", mystTestMaximizerString);
       },
       do: (): void => {
@@ -270,7 +270,7 @@ export const MoxieQuest: Quest = {
           $effect`Stevedave's Shanty of Superiority`,
           $effect`Unrunnable Face`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_moxTestPulls", moxTestMaximizerString);
         if (have($skill`Acquire Rhinestones`)) useSkill($skill`Acquire Rhinestones`);
         if (have($item`rhinestone`)) use($item`rhinestone`, itemAmount($item`rhinestone`));

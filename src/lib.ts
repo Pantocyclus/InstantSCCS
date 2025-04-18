@@ -52,6 +52,7 @@ import {
 import {
   $class,
   $effect,
+  $effects,
   $familiar,
   $item,
   $items,
@@ -66,13 +67,17 @@ import {
   CombatLoversLocket,
   CommunityService,
   get,
+  getActiveSongs,
   getKramcoWandererChance,
+  getSongCount,
+  getSongLimit,
   have,
   haveInCampground,
   maxBy,
   set,
   sum,
   sumNumbers,
+  uneffect,
   unequip,
   Witchess,
 } from "libram";
@@ -314,6 +319,13 @@ export function canAcquireEffect(ef: Effect): boolean {
     .some((b) => b);
 }
 
+export function tryAcquiringEffects(efs: Effect[], tryRegardless = false) {
+  // Try acquiring songs
+  tryAcquiringSongs(efs.filter((ef) => ef.song));
+  // Try acquiring everything else
+  efs.filter((ef) => !ef.song).forEach((ef) => tryAcquiringEffect(ef, tryRegardless));
+}
+
 function handleCustomPull(pullStr: string): boolean {
   // Pull a given item and use it if we can
   // Note: We should be running this in prepare(), which occurs after equipping
@@ -349,6 +361,39 @@ function handleCustomPull(pullStr: string): boolean {
     return true;
   }
   return false;
+}
+
+export function tryAcquiringOdeToBooze(): void {
+  return tryAcquiringSongs($effects`Ode to Booze`);
+}
+
+export function tryAcquiringSongs(songs: Effect[]): void {
+  const activeSongs = getActiveSongs();
+  const hoboSongs = $effects`The Ballad of Richie Thingfinder, Benetton's Medley of Diversity, Elron's Explosive Etude, Chorale of Companionship, Prelude of Precision`;
+  const acquirableSongs = songs
+    .filter(
+      (song) =>
+        song.song && // This must be a song
+        have(toSkill(song)) && // We must have the skill to cast this
+        (!hoboSongs.includes(song) || // Either this isn't a hobo song...
+          (myClass() === $class`Accordion Thief` && myLevel() >= 15)), // ... or we are a L15+ AT
+    )
+    .sort((a, b) => mpCost(toSkill(b)) - mpCost(toSkill(a))) // More expensive songs are probably better
+    .slice(0, getSongLimit()); // We can only have a limited number of songs in memory
+  const additionalSpaceRequired = // We need to shrug this many songs in order to get all the acquirable songs that we want
+    acquirableSongs.length - activeSongs.filter((song) => acquirableSongs.includes(song)).length;
+
+  activeSongs
+    .sort((a, b) => mpCost(toSkill(a)) - mpCost(toSkill(b))) // Remove the least expensive songs first
+    .forEach((song) => {
+      // If we want this song, leave it
+      if (acquirableSongs.includes(song)) return;
+      // If we have more than enough memory space for the songs we want, also leave it
+      else if (getSongLimit() - getSongCount() >= additionalSpaceRequired) return;
+      // Uneffect this song
+      else uneffect(song);
+    });
+  acquirableSongs.forEach((song) => tryAcquiringEffect(song));
 }
 
 export function handleCustomPulls(prefName: string, maximizerString = ""): boolean {
