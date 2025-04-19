@@ -2,6 +2,7 @@ import { CombatStrategy } from "grimoire-kolmafia";
 import {
   buy,
   cliExecute,
+  create,
   drink,
   Effect,
   elementalResistance,
@@ -14,7 +15,9 @@ import {
   myClass,
   myHp,
   myInebriety,
+  myLevel,
   myMaxhp,
+  myMeat,
   myThrall,
   numericModifier,
   outfit,
@@ -48,6 +51,7 @@ import { Quest } from "../engine/task";
 import {
   handleCustomPulls,
   logTestSetup,
+  mainStat,
   motherSlimeClan,
   startingClan,
   tryAcquiringEffect,
@@ -66,6 +70,47 @@ export const SpellDamageQuest: Quest = {
   name: "Spell Damage",
   completed: () => CommunityService.SpellDamage.isDone(),
   tasks: [
+    {
+      name: "Concentrated Cordial of Concentration",
+      completed: () =>
+        mainStat !== $stat`Moxie` || // Must be a moxie class
+        myLevel() < 9 || // Need at least L9 to access other guilds
+        !have($item`tearaway pants`) || // Need tearaway pants for free access to Moxie guild
+        !have($skill`Superhuman Cocktailcrafting`) || // Need to upgrade soda water into tonic water
+        (get("reagentSummons") !== 0 &&
+          !have($item`scrumptious reagent`) &&
+          !have($item`scrumdiddlyumptious solution`)) || // Need a spare reagent
+        (myMeat() < 1070 &&
+          !have($item`scrumdiddlyumptious solution`) &&
+          !have($item`delectable catalyst`)) || // Need enough meat to purchase a delectable catalyst
+        have($item`concentrated cordial of concentration`),
+      do: (): void => {
+        visitUrl("guild.php?place=challenge"); // Ensure free access to Moxie guild
+        if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
+        create($item`concentrated cordial of concentration`);
+      },
+      outfit: {
+        pants: $item`tearaway pants`,
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Cordial of Concentration",
+      completed: () =>
+        mainStat !== $stat`Moxie` || // Must be a moxie class
+        !have($item`tearaway pants`) || // Need tearaway pants for free access to Moxie guild
+        (get("reagentSummons") !== 0 && !have($item`scrumptious reagent`)) || // Need a spare reagent
+        have($item`cordial of concentration`),
+      do: (): void => {
+        visitUrl("guild.php?place=challenge"); // Ensure free access to Moxie guild
+        if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
+        create($item`cordial of concentration`);
+      },
+      outfit: {
+        pants: $item`tearaway pants`,
+      },
+      limit: { tries: 1 },
+    },
     {
       name: "Simmer",
       completed: () => have($effect`Simmering`) || !have($skill`Simmer`),
@@ -217,6 +262,8 @@ export const SpellDamageQuest: Quest = {
           $effect`AAA-Charged`,
           $effect`Arched Eyebrow of the Archmage`,
           $effect`Carol of the Hells`,
+          $effect`Concentrated Concentration`,
+          $effect`Concentration`,
           $effect`Cowrruption`,
           $effect`Destructive Resolve`,
           $effect`Elron's Explosive Etude`,
