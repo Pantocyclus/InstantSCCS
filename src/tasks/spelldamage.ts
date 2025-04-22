@@ -73,8 +73,8 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Concentrated Cordial of Concentration",
       completed: () =>
-        (myClass() === $class`Accordion Thief` && // Must be a Accordion Thief for guild infiltration
-          myLevel() < 9) || // Need at least L9 to access other guilds
+        myClass() !== $class`Accordion Thief` || // Must be a Accordion Thief for guild infiltration
+        myLevel() < 9) || // Need at least L9 to access other guilds
         !have($item`tearaway pants`) || // Need tearaway pants for free access to Moxie guild
         !have($skill`Superhuman Cocktailcrafting`) || // Need to upgrade soda water into tonic water
         (get("reagentSummons") !== 0 &&
