@@ -51,7 +51,6 @@ import { Quest } from "../engine/task";
 import {
   handleCustomPulls,
   logTestSetup,
-  mainStat,
   motherSlimeClan,
   startingClan,
   tryAcquiringEffect,
@@ -97,17 +96,11 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Cordial of Concentration",
       completed: () =>
-        mainStat !== $stat`Moxie` || // Must be a moxie class
-        !have($item`tearaway pants`) || // Need tearaway pants for free access to Moxie guild
         (get("reagentSummons") !== 0 && !have($item`scrumptious reagent`)) || // Need a spare reagent
         have($item`cordial of concentration`),
       do: (): void => {
-        visitUrl("guild.php?place=challenge"); // Ensure free access to Moxie guild
         if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
         create($item`cordial of concentration`);
-      },
-      outfit: {
-        pants: $item`tearaway pants`,
       },
       limit: { tries: 1 },
     },
