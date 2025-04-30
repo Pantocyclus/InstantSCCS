@@ -98,6 +98,7 @@ import {
   getSynthColdBuff,
   getSynthExpBuff,
   getValidComplexCandyPairs,
+  habitatCastsLeft,
   haveCBBIngredients,
   mainStat,
   mainStatMaximizerStr,
@@ -1360,7 +1361,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Monster Habitats",
       ready: () =>
-        get("_monsterHabitatsFightsLeft") > 1 &&
+        get("_monsterHabitatsFightsLeft") > (habitatCastsLeft() > 0 ? 1 : 0) &&
         (haveFreeBanish() ||
           Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
       prepare: (): void => {
@@ -1370,7 +1371,7 @@ export const LevelingQuest: Quest = {
         tryAcquiringEffects(usefulEffects);
         restoreMp(50);
       },
-      completed: () => get("_monsterHabitatsFightsLeft") <= 1,
+      completed: () => get("_monsterHabitatsFightsLeft") <= (habitatCastsLeft() > 0 ? 1 : 0),
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() =>
         Macro.if_($monster`fluffy bunny`, Macro.banish().abort()).default(useCinch),
@@ -1389,7 +1390,7 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
-      limit: { tries: 13 },
+      limit: { tries: 14 },
     },
     {
       name: "Monster Habitats (Re-application)",
@@ -1408,13 +1409,7 @@ export const LevelingQuest: Quest = {
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() =>
         Macro.if_($monster`fluffy bunny`, Macro.banish().abort())
-          .externalIf(
-            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
-              have($skill`Recall Facts: Monster Habitats`) &&
-              (haveFreeBanish() ||
-                Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
-            Macro.trySkill($skill`Recall Facts: Monster Habitats`),
-          )
+          .trySkill($skill`Recall Facts: Monster Habitats`)
           .default(useCinch),
       ),
       outfit: () => ({
@@ -1431,7 +1426,7 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
-      limit: { tries: 4 },
+      limit: { tries: 3 },
     },
     {
       name: "Backups",
