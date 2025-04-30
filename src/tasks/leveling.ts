@@ -21,7 +21,6 @@ import {
   Item,
   itemAmount,
   Location,
-  Monster,
   mpCost,
   myBasestat,
   myClass,
@@ -61,7 +60,6 @@ import {
   $items,
   $location,
   $monster,
-  $monsters,
   $skill,
   $slot,
   $stat,
@@ -92,8 +90,10 @@ import {
   canPull,
   canScreech,
   chooseLibram,
+  crystalBallFreeFightLocation,
   cyberRealmTurnsAvailable,
   cyberRealmZone,
+  freeFightMonsters,
   generalStoreXpEffect,
   getSynthColdBuff,
   getSynthExpBuff,
@@ -135,7 +135,6 @@ import { chooseFamiliar } from "../familiars";
 
 const useCinch = !get("instant_saveCinch", false);
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
-const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
 const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
 let triedCraftingCBBFoods = false;
@@ -1143,6 +1142,18 @@ export const LevelingQuest: Quest = {
       limit: { tries: 10 },
     },
     {
+      name: "Crystal Ball",
+      completed: () =>
+        crystalBallFreeFightLocation() !== Location.none || !have($item`miniature crystal ball`),
+      do: () => crystalBallFreeFightLocation(),
+      limit: { tries: 10 },
+      combat: new CombatStrategy().macro(Macro.default()),
+      outfit: () => ({
+        ...baseOutfit(),
+        famequip: $item`miniature crystal ball`,
+      }),
+    },
+    {
       name: "Flaming Leaflets",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
@@ -1478,8 +1489,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
           get("_monsterHabitatsFightsLeft") <= 1 &&
-            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
-            have($skill`Recall Facts: Monster Habitats`) &&
+            habitatCastsLeft() > 0 &&
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),
@@ -1620,8 +1630,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
           get("_monsterHabitatsFightsLeft") <= 1 &&
-            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
-            have($skill`Recall Facts: Monster Habitats`) &&
+            habitatCastsLeft() > 0 &&
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),
@@ -1824,8 +1833,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
           get("_monsterHabitatsFightsLeft") <= 1 &&
-            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
-            have($skill`Recall Facts: Monster Habitats`) &&
+            habitatCastsLeft() > 0 &&
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),
@@ -1963,8 +1971,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
           get("_monsterHabitatsFightsLeft") <= 1 &&
-            get("_monsterHabitatsRecalled") < 3 - get("instant_saveMonsterHabitats", 0) &&
-            have($skill`Recall Facts: Monster Habitats`) &&
+            habitatCastsLeft() > 0 &&
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),

@@ -23,6 +23,7 @@ import {
   Location,
   mallPrice,
   monkeyPaw,
+  Monster,
   mpCost,
   myBasestat,
   myBuffedstat,
@@ -57,7 +58,9 @@ import {
   $item,
   $items,
   $location,
+  $locations,
   $monster,
+  $monsters,
   $skill,
   $skills,
   $slot,
@@ -66,6 +69,7 @@ import {
   Clan,
   CombatLoversLocket,
   CommunityService,
+  CrystalBall,
   get,
   getActiveSongs,
   getKramcoWandererChance,
@@ -1080,4 +1084,27 @@ export function canScreech(): boolean {
 export function habitatCastsLeft(): number {
   if (!have($skill`Recall Facts: Monster Habitats`)) return 0;
   return Math.max(0, 3 - get("_monsterHabitatsRecalled") - get("instant_saveMonsterHabitats", 0));
+}
+
+export const freeFightMonsters: Monster[] = $monsters`Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle`;
+// We want to consider all locations with 100% combat rate
+// but some locations like the Barroom Brawl provide free fights for the first X adventures in the zone
+// and we do not want to deplete the fights in that location
+function safeFreeFightLocations(): Location[] {
+  const safeLocations = $locations`The Dire Warren, Uncle Gator's Country Fun-Time Liquid Waste Sluice, The SMOOCH Army HQ, VYKEA, Sloppy Seconds Diner, The Deep Dark Jungle`;
+  if (get("_neverendingPartyFreeTurns") >= 10) safeLocations.push($location`The Neverending Party`);
+  if (get("_speakeasyFreeFights") >= 3)
+    safeLocations.push($location`An Unusually Quiet Barroom Brawl`);
+  return safeLocations;
+}
+
+export function crystalBallFreeFightLocation(): Location {
+  const freeFightLocation =
+    [...CrystalBall.ponder()]
+      .filter(
+        ([loc, mon]) => safeFreeFightLocations().includes(loc) && freeFightMonsters.includes(mon),
+      )
+      .map(([loc]) => loc)
+      .at(0) ?? Location.none;
+  return freeFightLocation;
 }
