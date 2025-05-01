@@ -18210,7 +18210,7 @@ var LevelingQuest = {
     // Use a non-wanderer zone unless we need to screech
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit(false)), {}, {
       familiar: canScreech() && cyberRealmTurnsAvailable() > 0 ? template_string_$familiar(_templateObject296 || (_templateObject296 = leveling_taggedTemplateLiteral(["Patriotic Eagle"]))) : chooseFamiliar(false),
-      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
+      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip miniature crystal ball, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
     combat: new CombatStrategy().macro(combat_Macro.if_("monstername crate", combat_Macro.trySkill(template_string_$skill(_templateObject297 || (_templateObject297 = leveling_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"]))))).attack().repeat()),
     post: () => {
@@ -18530,7 +18530,8 @@ var LevelingQuest = {
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit), Array.from(getBanishedMonsters().values()).includes($monster(_templateObject414 || (_templateObject414 = leveling_taggedTemplateLiteral(["fluffy bunny"])))) ? {} : {
       offhand: template_string_$item(_templateObject415 || (_templateObject415 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))),
       acc1: template_string_$item(_templateObject416 || (_templateObject416 = leveling_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))),
-      acc2: template_string_$item(_templateObject417 || (_templateObject417 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"])))
+      acc2: template_string_$item(_templateObject417 || (_templateObject417 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))),
+      famequip: template_string_$item.none
     }),
     post: () => {
       sendAutumnaton();
@@ -18558,7 +18559,8 @@ var LevelingQuest = {
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit), Array.from(getBanishedMonsters().values()).includes($monster(_templateObject424 || (_templateObject424 = leveling_taggedTemplateLiteral(["fluffy bunny"])))) ? {} : {
       offhand: template_string_$item(_templateObject425 || (_templateObject425 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))),
       acc1: template_string_$item(_templateObject426 || (_templateObject426 = leveling_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))),
-      acc2: template_string_$item(_templateObject427 || (_templateObject427 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"])))
+      acc2: template_string_$item(_templateObject427 || (_templateObject427 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))),
+      famequip: template_string_$item.none
     }),
     post: () => {
       sendAutumnaton();
@@ -18590,7 +18592,8 @@ var LevelingQuest = {
     do: $location(_templateObject429 || (_templateObject429 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
     combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject430 || (_templateObject430 = leveling_taggedTemplateLiteral(["Back-Up to your Last Enemy"])))).default(useCinch)),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      acc3: template_string_$item(_templateObject431 || (_templateObject431 = leveling_taggedTemplateLiteral(["backup camera"])))
+      acc3: template_string_$item(_templateObject431 || (_templateObject431 = leveling_taggedTemplateLiteral(["backup camera"]))),
+      modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball")
     }),
     post: () => {
       var _get3;
