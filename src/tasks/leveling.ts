@@ -970,7 +970,7 @@ export const LevelingQuest: Quest = {
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(false),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip miniature crystal ball, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
       }),
       combat: new CombatStrategy().macro(
         Macro.if_("monstername crate", Macro.trySkill($skill`%fn, Release the Patriotic Screech!`))
@@ -1398,6 +1398,7 @@ export const LevelingQuest: Quest = {
               offhand: $item`latte lovers member's mug`,
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
+              famequip: $item.none,
             }),
       }),
       post: (): void => {
@@ -1437,6 +1438,7 @@ export const LevelingQuest: Quest = {
               offhand: $item`latte lovers member's mug`,
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
+              famequip: $item.none,
             }),
       }),
       post: (): void => {
@@ -1467,6 +1469,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(),
         acc3: $item`backup camera`,
+        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
       }),
       post: (): void => {
         if (!freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none))
