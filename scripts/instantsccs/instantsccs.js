@@ -18351,7 +18351,7 @@ var LevelingQuest = {
     }
   }, {
     name: "Crystal Ball",
-    completed: () => crystalBallFreeFightLocation() !== external_kolmafia_namespaceObject.Location.none || !lib_have(template_string_$item(_templateObject332 || (_templateObject332 = leveling_taggedTemplateLiteral(["miniature crystal ball"])))),
+    completed: () => crystalBallFreeFightLocation() === external_kolmafia_namespaceObject.Location.none || !lib_have(template_string_$item(_templateObject332 || (_templateObject332 = leveling_taggedTemplateLiteral(["miniature crystal ball"])))),
     do: () => crystalBallFreeFightLocation(),
     limit: {
       tries: 10
