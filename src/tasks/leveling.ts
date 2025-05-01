@@ -1144,7 +1144,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Crystal Ball",
       completed: () =>
-        crystalBallFreeFightLocation() !== Location.none || !have($item`miniature crystal ball`),
+        crystalBallFreeFightLocation() === Location.none || !have($item`miniature crystal ball`),
       do: () => crystalBallFreeFightLocation(),
       limit: { tries: 10 },
       combat: new CombatStrategy().macro(Macro.default()),
