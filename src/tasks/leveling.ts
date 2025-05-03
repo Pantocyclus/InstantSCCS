@@ -146,6 +146,13 @@ const LOVEquip =
       ? "LOV Epaulettes"
       : "LOV Earring";
 
+const fortuneTellerBuff =
+  mainStatStr === $stat`Muscle`
+    ? $effect`Gunther Than Thou`
+    : mainStatStr === $stat`Mysticality`
+      ? $effect`Everybody Calls Him Gorgon`
+      : $effect`They Call Him Shifty Because...`;
+
 const muscleList: Effect[] = [
   $effect`Seal Clubbing Frenzy`,
   $effect`Patience of the Tortoise`,
@@ -763,7 +770,10 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Consult Fortune Teller",
-      completed: () => get("_clanFortuneBuffUsed") || get("instant_saveFortuneTeller", false),
+      completed: () =>
+        get("_clanFortuneBuffUsed") ||
+        get("instant_saveFortuneTeller", false) ||
+        forbiddenEffects.includes(fortuneTellerBuff),
       do: () => cliExecute(`fortune buff ${mainStatMaximizerStr}`),
       limit: { tries: 1 },
     },

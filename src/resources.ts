@@ -143,7 +143,7 @@ const encounterResources: Resource[] = [
 const farmingResources: Resource[] = [
   new Resource("instant_savePorquoise", "Do not autosell your porquoise"),
   new Resource("instant_saveFloundry", "Do not create a codpiece"),
-  new Resource("instant_saveFortuneTeller", "Do not consult Zatara for the myst buff"),
+  new Resource("instant_saveFortuneTeller", "Do not consult Zatara for the main stat buff"),
   new Resource(
     "instant_saveSnackVoucher",
     "Do not use your snack voucher",
