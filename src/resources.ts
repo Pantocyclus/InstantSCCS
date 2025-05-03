@@ -143,7 +143,14 @@ const encounterResources: Resource[] = [
 const farmingResources: Resource[] = [
   new Resource("instant_savePorquoise", "Do not autosell your porquoise"),
   new Resource("instant_saveFloundry", "Do not create a codpiece"),
-  new Resource("instant_saveFortuneTeller", "Do not consult Zatara for the main stat buff"),
+  new Resource("instant_saveFortuneTeller", "Do not consult Zatara for buffs", [
+    $effect`A Girl Named Sue`,
+    $effect`There's No N in Love`,
+    $effect`Meet the Meat`,
+    $effect`Gunther Than Thou`,
+    $effect`Everybody Calls Him Gorgon`,
+    $effect`They Call Him Shifty Because...`,
+  ]),
   new Resource(
     "instant_saveSnackVoucher",
     "Do not use your snack voucher",

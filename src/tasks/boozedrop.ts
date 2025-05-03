@@ -398,6 +398,7 @@ export const BoozeDropQuest: Quest = {
           $effect`Nearly All-Natural`,
           $effect`The Ballad of Richie Thingfinder`,
           $effect`The Spirit of Taking`,
+          $effect`There's No N in Love`,
           $effect`Singer's Faithful Ocelot`,
           $effect`Steely-Eyed Squint`,
           $effect`Uncucumbered`,

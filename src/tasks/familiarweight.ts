@@ -99,6 +99,7 @@ export const FamiliarWeightQuest: Quest = {
       completed: () => CommunityService.FamiliarWeight.isDone(),
       prepare: (): void => {
         const usefulEffects: Effect[] = [
+          $effect`A Girl Named Sue`,
           $effect`Billiards Belligerence`,
           $effect`Blood Bond`,
           $effect`Boxing Day Glow`,

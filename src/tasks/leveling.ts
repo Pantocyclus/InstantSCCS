@@ -146,13 +146,6 @@ const LOVEquip =
       ? "LOV Epaulettes"
       : "LOV Earring";
 
-const fortuneTellerBuff =
-  mainStatStr === $stat`Muscle`
-    ? $effect`Gunther Than Thou`
-    : mainStatStr === $stat`Mysticality`
-      ? $effect`Everybody Calls Him Gorgon`
-      : $effect`They Call Him Shifty Because...`;
-
 const muscleList: Effect[] = [
   $effect`Seal Clubbing Frenzy`,
   $effect`Patience of the Tortoise`,
@@ -165,6 +158,8 @@ const muscleList: Effect[] = [
   $effect`Adrenaline Rush`,
   // Weapon dmg
   $effect`Carol of the Bulls`,
+  // Fortune teller buff
+  $effect`Gunther Than Thou`,
 ];
 
 const mysticalityList: Effect[] = [
@@ -179,6 +174,8 @@ const mysticalityList: Effect[] = [
   $effect`Sparkling Consciousness`,
   // Spell dmg
   $effect`Carol of the Hells`,
+  // Fortune teller buff
+  $effect`Everybody Calls Him Gorgon`,
 ];
 
 const moxieList: Effect[] = [
@@ -192,6 +189,8 @@ const moxieList: Effect[] = [
   $effect`Sneaky Serpentine Subtlety`,
   // Weapon dmg
   $effect`Carol of the Bulls`,
+  // Fortune teller buff
+  $effect`They Call Him Shifty Because...`,
 ];
 
 const statEffects =
@@ -766,15 +765,6 @@ export const LevelingQuest: Quest = {
           drink(booze, 1);
         }
       },
-      limit: { tries: 1 },
-    },
-    {
-      name: "Consult Fortune Teller",
-      completed: () =>
-        get("_clanFortuneBuffUsed") ||
-        get("instant_saveFortuneTeller", false) ||
-        forbiddenEffects.includes(fortuneTellerBuff),
-      do: () => cliExecute(`fortune buff ${mainStatMaximizerStr}`),
       limit: { tries: 1 },
     },
     {
