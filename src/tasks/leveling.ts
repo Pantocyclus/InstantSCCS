@@ -1385,9 +1385,6 @@ export const LevelingQuest: Quest = {
       completed: () => get("_monsterHabitatsFightsLeft") <= (habitatCastsLeft() > 0 ? 1 : 0),
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() => {
-        print(
-          `Habitats Debug: _monsterHabitatsFightsLeft=${get("_monsterHabitatsFightsLeft")} | habitatCastsLeft()=${habitatCastsLeft()} | haveFreeBanish()=${haveFreeBanish()} | banished bunny=${Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)}`,
-        );
         return Macro.if_($monster`fluffy bunny`, Macro.banish().abort()).default(useCinch);
       }),
       outfit: () => ({
@@ -1423,9 +1420,6 @@ export const LevelingQuest: Quest = {
       completed: () => get("_monsterHabitatsFightsLeft") === 0,
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() => {
-        print(
-          `Habitats (Re-application) Debug: _monsterHabitatsFightsLeft=${get("_monsterHabitatsFightsLeft")} | habitatCastsLeft()=${habitatCastsLeft()} | haveFreeBanish()=${haveFreeBanish()} | banished bunny=${Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)}`,
-        );
         return Macro.if_($monster`fluffy bunny`, Macro.banish().abort())
           .trySkill($skill`Recall Facts: Monster Habitats`)
           .default(useCinch);

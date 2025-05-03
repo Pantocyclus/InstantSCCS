@@ -1082,7 +1082,8 @@ export function canScreech(): boolean {
 }
 
 export function habitatCastsLeft(): number {
-  if (!have($skill`Recall Facts: Monster Habitats`)) return 0;
+  if (!have($skill`Recall Facts: Monster Habitats`) && get("_monsterHabitatsFightsLeft") === 0)
+    return 0;
   return Math.max(0, 3 - get("_monsterHabitatsRecalled") - get("instant_saveMonsterHabitats", 0));
 }
 
