@@ -70,6 +70,7 @@ import {
   haveInCampground,
   MayamCalendar,
   Pantogram,
+  PeridotOfPeril,
   set,
   SongBoom,
   StillSuit,
@@ -908,6 +909,47 @@ export const RunStartQuest: Quest = {
         if (have($item`space blanket`)) autosell($item`space blanket`, 1);
       },
       limit: { tries: 1 },
+    },
+    {
+      name: "Peridot Novelty Tropical Skeleton",
+      prepare: (): void => {
+        if (useParkaSpit) {
+          cliExecute("parka dilophosaur");
+        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
+          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
+          buy($item`yellow rocket`, 1);
+        }
+        unbreakableUmbrella();
+        if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
+        PeridotOfPeril.setChoice($monster`novelty tropical skeleton`);
+      },
+      completed: () =>
+        mainStat === $stat`Moxie` || !have($item`Peridot of Peril`) || have($item`cherry`),
+      do: $location`The Skeleton Store`,
+      combat: new CombatStrategy().macro(
+        Macro.if_(
+          "!haseffect Everything Looks Yellow",
+          Macro.if_(
+            $monster`novelty tropical skeleton`,
+            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+              .trySkill($skill`Blow the Yellow Candle!`)
+              .tryItem($item`yellow rocket`),
+          ),
+        ).abort(),
+      ),
+      outfit: () => ({
+        ...baseOutfit(false),
+        shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
+        offhand: $item`Roman Candelabra`,
+        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
+        acc3: $item`Peridot of Peril`,
+      }),
+      post: (): void => {
+        if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
+          use($item`MayDay™ supply package`, 1);
+        if (have($item`space blanket`)) autosell($item`space blanket`, 1);
+      },
+      limit: { tries: 2 },
     },
     {
       name: "Map Novelty Tropical Skeleton",

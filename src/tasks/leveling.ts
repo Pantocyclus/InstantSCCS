@@ -73,6 +73,7 @@ import {
   getKramcoWandererChance,
   have,
   MayamCalendar,
+  PeridotOfPeril,
   set,
   SongBoom,
   SourceTerminal,
@@ -874,6 +875,47 @@ export const LevelingQuest: Quest = {
       limit: { tries: 10 },
     },
     {
+      name: "Peridot Amateur Ninja",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        if (!have($effect`Everything Looks Blue`) && !have($item`blue rocket`)) {
+          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
+          buy($item`blue rocket`, 1);
+        }
+        unbreakableUmbrella();
+        docBag();
+        restoreMp(50);
+        if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
+          if (myMeat() >= 250) buy($item`red rocket`, 1);
+        }
+        PeridotOfPeril.setChoice($monster`amateur ninja`);
+      },
+      completed: () =>
+        !have($item`Peridot of Peril`) ||
+        have($item`li'l ninja costume`) ||
+        !have($familiar`Trick-or-Treating Tot`),
+      do: $location`The Haiku Dungeon`,
+      combat: new CombatStrategy().macro(
+        Macro.if_(
+          $monster`amateur ninja`,
+          Macro.tryItem($item`blue rocket`)
+            .tryItem($item`red rocket`)
+            .trySkill($skill`Chest X-Ray`)
+            .trySkill($skill`Gingerbread Mob Hit`)
+            .trySkill($skill`Shattering Punch`)
+            .default(),
+        ).abort(),
+      ),
+      outfit: () => ({
+        ...baseOutfit(),
+        acc3: $item`Peridot of Peril`,
+        familiar: $familiar`Trick-or-Treating Tot`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+      }),
+      post: () => sellMiscellaneousItems(),
+      limit: { tries: 1 },
+    },
+    {
       name: "Map Amateur Ninja",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
@@ -1500,6 +1542,32 @@ export const LevelingQuest: Quest = {
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),
         ).default(useCinch),
       ),
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+    },
+    {
+      name: "Oliver's Place (Peridot)",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        restoreMp(50);
+        if (SourceTerminal.have()) cliExecute("terminal educate portscan");
+        PeridotOfPeril.setChoice($monster`goblin flapper`);
+      },
+      completed: () => get("_speakeasyFreeFights") >= 1 || !get("ownsSpeakeasy"),
+      do: $location`An Unusually Quiet Barroom Brawl`,
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Feel Envy`)
+          .trySkill($skill`Portscan`)
+          .default(),
+      ),
+      outfit: () => ({
+        ...baseOutfit(),
+        acc3: $item`Peridot of Peril`,
+      }),
+      limit: { tries: 1 },
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
