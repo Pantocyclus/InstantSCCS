@@ -20164,7 +20164,7 @@ var RunStartQuest = {
       (0,external_kolmafia_namespaceObject.equip)(bestStillsuitFamiliar, template_string_$item(runstart_templateObject13 || (runstart_templateObject13 = runstart_taggedTemplateLiteral(["tiny stillsuit"]))));
     },
     limit: {
-      tries: 1
+      tries: 10
     }
   }, {
     name: "Get Floundry item",
