@@ -11071,7 +11071,7 @@ function cyberRealmTurnsRun() {
 function cyberRealmTurnsAvailable() {
   if (!lib_have(template_string_$item(_templateObject199 || (_templateObject199 = lib_taggedTemplateLiteral(["server room key"]))))) return 0;
   var availableFreeFights = lib_have(template_string_$skill(_templateObject200 || (_templateObject200 = lib_taggedTemplateLiteral(["OVERCLOCK(10)"])))) ? 10 : 0;
-  return Math.max(0, availableFreeFights - cyberRealmTurnsRun());
+  return Math.max(0, availableFreeFights - cyberRealmTurnsRun() - property_get("instant_saveCyberRealmFights", 0));
 }
 function cyberRealmZone() {
   var _get$match;
