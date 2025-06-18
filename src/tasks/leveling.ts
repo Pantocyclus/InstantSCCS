@@ -775,7 +775,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Buy Oversized Sparkler",
-      ready: () => have($effect`Everything Looks Blue`) && get("hasRange") && myMeat() >= 1000,
+      ready: () => have($effect`Everything Looks Blue`) && myMeat() >= 1000,
       completed: () => have($item`oversized sparkler`),
       do: () => buy($item`oversized sparkler`, 1),
       limit: { tries: 1 },
