@@ -18096,7 +18096,7 @@ var LevelingQuest = {
     do: () => ensureEffect(generalStoreXpEffect)
   }, {
     name: "Buy Oversized Sparkler",
-    ready: () => lib_have(template_string_$effect(_templateObject224 || (_templateObject224 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) && property_get("hasRange") && (0,external_kolmafia_namespaceObject.myMeat)() >= 1000,
+    ready: () => lib_have(template_string_$effect(_templateObject224 || (_templateObject224 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) && (0,external_kolmafia_namespaceObject.myMeat)() >= 1000,
     completed: () => lib_have(template_string_$item(_templateObject225 || (_templateObject225 = leveling_taggedTemplateLiteral(["oversized sparkler"])))),
     do: () => (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject226 || (_templateObject226 = leveling_taggedTemplateLiteral(["oversized sparkler"]))), 1),
     limit: {
