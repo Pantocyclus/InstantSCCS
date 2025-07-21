@@ -121,7 +121,7 @@ For potions and consumables, you may set `instant_<testName>TestPulls=<comma-sep
 
 For equipment and other stuff, `set instant_prePulls=<comma-separated item IDs>` to pull said items just prior to the leveling portion of the script.<br/>
 
-### I am severely overlevelling. What preferences can I change to make the script spend fewer turns powerleveling?
+### I am severely overleveling. What preferences can I change to make the script spend fewer turns powerleveling?
 
 The number of turns spent on powerleveling is not solely dependent on your level, but, unintuitively, depends on whether you have collected sufficient CBB ingredients to craft the foods that the script wants to consume (assuming you have a cookbookbat).</br>
 
@@ -176,3 +176,18 @@ The script assumes you are already in the VIP clan (i.e. you should whitelist in
 If you are already whitelisted to CSLoopers Unite, the script will already have access to Mother Slime. Otherwise, you will have to `set instant_motherSlimeClan=<clan name>` for InstantSCCS to attempt grabbing Inner Elf - this may be the same clan as your VIP clan, or a different one altogether (note that if this is set, the script will default to using your clan of choice instead, as it reduces congestion of the CSLoopers Unite Slime Tube).<br/>
 
 The script also defaults to using the VIP clan for the [Floundry](<https://kol.coldfront.net/thekolwiki/index.php/Clan_Floundry_(VIP_Lounge)>). To change this, you will also need to `set instant_floundryClan=<clan name>`.<br/>
+
+### How do I get the script to acquire busks for leveling and/or the tests?
+
+Similar to the custom pulls, you may set `instant_<testName>TestBusks=<cast1:power1>,<cast2:power2>,...` (for example: `set instant_spellTestBusks=4:830,5:980` to attempt getting 830DA and 980DA for the 4th and 5th busks respectively) to acquire specific [busks](https://kol.coldfront.net/thekolwiki/index.php/Beret_Busking). You may also set `instant_preBusks` to acquire busks for powerleveling.<br/>
+
+Note that the script<br/>
+
+- indexes buffs from 1 (i.e. cast 1, 2, 3, 4, 5)<br/>
+- does not acquire busks by default<br/>
+- does not burn off busks to hit the desired cast number (i.e. If no busks have been cast upon reaching `instant_spellTestBusks=4:830,5:980`, neither busk will be cast; you may consider padding the preference with a power you're already aiming to get e.g. `instant_spellTestBusks=1:830,2:830,3:830,4:830,5:980`)<br/>
+- currently only considers purchasing from [The Armory and Leggery](https://kol.coldfront.net/thekolwiki/index.php/The_Armory_and_Leggery), and does not consider [armorcrafting](https://kol.coldfront.net/thekolwiki/index.php/Armorcrafting)/[meatsmithing](https://kol.coldfront.net/thekolwiki/index.php/Meatsmithing), [coinmasters](https://wiki.kolmafia.us/index.php/Coinmaster) or [forcing drops](https://kol.coldfront.net/thekolwiki/index.php/Yellow_ray_strategy) from [copied monsters](https://kol.coldfront.net/thekolwiki/index.php/Copying) yet<br/>
+- does not automatically acquire [Hammertime](https://kol.coldfront.net/thekolwiki/index.php/Hammertime) (consider adding the [too legit potion](https://kol.coldfront.net/thekolwiki/index.php/Too_legit_potion) to the custom pulls - e.g. `set instant_spellTestPulls=5258` to have Hammertime for the spell test busks)<br/>
+- throws an error if it fails to acquire the specified busk at the specified cast<br/>
+
+<sub><sup>Do consider using [this](https://beret.loathers.net/) to help you plan out the busks you need.</sup></sub><br/>
