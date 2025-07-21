@@ -567,12 +567,13 @@ export const LevelingQuest: Quest = {
     {
       name: "Pre-busks",
       completed: () =>
+        !have($item`prismatic beret`) ||
         get("_beretBuskingUses", 0) >=
-        Math.max(
-          ...get("instant_preBusks", "0:0")
-            .split(",")
-            .map((s) => toInt(s.split(":")?.at(0) ?? "0")),
-        ),
+          Math.max(
+            ...get("instant_preBusks", "0:0")
+              .split(",")
+              .map((s) => toInt(s.split(":")?.at(0) ?? "0")),
+          ),
       do: () => handleCustomBusks("instant_preBusks"),
       limit: { tries: 1 },
     },
