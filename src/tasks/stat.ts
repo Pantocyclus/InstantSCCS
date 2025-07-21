@@ -17,6 +17,7 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import {
+  handleCustomBusks,
   handleCustomPulls,
   logTestSetup,
   mainStat,
@@ -83,6 +84,7 @@ export const HPQuest: Quest = {
         ];
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_hpTestPulls", hpTestMaximizerString);
+        handleCustomBusks("instant_hpTestBusks");
       },
       do: (): void => {
         const maxTurns = get("instant_hpTestTurnLimit", 1);
@@ -139,6 +141,7 @@ export const MuscleQuest: Quest = {
         ];
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_musTestPulls", musTestMaximizerString);
+        handleCustomBusks("instant_musTestBusks");
       },
       do: (): void => {
         const maxTurns = get("instant_musTestTurnLimit", 2);
@@ -197,6 +200,7 @@ export const MysticalityQuest: Quest = {
         ];
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_mystTestPulls", mystTestMaximizerString);
+        handleCustomBusks("instant_mystTestBusks");
       },
       do: (): void => {
         const maxTurns = get("instant_mystTestTurnLimit", 1);
@@ -272,6 +276,7 @@ export const MoxieQuest: Quest = {
         ];
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_moxTestPulls", moxTestMaximizerString);
+        handleCustomBusks("instant_moxTestBusks");
         if (have($skill`Acquire Rhinestones`)) useSkill($skill`Acquire Rhinestones`);
         if (have($item`rhinestone`)) use($item`rhinestone`, itemAmount($item`rhinestone`));
       },

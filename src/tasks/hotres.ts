@@ -30,6 +30,7 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import {
+  handleCustomBusks,
   handleCustomPulls,
   logTestSetup,
   tryAcquiringEffect,
@@ -220,6 +221,7 @@ export const HotResQuest: Quest = {
         ];
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_hotTestPulls", hotTestMaximizerString);
+        handleCustomBusks("instant_hotTestBusks");
 
         if (
           CommunityService.HotRes.actualCost() >= 4 &&

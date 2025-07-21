@@ -57,6 +57,7 @@ import {
   Station,
 } from "libram/dist/resources/2022/TrainSet";
 import {
+  handleCustomBusks,
   handleCustomPulls,
   logTestSetup,
   tryAcquiringEffects,
@@ -410,6 +411,7 @@ export const BoozeDropQuest: Quest = {
           equip($slot`familiar`, $item`li'l ninja costume`);
         }
         handleCustomPulls("instant_boozeTestPulls", boozeTestMaximizerString);
+        handleCustomBusks("instant_boozeTestBusks");
 
         if (
           CommunityService.BoozeDrop.actualCost() > 1 &&

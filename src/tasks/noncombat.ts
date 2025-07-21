@@ -23,6 +23,7 @@ import {
   uneffect,
 } from "libram";
 import {
+  handleCustomBusks,
   handleCustomPulls,
   logTestSetup,
   tryAcquiringEffect,
@@ -111,6 +112,7 @@ export const NoncombatQuest: Quest = {
         if (!handleCustomPulls("instant_comTestPulls", comTestMaximizerString)) {
           cliExecute(`maximize ${comTestMaximizerString}`); // To avoid maximizer bug, we invoke this once more
         }
+        handleCustomBusks("instant_comTestBusks");
 
         if (
           // Seems to be a bug where numericModifier doesn't recognize the -10 granted by an unbreakable umbrella, so check for that manually

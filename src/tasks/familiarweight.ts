@@ -34,6 +34,7 @@ import { avoidDaylightShavingsHelm, sugarItemsAboutToBreak } from "../outfit";
 import { Quest } from "../engine/task";
 import {
   chooseHeaviestEquippedFamiliar,
+  handleCustomBusks,
   handleCustomPulls,
   logTestSetup,
   tryAcquiringEffect,
@@ -117,6 +118,7 @@ export const FamiliarWeightQuest: Quest = {
         ];
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_famTestPulls", famTestMaximizerString);
+        handleCustomBusks("instant_famTestBusks");
 
         if (have($item`love song of icy revenge`))
           use(

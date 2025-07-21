@@ -100,6 +100,7 @@ import {
   getSynthExpBuff,
   getValidComplexCandyPairs,
   habitatCastsLeft,
+  handleCustomBusks,
   haveCBBIngredients,
   mainStat,
   mainStatMaximizerStr,
@@ -561,6 +562,18 @@ export const LevelingQuest: Quest = {
             const it = toItem(toInt(id));
             if (!have(it) && canPull(toInt(id))) takeStorage(it, 1);
           }),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Pre-busks",
+      completed: () =>
+        get("_beretBuskingUses", 0) >=
+        Math.max(
+          ...get("instant_preBusks", "0:0")
+            .split(",")
+            .map((s) => toInt(s.split(":")?.at(0) ?? "0")),
+        ),
+      do: () => handleCustomBusks("instant_preBusks"),
       limit: { tries: 1 },
     },
     {
@@ -1592,7 +1605,7 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Portscan`)
           .default(),
       ),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(),
       limit: { tries: 1 },
       post: (): void => {
         sendAutumnaton();
@@ -1614,7 +1627,7 @@ export const LevelingQuest: Quest = {
         get("_sourceTerminalPortscanUses") > 0,
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Portscan`).default()),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(),
       limit: { tries: 1 },
       post: (): void => {
         sendAutumnaton();
@@ -1631,7 +1644,7 @@ export const LevelingQuest: Quest = {
       completed: () => get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy"),
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(),
       limit: { tries: 3 },
       post: (): void => {
         sendAutumnaton();
@@ -1677,7 +1690,7 @@ export const LevelingQuest: Quest = {
         sellMiscellaneousItems();
       },
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(),
       limit: { tries: 1 },
     },
     {
@@ -1711,7 +1724,7 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Blow the Purple Candle!`)
           .default(useCinch),
       ),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(),
       post: (): void => {
         visitUrl("main.php");
         sendAutumnaton();
@@ -1861,7 +1874,7 @@ export const LevelingQuest: Quest = {
         visitUrl("main.php");
       },
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -1914,7 +1927,7 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Blow the Purple Candle!`)
           .default(useCinch),
       ),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(),
       post: (): void => {
         visitUrl("main.php");
         sendAutumnaton();
@@ -1946,7 +1959,7 @@ export const LevelingQuest: Quest = {
           Macro.skill($skill`Toynado`),
         ).default(useCinch),
       ),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -2055,7 +2068,7 @@ export const LevelingQuest: Quest = {
           )
           .default(useCinch),
       ),
-      outfit: baseOutfit,
+      outfit: () => baseOutfit(),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();

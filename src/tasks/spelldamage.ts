@@ -49,6 +49,7 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import {
+  handleCustomBusks,
   handleCustomPulls,
   logTestSetup,
   motherSlimeClan,
@@ -274,6 +275,7 @@ export const SpellDamageQuest: Quest = {
         ];
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_spellTestPulls", spellTestMaximizerString);
+        handleCustomBusks("instant_spellTestBusks");
 
         const wines = $items`Sacramento wine, distilled fortified wine`;
         while (

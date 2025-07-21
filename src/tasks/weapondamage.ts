@@ -47,6 +47,7 @@ import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { sugarItemsAboutToBreak } from "../outfit";
 import { Quest } from "../engine/task";
 import {
+  handleCustomBusks,
   handleCustomPulls,
   logTestSetup,
   motherSlimeClan,
@@ -258,6 +259,7 @@ export const WeaponDamageQuest: Quest = {
         ];
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_weaponTestPulls", wpnTestMaximizerString);
+        handleCustomBusks("instant_weaponTestBusks");
 
         if (
           have($skill`Aug. 13th: Left/Off Hander's Day!`) &&

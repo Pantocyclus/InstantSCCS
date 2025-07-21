@@ -2275,10 +2275,10 @@ graphemer@^1.4.0:
   resolved "https://registry.yarnpkg.com/graphemer/-/graphemer-1.4.0.tgz#fb2f1d55e0e3a1849aeffc90c4fa0dd53a0e66c6"
   integrity sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==
 
-grimoire-kolmafia@^0.3.29:
-  version "0.3.29"
-  resolved "https://registry.yarnpkg.com/grimoire-kolmafia/-/grimoire-kolmafia-0.3.29.tgz#9f9f923b891a570365136177700f6c7614506969"
-  integrity sha512-EiFV38tuG7wEHhinBVepUqEDDmEyOo4vZjSRSiKEe13GV0+wgL8Q3ycArSAuE4125KPPFZ8EKXDmTU79xtPP7g==
+grimoire-kolmafia@^0.3.33:
+  version "0.3.33"
+  resolved "https://registry.yarnpkg.com/grimoire-kolmafia/-/grimoire-kolmafia-0.3.33.tgz#b56fa60cba48aea3fde88d68090ed2174a607b78"
+  integrity sha512-yidkJES1IKMAGuqAw8OLgX7p/XBcdDNXs2yt6zjP640ZgwFQKfLgxm42pdK/dt9WGzlSKMjIwrosndsENnOBNQ==
   dependencies:
     core-js "^3.16.4"
 
@@ -2644,10 +2644,10 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-kolmafia@^5.28557.0:
-  version "5.28557.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28557.0.tgz#a7e674616c14ce9c24d0109d5fe136d9b0d0cd4f"
-  integrity sha512-6H47gKYa0Exisjz3/JrFrJGfh/ov3bIoaUB4FyQZ7KMEIR2YgzCX1P+extLIi2Hv0qA7nJKzrpM8jbyXCXoHKA==
+kolmafia@^5.28577.0:
+  version "5.28577.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28577.0.tgz#e947ec25d9eea1119733d20875bb2ce25104cd33"
+  integrity sha512-hCNCVKptQMwo/DYI2s/K/7Ux3cVzE1Ojw1LxGSbK+ZuvMweRFcyR2/6Y/1l1giJnltqoLB//epzbDR5jVi0AyQ==
 
 levn@^0.4.1:
   version "0.4.1"
@@ -2657,10 +2657,10 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-libram@^0.11.5:
-  version "0.11.5"
-  resolved "https://registry.yarnpkg.com/libram/-/libram-0.11.5.tgz#8ac546def3708a44077cbaeab8f48ce2bb118c0d"
-  integrity sha512-7RgNMCbZD9IMcS8WwOzo6Hzx18l623nKctzRAaswm7gI5y61KL6uRIN1uEjq7Ha8fdyryjQxvI2Vd3OxTJo6vw==
+libram@^0.11.6:
+  version "0.11.6"
+  resolved "https://registry.yarnpkg.com/libram/-/libram-0.11.6.tgz#7428682bedb86852ea8a1d57a9f3f52b8cbeed87"
+  integrity sha512-qEXuIJQNPeoWLAglQjWgJBWSOATdDS1IkuiRVzkCaerMORucYj1Rd7FJNQpqLh1npX7Sh6rH1Ws/7aBGPtTr1A==
   dependencies:
     html-entities "^2.5.2"
 
