@@ -92,6 +92,7 @@ import {
   canScreech,
   chooseLibram,
   crystalBallFreeFightLocation,
+  currentBusk,
   cyberRealmTurnsAvailable,
   cyberRealmZone,
   freeFightMonsters,
@@ -568,7 +569,7 @@ export const LevelingQuest: Quest = {
       name: "Pre-busks",
       completed: () =>
         !have($item`prismatic beret`) ||
-        get("_beretBuskingUses", 0) >=
+        currentBusk() >
           Math.max(
             ...get("instant_preBusks", "0:0")
               .split(",")

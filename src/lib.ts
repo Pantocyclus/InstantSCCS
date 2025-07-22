@@ -44,6 +44,7 @@ import {
   retrieveItem,
   retrievePrice,
   Skill,
+  Slot,
   storageAmount,
   sweetSynthesis,
   takeStorage,
@@ -1151,6 +1152,22 @@ interface BuskCombination {
   pants: Item;
 }
 
+export function currentBusk(): number {
+  return get("_beretBuskingUses", 0) + 1;
+}
+
+function computeEquipPower(it: Item): number {
+  if (toSlot(it) === $slot`hat`)
+    return getPower(it) * (1 + (have($skill`Tao of the Terrapin`) ? 1 : 0));
+  else if (toSlot(it) === $slot`shirt`) return getPower(it);
+  else if (toSlot(it) === $slot`pants`)
+    return (
+      getPower(it) *
+      (1 + (have($skill`Tao of the Terrapin`) ? 1 : 0) + (have($effect`Hammertime`) ? 3 : 0))
+    );
+  return getPower(it);
+}
+
 function buskAcquisitionPrice(it: Item): number {
   if (it === $item.none) return 0;
   if (have(it)) return 0;
@@ -1158,114 +1175,56 @@ function buskAcquisitionPrice(it: Item): number {
   return Infinity;
 }
 
-function buskHats(): Map<number, BuskItem> {
-  if (!have($familiar`Mad Hatrack`))
-    return new Map<number, BuskItem>([
-      [
-        have($skill`Tao of the Terrapin`)
-          ? 2 * getPower($item`prismatic beret`)
-          : getPower($item`prismatic beret`),
-        { item: $item`prismatic beret`, cost: 0 },
-      ],
-    ]);
-
-  const availableHats = [
+function bestAvailableEquips(s: Slot): Map<number, BuskItem> {
+  const availableEquips = [
     $item.none,
     ...$items``
-      .filter((it) => toSlot(it) === $slot`hat`)
+      .filter((it) => toSlot(it) === s)
       .filter((it) => have(it) || myMeat() >= buskAcquisitionPrice(it))
-      .sort((a, b) => getPower(b) - getPower(a)),
+      .sort((a, b) => computeEquipPower(a) - computeEquipPower(b)),
   ];
 
-  const bestHats = new Map(
-    availableHats
-      .map((it) => {
-        const basePower = getPower(it);
-        const taoPower = have($skill`Tao of the Terrapin`) ? basePower : 0;
-        return basePower + taoPower;
-      })
+  const bestEquips = new Map(
+    availableEquips
+      .map((it) => computeEquipPower(it))
       .filter((value, index, array) => array.indexOf(value) === index)
       .map((p) => [p, { item: $item.none, cost: Infinity } as BuskItem]),
   );
-  availableHats.forEach((it) => {
-    const hatPower = getPower(it);
+  availableEquips.forEach((it) => {
+    const hatPower = computeEquipPower(it);
     if (
-      bestHats.get(hatPower)?.item === $item.none ||
-      (bestHats.get(hatPower)?.cost ?? Infinity > buskAcquisitionPrice(it))
+      bestEquips.get(hatPower)?.item === $item.none ||
+      (bestEquips.get(hatPower)?.cost ?? Infinity > buskAcquisitionPrice(it))
     )
-      bestHats.set(hatPower, { item: it, cost: buskAcquisitionPrice(it) });
+      bestEquips.set(hatPower, { item: it, cost: buskAcquisitionPrice(it) });
   });
+  return bestEquips;
+}
 
-  return bestHats;
+function buskHats(): Map<number, BuskItem> {
+  if (!have($familiar`Mad Hatrack`))
+    return new Map<number, BuskItem>([
+      [computeEquipPower($item`prismatic beret`), { item: $item`prismatic beret`, cost: 0 }],
+    ]);
+
+  return bestAvailableEquips($slot`hat`);
 }
 
 function buskShirts(): Map<number, BuskItem> {
   if (!have($skill`Torso Awareness`))
     return new Map<number, BuskItem>([[0, { item: $item.none, cost: 0 }]]);
 
-  const availableShirts = [
-    $item.none,
-    ...$items``
-      .filter((it) => toSlot(it) === $slot`shirt`)
-      .filter((it) => have(it))
-      .sort((a, b) => getPower(b) - getPower(a)),
-  ];
-
-  const bestShirts = new Map(
-    availableShirts
-      .map((it) => getPower(it))
-      .filter((value, index, array) => array.indexOf(value) === index)
-      .map((p) => [p, { item: $item.none, cost: Infinity } as BuskItem]),
-  );
-  availableShirts.forEach((it) => {
-    const shirtPower = getPower(it);
-    if (
-      bestShirts.get(shirtPower)?.item === $item.none ||
-      (bestShirts.get(shirtPower)?.cost ?? Infinity > buskAcquisitionPrice(it))
-    )
-      bestShirts.set(shirtPower, { item: it, cost: buskAcquisitionPrice(it) });
-  });
-  return bestShirts;
+  return bestAvailableEquips($slot`shirt`);
 }
 
 function buskPants(): Map<number, BuskItem> {
-  const availablePants = [
-    $item.none,
-    ...$items``
-      .filter((it) => toSlot(it) === $slot`pants`)
-      .filter((it) => have(it) || myMeat() >= buskAcquisitionPrice(it))
-      .sort((a, b) => getPower(b) - getPower(a)),
-  ];
-
-  const bestPants = new Map(
-    availablePants
-      .map((it) => {
-        const basePower = getPower(it);
-        const taoPower = have($skill`Tao of the Terrapin`) ? basePower : 0;
-        const hammerTimePower = have($effect`Hammertime`) ? 3 * basePower : 0;
-        return basePower + taoPower + hammerTimePower;
-      })
-      .filter((value, index, array) => array.indexOf(value) === index)
-      .map((p) => [p, { item: $item.none, cost: Infinity } as BuskItem]),
-  );
-  availablePants.forEach((it) => {
-    const pantsPower = getPower(it);
-    if (
-      bestPants.get(pantsPower)?.item === $item.none ||
-      (bestPants.get(pantsPower)?.cost ?? Infinity > buskAcquisitionPrice(it))
-    )
-      bestPants.set(pantsPower, { item: it, cost: buskAcquisitionPrice(it) });
-  });
-
-  return bestPants;
+  return bestAvailableEquips($slot`pants`);
 }
 
 function checkBusk(hat: Item, shirt: Item, pants: Item, power: number): void {
-  const hatDA = getPower(hat) * (1 + (have($skill`Tao of the Terrapin`) ? 1 : 0));
-  const shirtDA = getPower(shirt);
-  const pantsDA =
-    getPower(pants) *
-    (1 + (have($skill`Tao of the Terrapin`) ? 1 : 0) + (have($effect`Hammertime`) ? 3 : 0));
+  const hatDA = computeEquipPower(hat);
+  const shirtDA = computeEquipPower(shirt);
+  const pantsDA = computeEquipPower(pants);
   const totalDA = hatDA + shirtDA + pantsDA;
   print(`Beret Busk: ${get("_beretBuskingUses", 0) + 1}`);
   print(`Total: ${totalDA} - Hat: ${hatDA}, Shirt: ${shirtDA}, Pants: ${pantsDA}`);
@@ -1276,11 +1235,10 @@ function checkBusk(hat: Item, shirt: Item, pants: Item, power: number): void {
 function getBusk(power: number, busk: number): void {
   if (!have($item`prismatic beret`))
     throw new Error("You do not have a prismatic beret to busk with");
-  const currentBusks = get("_beretBuskingUses", 0);
-  if (currentBusks + 1 > busk) return;
-  if (currentBusks + 1 < busk)
+  if (currentBusk() > busk) return;
+  if (currentBusk() < busk)
     throw new Error(
-      `Trying to acquire busk #${busk} but ${currentBusks} have already been cast so far`,
+      `Trying to acquire busk #${busk} but only ${currentBusk() - 1} have been cast so far`,
     );
 
   const bestHats = buskHats();
@@ -1293,8 +1251,8 @@ function getBusk(power: number, busk: number): void {
     bestShirts.forEach((shirt, shirtPower) =>
       bestPants.forEach((pants, pantsPower) => {
         const totalPower = hatPower + shirtPower + pantsPower;
-        if (totalPower !== power) return;
         const totalCost = hat.cost + shirt.cost + pants.cost;
+        if (totalPower !== power) return;
         if (totalCost < bestCost) {
           bestCost = totalCost;
           bestCombination = {
@@ -1309,7 +1267,7 @@ function getBusk(power: number, busk: number): void {
 
   if (bestCost > myMeat()) {
     if (bestCost === Infinity)
-      throw new Error(`Could not find any combinations to achieve busk with ${busk} power`);
+      throw new Error(`Could not find any combinations to achieve busk with ${power} power`);
     else
       throw new Error(
         `We need ${bestCost} meat to acquire this busk with hat: ${bestCombination.hat}, shirt: ${bestCombination.shirt}, pants: ${bestCombination.pants}`,
@@ -1321,36 +1279,29 @@ function getBusk(power: number, busk: number): void {
     useFamiliar($familiar`Mad Hatrack`);
     equip($slot`familiar`, $item`prismatic beret`);
   }
-  if (!have(bestCombination.hat)) buy(bestCombination.hat);
-  if (!have(bestCombination.pants)) buy(bestCombination.pants);
+  [bestCombination.hat, bestCombination.pants].forEach((it) => {
+    if (!have(it)) buy(it);
+  });
 
   const currentHat = equippedItem($slot`hat`);
   const currentShirt = equippedItem($slot`shirt`);
   const currentPants = equippedItem($slot`pants`);
 
-  if (!have(bestCombination.hat) && bestCombination.hat !== $item.none)
-    throw new Error(`Failed to acquire ${bestCombination.hat}`);
-  if (!have(bestCombination.shirt) && bestCombination.shirt !== $item.none)
-    throw new Error(`Failed to acquire ${bestCombination.shirt}`);
-  if (!have(bestCombination.pants) && bestCombination.pants !== $item.none)
-    throw new Error(`Failed to acquire ${bestCombination.pants}`);
-
-  if (bestCombination.hat !== $item.none) equip($slot`hat`, bestCombination.hat);
-  else unequip($slot`hat`);
-  if (bestCombination.shirt !== $item.none) equip($slot`shirt`, bestCombination.shirt);
-  else unequip($slot`shirt`);
-  if (bestCombination.pants !== $item.none) equip($slot`pants`, bestCombination.pants);
-  else unequip($slot`pants`);
+  Object.values(bestCombination).forEach((it: Item) => {
+    if (!have(it) && it !== $item.none) throw new Error(`Failed to acquire ${it}`);
+  });
+  [$slot`hat`, $slot`shirt`, $slot`pants`].forEach((s) => unequip(s));
+  Object.values(bestCombination).forEach((it: Item) => {
+    if (it !== $item.none) equip(it);
+  });
 
   visitUrl(`runskillz.php?action=Skillz&whichskill=7565&targetplayer=${myId()}&pwd`);
-  set("_beretBuskingUses", currentBusks + 1);
+  set("_beretBuskingUses", currentBusk());
 
-  if (bestCombination.hat !== $item.none) equip($slot`hat`, currentHat);
-  else unequip($slot`hat`);
-  if (bestCombination.shirt !== $item.none) equip($slot`shirt`, currentShirt);
-  else unequip($slot`shirt`);
-  if (bestCombination.pants !== $item.none) equip($slot`pants`, currentPants);
-  else unequip($slot`pants`);
+  [$slot`hat`, $slot`shirt`, $slot`pants`].forEach((s) => unequip(s));
+  [currentHat, currentShirt, currentPants].forEach((it) => {
+    if (it !== $item.none) equip(it);
+  });
 }
 
 interface BuskRequest {
@@ -1367,7 +1318,7 @@ export function handleCustomBusks(prefName: string) {
         power: toInt(b.split(":")?.at(1) ?? "0"),
       } as BuskRequest;
     })
-    .sort((a, b) => b.busk - a.busk)
+    .sort((a, b) => a.busk - b.busk)
     .filter((request) => request.busk > 0 && request.busk <= 5)
     .forEach((request) => getBusk(request.power, request.busk));
 }
