@@ -11221,7 +11221,8 @@ function checkBusk(hat, shirt, pants, power) {
 function getBusk(power, busk) {
   if (!lib_have(template_string_$item(_templateObject244 || (_templateObject244 = lib_taggedTemplateLiteral(["prismatic beret"]))))) throw new Error("You do not have a prismatic beret to busk with");
   var currentBusks = property_get("_beretBuskingUses", 0);
-  if (currentBusks + 1 !== busk) throw new Error("Trying to acquire busk #".concat(busk, " but ").concat(currentBusks, " have already been cast so far"));
+  if (currentBusks + 1 > busk) return;
+  if (currentBusks + 1 < busk) throw new Error("Trying to acquire busk #".concat(busk, " but ").concat(currentBusks, " have already been cast so far"));
   var bestHats = buskHats();
   var bestShirts = buskShirts();
   var bestPants = buskPants();
