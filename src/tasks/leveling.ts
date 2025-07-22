@@ -102,6 +102,7 @@ import {
   getValidComplexCandyPairs,
   habitatCastsLeft,
   handleCustomBusks,
+  handleCustomPulls,
   haveCBBIngredients,
   mainStat,
   mainStatMaximizerStr,
@@ -1799,6 +1800,29 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
+    },
+    {
+      name: "Free Fight Pulls",
+      completed: () =>
+        !get("instant_freeFightPulls", "0")
+          .split(",")
+          .map((id) => toInt(id))
+          .some(canPull),
+      do: () => handleCustomPulls("instant_freeFightPulls"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Free Fight Busks",
+      completed: () =>
+        !have($item`prismatic beret`) ||
+        currentBusk() >
+          Math.max(
+            ...get("instant_freeFightBusks", "0:0")
+              .split(",")
+              .map((s) => toInt(s.split(":")?.at(0) ?? "0")),
+          ),
+      do: () => handleCustomBusks("instant_freeFightBusks"),
+      limit: { tries: 1 },
     },
     {
       name: "Acquire Wad of Dough",

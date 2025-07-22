@@ -119,7 +119,7 @@ You can make the necessary softcore pulls prior to running InstantSCCS. This gen
 
 For potions and consumables, you may set `instant_<testName>TestPulls=<comma-separated item IDs>` to pull and use them right before triggering the tests. For example, `set instant_spellTestPulls=5020,10607` to automatically pull and use the [tobiko marble soda](https://kol.coldfront.net/thekolwiki/index.php/Tobiko_marble_soda) and [Yeg's Motel hand soap](https://kol.coldfront.net/thekolwiki/index.php/Yeg%27s_Motel_hand_soap) for the Spell Damage Test (`<testName>` should be one of `hp|mus|myst|mox|hot|com|fam|spell|weapon|booze`).<br/>
 
-For equipment and other stuff, `set instant_prePulls=<comma-separated item IDs>` to pull said items just prior to the leveling portion of the script.<br/>
+For equipment and other stuff, `set instant_prePulls=<comma-separated item IDs>` to pull said items just prior to the leveling portion of the script, or `set instant_freeFightPulls=<comma-separated item IDs>` to pull and use these items just prior to the scaling free fights so as not to burn turns of these effects.<br/>
 
 ### I am severely overleveling. What preferences can I change to make the script spend fewer turns powerleveling?
 
@@ -179,7 +179,7 @@ The script also defaults to using the VIP clan for the [Floundry](<https://kol.c
 
 ### How do I get the script to acquire busks for leveling and/or the tests?
 
-Similar to the custom pulls, you may set `instant_<testName>TestBusks=<cast1:power1>,<cast2:power2>,...` (for example: `set instant_spellTestBusks=4:830,5:980` to attempt getting 830DA and 980DA for the 4th and 5th busks respectively) to acquire specific [busks](https://kol.coldfront.net/thekolwiki/index.php/Beret_Busking). You may also set `instant_preBusks` to acquire busks for powerleveling.<br/>
+Similar to the custom pulls, you may set `instant_<testName>TestBusks=<cast1:power1>,<cast2:power2>,...` (for example: `set instant_spellTestBusks=4:830,5:980` to attempt getting 830DA and 980DA for the 4th and 5th busks respectively) to acquire specific [busks](https://kol.coldfront.net/thekolwiki/index.php/Beret_Busking). You may also set `instant_preBusks` (and/or `instant_freeFightBusks`) to acquire busks for powerleveling.<br/>
 
 Note that the script<br/>
 
