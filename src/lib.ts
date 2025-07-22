@@ -1161,7 +1161,12 @@ function buskAcquisitionPrice(it: Item): number {
 function buskHats(): Map<number, BuskItem> {
   if (!have($familiar`Mad Hatrack`))
     return new Map<number, BuskItem>([
-      [getPower($item`prismatic beret`), { item: $item`prismatic beret`, cost: 0 }],
+      [
+        have($skill`Tao of the Terrapin`)
+          ? 2 * getPower($item`prismatic beret`)
+          : getPower($item`prismatic beret`),
+        { item: $item`prismatic beret`, cost: 0 },
+      ],
     ]);
 
   const availableHats = [
@@ -1302,7 +1307,14 @@ function getBusk(power: number, busk: number): void {
     ),
   );
 
-  if (bestCost > myMeat()) throw new Error(`We need ${bestCost} meat to acquire this busk`);
+  if (bestCost > myMeat()) {
+    if (bestCost === Infinity)
+      throw new Error(`Could not find any combinations to achieve busk with ${busk} power`);
+    else
+      throw new Error(
+        `We need ${bestCost} meat to acquire this busk with hat: ${bestCombination.hat}, shirt: ${bestCombination.shirt}, pants: ${bestCombination.pants}`,
+      );
+  }
   checkBusk(bestCombination.hat, bestCombination.shirt, bestCombination.pants, power);
 
   if (bestCombination.hat !== $item`prismatic beret`) {
