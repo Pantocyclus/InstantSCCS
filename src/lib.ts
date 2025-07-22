@@ -1272,8 +1272,7 @@ function getBusk(power: number, busk: number): void {
   if (!have($item`prismatic beret`))
     throw new Error("You do not have a prismatic beret to busk with");
   const currentBusks = get("_beretBuskingUses", 0);
-  if (currentBusks + 1 > busk)
-    return false;
+  if (currentBusks + 1 > busk) return false;
   if (currentBusks + 1 < busk)
     throw new Error(
       `Trying to acquire busk #${busk} but ${currentBusks} have already been cast so far`,
