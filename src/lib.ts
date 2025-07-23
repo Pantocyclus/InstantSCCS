@@ -1226,7 +1226,7 @@ function checkBusk(hat: Item, shirt: Item, pants: Item, power: number): void {
   const shirtDA = computeEquipPower(shirt);
   const pantsDA = computeEquipPower(pants);
   const totalDA = hatDA + shirtDA + pantsDA;
-  print(`Beret Busk: ${get("_beretBuskingUses", 0) + 1}`);
+  print(`Beret Busk: ${currentBusk()}`);
   print(`Total: ${totalDA} - Hat: ${hatDA}, Shirt: ${shirtDA}, Pants: ${pantsDA}`);
 
   if (totalDA !== power) throw new Error(`Failed to get ${power} (got ${totalDA})`);
@@ -1295,8 +1295,9 @@ function getBusk(power: number, busk: number): void {
     if (it !== $item.none) equip(it);
   });
 
+  const buskCount = currentBusk();
   visitUrl(`runskillz.php?action=Skillz&whichskill=7565&targetplayer=${myId()}&pwd`);
-  set("_beretBuskingUses", currentBusk());
+  set("_beretBuskingUses", buskCount);
 
   [$slot`hat`, $slot`shirt`, $slot`pants`].forEach((s) => unequip(s));
   [currentHat, currentShirt, currentPants].forEach((it) => {
