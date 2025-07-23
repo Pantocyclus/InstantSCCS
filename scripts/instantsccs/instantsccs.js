@@ -11188,7 +11188,7 @@ function checkBusk(hat, shirt, pants, power) {
   var shirtDA = computeEquipPower(shirt);
   var pantsDA = computeEquipPower(pants);
   var totalDA = hatDA + shirtDA + pantsDA;
-  (0,external_kolmafia_namespaceObject.print)("Beret Busk: ".concat(property_get("_beretBuskingUses", 0) + 1));
+  (0,external_kolmafia_namespaceObject.print)("Beret Busk: ".concat(currentBusk()));
   (0,external_kolmafia_namespaceObject.print)("Total: ".concat(totalDA, " - Hat: ").concat(hatDA, ", Shirt: ").concat(shirtDA, ", Pants: ").concat(pantsDA));
   if (totalDA !== power) throw new Error("Failed to get ".concat(power, " (got ").concat(totalDA, ")"));
 }
@@ -11245,8 +11245,9 @@ function getBusk(power, busk) {
   Object.values(bestCombination).forEach(it => {
     if (it !== template_string_$item.none) (0,external_kolmafia_namespaceObject.equip)(it);
   });
+  var buskCount = currentBusk();
   (0,external_kolmafia_namespaceObject.visitUrl)("runskillz.php?action=Skillz&whichskill=7565&targetplayer=".concat((0,external_kolmafia_namespaceObject.myId)(), "&pwd"));
-  _set("_beretBuskingUses", currentBusk());
+  _set("_beretBuskingUses", buskCount);
   [$slot(_templateObject253 || (_templateObject253 = lib_taggedTemplateLiteral(["hat"]))), $slot(_templateObject254 || (_templateObject254 = lib_taggedTemplateLiteral(["shirt"]))), $slot(_templateObject255 || (_templateObject255 = lib_taggedTemplateLiteral(["pants"])))].forEach(s => unequip(s));
   [currentHat, currentShirt, currentPants].forEach(it => {
     if (it !== template_string_$item.none) (0,external_kolmafia_namespaceObject.equip)(it);
