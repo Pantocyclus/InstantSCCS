@@ -11226,6 +11226,7 @@ function getBusk(power, busk) {
   }
 
   checkBusk(bestCombination.hat, bestCombination.shirt, bestCombination.pants, power);
+  var currentFam = (0,external_kolmafia_namespaceObject.myFamiliar)();
 
   if (bestCombination.hat !== template_string_$item(_templateObject243 || (_templateObject243 = lib_taggedTemplateLiteral(["prismatic beret"])))) {
     (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject244 || (_templateObject244 = lib_taggedTemplateLiteral(["Mad Hatrack"]))));
@@ -11252,6 +11253,7 @@ function getBusk(power, busk) {
   [currentHat, currentShirt, currentPants].forEach(it => {
     if (it !== template_string_$item.none) (0,external_kolmafia_namespaceObject.equip)(it);
   });
+  (0,external_kolmafia_namespaceObject.useFamiliar)(currentFam);
 }
 
 function handleCustomBusks(prefName) {
