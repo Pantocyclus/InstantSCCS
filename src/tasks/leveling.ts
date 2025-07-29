@@ -38,7 +38,6 @@ import {
   print,
   putCloset,
   restoreHp,
-  restoreMp,
   retrieveItem,
   runChoice,
   storageAmount,
@@ -87,6 +86,7 @@ import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   abstractionXpEffect,
   abstractionXpItem,
+  attemptRestoringMpWithFreeRests,
   bestShadowRift,
   burnLibram,
   canPull,
@@ -665,7 +665,7 @@ export const LevelingQuest: Quest = {
           wishFor($effect`Fever From the Flavor`, false);
         }
 
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         const coldResEffects: Effect[] = [
           $effect`Frosty Hand`, // +5 cold res from Cargo Shorts
           $effect`Rainbowolin`, // +4 cold res from Pillkeeper
@@ -746,7 +746,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Cast Prevent Scurvy",
       completed: () => !have($skill`Prevent Scurvy and Sobriety`) || get("_preventScurvy"),
-      prepare: () => restoreMp(mpCost($skill`Prevent Scurvy and Sobriety`)),
+      prepare: () => attemptRestoringMpWithFreeRests(mpCost($skill`Prevent Scurvy and Sobriety`)),
       do: () => useSkill($skill`Prevent Scurvy and Sobriety`),
       limit: { tries: 1 },
     },
@@ -756,7 +756,7 @@ export const LevelingQuest: Quest = {
         !have($skill`Perfect Freeze`) ||
         get("_perfectFreezeUsed") ||
         get("instant_savePerfectFreeze", false),
-      prepare: () => restoreMp(mpCost($skill`Perfect Freeze`)),
+      prepare: () => attemptRestoringMpWithFreeRests(mpCost($skill`Perfect Freeze`)),
       do: () => useSkill($skill`Perfect Freeze`),
       limit: { tries: 1 },
     },
@@ -916,7 +916,7 @@ export const LevelingQuest: Quest = {
         }
         unbreakableUmbrella();
         docBag();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
         }
@@ -957,7 +957,7 @@ export const LevelingQuest: Quest = {
         }
         unbreakableUmbrella();
         docBag();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
         }
@@ -997,7 +997,7 @@ export const LevelingQuest: Quest = {
           buy($item`blue rocket`, 1);
         }
         unbreakableUmbrella();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
         }
@@ -1028,7 +1028,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       // We need to spend at least 1adv to get the mp regen from Glowing Blue
       // This is only an issue if our powerleveling zone is the NEP, since the previous fight would be free
@@ -1071,7 +1071,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
         }
@@ -1150,7 +1150,7 @@ export const LevelingQuest: Quest = {
           runChoice(1);
         }
         unbreakableUmbrella();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
 
         if (
           myClass() === $class`Pastamancer` &&
@@ -1236,7 +1236,7 @@ export const LevelingQuest: Quest = {
         unbreakableUmbrella();
         if (have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3)
           equip($slot`acc3`, $item`Lil' Doctor™ bag`);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
 
         if (
           myClass() === $class`Pastamancer` &&
@@ -1272,7 +1272,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
 
         if (
           myClass() === $class`Pastamancer` &&
@@ -1456,7 +1456,7 @@ export const LevelingQuest: Quest = {
         if (!haveEquipped($item`latte lovers member's mug`)) unbreakableUmbrella();
         garbageShirt();
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () => get("_monsterHabitatsFightsLeft") <= (habitatCastsLeft() > 0 ? 1 : 0),
       do: $location`The Dire Warren`,
@@ -1491,7 +1491,7 @@ export const LevelingQuest: Quest = {
         if (!haveEquipped($item`latte lovers member's mug`)) unbreakableUmbrella();
         garbageShirt();
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () => get("_monsterHabitatsFightsLeft") === 0,
       do: $location`The Dire Warren`,
@@ -1525,7 +1525,7 @@ export const LevelingQuest: Quest = {
         unbreakableUmbrella();
         garbageShirt();
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         !have($item`backup camera`) ||
@@ -1556,7 +1556,7 @@ export const LevelingQuest: Quest = {
         unbreakableUmbrella();
         garbageShirt();
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
@@ -1584,7 +1584,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         if (SourceTerminal.have()) cliExecute("terminal educate portscan");
         PeridotOfPeril.setChoice($monster`goblin flapper`);
       },
@@ -1610,7 +1610,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         if (SourceTerminal.have()) cliExecute("terminal educate portscan");
       },
       completed: () =>
@@ -1636,7 +1636,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         if (SourceTerminal.have()) cliExecute("terminal educate portscan");
       },
       completed: () =>
@@ -1658,7 +1658,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () => get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy"),
       do: $location`An Unusually Quiet Barroom Brawl`,
@@ -1676,7 +1676,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () => get("_godLobsterFights") >= 3 || !have($familiar`God Lobster`),
       do: () => visitUrl("main.php?fightgodlobster=1"),
@@ -1699,7 +1699,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () => get("_eldritchHorrorEvoked") || !have($skill`Evoke Eldritch Horror`),
       do: () => useSkill($skill`Evoke Eldritch Horror`),
@@ -1722,7 +1722,7 @@ export const LevelingQuest: Quest = {
           unbreakableUmbrella();
         }
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         get("_witchessFights") >= 4 - (get("instant_skipBishopsForRoyalty", false) ? 2 : 0) ||
@@ -1757,7 +1757,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () => get("_machineTunnelsAdv") >= 5 || !have($familiar`Machine Elf`),
       do: $location`The Deep Machine Tunnels`,
@@ -1788,7 +1788,7 @@ export const LevelingQuest: Quest = {
         unbreakableUmbrella();
         garbageShirt();
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
         }
@@ -1933,7 +1933,7 @@ export const LevelingQuest: Quest = {
           unbreakableUmbrella();
         }
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         get("instant_saveMimicEggs", false) ||
@@ -1987,7 +1987,7 @@ export const LevelingQuest: Quest = {
           ...wdmgEffects,
         ]);
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         have($item`dented scepter`) ||
@@ -2019,7 +2019,7 @@ export const LevelingQuest: Quest = {
         ]);
         if (get("_hotTubSoaks") < 5 && myHp() < myMaxhp()) cliExecute("hottub");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         have($item`battle broom`) ||
@@ -2058,7 +2058,7 @@ export const LevelingQuest: Quest = {
         ]);
         if (get("_hotTubSoaks") < 5 && myHp() < myMaxhp()) cliExecute("hottub");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         have($item`very pointy crown`) ||
@@ -2088,7 +2088,7 @@ export const LevelingQuest: Quest = {
         unbreakableUmbrella();
         garbageShirt();
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`Witchess King`) ||
@@ -2128,7 +2128,7 @@ export const LevelingQuest: Quest = {
         garbageShirt();
         docBag();
         tryAcquiringEffects(usefulEffects);
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       outfit: (): OutfitSpec => {
         if (

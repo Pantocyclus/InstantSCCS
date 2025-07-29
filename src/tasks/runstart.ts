@@ -29,7 +29,6 @@ import {
   numericModifier,
   print,
   restoreHp,
-  restoreMp,
   retrieveItem,
   reverseNumberology,
   runChoice,
@@ -78,6 +77,7 @@ import {
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import { Quest } from "../engine/task";
 import {
+  attemptRestoringMpWithFreeRests,
   canScreech,
   cyberRealmTurnsAvailable,
   getGarden,
@@ -345,7 +345,7 @@ export const RunStartQuest: Quest = {
         (have($skill`Summon Clip Art`) && !get("instant_saveClipArt", false)),
       do: (): void => {
         const sheetsToMake = 3 - get("tomeSummons");
-        restoreMp(2 * sheetsToMake);
+        attemptRestoringMpWithFreeRests(2 * sheetsToMake);
         useSkill($skill`Summon Sugar Sheets`, sheetsToMake);
       },
       limit: { tries: 1 },
@@ -1016,7 +1016,7 @@ export const RunStartQuest: Quest = {
         } else {
           unbreakableUmbrella();
         }
-        if (get("_snokebombUsed") === 0) restoreMp(50);
+        if (get("_snokebombUsed") === 0) attemptRestoringMpWithFreeRests(50);
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
       completed: () =>
@@ -1108,7 +1108,7 @@ export const RunStartQuest: Quest = {
       name: "Kramco",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         if (
           have($familiar`Left-Hand Man`) &&
           have($item`Roman Candelabra`) &&
@@ -1164,7 +1164,7 @@ export const RunStartQuest: Quest = {
       name: "Eldritch Tentacle + ELP",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         get("_eldritchHorrorEvoked") ||

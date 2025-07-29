@@ -23,7 +23,6 @@ import {
   outfit,
   print,
   restoreHp,
-  restoreMp,
   retrieveItem,
   useSkill,
   visitUrl,
@@ -49,6 +48,7 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import {
+  attemptRestoringMpWithFreeRests,
   handleCustomBusks,
   handleCustomPulls,
   logTestSetup,
@@ -128,7 +128,7 @@ export const SpellDamageQuest: Quest = {
       name: "Carol Ghost Buff",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
@@ -159,7 +159,7 @@ export const SpellDamageQuest: Quest = {
           tryAcquiringEffect($effect`Blood Bubble`);
           restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         }
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
         Clan.join(motherSlimeClan);
       },
       completed: () =>

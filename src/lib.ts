@@ -34,6 +34,7 @@ import {
   myId,
   myLevel,
   myMaxhp,
+  myMaxmp,
   myMeat,
   myMp,
   myPrimestat,
@@ -54,6 +55,7 @@ import {
   toSkill,
   toSlot,
   toStat,
+  totalFreeRests,
   use,
   useFamiliar,
   useSkill,
@@ -1333,4 +1335,20 @@ export function handleCustomBusks(prefName: string) {
     .sort((a, b) => a.busk - b.busk)
     .filter((request) => request.busk > 0 && request.busk <= 5)
     .forEach((request) => getBusk(request.power, request.busk));
+}
+
+export function attemptRestoringMpWithFreeRests(mpTarget: number): void {
+  if (myMp() >= mpTarget || myMp() === myMaxmp()) return;
+  if (
+    (!get("chateauAvailable") && !get("getawayCampsiteUnlocked")) ||
+    get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0)
+  ) {
+    restoreMp(mpTarget);
+    return;
+  }
+  if (get("chateauAvailable")) visitUrl("place.php?whichplace=chateau&action=chateau_restbox");
+  else if (get("getawayCampsiteUnlocked"))
+    visitUrl("place.php?whichplace=campaway&action=campaway_tentclick");
+  else throw new Error("Failed to free rest at either Chateau or the Getaway Campsite!");
+  attemptRestoringMpWithFreeRests(mpTarget);
 }

@@ -22,7 +22,6 @@ import {
   myMeat,
   print,
   restoreHp,
-  restoreMp,
   retrieveItem,
   use,
   useFamiliar,
@@ -59,6 +58,7 @@ import {
   Station,
 } from "libram/dist/resources/2022/TrainSet";
 import {
+  attemptRestoringMpWithFreeRests,
   handleCustomBusks,
   handleCustomPulls,
   logTestSetup,
@@ -83,7 +83,7 @@ export const BoozeDropQuest: Quest = {
       name: "Carol Ghost Buff",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        restoreMp(50);
+        attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
