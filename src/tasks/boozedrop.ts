@@ -383,6 +383,7 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Materiel Intel",
       completed: () =>
+        !have($item`Allied Radio Backpack`) ||
         have($effect`Materiel Intel`) ||
         get("_alliedRadioMaterielIntel", false) ||
         get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0),
