@@ -243,6 +243,12 @@ const farmingResources: Resource[] = [
   ),
   new Resource("instant_savePhotoboothProps", "Do not acquire photobooth props"),
   new Resource("instant_saveStillsuit", "Do not drink stillsuit distillate for the item test"),
+  new Resource(
+    "instant_saveAlliedRadio",
+    (n) => `Save ${n}/3 Allied Radio Supply Drop Requests`,
+    [],
+    get("instant_saveAlliedRadio", false) ? 3 : 0,
+  ),
 ];
 
 const otherResources: Resource[] = [

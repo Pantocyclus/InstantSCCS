@@ -1,6 +1,7 @@
 import { Quest } from "../engine/task";
 import {
   adv1,
+  alliedRadio,
   autosell,
   buy,
   cliExecute,
@@ -376,6 +377,15 @@ export const BoozeDropQuest: Quest = {
       do: () => {
         buy($coinmaster`Using your Shower Thoughts`, 1, $item`wet shower radio`);
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Materiel Intel",
+      completed: () =>
+        have($effect`Materiel Intel`) ||
+        get("_alliedRadioMaterielIntel", false) ||
+        get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0),
+      do: () => alliedRadio("materiel intel"),
       limit: { tries: 1 },
     },
     {
