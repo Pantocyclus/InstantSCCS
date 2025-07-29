@@ -244,6 +244,11 @@ const farmingResources: Resource[] = [
   new Resource("instant_savePhotoboothProps", "Do not acquire photobooth props"),
   new Resource("instant_saveStillsuit", "Do not drink stillsuit distillate for the item test"),
   new Resource(
+    "instant_saveTeaTree",
+    "Do not use any teas from the Potted Tea Tree",
+    $effects`Frost Tea, Loyal Tea, Obscuri Tea, Serendipi Tea, Toast Tea`,
+  ),
+  new Resource(
     "instant_saveAlliedRadio",
     (n) => `Save ${n}/3 Allied Radio Supply Drop Requests`,
     [],

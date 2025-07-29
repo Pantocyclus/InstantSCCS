@@ -779,6 +779,13 @@ export function computeCombatFrequency(): number {
   const aprilingBandPatrolBeat = have($item`Apriling band helmet`) ? -10 : 0;
   const photoBoothEffect = have($item`Clan VIP Lounge key`) ? -5 : 0;
   const hidingFromSeekers = have($skill`Hide From Seekers`) ? -5 : 0;
+  const obscuriTea =
+    getCampground()["potted tea tree"] !== undefined &&
+    !get("instant_saveTeaTree", false) &&
+    !forbiddenEffects.includes($effect`Obscuri Tea`) &&
+    forbiddenEffects.includes($effect`Toast Tea`)
+      ? -5
+      : 0;
 
   // Since Offhand Remarkable is useful for tests after famwt + NC, if it is being used at all,
   // we should not burn most of its turns on famwt (i.e. NC -> famwt)
@@ -808,6 +815,7 @@ export function computeCombatFrequency(): number {
     hidingFromSeekers,
     // offhandRemarkable,
     // hippyAntimilitarism,
+    obscuriTea,
   ]);
 
   // No good way of determining familiar weight for the NC test yet

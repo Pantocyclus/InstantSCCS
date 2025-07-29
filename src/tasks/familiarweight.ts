@@ -5,6 +5,7 @@ import {
   Effect,
   equippedItem,
   familiarWeight,
+  getCampground,
   haveEffect,
   itemAmount,
   mySign,
@@ -41,6 +42,7 @@ import {
   tryAcquiringEffects,
 } from "../lib";
 import { chooseFamiliar } from "../familiars";
+import { forbiddenEffects } from "../resources";
 
 const famTestMaximizerString = "familiar weight";
 
@@ -93,6 +95,20 @@ export const FamiliarWeightQuest: Quest = {
         ],
       }),
       choices: { 1387: 3 },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Loyal Tea",
+      completed: () =>
+        have($effect`Loyal Tea`) ||
+        get("_pottedTeaTreeUsed") ||
+        get("instant_saveTeaTree", false) ||
+        forbiddenEffects.includes($effect`Loyal Tea`) ||
+        getCampground()["potted tea tree"] === undefined,
+      do: () => {
+        cliExecute(`teatree cuppa Loyal tea`);
+        use($item`cuppa Loyal tea`, 1);
+      },
       limit: { tries: 1 },
     },
     {

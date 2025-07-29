@@ -12,6 +12,7 @@ import {
   effectModifier,
   equip,
   equippedItem,
+  getCampground,
   getWorkshed,
   haveEffect,
   haveEquipped,
@@ -627,6 +628,21 @@ export const LevelingQuest: Quest = {
         }
       },
       outfit: { modifier: "myst, mp, -tie" },
+    },
+    {
+      name: "Toast Tea",
+      completed: () =>
+        have($effect`Toast Tea`) ||
+        get("_pottedTeaTreeUsed") ||
+        get("instant_saveTeaTree", false) ||
+        forbiddenEffects.includes($effect`Toast Tea`) ||
+        getCampground()["potted tea tree"] === undefined ||
+        !useCenser,
+      do: () => {
+        cliExecute(`teatree cuppa Toast tea`);
+        use($item`cuppa Toast tea`, 1);
+      },
+      limit: { tries: 1 },
     },
     {
       name: "Sept-ember Mouthwash",

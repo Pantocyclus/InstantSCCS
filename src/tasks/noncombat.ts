@@ -5,9 +5,11 @@ import {
   create,
   Effect,
   equippedItem,
+  getCampground,
   numericModifier,
   print,
   runChoice,
+  use,
   useSkill,
   visitUrl,
 } from "kolmafia";
@@ -32,6 +34,7 @@ import {
 } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
+import { forbiddenEffects } from "../resources";
 
 const comTestMaximizerString = `-raw combat rate`;
 
@@ -75,6 +78,20 @@ export const NoncombatQuest: Quest = {
         !get("yourFavoriteBirdMods").includes("Combat Frequency") ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Obscuri Tea",
+      completed: () =>
+        have($effect`Obscuri Tea`) ||
+        get("_pottedTeaTreeUsed") ||
+        get("instant_saveTeaTree", false) ||
+        forbiddenEffects.includes($effect`Obscuri Tea`) ||
+        getCampground()["potted tea tree"] === undefined,
+      do: () => {
+        cliExecute(`teatree cuppa Obscuri tea`);
+        use($item`cuppa Obscuri tea`, 1);
+      },
       limit: { tries: 1 },
     },
     {

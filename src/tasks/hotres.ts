@@ -5,6 +5,7 @@ import {
   create,
   drink,
   Effect,
+  getCampground,
   inebrietyLimit,
   itemAmount,
   myInebriety,
@@ -42,6 +43,7 @@ import {
 import { sugarItemsAboutToBreak } from "../outfit";
 import Macro from "../combat";
 import { chooseFamiliar } from "../familiars";
+import { forbiddenEffects } from "../resources";
 
 const hotTestMaximizerString = "hot res";
 
@@ -188,6 +190,20 @@ export const HotResQuest: Quest = {
         get("availableSeptEmbers") === 0,
       do: () =>
         visitUrl("shop.php?whichshop=september&action=buyitem&quantity=1&whichrow=1515&pwd"), // Grab Jacket
+      limit: { tries: 1 },
+    },
+    {
+      name: "Frost Tea",
+      completed: () =>
+        have($effect`Frost Tea`) ||
+        get("_pottedTeaTreeUsed") ||
+        get("instant_saveTeaTree", false) ||
+        forbiddenEffects.includes($effect`Frost Tea`) ||
+        getCampground()["potted tea tree"] === undefined,
+      do: () => {
+        cliExecute(`teatree cuppa Frost tea`);
+        use($item`cuppa Frost tea`, 1);
+      },
       limit: { tries: 1 },
     },
     {

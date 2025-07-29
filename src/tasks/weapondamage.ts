@@ -5,6 +5,7 @@ import {
   create,
   Effect,
   equippedItem,
+  getCampground,
   haveEquipped,
   inebrietyLimit,
   myBasestat,
@@ -21,6 +22,7 @@ import {
   restoreHp,
   restoreMp,
   retrieveItem,
+  use,
   useSkill,
   visitUrl,
 } from "kolmafia";
@@ -201,6 +203,20 @@ export const WeaponDamageQuest: Quest = {
         !get("yourFavoriteBirdMods").includes("Weapon Damage") ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Twen Tea",
+      completed: () =>
+        have($effect`Twen Tea`) ||
+        get("_pottedTeaTreeUsed") ||
+        get("instant_saveTeaTree", false) ||
+        forbiddenEffects.includes($effect`Twen Tea`) ||
+        getCampground()["potted tea tree"] === undefined,
+      do: () => {
+        cliExecute(`teatree cuppa Twen tea`);
+        use($item`cuppa Twen tea`, 1);
+      },
       limit: { tries: 1 },
     },
     {

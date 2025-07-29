@@ -11,6 +11,7 @@ import {
   Effect,
   equip,
   faxbot,
+  getCampground,
   getWorkshed,
   hermit,
   inebrietyLimit,
@@ -386,6 +387,20 @@ export const BoozeDropQuest: Quest = {
         get("_alliedRadioMaterielIntel", false) ||
         get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0),
       do: () => alliedRadio("materiel intel"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Serendipi Tea",
+      completed: () =>
+        have($effect`Serendipi Tea`) ||
+        get("_pottedTeaTreeUsed") ||
+        get("instant_saveTeaTree", false) ||
+        forbiddenEffects.includes($effect`Serendipi Tea`) ||
+        getCampground()["potted tea tree"] === undefined,
+      do: () => {
+        cliExecute(`teatree cuppa Serendipi tea`);
+        use($item`cuppa Serendipi tea`, 1);
+      },
       limit: { tries: 1 },
     },
     {
