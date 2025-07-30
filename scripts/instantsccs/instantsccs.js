@@ -18901,7 +18901,7 @@ var LevelingQuest = {
       offhand: template_string_$item(_templateObject440 || (_templateObject440 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))),
       acc1: template_string_$item(_templateObject441 || (_templateObject441 = leveling_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))),
       acc2: template_string_$item(_templateObject442 || (_templateObject442 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))),
-      famequip: template_string_$item.none
+      modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball")
     }),
     post: () => {
       sendAutumnaton();
@@ -18929,7 +18929,7 @@ var LevelingQuest = {
       offhand: template_string_$item(_templateObject449 || (_templateObject449 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))),
       acc1: template_string_$item(_templateObject450 || (_templateObject450 = leveling_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))),
       acc2: template_string_$item(_templateObject451 || (_templateObject451 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))),
-      famequip: template_string_$item.none
+      modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball")
     }),
     post: () => {
       sendAutumnaton();
