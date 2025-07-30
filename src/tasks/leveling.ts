@@ -1471,7 +1471,7 @@ export const LevelingQuest: Quest = {
               offhand: $item`latte lovers member's mug`,
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
-              famequip: $item.none,
+              modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
             }),
       }),
       post: (): void => {
@@ -1508,7 +1508,7 @@ export const LevelingQuest: Quest = {
               offhand: $item`latte lovers member's mug`,
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
-              famequip: $item.none,
+              modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
             }),
       }),
       post: (): void => {
