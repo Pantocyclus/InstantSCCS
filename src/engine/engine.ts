@@ -100,10 +100,11 @@ export const farmingResourceResources: trackedResource[] = [
   new trackedResource($item`pocket wish`, "Pocket Wishes (Genie + BofA)", 6),
   new trackedResource("_augSkillsCasts", "August Scepter Charges", 5),
   new trackedResource("_monkeyPawWishesUsed", "Monkey Paw Wishes", 5),
+  new trackedResource("_beretBuskingUses", "Beret Busks", 5),
   new trackedResource("tomeSummons", "Tome Summons", 3),
-  new trackedResource("_pottedTeaTreeUsed", "Tea Tree", 3),
   new trackedResource($item`peppermint sprout`, "Peppermint Sprout", 3),
   new trackedResource("_monsterHabitatsRecalled", "Monster Habitats", 3),
+  new trackedResource("_alliedRadioDropsUsed", "Allied Radio", 3),
   new trackedResource("_aprilBandInstruments", "April Band Instruments", 2),
   new trackedResource("_favoriteBirdVisited", "Favorite Bird", 1),
   new trackedResource("_clanFortuneBuffUsed", "Zatara Consult", 1),
@@ -113,6 +114,8 @@ export const farmingResourceResources: trackedResource[] = [
   new trackedResource("_pantogramModifier", "Pantogram", 1),
   new trackedResource("_cargoPocketEmptied", "Cargo Shorts", 1),
   new trackedResource("_freePillKeeperUsed", "Pillkeeper", 1),
+  new trackedResource("_alliedRadioMaterielIntel", "Materiel Intel", 1),
+  new trackedResource("_pottedTeaTreeUsed", "Tea Tree", 1),
   new trackedResource("timesRested", "Free Rests", totalFreeRests()),
 ];
 
