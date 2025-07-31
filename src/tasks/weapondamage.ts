@@ -1,6 +1,5 @@
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
-  alliedRadio,
   buy,
   cliExecute,
   create,
@@ -52,6 +51,7 @@ import {
   attemptRestoringMpWithFreeRests,
   handleCustomBusks,
   handleCustomPulls,
+  haveOrExcluding,
   logTestSetup,
   motherSlimeClan,
   startingClan,
@@ -61,7 +61,6 @@ import {
   wishFor,
 } from "../lib";
 import { powerlevelingLocation } from "./leveling";
-import { forbiddenEffects } from "../resources";
 import { chooseFamiliar } from "../familiars";
 
 const attemptKFH = have($skill`Kung Fu Hustler`) && have($familiar`Disembodied Hand`);
@@ -74,7 +73,7 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Drink Sockdollager",
       completed: () =>
-        have($effect`In a Lather`) ||
+        haveOrExcluding($effect`In a Lather`) ||
         myInebriety() >= inebrietyLimit() - 1 ||
         myMeat() < 500 ||
         get("instant_saveSockdollager", false),
@@ -88,8 +87,7 @@ export const WeaponDamageQuest: Quest = {
       name: "Potion of Potency",
       completed: () =>
         have($item`potion of potency`) ||
-        have($effect`Pronounced Potency`) ||
-        forbiddenEffects.includes($effect`Pronounced Potency`) ||
+        haveOrExcluding($effect`Pronounced Potency`) ||
         !have($item`scrumptious reagent`) ||
         !have($item`orange`),
       do: () => create($item`potion of potency`, 1),
@@ -104,7 +102,7 @@ export const WeaponDamageQuest: Quest = {
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
-        forbiddenEffects.includes($effect`Do You Crush What I Crush?`) ||
+        haveOrExcluding($effect`Do You Crush What I Crush?`) ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
           (ef) => have(ef),
         ),
@@ -137,8 +135,7 @@ export const WeaponDamageQuest: Quest = {
       completed: () =>
         !have($familiar`Machine Elf`) ||
         !haveMotherSlimeBanish() ||
-        have($effect`Inner Elf`) ||
-        forbiddenEffects.includes($effect`Inner Elf`) ||
+        haveOrExcluding($effect`Inner Elf`) ||
         motherSlimeClan === "",
       do: $location`The Slime Tube`,
       combat: new CombatStrategy().macro(
@@ -170,8 +167,7 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Meteor Shower",
       completed: () =>
-        have($effect`Meteor Showered`) ||
-        forbiddenEffects.includes($effect`Meteor Showered`) ||
+        haveOrExcluding($effect`Meteor Showered`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
         get("_saberForceUses") >= 5,
@@ -204,9 +200,9 @@ export const WeaponDamageQuest: Quest = {
       name: "Favorite Bird (Weapon Damage)",
       completed: () =>
         !have($skill`Visit your Favorite Bird`) ||
+        haveOrExcluding($effect`Blessing of your favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Weapon Damage") ||
-        forbiddenEffects.includes($effect`Blessing of your favorite Bird`) ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },
@@ -214,27 +210,14 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Twen Tea",
       completed: () =>
-        have($effect`Twen Tea`) ||
+        haveOrExcluding($effect`Twen Tea`) ||
         get("_pottedTeaTreeUsed") ||
         get("instant_saveTeaTree", false) ||
-        forbiddenEffects.includes($effect`Twen Tea`) ||
         getCampground()["potted tea tree"] === undefined,
       do: () => {
         cliExecute(`teatree cuppa Twen tea`);
         use($item`cuppa Twen tea`, 1);
       },
-      limit: { tries: 1 },
-    },
-    {
-      name: "Wildsun Boon",
-      completed: () =>
-        !have($item`Allied Radio Backpack`) ||
-        // eslint-disable-next-line libram/verify-constants
-        have($effect`Wildsun Boon`) ||
-        get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0) ||
-        // eslint-disable-next-line libram/verify-constants
-        forbiddenEffects.includes($effect`Wildsun Boon`),
-      do: () => alliedRadio("Wildsun Boon"),
       limit: { tries: 1 },
     },
     {
@@ -262,7 +245,7 @@ export const WeaponDamageQuest: Quest = {
         if (!have($item`goofily-plumed helmet`)) buy($item`goofily-plumed helmet`, 1);
         if (
           have($item`Ye Wizard's Shack snack voucher`) &&
-          !forbiddenEffects.includes($effect`Wasabi With You`)
+          !haveOrExcluding($effect`Wasabi With You`)
         )
           retrieveItem($item`wasabi marble soda`);
         const usefulEffects: Effect[] = [
@@ -313,7 +296,7 @@ export const WeaponDamageQuest: Quest = {
         });
 
         if (
-          !have($effect`Rictus of Yeg`) &&
+          !haveOrExcluding($effect`Rictus of Yeg`) &&
           CommunityService.WeaponDamage.actualCost() >= 5 &&
           !get("_cargoPocketEmptied") &&
           have($item`Cargo Cultist Shorts`) &&

@@ -27,6 +27,7 @@ import {
 import {
   handleCustomBusks,
   handleCustomPulls,
+  haveOrExcluding,
   logTestSetup,
   tryAcquiringEffect,
   tryAcquiringEffects,
@@ -34,7 +35,6 @@ import {
 } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";
-import { forbiddenEffects } from "../resources";
 
 const comTestMaximizerString = `-raw combat rate`;
 
@@ -59,8 +59,7 @@ export const NoncombatQuest: Quest = {
     {
       name: "Use Shadow Lodestone",
       ready: () => have($item`Rufus's shadow lodestone`),
-      completed: () =>
-        have($effect`Shadow Waters`) || forbiddenEffects.includes($effect`Shadow Waters`),
+      completed: () => haveOrExcluding($effect`Shadow Waters`),
       do: (): void => {
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
         runChoice(2);
@@ -75,9 +74,9 @@ export const NoncombatQuest: Quest = {
       name: "Favorite Bird (NC)",
       completed: () =>
         !have($skill`Visit your Favorite Bird`) ||
+        haveOrExcluding($effect`Blessing of your favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Combat Frequency") ||
-        forbiddenEffects.includes($effect`Blessing of your favorite Bird`) ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },
@@ -85,10 +84,9 @@ export const NoncombatQuest: Quest = {
     {
       name: "Obscuri Tea",
       completed: () =>
-        have($effect`Obscuri Tea`) ||
+        haveOrExcluding($effect`Obscuri Tea`) ||
         get("_pottedTeaTreeUsed") ||
         get("instant_saveTeaTree", false) ||
-        forbiddenEffects.includes($effect`Obscuri Tea`) ||
         getCampground()["potted tea tree"] === undefined,
       do: () => {
         cliExecute(`teatree cuppa Obscuri tea`);

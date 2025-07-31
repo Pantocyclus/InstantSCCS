@@ -1352,3 +1352,7 @@ export function attemptRestoringMpWithFreeRests(mpTarget: number): void {
   else throw new Error("Failed to free rest at either Chateau or the Getaway Campsite!");
   attemptRestoringMpWithFreeRests(mpTarget);
 }
+
+export function haveOrExcluding(ef: Effect): boolean {
+  return have(ef) || forbiddenEffects.includes(ef);
+}

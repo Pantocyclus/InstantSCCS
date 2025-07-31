@@ -38,12 +38,12 @@ import {
   chooseHeaviestEquippedFamiliar,
   handleCustomBusks,
   handleCustomPulls,
+  haveOrExcluding,
   logTestSetup,
   tryAcquiringEffect,
   tryAcquiringEffects,
 } from "../lib";
 import { chooseFamiliar } from "../familiars";
-import { forbiddenEffects } from "../resources";
 
 const famTestMaximizerString = "familiar weight";
 
@@ -77,10 +77,9 @@ export const FamiliarWeightQuest: Quest = {
     {
       name: "Meteor Shower",
       completed: () =>
-        have($effect`Meteor Showered`) ||
+        haveOrExcluding($effect`Meteor Showered`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
-        forbiddenEffects.includes($effect`Meteor Showered`) ||
         get("_saberForceUses") >= 5,
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
@@ -102,10 +101,9 @@ export const FamiliarWeightQuest: Quest = {
     {
       name: "Loyal Tea",
       completed: () =>
-        have($effect`Loyal Tea`) ||
+        haveOrExcluding($effect`Loyal Tea`) ||
         get("_pottedTeaTreeUsed") ||
         get("instant_saveTeaTree", false) ||
-        forbiddenEffects.includes($effect`Loyal Tea`) ||
         getCampground()["potted tea tree"] === undefined,
       do: () => {
         cliExecute(`teatree cuppa Loyal tea`);
@@ -118,10 +116,8 @@ export const FamiliarWeightQuest: Quest = {
       completed: () =>
         !have($item`Allied Radio Backpack`) ||
         // eslint-disable-next-line libram/verify-constants
-        have($effect`Wildsun Boon`) ||
-        get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0) ||
-        // eslint-disable-next-line libram/verify-constants
-        forbiddenEffects.includes($effect`Wildsun Boon`),
+        haveOrExcluding($effect`Wildsun Boon`) ||
+        get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0),
       do: () => alliedRadio("Wildsun Boon"),
       limit: { tries: 1 },
     },

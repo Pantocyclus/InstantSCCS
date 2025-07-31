@@ -19,6 +19,7 @@ import { Quest } from "../engine/task";
 import {
   handleCustomBusks,
   handleCustomPulls,
+  haveOrExcluding,
   logTestSetup,
   mainStat,
   reagentBalancerEffect,
@@ -115,7 +116,7 @@ export const MuscleQuest: Quest = {
       prepare: (): void => {
         useBalancerForTest($stat`Muscle`);
         if (
-          !have($effect`Phorcefullness`) &&
+          !haveOrExcluding($effect`Phorcefullness`) &&
           !have($item`philter of phorce`) &&
           $items`scrumptious reagent, lemon`.every((it) => have(it))
         ) {
@@ -175,7 +176,7 @@ export const MysticalityQuest: Quest = {
       prepare: (): void => {
         useBalancerForTest($stat`Mysticality`);
         if (
-          !have($effect`Mystically Oiled`) &&
+          !haveOrExcluding($effect`Mystically Oiled`) &&
           !have($item`ointment of the occult`) &&
           $items`scrumptious reagent, grapefruit`.every((it) => have(it))
         ) {

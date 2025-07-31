@@ -1,6 +1,5 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
-  alliedRadio,
   buy,
   cliExecute,
   create,
@@ -34,6 +33,7 @@ import { Quest } from "../engine/task";
 import {
   handleCustomBusks,
   handleCustomPulls,
+  haveOrExcluding,
   logTestSetup,
   tryAcquiringEffect,
   tryAcquiringEffects,
@@ -44,7 +44,6 @@ import {
 import { sugarItemsAboutToBreak } from "../outfit";
 import Macro from "../combat";
 import { chooseFamiliar } from "../familiars";
-import { forbiddenEffects } from "../resources";
 
 const hotTestMaximizerString = "hot res";
 
@@ -115,8 +114,7 @@ export const HotResQuest: Quest = {
     {
       name: "Grab Foam Suit",
       completed: () =>
-        have($effect`Fireproof Foam Suit`) ||
-        forbiddenEffects.includes($effect`Fireproof Foam Suit`) ||
+        haveOrExcluding($effect`Fireproof Foam Suit`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         get("_saberForceUses") >= 5 ||
         !have($item`industrial fire extinguisher`) ||
@@ -141,7 +139,7 @@ export const HotResQuest: Quest = {
     {
       name: "Drink Boris Beer",
       completed: () =>
-        have($effect`Beery Cool`) ||
+        haveOrExcluding($effect`Beery Cool`) ||
         ((!have($item`bowl of cottage cheese`) || !have($item`Yeast of Boris`)) &&
           !have($item`Boris's beer`)) ||
         myInebriety() >= inebrietyLimit() ||
@@ -177,9 +175,9 @@ export const HotResQuest: Quest = {
       name: "Favorite Bird (Hot Res)",
       completed: () =>
         !have($skill`Visit your Favorite Bird`) ||
+        haveOrExcluding($effect`Blessing of your favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Hot Resistance") ||
-        forbiddenEffects.includes($effect`Blessing of your favorite Bird`) ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },
@@ -198,27 +196,14 @@ export const HotResQuest: Quest = {
     {
       name: "Frost Tea",
       completed: () =>
-        have($effect`Frost Tea`) ||
+        haveOrExcluding($effect`Frost Tea`) ||
         get("_pottedTeaTreeUsed") ||
         get("instant_saveTeaTree", false) ||
-        forbiddenEffects.includes($effect`Frost Tea`) ||
         getCampground()["potted tea tree"] === undefined,
       do: () => {
         cliExecute(`teatree cuppa Frost tea`);
         use($item`cuppa Frost tea`, 1);
       },
-      limit: { tries: 1 },
-    },
-    {
-      name: "Wildsun Boon",
-      completed: () =>
-        !have($item`Allied Radio Backpack`) ||
-        // eslint-disable-next-line libram/verify-constants
-        have($effect`Wildsun Boon`) ||
-        get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0) ||
-        // eslint-disable-next-line libram/verify-constants
-        forbiddenEffects.includes($effect`Wildsun Boon`),
-      do: () => alliedRadio("Wildsun Boon"),
       limit: { tries: 1 },
     },
     {
@@ -258,7 +243,10 @@ export const HotResQuest: Quest = {
           CommunityService.HotRes.actualCost() >= 4 &&
           (have($item`mini kiwi`, 3) || have($item`mini kiwi illicit antibiotic`))
         ) {
-          if (!have($item`mini kiwi illicit antibiotic`) && !have($effect`Incredibly Healthy`))
+          if (
+            !have($item`mini kiwi illicit antibiotic`) &&
+            !haveOrExcluding($effect`Incredibly Healthy`)
+          )
             create($item`mini kiwi illicit antibiotic`, 1);
           tryAcquiringEffect($effect`Incredibly Healthy`);
         }
