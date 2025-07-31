@@ -59,7 +59,8 @@ export const NoncombatQuest: Quest = {
     {
       name: "Use Shadow Lodestone",
       ready: () => have($item`Rufus's shadow lodestone`),
-      completed: () => have($effect`Shadow Waters`),
+      completed: () =>
+        have($effect`Shadow Waters`) || forbiddenEffects.includes($effect`Shadow Waters`),
       do: (): void => {
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
         runChoice(2);
@@ -76,6 +77,7 @@ export const NoncombatQuest: Quest = {
         !have($skill`Visit your Favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Combat Frequency") ||
+        forbiddenEffects.includes($effect`Blessing of your favorite Bird`) ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },

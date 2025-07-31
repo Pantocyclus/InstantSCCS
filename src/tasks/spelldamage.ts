@@ -83,7 +83,8 @@ export const SpellDamageQuest: Quest = {
         (myMeat() < 1070 &&
           !have($item`scrumdiddlyumptious solution`) &&
           !have($item`delectable catalyst`)) || // Need enough meat to purchase a delectable catalyst
-        have($item`concentrated cordial of concentration`),
+        have($item`concentrated cordial of concentration`) ||
+        forbiddenEffects.includes($effect`Concentrated Concentration`),
       do: (): void => {
         visitUrl("guild.php?place=challenge"); // Ensure free access to Moxie guild
         if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
@@ -98,6 +99,7 @@ export const SpellDamageQuest: Quest = {
       name: "Cordial of Concentration",
       completed: () =>
         (get("reagentSummons") !== 0 && !have($item`scrumptious reagent`)) || // Need a spare reagent
+        forbiddenEffects.includes($effect`Concentration`) ||
         have($item`cordial of concentration`),
       do: (): void => {
         if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
@@ -107,7 +109,10 @@ export const SpellDamageQuest: Quest = {
     },
     {
       name: "Simmer",
-      completed: () => have($effect`Simmering`) || !have($skill`Simmer`),
+      completed: () =>
+        have($effect`Simmering`) ||
+        forbiddenEffects.includes($effect`Simmering`) ||
+        !have($skill`Simmer`),
       do: () => useSkill($skill`Simmer`),
       outfit: {
         offhand: $item`April Shower Thoughts shield`,
@@ -133,6 +138,7 @@ export const SpellDamageQuest: Quest = {
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
+        forbiddenEffects.includes($effect`Do You Crush What I Crush?`) ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
           (ef) => have(ef),
         ),
@@ -166,6 +172,7 @@ export const SpellDamageQuest: Quest = {
         !have($familiar`Machine Elf`) ||
         !haveMotherSlimeBanish() ||
         have($effect`Inner Elf`) ||
+        forbiddenEffects.includes($effect`Inner Elf`) ||
         motherSlimeClan === "",
       do: $location`The Slime Tube`,
       combat: new CombatStrategy().macro(
@@ -188,6 +195,7 @@ export const SpellDamageQuest: Quest = {
       name: "Meteor Shower",
       completed: () =>
         have($effect`Meteor Showered`) ||
+        forbiddenEffects.includes($effect`Meteor Showered`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
         get("_saberForceUses") >= 5,

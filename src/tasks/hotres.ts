@@ -115,6 +115,7 @@ export const HotResQuest: Quest = {
       name: "Grab Foam Suit",
       completed: () =>
         have($effect`Fireproof Foam Suit`) ||
+        forbiddenEffects.includes($effect`Fireproof Foam Suit`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         get("_saberForceUses") >= 5 ||
         !have($item`industrial fire extinguisher`) ||
@@ -177,6 +178,7 @@ export const HotResQuest: Quest = {
         !have($skill`Visit your Favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Hot Resistance") ||
+        forbiddenEffects.includes($effect`Blessing of your favorite Bird`) ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },

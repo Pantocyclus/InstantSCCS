@@ -88,6 +88,7 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
+        forbiddenEffects.includes($effect`All I Want For Crimbo Is Stuff`) ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
           (ef) => have(ef),
         ),
@@ -133,6 +134,7 @@ export const BoozeDropQuest: Quest = {
         have($item`Apriling band saxophone`) ||
         have($item`11-leaf clover`) ||
         get("_cloversPurchased") >= 2 ||
+        forbiddenEffects.includes($effect`One Very Clear Eye`) ||
         get("instant_skipCyclopsEyedrops", false),
       do: (): void => {
         buy(1, $item`chewing gum on a string`);
@@ -146,6 +148,7 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         have($item`cyclops eyedrops`) ||
         have($effect`One Very Clear Eye`) ||
+        forbiddenEffects.includes($effect`One Very Clear Eye`) ||
         get("instant_skipCyclopsEyedrops", false),
       do: (): void => {
         if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`))
@@ -160,6 +163,7 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         !have($item`government cheese`) ||
         get("lastAnticheeseDay") > 0 ||
+        forbiddenEffects.includes($effect`I See Everything Thrice!`) ||
         get("instant_skipGovernment", false),
       do: (): void => {
         inMuscleSign()
@@ -290,6 +294,7 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         get("_deckCardsDrawn") > 10 ||
         have($effect`Fortune of the Wheel`) ||
+        forbiddenEffects.includes($effect`Fortune of the Wheel`) ||
         !have($item`Deck of Every Card`) ||
         get("instant_saveDeck", false),
       do: (): void => {
@@ -302,6 +307,7 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         !have($item`potted power plant`) ||
         (itemAmount($item`battery (AAA)`) < 5 && !have($item`battery (lantern)`)) ||
+        forbiddenEffects.includes($effect`Lantern-Charged`) ||
         get("instant_savePowerSeed", false),
       do: (): void => {
         if (itemAmount($item`battery (AAA)`) >= 5) create($item`battery (lantern)`, 1);
@@ -314,6 +320,7 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         have($effect`Juiced and Jacked`) ||
         (!have($item`pumpkin`) && !have($item`pumpkin juice`)) ||
+        forbiddenEffects.includes($effect`Juiced and Jacked`) ||
         get("instant_savePumpkins", false),
       do: (): void => {
         if (!have($item`pumpkin juice`)) create($item`pumpkin juice`, 1);
@@ -342,6 +349,7 @@ export const BoozeDropQuest: Quest = {
         !have($skill`Visit your Favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Item Drops") ||
+        forbiddenEffects.includes($effect`Blessing of your favorite Bird`) ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },
@@ -365,7 +373,9 @@ export const BoozeDropQuest: Quest = {
     },
     {
       name: "Set Apriling Band Helmet (Booze)",
-      completed: () => !AprilingBandHelmet.canChangeSong(),
+      completed: () =>
+        !AprilingBandHelmet.canChangeSong() ||
+        forbiddenEffects.includes($effect`Apriling Band Celebration Bop`),
       do: () => AprilingBandHelmet.conduct($effect`Apriling Band Celebration Bop`),
       limit: { tries: 1 },
     },
@@ -386,7 +396,8 @@ export const BoozeDropQuest: Quest = {
         !have($item`Allied Radio Backpack`) ||
         have($effect`Materiel Intel`) ||
         get("_alliedRadioMaterielIntel", false) ||
-        get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0),
+        get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0) ||
+        forbiddenEffects.includes($effect`Materiel Intel`),
       do: () => alliedRadio("materiel intel"),
       limit: { tries: 1 },
     },

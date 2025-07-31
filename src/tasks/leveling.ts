@@ -351,11 +351,17 @@ export const LevelingQuest: Quest = {
     {
       name: "Mainstat Gaze",
       completed: () =>
-        ((have($effect`Inscrutable Gaze`) || !have($skill`Inscrutable Gaze`)) &&
+        ((have($effect`Inscrutable Gaze`) ||
+          forbiddenEffects.includes($effect`Inscrutable Gaze`) ||
+          !have($skill`Inscrutable Gaze`)) &&
           mainStat === $stat`Mysticality`) ||
-        ((have($effect`Patient Smile`) || !have($skill`Patient Smile`)) &&
+        ((have($effect`Patient Smile`) ||
+          forbiddenEffects.includes($effect`Patient Smile`) ||
+          !have($skill`Patient Smile`)) &&
           mainStat === $stat`Muscle`) ||
-        ((have($effect`Knowing Smile`) || !have($skill`Knowing Smile`)) &&
+        ((have($effect`Knowing Smile`) ||
+          forbiddenEffects.includes($effect`Knowing Smile`) ||
+          !have($skill`Knowing Smile`)) &&
           mainStat === $stat`Moxie`),
       do: (): void => {
         const mainStatGainEffect: Effect = {
@@ -397,6 +403,7 @@ export const LevelingQuest: Quest = {
         !have($skill`Sweet Synthesis`) ||
         get("instant_skipSynthExp", false) ||
         have(synthExpBuff) ||
+        forbiddenEffects.includes(synthExpBuff) ||
         getValidComplexCandyPairs(
           mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4,
         ).length === 0,
@@ -408,7 +415,8 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !have($item`April Shower Thoughts shield`) ||
         itemAmount($item`glob of wet paper`) - 2 < get("instant_saveShowerGlobs", 0) ||
-        have(showerGlobXpEffect),
+        have(showerGlobXpEffect) ||
+        forbiddenEffects.includes(showerGlobXpEffect),
       do: () => {
         buy($coinmaster`Using your Shower Thoughts`, 1, showerGlobXpItem);
         use(showerGlobXpItem, 1);
@@ -529,6 +537,7 @@ export const LevelingQuest: Quest = {
         !canPull(toInt(snapperXpItem)) ||
         have(snapperXpItem) ||
         have(xpWishEffect) ||
+        forbiddenEffects.includes(xpWishEffect) ||
         get("instant_saveEuclideanAngle", false) ||
         !have($item`a ten-percent bonus`),
       do: (): void => {
@@ -543,6 +552,7 @@ export const LevelingQuest: Quest = {
         !canPull(toInt(abstractionXpItem)) ||
         have(abstractionXpItem) ||
         have(abstractionXpEffect) ||
+        forbiddenEffects.includes(abstractionXpEffect) ||
         get("instant_saveAbstraction", false),
       do: (): void => {
         takeStorage(abstractionXpItem, 1);
@@ -1113,7 +1123,8 @@ export const LevelingQuest: Quest = {
       name: "Use Reagent Booster",
       completed: () =>
         (!have(reagentBoosterIngredient) && !have(reagentBoosterItem)) ||
-        have(reagentBoosterEffect),
+        have(reagentBoosterEffect) ||
+        forbiddenEffects.includes(reagentBoosterEffect),
       do: (): void => {
         if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
         if (!have(reagentBoosterItem)) {
@@ -1128,6 +1139,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         (!have(reagentBalancerIngredient) && itemAmount(reagentBalancerItem) <= 1) ||
         have(reagentBalancerEffect) ||
+        forbiddenEffects.includes(reagentBoosterEffect) ||
         itemAmount(reagentBalancerItem) === 1,
       do: (): void => {
         if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
@@ -1898,13 +1910,16 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Acquire Lyle's Buff",
-      completed: () => get("_lyleFavored"),
+      completed: () => forbiddenEffects.includes($effect`Favored by Lyle`) || get("_lyleFavored"),
       do: () => tryAcquiringEffects($effects`Favored by Lyle, Starry-Eyed`),
       limit: { tries: 1 },
     },
     {
       name: "Cross Streams",
-      completed: () => get("_streamsCrossed") || !have($item`protonic accelerator pack`),
+      completed: () =>
+        get("_streamsCrossed") ||
+        forbiddenEffects.includes($effect`Total Protonic Reversal`) ||
+        !have($item`protonic accelerator pack`),
       do: () => cliExecute("crossstreams"),
       limit: { tries: 1 },
     },

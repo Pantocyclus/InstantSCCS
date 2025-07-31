@@ -88,6 +88,7 @@ export const WeaponDamageQuest: Quest = {
       completed: () =>
         have($item`potion of potency`) ||
         have($effect`Pronounced Potency`) ||
+        forbiddenEffects.includes($effect`Pronounced Potency`) ||
         !have($item`scrumptious reagent`) ||
         !have($item`orange`),
       do: () => create($item`potion of potency`, 1),
@@ -102,6 +103,7 @@ export const WeaponDamageQuest: Quest = {
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
+        forbiddenEffects.includes($effect`Do You Crush What I Crush?`) ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
           (ef) => have(ef),
         ),
@@ -135,6 +137,7 @@ export const WeaponDamageQuest: Quest = {
         !have($familiar`Machine Elf`) ||
         !haveMotherSlimeBanish() ||
         have($effect`Inner Elf`) ||
+        forbiddenEffects.includes($effect`Inner Elf`) ||
         motherSlimeClan === "",
       do: $location`The Slime Tube`,
       combat: new CombatStrategy().macro(
@@ -167,6 +170,7 @@ export const WeaponDamageQuest: Quest = {
       name: "Meteor Shower",
       completed: () =>
         have($effect`Meteor Showered`) ||
+        forbiddenEffects.includes($effect`Meteor Showered`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
         get("_saberForceUses") >= 5,
@@ -201,6 +205,7 @@ export const WeaponDamageQuest: Quest = {
         !have($skill`Visit your Favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Weapon Damage") ||
+        forbiddenEffects.includes($effect`Blessing of your favorite Bird`) ||
         get("instant_saveFavoriteBird", false),
       do: () => useSkill($skill`Visit your Favorite Bird`),
       limit: { tries: 1 },

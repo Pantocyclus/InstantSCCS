@@ -79,6 +79,7 @@ export const FamiliarWeightQuest: Quest = {
         have($effect`Meteor Showered`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
+        forbiddenEffects.includes($effect`Meteor Showered`) ||
         get("_saberForceUses") >= 5,
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
