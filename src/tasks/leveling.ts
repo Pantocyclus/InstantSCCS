@@ -1,6 +1,7 @@
 import { Quest } from "../engine/task";
 import {
   adv1,
+  alliedRadio,
   autosell,
   buy,
   chew,
@@ -647,11 +648,26 @@ export const LevelingQuest: Quest = {
         get("instant_saveTeaTree", false) ||
         forbiddenEffects.includes($effect`Toast Tea`) ||
         getCampground()["potted tea tree"] === undefined ||
-        !useCenser,
+        !useCenser ||
+        !(getWorkshed() !== $item`model train set` || have($effect`Hot Soupy Garbage`)),
       do: () => {
         cliExecute(`teatree cuppa Toast tea`);
         use($item`cuppa Toast tea`, 1);
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Wildsun Boon",
+      completed: () =>
+        !have($item`Allied Radio Backpack`) ||
+        // eslint-disable-next-line libram/verify-constants
+        have($effect`Wildsun Boon`) ||
+        get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0) ||
+        // eslint-disable-next-line libram/verify-constants
+        forbiddenEffects.includes($effect`Wildsun Boon`) ||
+        !useCenser ||
+        !(getWorkshed() !== $item`model train set` || have($effect`Hot Soupy Garbage`)),
+      do: () => alliedRadio("Wildsun Boon"),
       limit: { tries: 1 },
     },
     {

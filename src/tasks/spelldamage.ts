@@ -1,5 +1,6 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
+  alliedRadio,
   buy,
   cliExecute,
   create,
@@ -249,6 +250,18 @@ export const SpellDamageQuest: Quest = {
         if (myThrall() !== $thrall`Elbow Macaroni`) useSkill($skill`Bind Undead Elbow Macaroni`);
         outfit(get("instant_stickKnifeOutfit"));
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Wildsun Boon",
+      completed: () =>
+        !have($item`Allied Radio Backpack`) ||
+        // eslint-disable-next-line libram/verify-constants
+        have($effect`Wildsun Boon`) ||
+        get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0) ||
+        // eslint-disable-next-line libram/verify-constants
+        forbiddenEffects.includes($effect`Wildsun Boon`),
+      do: () => alliedRadio("Wildsun Boon"),
       limit: { tries: 1 },
     },
     {

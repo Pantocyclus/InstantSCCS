@@ -1,5 +1,6 @@
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
+  alliedRadio,
   buy,
   cliExecute,
   create,
@@ -222,6 +223,18 @@ export const WeaponDamageQuest: Quest = {
         cliExecute(`teatree cuppa Twen tea`);
         use($item`cuppa Twen tea`, 1);
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Wildsun Boon",
+      completed: () =>
+        !have($item`Allied Radio Backpack`) ||
+        // eslint-disable-next-line libram/verify-constants
+        have($effect`Wildsun Boon`) ||
+        get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0) ||
+        // eslint-disable-next-line libram/verify-constants
+        forbiddenEffects.includes($effect`Wildsun Boon`),
+      do: () => alliedRadio("Wildsun Boon"),
       limit: { tries: 1 },
     },
     {
