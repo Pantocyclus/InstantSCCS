@@ -649,6 +649,7 @@ export const LevelingQuest: Quest = {
         !have($item`Allied Radio Backpack`) ||
         // eslint-disable-next-line libram/verify-constants
         haveOrExcluding($effect`Wildsun Boon`) ||
+        get("_alliedRadioWildsunBoon", false) ||
         get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0) ||
         !useCenser ||
         !(getWorkshed() !== $item`model train set` || haveOrExcluding($effect`Hot Soupy Garbage`)),

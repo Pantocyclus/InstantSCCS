@@ -117,6 +117,7 @@ export const FamiliarWeightQuest: Quest = {
         !have($item`Allied Radio Backpack`) ||
         // eslint-disable-next-line libram/verify-constants
         haveOrExcluding($effect`Wildsun Boon`) ||
+        get("_alliedRadioWildsunBoon", false) ||
         get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0),
       do: () => alliedRadio("Wildsun Boon"),
       limit: { tries: 1 },
