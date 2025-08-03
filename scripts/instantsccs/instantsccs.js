@@ -18221,7 +18221,7 @@ var LevelingQuest = {
   }, {
     name: "Wildsun Boon",
     completed: () => !lib_have(template_string_$item(leveling_templateObject173 || (leveling_templateObject173 = leveling_taggedTemplateLiteral(["Allied Radio Backpack"])))) || // eslint-disable-next-line libram/verify-constants
-    haveOrExcluding(template_string_$effect(leveling_templateObject174 || (leveling_templateObject174 = leveling_taggedTemplateLiteral(["Wildsun Boon"])))) || property_get("_alliedRadioDropsUsed", 0) >= 3 - property_get("instant_saveAlliedRadio", 0) || !useCenser || !((0,external_kolmafia_namespaceObject.getWorkshed)() !== template_string_$item(leveling_templateObject175 || (leveling_templateObject175 = leveling_taggedTemplateLiteral(["model train set"]))) || haveOrExcluding(template_string_$effect(leveling_templateObject176 || (leveling_templateObject176 = leveling_taggedTemplateLiteral(["Hot Soupy Garbage"]))))),
+    haveOrExcluding(template_string_$effect(leveling_templateObject174 || (leveling_templateObject174 = leveling_taggedTemplateLiteral(["Wildsun Boon"])))) || property_get("_alliedRadioWildsunBoon", false) || property_get("_alliedRadioDropsUsed", 0) >= 3 - property_get("instant_saveAlliedRadio", 0) || !useCenser || !((0,external_kolmafia_namespaceObject.getWorkshed)() !== template_string_$item(leveling_templateObject175 || (leveling_templateObject175 = leveling_taggedTemplateLiteral(["model train set"]))) || haveOrExcluding(template_string_$effect(leveling_templateObject176 || (leveling_templateObject176 = leveling_taggedTemplateLiteral(["Hot Soupy Garbage"]))))),
     do: () => (0,external_kolmafia_namespaceObject.alliedRadio)("Wildsun Boon"),
     limit: {
       tries: 1
@@ -21366,7 +21366,7 @@ var FamiliarWeightQuest = {
   }, {
     name: "Wildsun Boon",
     completed: () => !lib_have(template_string_$item(familiarweight_templateObject16 || (familiarweight_templateObject16 = familiarweight_taggedTemplateLiteral(["Allied Radio Backpack"])))) || // eslint-disable-next-line libram/verify-constants
-    haveOrExcluding(template_string_$effect(familiarweight_templateObject17 || (familiarweight_templateObject17 = familiarweight_taggedTemplateLiteral(["Wildsun Boon"])))) || property_get("_alliedRadioDropsUsed", 0) >= 3 - property_get("instant_saveAlliedRadio", 0),
+    haveOrExcluding(template_string_$effect(familiarweight_templateObject17 || (familiarweight_templateObject17 = familiarweight_taggedTemplateLiteral(["Wildsun Boon"])))) || property_get("_alliedRadioWildsunBoon", false) || property_get("_alliedRadioDropsUsed", 0) >= 3 - property_get("instant_saveAlliedRadio", 0),
     do: () => (0,external_kolmafia_namespaceObject.alliedRadio)("Wildsun Boon"),
     limit: {
       tries: 1
@@ -23699,7 +23699,7 @@ var args = Args.create("InstantSCCS", "An automated low-shiny SCCS script.", {
   })
 });
 function main_main(command) {
-  sinceKolmafiaRevision(28597);
+  sinceKolmafiaRevision(28604);
   checkGithubVersion();
   Args.fill(args, command);
 
