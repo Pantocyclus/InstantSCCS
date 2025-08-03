@@ -18169,6 +18169,9 @@ var LevelingQuest = {
     },
     completed: () => !lib_have(template_string_$item(leveling_templateObject160 || (leveling_templateObject160 = leveling_taggedTemplateLiteral(["a ten-percent bonus"])))),
     do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(leveling_templateObject161 || (leveling_templateObject161 = leveling_taggedTemplateLiteral(["a ten-percent bonus"]))), 1),
+    post: () => {
+      (0,external_kolmafia_namespaceObject.refreshStatus)();
+    },
     limit: {
       tries: 1
     }
@@ -18284,6 +18287,7 @@ var LevelingQuest = {
     },
     post: () => {
       if (lib_have(template_string_$effect(leveling_templateObject204 || (leveling_templateObject204 = leveling_taggedTemplateLiteral(["Scarysauce"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("shrug scarysauce");
+      (0,external_kolmafia_namespaceObject.refreshStatus)();
     }
   }, {
     name: "Alice Army",
