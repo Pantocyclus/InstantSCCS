@@ -38,6 +38,7 @@ import {
   mySoulsauce,
   print,
   putCloset,
+  refreshStatus,
   restoreHp,
   retrieveItem,
   runChoice,
@@ -718,6 +719,8 @@ export const LevelingQuest: Quest = {
 
         cliExecute("maximize cold res");
         use($item`Mmm-brr! brand mouthwash`, 2);
+
+        refreshStatus();
       },
       limit: { tries: 1 },
       outfit: {
