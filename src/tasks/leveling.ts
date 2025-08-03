@@ -587,7 +587,11 @@ export const LevelingQuest: Quest = {
           visitUrl("place.php?whichplace=campaway&action=campaway_sky");
       },
       completed: () => !have($item`a ten-percent bonus`),
-      do: () => use($item`a ten-percent bonus`, 1),
+      do: () => {
+        use($item`a ten-percent bonus`, 1);
+
+        refreshStatus();
+      },
       limit: { tries: 1 },
     },
     {
