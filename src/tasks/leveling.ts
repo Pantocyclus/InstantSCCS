@@ -38,6 +38,7 @@ import {
   mySoulsauce,
   print,
   putCloset,
+  refreshStatus,
   restoreHp,
   retrieveItem,
   runChoice,
@@ -587,6 +588,9 @@ export const LevelingQuest: Quest = {
       },
       completed: () => !have($item`a ten-percent bonus`),
       do: () => use($item`a ten-percent bonus`, 1),
+      post: (): void => {
+        refreshStatus();
+      },
       limit: { tries: 1 },
     },
     {
@@ -726,6 +730,7 @@ export const LevelingQuest: Quest = {
       },
       post: (): void => {
         if (have($effect`Scarysauce`)) cliExecute("shrug scarysauce");
+        refreshStatus();
       },
     },
     {
