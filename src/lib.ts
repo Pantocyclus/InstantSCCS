@@ -1287,6 +1287,7 @@ function getBusk(power: number, busk: number): void {
   checkBusk(bestCombination.hat, bestCombination.shirt, bestCombination.pants, power);
 
   const currentFam = myFamiliar();
+  const currentFamEquip = equippedItem($slot`familiar`);
   if (bestCombination.hat !== $item`prismatic beret`) {
     useFamiliar($familiar`Mad Hatrack`);
     equip($slot`familiar`, $item`prismatic beret`);
@@ -1316,6 +1317,7 @@ function getBusk(power: number, busk: number): void {
     if (it !== $item.none) equip(it);
   });
   useFamiliar(currentFam);
+  if (currentFamEquip !== $item.none) equip($slot`familiar`, currentFamEquip);
 }
 
 interface BuskRequest {
