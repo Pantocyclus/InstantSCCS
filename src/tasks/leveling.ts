@@ -587,9 +587,8 @@ export const LevelingQuest: Quest = {
           visitUrl("place.php?whichplace=campaway&action=campaway_sky");
       },
       completed: () => !have($item`a ten-percent bonus`),
-      do: () => {
-        use($item`a ten-percent bonus`, 1);
-
+      do: () => use($item`a ten-percent bonus`, 1),
+      post: (): void => {
         refreshStatus();
       },
       limit: { tries: 1 },
@@ -723,8 +722,6 @@ export const LevelingQuest: Quest = {
 
         cliExecute("maximize cold res");
         use($item`Mmm-brr! brand mouthwash`, 2);
-
-        refreshStatus();
       },
       limit: { tries: 1 },
       outfit: {
@@ -733,6 +730,7 @@ export const LevelingQuest: Quest = {
       },
       post: (): void => {
         if (have($effect`Scarysauce`)) cliExecute("shrug scarysauce");
+        refreshStatus();
       },
     },
     {
