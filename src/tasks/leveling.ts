@@ -733,7 +733,8 @@ export const LevelingQuest: Quest = {
       outfit: {
         modifier: "cold res",
         familiar:
-          $familiars`Exotic Parrot`.filter((fam) => haveAndNotExcluded(fam)).at(0) ?? undefined,
+          $familiars`Cooler Yeti, Exotic Parrot`.filter((fam) => haveAndNotExcluded(fam)).at(0) ??
+          undefined,
       },
       post: (): void => {
         if (have($effect`Scarysauce`)) cliExecute("shrug scarysauce");
