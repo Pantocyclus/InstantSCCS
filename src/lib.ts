@@ -1355,6 +1355,10 @@ export function attemptRestoringMpWithFreeRests(mpTarget: number): void {
   attemptRestoringMpWithFreeRests(mpTarget);
 }
 
-export function haveOrExcluding(ef: Effect): boolean {
+export function acquiredOrExcluded(ef: Effect): boolean {
   return have(ef) || forbiddenEffects.includes(ef);
+}
+
+export function haveAndNotExcluded(fam: Familiar): boolean {
+  return have(fam) && !excludedFamiliars.includes(fam);
 }

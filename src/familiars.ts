@@ -1,7 +1,6 @@
 import { Familiar } from "kolmafia";
 import { $familiar, $familiars, $item, get, have } from "libram";
-import { camelFightsLeft, haveCBBIngredients } from "./lib";
-import { excludedFamiliars } from "./resources";
+import { camelFightsLeft, haveAndNotExcluded, haveCBBIngredients } from "./lib";
 
 function nanorhino(allowAttackingFamiliars = false): Familiar {
   return allowAttackingFamiliars && get("_nanorhinoCharge") === 100
@@ -77,6 +76,6 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
     sombrero,
   ]
     .map((fn) => fn(allowAttackingFamiliars))
-    .filter((fam) => have(fam) && !excludedFamiliars.includes(fam));
+    .filter((fam) => haveAndNotExcluded(fam));
   return familiars.length > 0 ? familiars[0] : defaultFam;
 }

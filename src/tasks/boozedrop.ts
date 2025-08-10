@@ -48,6 +48,7 @@ import {
   StillSuit,
   TrainSet,
   uneffect,
+  unequip,
   withChoice,
   withProperty,
 } from "libram";
@@ -58,10 +59,11 @@ import {
   Station,
 } from "libram/dist/resources/2022/TrainSet";
 import {
+  acquiredOrExcluded,
   attemptRestoringMpWithFreeRests,
   handleCustomBusks,
   handleCustomPulls,
-  haveOrExcluding,
+  haveAndNotExcluded,
   logTestSetup,
   tryAcquiringEffects,
   tryAcquiringOdeToBooze,
@@ -88,7 +90,7 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
-        haveOrExcluding($effect`All I Want For Crimbo Is Stuff`) ||
+        acquiredOrExcluded($effect`All I Want For Crimbo Is Stuff`) ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
           (ef) => have(ef),
         ),
@@ -134,7 +136,7 @@ export const BoozeDropQuest: Quest = {
         have($item`Apriling band saxophone`) ||
         have($item`11-leaf clover`) ||
         get("_cloversPurchased") >= 2 ||
-        haveOrExcluding($effect`One Very Clear Eye`) ||
+        acquiredOrExcluded($effect`One Very Clear Eye`) ||
         get("instant_skipCyclopsEyedrops", false),
       do: (): void => {
         buy(1, $item`chewing gum on a string`);
@@ -147,7 +149,7 @@ export const BoozeDropQuest: Quest = {
       name: "Get Cyclops Eyedrops",
       completed: () =>
         have($item`cyclops eyedrops`) ||
-        haveOrExcluding($effect`One Very Clear Eye`) ||
+        acquiredOrExcluded($effect`One Very Clear Eye`) ||
         get("instant_skipCyclopsEyedrops", false),
       do: (): void => {
         if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`))
@@ -162,7 +164,7 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         !have($item`government cheese`) ||
         get("lastAnticheeseDay") > 0 ||
-        haveOrExcluding($effect`I See Everything Thrice!`) ||
+        acquiredOrExcluded($effect`I See Everything Thrice!`) ||
         get("instant_skipGovernment", false),
       do: (): void => {
         inMuscleSign()
@@ -232,7 +234,7 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Eat roasted vegetable of Jarlsberg",
       completed: () =>
-        haveOrExcluding($effect`Wizard Sight`) ||
+        acquiredOrExcluded($effect`Wizard Sight`) ||
         get("instant_saveRoastedVegetableItem", false) ||
         (!have($item`roasted vegetable of Jarlsberg`) &&
           itemAmount($item`Vegetable of Jarlsberg`) < 2),
@@ -249,7 +251,7 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Drink Sacramento Wine",
       completed: () =>
-        haveOrExcluding($effect`Sacré Mental`) ||
+        acquiredOrExcluded($effect`Sacré Mental`) ||
         !have($item`Sacramento wine`) ||
         myInebriety() >= inebrietyLimit() ||
         get("instant_saveSacramentoWine", false),
@@ -265,13 +267,13 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Drink Cabernet Sauvignon",
       prepare: (): void => {
-        if (have($familiar`Left-Hand Man`)) {
+        if (haveAndNotExcluded($familiar`Left-Hand Man`)) {
           useFamiliar($familiar`Left-Hand Man`);
-          equip($slot`familiar`, $item.none);
+          unequip($slot`familiar`);
         }
       },
       completed: () =>
-        haveOrExcluding($effect`Cabernet Hunter`) ||
+        acquiredOrExcluded($effect`Cabernet Hunter`) ||
         (!have($item`bottle of Cabernet Sauvignon`) &&
           (!have($skill`Aug. 31st: Cabernet Sauvignon  Day!`) ||
             get("instant_saveAugustScepter", false))) ||
@@ -292,7 +294,7 @@ export const BoozeDropQuest: Quest = {
       name: "Deck Wheel of Fortune",
       completed: () =>
         get("_deckCardsDrawn") > 10 ||
-        haveOrExcluding($effect`Fortune of the Wheel`) ||
+        acquiredOrExcluded($effect`Fortune of the Wheel`) ||
         !have($item`Deck of Every Card`) ||
         get("instant_saveDeck", false),
       do: (): void => {
@@ -305,7 +307,7 @@ export const BoozeDropQuest: Quest = {
       completed: () =>
         !have($item`potted power plant`) ||
         (itemAmount($item`battery (AAA)`) < 5 && !have($item`battery (lantern)`)) ||
-        haveOrExcluding($effect`Lantern-Charged`) ||
+        acquiredOrExcluded($effect`Lantern-Charged`) ||
         get("instant_savePowerSeed", false),
       do: (): void => {
         if (itemAmount($item`battery (AAA)`) >= 5) create($item`battery (lantern)`, 1);
@@ -316,7 +318,7 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Pumpkin Juice",
       completed: () =>
-        haveOrExcluding($effect`Juiced and Jacked`) ||
+        acquiredOrExcluded($effect`Juiced and Jacked`) ||
         (!have($item`pumpkin`) && !have($item`pumpkin juice`)) ||
         get("instant_savePumpkins", false),
       do: (): void => {
@@ -328,7 +330,7 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Loathing Idol Microphone",
       completed: () =>
-        haveOrExcluding($effect`Spitting Rhymes`) ||
+        acquiredOrExcluded($effect`Spitting Rhymes`) ||
         !have($item`2002 Mr. Store Catalog`) ||
         get("availableMrStore2002Credits") <= get("instant_saveCatalogCredits", 0),
       do: (): void => {
@@ -343,7 +345,7 @@ export const BoozeDropQuest: Quest = {
       name: "Favorite Bird (Item)",
       completed: () =>
         !have($skill`Visit your Favorite Bird`) ||
-        haveOrExcluding($effect`Blessing of your favorite Bird`) ||
+        acquiredOrExcluded($effect`Blessing of your favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Item Drops") ||
         get("instant_saveFavoriteBird", false),
@@ -371,7 +373,7 @@ export const BoozeDropQuest: Quest = {
       name: "Set Apriling Band Helmet (Booze)",
       completed: () =>
         !AprilingBandHelmet.canChangeSong() ||
-        haveOrExcluding($effect`Apriling Band Celebration Bop`),
+        acquiredOrExcluded($effect`Apriling Band Celebration Bop`),
       do: () => AprilingBandHelmet.conduct($effect`Apriling Band Celebration Bop`),
       limit: { tries: 1 },
     },
@@ -390,7 +392,7 @@ export const BoozeDropQuest: Quest = {
       name: "Materiel Intel",
       completed: () =>
         !have($item`Allied Radio Backpack`) ||
-        haveOrExcluding($effect`Materiel Intel`) ||
+        acquiredOrExcluded($effect`Materiel Intel`) ||
         get("_alliedRadioMaterielIntel", false) ||
         get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0),
       do: () => alliedRadio("materiel intel"),
@@ -399,7 +401,7 @@ export const BoozeDropQuest: Quest = {
     {
       name: "Serendipi Tea",
       completed: () =>
-        haveOrExcluding($effect`Serendipi Tea`) ||
+        acquiredOrExcluded($effect`Serendipi Tea`) ||
         get("_pottedTeaTreeUsed") ||
         get("instant_saveTeaTree", false) ||
         getCampground()["potted tea tree"] === undefined,
@@ -437,7 +439,10 @@ export const BoozeDropQuest: Quest = {
         ];
         tryAcquiringEffects(usefulEffects, true);
 
-        if (have($familiar`Trick-or-Treating Tot`) && have($item`li'l ninja costume`)) {
+        if (
+          haveAndNotExcluded($familiar`Trick-or-Treating Tot`) &&
+          have($item`li'l ninja costume`)
+        ) {
           useFamiliar($familiar`Trick-or-Treating Tot`);
           equip($slot`familiar`, $item`li'l ninja costume`);
         }
@@ -449,7 +454,7 @@ export const BoozeDropQuest: Quest = {
           StillSuit.distillateModifier("Item Drop") >= 15 &&
           !get("instant_saveStillsuit", false) &&
           myInebriety() + 1 < inebrietyLimit() &&
-          !haveOrExcluding($effect`Buzzed on Distillate`)
+          !acquiredOrExcluded($effect`Buzzed on Distillate`)
         )
           StillSuit.drinkDistillate();
 

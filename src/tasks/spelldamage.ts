@@ -48,10 +48,10 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import {
+  acquiredOrExcluded,
   attemptRestoringMpWithFreeRests,
   handleCustomBusks,
   handleCustomPulls,
-  haveOrExcluding,
   logTestSetup,
   motherSlimeClan,
   startingClan,
@@ -84,7 +84,7 @@ export const SpellDamageQuest: Quest = {
           !have($item`scrumdiddlyumptious solution`) &&
           !have($item`delectable catalyst`)) || // Need enough meat to purchase a delectable catalyst
         have($item`concentrated cordial of concentration`) ||
-        haveOrExcluding($effect`Concentrated Concentration`),
+        acquiredOrExcluded($effect`Concentrated Concentration`),
       do: (): void => {
         visitUrl("guild.php?place=challenge"); // Ensure free access to Moxie guild
         if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
@@ -99,7 +99,7 @@ export const SpellDamageQuest: Quest = {
       name: "Cordial of Concentration",
       completed: () =>
         (get("reagentSummons") !== 0 && !have($item`scrumptious reagent`)) || // Need a spare reagent
-        haveOrExcluding($effect`Concentration`) ||
+        acquiredOrExcluded($effect`Concentration`) ||
         have($item`cordial of concentration`),
       do: (): void => {
         if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
@@ -109,7 +109,7 @@ export const SpellDamageQuest: Quest = {
     },
     {
       name: "Simmer",
-      completed: () => haveOrExcluding($effect`Simmering`) || !have($skill`Simmer`),
+      completed: () => acquiredOrExcluded($effect`Simmering`) || !have($skill`Simmer`),
       do: () => useSkill($skill`Simmer`),
       outfit: {
         offhand: $item`April Shower Thoughts shield`,
@@ -135,7 +135,7 @@ export const SpellDamageQuest: Quest = {
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
-        haveOrExcluding($effect`Do You Crush What I Crush?`) ||
+        acquiredOrExcluded($effect`Do You Crush What I Crush?`) ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
           (ef) => have(ef),
         ),
@@ -168,7 +168,7 @@ export const SpellDamageQuest: Quest = {
       completed: () =>
         !have($familiar`Machine Elf`) ||
         !haveMotherSlimeBanish() ||
-        haveOrExcluding($effect`Inner Elf`) ||
+        acquiredOrExcluded($effect`Inner Elf`) ||
         motherSlimeClan === "",
       do: $location`The Slime Tube`,
       combat: new CombatStrategy().macro(
@@ -190,7 +190,7 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Meteor Shower",
       completed: () =>
-        haveOrExcluding($effect`Meteor Showered`) ||
+        acquiredOrExcluded($effect`Meteor Showered`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
         get("_saberForceUses") >= 5,
@@ -212,7 +212,7 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Deep Dark Visions",
       completed: () =>
-        haveOrExcluding($effect`Visions of the Deep Dark Deeps`) ||
+        acquiredOrExcluded($effect`Visions of the Deep Dark Deeps`) ||
         !have($skill`Deep Dark Visions`) ||
         triedDeepDark,
       prepare: () => tryAcquiringEffects($effects`Astral Shell, Elemental Saucesphere`),
@@ -251,7 +251,7 @@ export const SpellDamageQuest: Quest = {
         if (!have($item`obsidian nutcracker`)) buy($item`obsidian nutcracker`, 1);
         if (
           have($item`Ye Wizard's Shack snack voucher`) &&
-          !haveOrExcluding($effect`Pisces in the Skyces`)
+          !acquiredOrExcluded($effect`Pisces in the Skyces`)
         )
           retrieveItem($item`tobiko marble soda`);
         const usefulEffects: Effect[] = [

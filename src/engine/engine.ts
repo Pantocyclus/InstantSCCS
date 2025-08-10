@@ -26,6 +26,7 @@ import {
   totalFreeRests,
   useSkill,
 } from "kolmafia";
+import { excludedFamiliars } from "../resources";
 
 export class trackedResource {
   resource: string | Item;
@@ -197,6 +198,8 @@ export class Engine extends BaseEngine {
     if (spec.familiar && !have(spec.familiar)) {
       print(`Ignoring using a familiar because we don't have ${spec.familiar}`, "red");
       spec.familiar = $familiar.none;
+    } else if (excludedFamiliars.includes(spec.familiar ?? $familiar.none)) {
+      print(`Refusing to use excluded familiar ${spec.familiar}`, "red");
     }
 
     if (spec instanceof Outfit) {

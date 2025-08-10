@@ -48,10 +48,10 @@ import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { sugarItemsAboutToBreak } from "../outfit";
 import { Quest } from "../engine/task";
 import {
+  acquiredOrExcluded,
   attemptRestoringMpWithFreeRests,
   handleCustomBusks,
   handleCustomPulls,
-  haveOrExcluding,
   logTestSetup,
   motherSlimeClan,
   startingClan,
@@ -73,7 +73,7 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Drink Sockdollager",
       completed: () =>
-        haveOrExcluding($effect`In a Lather`) ||
+        acquiredOrExcluded($effect`In a Lather`) ||
         myInebriety() >= inebrietyLimit() - 1 ||
         myMeat() < 500 ||
         get("instant_saveSockdollager", false),
@@ -87,7 +87,7 @@ export const WeaponDamageQuest: Quest = {
       name: "Potion of Potency",
       completed: () =>
         have($item`potion of potency`) ||
-        haveOrExcluding($effect`Pronounced Potency`) ||
+        acquiredOrExcluded($effect`Pronounced Potency`) ||
         !have($item`scrumptious reagent`) ||
         !have($item`orange`),
       do: () => create($item`potion of potency`, 1),
@@ -102,7 +102,7 @@ export const WeaponDamageQuest: Quest = {
       completed: () =>
         !have($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
-        haveOrExcluding($effect`Do You Crush What I Crush?`) ||
+        acquiredOrExcluded($effect`Do You Crush What I Crush?`) ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
           (ef) => have(ef),
         ),
@@ -135,7 +135,7 @@ export const WeaponDamageQuest: Quest = {
       completed: () =>
         !have($familiar`Machine Elf`) ||
         !haveMotherSlimeBanish() ||
-        haveOrExcluding($effect`Inner Elf`) ||
+        acquiredOrExcluded($effect`Inner Elf`) ||
         motherSlimeClan === "",
       do: $location`The Slime Tube`,
       combat: new CombatStrategy().macro(
@@ -167,7 +167,7 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Meteor Shower",
       completed: () =>
-        haveOrExcluding($effect`Meteor Showered`) ||
+        acquiredOrExcluded($effect`Meteor Showered`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
         get("_saberForceUses") >= 5,
@@ -200,7 +200,7 @@ export const WeaponDamageQuest: Quest = {
       name: "Favorite Bird (Weapon Damage)",
       completed: () =>
         !have($skill`Visit your Favorite Bird`) ||
-        haveOrExcluding($effect`Blessing of your favorite Bird`) ||
+        acquiredOrExcluded($effect`Blessing of your favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Weapon Damage") ||
         get("instant_saveFavoriteBird", false),
@@ -210,7 +210,7 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Twen Tea",
       completed: () =>
-        haveOrExcluding($effect`Twen Tea`) ||
+        acquiredOrExcluded($effect`Twen Tea`) ||
         get("_pottedTeaTreeUsed") ||
         get("instant_saveTeaTree", false) ||
         getCampground()["potted tea tree"] === undefined,
@@ -245,7 +245,7 @@ export const WeaponDamageQuest: Quest = {
         if (!have($item`goofily-plumed helmet`)) buy($item`goofily-plumed helmet`, 1);
         if (
           have($item`Ye Wizard's Shack snack voucher`) &&
-          !haveOrExcluding($effect`Wasabi With You`)
+          !acquiredOrExcluded($effect`Wasabi With You`)
         )
           retrieveItem($item`wasabi marble soda`);
         const usefulEffects: Effect[] = [
@@ -296,7 +296,7 @@ export const WeaponDamageQuest: Quest = {
         });
 
         if (
-          !haveOrExcluding($effect`Rictus of Yeg`) &&
+          !acquiredOrExcluded($effect`Rictus of Yeg`) &&
           CommunityService.WeaponDamage.actualCost() >= 5 &&
           !get("_cargoPocketEmptied") &&
           have($item`Cargo Cultist Shorts`) &&

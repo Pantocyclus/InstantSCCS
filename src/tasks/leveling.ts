@@ -58,6 +58,7 @@ import {
   $effect,
   $effects,
   $familiar,
+  $familiars,
   $item,
   $items,
   $location,
@@ -88,6 +89,7 @@ import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   abstractionXpEffect,
   abstractionXpItem,
+  acquiredOrExcluded,
   attemptRestoringMpWithFreeRests,
   bestShadowRift,
   burnLibram,
@@ -106,8 +108,8 @@ import {
   habitatCastsLeft,
   handleCustomBusks,
   handleCustomPulls,
+  haveAndNotExcluded,
   haveCBBIngredients,
-  haveOrExcluding,
   mainStat,
   mainStatMaximizerStr,
   mainStatStr,
@@ -353,11 +355,11 @@ export const LevelingQuest: Quest = {
     {
       name: "Mainstat Gaze",
       completed: () =>
-        ((haveOrExcluding($effect`Inscrutable Gaze`) || !have($skill`Inscrutable Gaze`)) &&
+        ((acquiredOrExcluded($effect`Inscrutable Gaze`) || !have($skill`Inscrutable Gaze`)) &&
           mainStat === $stat`Mysticality`) ||
-        ((haveOrExcluding($effect`Patient Smile`) || !have($skill`Patient Smile`)) &&
+        ((acquiredOrExcluded($effect`Patient Smile`) || !have($skill`Patient Smile`)) &&
           mainStat === $stat`Muscle`) ||
-        ((haveOrExcluding($effect`Knowing Smile`) || !have($skill`Knowing Smile`)) &&
+        ((acquiredOrExcluded($effect`Knowing Smile`) || !have($skill`Knowing Smile`)) &&
           mainStat === $stat`Moxie`),
       do: (): void => {
         const mainStatGainEffect: Effect = {
@@ -372,7 +374,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Hot in Herre",
       completed: () =>
-        haveOrExcluding($effect`Hot in Herre`) ||
+        acquiredOrExcluded($effect`Hot in Herre`) ||
         !have($item`2002 Mr. Store Catalog`) ||
         get("availableMrStore2002Credits") <= get("instant_saveCatalogCredits", 0),
       do: (): void => {
@@ -397,7 +399,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !have($skill`Sweet Synthesis`) ||
         get("instant_skipSynthExp", false) ||
-        haveOrExcluding(synthExpBuff) ||
+        acquiredOrExcluded(synthExpBuff) ||
         getValidComplexCandyPairs(
           mainStat === $stat`Muscle` ? 2 : mainStat === $stat`Mysticality` ? 3 : 4,
         ).length === 0,
@@ -409,7 +411,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !have($item`April Shower Thoughts shield`) ||
         itemAmount($item`glob of wet paper`) - 2 < get("instant_saveShowerGlobs", 0) ||
-        haveOrExcluding(showerGlobXpEffect),
+        acquiredOrExcluded(showerGlobXpEffect),
       do: () => {
         buy($coinmaster`Using your Shower Thoughts`, 1, showerGlobXpItem);
         use(showerGlobXpItem, 1);
@@ -421,7 +423,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         inHardcore() || // Assume user consciously chose HC and accepts the consequences that come with it
         have($item`Deep Dish of Legend`) ||
-        haveOrExcluding($effect`In the Depths`) ||
+        acquiredOrExcluded($effect`In the Depths`) ||
         get("_roninStoragePulls")
           .split(",")
           .includes(toInt($item`Deep Dish of Legend`).toString()) ||
@@ -444,7 +446,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         inHardcore() || // Assume user consciously chose HC and accepts the consequences that come with it
         have($item`Calzone of Legend`) ||
-        haveOrExcluding($effect`In the 'zone zone!`) ||
+        acquiredOrExcluded($effect`In the 'zone zone!`) ||
         get("_roninStoragePulls")
           .split(",")
           .includes(toInt($item`Calzone of Legend`).toString()) ||
@@ -470,7 +472,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         inHardcore() || // Assume user consciously chose HC and accepts the consequences that come with it
         have($item`Pizza of Legend`) ||
-        haveOrExcluding($effect`Endless Drool`) ||
+        acquiredOrExcluded($effect`Endless Drool`) ||
         get("_roninStoragePulls")
           .split(",")
           .includes(toInt($item`Pizza of Legend`).toString()) ||
@@ -514,7 +516,7 @@ export const LevelingQuest: Quest = {
       name: "Wish for XP% buff",
       // TODO: Make this completed if we've already wished twice with the paw (requires mafia tracking)
       completed: () =>
-        haveOrExcluding(xpWishEffect) ||
+        acquiredOrExcluded(xpWishEffect) ||
         !have($item`cursed monkey's paw`) ||
         get("instant_saveMonkeysPaw", false) ||
         myBasestat(mainStat) >= targetBaseMainStat - targetBaseMainStatGap ||
@@ -528,7 +530,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !canPull(toInt(snapperXpItem)) ||
         have(snapperXpItem) ||
-        haveOrExcluding(xpWishEffect) ||
+        acquiredOrExcluded(xpWishEffect) ||
         get("instant_saveEuclideanAngle", false) ||
         !have($item`a ten-percent bonus`),
       do: (): void => {
@@ -542,7 +544,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !canPull(toInt(abstractionXpItem)) ||
         have(abstractionXpItem) ||
-        haveOrExcluding(abstractionXpEffect) ||
+        acquiredOrExcluded(abstractionXpEffect) ||
         get("instant_saveAbstraction", false),
       do: (): void => {
         takeStorage(abstractionXpItem, 1);
@@ -635,12 +637,14 @@ export const LevelingQuest: Quest = {
     {
       name: "Toast Tea",
       completed: () =>
-        haveOrExcluding($effect`Toast Tea`) ||
+        acquiredOrExcluded($effect`Toast Tea`) ||
         get("_pottedTeaTreeUsed") ||
         get("instant_saveTeaTree", false) ||
         getCampground()["potted tea tree"] === undefined ||
         !useCenser ||
-        !(getWorkshed() !== $item`model train set` || haveOrExcluding($effect`Hot Soupy Garbage`)),
+        !(
+          getWorkshed() !== $item`model train set` || acquiredOrExcluded($effect`Hot Soupy Garbage`)
+        ),
       do: () => {
         cliExecute(`teatree cuppa Toast tea`);
         use($item`cuppa Toast tea`, 1);
@@ -652,18 +656,20 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !have($item`Allied Radio Backpack`) ||
         // eslint-disable-next-line libram/verify-constants
-        haveOrExcluding($effect`Wildsun Boon`) ||
+        acquiredOrExcluded($effect`Wildsun Boon`) ||
         get("_alliedRadioWildsunBoon", false) ||
         get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0) ||
         !useCenser ||
-        !(getWorkshed() !== $item`model train set` || haveOrExcluding($effect`Hot Soupy Garbage`)),
+        !(
+          getWorkshed() !== $item`model train set` || acquiredOrExcluded($effect`Hot Soupy Garbage`)
+        ),
       do: () => alliedRadio("Wildsun Boon"),
       limit: { tries: 1 },
     },
     {
       name: "Sept-ember Mouthwash",
       ready: () =>
-        getWorkshed() !== $item`model train set` || haveOrExcluding($effect`Hot Soupy Garbage`),
+        getWorkshed() !== $item`model train set` || acquiredOrExcluded($effect`Hot Soupy Garbage`),
       completed: () => !useCenser || get("availableSeptEmbers") === 0,
       prepare: (): void => {
         // Ready to Survive gives +1 cold res
@@ -676,7 +682,7 @@ export const LevelingQuest: Quest = {
 
         // +9 cold res from this Lucky! effect
         if (
-          !haveOrExcluding($effect`Fever From the Flavor`) &&
+          !acquiredOrExcluded($effect`Fever From the Flavor`) &&
           !get("instant_saveMonkeysPaw", false)
         ) {
           wishFor($effect`Fever From the Flavor`, false);
@@ -704,7 +710,7 @@ export const LevelingQuest: Quest = {
         )
           tryAcquiringEffect($effect`Rainbow Vaccine`);
 
-        if (have($item`server room key`) && !haveOrExcluding($effect`Cyber Resist x2000`)) {
+        if (have($item`server room key`) && !acquiredOrExcluded($effect`Cyber Resist x2000`)) {
           if (!have($item`Synapse Blaster`)) {
             buy($item`Synapse Blaster`, 1);
           }
@@ -726,7 +732,8 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
       outfit: {
         modifier: "cold res",
-        familiar: $familiar`Exotic Parrot`,
+        familiar:
+          $familiars`Exotic Parrot`.filter((fam) => haveAndNotExcluded(fam)).at(0) ?? undefined,
       },
       post: (): void => {
         if (have($effect`Scarysauce`)) cliExecute("shrug scarysauce");
@@ -1128,7 +1135,7 @@ export const LevelingQuest: Quest = {
       name: "Use Reagent Booster",
       completed: () =>
         (!have(reagentBoosterIngredient) && !have(reagentBoosterItem)) ||
-        haveOrExcluding(reagentBoosterEffect),
+        acquiredOrExcluded(reagentBoosterEffect),
       do: (): void => {
         if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
         if (!have(reagentBoosterItem)) {
@@ -1142,7 +1149,7 @@ export const LevelingQuest: Quest = {
       ready: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
       completed: () =>
         (!have(reagentBalancerIngredient) && itemAmount(reagentBalancerItem) <= 1) ||
-        haveOrExcluding(reagentBalancerEffect) ||
+        acquiredOrExcluded(reagentBalancerEffect) ||
         itemAmount(reagentBalancerItem) === 1,
       do: (): void => {
         if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
@@ -1794,7 +1801,7 @@ export const LevelingQuest: Quest = {
         (haveCBBIngredients(false) ||
           overleveled() ||
           craftedCBBEffects.some((ef) => have(ef)) ||
-          craftedCBBEffects.every((ef) => haveOrExcluding(ef))) &&
+          craftedCBBEffects.every((ef) => acquiredOrExcluded(ef))) &&
         (powerlevelingLocation() !== $location`The Neverending Party` ||
           get("_neverendingPartyFreeTurns") >= 10),
       do: powerlevelingLocation(),
@@ -1874,11 +1881,11 @@ export const LevelingQuest: Quest = {
       name: "Craft and Eat CBB Foods",
       after: ["Powerlevel"],
       completed: () =>
-        craftedCBBEffects.every((ef) => haveOrExcluding(ef)) || triedCraftingCBBFoods,
+        craftedCBBEffects.every((ef) => acquiredOrExcluded(ef)) || triedCraftingCBBFoods,
       do: (): void => {
         craftedCBBFoods.forEach((it) => {
           const ef = effectModifier(it, "effect");
-          if (!haveOrExcluding(ef)) {
+          if (!acquiredOrExcluded(ef)) {
             if (!have(it)) create(it, 1);
             eat(it, 1);
           }
@@ -1887,7 +1894,7 @@ export const LevelingQuest: Quest = {
         if (
           itemAmount($item`Vegetable of Jarlsberg`) >= 2 &&
           itemAmount($item`St. Sneaky Pete's Whey`) >= 2 &&
-          !haveOrExcluding($effect`Pretty Delicious`) &&
+          !acquiredOrExcluded($effect`Pretty Delicious`) &&
           !get("instant_saveRicottaCasserole", false)
         ) {
           if (!have($item`baked veggie ricotta casserole`))
@@ -1903,7 +1910,7 @@ export const LevelingQuest: Quest = {
       name: "Drink Bee's Knees",
       after: ["Powerlevel"],
       completed: () =>
-        haveOrExcluding($effect`On the Trolley`) || get("instant_saveBeesKnees", false),
+        acquiredOrExcluded($effect`On the Trolley`) || get("instant_saveBeesKnees", false),
       do: (): void => {
         if (myMeat() < 500) throw new Error("Insufficient Meat to purchase Bee's Knees!");
         tryAcquiringOdeToBooze();
@@ -1913,7 +1920,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Acquire Lyle's Buff",
-      completed: () => haveOrExcluding($effect`Favored by Lyle`) || get("_lyleFavored"),
+      completed: () => acquiredOrExcluded($effect`Favored by Lyle`) || get("_lyleFavored"),
       do: () => tryAcquiringEffects($effects`Favored by Lyle, Starry-Eyed`),
       limit: { tries: 1 },
     },
@@ -1921,7 +1928,7 @@ export const LevelingQuest: Quest = {
       name: "Cross Streams",
       completed: () =>
         get("_streamsCrossed") ||
-        haveOrExcluding($effect`Total Protonic Reversal`) ||
+        acquiredOrExcluded($effect`Total Protonic Reversal`) ||
         !have($item`protonic accelerator pack`),
       do: () => cliExecute("crossstreams"),
       limit: { tries: 1 },
@@ -1956,12 +1963,12 @@ export const LevelingQuest: Quest = {
       completed: () =>
         get("instant_saveMimicEggs", false) ||
         get("_mimicEggsObtained") > 0 ||
-        !have($familiar`Chest Mimic`) ||
+        !haveAndNotExcluded($familiar`Chest Mimic`) ||
         (!(have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) &&
           !(have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3)),
       do: (): void => {
         const currentFamiliar = myFamiliar();
-        if (have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) {
+        if (haveAndNotExcluded($familiar`Shorter-Order Cook`) && have($item`blue plate`)) {
           useFamiliar($familiar`Shorter-Order Cook`);
           equip($slot`familiar`, $item`blue plate`);
         }
@@ -2188,7 +2195,7 @@ export const LevelingQuest: Quest = {
         if (
           itemAmount($item`Vegetable of Jarlsberg`) >= 2 &&
           itemAmount($item`St. Sneaky Pete's Whey`) >= 2 &&
-          !haveOrExcluding($effect`Pretty Delicious`) &&
+          !acquiredOrExcluded($effect`Pretty Delicious`) &&
           !get("instant_saveRicottaCasserole", false)
         ) {
           if (!have($item`baked veggie ricotta casserole`))
@@ -2197,7 +2204,7 @@ export const LevelingQuest: Quest = {
         }
         if (
           itemAmount($item`St. Sneaky Pete's Whey`) >= 1 &&
-          !haveOrExcluding($effect`Awfully Wily`) &&
+          !acquiredOrExcluded($effect`Awfully Wily`) &&
           !get("instant_saveWileyWheyBar", false)
         ) {
           create($item`Pete's wiley whey bar`, 1);

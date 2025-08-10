@@ -82,6 +82,7 @@ import {
   cyberRealmTurnsAvailable,
   getGarden,
   goVote,
+  haveAndNotExcluded,
   haveFreeRunSource,
   mainStat,
   mainStatMaximizerStr,
@@ -787,7 +788,7 @@ export const RunStartQuest: Quest = {
           } else {
             // Choose a potentially useful familiar
             const potentialFamiliars =
-              $familiars`Comma Chameleon, Mini-Trainbot, Exotic Parrot`.filter(have);
+              $familiars`Comma Chameleon, Mini-Trainbot, Exotic Parrot`.filter(haveAndNotExcluded);
             useFamiliar(potentialFamiliars.at(0) ?? chooseFamiliar());
           }
           const sym2 = mainStat === $stat`Mysticality` ? "meat" : "yam2";

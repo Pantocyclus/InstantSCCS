@@ -17,9 +17,9 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import {
+  acquiredOrExcluded,
   handleCustomBusks,
   handleCustomPulls,
-  haveOrExcluding,
   logTestSetup,
   mainStat,
   reagentBalancerEffect,
@@ -116,7 +116,7 @@ export const MuscleQuest: Quest = {
       prepare: (): void => {
         useBalancerForTest($stat`Muscle`);
         if (
-          !haveOrExcluding($effect`Phorcefullness`) &&
+          !acquiredOrExcluded($effect`Phorcefullness`) &&
           !have($item`philter of phorce`) &&
           $items`scrumptious reagent, lemon`.every((it) => have(it))
         ) {
@@ -176,7 +176,7 @@ export const MysticalityQuest: Quest = {
       prepare: (): void => {
         useBalancerForTest($stat`Mysticality`);
         if (
-          !haveOrExcluding($effect`Mystically Oiled`) &&
+          !acquiredOrExcluded($effect`Mystically Oiled`) &&
           !have($item`ointment of the occult`) &&
           $items`scrumptious reagent, grapefruit`.every((it) => have(it))
         ) {

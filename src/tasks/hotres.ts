@@ -31,9 +31,10 @@ import {
 } from "libram";
 import { Quest } from "../engine/task";
 import {
+  acquiredOrExcluded,
   handleCustomBusks,
   handleCustomPulls,
-  haveOrExcluding,
+  haveAndNotExcluded,
   logTestSetup,
   tryAcquiringEffect,
   tryAcquiringEffects,
@@ -114,7 +115,7 @@ export const HotResQuest: Quest = {
     {
       name: "Grab Foam Suit",
       completed: () =>
-        haveOrExcluding($effect`Fireproof Foam Suit`) ||
+        acquiredOrExcluded($effect`Fireproof Foam Suit`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         get("_saberForceUses") >= 5 ||
         !have($item`industrial fire extinguisher`) ||
@@ -139,7 +140,7 @@ export const HotResQuest: Quest = {
     {
       name: "Drink Boris Beer",
       completed: () =>
-        haveOrExcluding($effect`Beery Cool`) ||
+        acquiredOrExcluded($effect`Beery Cool`) ||
         ((!have($item`bowl of cottage cheese`) || !have($item`Yeast of Boris`)) &&
           !have($item`Boris's beer`)) ||
         myInebriety() >= inebrietyLimit() ||
@@ -175,7 +176,7 @@ export const HotResQuest: Quest = {
       name: "Favorite Bird (Hot Res)",
       completed: () =>
         !have($skill`Visit your Favorite Bird`) ||
-        haveOrExcluding($effect`Blessing of your favorite Bird`) ||
+        acquiredOrExcluded($effect`Blessing of your favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Hot Resistance") ||
         get("instant_saveFavoriteBird", false),
@@ -196,7 +197,7 @@ export const HotResQuest: Quest = {
     {
       name: "Frost Tea",
       completed: () =>
-        haveOrExcluding($effect`Frost Tea`) ||
+        acquiredOrExcluded($effect`Frost Tea`) ||
         get("_pottedTeaTreeUsed") ||
         get("instant_saveTeaTree", false) ||
         getCampground()["potted tea tree"] === undefined,
@@ -245,7 +246,7 @@ export const HotResQuest: Quest = {
         ) {
           if (
             !have($item`mini kiwi illicit antibiotic`) &&
-            !haveOrExcluding($effect`Incredibly Healthy`)
+            !acquiredOrExcluded($effect`Incredibly Healthy`)
           )
             create($item`mini kiwi illicit antibiotic`, 1);
           tryAcquiringEffect($effect`Incredibly Healthy`);
@@ -258,7 +259,7 @@ export const HotResQuest: Quest = {
           CommunityService.HotRes.actualCost() > 1 &&
           have($skill`Summon Clip Art`) &&
           !get("instant_saveClipArt", false) &&
-          have($familiar`Exotic Parrot`) &&
+          haveAndNotExcluded($familiar`Exotic Parrot`) &&
           !have($item`cracker`)
         ) {
           if (!have($item`box of Familiar Jacks`)) create($item`box of Familiar Jacks`, 1);

@@ -25,9 +25,9 @@ import {
   uneffect,
 } from "libram";
 import {
+  acquiredOrExcluded,
   handleCustomBusks,
   handleCustomPulls,
-  haveOrExcluding,
   logTestSetup,
   tryAcquiringEffect,
   tryAcquiringEffects,
@@ -59,7 +59,7 @@ export const NoncombatQuest: Quest = {
     {
       name: "Use Shadow Lodestone",
       ready: () => have($item`Rufus's shadow lodestone`),
-      completed: () => haveOrExcluding($effect`Shadow Waters`),
+      completed: () => acquiredOrExcluded($effect`Shadow Waters`),
       do: (): void => {
         visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
         runChoice(2);
@@ -74,7 +74,7 @@ export const NoncombatQuest: Quest = {
       name: "Favorite Bird (NC)",
       completed: () =>
         !have($skill`Visit your Favorite Bird`) ||
-        haveOrExcluding($effect`Blessing of your favorite Bird`) ||
+        acquiredOrExcluded($effect`Blessing of your favorite Bird`) ||
         get("_favoriteBirdVisited") ||
         !get("yourFavoriteBirdMods").includes("Combat Frequency") ||
         get("instant_saveFavoriteBird", false),
@@ -84,7 +84,7 @@ export const NoncombatQuest: Quest = {
     {
       name: "Obscuri Tea",
       completed: () =>
-        haveOrExcluding($effect`Obscuri Tea`) ||
+        acquiredOrExcluded($effect`Obscuri Tea`) ||
         get("_pottedTeaTreeUsed") ||
         get("instant_saveTeaTree", false) ||
         getCampground()["potted tea tree"] === undefined,

@@ -35,10 +35,11 @@ import Macro from "../combat";
 import { avoidDaylightShavingsHelm, sugarItemsAboutToBreak } from "../outfit";
 import { Quest } from "../engine/task";
 import {
+  acquiredOrExcluded,
   chooseHeaviestEquippedFamiliar,
   handleCustomBusks,
   handleCustomPulls,
-  haveOrExcluding,
+  haveAndNotExcluded,
   logTestSetup,
   tryAcquiringEffect,
   tryAcquiringEffects,
@@ -77,7 +78,7 @@ export const FamiliarWeightQuest: Quest = {
     {
       name: "Meteor Shower",
       completed: () =>
-        haveOrExcluding($effect`Meteor Showered`) ||
+        acquiredOrExcluded($effect`Meteor Showered`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
         get("_saberForceUses") >= 5,
@@ -101,7 +102,7 @@ export const FamiliarWeightQuest: Quest = {
     {
       name: "Loyal Tea",
       completed: () =>
-        haveOrExcluding($effect`Loyal Tea`) ||
+        acquiredOrExcluded($effect`Loyal Tea`) ||
         get("_pottedTeaTreeUsed") ||
         get("instant_saveTeaTree", false) ||
         getCampground()["potted tea tree"] === undefined,
@@ -116,7 +117,7 @@ export const FamiliarWeightQuest: Quest = {
       completed: () =>
         !have($item`Allied Radio Backpack`) ||
         // eslint-disable-next-line libram/verify-constants
-        haveOrExcluding($effect`Wildsun Boon`) ||
+        acquiredOrExcluded($effect`Wildsun Boon`) ||
         get("_alliedRadioWildsunBoon", false) ||
         get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0),
       do: () => alliedRadio("Wildsun Boon"),
@@ -161,10 +162,10 @@ export const FamiliarWeightQuest: Quest = {
         ).expectedWeight;
         const commaWeight = 6 + 11 * get("homemadeRobotUpgrades");
         const useComma =
-          $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+          $familiars`Comma Chameleon, Homemade Robot`.every((fam) => haveAndNotExcluded(fam)) &&
           commaWeight > heaviestWeight;
         if (
-          $familiars`Comma Chameleon, Homemade Robot`.every((fam) => have(fam)) &&
+          $familiars`Comma Chameleon, Homemade Robot`.every((fam) => haveAndNotExcluded(fam)) &&
           get("homemadeRobotUpgrades") < 9
         ) {
           print(
@@ -175,10 +176,10 @@ export const FamiliarWeightQuest: Quest = {
           );
         }
         const useTrainbot =
-          have($familiar`Mini-Trainbot`) &&
+          haveAndNotExcluded($familiar`Mini-Trainbot`) &&
           familiarWeight($familiar`Mini-Trainbot`) + 25 > heaviestWeight;
         const useParrot =
-          have($familiar`Exotic Parrot`) &&
+          haveAndNotExcluded($familiar`Exotic Parrot`) &&
           familiarWeight($familiar`Exotic Parrot`) + 15 > heaviestWeight;
 
         const haveFamEquip = // We only need to check for robot gear since that has special handling
