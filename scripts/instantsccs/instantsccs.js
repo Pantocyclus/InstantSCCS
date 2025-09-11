@@ -18517,7 +18517,7 @@ var LevelingQuest = {
     do: $location(_templateObject285 || (_templateObject285 = leveling_taggedTemplateLiteral(["The Haiku Dungeon"]))),
     combat: new CombatStrategy().macro(combat_Macro.if_($monster(_templateObject286 || (_templateObject286 = leveling_taggedTemplateLiteral(["amateur ninja"]))), combat_Macro.tryItem(template_string_$item(_templateObject287 || (_templateObject287 = leveling_taggedTemplateLiteral(["blue rocket"])))).tryItem(template_string_$item(_templateObject288 || (_templateObject288 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject289 || (_templateObject289 = leveling_taggedTemplateLiteral(["Chest X-Ray"])))).trySkill(template_string_$skill(_templateObject290 || (_templateObject290 = leveling_taggedTemplateLiteral(["Gingerbread Mob Hit"])))).trySkill(template_string_$skill(_templateObject291 || (_templateObject291 = leveling_taggedTemplateLiteral(["Shattering Punch"])))).default()).abort()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      acc3: template_string_$item(_templateObject292 || (_templateObject292 = leveling_taggedTemplateLiteral(["Peridot of Peril"]))),
+      acc2: template_string_$item(_templateObject292 || (_templateObject292 = leveling_taggedTemplateLiteral(["Peridot of Peril"]))),
       familiar: template_string_$familiar(_templateObject293 || (_templateObject293 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"]))),
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
