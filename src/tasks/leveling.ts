@@ -963,7 +963,7 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
-        acc3: $item`Peridot of Peril`,
+        acc2: $item`Peridot of Peril`,
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
       }),
