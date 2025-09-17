@@ -403,6 +403,8 @@ function buildMiscList(): Requirement[] {
     {
       thing: new Hardcoded(
         (() => {
+          // We don't need an ice house if we have Peridot
+          if (have($item`Peridot of Peril`)) return true;
           // We don't need an ice house if we can map the novelty skeleton
           if (have($skill`Map the Monsters`)) return true;
 
@@ -413,7 +415,7 @@ function buildMiscList(): Requirement[] {
             banishes[iceHouseIndex - 1],
           );
         })(),
-        "Cartography / Ice Housed Skeleton Store Monster",
+        "Peridot / Cartography / Ice Housed Skeleton Store Monster",
       ),
       why: "Ensures Novelty Tropical Skeleton",
     },
