@@ -254,6 +254,8 @@ const farmingResources: Resource[] = [
     [],
     get("instant_saveAlliedRadio", false) ? 3 : 0,
   ),
+  new Resource("instant_saveBCZBloodBath", "Do not use BCZ: Blood Bath"),
+  new Resource("instant_saveBCZDialitup", "Do not use BCZ: Dial it up to 11 for the spell damage test"),
 ];
 
 const otherResources: Resource[] = [

@@ -228,6 +228,20 @@ export const SpellDamageQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "BCZ Dial it up to 11",
+      completed: () =>
+        !have($item`blood cubic zirconia`) ||
+        (get("_bczDialitupCasts",0) > 0) ||
+        get("instant_saveBCZDialitup", false),
+      do: () => {
+        cliExecute(`skill BCZ: Dial it up to 11`);
+      },
+      outfit: {
+        acc1: $item`blood cubic zirconia`,
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Stick-Knife Trick",
       ready: () =>
         get("instant_stickKnifeOutfit") !== "" &&

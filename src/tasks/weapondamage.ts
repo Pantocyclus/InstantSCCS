@@ -221,6 +221,20 @@ export const WeaponDamageQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "BCZ Blood Bath",
+      completed: () =>
+        !have($item`blood cubic zirconia`) ||
+        (get("_bczBloodBathCasts",0) > 0) ||
+        get("instant_saveBCZBloodBath", false),
+      do: () => {
+        cliExecute(`skill BCZ: Blood Bath`);
+      },
+      outfit: {
+        acc1: $item`blood cubic zirconia`,
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Stick-Knife Trick",
       ready: () =>
         get("instant_stickKnifeOutfit") !== "" &&
