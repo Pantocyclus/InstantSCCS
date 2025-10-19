@@ -40,6 +40,7 @@ import {
   $slot,
   $stat,
   $thrall,
+  BloodCubicZirconia,
   clamp,
   Clan,
   CommunityService,
@@ -225,6 +226,25 @@ export const SpellDamageQuest: Quest = {
         tryAcquiringEffect($effect`Visions of the Deep Dark Deeps`);
       },
       outfit: { modifier: "HP 500max, Spooky Resistance", familiar: $familiar`Exotic Parrot` },
+      limit: { tries: 1 },
+    },
+    {
+      name: "BCZ Dial it up to 11",
+      completed: () =>
+        !BloodCubicZirconia.have() ||
+        // eslint-disable-next-line libram/verify-constants
+        BloodCubicZirconia.timesCast($skill`BCZ: Dial it up to 11`) > 0 ||
+        get("instant_saveBCZDialitup", false) ||
+        // eslint-disable-next-line libram/verify-constants
+        acquiredOrExcluded($effect`Up To 11`),
+      do: () => {
+        // eslint-disable-next-line libram/verify-constants
+        useSkill($skill`BCZ: Dial it up to 11`);
+      },
+      outfit: {
+        // eslint-disable-next-line libram/verify-constants
+        acc1: $item`blood cubic zirconia`,
+      },
       limit: { tries: 1 },
     },
     {
