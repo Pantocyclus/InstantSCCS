@@ -279,6 +279,8 @@ export function powerlevelingLocation(): Location {
   else if (get("coldAirportAlways")) return $location`VYKEA`;
   else if (get("sleazeAirportAlways")) return $location`Sloppy Seconds Diner`;
   else if (get("spookyAirportAlways")) return $location`The Deep Dark Jungle`;
+  // eslint-disable-next-line libram/verify-constants
+  else if (have($item`Monodent of the Sea`)) return $location`The Dire Warren`;
 
   return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`; // Default location
 }
@@ -495,7 +497,9 @@ export const LevelingQuest: Quest = {
       completed: () =>
         powerlevelingLocation() !== $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice` ||
         get("stenchAirportAlways") ||
-        get("_stenchAirportToday"),
+        get("_stenchAirportToday") ||
+        // eslint-disable-next-line libram/verify-constants
+        have($item`Monodent of the Sea`),
       do: (): void => {
         if (storageAmount($item`one-day ticket to Dinseylandfill`) === 0) {
           print(
@@ -1028,7 +1032,9 @@ export const LevelingQuest: Quest = {
       completed: () => have($effect`Everything Looks Blue`) || haveCBBIngredients(false),
       do: powerlevelingLocation(), // if your powerleveling location is the NEP you don't immediately get the MP regen
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Curse of Weaksauce`)
+        // eslint-disable-next-line libram/verify-constants
+        Macro.trySkill($skill`Sea *dent: Talk to Some Fish`)
+          .trySkill($skill`Curse of Weaksauce`)
           .tryItem($item`blue rocket`)
           .tryItem($item`red rocket`)
           .default(),
@@ -1828,7 +1834,9 @@ export const LevelingQuest: Quest = {
         1324: 5,
       },
       combat: new CombatStrategy().macro(
-        Macro.tryItem($item`red rocket`)
+        // eslint-disable-next-line libram/verify-constants
+        Macro.trySkill($skill`Sea *dent: Talk to Some Fish`)
+          .tryItem($item`red rocket`)
           .trySkill($skill`Bowl Sideways`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
           .default(useCinch),
@@ -2176,7 +2184,9 @@ export const LevelingQuest: Quest = {
         (haveCBBIngredients(true) || overleveled()),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Feel Pride`)
+        // eslint-disable-next-line libram/verify-constants
+        Macro.trySkill($skill`Sea *dent: Talk to Some Fish`)
+          .trySkill($skill`Feel Pride`)
           .trySkill($skill`Cincho: Confetti Extravaganza`)
           .trySkill($skill`Gulp Latte`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)

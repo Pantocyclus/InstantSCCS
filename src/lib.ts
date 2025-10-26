@@ -1362,3 +1362,13 @@ export function acquiredOrExcluded(ef: Effect): boolean {
 export function haveAndNotExcluded(fam: Familiar): boolean {
   return have(fam) && !excludedFamiliars.includes(fam);
 }
+
+export function havePowerlevelingZoneBound(): boolean {
+  if (get("neverendingPartyAlways")) return true;
+  else if (get("stenchAirportAlways")) return true;
+  else if (get("hotAirportAlways")) return true;
+  else if (get("coldAirportAlways")) return true;
+  else if (get("sleazeAirportAlways")) return true;
+  else if (get("spookyAirportAlways")) return true;
+  return false;
+}

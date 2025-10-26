@@ -1,7 +1,7 @@
 import { OutfitSpec } from "grimoire-kolmafia";
 import { cliExecute, equip, equippedItem, Item, myPrimestat } from "kolmafia";
 import { $effect, $item, $skill, $slot, $stat, DaylightShavings, examine, get, have } from "libram";
-import { mainStatMaximizerStr } from "./lib";
+import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
 import { chooseFamiliar } from "./familiars";
 
 export function garbageShirt(): void {
@@ -62,17 +62,21 @@ function useCandyCaneSword(): boolean {
   return false;
 }
 
+function chooseWeapon(): Item | undefined {
+  // eslint-disable-next-line libram/verify-constants
+  if (!havePowerlevelingZoneBound() && have($item`Monodent of the Sea`))
+    // eslint-disable-next-line libram/verify-constants
+    return $item`Monodent of the Sea`;
+  else if (useCandyCaneSword()) return $item`candy cane sword cane`;
+  else if (have($item`fish hatchet`)) return $item`fish hatchet`;
+  else if (have($item`bass clarinet`)) return $item`bass clarinet`;
+  else if (myPrimestat() === $stat`Muscle` && have($item`June cleaver`)) return $item`June cleaver`;
+  return undefined;
+}
+
 export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
   return {
-    weapon: useCandyCaneSword()
-      ? $item`candy cane sword cane`
-      : have($item`fish hatchet`)
-        ? $item`fish hatchet`
-        : have($item`bass clarinet`)
-          ? $item`bass clarinet`
-          : myPrimestat() === $stat`Muscle` && have($item`June cleaver`)
-            ? $item`June cleaver`
-            : undefined,
+    weapon: chooseWeapon(),
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     offhand: $item`unbreakable umbrella`,
     acc1: myPrimestat() === $stat`Mysticality` ? $item`codpiece` : undefined,
