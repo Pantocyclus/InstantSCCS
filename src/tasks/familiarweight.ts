@@ -46,7 +46,7 @@ import {
 } from "../lib";
 import { chooseFamiliar } from "../familiars";
 
-const famTestMaximizerString = "familiar weight";
+const famTestMaximizerString = "familiar weight, -equip dented scepter";
 
 export const FamiliarWeightQuest: Quest = {
   name: "Familiar Weight",

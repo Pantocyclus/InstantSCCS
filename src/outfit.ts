@@ -76,8 +76,8 @@ function chooseWeapon(): Item | undefined {
 
 export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
   return {
-    weapon: chooseWeapon(),
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
+    weapon: chooseWeapon(),
     offhand: $item`unbreakable umbrella`,
     acc1: myPrimestat() === $stat`Mysticality` ? $item`codpiece` : undefined,
     acc2:
