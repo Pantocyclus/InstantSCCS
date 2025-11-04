@@ -17876,8 +17876,8 @@ function chooseWeapon() {
 function baseOutfit() {
   var allowAttackingFamiliars = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
   return {
-    weapon: chooseWeapon(),
     hat: avoidDaylightShavingsHelm() ? undefined : template_string_$item(src_outfit_templateObject30 || (src_outfit_templateObject30 = src_outfit_taggedTemplateLiteral(["Daylight Shavings Helmet"]))),
+    weapon: chooseWeapon(),
     offhand: template_string_$item(src_outfit_templateObject31 || (src_outfit_templateObject31 = src_outfit_taggedTemplateLiteral(["unbreakable umbrella"]))),
     acc1: (0,external_kolmafia_namespaceObject.myPrimestat)() === template_string_$stat(src_outfit_templateObject32 || (src_outfit_templateObject32 = src_outfit_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$item(src_outfit_templateObject33 || (src_outfit_templateObject33 = src_outfit_taggedTemplateLiteral(["codpiece"]))) : undefined,
     acc2: lib_have(template_string_$item(src_outfit_templateObject34 || (src_outfit_templateObject34 = src_outfit_taggedTemplateLiteral(["Cincho de Mayo"])))) && property_get("_cinchUsed") <= 95 && !property_get("instant_saveCinch", false) ? template_string_$item(src_outfit_templateObject35 || (src_outfit_templateObject35 = src_outfit_taggedTemplateLiteral(["Cincho de Mayo"]))) : undefined,
@@ -21490,7 +21490,7 @@ function familiarweight_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = 
 
 
 
-var famTestMaximizerString = "familiar weight";
+var famTestMaximizerString = "familiar weight, -equip dented scepter";
 var FamiliarWeightQuest = {
   name: "Familiar Weight",
   completed: () => CommunityService.FamiliarWeight.isDone(),
