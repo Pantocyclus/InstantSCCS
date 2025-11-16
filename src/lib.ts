@@ -109,7 +109,9 @@ export const motherSlimeClan = Clan.getWhitelisted().find(
   : Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")
     ? "CSLoopers Unite"
     : "";
-export const useParkaSpit = have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`);
+export const useParkaSpit =
+  get("instant_prioritizeParkaSpit", false) ||
+  (have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`));
 export const useCenser = have($item`Sept-Ember Censer`) && !get("instant_saveEmbers", false);
 
 export const testModifiers = new Map([

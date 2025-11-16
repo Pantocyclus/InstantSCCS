@@ -110,6 +110,21 @@ import {
 } from "libram/dist/resources/2025/Leprecondo";
 
 const bestStillsuitFamiliar = StillSuit.bestFamiliar("Item Drop");
+function completedSkeletonBanishes(): boolean {
+  return (
+    $monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton, novelty tropical skeleton`.filter(
+      (m) => Array.from(getBanishedMonsters().values()).includes(m),
+    ).length >= (have($skill`Map the Monsters`) || have($item`Peridot of Peril`) ? 2 : 3)
+  );
+}
+function haveFreeSkeletonBanish(): boolean {
+  return (
+    have($item`cosmic bowling ball`) ||
+    (have($item`spring shoes`) && !have($effect`Everything Looks Green`)) ||
+    (have($skill`Snokebomb`) &&
+      !Array.from(getBanishedMonsters().keys()).includes($skill`Snokebomb`))
+  );
+}
 
 export const RunStartQuest: Quest = {
   name: "Run Start",
@@ -1023,10 +1038,9 @@ export const RunStartQuest: Quest = {
       completed: () =>
         mainStat === $stat`Moxie` ||
         (have($item`cherry`) &&
-          ($monsters`remaindered skeleton, swarm of skulls, factory-irregular skeleton, novelty tropical skeleton`.filter(
-            (m) => Array.from(getBanishedMonsters().values()).includes(m),
-          ).length >= (have($skill`Map the Monsters`) ? 2 : 3) ||
-            $location`The Skeleton Store`.turnsSpent >= 3)),
+          ($location`The Skeleton Store`.turnsSpent >= 3 ||
+            completedSkeletonBanishes() ||
+            !haveFreeSkeletonBanish())),
       do: $location`The Skeleton Store`,
       combat: new CombatStrategy().macro(() =>
         Macro.if_(

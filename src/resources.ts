@@ -283,6 +283,10 @@ const otherResources: Resource[] = [
     [],
     get("instant_saveShowerGlobs", false) ? 4 : 0,
   ),
+  new Resource(
+    "instant_prioritizeParkaSpit",
+    "Prefer Spitting Jurassic Acid (with 100 turn cd) over other turn-taking YRs (with 75 turn cd)",
+  ),
 ];
 
 const allResources = [
