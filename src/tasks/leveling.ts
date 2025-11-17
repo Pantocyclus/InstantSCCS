@@ -144,6 +144,8 @@ import { chooseFamiliar } from "../familiars";
 
 const useCinch = !get("instant_saveCinch", false);
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
+const seaFruits = $items`sea tangelo, sea persimmon, sea lychee, sea honeydew, sea blueberry`;
+const fishDrops = $items`beefy fish meat, glistening fish meat, slick fish meat, dull fish scale, rough fish scale, pristine fish scale`;
 const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
 const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
 let triedCraftingCBBFoods = false;
@@ -315,6 +317,11 @@ function sellMiscellaneousItems(): void {
     $item`paint palette`,
     $item`goat cheese`,
     ...baseBoozes,
+    ...seaFruits,
+    ...fishDrops,
+    $item`vinegar-soaked lemon slice`,
+    $item`exotic jungle fruit`,
+    $item`fat stacks of cash`,
   ];
   items.forEach((it) => {
     if (itemAmount(it) > 1) autosell(it, itemAmount(it) - 1);
