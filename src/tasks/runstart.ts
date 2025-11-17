@@ -108,6 +108,9 @@ import {
   Result,
   setFurniture,
 } from "libram/dist/resources/2025/Leprecondo";
+import { pickForceSource } from "../engine/taskResources";
+
+const skeletonZone = $location`The Skeleton Store`;
 
 const bestStillsuitFamiliar = StillSuit.bestFamiliar("Item Drop");
 function completedSkeletonBanishes(): boolean {
@@ -927,121 +930,55 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Peridot Novelty Tropical Skeleton",
+      name: "Novelty Tropical Skeleton (Unified)",
       prepare: (): void => {
-        if (useParkaSpit) {
-          cliExecute("parka dilophosaur");
-        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
-          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
+        const force = pickForceSource(skeletonZone);
+        // common prep (same logic as before)
+        if (useParkaSpit) cliExecute("parka dilophosaur");
+        else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
+          if (myMeat() < 250) throw new Error("Not enough meat for yellow rocket");
           buy($item`yellow rocket`, 1);
         }
-        unbreakableUmbrella();
-        if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
-        PeridotOfPeril.setChoice($monster`novelty tropical skeleton`);
-      },
-      completed: () =>
-        mainStat === $stat`Moxie` || !have($item`Peridot of Peril`) || have($item`cherry`),
-      do: $location`The Skeleton Store`,
-      combat: new CombatStrategy().macro(
-        Macro.if_(
-          "!haseffect Everything Looks Yellow",
-          Macro.if_(
-            $monster`novelty tropical skeleton`,
-            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
-              .trySkill($skill`Blow the Yellow Candle!`)
-              .tryItem($item`yellow rocket`),
-          ),
-        ).abort(),
-      ),
-      outfit: () => ({
-        ...baseOutfit(false),
-        shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
-        offhand: $item`Roman Candelabra`,
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
-        acc3: $item`Peridot of Peril`,
-      }),
-      post: (): void => {
-        if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
-          use($item`MayDay™ supply package`, 1);
-        if (have($item`space blanket`)) autosell($item`space blanket`, 1);
-      },
-      limit: { tries: 2 },
-    },
-    {
-      name: "Map Novelty Tropical Skeleton",
-      prepare: (): void => {
-        if (useParkaSpit) {
-          cliExecute("parka dilophosaur");
-        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
-          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
-          buy($item`yellow rocket`, 1);
-        }
-        unbreakableUmbrella();
-        if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
-      },
-      completed: () =>
-        mainStat === $stat`Moxie` ||
-        !have($skill`Map the Monsters`) ||
-        get("_monstersMapped") >= 3 ||
-        have($item`cherry`) ||
-        (() => {
-          // if we have another skeleton in the ice house, we don't need to map a novelty skeleton
-          const banishes = get("banishedMonsters").split(":");
-          const iceHouseIndex = banishes.map((string) => string.toLowerCase()).indexOf("ice house");
-          if (iceHouseIndex === -1) return false;
-          return ["remaindered skeleton", "factory-irregular skeleton", "swarm of skulls"].includes(
-            banishes[iceHouseIndex - 1],
-          );
-        })(),
-      do: () => mapMonster($location`The Skeleton Store`, $monster`novelty tropical skeleton`),
-      combat: new CombatStrategy().macro(
-        Macro.if_(
-          "!haseffect Everything Looks Yellow",
-          Macro.if_(
-            $monster`novelty tropical skeleton`,
-            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
-              .trySkill($skill`Blow the Yellow Candle!`)
-              .tryItem($item`yellow rocket`),
-          ),
-        ).abort(),
-      ),
-      outfit: () => ({
-        ...baseOutfit(false),
-        shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
-        offhand: $item`Roman Candelabra`,
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
-      }),
-      post: (): void => {
-        if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
-          use($item`MayDay™ supply package`, 1);
-        if (have($item`space blanket`)) autosell($item`space blanket`, 1);
-      },
-      limit: { tries: 1 },
-    },
-    {
-      name: "Novelty Tropical Skeleton",
-      prepare: (): void => {
-        if (useParkaSpit) {
-          cliExecute("parka dilophosaur");
-        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
-          if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
-          buy($item`yellow rocket`, 1);
-        }
-        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Yellow`)) {
-          equip($slot`offhand`, $item`Roman Candelabra`);
-        } else {
+        // handle Peridot setup
+        if (force?.name === "Peridot of Peril") {
+          PeridotOfPeril.setChoice($monster`novelty tropical skeleton`);
           unbreakableUmbrella();
+          if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
         }
-        if (get("_snokebombUsed") === 0) attemptRestoringMpWithFreeRests(50);
-        if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
+        // handle Map prep
+        if (force?.name === "Map the Monsters") {
+          unbreakableUmbrella();
+          if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
+        }
+        // fallback prep
+        if (!force) {
+          if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Yellow`))
+            equip($slot`offhand`, $item`Roman Candelabra`);
+          else unbreakableUmbrella();
+
+          if (get("_snokebombUsed") === 0) attemptRestoringMpWithFreeRests(50);
+          if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
+        }
       },
       completed: () =>
         mainStat === $stat`Moxie` ||
-        (have($item`cherry`) &&
-          ($location`The Skeleton Store`.turnsSpent >= 3 ||
+        have($item`cherry`) ||
+        (pickForceSource(skeletonZone) === null &&
+          // fallback completion logic you already had
+          (skeletonZone.turnsSpent >= 3 ||
             completedSkeletonBanishes() ||
             !haveFreeSkeletonBanish())),
-      do: $location`The Skeleton Store`,
+      do: () => {
+        const force = pickForceSource(skeletonZone);
+        if (force?.name === "Peridot of Peril") {
+          return skeletonZone; // fight normally, combat macro will hit with Peridot
+        }
+        if (force?.name === "Map the Monsters") {
+          return mapMonster(skeletonZone, $monster`novelty tropical skeleton`);
+        }
+        // fallback: normal adventuring
+        return skeletonZone;
+      },
       combat: new CombatStrategy().macro(() =>
         Macro.if_(
           "!haseffect Everything Looks Yellow",
@@ -1052,6 +989,7 @@ export const RunStartQuest: Quest = {
               .tryItem($item`yellow rocket`),
           ),
         )
+          // keep your fallback banish logic
           .externalIf(
             !Array.from(getBanishedMonsters().keys()).includes($skill`Bowl a Curveball`),
             Macro.trySkill($skill`Bowl a Curveball`),
@@ -1071,11 +1009,13 @@ export const RunStartQuest: Quest = {
           .abort(),
       ),
       outfit: (): OutfitSpec => {
+        const force = pickForceSource(skeletonZone);
         return {
+          ...baseOutfit(false),
           shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
-          acc2: $item`cursed monkey's paw`,
-          familiar: chooseFamiliar(false),
+          offhand: $item`Roman Candelabra`,
           modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
+          acc3: force?.name === "Peridot of Peril" ? $item`Peridot of Peril` : undefined,
         };
       },
       post: (): void => {
