@@ -1074,6 +1074,7 @@ export const RunStartQuest: Quest = {
         return {
           shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
           acc2: $item`cursed monkey's paw`,
+          acc3: !have($effect`Everything Looks Green`) ? $item`spring shoes` : undefined,
           familiar: chooseFamiliar(false),
           modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
         };
