@@ -57,7 +57,7 @@ function printResourceUsage(tResource: trackedResource): void {
     typeof resourceValue === "string" &&
     (isNaN(parseInt(resourceValue)) ||
       resourceValue.includes(",") ||
-      parseInt(resourceValue) > (n ?? 1))
+      parseInt(resourceValue) > Math.abs(n ?? 1))
   )
     print(
       `${name}: ${resourceValueLength > (n ?? 1) ? n ?? 1 : resourceValueLength}/${
