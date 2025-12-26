@@ -436,6 +436,7 @@ export const BoozeDropQuest: Quest = {
           $effect`Singer's Faithful Ocelot`,
           $effect`Steely-Eyed Squint`,
           $effect`Uncucumbered`,
+          $effect`Who's Going to Pay This Drunken Sailor?`,
         ];
         tryAcquiringEffects(usefulEffects, true);
 

@@ -241,6 +241,7 @@ const usefulEffects: Effect[] = [
   $effect`Empathy`,
   $effect`Leash of Linguini`,
   $effect`Thoughtful Empathy`,
+  $effect`Only Dogs Love a Drunken Sailor`,
 
   // Combat Initiative
   $effect`Slippery as a Seal`,
@@ -1420,6 +1421,7 @@ export const LevelingQuest: Quest = {
           $effect`Fat Leon's Phat Loot Lyric`,
           $effect`Singer's Faithful Ocelot`,
           $effect`The Spirit of Taking`,
+          $effect`Who's Going to Pay This Drunken Sailor?`,
         ];
         if (myClass() !== $class`Pastamancer`) itemDropEffects.push($effect`Spice Haze`);
         tryAcquiringEffects(itemDropEffects);
