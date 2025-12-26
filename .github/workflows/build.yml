@@ -15,7 +15,7 @@ on:
 
 env:
   # Default version of Node.js for jobs
-  node-version: "18"
+  node-version: "24"
 
 jobs:
   lint-all:
