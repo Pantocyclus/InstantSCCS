@@ -225,17 +225,13 @@ export const WeaponDamageQuest: Quest = {
       name: "BCZ Blood Bath",
       completed: () =>
         !BloodCubicZirconia.have() ||
-        // eslint-disable-next-line libram/verify-constants
         BloodCubicZirconia.timesCast($skill`BCZ: Blood Bath`) > 0 ||
         get("instant_saveBCZBloodBath", false) ||
-        // eslint-disable-next-line libram/verify-constants
         acquiredOrExcluded($effect`Bloodbathed`),
       do: () => {
-        // eslint-disable-next-line libram/verify-constants
         useSkill($skill`BCZ: Blood Bath`);
       },
       outfit: {
-        // eslint-disable-next-line libram/verify-constants
         acc1: $item`blood cubic zirconia`,
       },
       limit: { tries: 1 },

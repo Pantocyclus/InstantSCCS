@@ -1741,6 +1741,11 @@ cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+data-of-loathing@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/data-of-loathing/-/data-of-loathing-2.6.2.tgz#b3f12d348dba44e4e3b4e892f36c2938d40bc1ee"
+  integrity sha512-/cldchEU08vJTx0HTP7Cxl1yMOuWfQa9yPFcOFfOzxdPyPsp8/L9ZtmTqWuJyL80rVz+gZa2GyLGQ24oLbxaaQ==
+
 debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -1833,6 +1838,11 @@ enhanced-resolve@^5.10.0:
     graceful-fs "^4.2.4"
     tapable "^2.2.0"
 
+entities@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/entities/-/entities-7.0.0.tgz#2ae4e443f3f17d152d3f5b0f79b932c1e59deb7a"
+  integrity sha512-FDWG5cmEYf2Z00IkYRhbFrwIwvdFKH07uV8dvNy0omp/Qb1xcyCWp2UDtcwJF4QZZvk0sLudP6/hAu42TaqVhQ==
+
 envinfo@^7.7.3:
   version "7.8.1"
   resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.8.1.tgz#06377e3e5f4d379fea7ac592d5ad8927e0c4d475"
@@ -1863,13 +1873,13 @@ eslint-config-prettier@^9.1.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-9.1.0.tgz#31af3d94578645966c082fcb71a5846d3c94867f"
   integrity sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==
 
-eslint-plugin-libram@^0.4.30:
-  version "0.4.30"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.4.30.tgz#67ca24042f080269e66b4cb253a3a567e61e629c"
-  integrity sha512-cKHTR4UeqljRsVeIlP65rtS+L1bZA6VtPn/2Yij9PlzOo0ouY1L+V9HLcpVIL8NZX6JlPcVxznHDZDxQFe7FHA==
+eslint-plugin-libram@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.5.3.tgz#287dae19267ccad78c44145229afaac9165fb616"
+  integrity sha512-F2mLTf5T1OxP9VX8tA8gRSJJqHVHihCoJKTJEDOwYgEDuexeoxaBnnroc2lCYdvsCn1H+DFKFsYsL7zJFsfsrg==
   dependencies:
-    html-entities "^2.5.2"
-    requireindex "~1.2.0"
+    data-of-loathing "^2.6.2"
+    entities "^7.0.0"
 
 eslint-scope@5.1.1:
   version "5.1.1"
@@ -2644,10 +2654,10 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-kolmafia@^5.28605.0:
-  version "5.28605.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28605.0.tgz#40f841305fd213d5e7561fdf4d6cd0d49b080273"
-  integrity sha512-sVtEyRFHA2KdXlPX6H6ZdBZO9ULFU+3OZdBviVLlX+gz4BscyJPd49/mA+0rTk7g7yy2pN8jIraqm/hA3vNnKw==
+kolmafia@^5.28832.0:
+  version "5.28832.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28832.0.tgz#b62f0ce5816c4bdaee12e6eee8dcb2756a49441c"
+  integrity sha512-xRN4oETIORobsSrMtEt5h5bMOE6g0KwG+55qPSjkeFRexTUNFf/Pq5UztORO2JOqmkhG/OPJ/QXfzXFFY8mJCg==
 
 levn@^0.4.1:
   version "0.4.1"
@@ -2657,10 +2667,10 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-libram@^0.11.10:
-  version "0.11.10"
-  resolved "https://registry.yarnpkg.com/libram/-/libram-0.11.10.tgz#8274b4d95f683ec6dae1493011811514e4f9f260"
-  integrity sha512-ygi9+ADXyN8DrbDD/F09iOIVS0HLcak2AP+f+tF699/ZRbl0JwQPeCec/ICo/CQmQ/rGN84eWOZpzMDZBL+eSw==
+libram@^0.11.14:
+  version "0.11.14"
+  resolved "https://registry.yarnpkg.com/libram/-/libram-0.11.14.tgz#011527aba45e3225809e9f0decaf9b83fcce8325"
+  integrity sha512-EzuyU8fru9rYWnQkaWGcknZJ6JgwLIH+GDI8NbCKgVsA7MuSKE6CU/Do/I18vm/dmgjqSbivzE8wcjKxUDNTAQ==
   dependencies:
     html-entities "^2.5.2"
 
@@ -3172,11 +3182,6 @@ repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
-
-requireindex@~1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
-  integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
 
 resolve-cwd@^3.0.0:
   version "3.0.0"

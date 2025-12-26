@@ -281,7 +281,6 @@ export function powerlevelingLocation(): Location {
   else if (get("coldAirportAlways")) return $location`VYKEA`;
   else if (get("sleazeAirportAlways")) return $location`Sloppy Seconds Diner`;
   else if (get("spookyAirportAlways")) return $location`The Deep Dark Jungle`;
-  // eslint-disable-next-line libram/verify-constants
   else if (have($item`Monodent of the Sea`)) return $location`The Dire Warren`;
 
   return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`; // Default location
@@ -505,7 +504,6 @@ export const LevelingQuest: Quest = {
         powerlevelingLocation() !== $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice` ||
         get("stenchAirportAlways") ||
         get("_stenchAirportToday") ||
-        // eslint-disable-next-line libram/verify-constants
         have($item`Monodent of the Sea`),
       do: (): void => {
         if (storageAmount($item`one-day ticket to Dinseylandfill`) === 0) {
@@ -666,7 +664,6 @@ export const LevelingQuest: Quest = {
       name: "Wildsun Boon",
       completed: () =>
         !have($item`Allied Radio Backpack`) ||
-        // eslint-disable-next-line libram/verify-constants
         acquiredOrExcluded($effect`Wildsun Boon`) ||
         get("_alliedRadioWildsunBoon", false) ||
         get("_alliedRadioDropsUsed", 0) >= 3 - get("instant_saveAlliedRadio", 0) ||
@@ -1039,7 +1036,6 @@ export const LevelingQuest: Quest = {
       completed: () => have($effect`Everything Looks Blue`) || haveCBBIngredients(false),
       do: powerlevelingLocation(), // if your powerleveling location is the NEP you don't immediately get the MP regen
       combat: new CombatStrategy().macro(
-        // eslint-disable-next-line libram/verify-constants
         Macro.trySkill($skill`Sea *dent: Talk to Some Fish`)
           .trySkill($skill`Curse of Weaksauce`)
           .tryItem($item`blue rocket`)
@@ -1841,7 +1837,6 @@ export const LevelingQuest: Quest = {
         1324: 5,
       },
       combat: new CombatStrategy().macro(
-        // eslint-disable-next-line libram/verify-constants
         Macro.trySkill($skill`Sea *dent: Talk to Some Fish`)
           .tryItem($item`red rocket`)
           .trySkill($skill`Bowl Sideways`)
@@ -2191,7 +2186,6 @@ export const LevelingQuest: Quest = {
         (haveCBBIngredients(true) || overleveled()),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
-        // eslint-disable-next-line libram/verify-constants
         Macro.trySkill($skill`Sea *dent: Talk to Some Fish`)
           .trySkill($skill`Feel Pride`)
           .trySkill($skill`Cincho: Confetti Extravaganza`)

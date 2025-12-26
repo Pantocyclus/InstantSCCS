@@ -63,9 +63,7 @@ function useCandyCaneSword(): boolean {
 }
 
 function chooseWeapon(): Item | undefined {
-  // eslint-disable-next-line libram/verify-constants
   if (!havePowerlevelingZoneBound() && have($item`Monodent of the Sea`))
-    // eslint-disable-next-line libram/verify-constants
     return $item`Monodent of the Sea`;
   else if (useCandyCaneSword()) return $item`candy cane sword cane`;
   else if (have($item`fish hatchet`)) return $item`fish hatchet`;
