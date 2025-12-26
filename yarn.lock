@@ -1741,11 +1741,6 @@ cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-data-of-loathing@^2.6.2:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/data-of-loathing/-/data-of-loathing-2.6.2.tgz#b3f12d348dba44e4e3b4e892f36c2938d40bc1ee"
-  integrity sha512-/cldchEU08vJTx0HTP7Cxl1yMOuWfQa9yPFcOFfOzxdPyPsp8/L9ZtmTqWuJyL80rVz+gZa2GyLGQ24oLbxaaQ==
-
 debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -1838,11 +1833,6 @@ enhanced-resolve@^5.10.0:
     graceful-fs "^4.2.4"
     tapable "^2.2.0"
 
-entities@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/entities/-/entities-7.0.0.tgz#2ae4e443f3f17d152d3f5b0f79b932c1e59deb7a"
-  integrity sha512-FDWG5cmEYf2Z00IkYRhbFrwIwvdFKH07uV8dvNy0omp/Qb1xcyCWp2UDtcwJF4QZZvk0sLudP6/hAu42TaqVhQ==
-
 envinfo@^7.7.3:
   version "7.8.1"
   resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.8.1.tgz#06377e3e5f4d379fea7ac592d5ad8927e0c4d475"
@@ -1873,13 +1863,13 @@ eslint-config-prettier@^9.1.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-9.1.0.tgz#31af3d94578645966c082fcb71a5846d3c94867f"
   integrity sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==
 
-eslint-plugin-libram@^0.5.3:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.5.3.tgz#287dae19267ccad78c44145229afaac9165fb616"
-  integrity sha512-F2mLTf5T1OxP9VX8tA8gRSJJqHVHihCoJKTJEDOwYgEDuexeoxaBnnroc2lCYdvsCn1H+DFKFsYsL7zJFsfsrg==
+eslint-plugin-libram@^0.4.27:
+  version "0.4.35"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.4.35.tgz#957599602a1588d105deb78a7c1571aa1a022dc5"
+  integrity sha512-VW61F6TAh7R2Fj+YNzyqmtsXDkTGU/MBZ22t8MTlm5vK2Elswb42LwmZkfTfSka0J28Q3907XtFCFlKey1ZZZA==
   dependencies:
-    data-of-loathing "^2.6.2"
-    entities "^7.0.0"
+    html-entities "^2.5.2"
+    requireindex "~1.2.0"
 
 eslint-scope@5.1.1:
   version "5.1.1"
@@ -3182,6 +3172,11 @@ repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
+
+requireindex@~1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
+  integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
 
 resolve-cwd@^3.0.0:
   version "3.0.0"

@@ -138,6 +138,7 @@ export const FamiliarWeightQuest: Quest = {
           $effect`Heart of Green`,
           $effect`Kindly Resolve`,
           $effect`Leash of Linguini`,
+          // eslint-disable-next-line libram/verify-constants
           $effect`Only Dogs Love a Drunken Sailor`,
           $effect`Puzzle Champ`,
           $effect`Robot Friends`,

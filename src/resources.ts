@@ -258,7 +258,7 @@ const farmingResources: Resource[] = [
   new Resource(
     "instant_saveBCZDialitup",
     "Do not use BCZ: Dial it up to 11 for the spell damage test",
-    $effects`Up to 11`,
+    $effects`Up To 11`,
   ),
 ];
 
