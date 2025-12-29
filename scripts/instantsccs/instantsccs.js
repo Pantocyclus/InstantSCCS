@@ -16424,7 +16424,8 @@ var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
         mpAutoRecoveryItems: mpItems,
         shadowLabyrinthGoal: "effects",
         choiceAdventureScript: "instantsccs_choice.ash",
-        requireBoxServants: false
+        requireBoxServants: false,
+        lastChanceBurn: ""
       });
     }
   }]);
