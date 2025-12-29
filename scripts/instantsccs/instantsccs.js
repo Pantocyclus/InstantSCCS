@@ -10451,21 +10451,25 @@ var useParkaSpit = property_get("instant_prioritizeParkaSpit", false) || lib_hav
 var useCenser = lib_have(template_string_$item(lib_templateObject3 || (lib_templateObject3 = lib_taggedTemplateLiteral(["Sept-Ember Censer"])))) && !property_get("instant_saveEmbers", false);
 var testModifiers = new Map([[CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]], [CommunityService.Muscle, ["Muscle", "Muscle Percent"]], [CommunityService.Mysticality, ["Mysticality", "Mysticality Percent"]], [CommunityService.Moxie, ["Moxie", "Moxie Percent"]], [CommunityService.FamiliarWeight, ["Familiar Weight"]], [CommunityService.WeaponDamage, ["Weapon Damage", "Weapon Damage Percent"]], [CommunityService.SpellDamage, ["Spell Damage", "Spell Damage Percent"]], [CommunityService.Noncombat, ["Combat Rate"]], [CommunityService.BoozeDrop, ["Item Drop", "Booze Drop"]], [CommunityService.HotRes, ["Hot Resistance"]], [CommunityService.CoilWire, []]]);
 function checkGithubVersion() {
-  var _releaseBranch$commit;
+  try {
+    var _releaseBranch$commit;
 
-  var gitBranches = JSON.parse((0,external_kolmafia_namespaceObject.visitUrl)("https://api.github.com/repos/Pantocyclus/InstantSCCS/branches"));
-  var releaseBranch = gitBranches.find(branchInfo => branchInfo.name === "release");
-  var releaseSHA = (_releaseBranch$commit = releaseBranch === null || releaseBranch === void 0 ? void 0 : releaseBranch.commit.sha) !== null && _releaseBranch$commit !== void 0 ? _releaseBranch$commit : "Not Found";
-  var localBranch = (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release");
-  var localSHA = localBranch.commit;
+    var gitBranches = JSON.parse((0,external_kolmafia_namespaceObject.visitUrl)("https://api.github.com/repos/Pantocyclus/InstantSCCS/branches"));
+    var releaseBranch = gitBranches.find(branchInfo => branchInfo.name === "release");
+    var releaseSHA = (_releaseBranch$commit = releaseBranch === null || releaseBranch === void 0 ? void 0 : releaseBranch.commit.sha) !== null && _releaseBranch$commit !== void 0 ? _releaseBranch$commit : "Not Found";
+    var localBranch = (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release");
+    var localSHA = localBranch.commit;
 
-  if (releaseSHA === localSHA) {
-    (0,external_kolmafia_namespaceObject.print)("InstantSCCS is up to date!", "green");
-  } else {
-    (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date - your version was last updated on ".concat(localBranch.last_changed_date, "."), "red");
-    (0,external_kolmafia_namespaceObject.print)("Please run 'git update'!", "red");
-    (0,external_kolmafia_namespaceObject.print)("Local Version: ".concat(localSHA, "."));
-    (0,external_kolmafia_namespaceObject.print)("Release Version: ".concat(releaseSHA));
+    if (releaseSHA === localSHA) {
+      (0,external_kolmafia_namespaceObject.print)("InstantSCCS is up to date!", "green");
+    } else {
+      (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date - your version was last updated on ".concat(localBranch.last_changed_date, "."), "red");
+      (0,external_kolmafia_namespaceObject.print)("Please run 'git update'!", "red");
+      (0,external_kolmafia_namespaceObject.print)("Local Version: ".concat(localSHA, "."));
+      (0,external_kolmafia_namespaceObject.print)("Release Version: ".concat(releaseSHA));
+    }
+  } catch (e) {
+    (0,external_kolmafia_namespaceObject.print)("Failed to fetch GitHub data", "red");
   }
 }
 function simpleDateDiff(t1, t2) {
