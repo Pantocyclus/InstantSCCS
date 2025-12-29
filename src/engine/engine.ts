@@ -277,6 +277,7 @@ export class Engine extends BaseEngine {
       shadowLabyrinthGoal: "effects",
       choiceAdventureScript: "instantsccs_choice.ash",
       requireBoxServants: false,
+      lastChanceBurn: "",
     });
   }
 }
