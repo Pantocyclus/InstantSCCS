@@ -1,5 +1,6 @@
 import {
   cliExecute,
+  cliExecuteOutput,
   myAdventures,
   myAscensions,
   nowToString,
@@ -45,6 +46,10 @@ export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS scri
     help: "Check which resources you have current set to be saved.",
     setting: "",
   }),
+  logprefs: Args.flag({
+    help: "Set to true to write all existing preferences with the 'instant_' suffix to log",
+    setting: "instant_logprefs",
+  }),
 });
 
 export function main(command?: string): void {
@@ -64,10 +69,19 @@ export function main(command?: string): void {
     checkResources();
     return;
   }
-
   if (runComplete()) {
     print("Community Service complete!", "purple");
     return;
+  }
+
+  if (args.logprefs) {
+    const prefs = cliExecuteOutput("prefref instant_").match(
+      RegExp(/(<tr><td><p>)(.*?)(<\/p><\/td><td><p>)(.*?)(<\/p>)/g),
+    );
+    print("");
+    print(`--- Existing 'instant' preferences ---`, "blue");
+    prefs?.forEach((s) => print(s.replace("</p>", " = ").replace(RegExp(/(<)(.*?)(>)/g), "")));
+    print("");
   }
 
   const setTimeNow = get(timeProperty, -1) === -1;
