@@ -191,3 +191,9 @@ Note that the script<br/>
 - throws an error if it fails to acquire the specified busk at the specified cast<br/>
 
 <sub><sup>Do consider using [this](https://beret.loathers.net/) to help you plan out the busks you need.</sup></sub><br/>
+
+### Some users have experienced having all their preferences wiped when KoLMafia inadvertently crashes. What is the best way to back up my long list of customized InstantSCCS preferences?
+
+KoLMafia periodically creates a backup of your existing preferences in a `.bak` file, which you may simply rename the extension to `.txt` to restore your preferences to the latest snapshot it has taken.<br/>
+
+However, the above may not work in cases where KoLMafia replaces the backup with a snapshot of your corrupted preferences before you could realise that they have been wiped. As an additional measure, you may `set instant_logprefs=true` to enable writing your customized InstantSCCS preferences to your session logs, which should greatly aid in recovering your lost preferences should your `.bak` file be unusable.

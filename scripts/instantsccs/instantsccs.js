@@ -24059,6 +24059,10 @@ var args = Args.create("InstantSCCS", "An automated low-shiny SCCS script.", {
   savedresources: Args.flag({
     help: "Check which resources you have current set to be saved.",
     setting: ""
+  }),
+  logprefs: Args.flag({
+    help: "Set to true to write all existing preferences with the 'instant_' suffix to log",
+    setting: "instant_logprefs"
   })
 });
 function main_main(command) {
@@ -24084,6 +24088,14 @@ function main_main(command) {
   if (runComplete()) {
     (0,external_kolmafia_namespaceObject.print)("Community Service complete!", "purple");
     return;
+  }
+
+  if (args.logprefs) {
+    var prefs = (0,external_kolmafia_namespaceObject.cliExecuteOutput)("prefref instant_").match(RegExp(/(<tr><td><p>)(.*?)(<\/p><\/td><td><p>)(.*?)(<\/p>)/g));
+    (0,external_kolmafia_namespaceObject.print)("");
+    (0,external_kolmafia_namespaceObject.print)("--- Existing 'instant' preferences ---", "blue");
+    prefs === null || prefs === void 0 ? void 0 : prefs.forEach(s => (0,external_kolmafia_namespaceObject.print)(s.replace("</p>", " = ").replace(RegExp(/(<)(.*?)(>)/g), "")));
+    (0,external_kolmafia_namespaceObject.print)("");
   }
 
   var setTimeNow = property_get(timeProperty, -1) === -1;
