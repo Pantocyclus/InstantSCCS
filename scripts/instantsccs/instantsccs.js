@@ -10450,6 +10450,8 @@ var motherSlimeClan = Clan.getWhitelisted().find(c => c.name.toLowerCase() === p
 var useParkaSpit = property_get("instant_prioritizeParkaSpit", false) || lib_have(template_string_$item(lib_templateObject || (lib_templateObject = lib_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) && lib_have(template_string_$skill(lib_templateObject2 || (lib_templateObject2 = lib_taggedTemplateLiteral(["Feel Envy"]))));
 var useCenser = lib_have(template_string_$item(lib_templateObject3 || (lib_templateObject3 = lib_taggedTemplateLiteral(["Sept-Ember Censer"])))) && !property_get("instant_saveEmbers", false);
 var testModifiers = new Map([[CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]], [CommunityService.Muscle, ["Muscle", "Muscle Percent"]], [CommunityService.Mysticality, ["Mysticality", "Mysticality Percent"]], [CommunityService.Moxie, ["Moxie", "Moxie Percent"]], [CommunityService.FamiliarWeight, ["Familiar Weight"]], [CommunityService.WeaponDamage, ["Weapon Damage", "Weapon Damage Percent"]], [CommunityService.SpellDamage, ["Spell Damage", "Spell Damage Percent"]], [CommunityService.Noncombat, ["Combat Rate"]], [CommunityService.BoozeDrop, ["Item Drop", "Booze Drop"]], [CommunityService.HotRes, ["Hot Resistance"]], [CommunityService.CoilWire, []]]);
+var testAbbreviations = new Map([[CommunityService.HP, "hp"], [CommunityService.Muscle, "mus"], [CommunityService.Mysticality, "myst"], [CommunityService.Moxie, "mox"], [CommunityService.FamiliarWeight, "fam"], [CommunityService.WeaponDamage, "weapon"], [CommunityService.SpellDamage, "spell"], [CommunityService.Noncombat, "com"], [CommunityService.BoozeDrop, "booze"], [CommunityService.HotRes, "hot"], [CommunityService.CoilWire, "coil"]]);
+var testLimits = new Map([[CommunityService.HP, 1], [CommunityService.Muscle, 2], [CommunityService.Mysticality, 1], [CommunityService.Moxie, 5], [CommunityService.FamiliarWeight, 50], [CommunityService.WeaponDamage, 35], [CommunityService.SpellDamage, 55], [CommunityService.Noncombat, 12], [CommunityService.BoozeDrop, 30], [CommunityService.HotRes, 35], [CommunityService.CoilWire, 60]]);
 function checkGithubVersion() {
   try {
     var _releaseBranch$commit;
@@ -10511,6 +10513,30 @@ function logTestSetup(whichTest) {
   logRelevantStats(whichTest);
   (0,external_kolmafia_namespaceObject.print)("".concat(whichTest.statName, " ").concat(whichTest !== CommunityService.CoilWire ? "Test" : "", " takes ").concat(testTurns, " adventure").concat(testTurns === 1 ? "" : "s", " (predicted: ").concat(whichTest.prediction, ")."), "blue");
   _set("_CSTest".concat(whichTest.id), testTurns + (lib_have(template_string_$effect(lib_templateObject5 || (lib_templateObject5 = lib_taggedTemplateLiteral(["Simmering"])))) && !lib_have(template_string_$item(lib_templateObject6 || (lib_templateObject6 = lib_taggedTemplateLiteral(["April Shower Thoughts shield"])))) ? 1 : 0));
+}
+
+function runTest(csTest) {
+  var _testAbbreviations$ge, _testLimits$get;
+
+  var csTestLimitPref = (_testAbbreviations$ge = testAbbreviations.get(csTest)) !== null && _testAbbreviations$ge !== void 0 ? _testAbbreviations$ge : "";
+  var csTestDefaultLimit = (_testLimits$get = testLimits.get(csTest)) !== null && _testLimits$get !== void 0 ? _testLimits$get : 60;
+  var maxTurns = property_get("instant_".concat(csTestLimitPref, "TestTurnLimit"), csTestDefaultLimit);
+  var testTurns = csTest.actualCost();
+
+  if (testTurns > maxTurns) {
+    (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
+    (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
+    (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
+    (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set ".concat(csTestLimitPref, "=<new limit>'"), "red");
+  }
+
+  var result = withProperty("_mummeryMods", "", () => csTest.run(() => logTestSetup(csTest), maxTurns));
+
+  if (result.includes("completed") && !property_get("csServicesPerformed").includes(csTest.name)) {
+    (0,external_kolmafia_namespaceObject.print)("Detected that ".concat(csTest.name, " was incorrectly marked as incomplete!"), "red");
+    (0,external_kolmafia_namespaceObject.print)("Setting ".concat(csTest.name, " as completed!"), "blue");
+    _set("csServicesPerformed", property_get("csServicesPerformed").split(",").concat(csTest.name).join(","));
+  }
 }
 var mainStat = (0,external_kolmafia_namespaceObject.myPrimestat)();
 var mainStatStr = mainStat.toString();
@@ -16635,19 +16661,7 @@ var HPQuest = {
       handleCustomPulls("instant_hpTestPulls", hpTestMaximizerString);
       handleCustomBusks("instant_hpTestBusks");
     },
-    do: () => {
-      var maxTurns = property_get("instant_hpTestTurnLimit", 1);
-      var testTurns = CommunityService.HP.actualCost();
-
-      if (testTurns > maxTurns) {
-        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
-        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-        (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_hpTestTurnLimit=<new limit>'", "red");
-      }
-
-      CommunityService.HP.run(() => logTestSetup(CommunityService.HP), maxTurns);
-    },
+    do: () => runTest(CommunityService.HP),
     outfit: {
       modifier: hpTestMaximizerString
     },
@@ -16673,19 +16687,7 @@ var MuscleQuest = {
       handleCustomPulls("instant_musTestPulls", musTestMaximizerString);
       handleCustomBusks("instant_musTestBusks");
     },
-    do: () => {
-      var maxTurns = property_get("instant_musTestTurnLimit", 2);
-      var testTurns = CommunityService.Muscle.actualCost();
-
-      if (testTurns > maxTurns) {
-        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
-        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-        (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_musTestTurnLimit=<new limit>'", "red");
-      }
-
-      CommunityService.Muscle.run(() => logTestSetup(CommunityService.Muscle), maxTurns);
-    },
+    do: () => runTest(CommunityService.Muscle),
     outfit: {
       modifier: musTestMaximizerString
     },
@@ -16714,19 +16716,7 @@ var MysticalityQuest = {
       handleCustomPulls("instant_mystTestPulls", mystTestMaximizerString);
       handleCustomBusks("instant_mystTestBusks");
     },
-    do: () => {
-      var maxTurns = property_get("instant_mystTestTurnLimit", 1);
-      var testTurns = CommunityService.Mysticality.actualCost();
-
-      if (testTurns > maxTurns) {
-        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
-        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-        (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_mystTestTurnLimit=<new limit>'", "red");
-      }
-
-      CommunityService.Mysticality.run(() => logTestSetup(CommunityService.Mysticality), maxTurns);
-    },
+    do: () => runTest(CommunityService.Mysticality),
     outfit: {
       modifier: mystTestMaximizerString
     },
@@ -16767,19 +16757,7 @@ var MoxieQuest = {
       if (lib_have(template_string_$skill(stat_templateObject86 || (stat_templateObject86 = stat_taggedTemplateLiteral(["Acquire Rhinestones"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(stat_templateObject87 || (stat_templateObject87 = stat_taggedTemplateLiteral(["Acquire Rhinestones"]))));
       if (lib_have(template_string_$item(stat_templateObject88 || (stat_templateObject88 = stat_taggedTemplateLiteral(["rhinestone"]))))) (0,external_kolmafia_namespaceObject.use)(template_string_$item(stat_templateObject89 || (stat_templateObject89 = stat_taggedTemplateLiteral(["rhinestone"]))), (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(stat_templateObject90 || (stat_templateObject90 = stat_taggedTemplateLiteral(["rhinestone"])))));
     },
-    do: () => {
-      var maxTurns = property_get("instant_moxTestTurnLimit", 5);
-      var testTurns = CommunityService.Moxie.actualCost();
-
-      if (testTurns > maxTurns) {
-        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
-        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-        (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_moxTestTurnLimit=<new limit>'", "red");
-      }
-
-      CommunityService.Moxie.run(() => logTestSetup(CommunityService.Moxie), maxTurns);
-    },
+    do: () => runTest(CommunityService.Moxie),
     outfit: {
       modifier: moxTestMaximizerString
     },
@@ -19732,7 +19710,7 @@ var CoilWireQuest = {
   tasks: [{
     name: "Test",
     completed: () => CommunityService.CoilWire.isDone(),
-    do: () => CommunityService.CoilWire.run(() => logTestSetup(CommunityService.CoilWire)),
+    do: () => runTest(CommunityService.CoilWire),
     limit: {
       tries: 1
     }
@@ -21657,19 +21635,7 @@ var FamiliarWeightQuest = {
         tryAcquiringEffect(template_string_$effect(familiarweight_templateObject65 || (familiarweight_templateObject65 = familiarweight_taggedTemplateLiteral(["Offhand Remarkable"]))));
       }
     },
-    do: () => {
-      var maxTurns = property_get("instant_famTestTurnLimit", 50);
-      var testTurns = CommunityService.FamiliarWeight.actualCost();
-
-      if (testTurns > maxTurns) {
-        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
-        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-        (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_famTestTurnLimit=<new limit>'", "red");
-      }
-
-      CommunityService.FamiliarWeight.run(() => logTestSetup(CommunityService.FamiliarWeight), maxTurns);
-    },
+    do: () => runTest(CommunityService.FamiliarWeight),
     outfit: () => ({
       modifier: famTestMaximizerString,
       familiar: chooseHeaviestEquippedFamiliar($familiars(familiarweight_templateObject66 || (familiarweight_templateObject66 = familiarweight_taggedTemplateLiteral([""]))).filter(f => f !== template_string_$familiar(familiarweight_templateObject67 || (familiarweight_templateObject67 = familiarweight_taggedTemplateLiteral(["Homemade Robot"]))))).familiar
@@ -21771,19 +21737,7 @@ var NoncombatQuest = {
 
       if (CommunityService.Noncombat.actualCost() >= 7) wishFor(template_string_$effect(noncombat_templateObject41 || (noncombat_templateObject41 = noncombat_taggedTemplateLiteral(["Disquiet Riot"]))));
     },
-    do: () => {
-      var maxTurns = property_get("instant_comTestTurnLimit", 12);
-      var testTurns = CommunityService.Noncombat.actualCost();
-
-      if (testTurns > maxTurns) {
-        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
-        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-        (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_comTestTurnLimit=<new limit>'", "red");
-      }
-
-      CommunityService.Noncombat.run(() => logTestSetup(CommunityService.Noncombat), maxTurns);
-    },
+    do: () => runTest(CommunityService.Noncombat),
     outfit: {
       familiar: lib_have(template_string_$familiar(noncombat_templateObject42 || (noncombat_templateObject42 = noncombat_taggedTemplateLiteral(["Peace Turkey"])))) ? template_string_$familiar(noncombat_templateObject43 || (noncombat_templateObject43 = noncombat_taggedTemplateLiteral(["Peace Turkey"]))) : template_string_$familiar(noncombat_templateObject44 || (noncombat_templateObject44 = noncombat_taggedTemplateLiteral(["Disgeist"]))),
       modifier: comTestMaximizerString
@@ -22098,20 +22052,7 @@ var BoozeDropQuest = {
       if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor(template_string_$effect(boozedrop_templateObject143 || (boozedrop_templateObject143 = boozedrop_taggedTemplateLiteral(["Infernal Thirst"]))));
     },
     completed: () => CommunityService.BoozeDrop.isDone(),
-    do: () => {
-      var maxTurns = property_get("instant_boozeTestTurnLimit", 30);
-      var testTurns = CommunityService.BoozeDrop.actualCost();
-
-      if (testTurns > maxTurns) {
-        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
-        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-        (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_boozeTestTurnLimit=<new limit>'", "red");
-      } // Temporary fix till CommunityService and MummingTrunk gets fixed in Libram
-
-
-      withProperty("_mummeryMods", "", () => CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns));
-    },
+    do: () => runTest(CommunityService.BoozeDrop),
     outfit: {
       modifier: boozeTestMaximizerString
     },
@@ -22275,19 +22216,7 @@ var HotResQuest = {
       }
     },
     completed: () => CommunityService.HotRes.isDone(),
-    do: () => {
-      var maxTurns = property_get("instant_hotTestTurnLimit", 35);
-      var testTurns = CommunityService.HotRes.actualCost();
-
-      if (testTurns > maxTurns) {
-        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
-        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-        (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_hotTestTurnLimit=<new limit>'", "red");
-      }
-
-      CommunityService.HotRes.run(() => logTestSetup(CommunityService.HotRes), maxTurns);
-    },
+    do: () => runTest(CommunityService.HotRes),
     outfit: {
       modifier: hotTestMaximizerString,
       familiar: template_string_$familiar(hotres_templateObject94 || (hotres_templateObject94 = hotres_taggedTemplateLiteral(["Exotic Parrot"])))
@@ -22592,19 +22521,7 @@ var WeaponDamageQuest = {
       }
     },
     completed: () => CommunityService.WeaponDamage.isDone(),
-    do: () => {
-      var maxTurns = property_get("instant_wpnTestTurnLimit", 35);
-      var testTurns = CommunityService.WeaponDamage.actualCost();
-
-      if (testTurns > maxTurns) {
-        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
-        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-        (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_wpnTestTurnLimit=<new limit>'", "red");
-      }
-
-      CommunityService.WeaponDamage.run(() => logTestSetup(CommunityService.WeaponDamage), maxTurns);
-    },
+    do: () => runTest(CommunityService.WeaponDamage),
     outfit: {
       modifier: wpnTestMaximizerString
     },
@@ -22934,19 +22851,7 @@ var SpellDamageQuest = {
       }
     },
     completed: () => CommunityService.SpellDamage.isDone(),
-    do: () => {
-      var maxTurns = property_get("instant_spellTestTurnLimit", 55);
-      var testTurns = CommunityService.SpellDamage.actualCost();
-
-      if (testTurns > maxTurns) {
-        (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
-        (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-        (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_spellTestTurnLimit=<new limit>'", "red");
-      }
-
-      CommunityService.SpellDamage.run(() => logTestSetup(CommunityService.SpellDamage), maxTurns);
-    },
+    do: () => runTest(CommunityService.SpellDamage),
     outfit: {
       modifier: spellTestMaximizerString
     },
