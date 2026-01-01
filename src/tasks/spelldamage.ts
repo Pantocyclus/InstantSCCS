@@ -21,7 +21,6 @@ import {
   myThrall,
   numericModifier,
   outfit,
-  print,
   restoreHp,
   retrieveItem,
   useSkill,
@@ -53,8 +52,8 @@ import {
   attemptRestoringMpWithFreeRests,
   handleCustomBusks,
   handleCustomPulls,
-  logTestSetup,
   motherSlimeClan,
+  runTest,
   startingClan,
   tryAcquiringEffect,
   tryAcquiringEffects,
@@ -317,23 +316,7 @@ export const SpellDamageQuest: Quest = {
         }
       },
       completed: () => CommunityService.SpellDamage.isDone(),
-      do: (): void => {
-        const maxTurns = get("instant_spellTestTurnLimit", 55);
-        const testTurns = CommunityService.SpellDamage.actualCost();
-        if (testTurns > maxTurns) {
-          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
-          print("Either there was a bug, or you are under-prepared for this test", "red");
-          print("Manually complete the test if you think this is fine.", "red");
-          print(
-            "You may also increase the turn limit by typing 'set instant_spellTestTurnLimit=<new limit>'",
-            "red",
-          );
-        }
-        CommunityService.SpellDamage.run(
-          () => logTestSetup(CommunityService.SpellDamage),
-          maxTurns,
-        );
-      },
+      do: (): void => runTest(CommunityService.SpellDamage),
       outfit: { modifier: spellTestMaximizerString },
       post: (): void => {
         if (have($skill`Spirit of Nothing`)) useSkill($skill`Spirit of Nothing`);

@@ -1,6 +1,6 @@
 import { Quest } from "../engine/task";
 import { CommunityService } from "libram";
-import { logTestSetup } from "../lib";
+import { runTest } from "../lib";
 
 export const CoilWireQuest: Quest = {
   name: "Coil Wire",
@@ -9,7 +9,7 @@ export const CoilWireQuest: Quest = {
     {
       name: "Test",
       completed: () => CommunityService.CoilWire.isDone(),
-      do: () => CommunityService.CoilWire.run(() => logTestSetup(CommunityService.CoilWire)),
+      do: (): void => runTest(CommunityService.CoilWire),
       limit: { tries: 1 },
     },
   ],

@@ -1,4 +1,4 @@
-import { buy, create, Effect, itemAmount, print, Stat, use, useSkill } from "kolmafia";
+import { buy, create, Effect, itemAmount, Stat, use, useSkill } from "kolmafia";
 import {
   $coinmaster,
   $effect,
@@ -20,10 +20,10 @@ import {
   acquiredOrExcluded,
   handleCustomBusks,
   handleCustomPulls,
-  logTestSetup,
   mainStat,
   reagentBalancerEffect,
   reagentBalancerItem,
+  runTest,
   tryAcquiringEffects,
   useCenser,
 } from "../lib";
@@ -87,20 +87,7 @@ export const HPQuest: Quest = {
         handleCustomPulls("instant_hpTestPulls", hpTestMaximizerString);
         handleCustomBusks("instant_hpTestBusks");
       },
-      do: (): void => {
-        const maxTurns = get("instant_hpTestTurnLimit", 1);
-        const testTurns = CommunityService.HP.actualCost();
-        if (testTurns > maxTurns) {
-          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
-          print("Either there was a bug, or you are under-prepared for this test", "red");
-          print("Manually complete the test if you think this is fine.", "red");
-          print(
-            "You may also increase the turn limit by typing 'set instant_hpTestTurnLimit=<new limit>'",
-            "red",
-          );
-        }
-        CommunityService.HP.run(() => logTestSetup(CommunityService.HP), maxTurns);
-      },
+      do: (): void => runTest(CommunityService.HP),
       outfit: { modifier: hpTestMaximizerString },
       limit: { tries: 1 },
     },
@@ -144,20 +131,7 @@ export const MuscleQuest: Quest = {
         handleCustomPulls("instant_musTestPulls", musTestMaximizerString);
         handleCustomBusks("instant_musTestBusks");
       },
-      do: (): void => {
-        const maxTurns = get("instant_musTestTurnLimit", 2);
-        const testTurns = CommunityService.Muscle.actualCost();
-        if (testTurns > maxTurns) {
-          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
-          print("Either there was a bug, or you are under-prepared for this test", "red");
-          print("Manually complete the test if you think this is fine.", "red");
-          print(
-            "You may also increase the turn limit by typing 'set instant_musTestTurnLimit=<new limit>'",
-            "red",
-          );
-        }
-        CommunityService.Muscle.run(() => logTestSetup(CommunityService.Muscle), maxTurns);
-      },
+      do: (): void => runTest(CommunityService.Muscle),
       outfit: { modifier: musTestMaximizerString },
       post: (): void => {
         uneffect($effect`Power Ballad of the Arrowsmith`);
@@ -203,23 +177,7 @@ export const MysticalityQuest: Quest = {
         handleCustomPulls("instant_mystTestPulls", mystTestMaximizerString);
         handleCustomBusks("instant_mystTestBusks");
       },
-      do: (): void => {
-        const maxTurns = get("instant_mystTestTurnLimit", 1);
-        const testTurns = CommunityService.Mysticality.actualCost();
-        if (testTurns > maxTurns) {
-          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
-          print("Either there was a bug, or you are under-prepared for this test", "red");
-          print("Manually complete the test if you think this is fine.", "red");
-          print(
-            "You may also increase the turn limit by typing 'set instant_mystTestTurnLimit=<new limit>'",
-            "red",
-          );
-        }
-        CommunityService.Mysticality.run(
-          () => logTestSetup(CommunityService.Mysticality),
-          maxTurns,
-        );
-      },
+      do: (): void => runTest(CommunityService.Mysticality),
       outfit: { modifier: mystTestMaximizerString },
       post: (): void => {
         uneffect($effect`The Magical Mojomuscular Melody`);
@@ -281,20 +239,7 @@ export const MoxieQuest: Quest = {
         if (have($skill`Acquire Rhinestones`)) useSkill($skill`Acquire Rhinestones`);
         if (have($item`rhinestone`)) use($item`rhinestone`, itemAmount($item`rhinestone`));
       },
-      do: (): void => {
-        const maxTurns = get("instant_moxTestTurnLimit", 5);
-        const testTurns = CommunityService.Moxie.actualCost();
-        if (testTurns > maxTurns) {
-          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
-          print("Either there was a bug, or you are under-prepared for this test", "red");
-          print("Manually complete the test if you think this is fine.", "red");
-          print(
-            "You may also increase the turn limit by typing 'set instant_moxTestTurnLimit=<new limit>'",
-            "red",
-          );
-        }
-        CommunityService.Moxie.run(() => logTestSetup(CommunityService.Moxie), maxTurns);
-      },
+      do: (): void => runTest(CommunityService.Moxie),
       outfit: { modifier: moxTestMaximizerString },
       limit: { tries: 1 },
     },

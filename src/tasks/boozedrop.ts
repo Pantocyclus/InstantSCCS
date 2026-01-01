@@ -50,7 +50,6 @@ import {
   uneffect,
   unequip,
   withChoice,
-  withProperty,
 } from "libram";
 import {
   canConfigure,
@@ -64,7 +63,7 @@ import {
   handleCustomBusks,
   handleCustomPulls,
   haveAndNotExcluded,
-  logTestSetup,
+  runTest,
   tryAcquiringEffects,
   tryAcquiringOdeToBooze,
   wishFor,
@@ -464,23 +463,7 @@ export const BoozeDropQuest: Quest = {
         if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect`Infernal Thirst`);
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
-      do: (): void => {
-        const maxTurns = get("instant_boozeTestTurnLimit", 30);
-        const testTurns = CommunityService.BoozeDrop.actualCost();
-        if (testTurns > maxTurns) {
-          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
-          print("Either there was a bug, or you are under-prepared for this test", "red");
-          print("Manually complete the test if you think this is fine.", "red");
-          print(
-            "You may also increase the turn limit by typing 'set instant_boozeTestTurnLimit=<new limit>'",
-            "red",
-          );
-        }
-        // Temporary fix till CommunityService and MummingTrunk gets fixed in Libram
-        withProperty("_mummeryMods", "", () =>
-          CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns),
-        );
-      },
+      do: (): void => runTest(CommunityService.BoozeDrop),
       outfit: {
         modifier: boozeTestMaximizerString,
       },

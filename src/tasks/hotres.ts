@@ -9,7 +9,6 @@ import {
   inebrietyLimit,
   itemAmount,
   myInebriety,
-  print,
   use,
   useFamiliar,
   useSkill,
@@ -35,7 +34,7 @@ import {
   handleCustomBusks,
   handleCustomPulls,
   haveAndNotExcluded,
-  logTestSetup,
+  runTest,
   tryAcquiringEffect,
   tryAcquiringEffects,
   tryAcquiringOdeToBooze,
@@ -268,20 +267,7 @@ export const HotResQuest: Quest = {
         }
       },
       completed: () => CommunityService.HotRes.isDone(),
-      do: (): void => {
-        const maxTurns = get("instant_hotTestTurnLimit", 35);
-        const testTurns = CommunityService.HotRes.actualCost();
-        if (testTurns > maxTurns) {
-          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
-          print("Either there was a bug, or you are under-prepared for this test", "red");
-          print("Manually complete the test if you think this is fine.", "red");
-          print(
-            "You may also increase the turn limit by typing 'set instant_hotTestTurnLimit=<new limit>'",
-            "red",
-          );
-        }
-        CommunityService.HotRes.run(() => logTestSetup(CommunityService.HotRes), maxTurns);
-      },
+      do: (): void => runTest(CommunityService.HotRes),
       outfit: {
         modifier: hotTestMaximizerString,
         familiar: $familiar`Exotic Parrot`,

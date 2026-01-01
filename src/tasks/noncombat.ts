@@ -7,7 +7,6 @@ import {
   equippedItem,
   getCampground,
   numericModifier,
-  print,
   runChoice,
   use,
   useSkill,
@@ -28,7 +27,7 @@ import {
   acquiredOrExcluded,
   handleCustomBusks,
   handleCustomPulls,
-  logTestSetup,
+  runTest,
   tryAcquiringEffect,
   tryAcquiringEffects,
   wishFor,
@@ -158,20 +157,7 @@ export const NoncombatQuest: Quest = {
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.Noncombat.actualCost() >= 7) wishFor($effect`Disquiet Riot`);
       },
-      do: (): void => {
-        const maxTurns = get("instant_comTestTurnLimit", 12);
-        const testTurns = CommunityService.Noncombat.actualCost();
-        if (testTurns > maxTurns) {
-          print(`Expected to take ${testTurns}, which is more than ${maxTurns}.`, "red");
-          print("Either there was a bug, or you are under-prepared for this test", "red");
-          print("Manually complete the test if you think this is fine.", "red");
-          print(
-            "You may also increase the turn limit by typing 'set instant_comTestTurnLimit=<new limit>'",
-            "red",
-          );
-        }
-        CommunityService.Noncombat.run(() => logTestSetup(CommunityService.Noncombat), maxTurns);
-      },
+      do: (): void => runTest(CommunityService.Noncombat),
       outfit: {
         familiar: have($familiar`Peace Turkey`) ? $familiar`Peace Turkey` : $familiar`Disgeist`,
         modifier: comTestMaximizerString,
