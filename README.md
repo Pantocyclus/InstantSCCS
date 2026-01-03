@@ -45,7 +45,8 @@ Because we rely heavily on the [cookbookbat](https://wiki.kingdomofloathing.com/
 
 ### Recommended IotMs
 
-IotMs are incredibly expensive, and they tend to increase in price the longer they have existed due to the artificial supply limit. Unfortunately, they are incredibly powerful too, and so we will need to rely on them to enable a 1-day SCCS. There is a hard requirement on the [Clan VIP Lounge key](https://wiki.kingdomofloathing.com/Clan_VIP_Lounge_key), as it is one of the few "IotMs" that are recurring (and thus are not gated by the same artificial supply limit as mentioned above), and it provides access to >= 30 Mr. A's-worth of IotMs. <br />
+IotMs are incredibly expensive, and they tend to increase in price the longer they have existed due to the artificial supply limit. Unfortunately, they are incredibly powerful too, and so we will need to rely on them to enable a 1-day SCCS. There is a hard requirement on the [Clan VIP Lounge key](https://wiki.kingdomofloathing.com/Clan_VIP_Lounge_key), as it is one of the few "IotMs" that are recurring (and thus are not gated by the same artificial supply limit as mentioned above), and it provides access to >= 30 Mr. A's-worth of IotMs.<br/>
+
 One of the hardest tasks in CS is leveling, due to the limited resources we have access to to optimise for the stat tests (HP, Mus, Myst, Mox). The other required IotMs thus have to provide incredible statgain and/or turngen/turnsave potential. The original routing was built around the following 6 other IotMs.<br/>
 
 | IotM                                                                                    | Use         |
@@ -60,7 +61,7 @@ One of the hardest tasks in CS is leveling, due to the limited resources we have
 
 <sub><sup>As of January 2026, many more IotMs have been introduced that, when paired suitably with other items and skills, could potentially enable alternate routes that work without the IotMs listed above (e.g. the current leveling meta is dominated by strats using multiple [mouthwashes](https://wiki.kingdomofloathing.com/Mmm-brr!_brand_mouthwash) from the [Sept-Ember Censer](https://wiki.kingdomofloathing.com/Sept-Ember_Censer), with the [McHugeLarge duffel bag](https://wiki.kingdomofloathing.com/McHugeLarge_duffel_bag) and [bembershoots](https://wiki.kingdomofloathing.com/Bembershoot) contributing significantly to the cold res required for powerleveling) </sup></sub><br/>
 
-<sub><sup>With the script supporting [a wide range of IotMs](https://github.com/Pantocyclus/InstantSCCS/blob/main/ITEMS.md), it is now a common occurence for the script to succeed in 1-day runs even without a majority of the IotMs listed above. However, it would be infeasible to list out all permutations of IotMs that enable alternative routes. Thusly, if the user intends to run the script without a majority of the IotMs above, it is highly recommended to stick to as many requirements (laid out in the following paragraph) as possible. </sup></sub><br/>
+<sub><sup>With the script supporting [a wide range of IotMs](https://github.com/Pantocyclus/InstantSCCS/blob/main/ITEMS.md), it is now a common occurence for the script to succeed in 1-day runs even without a majority of the IotMs listed above. However, it would be infeasible to list out all permutations of IotMs that enable alternative routes. Thusly, if the user intends to run the script without a majority of the IotMs above, it is highly recommended to stick to as many requirements (laid out in the preceding and following paragraphs) as possible. </sup></sub><br/>
 
 ### Basic Run Plan Requirements
 
