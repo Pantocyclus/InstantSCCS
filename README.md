@@ -43,10 +43,10 @@ Because we rely heavily on the [cookbookbat](https://wiki.kingdomofloathing.com/
 - [The Opossum](https://wiki.kingdomofloathing.com/The_Opossum)<br/>
 - [Softcore](https://wiki.kingdomofloathing.com/Ascension#Normal_Difficulty)<br/>
 
-### Required IotMs
+### Recommended IotMs
 
 IotMs are incredibly expensive, and they tend to increase in price the longer they have existed due to the artificial supply limit. Unfortunately, they are incredibly powerful too, and so we will need to rely on them to enable a 1-day SCCS. There is a hard requirement on the [Clan VIP Lounge key](https://wiki.kingdomofloathing.com/Clan_VIP_Lounge_key), as it is one of the few "IotMs" that are recurring (and thus are not gated by the same artificial supply limit as mentioned above), and it provides access to >= 30 Mr. A's-worth of IotMs. <br />
-One of the hardest tasks in CS is leveling, due to the limited resources we have access to to optimise for the stat tests (HP, Mus, Myst, Mox). The other required IotMs thus have to provide incredible statgain and/or turngen/turnsave potential. The current routing is built around the following 6 other IotMs.<br/>
+One of the hardest tasks in CS is leveling, due to the limited resources we have access to to optimise for the stat tests (HP, Mus, Myst, Mox). The other required IotMs thus have to provide incredible statgain and/or turngen/turnsave potential. The original routing was built around the following 6 other IotMs.<br/>
 
 | IotM                                                                                    | Use         |
 | --------------------------------------------------------------------------------------- | ----------- |
@@ -58,11 +58,13 @@ One of the hardest tasks in CS is leveling, due to the limited resources we have
 | [combat lover's locket](https://wiki.kingdomofloathing.com/Combat_lover%27s_locket)     | many things |
 | [closed-circuit pay phone](https://wiki.kingdomofloathing.com/Closed-circuit_pay_phone) | many things |
 
-<sub><sup>As of April 2023, the introduction of the [cursed monkey's paw](https://wiki.kingdomofloathing.com/Cursed_monkey%27s_paw) (which was released after this route was planned) could potentially wholly replace the cosmic bowling ball and unbreakable umbrella - the paw is currently supported but a minimal run with this has not been tested, so this remains a (highly likely) hypothetical. </sup></sub><br/>
+<sub><sup>As of January 2026, many more IotMs have been introduced that, when paired suitably with other items and skills, could potentially enable alternate routes that work without the IotMs listed above (e.g. the current leveling meta is dominated by strats using multiple [mouthwashes](https://wiki.kingdomofloathing.com/Mmm-brr!_brand_mouthwash) from the [Sept-Ember Censer](https://wiki.kingdomofloathing.com/Sept-Ember_Censer), with the [McHugeLarge duffel bag](https://wiki.kingdomofloathing.com/McHugeLarge_duffel_bag) and [bembershoots](https://wiki.kingdomofloathing.com/Bembershoot) contributing significantly to the cold res required for powerleveling) </sup></sub><br/>
 
-### Absolutely Non-Negotiable Requirements
+<sub><sup>With the script supporting [a wide range of IotMs](https://github.com/Pantocyclus/InstantSCCS/blob/main/ITEMS.md), it is now a common occurence for the script to succeed in 1-day runs even without a majority of the IotMs listed above. However, it would be infeasible to list out all permutations of IotMs that enable alternative routes. Thusly, if the user intends to run the script without a majority of the IotMs above, it is highly recommended to stick to as many requirements (laid out in the following paragraph) as possible. </sup></sub><br/>
 
-Following the routing laid out in the Basic Run Plan, this script will almost definitely fail if you do not meet all of the following requirements:<br/>
+### Basic Run Plan Requirements
+
+Following the routing laid out in the Basic Run Plan, this script may not successfully complete a one-day run if you do not meet all of the following requirements (and lack suitable/sufficient alternative IotMs and skills):<br/>
 
 - [Ascend](https://wiki.kingdomofloathing.com/Ascend) as a [Sauceror](https://wiki.kingdomofloathing.com/Sauceror) into [softcore](https://wiki.kingdomofloathing.com/Ascension#Normal_Difficulty) [Community Service](https://wiki.kingdomofloathing.com/Community_Service)<br/>
 - Own a [Clan VIP Lounge key](https://wiki.kingdomofloathing.com/Clan_VIP_Lounge_key), [model train set](https://wiki.kingdomofloathing.com/Model_train_set), [cosmic bowling ball](https://wiki.kingdomofloathing.com/Cosmic_bowling_ball) and [cookbookbat](https://wiki.kingdomofloathing.com/Cookbookbat)<br/>
@@ -73,11 +75,13 @@ Following the routing laid out in the Basic Run Plan, this script will almost de
 - Have at least 10 ascensions<br/>
 - Know all of the following [cookbookbat](https://wiki.kingdomofloathing.com/Cookbookbat) recipes: [honey bun of Boris](https://wiki.kingdomofloathing.com/Recipe_of_Before_Yore:_honey_bun_of_Boris), [Pete's wiley whey bar](https://wiki.kingdomofloathing.com/Pete%27s_wiley_whey_bar), [Boris's bread](https://wiki.kingdomofloathing.com/Recipe_of_Before_Yore:_Boris%27s_bread), [roasted vegetable of Jarlsberg](https://wiki.kingdomofloathing.com/Recipe_of_Before_Yore:_roasted_vegetable_of_J.), [Pete's rich ricotta](https://wiki.kingdomofloathing.com/Recipe_of_Before_Yore:_Pete%27s_rich_ricotta), [plain calzone](https://wiki.kingdomofloathing.com/Recipe_of_Before_Yore:_plain_calzone) and [baked veggie ricotta](https://wiki.kingdomofloathing.com/Recipe_of_Before_Yore:_baked_veggie_ricotta).<br/>
 
-Run `instantsccs sim` to ensure you have all the necessary requirements before you ascend!<br/>
+Run `instantsccs sim` to ensure you have as many requirements as possible before you ascend!<br/>
 
 <sub><sup>Many recent updates in the later half of 2023, which includes support for various new IotMs, means that many of these are no longer hard requirements. However, the enabling features of these requirements are non-replaceable.<br/>
 For example, the [ice house](https://wiki.kingdomofloathing.com/Ice_house) may be replaced by owning a [Comprehensive Cartographic Compendium](https://wiki.kingdomofloathing.com/Comprehensive_Cartographic_Compendium) so that we are able to force a combat with the [novelty tropical skeleton](https://wiki.kingdomofloathing.com/Novelty_tropical_skeleton). If you have enough turnsaves from owning [various other supported IotMs](https://github.com/Pantocyclus/InstantSCCS/blob/main/ITEMS.md), you might also be able to completely skip owning a [cookbookbat](https://wiki.kingdomofloathing.com/Cookbookbat) and pulling/consuming any of its related foods.<br/>
 As stated in the [FAQ](https://github.com/Pantocyclus/InstantSCCS/?tab=readme-ov-file#faq), at the shiniest levels, this script supports running as a [hardcore](https://wiki.kingdomofloathing.com/Hardcore) (0 pulls) [seal clubber](https://wiki.kingdomofloathing.com/Seal_Clubber) (not sauceror), with a competitive turncount and organ usage (0 cookbookbat foods eaten and 0 VIP clan lounge drinks drunk) as compared to many other high-shiny scripts. </sup></sub><br/>
+
+<sub><sup>The [seadent](https://wiki.kingdomofloathing.com/Monodent_of_the_Sea), introduced in September 2025, provides a modern way to access to scaling monsters, and may be used as a subtitute for [the charters](https://wiki.kingdomofloathing.com/Elemental_International_Airport) or [NEP](https://wiki.kingdomofloathing.com/Neverending_Party_invitation_envelope) (the last of which was introduced in September 2018, a whole 7 years apart!).</sup></sub><br/>
 
 ### Basic Run Plan
 

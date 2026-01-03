@@ -95,8 +95,9 @@ function buildIotmList(): Requirement[] {
           get("hotAirportAlways") ||
           get("coldAirportAlways") ||
           get("sleazeAirportAlways") ||
-          get("neverendingPartyAlways"),
-        "Scaler Zone Access",
+          get("neverendingPartyAlways") ||
+          have($item`Monodent of the Sea`),
+        "Access to Scaling Monsters",
       ),
       why: "Scalers for leveling",
     },
@@ -119,6 +120,12 @@ function buildIotmList(): Requirement[] {
       thing: $skill`Just the Facts`,
       why: "More fights from locket, more wishes from rift",
       optional: true,
+    },
+    {
+      thing: $item`Sept-Ember Censer`,
+      why: "Alternative powerleveling method",
+      optional: true,
+      recommended: true,
     },
   ];
 }
@@ -667,7 +674,7 @@ export function checkRequirements(): void {
   // Print the count of missing things
   if (missing > 0) {
     print(
-      `You are missing ${missing} required things. This script will not yet work for you.`,
+      `You are missing ${missing} required things from the basic run plan. This script may not yet work for you.`,
       "red",
     );
     if (missing_optional > 0) print(`You are also missing ${missing_optional} optional things.`);
