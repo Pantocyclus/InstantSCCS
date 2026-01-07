@@ -1,4690 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ({
-
-/***/ 805:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-
-var __assign = this && this.__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
-};
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var named_references_1 = __webpack_require__(547);
-
-var numeric_unicode_map_1 = __webpack_require__(125);
-
-var surrogate_pairs_1 = __webpack_require__(663);
-
-var allNamedReferences = __assign(__assign({}, named_references_1.namedReferences), {
-  all: named_references_1.namedReferences.html5
-});
-
-function replaceUsingRegExp(macroText, macroRegExp, macroReplacer) {
-  macroRegExp.lastIndex = 0;
-  var replaceMatch = macroRegExp.exec(macroText);
-  var replaceResult;
-
-  if (replaceMatch) {
-    replaceResult = "";
-    var replaceLastIndex = 0;
-
-    do {
-      if (replaceLastIndex !== replaceMatch.index) {
-        replaceResult += macroText.substring(replaceLastIndex, replaceMatch.index);
-      }
-
-      var replaceInput = replaceMatch[0];
-      replaceResult += macroReplacer(replaceInput);
-      replaceLastIndex = replaceMatch.index + replaceInput.length;
-    } while (replaceMatch = macroRegExp.exec(macroText));
-
-    if (replaceLastIndex !== macroText.length) {
-      replaceResult += macroText.substring(replaceLastIndex);
-    }
-  } else {
-    replaceResult = macroText;
-  }
-
-  return replaceResult;
-}
-
-var encodeRegExps = {
-  specialChars: /[<>'"&]/g,
-  nonAscii: /[<>'"&\u0080-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/g,
-  nonAsciiPrintable: /[<>'"&\x01-\x08\x11-\x15\x17-\x1F\x7f-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/g,
-  nonAsciiPrintableOnly: /[\x01-\x08\x11-\x15\x17-\x1F\x7f-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/g,
-  extensive: /[\x01-\x0c\x0e-\x1f\x21-\x2c\x2e-\x2f\x3a-\x40\x5b-\x60\x7b-\x7d\x7f-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/g
-};
-var defaultEncodeOptions = {
-  mode: "specialChars",
-  level: "all",
-  numeric: "decimal"
-};
-
-function encode(text, _a) {
-  var _b = _a === void 0 ? defaultEncodeOptions : _a,
-      _c = _b.mode,
-      mode = _c === void 0 ? "specialChars" : _c,
-      _d = _b.numeric,
-      numeric = _d === void 0 ? "decimal" : _d,
-      _e = _b.level,
-      level = _e === void 0 ? "all" : _e;
-
-  if (!text) {
-    return "";
-  }
-
-  var encodeRegExp = encodeRegExps[mode];
-  var references = allNamedReferences[level].characters;
-  var isHex = numeric === "hexadecimal";
-  return replaceUsingRegExp(text, encodeRegExp, function (input) {
-    var result = references[input];
-
-    if (!result) {
-      var code = input.length > 1 ? surrogate_pairs_1.getCodePoint(input, 0) : input.charCodeAt(0);
-      result = (isHex ? "&#x" + code.toString(16) : "&#" + code) + ";";
-    }
-
-    return result;
-  });
-}
-
-exports.encode = encode;
-var defaultDecodeOptions = {
-  scope: "body",
-  level: "all"
-};
-var strict = /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);/g;
-var attribute = /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+)[;=]?/g;
-var baseDecodeRegExps = {
-  xml: {
-    strict: strict,
-    attribute: attribute,
-    body: named_references_1.bodyRegExps.xml
-  },
-  html4: {
-    strict: strict,
-    attribute: attribute,
-    body: named_references_1.bodyRegExps.html4
-  },
-  html5: {
-    strict: strict,
-    attribute: attribute,
-    body: named_references_1.bodyRegExps.html5
-  }
-};
-
-var decodeRegExps = __assign(__assign({}, baseDecodeRegExps), {
-  all: baseDecodeRegExps.html5
-});
-
-var fromCharCode = String.fromCharCode;
-var outOfBoundsChar = fromCharCode(65533);
-var defaultDecodeEntityOptions = {
-  level: "all"
-};
-
-function getDecodedEntity(entity, references, isAttribute, isStrict) {
-  var decodeResult = entity;
-  var decodeEntityLastChar = entity[entity.length - 1];
-
-  if (isAttribute && decodeEntityLastChar === "=") {
-    decodeResult = entity;
-  } else if (isStrict && decodeEntityLastChar !== ";") {
-    decodeResult = entity;
-  } else {
-    var decodeResultByReference = references[entity];
-
-    if (decodeResultByReference) {
-      decodeResult = decodeResultByReference;
-    } else if (entity[0] === "&" && entity[1] === "#") {
-      var decodeSecondChar = entity[2];
-      var decodeCode = decodeSecondChar == "x" || decodeSecondChar == "X" ? parseInt(entity.substr(3), 16) : parseInt(entity.substr(2));
-      decodeResult = decodeCode >= 1114111 ? outOfBoundsChar : decodeCode > 65535 ? surrogate_pairs_1.fromCodePoint(decodeCode) : fromCharCode(numeric_unicode_map_1.numericUnicodeMap[decodeCode] || decodeCode);
-    }
-  }
-
-  return decodeResult;
-}
-
-function decodeEntity(entity, _a) {
-  var _b = (_a === void 0 ? defaultDecodeEntityOptions : _a).level,
-      level = _b === void 0 ? "all" : _b;
-
-  if (!entity) {
-    return "";
-  }
-
-  return getDecodedEntity(entity, allNamedReferences[level].entities, false, false);
-}
-
-exports.decodeEntity = decodeEntity;
-
-function decode(text, _a) {
-  var _b = _a === void 0 ? defaultDecodeOptions : _a,
-      _c = _b.level,
-      level = _c === void 0 ? "all" : _c,
-      _d = _b.scope,
-      scope = _d === void 0 ? level === "xml" ? "strict" : "body" : _d;
-
-  if (!text) {
-    return "";
-  }
-
-  var decodeRegExp = decodeRegExps[level][scope];
-  var references = allNamedReferences[level].entities;
-  var isAttribute = scope === "attribute";
-  var isStrict = scope === "strict";
-  return replaceUsingRegExp(text, decodeRegExp, function (entity) {
-    return getDecodedEntity(entity, references, isAttribute, isStrict);
-  });
-}
-
-exports.decode = decode;
-
-/***/ }),
-
-/***/ 547:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.bodyRegExps = {
-  xml: /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g,
-  html4: /&notin;|&(?:nbsp|iexcl|cent|pound|curren|yen|brvbar|sect|uml|copy|ordf|laquo|not|shy|reg|macr|deg|plusmn|sup2|sup3|acute|micro|para|middot|cedil|sup1|ordm|raquo|frac14|frac12|frac34|iquest|Agrave|Aacute|Acirc|Atilde|Auml|Aring|AElig|Ccedil|Egrave|Eacute|Ecirc|Euml|Igrave|Iacute|Icirc|Iuml|ETH|Ntilde|Ograve|Oacute|Ocirc|Otilde|Ouml|times|Oslash|Ugrave|Uacute|Ucirc|Uuml|Yacute|THORN|szlig|agrave|aacute|acirc|atilde|auml|aring|aelig|ccedil|egrave|eacute|ecirc|euml|igrave|iacute|icirc|iuml|eth|ntilde|ograve|oacute|ocirc|otilde|ouml|divide|oslash|ugrave|uacute|ucirc|uuml|yacute|thorn|yuml|quot|amp|lt|gt|#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g,
-  html5: /&centerdot;|&copysr;|&divideontimes;|&gtcc;|&gtcir;|&gtdot;|&gtlPar;|&gtquest;|&gtrapprox;|&gtrarr;|&gtrdot;|&gtreqless;|&gtreqqless;|&gtrless;|&gtrsim;|&ltcc;|&ltcir;|&ltdot;|&lthree;|&ltimes;|&ltlarr;|&ltquest;|&ltrPar;|&ltri;|&ltrie;|&ltrif;|&notin;|&notinE;|&notindot;|&notinva;|&notinvb;|&notinvc;|&notni;|&notniva;|&notnivb;|&notnivc;|&parallel;|&timesb;|&timesbar;|&timesd;|&(?:AElig|AMP|Aacute|Acirc|Agrave|Aring|Atilde|Auml|COPY|Ccedil|ETH|Eacute|Ecirc|Egrave|Euml|GT|Iacute|Icirc|Igrave|Iuml|LT|Ntilde|Oacute|Ocirc|Ograve|Oslash|Otilde|Ouml|QUOT|REG|THORN|Uacute|Ucirc|Ugrave|Uuml|Yacute|aacute|acirc|acute|aelig|agrave|amp|aring|atilde|auml|brvbar|ccedil|cedil|cent|copy|curren|deg|divide|eacute|ecirc|egrave|eth|euml|frac12|frac14|frac34|gt|iacute|icirc|iexcl|igrave|iquest|iuml|laquo|lt|macr|micro|middot|nbsp|not|ntilde|oacute|ocirc|ograve|ordf|ordm|oslash|otilde|ouml|para|plusmn|pound|quot|raquo|reg|sect|shy|sup1|sup2|sup3|szlig|thorn|times|uacute|ucirc|ugrave|uml|uuml|yacute|yen|yuml|#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g
-};
-exports.namedReferences = {
-  xml: {
-    entities: {
-      "&lt;": "<",
-      "&gt;": ">",
-      "&quot;": '"',
-      "&apos;": "'",
-      "&amp;": "&"
-    },
-    characters: {
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&apos;",
-      "&": "&amp;"
-    }
-  },
-  html4: {
-    entities: {
-      "&apos;": "'",
-      "&nbsp": " ",
-      "&nbsp;": " ",
-      "&iexcl": "¡",
-      "&iexcl;": "¡",
-      "&cent": "¢",
-      "&cent;": "¢",
-      "&pound": "£",
-      "&pound;": "£",
-      "&curren": "¤",
-      "&curren;": "¤",
-      "&yen": "¥",
-      "&yen;": "¥",
-      "&brvbar": "¦",
-      "&brvbar;": "¦",
-      "&sect": "§",
-      "&sect;": "§",
-      "&uml": "¨",
-      "&uml;": "¨",
-      "&copy": "©",
-      "&copy;": "©",
-      "&ordf": "ª",
-      "&ordf;": "ª",
-      "&laquo": "«",
-      "&laquo;": "«",
-      "&not": "¬",
-      "&not;": "¬",
-      "&shy": "­",
-      "&shy;": "­",
-      "&reg": "®",
-      "&reg;": "®",
-      "&macr": "¯",
-      "&macr;": "¯",
-      "&deg": "°",
-      "&deg;": "°",
-      "&plusmn": "±",
-      "&plusmn;": "±",
-      "&sup2": "²",
-      "&sup2;": "²",
-      "&sup3": "³",
-      "&sup3;": "³",
-      "&acute": "´",
-      "&acute;": "´",
-      "&micro": "µ",
-      "&micro;": "µ",
-      "&para": "¶",
-      "&para;": "¶",
-      "&middot": "·",
-      "&middot;": "·",
-      "&cedil": "¸",
-      "&cedil;": "¸",
-      "&sup1": "¹",
-      "&sup1;": "¹",
-      "&ordm": "º",
-      "&ordm;": "º",
-      "&raquo": "»",
-      "&raquo;": "»",
-      "&frac14": "¼",
-      "&frac14;": "¼",
-      "&frac12": "½",
-      "&frac12;": "½",
-      "&frac34": "¾",
-      "&frac34;": "¾",
-      "&iquest": "¿",
-      "&iquest;": "¿",
-      "&Agrave": "À",
-      "&Agrave;": "À",
-      "&Aacute": "Á",
-      "&Aacute;": "Á",
-      "&Acirc": "Â",
-      "&Acirc;": "Â",
-      "&Atilde": "Ã",
-      "&Atilde;": "Ã",
-      "&Auml": "Ä",
-      "&Auml;": "Ä",
-      "&Aring": "Å",
-      "&Aring;": "Å",
-      "&AElig": "Æ",
-      "&AElig;": "Æ",
-      "&Ccedil": "Ç",
-      "&Ccedil;": "Ç",
-      "&Egrave": "È",
-      "&Egrave;": "È",
-      "&Eacute": "É",
-      "&Eacute;": "É",
-      "&Ecirc": "Ê",
-      "&Ecirc;": "Ê",
-      "&Euml": "Ë",
-      "&Euml;": "Ë",
-      "&Igrave": "Ì",
-      "&Igrave;": "Ì",
-      "&Iacute": "Í",
-      "&Iacute;": "Í",
-      "&Icirc": "Î",
-      "&Icirc;": "Î",
-      "&Iuml": "Ï",
-      "&Iuml;": "Ï",
-      "&ETH": "Ð",
-      "&ETH;": "Ð",
-      "&Ntilde": "Ñ",
-      "&Ntilde;": "Ñ",
-      "&Ograve": "Ò",
-      "&Ograve;": "Ò",
-      "&Oacute": "Ó",
-      "&Oacute;": "Ó",
-      "&Ocirc": "Ô",
-      "&Ocirc;": "Ô",
-      "&Otilde": "Õ",
-      "&Otilde;": "Õ",
-      "&Ouml": "Ö",
-      "&Ouml;": "Ö",
-      "&times": "×",
-      "&times;": "×",
-      "&Oslash": "Ø",
-      "&Oslash;": "Ø",
-      "&Ugrave": "Ù",
-      "&Ugrave;": "Ù",
-      "&Uacute": "Ú",
-      "&Uacute;": "Ú",
-      "&Ucirc": "Û",
-      "&Ucirc;": "Û",
-      "&Uuml": "Ü",
-      "&Uuml;": "Ü",
-      "&Yacute": "Ý",
-      "&Yacute;": "Ý",
-      "&THORN": "Þ",
-      "&THORN;": "Þ",
-      "&szlig": "ß",
-      "&szlig;": "ß",
-      "&agrave": "à",
-      "&agrave;": "à",
-      "&aacute": "á",
-      "&aacute;": "á",
-      "&acirc": "â",
-      "&acirc;": "â",
-      "&atilde": "ã",
-      "&atilde;": "ã",
-      "&auml": "ä",
-      "&auml;": "ä",
-      "&aring": "å",
-      "&aring;": "å",
-      "&aelig": "æ",
-      "&aelig;": "æ",
-      "&ccedil": "ç",
-      "&ccedil;": "ç",
-      "&egrave": "è",
-      "&egrave;": "è",
-      "&eacute": "é",
-      "&eacute;": "é",
-      "&ecirc": "ê",
-      "&ecirc;": "ê",
-      "&euml": "ë",
-      "&euml;": "ë",
-      "&igrave": "ì",
-      "&igrave;": "ì",
-      "&iacute": "í",
-      "&iacute;": "í",
-      "&icirc": "î",
-      "&icirc;": "î",
-      "&iuml": "ï",
-      "&iuml;": "ï",
-      "&eth": "ð",
-      "&eth;": "ð",
-      "&ntilde": "ñ",
-      "&ntilde;": "ñ",
-      "&ograve": "ò",
-      "&ograve;": "ò",
-      "&oacute": "ó",
-      "&oacute;": "ó",
-      "&ocirc": "ô",
-      "&ocirc;": "ô",
-      "&otilde": "õ",
-      "&otilde;": "õ",
-      "&ouml": "ö",
-      "&ouml;": "ö",
-      "&divide": "÷",
-      "&divide;": "÷",
-      "&oslash": "ø",
-      "&oslash;": "ø",
-      "&ugrave": "ù",
-      "&ugrave;": "ù",
-      "&uacute": "ú",
-      "&uacute;": "ú",
-      "&ucirc": "û",
-      "&ucirc;": "û",
-      "&uuml": "ü",
-      "&uuml;": "ü",
-      "&yacute": "ý",
-      "&yacute;": "ý",
-      "&thorn": "þ",
-      "&thorn;": "þ",
-      "&yuml": "ÿ",
-      "&yuml;": "ÿ",
-      "&quot": '"',
-      "&quot;": '"',
-      "&amp": "&",
-      "&amp;": "&",
-      "&lt": "<",
-      "&lt;": "<",
-      "&gt": ">",
-      "&gt;": ">",
-      "&OElig;": "Œ",
-      "&oelig;": "œ",
-      "&Scaron;": "Š",
-      "&scaron;": "š",
-      "&Yuml;": "Ÿ",
-      "&circ;": "ˆ",
-      "&tilde;": "˜",
-      "&ensp;": " ",
-      "&emsp;": " ",
-      "&thinsp;": " ",
-      "&zwnj;": "‌",
-      "&zwj;": "‍",
-      "&lrm;": "‎",
-      "&rlm;": "‏",
-      "&ndash;": "–",
-      "&mdash;": "—",
-      "&lsquo;": "‘",
-      "&rsquo;": "’",
-      "&sbquo;": "‚",
-      "&ldquo;": "“",
-      "&rdquo;": "”",
-      "&bdquo;": "„",
-      "&dagger;": "†",
-      "&Dagger;": "‡",
-      "&permil;": "‰",
-      "&lsaquo;": "‹",
-      "&rsaquo;": "›",
-      "&euro;": "€",
-      "&fnof;": "ƒ",
-      "&Alpha;": "Α",
-      "&Beta;": "Β",
-      "&Gamma;": "Γ",
-      "&Delta;": "Δ",
-      "&Epsilon;": "Ε",
-      "&Zeta;": "Ζ",
-      "&Eta;": "Η",
-      "&Theta;": "Θ",
-      "&Iota;": "Ι",
-      "&Kappa;": "Κ",
-      "&Lambda;": "Λ",
-      "&Mu;": "Μ",
-      "&Nu;": "Ν",
-      "&Xi;": "Ξ",
-      "&Omicron;": "Ο",
-      "&Pi;": "Π",
-      "&Rho;": "Ρ",
-      "&Sigma;": "Σ",
-      "&Tau;": "Τ",
-      "&Upsilon;": "Υ",
-      "&Phi;": "Φ",
-      "&Chi;": "Χ",
-      "&Psi;": "Ψ",
-      "&Omega;": "Ω",
-      "&alpha;": "α",
-      "&beta;": "β",
-      "&gamma;": "γ",
-      "&delta;": "δ",
-      "&epsilon;": "ε",
-      "&zeta;": "ζ",
-      "&eta;": "η",
-      "&theta;": "θ",
-      "&iota;": "ι",
-      "&kappa;": "κ",
-      "&lambda;": "λ",
-      "&mu;": "μ",
-      "&nu;": "ν",
-      "&xi;": "ξ",
-      "&omicron;": "ο",
-      "&pi;": "π",
-      "&rho;": "ρ",
-      "&sigmaf;": "ς",
-      "&sigma;": "σ",
-      "&tau;": "τ",
-      "&upsilon;": "υ",
-      "&phi;": "φ",
-      "&chi;": "χ",
-      "&psi;": "ψ",
-      "&omega;": "ω",
-      "&thetasym;": "ϑ",
-      "&upsih;": "ϒ",
-      "&piv;": "ϖ",
-      "&bull;": "•",
-      "&hellip;": "…",
-      "&prime;": "′",
-      "&Prime;": "″",
-      "&oline;": "‾",
-      "&frasl;": "⁄",
-      "&weierp;": "℘",
-      "&image;": "ℑ",
-      "&real;": "ℜ",
-      "&trade;": "™",
-      "&alefsym;": "ℵ",
-      "&larr;": "←",
-      "&uarr;": "↑",
-      "&rarr;": "→",
-      "&darr;": "↓",
-      "&harr;": "↔",
-      "&crarr;": "↵",
-      "&lArr;": "⇐",
-      "&uArr;": "⇑",
-      "&rArr;": "⇒",
-      "&dArr;": "⇓",
-      "&hArr;": "⇔",
-      "&forall;": "∀",
-      "&part;": "∂",
-      "&exist;": "∃",
-      "&empty;": "∅",
-      "&nabla;": "∇",
-      "&isin;": "∈",
-      "&notin;": "∉",
-      "&ni;": "∋",
-      "&prod;": "∏",
-      "&sum;": "∑",
-      "&minus;": "−",
-      "&lowast;": "∗",
-      "&radic;": "√",
-      "&prop;": "∝",
-      "&infin;": "∞",
-      "&ang;": "∠",
-      "&and;": "∧",
-      "&or;": "∨",
-      "&cap;": "∩",
-      "&cup;": "∪",
-      "&int;": "∫",
-      "&there4;": "∴",
-      "&sim;": "∼",
-      "&cong;": "≅",
-      "&asymp;": "≈",
-      "&ne;": "≠",
-      "&equiv;": "≡",
-      "&le;": "≤",
-      "&ge;": "≥",
-      "&sub;": "⊂",
-      "&sup;": "⊃",
-      "&nsub;": "⊄",
-      "&sube;": "⊆",
-      "&supe;": "⊇",
-      "&oplus;": "⊕",
-      "&otimes;": "⊗",
-      "&perp;": "⊥",
-      "&sdot;": "⋅",
-      "&lceil;": "⌈",
-      "&rceil;": "⌉",
-      "&lfloor;": "⌊",
-      "&rfloor;": "⌋",
-      "&lang;": "〈",
-      "&rang;": "〉",
-      "&loz;": "◊",
-      "&spades;": "♠",
-      "&clubs;": "♣",
-      "&hearts;": "♥",
-      "&diams;": "♦"
-    },
-    characters: {
-      "'": "&apos;",
-      " ": "&nbsp;",
-      "¡": "&iexcl;",
-      "¢": "&cent;",
-      "£": "&pound;",
-      "¤": "&curren;",
-      "¥": "&yen;",
-      "¦": "&brvbar;",
-      "§": "&sect;",
-      "¨": "&uml;",
-      "©": "&copy;",
-      "ª": "&ordf;",
-      "«": "&laquo;",
-      "¬": "&not;",
-      "­": "&shy;",
-      "®": "&reg;",
-      "¯": "&macr;",
-      "°": "&deg;",
-      "±": "&plusmn;",
-      "²": "&sup2;",
-      "³": "&sup3;",
-      "´": "&acute;",
-      "µ": "&micro;",
-      "¶": "&para;",
-      "·": "&middot;",
-      "¸": "&cedil;",
-      "¹": "&sup1;",
-      "º": "&ordm;",
-      "»": "&raquo;",
-      "¼": "&frac14;",
-      "½": "&frac12;",
-      "¾": "&frac34;",
-      "¿": "&iquest;",
-      "À": "&Agrave;",
-      "Á": "&Aacute;",
-      "Â": "&Acirc;",
-      "Ã": "&Atilde;",
-      "Ä": "&Auml;",
-      "Å": "&Aring;",
-      "Æ": "&AElig;",
-      "Ç": "&Ccedil;",
-      "È": "&Egrave;",
-      "É": "&Eacute;",
-      "Ê": "&Ecirc;",
-      "Ë": "&Euml;",
-      "Ì": "&Igrave;",
-      "Í": "&Iacute;",
-      "Î": "&Icirc;",
-      "Ï": "&Iuml;",
-      "Ð": "&ETH;",
-      "Ñ": "&Ntilde;",
-      "Ò": "&Ograve;",
-      "Ó": "&Oacute;",
-      "Ô": "&Ocirc;",
-      "Õ": "&Otilde;",
-      "Ö": "&Ouml;",
-      "×": "&times;",
-      "Ø": "&Oslash;",
-      "Ù": "&Ugrave;",
-      "Ú": "&Uacute;",
-      "Û": "&Ucirc;",
-      "Ü": "&Uuml;",
-      "Ý": "&Yacute;",
-      "Þ": "&THORN;",
-      "ß": "&szlig;",
-      "à": "&agrave;",
-      "á": "&aacute;",
-      "â": "&acirc;",
-      "ã": "&atilde;",
-      "ä": "&auml;",
-      "å": "&aring;",
-      "æ": "&aelig;",
-      "ç": "&ccedil;",
-      "è": "&egrave;",
-      "é": "&eacute;",
-      "ê": "&ecirc;",
-      "ë": "&euml;",
-      "ì": "&igrave;",
-      "í": "&iacute;",
-      "î": "&icirc;",
-      "ï": "&iuml;",
-      "ð": "&eth;",
-      "ñ": "&ntilde;",
-      "ò": "&ograve;",
-      "ó": "&oacute;",
-      "ô": "&ocirc;",
-      "õ": "&otilde;",
-      "ö": "&ouml;",
-      "÷": "&divide;",
-      "ø": "&oslash;",
-      "ù": "&ugrave;",
-      "ú": "&uacute;",
-      "û": "&ucirc;",
-      "ü": "&uuml;",
-      "ý": "&yacute;",
-      "þ": "&thorn;",
-      "ÿ": "&yuml;",
-      '"': "&quot;",
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      "Œ": "&OElig;",
-      "œ": "&oelig;",
-      "Š": "&Scaron;",
-      "š": "&scaron;",
-      "Ÿ": "&Yuml;",
-      "ˆ": "&circ;",
-      "˜": "&tilde;",
-      " ": "&ensp;",
-      " ": "&emsp;",
-      " ": "&thinsp;",
-      "‌": "&zwnj;",
-      "‍": "&zwj;",
-      "‎": "&lrm;",
-      "‏": "&rlm;",
-      "–": "&ndash;",
-      "—": "&mdash;",
-      "‘": "&lsquo;",
-      "’": "&rsquo;",
-      "‚": "&sbquo;",
-      "“": "&ldquo;",
-      "”": "&rdquo;",
-      "„": "&bdquo;",
-      "†": "&dagger;",
-      "‡": "&Dagger;",
-      "‰": "&permil;",
-      "‹": "&lsaquo;",
-      "›": "&rsaquo;",
-      "€": "&euro;",
-      "ƒ": "&fnof;",
-      "Α": "&Alpha;",
-      "Β": "&Beta;",
-      "Γ": "&Gamma;",
-      "Δ": "&Delta;",
-      "Ε": "&Epsilon;",
-      "Ζ": "&Zeta;",
-      "Η": "&Eta;",
-      "Θ": "&Theta;",
-      "Ι": "&Iota;",
-      "Κ": "&Kappa;",
-      "Λ": "&Lambda;",
-      "Μ": "&Mu;",
-      "Ν": "&Nu;",
-      "Ξ": "&Xi;",
-      "Ο": "&Omicron;",
-      "Π": "&Pi;",
-      "Ρ": "&Rho;",
-      "Σ": "&Sigma;",
-      "Τ": "&Tau;",
-      "Υ": "&Upsilon;",
-      "Φ": "&Phi;",
-      "Χ": "&Chi;",
-      "Ψ": "&Psi;",
-      "Ω": "&Omega;",
-      "α": "&alpha;",
-      "β": "&beta;",
-      "γ": "&gamma;",
-      "δ": "&delta;",
-      "ε": "&epsilon;",
-      "ζ": "&zeta;",
-      "η": "&eta;",
-      "θ": "&theta;",
-      "ι": "&iota;",
-      "κ": "&kappa;",
-      "λ": "&lambda;",
-      "μ": "&mu;",
-      "ν": "&nu;",
-      "ξ": "&xi;",
-      "ο": "&omicron;",
-      "π": "&pi;",
-      "ρ": "&rho;",
-      "ς": "&sigmaf;",
-      "σ": "&sigma;",
-      "τ": "&tau;",
-      "υ": "&upsilon;",
-      "φ": "&phi;",
-      "χ": "&chi;",
-      "ψ": "&psi;",
-      "ω": "&omega;",
-      "ϑ": "&thetasym;",
-      "ϒ": "&upsih;",
-      "ϖ": "&piv;",
-      "•": "&bull;",
-      "…": "&hellip;",
-      "′": "&prime;",
-      "″": "&Prime;",
-      "‾": "&oline;",
-      "⁄": "&frasl;",
-      "℘": "&weierp;",
-      "ℑ": "&image;",
-      "ℜ": "&real;",
-      "™": "&trade;",
-      "ℵ": "&alefsym;",
-      "←": "&larr;",
-      "↑": "&uarr;",
-      "→": "&rarr;",
-      "↓": "&darr;",
-      "↔": "&harr;",
-      "↵": "&crarr;",
-      "⇐": "&lArr;",
-      "⇑": "&uArr;",
-      "⇒": "&rArr;",
-      "⇓": "&dArr;",
-      "⇔": "&hArr;",
-      "∀": "&forall;",
-      "∂": "&part;",
-      "∃": "&exist;",
-      "∅": "&empty;",
-      "∇": "&nabla;",
-      "∈": "&isin;",
-      "∉": "&notin;",
-      "∋": "&ni;",
-      "∏": "&prod;",
-      "∑": "&sum;",
-      "−": "&minus;",
-      "∗": "&lowast;",
-      "√": "&radic;",
-      "∝": "&prop;",
-      "∞": "&infin;",
-      "∠": "&ang;",
-      "∧": "&and;",
-      "∨": "&or;",
-      "∩": "&cap;",
-      "∪": "&cup;",
-      "∫": "&int;",
-      "∴": "&there4;",
-      "∼": "&sim;",
-      "≅": "&cong;",
-      "≈": "&asymp;",
-      "≠": "&ne;",
-      "≡": "&equiv;",
-      "≤": "&le;",
-      "≥": "&ge;",
-      "⊂": "&sub;",
-      "⊃": "&sup;",
-      "⊄": "&nsub;",
-      "⊆": "&sube;",
-      "⊇": "&supe;",
-      "⊕": "&oplus;",
-      "⊗": "&otimes;",
-      "⊥": "&perp;",
-      "⋅": "&sdot;",
-      "⌈": "&lceil;",
-      "⌉": "&rceil;",
-      "⌊": "&lfloor;",
-      "⌋": "&rfloor;",
-      "〈": "&lang;",
-      "〉": "&rang;",
-      "◊": "&loz;",
-      "♠": "&spades;",
-      "♣": "&clubs;",
-      "♥": "&hearts;",
-      "♦": "&diams;"
-    }
-  },
-  html5: {
-    entities: {
-      "&AElig": "Æ",
-      "&AElig;": "Æ",
-      "&AMP": "&",
-      "&AMP;": "&",
-      "&Aacute": "Á",
-      "&Aacute;": "Á",
-      "&Abreve;": "Ă",
-      "&Acirc": "Â",
-      "&Acirc;": "Â",
-      "&Acy;": "А",
-      "&Afr;": "𝔄",
-      "&Agrave": "À",
-      "&Agrave;": "À",
-      "&Alpha;": "Α",
-      "&Amacr;": "Ā",
-      "&And;": "⩓",
-      "&Aogon;": "Ą",
-      "&Aopf;": "𝔸",
-      "&ApplyFunction;": "⁡",
-      "&Aring": "Å",
-      "&Aring;": "Å",
-      "&Ascr;": "𝒜",
-      "&Assign;": "≔",
-      "&Atilde": "Ã",
-      "&Atilde;": "Ã",
-      "&Auml": "Ä",
-      "&Auml;": "Ä",
-      "&Backslash;": "∖",
-      "&Barv;": "⫧",
-      "&Barwed;": "⌆",
-      "&Bcy;": "Б",
-      "&Because;": "∵",
-      "&Bernoullis;": "ℬ",
-      "&Beta;": "Β",
-      "&Bfr;": "𝔅",
-      "&Bopf;": "𝔹",
-      "&Breve;": "˘",
-      "&Bscr;": "ℬ",
-      "&Bumpeq;": "≎",
-      "&CHcy;": "Ч",
-      "&COPY": "©",
-      "&COPY;": "©",
-      "&Cacute;": "Ć",
-      "&Cap;": "⋒",
-      "&CapitalDifferentialD;": "ⅅ",
-      "&Cayleys;": "ℭ",
-      "&Ccaron;": "Č",
-      "&Ccedil": "Ç",
-      "&Ccedil;": "Ç",
-      "&Ccirc;": "Ĉ",
-      "&Cconint;": "∰",
-      "&Cdot;": "Ċ",
-      "&Cedilla;": "¸",
-      "&CenterDot;": "·",
-      "&Cfr;": "ℭ",
-      "&Chi;": "Χ",
-      "&CircleDot;": "⊙",
-      "&CircleMinus;": "⊖",
-      "&CirclePlus;": "⊕",
-      "&CircleTimes;": "⊗",
-      "&ClockwiseContourIntegral;": "∲",
-      "&CloseCurlyDoubleQuote;": "”",
-      "&CloseCurlyQuote;": "’",
-      "&Colon;": "∷",
-      "&Colone;": "⩴",
-      "&Congruent;": "≡",
-      "&Conint;": "∯",
-      "&ContourIntegral;": "∮",
-      "&Copf;": "ℂ",
-      "&Coproduct;": "∐",
-      "&CounterClockwiseContourIntegral;": "∳",
-      "&Cross;": "⨯",
-      "&Cscr;": "𝒞",
-      "&Cup;": "⋓",
-      "&CupCap;": "≍",
-      "&DD;": "ⅅ",
-      "&DDotrahd;": "⤑",
-      "&DJcy;": "Ђ",
-      "&DScy;": "Ѕ",
-      "&DZcy;": "Џ",
-      "&Dagger;": "‡",
-      "&Darr;": "↡",
-      "&Dashv;": "⫤",
-      "&Dcaron;": "Ď",
-      "&Dcy;": "Д",
-      "&Del;": "∇",
-      "&Delta;": "Δ",
-      "&Dfr;": "𝔇",
-      "&DiacriticalAcute;": "´",
-      "&DiacriticalDot;": "˙",
-      "&DiacriticalDoubleAcute;": "˝",
-      "&DiacriticalGrave;": "`",
-      "&DiacriticalTilde;": "˜",
-      "&Diamond;": "⋄",
-      "&DifferentialD;": "ⅆ",
-      "&Dopf;": "𝔻",
-      "&Dot;": "¨",
-      "&DotDot;": "⃜",
-      "&DotEqual;": "≐",
-      "&DoubleContourIntegral;": "∯",
-      "&DoubleDot;": "¨",
-      "&DoubleDownArrow;": "⇓",
-      "&DoubleLeftArrow;": "⇐",
-      "&DoubleLeftRightArrow;": "⇔",
-      "&DoubleLeftTee;": "⫤",
-      "&DoubleLongLeftArrow;": "⟸",
-      "&DoubleLongLeftRightArrow;": "⟺",
-      "&DoubleLongRightArrow;": "⟹",
-      "&DoubleRightArrow;": "⇒",
-      "&DoubleRightTee;": "⊨",
-      "&DoubleUpArrow;": "⇑",
-      "&DoubleUpDownArrow;": "⇕",
-      "&DoubleVerticalBar;": "∥",
-      "&DownArrow;": "↓",
-      "&DownArrowBar;": "⤓",
-      "&DownArrowUpArrow;": "⇵",
-      "&DownBreve;": "̑",
-      "&DownLeftRightVector;": "⥐",
-      "&DownLeftTeeVector;": "⥞",
-      "&DownLeftVector;": "↽",
-      "&DownLeftVectorBar;": "⥖",
-      "&DownRightTeeVector;": "⥟",
-      "&DownRightVector;": "⇁",
-      "&DownRightVectorBar;": "⥗",
-      "&DownTee;": "⊤",
-      "&DownTeeArrow;": "↧",
-      "&Downarrow;": "⇓",
-      "&Dscr;": "𝒟",
-      "&Dstrok;": "Đ",
-      "&ENG;": "Ŋ",
-      "&ETH": "Ð",
-      "&ETH;": "Ð",
-      "&Eacute": "É",
-      "&Eacute;": "É",
-      "&Ecaron;": "Ě",
-      "&Ecirc": "Ê",
-      "&Ecirc;": "Ê",
-      "&Ecy;": "Э",
-      "&Edot;": "Ė",
-      "&Efr;": "𝔈",
-      "&Egrave": "È",
-      "&Egrave;": "È",
-      "&Element;": "∈",
-      "&Emacr;": "Ē",
-      "&EmptySmallSquare;": "◻",
-      "&EmptyVerySmallSquare;": "▫",
-      "&Eogon;": "Ę",
-      "&Eopf;": "𝔼",
-      "&Epsilon;": "Ε",
-      "&Equal;": "⩵",
-      "&EqualTilde;": "≂",
-      "&Equilibrium;": "⇌",
-      "&Escr;": "ℰ",
-      "&Esim;": "⩳",
-      "&Eta;": "Η",
-      "&Euml": "Ë",
-      "&Euml;": "Ë",
-      "&Exists;": "∃",
-      "&ExponentialE;": "ⅇ",
-      "&Fcy;": "Ф",
-      "&Ffr;": "𝔉",
-      "&FilledSmallSquare;": "◼",
-      "&FilledVerySmallSquare;": "▪",
-      "&Fopf;": "𝔽",
-      "&ForAll;": "∀",
-      "&Fouriertrf;": "ℱ",
-      "&Fscr;": "ℱ",
-      "&GJcy;": "Ѓ",
-      "&GT": ">",
-      "&GT;": ">",
-      "&Gamma;": "Γ",
-      "&Gammad;": "Ϝ",
-      "&Gbreve;": "Ğ",
-      "&Gcedil;": "Ģ",
-      "&Gcirc;": "Ĝ",
-      "&Gcy;": "Г",
-      "&Gdot;": "Ġ",
-      "&Gfr;": "𝔊",
-      "&Gg;": "⋙",
-      "&Gopf;": "𝔾",
-      "&GreaterEqual;": "≥",
-      "&GreaterEqualLess;": "⋛",
-      "&GreaterFullEqual;": "≧",
-      "&GreaterGreater;": "⪢",
-      "&GreaterLess;": "≷",
-      "&GreaterSlantEqual;": "⩾",
-      "&GreaterTilde;": "≳",
-      "&Gscr;": "𝒢",
-      "&Gt;": "≫",
-      "&HARDcy;": "Ъ",
-      "&Hacek;": "ˇ",
-      "&Hat;": "^",
-      "&Hcirc;": "Ĥ",
-      "&Hfr;": "ℌ",
-      "&HilbertSpace;": "ℋ",
-      "&Hopf;": "ℍ",
-      "&HorizontalLine;": "─",
-      "&Hscr;": "ℋ",
-      "&Hstrok;": "Ħ",
-      "&HumpDownHump;": "≎",
-      "&HumpEqual;": "≏",
-      "&IEcy;": "Е",
-      "&IJlig;": "Ĳ",
-      "&IOcy;": "Ё",
-      "&Iacute": "Í",
-      "&Iacute;": "Í",
-      "&Icirc": "Î",
-      "&Icirc;": "Î",
-      "&Icy;": "И",
-      "&Idot;": "İ",
-      "&Ifr;": "ℑ",
-      "&Igrave": "Ì",
-      "&Igrave;": "Ì",
-      "&Im;": "ℑ",
-      "&Imacr;": "Ī",
-      "&ImaginaryI;": "ⅈ",
-      "&Implies;": "⇒",
-      "&Int;": "∬",
-      "&Integral;": "∫",
-      "&Intersection;": "⋂",
-      "&InvisibleComma;": "⁣",
-      "&InvisibleTimes;": "⁢",
-      "&Iogon;": "Į",
-      "&Iopf;": "𝕀",
-      "&Iota;": "Ι",
-      "&Iscr;": "ℐ",
-      "&Itilde;": "Ĩ",
-      "&Iukcy;": "І",
-      "&Iuml": "Ï",
-      "&Iuml;": "Ï",
-      "&Jcirc;": "Ĵ",
-      "&Jcy;": "Й",
-      "&Jfr;": "𝔍",
-      "&Jopf;": "𝕁",
-      "&Jscr;": "𝒥",
-      "&Jsercy;": "Ј",
-      "&Jukcy;": "Є",
-      "&KHcy;": "Х",
-      "&KJcy;": "Ќ",
-      "&Kappa;": "Κ",
-      "&Kcedil;": "Ķ",
-      "&Kcy;": "К",
-      "&Kfr;": "𝔎",
-      "&Kopf;": "𝕂",
-      "&Kscr;": "𝒦",
-      "&LJcy;": "Љ",
-      "&LT": "<",
-      "&LT;": "<",
-      "&Lacute;": "Ĺ",
-      "&Lambda;": "Λ",
-      "&Lang;": "⟪",
-      "&Laplacetrf;": "ℒ",
-      "&Larr;": "↞",
-      "&Lcaron;": "Ľ",
-      "&Lcedil;": "Ļ",
-      "&Lcy;": "Л",
-      "&LeftAngleBracket;": "⟨",
-      "&LeftArrow;": "←",
-      "&LeftArrowBar;": "⇤",
-      "&LeftArrowRightArrow;": "⇆",
-      "&LeftCeiling;": "⌈",
-      "&LeftDoubleBracket;": "⟦",
-      "&LeftDownTeeVector;": "⥡",
-      "&LeftDownVector;": "⇃",
-      "&LeftDownVectorBar;": "⥙",
-      "&LeftFloor;": "⌊",
-      "&LeftRightArrow;": "↔",
-      "&LeftRightVector;": "⥎",
-      "&LeftTee;": "⊣",
-      "&LeftTeeArrow;": "↤",
-      "&LeftTeeVector;": "⥚",
-      "&LeftTriangle;": "⊲",
-      "&LeftTriangleBar;": "⧏",
-      "&LeftTriangleEqual;": "⊴",
-      "&LeftUpDownVector;": "⥑",
-      "&LeftUpTeeVector;": "⥠",
-      "&LeftUpVector;": "↿",
-      "&LeftUpVectorBar;": "⥘",
-      "&LeftVector;": "↼",
-      "&LeftVectorBar;": "⥒",
-      "&Leftarrow;": "⇐",
-      "&Leftrightarrow;": "⇔",
-      "&LessEqualGreater;": "⋚",
-      "&LessFullEqual;": "≦",
-      "&LessGreater;": "≶",
-      "&LessLess;": "⪡",
-      "&LessSlantEqual;": "⩽",
-      "&LessTilde;": "≲",
-      "&Lfr;": "𝔏",
-      "&Ll;": "⋘",
-      "&Lleftarrow;": "⇚",
-      "&Lmidot;": "Ŀ",
-      "&LongLeftArrow;": "⟵",
-      "&LongLeftRightArrow;": "⟷",
-      "&LongRightArrow;": "⟶",
-      "&Longleftarrow;": "⟸",
-      "&Longleftrightarrow;": "⟺",
-      "&Longrightarrow;": "⟹",
-      "&Lopf;": "𝕃",
-      "&LowerLeftArrow;": "↙",
-      "&LowerRightArrow;": "↘",
-      "&Lscr;": "ℒ",
-      "&Lsh;": "↰",
-      "&Lstrok;": "Ł",
-      "&Lt;": "≪",
-      "&Map;": "⤅",
-      "&Mcy;": "М",
-      "&MediumSpace;": " ",
-      "&Mellintrf;": "ℳ",
-      "&Mfr;": "𝔐",
-      "&MinusPlus;": "∓",
-      "&Mopf;": "𝕄",
-      "&Mscr;": "ℳ",
-      "&Mu;": "Μ",
-      "&NJcy;": "Њ",
-      "&Nacute;": "Ń",
-      "&Ncaron;": "Ň",
-      "&Ncedil;": "Ņ",
-      "&Ncy;": "Н",
-      "&NegativeMediumSpace;": "​",
-      "&NegativeThickSpace;": "​",
-      "&NegativeThinSpace;": "​",
-      "&NegativeVeryThinSpace;": "​",
-      "&NestedGreaterGreater;": "≫",
-      "&NestedLessLess;": "≪",
-      "&NewLine;": "\n",
-      "&Nfr;": "𝔑",
-      "&NoBreak;": "⁠",
-      "&NonBreakingSpace;": " ",
-      "&Nopf;": "ℕ",
-      "&Not;": "⫬",
-      "&NotCongruent;": "≢",
-      "&NotCupCap;": "≭",
-      "&NotDoubleVerticalBar;": "∦",
-      "&NotElement;": "∉",
-      "&NotEqual;": "≠",
-      "&NotEqualTilde;": "≂̸",
-      "&NotExists;": "∄",
-      "&NotGreater;": "≯",
-      "&NotGreaterEqual;": "≱",
-      "&NotGreaterFullEqual;": "≧̸",
-      "&NotGreaterGreater;": "≫̸",
-      "&NotGreaterLess;": "≹",
-      "&NotGreaterSlantEqual;": "⩾̸",
-      "&NotGreaterTilde;": "≵",
-      "&NotHumpDownHump;": "≎̸",
-      "&NotHumpEqual;": "≏̸",
-      "&NotLeftTriangle;": "⋪",
-      "&NotLeftTriangleBar;": "⧏̸",
-      "&NotLeftTriangleEqual;": "⋬",
-      "&NotLess;": "≮",
-      "&NotLessEqual;": "≰",
-      "&NotLessGreater;": "≸",
-      "&NotLessLess;": "≪̸",
-      "&NotLessSlantEqual;": "⩽̸",
-      "&NotLessTilde;": "≴",
-      "&NotNestedGreaterGreater;": "⪢̸",
-      "&NotNestedLessLess;": "⪡̸",
-      "&NotPrecedes;": "⊀",
-      "&NotPrecedesEqual;": "⪯̸",
-      "&NotPrecedesSlantEqual;": "⋠",
-      "&NotReverseElement;": "∌",
-      "&NotRightTriangle;": "⋫",
-      "&NotRightTriangleBar;": "⧐̸",
-      "&NotRightTriangleEqual;": "⋭",
-      "&NotSquareSubset;": "⊏̸",
-      "&NotSquareSubsetEqual;": "⋢",
-      "&NotSquareSuperset;": "⊐̸",
-      "&NotSquareSupersetEqual;": "⋣",
-      "&NotSubset;": "⊂⃒",
-      "&NotSubsetEqual;": "⊈",
-      "&NotSucceeds;": "⊁",
-      "&NotSucceedsEqual;": "⪰̸",
-      "&NotSucceedsSlantEqual;": "⋡",
-      "&NotSucceedsTilde;": "≿̸",
-      "&NotSuperset;": "⊃⃒",
-      "&NotSupersetEqual;": "⊉",
-      "&NotTilde;": "≁",
-      "&NotTildeEqual;": "≄",
-      "&NotTildeFullEqual;": "≇",
-      "&NotTildeTilde;": "≉",
-      "&NotVerticalBar;": "∤",
-      "&Nscr;": "𝒩",
-      "&Ntilde": "Ñ",
-      "&Ntilde;": "Ñ",
-      "&Nu;": "Ν",
-      "&OElig;": "Œ",
-      "&Oacute": "Ó",
-      "&Oacute;": "Ó",
-      "&Ocirc": "Ô",
-      "&Ocirc;": "Ô",
-      "&Ocy;": "О",
-      "&Odblac;": "Ő",
-      "&Ofr;": "𝔒",
-      "&Ograve": "Ò",
-      "&Ograve;": "Ò",
-      "&Omacr;": "Ō",
-      "&Omega;": "Ω",
-      "&Omicron;": "Ο",
-      "&Oopf;": "𝕆",
-      "&OpenCurlyDoubleQuote;": "“",
-      "&OpenCurlyQuote;": "‘",
-      "&Or;": "⩔",
-      "&Oscr;": "𝒪",
-      "&Oslash": "Ø",
-      "&Oslash;": "Ø",
-      "&Otilde": "Õ",
-      "&Otilde;": "Õ",
-      "&Otimes;": "⨷",
-      "&Ouml": "Ö",
-      "&Ouml;": "Ö",
-      "&OverBar;": "‾",
-      "&OverBrace;": "⏞",
-      "&OverBracket;": "⎴",
-      "&OverParenthesis;": "⏜",
-      "&PartialD;": "∂",
-      "&Pcy;": "П",
-      "&Pfr;": "𝔓",
-      "&Phi;": "Φ",
-      "&Pi;": "Π",
-      "&PlusMinus;": "±",
-      "&Poincareplane;": "ℌ",
-      "&Popf;": "ℙ",
-      "&Pr;": "⪻",
-      "&Precedes;": "≺",
-      "&PrecedesEqual;": "⪯",
-      "&PrecedesSlantEqual;": "≼",
-      "&PrecedesTilde;": "≾",
-      "&Prime;": "″",
-      "&Product;": "∏",
-      "&Proportion;": "∷",
-      "&Proportional;": "∝",
-      "&Pscr;": "𝒫",
-      "&Psi;": "Ψ",
-      "&QUOT": '"',
-      "&QUOT;": '"',
-      "&Qfr;": "𝔔",
-      "&Qopf;": "ℚ",
-      "&Qscr;": "𝒬",
-      "&RBarr;": "⤐",
-      "&REG": "®",
-      "&REG;": "®",
-      "&Racute;": "Ŕ",
-      "&Rang;": "⟫",
-      "&Rarr;": "↠",
-      "&Rarrtl;": "⤖",
-      "&Rcaron;": "Ř",
-      "&Rcedil;": "Ŗ",
-      "&Rcy;": "Р",
-      "&Re;": "ℜ",
-      "&ReverseElement;": "∋",
-      "&ReverseEquilibrium;": "⇋",
-      "&ReverseUpEquilibrium;": "⥯",
-      "&Rfr;": "ℜ",
-      "&Rho;": "Ρ",
-      "&RightAngleBracket;": "⟩",
-      "&RightArrow;": "→",
-      "&RightArrowBar;": "⇥",
-      "&RightArrowLeftArrow;": "⇄",
-      "&RightCeiling;": "⌉",
-      "&RightDoubleBracket;": "⟧",
-      "&RightDownTeeVector;": "⥝",
-      "&RightDownVector;": "⇂",
-      "&RightDownVectorBar;": "⥕",
-      "&RightFloor;": "⌋",
-      "&RightTee;": "⊢",
-      "&RightTeeArrow;": "↦",
-      "&RightTeeVector;": "⥛",
-      "&RightTriangle;": "⊳",
-      "&RightTriangleBar;": "⧐",
-      "&RightTriangleEqual;": "⊵",
-      "&RightUpDownVector;": "⥏",
-      "&RightUpTeeVector;": "⥜",
-      "&RightUpVector;": "↾",
-      "&RightUpVectorBar;": "⥔",
-      "&RightVector;": "⇀",
-      "&RightVectorBar;": "⥓",
-      "&Rightarrow;": "⇒",
-      "&Ropf;": "ℝ",
-      "&RoundImplies;": "⥰",
-      "&Rrightarrow;": "⇛",
-      "&Rscr;": "ℛ",
-      "&Rsh;": "↱",
-      "&RuleDelayed;": "⧴",
-      "&SHCHcy;": "Щ",
-      "&SHcy;": "Ш",
-      "&SOFTcy;": "Ь",
-      "&Sacute;": "Ś",
-      "&Sc;": "⪼",
-      "&Scaron;": "Š",
-      "&Scedil;": "Ş",
-      "&Scirc;": "Ŝ",
-      "&Scy;": "С",
-      "&Sfr;": "𝔖",
-      "&ShortDownArrow;": "↓",
-      "&ShortLeftArrow;": "←",
-      "&ShortRightArrow;": "→",
-      "&ShortUpArrow;": "↑",
-      "&Sigma;": "Σ",
-      "&SmallCircle;": "∘",
-      "&Sopf;": "𝕊",
-      "&Sqrt;": "√",
-      "&Square;": "□",
-      "&SquareIntersection;": "⊓",
-      "&SquareSubset;": "⊏",
-      "&SquareSubsetEqual;": "⊑",
-      "&SquareSuperset;": "⊐",
-      "&SquareSupersetEqual;": "⊒",
-      "&SquareUnion;": "⊔",
-      "&Sscr;": "𝒮",
-      "&Star;": "⋆",
-      "&Sub;": "⋐",
-      "&Subset;": "⋐",
-      "&SubsetEqual;": "⊆",
-      "&Succeeds;": "≻",
-      "&SucceedsEqual;": "⪰",
-      "&SucceedsSlantEqual;": "≽",
-      "&SucceedsTilde;": "≿",
-      "&SuchThat;": "∋",
-      "&Sum;": "∑",
-      "&Sup;": "⋑",
-      "&Superset;": "⊃",
-      "&SupersetEqual;": "⊇",
-      "&Supset;": "⋑",
-      "&THORN": "Þ",
-      "&THORN;": "Þ",
-      "&TRADE;": "™",
-      "&TSHcy;": "Ћ",
-      "&TScy;": "Ц",
-      "&Tab;": "\t",
-      "&Tau;": "Τ",
-      "&Tcaron;": "Ť",
-      "&Tcedil;": "Ţ",
-      "&Tcy;": "Т",
-      "&Tfr;": "𝔗",
-      "&Therefore;": "∴",
-      "&Theta;": "Θ",
-      "&ThickSpace;": "  ",
-      "&ThinSpace;": " ",
-      "&Tilde;": "∼",
-      "&TildeEqual;": "≃",
-      "&TildeFullEqual;": "≅",
-      "&TildeTilde;": "≈",
-      "&Topf;": "𝕋",
-      "&TripleDot;": "⃛",
-      "&Tscr;": "𝒯",
-      "&Tstrok;": "Ŧ",
-      "&Uacute": "Ú",
-      "&Uacute;": "Ú",
-      "&Uarr;": "↟",
-      "&Uarrocir;": "⥉",
-      "&Ubrcy;": "Ў",
-      "&Ubreve;": "Ŭ",
-      "&Ucirc": "Û",
-      "&Ucirc;": "Û",
-      "&Ucy;": "У",
-      "&Udblac;": "Ű",
-      "&Ufr;": "𝔘",
-      "&Ugrave": "Ù",
-      "&Ugrave;": "Ù",
-      "&Umacr;": "Ū",
-      "&UnderBar;": "_",
-      "&UnderBrace;": "⏟",
-      "&UnderBracket;": "⎵",
-      "&UnderParenthesis;": "⏝",
-      "&Union;": "⋃",
-      "&UnionPlus;": "⊎",
-      "&Uogon;": "Ų",
-      "&Uopf;": "𝕌",
-      "&UpArrow;": "↑",
-      "&UpArrowBar;": "⤒",
-      "&UpArrowDownArrow;": "⇅",
-      "&UpDownArrow;": "↕",
-      "&UpEquilibrium;": "⥮",
-      "&UpTee;": "⊥",
-      "&UpTeeArrow;": "↥",
-      "&Uparrow;": "⇑",
-      "&Updownarrow;": "⇕",
-      "&UpperLeftArrow;": "↖",
-      "&UpperRightArrow;": "↗",
-      "&Upsi;": "ϒ",
-      "&Upsilon;": "Υ",
-      "&Uring;": "Ů",
-      "&Uscr;": "𝒰",
-      "&Utilde;": "Ũ",
-      "&Uuml": "Ü",
-      "&Uuml;": "Ü",
-      "&VDash;": "⊫",
-      "&Vbar;": "⫫",
-      "&Vcy;": "В",
-      "&Vdash;": "⊩",
-      "&Vdashl;": "⫦",
-      "&Vee;": "⋁",
-      "&Verbar;": "‖",
-      "&Vert;": "‖",
-      "&VerticalBar;": "∣",
-      "&VerticalLine;": "|",
-      "&VerticalSeparator;": "❘",
-      "&VerticalTilde;": "≀",
-      "&VeryThinSpace;": " ",
-      "&Vfr;": "𝔙",
-      "&Vopf;": "𝕍",
-      "&Vscr;": "𝒱",
-      "&Vvdash;": "⊪",
-      "&Wcirc;": "Ŵ",
-      "&Wedge;": "⋀",
-      "&Wfr;": "𝔚",
-      "&Wopf;": "𝕎",
-      "&Wscr;": "𝒲",
-      "&Xfr;": "𝔛",
-      "&Xi;": "Ξ",
-      "&Xopf;": "𝕏",
-      "&Xscr;": "𝒳",
-      "&YAcy;": "Я",
-      "&YIcy;": "Ї",
-      "&YUcy;": "Ю",
-      "&Yacute": "Ý",
-      "&Yacute;": "Ý",
-      "&Ycirc;": "Ŷ",
-      "&Ycy;": "Ы",
-      "&Yfr;": "𝔜",
-      "&Yopf;": "𝕐",
-      "&Yscr;": "𝒴",
-      "&Yuml;": "Ÿ",
-      "&ZHcy;": "Ж",
-      "&Zacute;": "Ź",
-      "&Zcaron;": "Ž",
-      "&Zcy;": "З",
-      "&Zdot;": "Ż",
-      "&ZeroWidthSpace;": "​",
-      "&Zeta;": "Ζ",
-      "&Zfr;": "ℨ",
-      "&Zopf;": "ℤ",
-      "&Zscr;": "𝒵",
-      "&aacute": "á",
-      "&aacute;": "á",
-      "&abreve;": "ă",
-      "&ac;": "∾",
-      "&acE;": "∾̳",
-      "&acd;": "∿",
-      "&acirc": "â",
-      "&acirc;": "â",
-      "&acute": "´",
-      "&acute;": "´",
-      "&acy;": "а",
-      "&aelig": "æ",
-      "&aelig;": "æ",
-      "&af;": "⁡",
-      "&afr;": "𝔞",
-      "&agrave": "à",
-      "&agrave;": "à",
-      "&alefsym;": "ℵ",
-      "&aleph;": "ℵ",
-      "&alpha;": "α",
-      "&amacr;": "ā",
-      "&amalg;": "⨿",
-      "&amp": "&",
-      "&amp;": "&",
-      "&and;": "∧",
-      "&andand;": "⩕",
-      "&andd;": "⩜",
-      "&andslope;": "⩘",
-      "&andv;": "⩚",
-      "&ang;": "∠",
-      "&ange;": "⦤",
-      "&angle;": "∠",
-      "&angmsd;": "∡",
-      "&angmsdaa;": "⦨",
-      "&angmsdab;": "⦩",
-      "&angmsdac;": "⦪",
-      "&angmsdad;": "⦫",
-      "&angmsdae;": "⦬",
-      "&angmsdaf;": "⦭",
-      "&angmsdag;": "⦮",
-      "&angmsdah;": "⦯",
-      "&angrt;": "∟",
-      "&angrtvb;": "⊾",
-      "&angrtvbd;": "⦝",
-      "&angsph;": "∢",
-      "&angst;": "Å",
-      "&angzarr;": "⍼",
-      "&aogon;": "ą",
-      "&aopf;": "𝕒",
-      "&ap;": "≈",
-      "&apE;": "⩰",
-      "&apacir;": "⩯",
-      "&ape;": "≊",
-      "&apid;": "≋",
-      "&apos;": "'",
-      "&approx;": "≈",
-      "&approxeq;": "≊",
-      "&aring": "å",
-      "&aring;": "å",
-      "&ascr;": "𝒶",
-      "&ast;": "*",
-      "&asymp;": "≈",
-      "&asympeq;": "≍",
-      "&atilde": "ã",
-      "&atilde;": "ã",
-      "&auml": "ä",
-      "&auml;": "ä",
-      "&awconint;": "∳",
-      "&awint;": "⨑",
-      "&bNot;": "⫭",
-      "&backcong;": "≌",
-      "&backepsilon;": "϶",
-      "&backprime;": "‵",
-      "&backsim;": "∽",
-      "&backsimeq;": "⋍",
-      "&barvee;": "⊽",
-      "&barwed;": "⌅",
-      "&barwedge;": "⌅",
-      "&bbrk;": "⎵",
-      "&bbrktbrk;": "⎶",
-      "&bcong;": "≌",
-      "&bcy;": "б",
-      "&bdquo;": "„",
-      "&becaus;": "∵",
-      "&because;": "∵",
-      "&bemptyv;": "⦰",
-      "&bepsi;": "϶",
-      "&bernou;": "ℬ",
-      "&beta;": "β",
-      "&beth;": "ℶ",
-      "&between;": "≬",
-      "&bfr;": "𝔟",
-      "&bigcap;": "⋂",
-      "&bigcirc;": "◯",
-      "&bigcup;": "⋃",
-      "&bigodot;": "⨀",
-      "&bigoplus;": "⨁",
-      "&bigotimes;": "⨂",
-      "&bigsqcup;": "⨆",
-      "&bigstar;": "★",
-      "&bigtriangledown;": "▽",
-      "&bigtriangleup;": "△",
-      "&biguplus;": "⨄",
-      "&bigvee;": "⋁",
-      "&bigwedge;": "⋀",
-      "&bkarow;": "⤍",
-      "&blacklozenge;": "⧫",
-      "&blacksquare;": "▪",
-      "&blacktriangle;": "▴",
-      "&blacktriangledown;": "▾",
-      "&blacktriangleleft;": "◂",
-      "&blacktriangleright;": "▸",
-      "&blank;": "␣",
-      "&blk12;": "▒",
-      "&blk14;": "░",
-      "&blk34;": "▓",
-      "&block;": "█",
-      "&bne;": "=⃥",
-      "&bnequiv;": "≡⃥",
-      "&bnot;": "⌐",
-      "&bopf;": "𝕓",
-      "&bot;": "⊥",
-      "&bottom;": "⊥",
-      "&bowtie;": "⋈",
-      "&boxDL;": "╗",
-      "&boxDR;": "╔",
-      "&boxDl;": "╖",
-      "&boxDr;": "╓",
-      "&boxH;": "═",
-      "&boxHD;": "╦",
-      "&boxHU;": "╩",
-      "&boxHd;": "╤",
-      "&boxHu;": "╧",
-      "&boxUL;": "╝",
-      "&boxUR;": "╚",
-      "&boxUl;": "╜",
-      "&boxUr;": "╙",
-      "&boxV;": "║",
-      "&boxVH;": "╬",
-      "&boxVL;": "╣",
-      "&boxVR;": "╠",
-      "&boxVh;": "╫",
-      "&boxVl;": "╢",
-      "&boxVr;": "╟",
-      "&boxbox;": "⧉",
-      "&boxdL;": "╕",
-      "&boxdR;": "╒",
-      "&boxdl;": "┐",
-      "&boxdr;": "┌",
-      "&boxh;": "─",
-      "&boxhD;": "╥",
-      "&boxhU;": "╨",
-      "&boxhd;": "┬",
-      "&boxhu;": "┴",
-      "&boxminus;": "⊟",
-      "&boxplus;": "⊞",
-      "&boxtimes;": "⊠",
-      "&boxuL;": "╛",
-      "&boxuR;": "╘",
-      "&boxul;": "┘",
-      "&boxur;": "└",
-      "&boxv;": "│",
-      "&boxvH;": "╪",
-      "&boxvL;": "╡",
-      "&boxvR;": "╞",
-      "&boxvh;": "┼",
-      "&boxvl;": "┤",
-      "&boxvr;": "├",
-      "&bprime;": "‵",
-      "&breve;": "˘",
-      "&brvbar": "¦",
-      "&brvbar;": "¦",
-      "&bscr;": "𝒷",
-      "&bsemi;": "⁏",
-      "&bsim;": "∽",
-      "&bsime;": "⋍",
-      "&bsol;": "\\",
-      "&bsolb;": "⧅",
-      "&bsolhsub;": "⟈",
-      "&bull;": "•",
-      "&bullet;": "•",
-      "&bump;": "≎",
-      "&bumpE;": "⪮",
-      "&bumpe;": "≏",
-      "&bumpeq;": "≏",
-      "&cacute;": "ć",
-      "&cap;": "∩",
-      "&capand;": "⩄",
-      "&capbrcup;": "⩉",
-      "&capcap;": "⩋",
-      "&capcup;": "⩇",
-      "&capdot;": "⩀",
-      "&caps;": "∩︀",
-      "&caret;": "⁁",
-      "&caron;": "ˇ",
-      "&ccaps;": "⩍",
-      "&ccaron;": "č",
-      "&ccedil": "ç",
-      "&ccedil;": "ç",
-      "&ccirc;": "ĉ",
-      "&ccups;": "⩌",
-      "&ccupssm;": "⩐",
-      "&cdot;": "ċ",
-      "&cedil": "¸",
-      "&cedil;": "¸",
-      "&cemptyv;": "⦲",
-      "&cent": "¢",
-      "&cent;": "¢",
-      "&centerdot;": "·",
-      "&cfr;": "𝔠",
-      "&chcy;": "ч",
-      "&check;": "✓",
-      "&checkmark;": "✓",
-      "&chi;": "χ",
-      "&cir;": "○",
-      "&cirE;": "⧃",
-      "&circ;": "ˆ",
-      "&circeq;": "≗",
-      "&circlearrowleft;": "↺",
-      "&circlearrowright;": "↻",
-      "&circledR;": "®",
-      "&circledS;": "Ⓢ",
-      "&circledast;": "⊛",
-      "&circledcirc;": "⊚",
-      "&circleddash;": "⊝",
-      "&cire;": "≗",
-      "&cirfnint;": "⨐",
-      "&cirmid;": "⫯",
-      "&cirscir;": "⧂",
-      "&clubs;": "♣",
-      "&clubsuit;": "♣",
-      "&colon;": ":",
-      "&colone;": "≔",
-      "&coloneq;": "≔",
-      "&comma;": ",",
-      "&commat;": "@",
-      "&comp;": "∁",
-      "&compfn;": "∘",
-      "&complement;": "∁",
-      "&complexes;": "ℂ",
-      "&cong;": "≅",
-      "&congdot;": "⩭",
-      "&conint;": "∮",
-      "&copf;": "𝕔",
-      "&coprod;": "∐",
-      "&copy": "©",
-      "&copy;": "©",
-      "&copysr;": "℗",
-      "&crarr;": "↵",
-      "&cross;": "✗",
-      "&cscr;": "𝒸",
-      "&csub;": "⫏",
-      "&csube;": "⫑",
-      "&csup;": "⫐",
-      "&csupe;": "⫒",
-      "&ctdot;": "⋯",
-      "&cudarrl;": "⤸",
-      "&cudarrr;": "⤵",
-      "&cuepr;": "⋞",
-      "&cuesc;": "⋟",
-      "&cularr;": "↶",
-      "&cularrp;": "⤽",
-      "&cup;": "∪",
-      "&cupbrcap;": "⩈",
-      "&cupcap;": "⩆",
-      "&cupcup;": "⩊",
-      "&cupdot;": "⊍",
-      "&cupor;": "⩅",
-      "&cups;": "∪︀",
-      "&curarr;": "↷",
-      "&curarrm;": "⤼",
-      "&curlyeqprec;": "⋞",
-      "&curlyeqsucc;": "⋟",
-      "&curlyvee;": "⋎",
-      "&curlywedge;": "⋏",
-      "&curren": "¤",
-      "&curren;": "¤",
-      "&curvearrowleft;": "↶",
-      "&curvearrowright;": "↷",
-      "&cuvee;": "⋎",
-      "&cuwed;": "⋏",
-      "&cwconint;": "∲",
-      "&cwint;": "∱",
-      "&cylcty;": "⌭",
-      "&dArr;": "⇓",
-      "&dHar;": "⥥",
-      "&dagger;": "†",
-      "&daleth;": "ℸ",
-      "&darr;": "↓",
-      "&dash;": "‐",
-      "&dashv;": "⊣",
-      "&dbkarow;": "⤏",
-      "&dblac;": "˝",
-      "&dcaron;": "ď",
-      "&dcy;": "д",
-      "&dd;": "ⅆ",
-      "&ddagger;": "‡",
-      "&ddarr;": "⇊",
-      "&ddotseq;": "⩷",
-      "&deg": "°",
-      "&deg;": "°",
-      "&delta;": "δ",
-      "&demptyv;": "⦱",
-      "&dfisht;": "⥿",
-      "&dfr;": "𝔡",
-      "&dharl;": "⇃",
-      "&dharr;": "⇂",
-      "&diam;": "⋄",
-      "&diamond;": "⋄",
-      "&diamondsuit;": "♦",
-      "&diams;": "♦",
-      "&die;": "¨",
-      "&digamma;": "ϝ",
-      "&disin;": "⋲",
-      "&div;": "÷",
-      "&divide": "÷",
-      "&divide;": "÷",
-      "&divideontimes;": "⋇",
-      "&divonx;": "⋇",
-      "&djcy;": "ђ",
-      "&dlcorn;": "⌞",
-      "&dlcrop;": "⌍",
-      "&dollar;": "$",
-      "&dopf;": "𝕕",
-      "&dot;": "˙",
-      "&doteq;": "≐",
-      "&doteqdot;": "≑",
-      "&dotminus;": "∸",
-      "&dotplus;": "∔",
-      "&dotsquare;": "⊡",
-      "&doublebarwedge;": "⌆",
-      "&downarrow;": "↓",
-      "&downdownarrows;": "⇊",
-      "&downharpoonleft;": "⇃",
-      "&downharpoonright;": "⇂",
-      "&drbkarow;": "⤐",
-      "&drcorn;": "⌟",
-      "&drcrop;": "⌌",
-      "&dscr;": "𝒹",
-      "&dscy;": "ѕ",
-      "&dsol;": "⧶",
-      "&dstrok;": "đ",
-      "&dtdot;": "⋱",
-      "&dtri;": "▿",
-      "&dtrif;": "▾",
-      "&duarr;": "⇵",
-      "&duhar;": "⥯",
-      "&dwangle;": "⦦",
-      "&dzcy;": "џ",
-      "&dzigrarr;": "⟿",
-      "&eDDot;": "⩷",
-      "&eDot;": "≑",
-      "&eacute": "é",
-      "&eacute;": "é",
-      "&easter;": "⩮",
-      "&ecaron;": "ě",
-      "&ecir;": "≖",
-      "&ecirc": "ê",
-      "&ecirc;": "ê",
-      "&ecolon;": "≕",
-      "&ecy;": "э",
-      "&edot;": "ė",
-      "&ee;": "ⅇ",
-      "&efDot;": "≒",
-      "&efr;": "𝔢",
-      "&eg;": "⪚",
-      "&egrave": "è",
-      "&egrave;": "è",
-      "&egs;": "⪖",
-      "&egsdot;": "⪘",
-      "&el;": "⪙",
-      "&elinters;": "⏧",
-      "&ell;": "ℓ",
-      "&els;": "⪕",
-      "&elsdot;": "⪗",
-      "&emacr;": "ē",
-      "&empty;": "∅",
-      "&emptyset;": "∅",
-      "&emptyv;": "∅",
-      "&emsp13;": " ",
-      "&emsp14;": " ",
-      "&emsp;": " ",
-      "&eng;": "ŋ",
-      "&ensp;": " ",
-      "&eogon;": "ę",
-      "&eopf;": "𝕖",
-      "&epar;": "⋕",
-      "&eparsl;": "⧣",
-      "&eplus;": "⩱",
-      "&epsi;": "ε",
-      "&epsilon;": "ε",
-      "&epsiv;": "ϵ",
-      "&eqcirc;": "≖",
-      "&eqcolon;": "≕",
-      "&eqsim;": "≂",
-      "&eqslantgtr;": "⪖",
-      "&eqslantless;": "⪕",
-      "&equals;": "=",
-      "&equest;": "≟",
-      "&equiv;": "≡",
-      "&equivDD;": "⩸",
-      "&eqvparsl;": "⧥",
-      "&erDot;": "≓",
-      "&erarr;": "⥱",
-      "&escr;": "ℯ",
-      "&esdot;": "≐",
-      "&esim;": "≂",
-      "&eta;": "η",
-      "&eth": "ð",
-      "&eth;": "ð",
-      "&euml": "ë",
-      "&euml;": "ë",
-      "&euro;": "€",
-      "&excl;": "!",
-      "&exist;": "∃",
-      "&expectation;": "ℰ",
-      "&exponentiale;": "ⅇ",
-      "&fallingdotseq;": "≒",
-      "&fcy;": "ф",
-      "&female;": "♀",
-      "&ffilig;": "ﬃ",
-      "&fflig;": "ﬀ",
-      "&ffllig;": "ﬄ",
-      "&ffr;": "𝔣",
-      "&filig;": "ﬁ",
-      "&fjlig;": "fj",
-      "&flat;": "♭",
-      "&fllig;": "ﬂ",
-      "&fltns;": "▱",
-      "&fnof;": "ƒ",
-      "&fopf;": "𝕗",
-      "&forall;": "∀",
-      "&fork;": "⋔",
-      "&forkv;": "⫙",
-      "&fpartint;": "⨍",
-      "&frac12": "½",
-      "&frac12;": "½",
-      "&frac13;": "⅓",
-      "&frac14": "¼",
-      "&frac14;": "¼",
-      "&frac15;": "⅕",
-      "&frac16;": "⅙",
-      "&frac18;": "⅛",
-      "&frac23;": "⅔",
-      "&frac25;": "⅖",
-      "&frac34": "¾",
-      "&frac34;": "¾",
-      "&frac35;": "⅗",
-      "&frac38;": "⅜",
-      "&frac45;": "⅘",
-      "&frac56;": "⅚",
-      "&frac58;": "⅝",
-      "&frac78;": "⅞",
-      "&frasl;": "⁄",
-      "&frown;": "⌢",
-      "&fscr;": "𝒻",
-      "&gE;": "≧",
-      "&gEl;": "⪌",
-      "&gacute;": "ǵ",
-      "&gamma;": "γ",
-      "&gammad;": "ϝ",
-      "&gap;": "⪆",
-      "&gbreve;": "ğ",
-      "&gcirc;": "ĝ",
-      "&gcy;": "г",
-      "&gdot;": "ġ",
-      "&ge;": "≥",
-      "&gel;": "⋛",
-      "&geq;": "≥",
-      "&geqq;": "≧",
-      "&geqslant;": "⩾",
-      "&ges;": "⩾",
-      "&gescc;": "⪩",
-      "&gesdot;": "⪀",
-      "&gesdoto;": "⪂",
-      "&gesdotol;": "⪄",
-      "&gesl;": "⋛︀",
-      "&gesles;": "⪔",
-      "&gfr;": "𝔤",
-      "&gg;": "≫",
-      "&ggg;": "⋙",
-      "&gimel;": "ℷ",
-      "&gjcy;": "ѓ",
-      "&gl;": "≷",
-      "&glE;": "⪒",
-      "&gla;": "⪥",
-      "&glj;": "⪤",
-      "&gnE;": "≩",
-      "&gnap;": "⪊",
-      "&gnapprox;": "⪊",
-      "&gne;": "⪈",
-      "&gneq;": "⪈",
-      "&gneqq;": "≩",
-      "&gnsim;": "⋧",
-      "&gopf;": "𝕘",
-      "&grave;": "`",
-      "&gscr;": "ℊ",
-      "&gsim;": "≳",
-      "&gsime;": "⪎",
-      "&gsiml;": "⪐",
-      "&gt": ">",
-      "&gt;": ">",
-      "&gtcc;": "⪧",
-      "&gtcir;": "⩺",
-      "&gtdot;": "⋗",
-      "&gtlPar;": "⦕",
-      "&gtquest;": "⩼",
-      "&gtrapprox;": "⪆",
-      "&gtrarr;": "⥸",
-      "&gtrdot;": "⋗",
-      "&gtreqless;": "⋛",
-      "&gtreqqless;": "⪌",
-      "&gtrless;": "≷",
-      "&gtrsim;": "≳",
-      "&gvertneqq;": "≩︀",
-      "&gvnE;": "≩︀",
-      "&hArr;": "⇔",
-      "&hairsp;": " ",
-      "&half;": "½",
-      "&hamilt;": "ℋ",
-      "&hardcy;": "ъ",
-      "&harr;": "↔",
-      "&harrcir;": "⥈",
-      "&harrw;": "↭",
-      "&hbar;": "ℏ",
-      "&hcirc;": "ĥ",
-      "&hearts;": "♥",
-      "&heartsuit;": "♥",
-      "&hellip;": "…",
-      "&hercon;": "⊹",
-      "&hfr;": "𝔥",
-      "&hksearow;": "⤥",
-      "&hkswarow;": "⤦",
-      "&hoarr;": "⇿",
-      "&homtht;": "∻",
-      "&hookleftarrow;": "↩",
-      "&hookrightarrow;": "↪",
-      "&hopf;": "𝕙",
-      "&horbar;": "―",
-      "&hscr;": "𝒽",
-      "&hslash;": "ℏ",
-      "&hstrok;": "ħ",
-      "&hybull;": "⁃",
-      "&hyphen;": "‐",
-      "&iacute": "í",
-      "&iacute;": "í",
-      "&ic;": "⁣",
-      "&icirc": "î",
-      "&icirc;": "î",
-      "&icy;": "и",
-      "&iecy;": "е",
-      "&iexcl": "¡",
-      "&iexcl;": "¡",
-      "&iff;": "⇔",
-      "&ifr;": "𝔦",
-      "&igrave": "ì",
-      "&igrave;": "ì",
-      "&ii;": "ⅈ",
-      "&iiiint;": "⨌",
-      "&iiint;": "∭",
-      "&iinfin;": "⧜",
-      "&iiota;": "℩",
-      "&ijlig;": "ĳ",
-      "&imacr;": "ī",
-      "&image;": "ℑ",
-      "&imagline;": "ℐ",
-      "&imagpart;": "ℑ",
-      "&imath;": "ı",
-      "&imof;": "⊷",
-      "&imped;": "Ƶ",
-      "&in;": "∈",
-      "&incare;": "℅",
-      "&infin;": "∞",
-      "&infintie;": "⧝",
-      "&inodot;": "ı",
-      "&int;": "∫",
-      "&intcal;": "⊺",
-      "&integers;": "ℤ",
-      "&intercal;": "⊺",
-      "&intlarhk;": "⨗",
-      "&intprod;": "⨼",
-      "&iocy;": "ё",
-      "&iogon;": "į",
-      "&iopf;": "𝕚",
-      "&iota;": "ι",
-      "&iprod;": "⨼",
-      "&iquest": "¿",
-      "&iquest;": "¿",
-      "&iscr;": "𝒾",
-      "&isin;": "∈",
-      "&isinE;": "⋹",
-      "&isindot;": "⋵",
-      "&isins;": "⋴",
-      "&isinsv;": "⋳",
-      "&isinv;": "∈",
-      "&it;": "⁢",
-      "&itilde;": "ĩ",
-      "&iukcy;": "і",
-      "&iuml": "ï",
-      "&iuml;": "ï",
-      "&jcirc;": "ĵ",
-      "&jcy;": "й",
-      "&jfr;": "𝔧",
-      "&jmath;": "ȷ",
-      "&jopf;": "𝕛",
-      "&jscr;": "𝒿",
-      "&jsercy;": "ј",
-      "&jukcy;": "є",
-      "&kappa;": "κ",
-      "&kappav;": "ϰ",
-      "&kcedil;": "ķ",
-      "&kcy;": "к",
-      "&kfr;": "𝔨",
-      "&kgreen;": "ĸ",
-      "&khcy;": "х",
-      "&kjcy;": "ќ",
-      "&kopf;": "𝕜",
-      "&kscr;": "𝓀",
-      "&lAarr;": "⇚",
-      "&lArr;": "⇐",
-      "&lAtail;": "⤛",
-      "&lBarr;": "⤎",
-      "&lE;": "≦",
-      "&lEg;": "⪋",
-      "&lHar;": "⥢",
-      "&lacute;": "ĺ",
-      "&laemptyv;": "⦴",
-      "&lagran;": "ℒ",
-      "&lambda;": "λ",
-      "&lang;": "⟨",
-      "&langd;": "⦑",
-      "&langle;": "⟨",
-      "&lap;": "⪅",
-      "&laquo": "«",
-      "&laquo;": "«",
-      "&larr;": "←",
-      "&larrb;": "⇤",
-      "&larrbfs;": "⤟",
-      "&larrfs;": "⤝",
-      "&larrhk;": "↩",
-      "&larrlp;": "↫",
-      "&larrpl;": "⤹",
-      "&larrsim;": "⥳",
-      "&larrtl;": "↢",
-      "&lat;": "⪫",
-      "&latail;": "⤙",
-      "&late;": "⪭",
-      "&lates;": "⪭︀",
-      "&lbarr;": "⤌",
-      "&lbbrk;": "❲",
-      "&lbrace;": "{",
-      "&lbrack;": "[",
-      "&lbrke;": "⦋",
-      "&lbrksld;": "⦏",
-      "&lbrkslu;": "⦍",
-      "&lcaron;": "ľ",
-      "&lcedil;": "ļ",
-      "&lceil;": "⌈",
-      "&lcub;": "{",
-      "&lcy;": "л",
-      "&ldca;": "⤶",
-      "&ldquo;": "“",
-      "&ldquor;": "„",
-      "&ldrdhar;": "⥧",
-      "&ldrushar;": "⥋",
-      "&ldsh;": "↲",
-      "&le;": "≤",
-      "&leftarrow;": "←",
-      "&leftarrowtail;": "↢",
-      "&leftharpoondown;": "↽",
-      "&leftharpoonup;": "↼",
-      "&leftleftarrows;": "⇇",
-      "&leftrightarrow;": "↔",
-      "&leftrightarrows;": "⇆",
-      "&leftrightharpoons;": "⇋",
-      "&leftrightsquigarrow;": "↭",
-      "&leftthreetimes;": "⋋",
-      "&leg;": "⋚",
-      "&leq;": "≤",
-      "&leqq;": "≦",
-      "&leqslant;": "⩽",
-      "&les;": "⩽",
-      "&lescc;": "⪨",
-      "&lesdot;": "⩿",
-      "&lesdoto;": "⪁",
-      "&lesdotor;": "⪃",
-      "&lesg;": "⋚︀",
-      "&lesges;": "⪓",
-      "&lessapprox;": "⪅",
-      "&lessdot;": "⋖",
-      "&lesseqgtr;": "⋚",
-      "&lesseqqgtr;": "⪋",
-      "&lessgtr;": "≶",
-      "&lesssim;": "≲",
-      "&lfisht;": "⥼",
-      "&lfloor;": "⌊",
-      "&lfr;": "𝔩",
-      "&lg;": "≶",
-      "&lgE;": "⪑",
-      "&lhard;": "↽",
-      "&lharu;": "↼",
-      "&lharul;": "⥪",
-      "&lhblk;": "▄",
-      "&ljcy;": "љ",
-      "&ll;": "≪",
-      "&llarr;": "⇇",
-      "&llcorner;": "⌞",
-      "&llhard;": "⥫",
-      "&lltri;": "◺",
-      "&lmidot;": "ŀ",
-      "&lmoust;": "⎰",
-      "&lmoustache;": "⎰",
-      "&lnE;": "≨",
-      "&lnap;": "⪉",
-      "&lnapprox;": "⪉",
-      "&lne;": "⪇",
-      "&lneq;": "⪇",
-      "&lneqq;": "≨",
-      "&lnsim;": "⋦",
-      "&loang;": "⟬",
-      "&loarr;": "⇽",
-      "&lobrk;": "⟦",
-      "&longleftarrow;": "⟵",
-      "&longleftrightarrow;": "⟷",
-      "&longmapsto;": "⟼",
-      "&longrightarrow;": "⟶",
-      "&looparrowleft;": "↫",
-      "&looparrowright;": "↬",
-      "&lopar;": "⦅",
-      "&lopf;": "𝕝",
-      "&loplus;": "⨭",
-      "&lotimes;": "⨴",
-      "&lowast;": "∗",
-      "&lowbar;": "_",
-      "&loz;": "◊",
-      "&lozenge;": "◊",
-      "&lozf;": "⧫",
-      "&lpar;": "(",
-      "&lparlt;": "⦓",
-      "&lrarr;": "⇆",
-      "&lrcorner;": "⌟",
-      "&lrhar;": "⇋",
-      "&lrhard;": "⥭",
-      "&lrm;": "‎",
-      "&lrtri;": "⊿",
-      "&lsaquo;": "‹",
-      "&lscr;": "𝓁",
-      "&lsh;": "↰",
-      "&lsim;": "≲",
-      "&lsime;": "⪍",
-      "&lsimg;": "⪏",
-      "&lsqb;": "[",
-      "&lsquo;": "‘",
-      "&lsquor;": "‚",
-      "&lstrok;": "ł",
-      "&lt": "<",
-      "&lt;": "<",
-      "&ltcc;": "⪦",
-      "&ltcir;": "⩹",
-      "&ltdot;": "⋖",
-      "&lthree;": "⋋",
-      "&ltimes;": "⋉",
-      "&ltlarr;": "⥶",
-      "&ltquest;": "⩻",
-      "&ltrPar;": "⦖",
-      "&ltri;": "◃",
-      "&ltrie;": "⊴",
-      "&ltrif;": "◂",
-      "&lurdshar;": "⥊",
-      "&luruhar;": "⥦",
-      "&lvertneqq;": "≨︀",
-      "&lvnE;": "≨︀",
-      "&mDDot;": "∺",
-      "&macr": "¯",
-      "&macr;": "¯",
-      "&male;": "♂",
-      "&malt;": "✠",
-      "&maltese;": "✠",
-      "&map;": "↦",
-      "&mapsto;": "↦",
-      "&mapstodown;": "↧",
-      "&mapstoleft;": "↤",
-      "&mapstoup;": "↥",
-      "&marker;": "▮",
-      "&mcomma;": "⨩",
-      "&mcy;": "м",
-      "&mdash;": "—",
-      "&measuredangle;": "∡",
-      "&mfr;": "𝔪",
-      "&mho;": "℧",
-      "&micro": "µ",
-      "&micro;": "µ",
-      "&mid;": "∣",
-      "&midast;": "*",
-      "&midcir;": "⫰",
-      "&middot": "·",
-      "&middot;": "·",
-      "&minus;": "−",
-      "&minusb;": "⊟",
-      "&minusd;": "∸",
-      "&minusdu;": "⨪",
-      "&mlcp;": "⫛",
-      "&mldr;": "…",
-      "&mnplus;": "∓",
-      "&models;": "⊧",
-      "&mopf;": "𝕞",
-      "&mp;": "∓",
-      "&mscr;": "𝓂",
-      "&mstpos;": "∾",
-      "&mu;": "μ",
-      "&multimap;": "⊸",
-      "&mumap;": "⊸",
-      "&nGg;": "⋙̸",
-      "&nGt;": "≫⃒",
-      "&nGtv;": "≫̸",
-      "&nLeftarrow;": "⇍",
-      "&nLeftrightarrow;": "⇎",
-      "&nLl;": "⋘̸",
-      "&nLt;": "≪⃒",
-      "&nLtv;": "≪̸",
-      "&nRightarrow;": "⇏",
-      "&nVDash;": "⊯",
-      "&nVdash;": "⊮",
-      "&nabla;": "∇",
-      "&nacute;": "ń",
-      "&nang;": "∠⃒",
-      "&nap;": "≉",
-      "&napE;": "⩰̸",
-      "&napid;": "≋̸",
-      "&napos;": "ŉ",
-      "&napprox;": "≉",
-      "&natur;": "♮",
-      "&natural;": "♮",
-      "&naturals;": "ℕ",
-      "&nbsp": " ",
-      "&nbsp;": " ",
-      "&nbump;": "≎̸",
-      "&nbumpe;": "≏̸",
-      "&ncap;": "⩃",
-      "&ncaron;": "ň",
-      "&ncedil;": "ņ",
-      "&ncong;": "≇",
-      "&ncongdot;": "⩭̸",
-      "&ncup;": "⩂",
-      "&ncy;": "н",
-      "&ndash;": "–",
-      "&ne;": "≠",
-      "&neArr;": "⇗",
-      "&nearhk;": "⤤",
-      "&nearr;": "↗",
-      "&nearrow;": "↗",
-      "&nedot;": "≐̸",
-      "&nequiv;": "≢",
-      "&nesear;": "⤨",
-      "&nesim;": "≂̸",
-      "&nexist;": "∄",
-      "&nexists;": "∄",
-      "&nfr;": "𝔫",
-      "&ngE;": "≧̸",
-      "&nge;": "≱",
-      "&ngeq;": "≱",
-      "&ngeqq;": "≧̸",
-      "&ngeqslant;": "⩾̸",
-      "&nges;": "⩾̸",
-      "&ngsim;": "≵",
-      "&ngt;": "≯",
-      "&ngtr;": "≯",
-      "&nhArr;": "⇎",
-      "&nharr;": "↮",
-      "&nhpar;": "⫲",
-      "&ni;": "∋",
-      "&nis;": "⋼",
-      "&nisd;": "⋺",
-      "&niv;": "∋",
-      "&njcy;": "њ",
-      "&nlArr;": "⇍",
-      "&nlE;": "≦̸",
-      "&nlarr;": "↚",
-      "&nldr;": "‥",
-      "&nle;": "≰",
-      "&nleftarrow;": "↚",
-      "&nleftrightarrow;": "↮",
-      "&nleq;": "≰",
-      "&nleqq;": "≦̸",
-      "&nleqslant;": "⩽̸",
-      "&nles;": "⩽̸",
-      "&nless;": "≮",
-      "&nlsim;": "≴",
-      "&nlt;": "≮",
-      "&nltri;": "⋪",
-      "&nltrie;": "⋬",
-      "&nmid;": "∤",
-      "&nopf;": "𝕟",
-      "&not": "¬",
-      "&not;": "¬",
-      "&notin;": "∉",
-      "&notinE;": "⋹̸",
-      "&notindot;": "⋵̸",
-      "&notinva;": "∉",
-      "&notinvb;": "⋷",
-      "&notinvc;": "⋶",
-      "&notni;": "∌",
-      "&notniva;": "∌",
-      "&notnivb;": "⋾",
-      "&notnivc;": "⋽",
-      "&npar;": "∦",
-      "&nparallel;": "∦",
-      "&nparsl;": "⫽⃥",
-      "&npart;": "∂̸",
-      "&npolint;": "⨔",
-      "&npr;": "⊀",
-      "&nprcue;": "⋠",
-      "&npre;": "⪯̸",
-      "&nprec;": "⊀",
-      "&npreceq;": "⪯̸",
-      "&nrArr;": "⇏",
-      "&nrarr;": "↛",
-      "&nrarrc;": "⤳̸",
-      "&nrarrw;": "↝̸",
-      "&nrightarrow;": "↛",
-      "&nrtri;": "⋫",
-      "&nrtrie;": "⋭",
-      "&nsc;": "⊁",
-      "&nsccue;": "⋡",
-      "&nsce;": "⪰̸",
-      "&nscr;": "𝓃",
-      "&nshortmid;": "∤",
-      "&nshortparallel;": "∦",
-      "&nsim;": "≁",
-      "&nsime;": "≄",
-      "&nsimeq;": "≄",
-      "&nsmid;": "∤",
-      "&nspar;": "∦",
-      "&nsqsube;": "⋢",
-      "&nsqsupe;": "⋣",
-      "&nsub;": "⊄",
-      "&nsubE;": "⫅̸",
-      "&nsube;": "⊈",
-      "&nsubset;": "⊂⃒",
-      "&nsubseteq;": "⊈",
-      "&nsubseteqq;": "⫅̸",
-      "&nsucc;": "⊁",
-      "&nsucceq;": "⪰̸",
-      "&nsup;": "⊅",
-      "&nsupE;": "⫆̸",
-      "&nsupe;": "⊉",
-      "&nsupset;": "⊃⃒",
-      "&nsupseteq;": "⊉",
-      "&nsupseteqq;": "⫆̸",
-      "&ntgl;": "≹",
-      "&ntilde": "ñ",
-      "&ntilde;": "ñ",
-      "&ntlg;": "≸",
-      "&ntriangleleft;": "⋪",
-      "&ntrianglelefteq;": "⋬",
-      "&ntriangleright;": "⋫",
-      "&ntrianglerighteq;": "⋭",
-      "&nu;": "ν",
-      "&num;": "#",
-      "&numero;": "№",
-      "&numsp;": " ",
-      "&nvDash;": "⊭",
-      "&nvHarr;": "⤄",
-      "&nvap;": "≍⃒",
-      "&nvdash;": "⊬",
-      "&nvge;": "≥⃒",
-      "&nvgt;": ">⃒",
-      "&nvinfin;": "⧞",
-      "&nvlArr;": "⤂",
-      "&nvle;": "≤⃒",
-      "&nvlt;": "<⃒",
-      "&nvltrie;": "⊴⃒",
-      "&nvrArr;": "⤃",
-      "&nvrtrie;": "⊵⃒",
-      "&nvsim;": "∼⃒",
-      "&nwArr;": "⇖",
-      "&nwarhk;": "⤣",
-      "&nwarr;": "↖",
-      "&nwarrow;": "↖",
-      "&nwnear;": "⤧",
-      "&oS;": "Ⓢ",
-      "&oacute": "ó",
-      "&oacute;": "ó",
-      "&oast;": "⊛",
-      "&ocir;": "⊚",
-      "&ocirc": "ô",
-      "&ocirc;": "ô",
-      "&ocy;": "о",
-      "&odash;": "⊝",
-      "&odblac;": "ő",
-      "&odiv;": "⨸",
-      "&odot;": "⊙",
-      "&odsold;": "⦼",
-      "&oelig;": "œ",
-      "&ofcir;": "⦿",
-      "&ofr;": "𝔬",
-      "&ogon;": "˛",
-      "&ograve": "ò",
-      "&ograve;": "ò",
-      "&ogt;": "⧁",
-      "&ohbar;": "⦵",
-      "&ohm;": "Ω",
-      "&oint;": "∮",
-      "&olarr;": "↺",
-      "&olcir;": "⦾",
-      "&olcross;": "⦻",
-      "&oline;": "‾",
-      "&olt;": "⧀",
-      "&omacr;": "ō",
-      "&omega;": "ω",
-      "&omicron;": "ο",
-      "&omid;": "⦶",
-      "&ominus;": "⊖",
-      "&oopf;": "𝕠",
-      "&opar;": "⦷",
-      "&operp;": "⦹",
-      "&oplus;": "⊕",
-      "&or;": "∨",
-      "&orarr;": "↻",
-      "&ord;": "⩝",
-      "&order;": "ℴ",
-      "&orderof;": "ℴ",
-      "&ordf": "ª",
-      "&ordf;": "ª",
-      "&ordm": "º",
-      "&ordm;": "º",
-      "&origof;": "⊶",
-      "&oror;": "⩖",
-      "&orslope;": "⩗",
-      "&orv;": "⩛",
-      "&oscr;": "ℴ",
-      "&oslash": "ø",
-      "&oslash;": "ø",
-      "&osol;": "⊘",
-      "&otilde": "õ",
-      "&otilde;": "õ",
-      "&otimes;": "⊗",
-      "&otimesas;": "⨶",
-      "&ouml": "ö",
-      "&ouml;": "ö",
-      "&ovbar;": "⌽",
-      "&par;": "∥",
-      "&para": "¶",
-      "&para;": "¶",
-      "&parallel;": "∥",
-      "&parsim;": "⫳",
-      "&parsl;": "⫽",
-      "&part;": "∂",
-      "&pcy;": "п",
-      "&percnt;": "%",
-      "&period;": ".",
-      "&permil;": "‰",
-      "&perp;": "⊥",
-      "&pertenk;": "‱",
-      "&pfr;": "𝔭",
-      "&phi;": "φ",
-      "&phiv;": "ϕ",
-      "&phmmat;": "ℳ",
-      "&phone;": "☎",
-      "&pi;": "π",
-      "&pitchfork;": "⋔",
-      "&piv;": "ϖ",
-      "&planck;": "ℏ",
-      "&planckh;": "ℎ",
-      "&plankv;": "ℏ",
-      "&plus;": "+",
-      "&plusacir;": "⨣",
-      "&plusb;": "⊞",
-      "&pluscir;": "⨢",
-      "&plusdo;": "∔",
-      "&plusdu;": "⨥",
-      "&pluse;": "⩲",
-      "&plusmn": "±",
-      "&plusmn;": "±",
-      "&plussim;": "⨦",
-      "&plustwo;": "⨧",
-      "&pm;": "±",
-      "&pointint;": "⨕",
-      "&popf;": "𝕡",
-      "&pound": "£",
-      "&pound;": "£",
-      "&pr;": "≺",
-      "&prE;": "⪳",
-      "&prap;": "⪷",
-      "&prcue;": "≼",
-      "&pre;": "⪯",
-      "&prec;": "≺",
-      "&precapprox;": "⪷",
-      "&preccurlyeq;": "≼",
-      "&preceq;": "⪯",
-      "&precnapprox;": "⪹",
-      "&precneqq;": "⪵",
-      "&precnsim;": "⋨",
-      "&precsim;": "≾",
-      "&prime;": "′",
-      "&primes;": "ℙ",
-      "&prnE;": "⪵",
-      "&prnap;": "⪹",
-      "&prnsim;": "⋨",
-      "&prod;": "∏",
-      "&profalar;": "⌮",
-      "&profline;": "⌒",
-      "&profsurf;": "⌓",
-      "&prop;": "∝",
-      "&propto;": "∝",
-      "&prsim;": "≾",
-      "&prurel;": "⊰",
-      "&pscr;": "𝓅",
-      "&psi;": "ψ",
-      "&puncsp;": " ",
-      "&qfr;": "𝔮",
-      "&qint;": "⨌",
-      "&qopf;": "𝕢",
-      "&qprime;": "⁗",
-      "&qscr;": "𝓆",
-      "&quaternions;": "ℍ",
-      "&quatint;": "⨖",
-      "&quest;": "?",
-      "&questeq;": "≟",
-      "&quot": '"',
-      "&quot;": '"',
-      "&rAarr;": "⇛",
-      "&rArr;": "⇒",
-      "&rAtail;": "⤜",
-      "&rBarr;": "⤏",
-      "&rHar;": "⥤",
-      "&race;": "∽̱",
-      "&racute;": "ŕ",
-      "&radic;": "√",
-      "&raemptyv;": "⦳",
-      "&rang;": "⟩",
-      "&rangd;": "⦒",
-      "&range;": "⦥",
-      "&rangle;": "⟩",
-      "&raquo": "»",
-      "&raquo;": "»",
-      "&rarr;": "→",
-      "&rarrap;": "⥵",
-      "&rarrb;": "⇥",
-      "&rarrbfs;": "⤠",
-      "&rarrc;": "⤳",
-      "&rarrfs;": "⤞",
-      "&rarrhk;": "↪",
-      "&rarrlp;": "↬",
-      "&rarrpl;": "⥅",
-      "&rarrsim;": "⥴",
-      "&rarrtl;": "↣",
-      "&rarrw;": "↝",
-      "&ratail;": "⤚",
-      "&ratio;": "∶",
-      "&rationals;": "ℚ",
-      "&rbarr;": "⤍",
-      "&rbbrk;": "❳",
-      "&rbrace;": "}",
-      "&rbrack;": "]",
-      "&rbrke;": "⦌",
-      "&rbrksld;": "⦎",
-      "&rbrkslu;": "⦐",
-      "&rcaron;": "ř",
-      "&rcedil;": "ŗ",
-      "&rceil;": "⌉",
-      "&rcub;": "}",
-      "&rcy;": "р",
-      "&rdca;": "⤷",
-      "&rdldhar;": "⥩",
-      "&rdquo;": "”",
-      "&rdquor;": "”",
-      "&rdsh;": "↳",
-      "&real;": "ℜ",
-      "&realine;": "ℛ",
-      "&realpart;": "ℜ",
-      "&reals;": "ℝ",
-      "&rect;": "▭",
-      "&reg": "®",
-      "&reg;": "®",
-      "&rfisht;": "⥽",
-      "&rfloor;": "⌋",
-      "&rfr;": "𝔯",
-      "&rhard;": "⇁",
-      "&rharu;": "⇀",
-      "&rharul;": "⥬",
-      "&rho;": "ρ",
-      "&rhov;": "ϱ",
-      "&rightarrow;": "→",
-      "&rightarrowtail;": "↣",
-      "&rightharpoondown;": "⇁",
-      "&rightharpoonup;": "⇀",
-      "&rightleftarrows;": "⇄",
-      "&rightleftharpoons;": "⇌",
-      "&rightrightarrows;": "⇉",
-      "&rightsquigarrow;": "↝",
-      "&rightthreetimes;": "⋌",
-      "&ring;": "˚",
-      "&risingdotseq;": "≓",
-      "&rlarr;": "⇄",
-      "&rlhar;": "⇌",
-      "&rlm;": "‏",
-      "&rmoust;": "⎱",
-      "&rmoustache;": "⎱",
-      "&rnmid;": "⫮",
-      "&roang;": "⟭",
-      "&roarr;": "⇾",
-      "&robrk;": "⟧",
-      "&ropar;": "⦆",
-      "&ropf;": "𝕣",
-      "&roplus;": "⨮",
-      "&rotimes;": "⨵",
-      "&rpar;": ")",
-      "&rpargt;": "⦔",
-      "&rppolint;": "⨒",
-      "&rrarr;": "⇉",
-      "&rsaquo;": "›",
-      "&rscr;": "𝓇",
-      "&rsh;": "↱",
-      "&rsqb;": "]",
-      "&rsquo;": "’",
-      "&rsquor;": "’",
-      "&rthree;": "⋌",
-      "&rtimes;": "⋊",
-      "&rtri;": "▹",
-      "&rtrie;": "⊵",
-      "&rtrif;": "▸",
-      "&rtriltri;": "⧎",
-      "&ruluhar;": "⥨",
-      "&rx;": "℞",
-      "&sacute;": "ś",
-      "&sbquo;": "‚",
-      "&sc;": "≻",
-      "&scE;": "⪴",
-      "&scap;": "⪸",
-      "&scaron;": "š",
-      "&sccue;": "≽",
-      "&sce;": "⪰",
-      "&scedil;": "ş",
-      "&scirc;": "ŝ",
-      "&scnE;": "⪶",
-      "&scnap;": "⪺",
-      "&scnsim;": "⋩",
-      "&scpolint;": "⨓",
-      "&scsim;": "≿",
-      "&scy;": "с",
-      "&sdot;": "⋅",
-      "&sdotb;": "⊡",
-      "&sdote;": "⩦",
-      "&seArr;": "⇘",
-      "&searhk;": "⤥",
-      "&searr;": "↘",
-      "&searrow;": "↘",
-      "&sect": "§",
-      "&sect;": "§",
-      "&semi;": ";",
-      "&seswar;": "⤩",
-      "&setminus;": "∖",
-      "&setmn;": "∖",
-      "&sext;": "✶",
-      "&sfr;": "𝔰",
-      "&sfrown;": "⌢",
-      "&sharp;": "♯",
-      "&shchcy;": "щ",
-      "&shcy;": "ш",
-      "&shortmid;": "∣",
-      "&shortparallel;": "∥",
-      "&shy": "­",
-      "&shy;": "­",
-      "&sigma;": "σ",
-      "&sigmaf;": "ς",
-      "&sigmav;": "ς",
-      "&sim;": "∼",
-      "&simdot;": "⩪",
-      "&sime;": "≃",
-      "&simeq;": "≃",
-      "&simg;": "⪞",
-      "&simgE;": "⪠",
-      "&siml;": "⪝",
-      "&simlE;": "⪟",
-      "&simne;": "≆",
-      "&simplus;": "⨤",
-      "&simrarr;": "⥲",
-      "&slarr;": "←",
-      "&smallsetminus;": "∖",
-      "&smashp;": "⨳",
-      "&smeparsl;": "⧤",
-      "&smid;": "∣",
-      "&smile;": "⌣",
-      "&smt;": "⪪",
-      "&smte;": "⪬",
-      "&smtes;": "⪬︀",
-      "&softcy;": "ь",
-      "&sol;": "/",
-      "&solb;": "⧄",
-      "&solbar;": "⌿",
-      "&sopf;": "𝕤",
-      "&spades;": "♠",
-      "&spadesuit;": "♠",
-      "&spar;": "∥",
-      "&sqcap;": "⊓",
-      "&sqcaps;": "⊓︀",
-      "&sqcup;": "⊔",
-      "&sqcups;": "⊔︀",
-      "&sqsub;": "⊏",
-      "&sqsube;": "⊑",
-      "&sqsubset;": "⊏",
-      "&sqsubseteq;": "⊑",
-      "&sqsup;": "⊐",
-      "&sqsupe;": "⊒",
-      "&sqsupset;": "⊐",
-      "&sqsupseteq;": "⊒",
-      "&squ;": "□",
-      "&square;": "□",
-      "&squarf;": "▪",
-      "&squf;": "▪",
-      "&srarr;": "→",
-      "&sscr;": "𝓈",
-      "&ssetmn;": "∖",
-      "&ssmile;": "⌣",
-      "&sstarf;": "⋆",
-      "&star;": "☆",
-      "&starf;": "★",
-      "&straightepsilon;": "ϵ",
-      "&straightphi;": "ϕ",
-      "&strns;": "¯",
-      "&sub;": "⊂",
-      "&subE;": "⫅",
-      "&subdot;": "⪽",
-      "&sube;": "⊆",
-      "&subedot;": "⫃",
-      "&submult;": "⫁",
-      "&subnE;": "⫋",
-      "&subne;": "⊊",
-      "&subplus;": "⪿",
-      "&subrarr;": "⥹",
-      "&subset;": "⊂",
-      "&subseteq;": "⊆",
-      "&subseteqq;": "⫅",
-      "&subsetneq;": "⊊",
-      "&subsetneqq;": "⫋",
-      "&subsim;": "⫇",
-      "&subsub;": "⫕",
-      "&subsup;": "⫓",
-      "&succ;": "≻",
-      "&succapprox;": "⪸",
-      "&succcurlyeq;": "≽",
-      "&succeq;": "⪰",
-      "&succnapprox;": "⪺",
-      "&succneqq;": "⪶",
-      "&succnsim;": "⋩",
-      "&succsim;": "≿",
-      "&sum;": "∑",
-      "&sung;": "♪",
-      "&sup1": "¹",
-      "&sup1;": "¹",
-      "&sup2": "²",
-      "&sup2;": "²",
-      "&sup3": "³",
-      "&sup3;": "³",
-      "&sup;": "⊃",
-      "&supE;": "⫆",
-      "&supdot;": "⪾",
-      "&supdsub;": "⫘",
-      "&supe;": "⊇",
-      "&supedot;": "⫄",
-      "&suphsol;": "⟉",
-      "&suphsub;": "⫗",
-      "&suplarr;": "⥻",
-      "&supmult;": "⫂",
-      "&supnE;": "⫌",
-      "&supne;": "⊋",
-      "&supplus;": "⫀",
-      "&supset;": "⊃",
-      "&supseteq;": "⊇",
-      "&supseteqq;": "⫆",
-      "&supsetneq;": "⊋",
-      "&supsetneqq;": "⫌",
-      "&supsim;": "⫈",
-      "&supsub;": "⫔",
-      "&supsup;": "⫖",
-      "&swArr;": "⇙",
-      "&swarhk;": "⤦",
-      "&swarr;": "↙",
-      "&swarrow;": "↙",
-      "&swnwar;": "⤪",
-      "&szlig": "ß",
-      "&szlig;": "ß",
-      "&target;": "⌖",
-      "&tau;": "τ",
-      "&tbrk;": "⎴",
-      "&tcaron;": "ť",
-      "&tcedil;": "ţ",
-      "&tcy;": "т",
-      "&tdot;": "⃛",
-      "&telrec;": "⌕",
-      "&tfr;": "𝔱",
-      "&there4;": "∴",
-      "&therefore;": "∴",
-      "&theta;": "θ",
-      "&thetasym;": "ϑ",
-      "&thetav;": "ϑ",
-      "&thickapprox;": "≈",
-      "&thicksim;": "∼",
-      "&thinsp;": " ",
-      "&thkap;": "≈",
-      "&thksim;": "∼",
-      "&thorn": "þ",
-      "&thorn;": "þ",
-      "&tilde;": "˜",
-      "&times": "×",
-      "&times;": "×",
-      "&timesb;": "⊠",
-      "&timesbar;": "⨱",
-      "&timesd;": "⨰",
-      "&tint;": "∭",
-      "&toea;": "⤨",
-      "&top;": "⊤",
-      "&topbot;": "⌶",
-      "&topcir;": "⫱",
-      "&topf;": "𝕥",
-      "&topfork;": "⫚",
-      "&tosa;": "⤩",
-      "&tprime;": "‴",
-      "&trade;": "™",
-      "&triangle;": "▵",
-      "&triangledown;": "▿",
-      "&triangleleft;": "◃",
-      "&trianglelefteq;": "⊴",
-      "&triangleq;": "≜",
-      "&triangleright;": "▹",
-      "&trianglerighteq;": "⊵",
-      "&tridot;": "◬",
-      "&trie;": "≜",
-      "&triminus;": "⨺",
-      "&triplus;": "⨹",
-      "&trisb;": "⧍",
-      "&tritime;": "⨻",
-      "&trpezium;": "⏢",
-      "&tscr;": "𝓉",
-      "&tscy;": "ц",
-      "&tshcy;": "ћ",
-      "&tstrok;": "ŧ",
-      "&twixt;": "≬",
-      "&twoheadleftarrow;": "↞",
-      "&twoheadrightarrow;": "↠",
-      "&uArr;": "⇑",
-      "&uHar;": "⥣",
-      "&uacute": "ú",
-      "&uacute;": "ú",
-      "&uarr;": "↑",
-      "&ubrcy;": "ў",
-      "&ubreve;": "ŭ",
-      "&ucirc": "û",
-      "&ucirc;": "û",
-      "&ucy;": "у",
-      "&udarr;": "⇅",
-      "&udblac;": "ű",
-      "&udhar;": "⥮",
-      "&ufisht;": "⥾",
-      "&ufr;": "𝔲",
-      "&ugrave": "ù",
-      "&ugrave;": "ù",
-      "&uharl;": "↿",
-      "&uharr;": "↾",
-      "&uhblk;": "▀",
-      "&ulcorn;": "⌜",
-      "&ulcorner;": "⌜",
-      "&ulcrop;": "⌏",
-      "&ultri;": "◸",
-      "&umacr;": "ū",
-      "&uml": "¨",
-      "&uml;": "¨",
-      "&uogon;": "ų",
-      "&uopf;": "𝕦",
-      "&uparrow;": "↑",
-      "&updownarrow;": "↕",
-      "&upharpoonleft;": "↿",
-      "&upharpoonright;": "↾",
-      "&uplus;": "⊎",
-      "&upsi;": "υ",
-      "&upsih;": "ϒ",
-      "&upsilon;": "υ",
-      "&upuparrows;": "⇈",
-      "&urcorn;": "⌝",
-      "&urcorner;": "⌝",
-      "&urcrop;": "⌎",
-      "&uring;": "ů",
-      "&urtri;": "◹",
-      "&uscr;": "𝓊",
-      "&utdot;": "⋰",
-      "&utilde;": "ũ",
-      "&utri;": "▵",
-      "&utrif;": "▴",
-      "&uuarr;": "⇈",
-      "&uuml": "ü",
-      "&uuml;": "ü",
-      "&uwangle;": "⦧",
-      "&vArr;": "⇕",
-      "&vBar;": "⫨",
-      "&vBarv;": "⫩",
-      "&vDash;": "⊨",
-      "&vangrt;": "⦜",
-      "&varepsilon;": "ϵ",
-      "&varkappa;": "ϰ",
-      "&varnothing;": "∅",
-      "&varphi;": "ϕ",
-      "&varpi;": "ϖ",
-      "&varpropto;": "∝",
-      "&varr;": "↕",
-      "&varrho;": "ϱ",
-      "&varsigma;": "ς",
-      "&varsubsetneq;": "⊊︀",
-      "&varsubsetneqq;": "⫋︀",
-      "&varsupsetneq;": "⊋︀",
-      "&varsupsetneqq;": "⫌︀",
-      "&vartheta;": "ϑ",
-      "&vartriangleleft;": "⊲",
-      "&vartriangleright;": "⊳",
-      "&vcy;": "в",
-      "&vdash;": "⊢",
-      "&vee;": "∨",
-      "&veebar;": "⊻",
-      "&veeeq;": "≚",
-      "&vellip;": "⋮",
-      "&verbar;": "|",
-      "&vert;": "|",
-      "&vfr;": "𝔳",
-      "&vltri;": "⊲",
-      "&vnsub;": "⊂⃒",
-      "&vnsup;": "⊃⃒",
-      "&vopf;": "𝕧",
-      "&vprop;": "∝",
-      "&vrtri;": "⊳",
-      "&vscr;": "𝓋",
-      "&vsubnE;": "⫋︀",
-      "&vsubne;": "⊊︀",
-      "&vsupnE;": "⫌︀",
-      "&vsupne;": "⊋︀",
-      "&vzigzag;": "⦚",
-      "&wcirc;": "ŵ",
-      "&wedbar;": "⩟",
-      "&wedge;": "∧",
-      "&wedgeq;": "≙",
-      "&weierp;": "℘",
-      "&wfr;": "𝔴",
-      "&wopf;": "𝕨",
-      "&wp;": "℘",
-      "&wr;": "≀",
-      "&wreath;": "≀",
-      "&wscr;": "𝓌",
-      "&xcap;": "⋂",
-      "&xcirc;": "◯",
-      "&xcup;": "⋃",
-      "&xdtri;": "▽",
-      "&xfr;": "𝔵",
-      "&xhArr;": "⟺",
-      "&xharr;": "⟷",
-      "&xi;": "ξ",
-      "&xlArr;": "⟸",
-      "&xlarr;": "⟵",
-      "&xmap;": "⟼",
-      "&xnis;": "⋻",
-      "&xodot;": "⨀",
-      "&xopf;": "𝕩",
-      "&xoplus;": "⨁",
-      "&xotime;": "⨂",
-      "&xrArr;": "⟹",
-      "&xrarr;": "⟶",
-      "&xscr;": "𝓍",
-      "&xsqcup;": "⨆",
-      "&xuplus;": "⨄",
-      "&xutri;": "△",
-      "&xvee;": "⋁",
-      "&xwedge;": "⋀",
-      "&yacute": "ý",
-      "&yacute;": "ý",
-      "&yacy;": "я",
-      "&ycirc;": "ŷ",
-      "&ycy;": "ы",
-      "&yen": "¥",
-      "&yen;": "¥",
-      "&yfr;": "𝔶",
-      "&yicy;": "ї",
-      "&yopf;": "𝕪",
-      "&yscr;": "𝓎",
-      "&yucy;": "ю",
-      "&yuml": "ÿ",
-      "&yuml;": "ÿ",
-      "&zacute;": "ź",
-      "&zcaron;": "ž",
-      "&zcy;": "з",
-      "&zdot;": "ż",
-      "&zeetrf;": "ℨ",
-      "&zeta;": "ζ",
-      "&zfr;": "𝔷",
-      "&zhcy;": "ж",
-      "&zigrarr;": "⇝",
-      "&zopf;": "𝕫",
-      "&zscr;": "𝓏",
-      "&zwj;": "‍",
-      "&zwnj;": "‌"
-    },
-    characters: {
-      "Æ": "&AElig;",
-      "&": "&amp;",
-      "Á": "&Aacute;",
-      "Ă": "&Abreve;",
-      "Â": "&Acirc;",
-      "А": "&Acy;",
-      "𝔄": "&Afr;",
-      "À": "&Agrave;",
-      "Α": "&Alpha;",
-      "Ā": "&Amacr;",
-      "⩓": "&And;",
-      "Ą": "&Aogon;",
-      "𝔸": "&Aopf;",
-      "⁡": "&af;",
-      "Å": "&angst;",
-      "𝒜": "&Ascr;",
-      "≔": "&coloneq;",
-      "Ã": "&Atilde;",
-      "Ä": "&Auml;",
-      "∖": "&ssetmn;",
-      "⫧": "&Barv;",
-      "⌆": "&doublebarwedge;",
-      "Б": "&Bcy;",
-      "∵": "&because;",
-      "ℬ": "&bernou;",
-      "Β": "&Beta;",
-      "𝔅": "&Bfr;",
-      "𝔹": "&Bopf;",
-      "˘": "&breve;",
-      "≎": "&bump;",
-      "Ч": "&CHcy;",
-      "©": "&copy;",
-      "Ć": "&Cacute;",
-      "⋒": "&Cap;",
-      "ⅅ": "&DD;",
-      "ℭ": "&Cfr;",
-      "Č": "&Ccaron;",
-      "Ç": "&Ccedil;",
-      "Ĉ": "&Ccirc;",
-      "∰": "&Cconint;",
-      "Ċ": "&Cdot;",
-      "¸": "&cedil;",
-      "·": "&middot;",
-      "Χ": "&Chi;",
-      "⊙": "&odot;",
-      "⊖": "&ominus;",
-      "⊕": "&oplus;",
-      "⊗": "&otimes;",
-      "∲": "&cwconint;",
-      "”": "&rdquor;",
-      "’": "&rsquor;",
-      "∷": "&Proportion;",
-      "⩴": "&Colone;",
-      "≡": "&equiv;",
-      "∯": "&DoubleContourIntegral;",
-      "∮": "&oint;",
-      "ℂ": "&complexes;",
-      "∐": "&coprod;",
-      "∳": "&awconint;",
-      "⨯": "&Cross;",
-      "𝒞": "&Cscr;",
-      "⋓": "&Cup;",
-      "≍": "&asympeq;",
-      "⤑": "&DDotrahd;",
-      "Ђ": "&DJcy;",
-      "Ѕ": "&DScy;",
-      "Џ": "&DZcy;",
-      "‡": "&ddagger;",
-      "↡": "&Darr;",
-      "⫤": "&DoubleLeftTee;",
-      "Ď": "&Dcaron;",
-      "Д": "&Dcy;",
-      "∇": "&nabla;",
-      "Δ": "&Delta;",
-      "𝔇": "&Dfr;",
-      "´": "&acute;",
-      "˙": "&dot;",
-      "˝": "&dblac;",
-      "`": "&grave;",
-      "˜": "&tilde;",
-      "⋄": "&diamond;",
-      "ⅆ": "&dd;",
-      "𝔻": "&Dopf;",
-      "¨": "&uml;",
-      "⃜": "&DotDot;",
-      "≐": "&esdot;",
-      "⇓": "&dArr;",
-      "⇐": "&lArr;",
-      "⇔": "&iff;",
-      "⟸": "&xlArr;",
-      "⟺": "&xhArr;",
-      "⟹": "&xrArr;",
-      "⇒": "&rArr;",
-      "⊨": "&vDash;",
-      "⇑": "&uArr;",
-      "⇕": "&vArr;",
-      "∥": "&spar;",
-      "↓": "&downarrow;",
-      "⤓": "&DownArrowBar;",
-      "⇵": "&duarr;",
-      "̑": "&DownBreve;",
-      "⥐": "&DownLeftRightVector;",
-      "⥞": "&DownLeftTeeVector;",
-      "↽": "&lhard;",
-      "⥖": "&DownLeftVectorBar;",
-      "⥟": "&DownRightTeeVector;",
-      "⇁": "&rightharpoondown;",
-      "⥗": "&DownRightVectorBar;",
-      "⊤": "&top;",
-      "↧": "&mapstodown;",
-      "𝒟": "&Dscr;",
-      "Đ": "&Dstrok;",
-      "Ŋ": "&ENG;",
-      "Ð": "&ETH;",
-      "É": "&Eacute;",
-      "Ě": "&Ecaron;",
-      "Ê": "&Ecirc;",
-      "Э": "&Ecy;",
-      "Ė": "&Edot;",
-      "𝔈": "&Efr;",
-      "È": "&Egrave;",
-      "∈": "&isinv;",
-      "Ē": "&Emacr;",
-      "◻": "&EmptySmallSquare;",
-      "▫": "&EmptyVerySmallSquare;",
-      "Ę": "&Eogon;",
-      "𝔼": "&Eopf;",
-      "Ε": "&Epsilon;",
-      "⩵": "&Equal;",
-      "≂": "&esim;",
-      "⇌": "&rlhar;",
-      "ℰ": "&expectation;",
-      "⩳": "&Esim;",
-      "Η": "&Eta;",
-      "Ë": "&Euml;",
-      "∃": "&exist;",
-      "ⅇ": "&exponentiale;",
-      "Ф": "&Fcy;",
-      "𝔉": "&Ffr;",
-      "◼": "&FilledSmallSquare;",
-      "▪": "&squf;",
-      "𝔽": "&Fopf;",
-      "∀": "&forall;",
-      "ℱ": "&Fscr;",
-      "Ѓ": "&GJcy;",
-      ">": "&gt;",
-      "Γ": "&Gamma;",
-      "Ϝ": "&Gammad;",
-      "Ğ": "&Gbreve;",
-      "Ģ": "&Gcedil;",
-      "Ĝ": "&Gcirc;",
-      "Г": "&Gcy;",
-      "Ġ": "&Gdot;",
-      "𝔊": "&Gfr;",
-      "⋙": "&ggg;",
-      "𝔾": "&Gopf;",
-      "≥": "&geq;",
-      "⋛": "&gtreqless;",
-      "≧": "&geqq;",
-      "⪢": "&GreaterGreater;",
-      "≷": "&gtrless;",
-      "⩾": "&ges;",
-      "≳": "&gtrsim;",
-      "𝒢": "&Gscr;",
-      "≫": "&gg;",
-      "Ъ": "&HARDcy;",
-      "ˇ": "&caron;",
-      "^": "&Hat;",
-      "Ĥ": "&Hcirc;",
-      "ℌ": "&Poincareplane;",
-      "ℋ": "&hamilt;",
-      "ℍ": "&quaternions;",
-      "─": "&boxh;",
-      "Ħ": "&Hstrok;",
-      "≏": "&bumpeq;",
-      "Е": "&IEcy;",
-      "Ĳ": "&IJlig;",
-      "Ё": "&IOcy;",
-      "Í": "&Iacute;",
-      "Î": "&Icirc;",
-      "И": "&Icy;",
-      "İ": "&Idot;",
-      "ℑ": "&imagpart;",
-      "Ì": "&Igrave;",
-      "Ī": "&Imacr;",
-      "ⅈ": "&ii;",
-      "∬": "&Int;",
-      "∫": "&int;",
-      "⋂": "&xcap;",
-      "⁣": "&ic;",
-      "⁢": "&it;",
-      "Į": "&Iogon;",
-      "𝕀": "&Iopf;",
-      "Ι": "&Iota;",
-      "ℐ": "&imagline;",
-      "Ĩ": "&Itilde;",
-      "І": "&Iukcy;",
-      "Ï": "&Iuml;",
-      "Ĵ": "&Jcirc;",
-      "Й": "&Jcy;",
-      "𝔍": "&Jfr;",
-      "𝕁": "&Jopf;",
-      "𝒥": "&Jscr;",
-      "Ј": "&Jsercy;",
-      "Є": "&Jukcy;",
-      "Х": "&KHcy;",
-      "Ќ": "&KJcy;",
-      "Κ": "&Kappa;",
-      "Ķ": "&Kcedil;",
-      "К": "&Kcy;",
-      "𝔎": "&Kfr;",
-      "𝕂": "&Kopf;",
-      "𝒦": "&Kscr;",
-      "Љ": "&LJcy;",
-      "<": "&lt;",
-      "Ĺ": "&Lacute;",
-      "Λ": "&Lambda;",
-      "⟪": "&Lang;",
-      "ℒ": "&lagran;",
-      "↞": "&twoheadleftarrow;",
-      "Ľ": "&Lcaron;",
-      "Ļ": "&Lcedil;",
-      "Л": "&Lcy;",
-      "⟨": "&langle;",
-      "←": "&slarr;",
-      "⇤": "&larrb;",
-      "⇆": "&lrarr;",
-      "⌈": "&lceil;",
-      "⟦": "&lobrk;",
-      "⥡": "&LeftDownTeeVector;",
-      "⇃": "&downharpoonleft;",
-      "⥙": "&LeftDownVectorBar;",
-      "⌊": "&lfloor;",
-      "↔": "&leftrightarrow;",
-      "⥎": "&LeftRightVector;",
-      "⊣": "&dashv;",
-      "↤": "&mapstoleft;",
-      "⥚": "&LeftTeeVector;",
-      "⊲": "&vltri;",
-      "⧏": "&LeftTriangleBar;",
-      "⊴": "&trianglelefteq;",
-      "⥑": "&LeftUpDownVector;",
-      "⥠": "&LeftUpTeeVector;",
-      "↿": "&upharpoonleft;",
-      "⥘": "&LeftUpVectorBar;",
-      "↼": "&lharu;",
-      "⥒": "&LeftVectorBar;",
-      "⋚": "&lesseqgtr;",
-      "≦": "&leqq;",
-      "≶": "&lg;",
-      "⪡": "&LessLess;",
-      "⩽": "&les;",
-      "≲": "&lsim;",
-      "𝔏": "&Lfr;",
-      "⋘": "&Ll;",
-      "⇚": "&lAarr;",
-      "Ŀ": "&Lmidot;",
-      "⟵": "&xlarr;",
-      "⟷": "&xharr;",
-      "⟶": "&xrarr;",
-      "𝕃": "&Lopf;",
-      "↙": "&swarrow;",
-      "↘": "&searrow;",
-      "↰": "&lsh;",
-      "Ł": "&Lstrok;",
-      "≪": "&ll;",
-      "⤅": "&Map;",
-      "М": "&Mcy;",
-      " ": "&MediumSpace;",
-      "ℳ": "&phmmat;",
-      "𝔐": "&Mfr;",
-      "∓": "&mp;",
-      "𝕄": "&Mopf;",
-      "Μ": "&Mu;",
-      "Њ": "&NJcy;",
-      "Ń": "&Nacute;",
-      "Ň": "&Ncaron;",
-      "Ņ": "&Ncedil;",
-      "Н": "&Ncy;",
-      "​": "&ZeroWidthSpace;",
-      "\n": "&NewLine;",
-      "𝔑": "&Nfr;",
-      "⁠": "&NoBreak;",
-      " ": "&nbsp;",
-      "ℕ": "&naturals;",
-      "⫬": "&Not;",
-      "≢": "&nequiv;",
-      "≭": "&NotCupCap;",
-      "∦": "&nspar;",
-      "∉": "&notinva;",
-      "≠": "&ne;",
-      "≂̸": "&nesim;",
-      "∄": "&nexists;",
-      "≯": "&ngtr;",
-      "≱": "&ngeq;",
-      "≧̸": "&ngeqq;",
-      "≫̸": "&nGtv;",
-      "≹": "&ntgl;",
-      "⩾̸": "&nges;",
-      "≵": "&ngsim;",
-      "≎̸": "&nbump;",
-      "≏̸": "&nbumpe;",
-      "⋪": "&ntriangleleft;",
-      "⧏̸": "&NotLeftTriangleBar;",
-      "⋬": "&ntrianglelefteq;",
-      "≮": "&nlt;",
-      "≰": "&nleq;",
-      "≸": "&ntlg;",
-      "≪̸": "&nLtv;",
-      "⩽̸": "&nles;",
-      "≴": "&nlsim;",
-      "⪢̸": "&NotNestedGreaterGreater;",
-      "⪡̸": "&NotNestedLessLess;",
-      "⊀": "&nprec;",
-      "⪯̸": "&npreceq;",
-      "⋠": "&nprcue;",
-      "∌": "&notniva;",
-      "⋫": "&ntriangleright;",
-      "⧐̸": "&NotRightTriangleBar;",
-      "⋭": "&ntrianglerighteq;",
-      "⊏̸": "&NotSquareSubset;",
-      "⋢": "&nsqsube;",
-      "⊐̸": "&NotSquareSuperset;",
-      "⋣": "&nsqsupe;",
-      "⊂⃒": "&vnsub;",
-      "⊈": "&nsubseteq;",
-      "⊁": "&nsucc;",
-      "⪰̸": "&nsucceq;",
-      "⋡": "&nsccue;",
-      "≿̸": "&NotSucceedsTilde;",
-      "⊃⃒": "&vnsup;",
-      "⊉": "&nsupseteq;",
-      "≁": "&nsim;",
-      "≄": "&nsimeq;",
-      "≇": "&ncong;",
-      "≉": "&napprox;",
-      "∤": "&nsmid;",
-      "𝒩": "&Nscr;",
-      "Ñ": "&Ntilde;",
-      "Ν": "&Nu;",
-      "Œ": "&OElig;",
-      "Ó": "&Oacute;",
-      "Ô": "&Ocirc;",
-      "О": "&Ocy;",
-      "Ő": "&Odblac;",
-      "𝔒": "&Ofr;",
-      "Ò": "&Ograve;",
-      "Ō": "&Omacr;",
-      "Ω": "&ohm;",
-      "Ο": "&Omicron;",
-      "𝕆": "&Oopf;",
-      "“": "&ldquo;",
-      "‘": "&lsquo;",
-      "⩔": "&Or;",
-      "𝒪": "&Oscr;",
-      "Ø": "&Oslash;",
-      "Õ": "&Otilde;",
-      "⨷": "&Otimes;",
-      "Ö": "&Ouml;",
-      "‾": "&oline;",
-      "⏞": "&OverBrace;",
-      "⎴": "&tbrk;",
-      "⏜": "&OverParenthesis;",
-      "∂": "&part;",
-      "П": "&Pcy;",
-      "𝔓": "&Pfr;",
-      "Φ": "&Phi;",
-      "Π": "&Pi;",
-      "±": "&pm;",
-      "ℙ": "&primes;",
-      "⪻": "&Pr;",
-      "≺": "&prec;",
-      "⪯": "&preceq;",
-      "≼": "&preccurlyeq;",
-      "≾": "&prsim;",
-      "″": "&Prime;",
-      "∏": "&prod;",
-      "∝": "&vprop;",
-      "𝒫": "&Pscr;",
-      "Ψ": "&Psi;",
-      '"': "&quot;",
-      "𝔔": "&Qfr;",
-      "ℚ": "&rationals;",
-      "𝒬": "&Qscr;",
-      "⤐": "&drbkarow;",
-      "®": "&reg;",
-      "Ŕ": "&Racute;",
-      "⟫": "&Rang;",
-      "↠": "&twoheadrightarrow;",
-      "⤖": "&Rarrtl;",
-      "Ř": "&Rcaron;",
-      "Ŗ": "&Rcedil;",
-      "Р": "&Rcy;",
-      "ℜ": "&realpart;",
-      "∋": "&niv;",
-      "⇋": "&lrhar;",
-      "⥯": "&duhar;",
-      "Ρ": "&Rho;",
-      "⟩": "&rangle;",
-      "→": "&srarr;",
-      "⇥": "&rarrb;",
-      "⇄": "&rlarr;",
-      "⌉": "&rceil;",
-      "⟧": "&robrk;",
-      "⥝": "&RightDownTeeVector;",
-      "⇂": "&downharpoonright;",
-      "⥕": "&RightDownVectorBar;",
-      "⌋": "&rfloor;",
-      "⊢": "&vdash;",
-      "↦": "&mapsto;",
-      "⥛": "&RightTeeVector;",
-      "⊳": "&vrtri;",
-      "⧐": "&RightTriangleBar;",
-      "⊵": "&trianglerighteq;",
-      "⥏": "&RightUpDownVector;",
-      "⥜": "&RightUpTeeVector;",
-      "↾": "&upharpoonright;",
-      "⥔": "&RightUpVectorBar;",
-      "⇀": "&rightharpoonup;",
-      "⥓": "&RightVectorBar;",
-      "ℝ": "&reals;",
-      "⥰": "&RoundImplies;",
-      "⇛": "&rAarr;",
-      "ℛ": "&realine;",
-      "↱": "&rsh;",
-      "⧴": "&RuleDelayed;",
-      "Щ": "&SHCHcy;",
-      "Ш": "&SHcy;",
-      "Ь": "&SOFTcy;",
-      "Ś": "&Sacute;",
-      "⪼": "&Sc;",
-      "Š": "&Scaron;",
-      "Ş": "&Scedil;",
-      "Ŝ": "&Scirc;",
-      "С": "&Scy;",
-      "𝔖": "&Sfr;",
-      "↑": "&uparrow;",
-      "Σ": "&Sigma;",
-      "∘": "&compfn;",
-      "𝕊": "&Sopf;",
-      "√": "&radic;",
-      "□": "&square;",
-      "⊓": "&sqcap;",
-      "⊏": "&sqsubset;",
-      "⊑": "&sqsubseteq;",
-      "⊐": "&sqsupset;",
-      "⊒": "&sqsupseteq;",
-      "⊔": "&sqcup;",
-      "𝒮": "&Sscr;",
-      "⋆": "&sstarf;",
-      "⋐": "&Subset;",
-      "⊆": "&subseteq;",
-      "≻": "&succ;",
-      "⪰": "&succeq;",
-      "≽": "&succcurlyeq;",
-      "≿": "&succsim;",
-      "∑": "&sum;",
-      "⋑": "&Supset;",
-      "⊃": "&supset;",
-      "⊇": "&supseteq;",
-      "Þ": "&THORN;",
-      "™": "&trade;",
-      "Ћ": "&TSHcy;",
-      "Ц": "&TScy;",
-      "\t": "&Tab;",
-      "Τ": "&Tau;",
-      "Ť": "&Tcaron;",
-      "Ţ": "&Tcedil;",
-      "Т": "&Tcy;",
-      "𝔗": "&Tfr;",
-      "∴": "&therefore;",
-      "Θ": "&Theta;",
-      "  ": "&ThickSpace;",
-      " ": "&thinsp;",
-      "∼": "&thksim;",
-      "≃": "&simeq;",
-      "≅": "&cong;",
-      "≈": "&thkap;",
-      "𝕋": "&Topf;",
-      "⃛": "&tdot;",
-      "𝒯": "&Tscr;",
-      "Ŧ": "&Tstrok;",
-      "Ú": "&Uacute;",
-      "↟": "&Uarr;",
-      "⥉": "&Uarrocir;",
-      "Ў": "&Ubrcy;",
-      "Ŭ": "&Ubreve;",
-      "Û": "&Ucirc;",
-      "У": "&Ucy;",
-      "Ű": "&Udblac;",
-      "𝔘": "&Ufr;",
-      "Ù": "&Ugrave;",
-      "Ū": "&Umacr;",
-      _: "&lowbar;",
-      "⏟": "&UnderBrace;",
-      "⎵": "&bbrk;",
-      "⏝": "&UnderParenthesis;",
-      "⋃": "&xcup;",
-      "⊎": "&uplus;",
-      "Ų": "&Uogon;",
-      "𝕌": "&Uopf;",
-      "⤒": "&UpArrowBar;",
-      "⇅": "&udarr;",
-      "↕": "&varr;",
-      "⥮": "&udhar;",
-      "⊥": "&perp;",
-      "↥": "&mapstoup;",
-      "↖": "&nwarrow;",
-      "↗": "&nearrow;",
-      "ϒ": "&upsih;",
-      "Υ": "&Upsilon;",
-      "Ů": "&Uring;",
-      "𝒰": "&Uscr;",
-      "Ũ": "&Utilde;",
-      "Ü": "&Uuml;",
-      "⊫": "&VDash;",
-      "⫫": "&Vbar;",
-      "В": "&Vcy;",
-      "⊩": "&Vdash;",
-      "⫦": "&Vdashl;",
-      "⋁": "&xvee;",
-      "‖": "&Vert;",
-      "∣": "&smid;",
-      "|": "&vert;",
-      "❘": "&VerticalSeparator;",
-      "≀": "&wreath;",
-      " ": "&hairsp;",
-      "𝔙": "&Vfr;",
-      "𝕍": "&Vopf;",
-      "𝒱": "&Vscr;",
-      "⊪": "&Vvdash;",
-      "Ŵ": "&Wcirc;",
-      "⋀": "&xwedge;",
-      "𝔚": "&Wfr;",
-      "𝕎": "&Wopf;",
-      "𝒲": "&Wscr;",
-      "𝔛": "&Xfr;",
-      "Ξ": "&Xi;",
-      "𝕏": "&Xopf;",
-      "𝒳": "&Xscr;",
-      "Я": "&YAcy;",
-      "Ї": "&YIcy;",
-      "Ю": "&YUcy;",
-      "Ý": "&Yacute;",
-      "Ŷ": "&Ycirc;",
-      "Ы": "&Ycy;",
-      "𝔜": "&Yfr;",
-      "𝕐": "&Yopf;",
-      "𝒴": "&Yscr;",
-      "Ÿ": "&Yuml;",
-      "Ж": "&ZHcy;",
-      "Ź": "&Zacute;",
-      "Ž": "&Zcaron;",
-      "З": "&Zcy;",
-      "Ż": "&Zdot;",
-      "Ζ": "&Zeta;",
-      "ℨ": "&zeetrf;",
-      "ℤ": "&integers;",
-      "𝒵": "&Zscr;",
-      "á": "&aacute;",
-      "ă": "&abreve;",
-      "∾": "&mstpos;",
-      "∾̳": "&acE;",
-      "∿": "&acd;",
-      "â": "&acirc;",
-      "а": "&acy;",
-      "æ": "&aelig;",
-      "𝔞": "&afr;",
-      "à": "&agrave;",
-      "ℵ": "&aleph;",
-      "α": "&alpha;",
-      "ā": "&amacr;",
-      "⨿": "&amalg;",
-      "∧": "&wedge;",
-      "⩕": "&andand;",
-      "⩜": "&andd;",
-      "⩘": "&andslope;",
-      "⩚": "&andv;",
-      "∠": "&angle;",
-      "⦤": "&ange;",
-      "∡": "&measuredangle;",
-      "⦨": "&angmsdaa;",
-      "⦩": "&angmsdab;",
-      "⦪": "&angmsdac;",
-      "⦫": "&angmsdad;",
-      "⦬": "&angmsdae;",
-      "⦭": "&angmsdaf;",
-      "⦮": "&angmsdag;",
-      "⦯": "&angmsdah;",
-      "∟": "&angrt;",
-      "⊾": "&angrtvb;",
-      "⦝": "&angrtvbd;",
-      "∢": "&angsph;",
-      "⍼": "&angzarr;",
-      "ą": "&aogon;",
-      "𝕒": "&aopf;",
-      "⩰": "&apE;",
-      "⩯": "&apacir;",
-      "≊": "&approxeq;",
-      "≋": "&apid;",
-      "'": "&apos;",
-      "å": "&aring;",
-      "𝒶": "&ascr;",
-      "*": "&midast;",
-      "ã": "&atilde;",
-      "ä": "&auml;",
-      "⨑": "&awint;",
-      "⫭": "&bNot;",
-      "≌": "&bcong;",
-      "϶": "&bepsi;",
-      "‵": "&bprime;",
-      "∽": "&bsim;",
-      "⋍": "&bsime;",
-      "⊽": "&barvee;",
-      "⌅": "&barwedge;",
-      "⎶": "&bbrktbrk;",
-      "б": "&bcy;",
-      "„": "&ldquor;",
-      "⦰": "&bemptyv;",
-      "β": "&beta;",
-      "ℶ": "&beth;",
-      "≬": "&twixt;",
-      "𝔟": "&bfr;",
-      "◯": "&xcirc;",
-      "⨀": "&xodot;",
-      "⨁": "&xoplus;",
-      "⨂": "&xotime;",
-      "⨆": "&xsqcup;",
-      "★": "&starf;",
-      "▽": "&xdtri;",
-      "△": "&xutri;",
-      "⨄": "&xuplus;",
-      "⤍": "&rbarr;",
-      "⧫": "&lozf;",
-      "▴": "&utrif;",
-      "▾": "&dtrif;",
-      "◂": "&ltrif;",
-      "▸": "&rtrif;",
-      "␣": "&blank;",
-      "▒": "&blk12;",
-      "░": "&blk14;",
-      "▓": "&blk34;",
-      "█": "&block;",
-      "=⃥": "&bne;",
-      "≡⃥": "&bnequiv;",
-      "⌐": "&bnot;",
-      "𝕓": "&bopf;",
-      "⋈": "&bowtie;",
-      "╗": "&boxDL;",
-      "╔": "&boxDR;",
-      "╖": "&boxDl;",
-      "╓": "&boxDr;",
-      "═": "&boxH;",
-      "╦": "&boxHD;",
-      "╩": "&boxHU;",
-      "╤": "&boxHd;",
-      "╧": "&boxHu;",
-      "╝": "&boxUL;",
-      "╚": "&boxUR;",
-      "╜": "&boxUl;",
-      "╙": "&boxUr;",
-      "║": "&boxV;",
-      "╬": "&boxVH;",
-      "╣": "&boxVL;",
-      "╠": "&boxVR;",
-      "╫": "&boxVh;",
-      "╢": "&boxVl;",
-      "╟": "&boxVr;",
-      "⧉": "&boxbox;",
-      "╕": "&boxdL;",
-      "╒": "&boxdR;",
-      "┐": "&boxdl;",
-      "┌": "&boxdr;",
-      "╥": "&boxhD;",
-      "╨": "&boxhU;",
-      "┬": "&boxhd;",
-      "┴": "&boxhu;",
-      "⊟": "&minusb;",
-      "⊞": "&plusb;",
-      "⊠": "&timesb;",
-      "╛": "&boxuL;",
-      "╘": "&boxuR;",
-      "┘": "&boxul;",
-      "└": "&boxur;",
-      "│": "&boxv;",
-      "╪": "&boxvH;",
-      "╡": "&boxvL;",
-      "╞": "&boxvR;",
-      "┼": "&boxvh;",
-      "┤": "&boxvl;",
-      "├": "&boxvr;",
-      "¦": "&brvbar;",
-      "𝒷": "&bscr;",
-      "⁏": "&bsemi;",
-      "\\": "&bsol;",
-      "⧅": "&bsolb;",
-      "⟈": "&bsolhsub;",
-      "•": "&bullet;",
-      "⪮": "&bumpE;",
-      "ć": "&cacute;",
-      "∩": "&cap;",
-      "⩄": "&capand;",
-      "⩉": "&capbrcup;",
-      "⩋": "&capcap;",
-      "⩇": "&capcup;",
-      "⩀": "&capdot;",
-      "∩︀": "&caps;",
-      "⁁": "&caret;",
-      "⩍": "&ccaps;",
-      "č": "&ccaron;",
-      "ç": "&ccedil;",
-      "ĉ": "&ccirc;",
-      "⩌": "&ccups;",
-      "⩐": "&ccupssm;",
-      "ċ": "&cdot;",
-      "⦲": "&cemptyv;",
-      "¢": "&cent;",
-      "𝔠": "&cfr;",
-      "ч": "&chcy;",
-      "✓": "&checkmark;",
-      "χ": "&chi;",
-      "○": "&cir;",
-      "⧃": "&cirE;",
-      "ˆ": "&circ;",
-      "≗": "&cire;",
-      "↺": "&olarr;",
-      "↻": "&orarr;",
-      "Ⓢ": "&oS;",
-      "⊛": "&oast;",
-      "⊚": "&ocir;",
-      "⊝": "&odash;",
-      "⨐": "&cirfnint;",
-      "⫯": "&cirmid;",
-      "⧂": "&cirscir;",
-      "♣": "&clubsuit;",
-      ":": "&colon;",
-      ",": "&comma;",
-      "@": "&commat;",
-      "∁": "&complement;",
-      "⩭": "&congdot;",
-      "𝕔": "&copf;",
-      "℗": "&copysr;",
-      "↵": "&crarr;",
-      "✗": "&cross;",
-      "𝒸": "&cscr;",
-      "⫏": "&csub;",
-      "⫑": "&csube;",
-      "⫐": "&csup;",
-      "⫒": "&csupe;",
-      "⋯": "&ctdot;",
-      "⤸": "&cudarrl;",
-      "⤵": "&cudarrr;",
-      "⋞": "&curlyeqprec;",
-      "⋟": "&curlyeqsucc;",
-      "↶": "&curvearrowleft;",
-      "⤽": "&cularrp;",
-      "∪": "&cup;",
-      "⩈": "&cupbrcap;",
-      "⩆": "&cupcap;",
-      "⩊": "&cupcup;",
-      "⊍": "&cupdot;",
-      "⩅": "&cupor;",
-      "∪︀": "&cups;",
-      "↷": "&curvearrowright;",
-      "⤼": "&curarrm;",
-      "⋎": "&cuvee;",
-      "⋏": "&cuwed;",
-      "¤": "&curren;",
-      "∱": "&cwint;",
-      "⌭": "&cylcty;",
-      "⥥": "&dHar;",
-      "†": "&dagger;",
-      "ℸ": "&daleth;",
-      "‐": "&hyphen;",
-      "⤏": "&rBarr;",
-      "ď": "&dcaron;",
-      "д": "&dcy;",
-      "⇊": "&downdownarrows;",
-      "⩷": "&eDDot;",
-      "°": "&deg;",
-      "δ": "&delta;",
-      "⦱": "&demptyv;",
-      "⥿": "&dfisht;",
-      "𝔡": "&dfr;",
-      "♦": "&diams;",
-      "ϝ": "&gammad;",
-      "⋲": "&disin;",
-      "÷": "&divide;",
-      "⋇": "&divonx;",
-      "ђ": "&djcy;",
-      "⌞": "&llcorner;",
-      "⌍": "&dlcrop;",
-      $: "&dollar;",
-      "𝕕": "&dopf;",
-      "≑": "&eDot;",
-      "∸": "&minusd;",
-      "∔": "&plusdo;",
-      "⊡": "&sdotb;",
-      "⌟": "&lrcorner;",
-      "⌌": "&drcrop;",
-      "𝒹": "&dscr;",
-      "ѕ": "&dscy;",
-      "⧶": "&dsol;",
-      "đ": "&dstrok;",
-      "⋱": "&dtdot;",
-      "▿": "&triangledown;",
-      "⦦": "&dwangle;",
-      "џ": "&dzcy;",
-      "⟿": "&dzigrarr;",
-      "é": "&eacute;",
-      "⩮": "&easter;",
-      "ě": "&ecaron;",
-      "≖": "&eqcirc;",
-      "ê": "&ecirc;",
-      "≕": "&eqcolon;",
-      "э": "&ecy;",
-      "ė": "&edot;",
-      "≒": "&fallingdotseq;",
-      "𝔢": "&efr;",
-      "⪚": "&eg;",
-      "è": "&egrave;",
-      "⪖": "&eqslantgtr;",
-      "⪘": "&egsdot;",
-      "⪙": "&el;",
-      "⏧": "&elinters;",
-      "ℓ": "&ell;",
-      "⪕": "&eqslantless;",
-      "⪗": "&elsdot;",
-      "ē": "&emacr;",
-      "∅": "&varnothing;",
-      " ": "&emsp13;",
-      " ": "&emsp14;",
-      " ": "&emsp;",
-      "ŋ": "&eng;",
-      " ": "&ensp;",
-      "ę": "&eogon;",
-      "𝕖": "&eopf;",
-      "⋕": "&epar;",
-      "⧣": "&eparsl;",
-      "⩱": "&eplus;",
-      "ε": "&epsilon;",
-      "ϵ": "&varepsilon;",
-      "=": "&equals;",
-      "≟": "&questeq;",
-      "⩸": "&equivDD;",
-      "⧥": "&eqvparsl;",
-      "≓": "&risingdotseq;",
-      "⥱": "&erarr;",
-      "ℯ": "&escr;",
-      "η": "&eta;",
-      "ð": "&eth;",
-      "ë": "&euml;",
-      "€": "&euro;",
-      "!": "&excl;",
-      "ф": "&fcy;",
-      "♀": "&female;",
-      "ﬃ": "&ffilig;",
-      "ﬀ": "&fflig;",
-      "ﬄ": "&ffllig;",
-      "𝔣": "&ffr;",
-      "ﬁ": "&filig;",
-      fj: "&fjlig;",
-      "♭": "&flat;",
-      "ﬂ": "&fllig;",
-      "▱": "&fltns;",
-      "ƒ": "&fnof;",
-      "𝕗": "&fopf;",
-      "⋔": "&pitchfork;",
-      "⫙": "&forkv;",
-      "⨍": "&fpartint;",
-      "½": "&half;",
-      "⅓": "&frac13;",
-      "¼": "&frac14;",
-      "⅕": "&frac15;",
-      "⅙": "&frac16;",
-      "⅛": "&frac18;",
-      "⅔": "&frac23;",
-      "⅖": "&frac25;",
-      "¾": "&frac34;",
-      "⅗": "&frac35;",
-      "⅜": "&frac38;",
-      "⅘": "&frac45;",
-      "⅚": "&frac56;",
-      "⅝": "&frac58;",
-      "⅞": "&frac78;",
-      "⁄": "&frasl;",
-      "⌢": "&sfrown;",
-      "𝒻": "&fscr;",
-      "⪌": "&gtreqqless;",
-      "ǵ": "&gacute;",
-      "γ": "&gamma;",
-      "⪆": "&gtrapprox;",
-      "ğ": "&gbreve;",
-      "ĝ": "&gcirc;",
-      "г": "&gcy;",
-      "ġ": "&gdot;",
-      "⪩": "&gescc;",
-      "⪀": "&gesdot;",
-      "⪂": "&gesdoto;",
-      "⪄": "&gesdotol;",
-      "⋛︀": "&gesl;",
-      "⪔": "&gesles;",
-      "𝔤": "&gfr;",
-      "ℷ": "&gimel;",
-      "ѓ": "&gjcy;",
-      "⪒": "&glE;",
-      "⪥": "&gla;",
-      "⪤": "&glj;",
-      "≩": "&gneqq;",
-      "⪊": "&gnapprox;",
-      "⪈": "&gneq;",
-      "⋧": "&gnsim;",
-      "𝕘": "&gopf;",
-      "ℊ": "&gscr;",
-      "⪎": "&gsime;",
-      "⪐": "&gsiml;",
-      "⪧": "&gtcc;",
-      "⩺": "&gtcir;",
-      "⋗": "&gtrdot;",
-      "⦕": "&gtlPar;",
-      "⩼": "&gtquest;",
-      "⥸": "&gtrarr;",
-      "≩︀": "&gvnE;",
-      "ъ": "&hardcy;",
-      "⥈": "&harrcir;",
-      "↭": "&leftrightsquigarrow;",
-      "ℏ": "&plankv;",
-      "ĥ": "&hcirc;",
-      "♥": "&heartsuit;",
-      "…": "&mldr;",
-      "⊹": "&hercon;",
-      "𝔥": "&hfr;",
-      "⤥": "&searhk;",
-      "⤦": "&swarhk;",
-      "⇿": "&hoarr;",
-      "∻": "&homtht;",
-      "↩": "&larrhk;",
-      "↪": "&rarrhk;",
-      "𝕙": "&hopf;",
-      "―": "&horbar;",
-      "𝒽": "&hscr;",
-      "ħ": "&hstrok;",
-      "⁃": "&hybull;",
-      "í": "&iacute;",
-      "î": "&icirc;",
-      "и": "&icy;",
-      "е": "&iecy;",
-      "¡": "&iexcl;",
-      "𝔦": "&ifr;",
-      "ì": "&igrave;",
-      "⨌": "&qint;",
-      "∭": "&tint;",
-      "⧜": "&iinfin;",
-      "℩": "&iiota;",
-      "ĳ": "&ijlig;",
-      "ī": "&imacr;",
-      "ı": "&inodot;",
-      "⊷": "&imof;",
-      "Ƶ": "&imped;",
-      "℅": "&incare;",
-      "∞": "&infin;",
-      "⧝": "&infintie;",
-      "⊺": "&intercal;",
-      "⨗": "&intlarhk;",
-      "⨼": "&iprod;",
-      "ё": "&iocy;",
-      "į": "&iogon;",
-      "𝕚": "&iopf;",
-      "ι": "&iota;",
-      "¿": "&iquest;",
-      "𝒾": "&iscr;",
-      "⋹": "&isinE;",
-      "⋵": "&isindot;",
-      "⋴": "&isins;",
-      "⋳": "&isinsv;",
-      "ĩ": "&itilde;",
-      "і": "&iukcy;",
-      "ï": "&iuml;",
-      "ĵ": "&jcirc;",
-      "й": "&jcy;",
-      "𝔧": "&jfr;",
-      "ȷ": "&jmath;",
-      "𝕛": "&jopf;",
-      "𝒿": "&jscr;",
-      "ј": "&jsercy;",
-      "є": "&jukcy;",
-      "κ": "&kappa;",
-      "ϰ": "&varkappa;",
-      "ķ": "&kcedil;",
-      "к": "&kcy;",
-      "𝔨": "&kfr;",
-      "ĸ": "&kgreen;",
-      "х": "&khcy;",
-      "ќ": "&kjcy;",
-      "𝕜": "&kopf;",
-      "𝓀": "&kscr;",
-      "⤛": "&lAtail;",
-      "⤎": "&lBarr;",
-      "⪋": "&lesseqqgtr;",
-      "⥢": "&lHar;",
-      "ĺ": "&lacute;",
-      "⦴": "&laemptyv;",
-      "λ": "&lambda;",
-      "⦑": "&langd;",
-      "⪅": "&lessapprox;",
-      "«": "&laquo;",
-      "⤟": "&larrbfs;",
-      "⤝": "&larrfs;",
-      "↫": "&looparrowleft;",
-      "⤹": "&larrpl;",
-      "⥳": "&larrsim;",
-      "↢": "&leftarrowtail;",
-      "⪫": "&lat;",
-      "⤙": "&latail;",
-      "⪭": "&late;",
-      "⪭︀": "&lates;",
-      "⤌": "&lbarr;",
-      "❲": "&lbbrk;",
-      "{": "&lcub;",
-      "[": "&lsqb;",
-      "⦋": "&lbrke;",
-      "⦏": "&lbrksld;",
-      "⦍": "&lbrkslu;",
-      "ľ": "&lcaron;",
-      "ļ": "&lcedil;",
-      "л": "&lcy;",
-      "⤶": "&ldca;",
-      "⥧": "&ldrdhar;",
-      "⥋": "&ldrushar;",
-      "↲": "&ldsh;",
-      "≤": "&leq;",
-      "⇇": "&llarr;",
-      "⋋": "&lthree;",
-      "⪨": "&lescc;",
-      "⩿": "&lesdot;",
-      "⪁": "&lesdoto;",
-      "⪃": "&lesdotor;",
-      "⋚︀": "&lesg;",
-      "⪓": "&lesges;",
-      "⋖": "&ltdot;",
-      "⥼": "&lfisht;",
-      "𝔩": "&lfr;",
-      "⪑": "&lgE;",
-      "⥪": "&lharul;",
-      "▄": "&lhblk;",
-      "љ": "&ljcy;",
-      "⥫": "&llhard;",
-      "◺": "&lltri;",
-      "ŀ": "&lmidot;",
-      "⎰": "&lmoustache;",
-      "≨": "&lneqq;",
-      "⪉": "&lnapprox;",
-      "⪇": "&lneq;",
-      "⋦": "&lnsim;",
-      "⟬": "&loang;",
-      "⇽": "&loarr;",
-      "⟼": "&xmap;",
-      "↬": "&rarrlp;",
-      "⦅": "&lopar;",
-      "𝕝": "&lopf;",
-      "⨭": "&loplus;",
-      "⨴": "&lotimes;",
-      "∗": "&lowast;",
-      "◊": "&lozenge;",
-      "(": "&lpar;",
-      "⦓": "&lparlt;",
-      "⥭": "&lrhard;",
-      "‎": "&lrm;",
-      "⊿": "&lrtri;",
-      "‹": "&lsaquo;",
-      "𝓁": "&lscr;",
-      "⪍": "&lsime;",
-      "⪏": "&lsimg;",
-      "‚": "&sbquo;",
-      "ł": "&lstrok;",
-      "⪦": "&ltcc;",
-      "⩹": "&ltcir;",
-      "⋉": "&ltimes;",
-      "⥶": "&ltlarr;",
-      "⩻": "&ltquest;",
-      "⦖": "&ltrPar;",
-      "◃": "&triangleleft;",
-      "⥊": "&lurdshar;",
-      "⥦": "&luruhar;",
-      "≨︀": "&lvnE;",
-      "∺": "&mDDot;",
-      "¯": "&strns;",
-      "♂": "&male;",
-      "✠": "&maltese;",
-      "▮": "&marker;",
-      "⨩": "&mcomma;",
-      "м": "&mcy;",
-      "—": "&mdash;",
-      "𝔪": "&mfr;",
-      "℧": "&mho;",
-      "µ": "&micro;",
-      "⫰": "&midcir;",
-      "−": "&minus;",
-      "⨪": "&minusdu;",
-      "⫛": "&mlcp;",
-      "⊧": "&models;",
-      "𝕞": "&mopf;",
-      "𝓂": "&mscr;",
-      "μ": "&mu;",
-      "⊸": "&mumap;",
-      "⋙̸": "&nGg;",
-      "≫⃒": "&nGt;",
-      "⇍": "&nlArr;",
-      "⇎": "&nhArr;",
-      "⋘̸": "&nLl;",
-      "≪⃒": "&nLt;",
-      "⇏": "&nrArr;",
-      "⊯": "&nVDash;",
-      "⊮": "&nVdash;",
-      "ń": "&nacute;",
-      "∠⃒": "&nang;",
-      "⩰̸": "&napE;",
-      "≋̸": "&napid;",
-      "ŉ": "&napos;",
-      "♮": "&natural;",
-      "⩃": "&ncap;",
-      "ň": "&ncaron;",
-      "ņ": "&ncedil;",
-      "⩭̸": "&ncongdot;",
-      "⩂": "&ncup;",
-      "н": "&ncy;",
-      "–": "&ndash;",
-      "⇗": "&neArr;",
-      "⤤": "&nearhk;",
-      "≐̸": "&nedot;",
-      "⤨": "&toea;",
-      "𝔫": "&nfr;",
-      "↮": "&nleftrightarrow;",
-      "⫲": "&nhpar;",
-      "⋼": "&nis;",
-      "⋺": "&nisd;",
-      "њ": "&njcy;",
-      "≦̸": "&nleqq;",
-      "↚": "&nleftarrow;",
-      "‥": "&nldr;",
-      "𝕟": "&nopf;",
-      "¬": "&not;",
-      "⋹̸": "&notinE;",
-      "⋵̸": "&notindot;",
-      "⋷": "&notinvb;",
-      "⋶": "&notinvc;",
-      "⋾": "&notnivb;",
-      "⋽": "&notnivc;",
-      "⫽⃥": "&nparsl;",
-      "∂̸": "&npart;",
-      "⨔": "&npolint;",
-      "↛": "&nrightarrow;",
-      "⤳̸": "&nrarrc;",
-      "↝̸": "&nrarrw;",
-      "𝓃": "&nscr;",
-      "⊄": "&nsub;",
-      "⫅̸": "&nsubseteqq;",
-      "⊅": "&nsup;",
-      "⫆̸": "&nsupseteqq;",
-      "ñ": "&ntilde;",
-      "ν": "&nu;",
-      "#": "&num;",
-      "№": "&numero;",
-      " ": "&numsp;",
-      "⊭": "&nvDash;",
-      "⤄": "&nvHarr;",
-      "≍⃒": "&nvap;",
-      "⊬": "&nvdash;",
-      "≥⃒": "&nvge;",
-      ">⃒": "&nvgt;",
-      "⧞": "&nvinfin;",
-      "⤂": "&nvlArr;",
-      "≤⃒": "&nvle;",
-      "<⃒": "&nvlt;",
-      "⊴⃒": "&nvltrie;",
-      "⤃": "&nvrArr;",
-      "⊵⃒": "&nvrtrie;",
-      "∼⃒": "&nvsim;",
-      "⇖": "&nwArr;",
-      "⤣": "&nwarhk;",
-      "⤧": "&nwnear;",
-      "ó": "&oacute;",
-      "ô": "&ocirc;",
-      "о": "&ocy;",
-      "ő": "&odblac;",
-      "⨸": "&odiv;",
-      "⦼": "&odsold;",
-      "œ": "&oelig;",
-      "⦿": "&ofcir;",
-      "𝔬": "&ofr;",
-      "˛": "&ogon;",
-      "ò": "&ograve;",
-      "⧁": "&ogt;",
-      "⦵": "&ohbar;",
-      "⦾": "&olcir;",
-      "⦻": "&olcross;",
-      "⧀": "&olt;",
-      "ō": "&omacr;",
-      "ω": "&omega;",
-      "ο": "&omicron;",
-      "⦶": "&omid;",
-      "𝕠": "&oopf;",
-      "⦷": "&opar;",
-      "⦹": "&operp;",
-      "∨": "&vee;",
-      "⩝": "&ord;",
-      "ℴ": "&oscr;",
-      "ª": "&ordf;",
-      "º": "&ordm;",
-      "⊶": "&origof;",
-      "⩖": "&oror;",
-      "⩗": "&orslope;",
-      "⩛": "&orv;",
-      "ø": "&oslash;",
-      "⊘": "&osol;",
-      "õ": "&otilde;",
-      "⨶": "&otimesas;",
-      "ö": "&ouml;",
-      "⌽": "&ovbar;",
-      "¶": "&para;",
-      "⫳": "&parsim;",
-      "⫽": "&parsl;",
-      "п": "&pcy;",
-      "%": "&percnt;",
-      ".": "&period;",
-      "‰": "&permil;",
-      "‱": "&pertenk;",
-      "𝔭": "&pfr;",
-      "φ": "&phi;",
-      "ϕ": "&varphi;",
-      "☎": "&phone;",
-      "π": "&pi;",
-      "ϖ": "&varpi;",
-      "ℎ": "&planckh;",
-      "+": "&plus;",
-      "⨣": "&plusacir;",
-      "⨢": "&pluscir;",
-      "⨥": "&plusdu;",
-      "⩲": "&pluse;",
-      "⨦": "&plussim;",
-      "⨧": "&plustwo;",
-      "⨕": "&pointint;",
-      "𝕡": "&popf;",
-      "£": "&pound;",
-      "⪳": "&prE;",
-      "⪷": "&precapprox;",
-      "⪹": "&prnap;",
-      "⪵": "&prnE;",
-      "⋨": "&prnsim;",
-      "′": "&prime;",
-      "⌮": "&profalar;",
-      "⌒": "&profline;",
-      "⌓": "&profsurf;",
-      "⊰": "&prurel;",
-      "𝓅": "&pscr;",
-      "ψ": "&psi;",
-      " ": "&puncsp;",
-      "𝔮": "&qfr;",
-      "𝕢": "&qopf;",
-      "⁗": "&qprime;",
-      "𝓆": "&qscr;",
-      "⨖": "&quatint;",
-      "?": "&quest;",
-      "⤜": "&rAtail;",
-      "⥤": "&rHar;",
-      "∽̱": "&race;",
-      "ŕ": "&racute;",
-      "⦳": "&raemptyv;",
-      "⦒": "&rangd;",
-      "⦥": "&range;",
-      "»": "&raquo;",
-      "⥵": "&rarrap;",
-      "⤠": "&rarrbfs;",
-      "⤳": "&rarrc;",
-      "⤞": "&rarrfs;",
-      "⥅": "&rarrpl;",
-      "⥴": "&rarrsim;",
-      "↣": "&rightarrowtail;",
-      "↝": "&rightsquigarrow;",
-      "⤚": "&ratail;",
-      "∶": "&ratio;",
-      "❳": "&rbbrk;",
-      "}": "&rcub;",
-      "]": "&rsqb;",
-      "⦌": "&rbrke;",
-      "⦎": "&rbrksld;",
-      "⦐": "&rbrkslu;",
-      "ř": "&rcaron;",
-      "ŗ": "&rcedil;",
-      "р": "&rcy;",
-      "⤷": "&rdca;",
-      "⥩": "&rdldhar;",
-      "↳": "&rdsh;",
-      "▭": "&rect;",
-      "⥽": "&rfisht;",
-      "𝔯": "&rfr;",
-      "⥬": "&rharul;",
-      "ρ": "&rho;",
-      "ϱ": "&varrho;",
-      "⇉": "&rrarr;",
-      "⋌": "&rthree;",
-      "˚": "&ring;",
-      "‏": "&rlm;",
-      "⎱": "&rmoustache;",
-      "⫮": "&rnmid;",
-      "⟭": "&roang;",
-      "⇾": "&roarr;",
-      "⦆": "&ropar;",
-      "𝕣": "&ropf;",
-      "⨮": "&roplus;",
-      "⨵": "&rotimes;",
-      ")": "&rpar;",
-      "⦔": "&rpargt;",
-      "⨒": "&rppolint;",
-      "›": "&rsaquo;",
-      "𝓇": "&rscr;",
-      "⋊": "&rtimes;",
-      "▹": "&triangleright;",
-      "⧎": "&rtriltri;",
-      "⥨": "&ruluhar;",
-      "℞": "&rx;",
-      "ś": "&sacute;",
-      "⪴": "&scE;",
-      "⪸": "&succapprox;",
-      "š": "&scaron;",
-      "ş": "&scedil;",
-      "ŝ": "&scirc;",
-      "⪶": "&succneqq;",
-      "⪺": "&succnapprox;",
-      "⋩": "&succnsim;",
-      "⨓": "&scpolint;",
-      "с": "&scy;",
-      "⋅": "&sdot;",
-      "⩦": "&sdote;",
-      "⇘": "&seArr;",
-      "§": "&sect;",
-      ";": "&semi;",
-      "⤩": "&tosa;",
-      "✶": "&sext;",
-      "𝔰": "&sfr;",
-      "♯": "&sharp;",
-      "щ": "&shchcy;",
-      "ш": "&shcy;",
-      "­": "&shy;",
-      "σ": "&sigma;",
-      "ς": "&varsigma;",
-      "⩪": "&simdot;",
-      "⪞": "&simg;",
-      "⪠": "&simgE;",
-      "⪝": "&siml;",
-      "⪟": "&simlE;",
-      "≆": "&simne;",
-      "⨤": "&simplus;",
-      "⥲": "&simrarr;",
-      "⨳": "&smashp;",
-      "⧤": "&smeparsl;",
-      "⌣": "&ssmile;",
-      "⪪": "&smt;",
-      "⪬": "&smte;",
-      "⪬︀": "&smtes;",
-      "ь": "&softcy;",
-      "/": "&sol;",
-      "⧄": "&solb;",
-      "⌿": "&solbar;",
-      "𝕤": "&sopf;",
-      "♠": "&spadesuit;",
-      "⊓︀": "&sqcaps;",
-      "⊔︀": "&sqcups;",
-      "𝓈": "&sscr;",
-      "☆": "&star;",
-      "⊂": "&subset;",
-      "⫅": "&subseteqq;",
-      "⪽": "&subdot;",
-      "⫃": "&subedot;",
-      "⫁": "&submult;",
-      "⫋": "&subsetneqq;",
-      "⊊": "&subsetneq;",
-      "⪿": "&subplus;",
-      "⥹": "&subrarr;",
-      "⫇": "&subsim;",
-      "⫕": "&subsub;",
-      "⫓": "&subsup;",
-      "♪": "&sung;",
-      "¹": "&sup1;",
-      "²": "&sup2;",
-      "³": "&sup3;",
-      "⫆": "&supseteqq;",
-      "⪾": "&supdot;",
-      "⫘": "&supdsub;",
-      "⫄": "&supedot;",
-      "⟉": "&suphsol;",
-      "⫗": "&suphsub;",
-      "⥻": "&suplarr;",
-      "⫂": "&supmult;",
-      "⫌": "&supsetneqq;",
-      "⊋": "&supsetneq;",
-      "⫀": "&supplus;",
-      "⫈": "&supsim;",
-      "⫔": "&supsub;",
-      "⫖": "&supsup;",
-      "⇙": "&swArr;",
-      "⤪": "&swnwar;",
-      "ß": "&szlig;",
-      "⌖": "&target;",
-      "τ": "&tau;",
-      "ť": "&tcaron;",
-      "ţ": "&tcedil;",
-      "т": "&tcy;",
-      "⌕": "&telrec;",
-      "𝔱": "&tfr;",
-      "θ": "&theta;",
-      "ϑ": "&vartheta;",
-      "þ": "&thorn;",
-      "×": "&times;",
-      "⨱": "&timesbar;",
-      "⨰": "&timesd;",
-      "⌶": "&topbot;",
-      "⫱": "&topcir;",
-      "𝕥": "&topf;",
-      "⫚": "&topfork;",
-      "‴": "&tprime;",
-      "▵": "&utri;",
-      "≜": "&trie;",
-      "◬": "&tridot;",
-      "⨺": "&triminus;",
-      "⨹": "&triplus;",
-      "⧍": "&trisb;",
-      "⨻": "&tritime;",
-      "⏢": "&trpezium;",
-      "𝓉": "&tscr;",
-      "ц": "&tscy;",
-      "ћ": "&tshcy;",
-      "ŧ": "&tstrok;",
-      "⥣": "&uHar;",
-      "ú": "&uacute;",
-      "ў": "&ubrcy;",
-      "ŭ": "&ubreve;",
-      "û": "&ucirc;",
-      "у": "&ucy;",
-      "ű": "&udblac;",
-      "⥾": "&ufisht;",
-      "𝔲": "&ufr;",
-      "ù": "&ugrave;",
-      "▀": "&uhblk;",
-      "⌜": "&ulcorner;",
-      "⌏": "&ulcrop;",
-      "◸": "&ultri;",
-      "ū": "&umacr;",
-      "ų": "&uogon;",
-      "𝕦": "&uopf;",
-      "υ": "&upsilon;",
-      "⇈": "&uuarr;",
-      "⌝": "&urcorner;",
-      "⌎": "&urcrop;",
-      "ů": "&uring;",
-      "◹": "&urtri;",
-      "𝓊": "&uscr;",
-      "⋰": "&utdot;",
-      "ũ": "&utilde;",
-      "ü": "&uuml;",
-      "⦧": "&uwangle;",
-      "⫨": "&vBar;",
-      "⫩": "&vBarv;",
-      "⦜": "&vangrt;",
-      "⊊︀": "&vsubne;",
-      "⫋︀": "&vsubnE;",
-      "⊋︀": "&vsupne;",
-      "⫌︀": "&vsupnE;",
-      "в": "&vcy;",
-      "⊻": "&veebar;",
-      "≚": "&veeeq;",
-      "⋮": "&vellip;",
-      "𝔳": "&vfr;",
-      "𝕧": "&vopf;",
-      "𝓋": "&vscr;",
-      "⦚": "&vzigzag;",
-      "ŵ": "&wcirc;",
-      "⩟": "&wedbar;",
-      "≙": "&wedgeq;",
-      "℘": "&wp;",
-      "𝔴": "&wfr;",
-      "𝕨": "&wopf;",
-      "𝓌": "&wscr;",
-      "𝔵": "&xfr;",
-      "ξ": "&xi;",
-      "⋻": "&xnis;",
-      "𝕩": "&xopf;",
-      "𝓍": "&xscr;",
-      "ý": "&yacute;",
-      "я": "&yacy;",
-      "ŷ": "&ycirc;",
-      "ы": "&ycy;",
-      "¥": "&yen;",
-      "𝔶": "&yfr;",
-      "ї": "&yicy;",
-      "𝕪": "&yopf;",
-      "𝓎": "&yscr;",
-      "ю": "&yucy;",
-      "ÿ": "&yuml;",
-      "ź": "&zacute;",
-      "ž": "&zcaron;",
-      "з": "&zcy;",
-      "ż": "&zdot;",
-      "ζ": "&zeta;",
-      "𝔷": "&zfr;",
-      "ж": "&zhcy;",
-      "⇝": "&zigrarr;",
-      "𝕫": "&zopf;",
-      "𝓏": "&zscr;",
-      "‍": "&zwj;",
-      "‌": "&zwnj;"
-    }
-  }
-};
-
-/***/ }),
-
-/***/ 125:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.numericUnicodeMap = {
-  0: 65533,
-  128: 8364,
-  130: 8218,
-  131: 402,
-  132: 8222,
-  133: 8230,
-  134: 8224,
-  135: 8225,
-  136: 710,
-  137: 8240,
-  138: 352,
-  139: 8249,
-  140: 338,
-  142: 381,
-  145: 8216,
-  146: 8217,
-  147: 8220,
-  148: 8221,
-  149: 8226,
-  150: 8211,
-  151: 8212,
-  152: 732,
-  153: 8482,
-  154: 353,
-  155: 8250,
-  156: 339,
-  158: 382,
-  159: 376
-};
-
-/***/ }),
-
-/***/ 663:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-exports.fromCodePoint = String.fromCodePoint || function (astralCodePoint) {
-  return String.fromCharCode(Math.floor((astralCodePoint - 65536) / 1024) + 55296, (astralCodePoint - 65536) % 1024 + 56320);
-};
-
-exports.getCodePoint = String.prototype.codePointAt ? function (input, position) {
-  return input.codePointAt(position);
-} : function (input, position) {
-  return (input.charCodeAt(position) - 55296) * 1024 + input.charCodeAt(position + 1) - 56320 + 65536;
-};
-exports.highSurrogateFrom = 55296;
-exports.highSurrogateTo = 56319;
-
-/***/ })
-
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
@@ -4717,8 +34,6 @@ exports.highSurrogateTo = 56319;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -4730,8 +45,270 @@ __webpack_require__.d(__webpack_exports__, {
 
 ;// CONCATENATED MODULE: external "kolmafia"
 const external_kolmafia_namespaceObject = require("kolmafia");
-// EXTERNAL MODULE: ./node_modules/html-entities/lib/index.js
-var lib = __webpack_require__(805);
+;// CONCATENATED MODULE: ./node_modules/html-entities/dist/esm/named-references.js
+var __assign = undefined && undefined.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+}; // This file is autogenerated by tools/process-named-references.ts
+
+
+var pairDivider = "~";
+var blockDivider = "~~";
+
+function generateNamedReferences(input, prev) {
+  var entities = {};
+  var characters = {};
+  var blocks = input.split(blockDivider);
+  var isOptionalBlock = false;
+
+  for (var i = 0; blocks.length > i; i++) {
+    var entries = blocks[i].split(pairDivider);
+
+    for (var j = 0; j < entries.length; j += 2) {
+      var entity = entries[j];
+      var character = entries[j + 1];
+      var fullEntity = '&' + entity + ';';
+      entities[fullEntity] = character;
+
+      if (isOptionalBlock) {
+        entities['&' + entity] = character;
+      }
+
+      characters[character] = fullEntity;
+    }
+
+    isOptionalBlock = true;
+  }
+
+  return prev ? {
+    entities: __assign(__assign({}, entities), prev.entities),
+    characters: __assign(__assign({}, characters), prev.characters)
+  } : {
+    entities: entities,
+    characters: characters
+  };
+}
+
+var bodyRegExps = {
+  xml: /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g,
+  html4: /&notin;|&(?:nbsp|iexcl|cent|pound|curren|yen|brvbar|sect|uml|copy|ordf|laquo|not|shy|reg|macr|deg|plusmn|sup2|sup3|acute|micro|para|middot|cedil|sup1|ordm|raquo|frac14|frac12|frac34|iquest|Agrave|Aacute|Acirc|Atilde|Auml|Aring|AElig|Ccedil|Egrave|Eacute|Ecirc|Euml|Igrave|Iacute|Icirc|Iuml|ETH|Ntilde|Ograve|Oacute|Ocirc|Otilde|Ouml|times|Oslash|Ugrave|Uacute|Ucirc|Uuml|Yacute|THORN|szlig|agrave|aacute|acirc|atilde|auml|aring|aelig|ccedil|egrave|eacute|ecirc|euml|igrave|iacute|icirc|iuml|eth|ntilde|ograve|oacute|ocirc|otilde|ouml|divide|oslash|ugrave|uacute|ucirc|uuml|yacute|thorn|yuml|quot|amp|lt|gt|#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g,
+  html5: /&centerdot;|&copysr;|&divideontimes;|&gtcc;|&gtcir;|&gtdot;|&gtlPar;|&gtquest;|&gtrapprox;|&gtrarr;|&gtrdot;|&gtreqless;|&gtreqqless;|&gtrless;|&gtrsim;|&ltcc;|&ltcir;|&ltdot;|&lthree;|&ltimes;|&ltlarr;|&ltquest;|&ltrPar;|&ltri;|&ltrie;|&ltrif;|&notin;|&notinE;|&notindot;|&notinva;|&notinvb;|&notinvc;|&notni;|&notniva;|&notnivb;|&notnivc;|&parallel;|&timesb;|&timesbar;|&timesd;|&(?:AElig|AMP|Aacute|Acirc|Agrave|Aring|Atilde|Auml|COPY|Ccedil|ETH|Eacute|Ecirc|Egrave|Euml|GT|Iacute|Icirc|Igrave|Iuml|LT|Ntilde|Oacute|Ocirc|Ograve|Oslash|Otilde|Ouml|QUOT|REG|THORN|Uacute|Ucirc|Ugrave|Uuml|Yacute|aacute|acirc|acute|aelig|agrave|amp|aring|atilde|auml|brvbar|ccedil|cedil|cent|copy|curren|deg|divide|eacute|ecirc|egrave|eth|euml|frac12|frac14|frac34|gt|iacute|icirc|iexcl|igrave|iquest|iuml|laquo|lt|macr|micro|middot|nbsp|not|ntilde|oacute|ocirc|ograve|ordf|ordm|oslash|otilde|ouml|para|plusmn|pound|quot|raquo|reg|sect|shy|sup1|sup2|sup3|szlig|thorn|times|uacute|ucirc|ugrave|uml|uuml|yacute|yen|yuml|#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g
+};
+var namedReferences = {};
+namedReferences['xml'] = generateNamedReferences("lt~<~gt~>~quot~\"~apos~'~amp~&");
+namedReferences['html4'] = generateNamedReferences("apos~'~OElig~Œ~oelig~œ~Scaron~Š~scaron~š~Yuml~Ÿ~circ~ˆ~tilde~˜~ensp~ ~emsp~ ~thinsp~ ~zwnj~‌~zwj~‍~lrm~‎~rlm~‏~ndash~–~mdash~—~lsquo~‘~rsquo~’~sbquo~‚~ldquo~“~rdquo~”~bdquo~„~dagger~†~Dagger~‡~permil~‰~lsaquo~‹~rsaquo~›~euro~€~fnof~ƒ~Alpha~Α~Beta~Β~Gamma~Γ~Delta~Δ~Epsilon~Ε~Zeta~Ζ~Eta~Η~Theta~Θ~Iota~Ι~Kappa~Κ~Lambda~Λ~Mu~Μ~Nu~Ν~Xi~Ξ~Omicron~Ο~Pi~Π~Rho~Ρ~Sigma~Σ~Tau~Τ~Upsilon~Υ~Phi~Φ~Chi~Χ~Psi~Ψ~Omega~Ω~alpha~α~beta~β~gamma~γ~delta~δ~epsilon~ε~zeta~ζ~eta~η~theta~θ~iota~ι~kappa~κ~lambda~λ~mu~μ~nu~ν~xi~ξ~omicron~ο~pi~π~rho~ρ~sigmaf~ς~sigma~σ~tau~τ~upsilon~υ~phi~φ~chi~χ~psi~ψ~omega~ω~thetasym~ϑ~upsih~ϒ~piv~ϖ~bull~•~hellip~…~prime~′~Prime~″~oline~‾~frasl~⁄~weierp~℘~image~ℑ~real~ℜ~trade~™~alefsym~ℵ~larr~←~uarr~↑~rarr~→~darr~↓~harr~↔~crarr~↵~lArr~⇐~uArr~⇑~rArr~⇒~dArr~⇓~hArr~⇔~forall~∀~part~∂~exist~∃~empty~∅~nabla~∇~isin~∈~notin~∉~ni~∋~prod~∏~sum~∑~minus~−~lowast~∗~radic~√~prop~∝~infin~∞~ang~∠~and~∧~or~∨~cap~∩~cup~∪~int~∫~there4~∴~sim~∼~cong~≅~asymp~≈~ne~≠~equiv~≡~le~≤~ge~≥~sub~⊂~sup~⊃~nsub~⊄~sube~⊆~supe~⊇~oplus~⊕~otimes~⊗~perp~⊥~sdot~⋅~lceil~⌈~rceil~⌉~lfloor~⌊~rfloor~⌋~lang~〈~rang~〉~loz~◊~spades~♠~clubs~♣~hearts~♥~diams~♦~~nbsp~ ~iexcl~¡~cent~¢~pound~£~curren~¤~yen~¥~brvbar~¦~sect~§~uml~¨~copy~©~ordf~ª~laquo~«~not~¬~shy~­~reg~®~macr~¯~deg~°~plusmn~±~sup2~²~sup3~³~acute~´~micro~µ~para~¶~middot~·~cedil~¸~sup1~¹~ordm~º~raquo~»~frac14~¼~frac12~½~frac34~¾~iquest~¿~Agrave~À~Aacute~Á~Acirc~Â~Atilde~Ã~Auml~Ä~Aring~Å~AElig~Æ~Ccedil~Ç~Egrave~È~Eacute~É~Ecirc~Ê~Euml~Ë~Igrave~Ì~Iacute~Í~Icirc~Î~Iuml~Ï~ETH~Ð~Ntilde~Ñ~Ograve~Ò~Oacute~Ó~Ocirc~Ô~Otilde~Õ~Ouml~Ö~times~×~Oslash~Ø~Ugrave~Ù~Uacute~Ú~Ucirc~Û~Uuml~Ü~Yacute~Ý~THORN~Þ~szlig~ß~agrave~à~aacute~á~acirc~â~atilde~ã~auml~ä~aring~å~aelig~æ~ccedil~ç~egrave~è~eacute~é~ecirc~ê~euml~ë~igrave~ì~iacute~í~icirc~î~iuml~ï~eth~ð~ntilde~ñ~ograve~ò~oacute~ó~ocirc~ô~otilde~õ~ouml~ö~divide~÷~oslash~ø~ugrave~ù~uacute~ú~ucirc~û~uuml~ü~yacute~ý~thorn~þ~yuml~ÿ~quot~\"~amp~&~lt~<~gt~>");
+namedReferences['html5'] = generateNamedReferences("Abreve~Ă~Acy~А~Afr~𝔄~Amacr~Ā~And~⩓~Aogon~Ą~Aopf~𝔸~ApplyFunction~⁡~Ascr~𝒜~Assign~≔~Backslash~∖~Barv~⫧~Barwed~⌆~Bcy~Б~Because~∵~Bernoullis~ℬ~Bfr~𝔅~Bopf~𝔹~Breve~˘~Bscr~ℬ~Bumpeq~≎~CHcy~Ч~Cacute~Ć~Cap~⋒~CapitalDifferentialD~ⅅ~Cayleys~ℭ~Ccaron~Č~Ccirc~Ĉ~Cconint~∰~Cdot~Ċ~Cedilla~¸~CenterDot~·~Cfr~ℭ~CircleDot~⊙~CircleMinus~⊖~CirclePlus~⊕~CircleTimes~⊗~ClockwiseContourIntegral~∲~CloseCurlyDoubleQuote~”~CloseCurlyQuote~’~Colon~∷~Colone~⩴~Congruent~≡~Conint~∯~ContourIntegral~∮~Copf~ℂ~Coproduct~∐~CounterClockwiseContourIntegral~∳~Cross~⨯~Cscr~𝒞~Cup~⋓~CupCap~≍~DD~ⅅ~DDotrahd~⤑~DJcy~Ђ~DScy~Ѕ~DZcy~Џ~Darr~↡~Dashv~⫤~Dcaron~Ď~Dcy~Д~Del~∇~Dfr~𝔇~DiacriticalAcute~´~DiacriticalDot~˙~DiacriticalDoubleAcute~˝~DiacriticalGrave~`~DiacriticalTilde~˜~Diamond~⋄~DifferentialD~ⅆ~Dopf~𝔻~Dot~¨~DotDot~⃜~DotEqual~≐~DoubleContourIntegral~∯~DoubleDot~¨~DoubleDownArrow~⇓~DoubleLeftArrow~⇐~DoubleLeftRightArrow~⇔~DoubleLeftTee~⫤~DoubleLongLeftArrow~⟸~DoubleLongLeftRightArrow~⟺~DoubleLongRightArrow~⟹~DoubleRightArrow~⇒~DoubleRightTee~⊨~DoubleUpArrow~⇑~DoubleUpDownArrow~⇕~DoubleVerticalBar~∥~DownArrow~↓~DownArrowBar~⤓~DownArrowUpArrow~⇵~DownBreve~̑~DownLeftRightVector~⥐~DownLeftTeeVector~⥞~DownLeftVector~↽~DownLeftVectorBar~⥖~DownRightTeeVector~⥟~DownRightVector~⇁~DownRightVectorBar~⥗~DownTee~⊤~DownTeeArrow~↧~Downarrow~⇓~Dscr~𝒟~Dstrok~Đ~ENG~Ŋ~Ecaron~Ě~Ecy~Э~Edot~Ė~Efr~𝔈~Element~∈~Emacr~Ē~EmptySmallSquare~◻~EmptyVerySmallSquare~▫~Eogon~Ę~Eopf~𝔼~Equal~⩵~EqualTilde~≂~Equilibrium~⇌~Escr~ℰ~Esim~⩳~Exists~∃~ExponentialE~ⅇ~Fcy~Ф~Ffr~𝔉~FilledSmallSquare~◼~FilledVerySmallSquare~▪~Fopf~𝔽~ForAll~∀~Fouriertrf~ℱ~Fscr~ℱ~GJcy~Ѓ~Gammad~Ϝ~Gbreve~Ğ~Gcedil~Ģ~Gcirc~Ĝ~Gcy~Г~Gdot~Ġ~Gfr~𝔊~Gg~⋙~Gopf~𝔾~GreaterEqual~≥~GreaterEqualLess~⋛~GreaterFullEqual~≧~GreaterGreater~⪢~GreaterLess~≷~GreaterSlantEqual~⩾~GreaterTilde~≳~Gscr~𝒢~Gt~≫~HARDcy~Ъ~Hacek~ˇ~Hat~^~Hcirc~Ĥ~Hfr~ℌ~HilbertSpace~ℋ~Hopf~ℍ~HorizontalLine~─~Hscr~ℋ~Hstrok~Ħ~HumpDownHump~≎~HumpEqual~≏~IEcy~Е~IJlig~Ĳ~IOcy~Ё~Icy~И~Idot~İ~Ifr~ℑ~Im~ℑ~Imacr~Ī~ImaginaryI~ⅈ~Implies~⇒~Int~∬~Integral~∫~Intersection~⋂~InvisibleComma~⁣~InvisibleTimes~⁢~Iogon~Į~Iopf~𝕀~Iscr~ℐ~Itilde~Ĩ~Iukcy~І~Jcirc~Ĵ~Jcy~Й~Jfr~𝔍~Jopf~𝕁~Jscr~𝒥~Jsercy~Ј~Jukcy~Є~KHcy~Х~KJcy~Ќ~Kcedil~Ķ~Kcy~К~Kfr~𝔎~Kopf~𝕂~Kscr~𝒦~LJcy~Љ~Lacute~Ĺ~Lang~⟪~Laplacetrf~ℒ~Larr~↞~Lcaron~Ľ~Lcedil~Ļ~Lcy~Л~LeftAngleBracket~⟨~LeftArrow~←~LeftArrowBar~⇤~LeftArrowRightArrow~⇆~LeftCeiling~⌈~LeftDoubleBracket~⟦~LeftDownTeeVector~⥡~LeftDownVector~⇃~LeftDownVectorBar~⥙~LeftFloor~⌊~LeftRightArrow~↔~LeftRightVector~⥎~LeftTee~⊣~LeftTeeArrow~↤~LeftTeeVector~⥚~LeftTriangle~⊲~LeftTriangleBar~⧏~LeftTriangleEqual~⊴~LeftUpDownVector~⥑~LeftUpTeeVector~⥠~LeftUpVector~↿~LeftUpVectorBar~⥘~LeftVector~↼~LeftVectorBar~⥒~Leftarrow~⇐~Leftrightarrow~⇔~LessEqualGreater~⋚~LessFullEqual~≦~LessGreater~≶~LessLess~⪡~LessSlantEqual~⩽~LessTilde~≲~Lfr~𝔏~Ll~⋘~Lleftarrow~⇚~Lmidot~Ŀ~LongLeftArrow~⟵~LongLeftRightArrow~⟷~LongRightArrow~⟶~Longleftarrow~⟸~Longleftrightarrow~⟺~Longrightarrow~⟹~Lopf~𝕃~LowerLeftArrow~↙~LowerRightArrow~↘~Lscr~ℒ~Lsh~↰~Lstrok~Ł~Lt~≪~Map~⤅~Mcy~М~MediumSpace~ ~Mellintrf~ℳ~Mfr~𝔐~MinusPlus~∓~Mopf~𝕄~Mscr~ℳ~NJcy~Њ~Nacute~Ń~Ncaron~Ň~Ncedil~Ņ~Ncy~Н~NegativeMediumSpace~​~NegativeThickSpace~​~NegativeThinSpace~​~NegativeVeryThinSpace~​~NestedGreaterGreater~≫~NestedLessLess~≪~NewLine~\n~Nfr~𝔑~NoBreak~⁠~NonBreakingSpace~ ~Nopf~ℕ~Not~⫬~NotCongruent~≢~NotCupCap~≭~NotDoubleVerticalBar~∦~NotElement~∉~NotEqual~≠~NotEqualTilde~≂̸~NotExists~∄~NotGreater~≯~NotGreaterEqual~≱~NotGreaterFullEqual~≧̸~NotGreaterGreater~≫̸~NotGreaterLess~≹~NotGreaterSlantEqual~⩾̸~NotGreaterTilde~≵~NotHumpDownHump~≎̸~NotHumpEqual~≏̸~NotLeftTriangle~⋪~NotLeftTriangleBar~⧏̸~NotLeftTriangleEqual~⋬~NotLess~≮~NotLessEqual~≰~NotLessGreater~≸~NotLessLess~≪̸~NotLessSlantEqual~⩽̸~NotLessTilde~≴~NotNestedGreaterGreater~⪢̸~NotNestedLessLess~⪡̸~NotPrecedes~⊀~NotPrecedesEqual~⪯̸~NotPrecedesSlantEqual~⋠~NotReverseElement~∌~NotRightTriangle~⋫~NotRightTriangleBar~⧐̸~NotRightTriangleEqual~⋭~NotSquareSubset~⊏̸~NotSquareSubsetEqual~⋢~NotSquareSuperset~⊐̸~NotSquareSupersetEqual~⋣~NotSubset~⊂⃒~NotSubsetEqual~⊈~NotSucceeds~⊁~NotSucceedsEqual~⪰̸~NotSucceedsSlantEqual~⋡~NotSucceedsTilde~≿̸~NotSuperset~⊃⃒~NotSupersetEqual~⊉~NotTilde~≁~NotTildeEqual~≄~NotTildeFullEqual~≇~NotTildeTilde~≉~NotVerticalBar~∤~Nscr~𝒩~Ocy~О~Odblac~Ő~Ofr~𝔒~Omacr~Ō~Oopf~𝕆~OpenCurlyDoubleQuote~“~OpenCurlyQuote~‘~Or~⩔~Oscr~𝒪~Otimes~⨷~OverBar~‾~OverBrace~⏞~OverBracket~⎴~OverParenthesis~⏜~PartialD~∂~Pcy~П~Pfr~𝔓~PlusMinus~±~Poincareplane~ℌ~Popf~ℙ~Pr~⪻~Precedes~≺~PrecedesEqual~⪯~PrecedesSlantEqual~≼~PrecedesTilde~≾~Product~∏~Proportion~∷~Proportional~∝~Pscr~𝒫~Qfr~𝔔~Qopf~ℚ~Qscr~𝒬~RBarr~⤐~Racute~Ŕ~Rang~⟫~Rarr~↠~Rarrtl~⤖~Rcaron~Ř~Rcedil~Ŗ~Rcy~Р~Re~ℜ~ReverseElement~∋~ReverseEquilibrium~⇋~ReverseUpEquilibrium~⥯~Rfr~ℜ~RightAngleBracket~⟩~RightArrow~→~RightArrowBar~⇥~RightArrowLeftArrow~⇄~RightCeiling~⌉~RightDoubleBracket~⟧~RightDownTeeVector~⥝~RightDownVector~⇂~RightDownVectorBar~⥕~RightFloor~⌋~RightTee~⊢~RightTeeArrow~↦~RightTeeVector~⥛~RightTriangle~⊳~RightTriangleBar~⧐~RightTriangleEqual~⊵~RightUpDownVector~⥏~RightUpTeeVector~⥜~RightUpVector~↾~RightUpVectorBar~⥔~RightVector~⇀~RightVectorBar~⥓~Rightarrow~⇒~Ropf~ℝ~RoundImplies~⥰~Rrightarrow~⇛~Rscr~ℛ~Rsh~↱~RuleDelayed~⧴~SHCHcy~Щ~SHcy~Ш~SOFTcy~Ь~Sacute~Ś~Sc~⪼~Scedil~Ş~Scirc~Ŝ~Scy~С~Sfr~𝔖~ShortDownArrow~↓~ShortLeftArrow~←~ShortRightArrow~→~ShortUpArrow~↑~SmallCircle~∘~Sopf~𝕊~Sqrt~√~Square~□~SquareIntersection~⊓~SquareSubset~⊏~SquareSubsetEqual~⊑~SquareSuperset~⊐~SquareSupersetEqual~⊒~SquareUnion~⊔~Sscr~𝒮~Star~⋆~Sub~⋐~Subset~⋐~SubsetEqual~⊆~Succeeds~≻~SucceedsEqual~⪰~SucceedsSlantEqual~≽~SucceedsTilde~≿~SuchThat~∋~Sum~∑~Sup~⋑~Superset~⊃~SupersetEqual~⊇~Supset~⋑~TRADE~™~TSHcy~Ћ~TScy~Ц~Tab~\t~Tcaron~Ť~Tcedil~Ţ~Tcy~Т~Tfr~𝔗~Therefore~∴~ThickSpace~  ~ThinSpace~ ~Tilde~∼~TildeEqual~≃~TildeFullEqual~≅~TildeTilde~≈~Topf~𝕋~TripleDot~⃛~Tscr~𝒯~Tstrok~Ŧ~Uarr~↟~Uarrocir~⥉~Ubrcy~Ў~Ubreve~Ŭ~Ucy~У~Udblac~Ű~Ufr~𝔘~Umacr~Ū~UnderBar~_~UnderBrace~⏟~UnderBracket~⎵~UnderParenthesis~⏝~Union~⋃~UnionPlus~⊎~Uogon~Ų~Uopf~𝕌~UpArrow~↑~UpArrowBar~⤒~UpArrowDownArrow~⇅~UpDownArrow~↕~UpEquilibrium~⥮~UpTee~⊥~UpTeeArrow~↥~Uparrow~⇑~Updownarrow~⇕~UpperLeftArrow~↖~UpperRightArrow~↗~Upsi~ϒ~Uring~Ů~Uscr~𝒰~Utilde~Ũ~VDash~⊫~Vbar~⫫~Vcy~В~Vdash~⊩~Vdashl~⫦~Vee~⋁~Verbar~‖~Vert~‖~VerticalBar~∣~VerticalLine~|~VerticalSeparator~❘~VerticalTilde~≀~VeryThinSpace~ ~Vfr~𝔙~Vopf~𝕍~Vscr~𝒱~Vvdash~⊪~Wcirc~Ŵ~Wedge~⋀~Wfr~𝔚~Wopf~𝕎~Wscr~𝒲~Xfr~𝔛~Xopf~𝕏~Xscr~𝒳~YAcy~Я~YIcy~Ї~YUcy~Ю~Ycirc~Ŷ~Ycy~Ы~Yfr~𝔜~Yopf~𝕐~Yscr~𝒴~ZHcy~Ж~Zacute~Ź~Zcaron~Ž~Zcy~З~Zdot~Ż~ZeroWidthSpace~​~Zfr~ℨ~Zopf~ℤ~Zscr~𝒵~abreve~ă~ac~∾~acE~∾̳~acd~∿~acy~а~af~⁡~afr~𝔞~aleph~ℵ~amacr~ā~amalg~⨿~andand~⩕~andd~⩜~andslope~⩘~andv~⩚~ange~⦤~angle~∠~angmsd~∡~angmsdaa~⦨~angmsdab~⦩~angmsdac~⦪~angmsdad~⦫~angmsdae~⦬~angmsdaf~⦭~angmsdag~⦮~angmsdah~⦯~angrt~∟~angrtvb~⊾~angrtvbd~⦝~angsph~∢~angst~Å~angzarr~⍼~aogon~ą~aopf~𝕒~ap~≈~apE~⩰~apacir~⩯~ape~≊~apid~≋~approx~≈~approxeq~≊~ascr~𝒶~ast~*~asympeq~≍~awconint~∳~awint~⨑~bNot~⫭~backcong~≌~backepsilon~϶~backprime~‵~backsim~∽~backsimeq~⋍~barvee~⊽~barwed~⌅~barwedge~⌅~bbrk~⎵~bbrktbrk~⎶~bcong~≌~bcy~б~becaus~∵~because~∵~bemptyv~⦰~bepsi~϶~bernou~ℬ~beth~ℶ~between~≬~bfr~𝔟~bigcap~⋂~bigcirc~◯~bigcup~⋃~bigodot~⨀~bigoplus~⨁~bigotimes~⨂~bigsqcup~⨆~bigstar~★~bigtriangledown~▽~bigtriangleup~△~biguplus~⨄~bigvee~⋁~bigwedge~⋀~bkarow~⤍~blacklozenge~⧫~blacksquare~▪~blacktriangle~▴~blacktriangledown~▾~blacktriangleleft~◂~blacktriangleright~▸~blank~␣~blk12~▒~blk14~░~blk34~▓~block~█~bne~=⃥~bnequiv~≡⃥~bnot~⌐~bopf~𝕓~bot~⊥~bottom~⊥~bowtie~⋈~boxDL~╗~boxDR~╔~boxDl~╖~boxDr~╓~boxH~═~boxHD~╦~boxHU~╩~boxHd~╤~boxHu~╧~boxUL~╝~boxUR~╚~boxUl~╜~boxUr~╙~boxV~║~boxVH~╬~boxVL~╣~boxVR~╠~boxVh~╫~boxVl~╢~boxVr~╟~boxbox~⧉~boxdL~╕~boxdR~╒~boxdl~┐~boxdr~┌~boxh~─~boxhD~╥~boxhU~╨~boxhd~┬~boxhu~┴~boxminus~⊟~boxplus~⊞~boxtimes~⊠~boxuL~╛~boxuR~╘~boxul~┘~boxur~└~boxv~│~boxvH~╪~boxvL~╡~boxvR~╞~boxvh~┼~boxvl~┤~boxvr~├~bprime~‵~breve~˘~bscr~𝒷~bsemi~⁏~bsim~∽~bsime~⋍~bsol~\\~bsolb~⧅~bsolhsub~⟈~bullet~•~bump~≎~bumpE~⪮~bumpe~≏~bumpeq~≏~cacute~ć~capand~⩄~capbrcup~⩉~capcap~⩋~capcup~⩇~capdot~⩀~caps~∩︀~caret~⁁~caron~ˇ~ccaps~⩍~ccaron~č~ccirc~ĉ~ccups~⩌~ccupssm~⩐~cdot~ċ~cemptyv~⦲~centerdot~·~cfr~𝔠~chcy~ч~check~✓~checkmark~✓~cir~○~cirE~⧃~circeq~≗~circlearrowleft~↺~circlearrowright~↻~circledR~®~circledS~Ⓢ~circledast~⊛~circledcirc~⊚~circleddash~⊝~cire~≗~cirfnint~⨐~cirmid~⫯~cirscir~⧂~clubsuit~♣~colon~:~colone~≔~coloneq~≔~comma~,~commat~@~comp~∁~compfn~∘~complement~∁~complexes~ℂ~congdot~⩭~conint~∮~copf~𝕔~coprod~∐~copysr~℗~cross~✗~cscr~𝒸~csub~⫏~csube~⫑~csup~⫐~csupe~⫒~ctdot~⋯~cudarrl~⤸~cudarrr~⤵~cuepr~⋞~cuesc~⋟~cularr~↶~cularrp~⤽~cupbrcap~⩈~cupcap~⩆~cupcup~⩊~cupdot~⊍~cupor~⩅~cups~∪︀~curarr~↷~curarrm~⤼~curlyeqprec~⋞~curlyeqsucc~⋟~curlyvee~⋎~curlywedge~⋏~curvearrowleft~↶~curvearrowright~↷~cuvee~⋎~cuwed~⋏~cwconint~∲~cwint~∱~cylcty~⌭~dHar~⥥~daleth~ℸ~dash~‐~dashv~⊣~dbkarow~⤏~dblac~˝~dcaron~ď~dcy~д~dd~ⅆ~ddagger~‡~ddarr~⇊~ddotseq~⩷~demptyv~⦱~dfisht~⥿~dfr~𝔡~dharl~⇃~dharr~⇂~diam~⋄~diamond~⋄~diamondsuit~♦~die~¨~digamma~ϝ~disin~⋲~div~÷~divideontimes~⋇~divonx~⋇~djcy~ђ~dlcorn~⌞~dlcrop~⌍~dollar~$~dopf~𝕕~dot~˙~doteq~≐~doteqdot~≑~dotminus~∸~dotplus~∔~dotsquare~⊡~doublebarwedge~⌆~downarrow~↓~downdownarrows~⇊~downharpoonleft~⇃~downharpoonright~⇂~drbkarow~⤐~drcorn~⌟~drcrop~⌌~dscr~𝒹~dscy~ѕ~dsol~⧶~dstrok~đ~dtdot~⋱~dtri~▿~dtrif~▾~duarr~⇵~duhar~⥯~dwangle~⦦~dzcy~џ~dzigrarr~⟿~eDDot~⩷~eDot~≑~easter~⩮~ecaron~ě~ecir~≖~ecolon~≕~ecy~э~edot~ė~ee~ⅇ~efDot~≒~efr~𝔢~eg~⪚~egs~⪖~egsdot~⪘~el~⪙~elinters~⏧~ell~ℓ~els~⪕~elsdot~⪗~emacr~ē~emptyset~∅~emptyv~∅~emsp13~ ~emsp14~ ~eng~ŋ~eogon~ę~eopf~𝕖~epar~⋕~eparsl~⧣~eplus~⩱~epsi~ε~epsiv~ϵ~eqcirc~≖~eqcolon~≕~eqsim~≂~eqslantgtr~⪖~eqslantless~⪕~equals~=~equest~≟~equivDD~⩸~eqvparsl~⧥~erDot~≓~erarr~⥱~escr~ℯ~esdot~≐~esim~≂~excl~!~expectation~ℰ~exponentiale~ⅇ~fallingdotseq~≒~fcy~ф~female~♀~ffilig~ﬃ~fflig~ﬀ~ffllig~ﬄ~ffr~𝔣~filig~ﬁ~fjlig~fj~flat~♭~fllig~ﬂ~fltns~▱~fopf~𝕗~fork~⋔~forkv~⫙~fpartint~⨍~frac13~⅓~frac15~⅕~frac16~⅙~frac18~⅛~frac23~⅔~frac25~⅖~frac35~⅗~frac38~⅜~frac45~⅘~frac56~⅚~frac58~⅝~frac78~⅞~frown~⌢~fscr~𝒻~gE~≧~gEl~⪌~gacute~ǵ~gammad~ϝ~gap~⪆~gbreve~ğ~gcirc~ĝ~gcy~г~gdot~ġ~gel~⋛~geq~≥~geqq~≧~geqslant~⩾~ges~⩾~gescc~⪩~gesdot~⪀~gesdoto~⪂~gesdotol~⪄~gesl~⋛︀~gesles~⪔~gfr~𝔤~gg~≫~ggg~⋙~gimel~ℷ~gjcy~ѓ~gl~≷~glE~⪒~gla~⪥~glj~⪤~gnE~≩~gnap~⪊~gnapprox~⪊~gne~⪈~gneq~⪈~gneqq~≩~gnsim~⋧~gopf~𝕘~grave~`~gscr~ℊ~gsim~≳~gsime~⪎~gsiml~⪐~gtcc~⪧~gtcir~⩺~gtdot~⋗~gtlPar~⦕~gtquest~⩼~gtrapprox~⪆~gtrarr~⥸~gtrdot~⋗~gtreqless~⋛~gtreqqless~⪌~gtrless~≷~gtrsim~≳~gvertneqq~≩︀~gvnE~≩︀~hairsp~ ~half~½~hamilt~ℋ~hardcy~ъ~harrcir~⥈~harrw~↭~hbar~ℏ~hcirc~ĥ~heartsuit~♥~hercon~⊹~hfr~𝔥~hksearow~⤥~hkswarow~⤦~hoarr~⇿~homtht~∻~hookleftarrow~↩~hookrightarrow~↪~hopf~𝕙~horbar~―~hscr~𝒽~hslash~ℏ~hstrok~ħ~hybull~⁃~hyphen~‐~ic~⁣~icy~и~iecy~е~iff~⇔~ifr~𝔦~ii~ⅈ~iiiint~⨌~iiint~∭~iinfin~⧜~iiota~℩~ijlig~ĳ~imacr~ī~imagline~ℐ~imagpart~ℑ~imath~ı~imof~⊷~imped~Ƶ~in~∈~incare~℅~infintie~⧝~inodot~ı~intcal~⊺~integers~ℤ~intercal~⊺~intlarhk~⨗~intprod~⨼~iocy~ё~iogon~į~iopf~𝕚~iprod~⨼~iscr~𝒾~isinE~⋹~isindot~⋵~isins~⋴~isinsv~⋳~isinv~∈~it~⁢~itilde~ĩ~iukcy~і~jcirc~ĵ~jcy~й~jfr~𝔧~jmath~ȷ~jopf~𝕛~jscr~𝒿~jsercy~ј~jukcy~є~kappav~ϰ~kcedil~ķ~kcy~к~kfr~𝔨~kgreen~ĸ~khcy~х~kjcy~ќ~kopf~𝕜~kscr~𝓀~lAarr~⇚~lAtail~⤛~lBarr~⤎~lE~≦~lEg~⪋~lHar~⥢~lacute~ĺ~laemptyv~⦴~lagran~ℒ~langd~⦑~langle~⟨~lap~⪅~larrb~⇤~larrbfs~⤟~larrfs~⤝~larrhk~↩~larrlp~↫~larrpl~⤹~larrsim~⥳~larrtl~↢~lat~⪫~latail~⤙~late~⪭~lates~⪭︀~lbarr~⤌~lbbrk~❲~lbrace~{~lbrack~[~lbrke~⦋~lbrksld~⦏~lbrkslu~⦍~lcaron~ľ~lcedil~ļ~lcub~{~lcy~л~ldca~⤶~ldquor~„~ldrdhar~⥧~ldrushar~⥋~ldsh~↲~leftarrow~←~leftarrowtail~↢~leftharpoondown~↽~leftharpoonup~↼~leftleftarrows~⇇~leftrightarrow~↔~leftrightarrows~⇆~leftrightharpoons~⇋~leftrightsquigarrow~↭~leftthreetimes~⋋~leg~⋚~leq~≤~leqq~≦~leqslant~⩽~les~⩽~lescc~⪨~lesdot~⩿~lesdoto~⪁~lesdotor~⪃~lesg~⋚︀~lesges~⪓~lessapprox~⪅~lessdot~⋖~lesseqgtr~⋚~lesseqqgtr~⪋~lessgtr~≶~lesssim~≲~lfisht~⥼~lfr~𝔩~lg~≶~lgE~⪑~lhard~↽~lharu~↼~lharul~⥪~lhblk~▄~ljcy~љ~ll~≪~llarr~⇇~llcorner~⌞~llhard~⥫~lltri~◺~lmidot~ŀ~lmoust~⎰~lmoustache~⎰~lnE~≨~lnap~⪉~lnapprox~⪉~lne~⪇~lneq~⪇~lneqq~≨~lnsim~⋦~loang~⟬~loarr~⇽~lobrk~⟦~longleftarrow~⟵~longleftrightarrow~⟷~longmapsto~⟼~longrightarrow~⟶~looparrowleft~↫~looparrowright~↬~lopar~⦅~lopf~𝕝~loplus~⨭~lotimes~⨴~lowbar~_~lozenge~◊~lozf~⧫~lpar~(~lparlt~⦓~lrarr~⇆~lrcorner~⌟~lrhar~⇋~lrhard~⥭~lrtri~⊿~lscr~𝓁~lsh~↰~lsim~≲~lsime~⪍~lsimg~⪏~lsqb~[~lsquor~‚~lstrok~ł~ltcc~⪦~ltcir~⩹~ltdot~⋖~lthree~⋋~ltimes~⋉~ltlarr~⥶~ltquest~⩻~ltrPar~⦖~ltri~◃~ltrie~⊴~ltrif~◂~lurdshar~⥊~luruhar~⥦~lvertneqq~≨︀~lvnE~≨︀~mDDot~∺~male~♂~malt~✠~maltese~✠~map~↦~mapsto~↦~mapstodown~↧~mapstoleft~↤~mapstoup~↥~marker~▮~mcomma~⨩~mcy~м~measuredangle~∡~mfr~𝔪~mho~℧~mid~∣~midast~*~midcir~⫰~minusb~⊟~minusd~∸~minusdu~⨪~mlcp~⫛~mldr~…~mnplus~∓~models~⊧~mopf~𝕞~mp~∓~mscr~𝓂~mstpos~∾~multimap~⊸~mumap~⊸~nGg~⋙̸~nGt~≫⃒~nGtv~≫̸~nLeftarrow~⇍~nLeftrightarrow~⇎~nLl~⋘̸~nLt~≪⃒~nLtv~≪̸~nRightarrow~⇏~nVDash~⊯~nVdash~⊮~nacute~ń~nang~∠⃒~nap~≉~napE~⩰̸~napid~≋̸~napos~ŉ~napprox~≉~natur~♮~natural~♮~naturals~ℕ~nbump~≎̸~nbumpe~≏̸~ncap~⩃~ncaron~ň~ncedil~ņ~ncong~≇~ncongdot~⩭̸~ncup~⩂~ncy~н~neArr~⇗~nearhk~⤤~nearr~↗~nearrow~↗~nedot~≐̸~nequiv~≢~nesear~⤨~nesim~≂̸~nexist~∄~nexists~∄~nfr~𝔫~ngE~≧̸~nge~≱~ngeq~≱~ngeqq~≧̸~ngeqslant~⩾̸~nges~⩾̸~ngsim~≵~ngt~≯~ngtr~≯~nhArr~⇎~nharr~↮~nhpar~⫲~nis~⋼~nisd~⋺~niv~∋~njcy~њ~nlArr~⇍~nlE~≦̸~nlarr~↚~nldr~‥~nle~≰~nleftarrow~↚~nleftrightarrow~↮~nleq~≰~nleqq~≦̸~nleqslant~⩽̸~nles~⩽̸~nless~≮~nlsim~≴~nlt~≮~nltri~⋪~nltrie~⋬~nmid~∤~nopf~𝕟~notinE~⋹̸~notindot~⋵̸~notinva~∉~notinvb~⋷~notinvc~⋶~notni~∌~notniva~∌~notnivb~⋾~notnivc~⋽~npar~∦~nparallel~∦~nparsl~⫽⃥~npart~∂̸~npolint~⨔~npr~⊀~nprcue~⋠~npre~⪯̸~nprec~⊀~npreceq~⪯̸~nrArr~⇏~nrarr~↛~nrarrc~⤳̸~nrarrw~↝̸~nrightarrow~↛~nrtri~⋫~nrtrie~⋭~nsc~⊁~nsccue~⋡~nsce~⪰̸~nscr~𝓃~nshortmid~∤~nshortparallel~∦~nsim~≁~nsime~≄~nsimeq~≄~nsmid~∤~nspar~∦~nsqsube~⋢~nsqsupe~⋣~nsubE~⫅̸~nsube~⊈~nsubset~⊂⃒~nsubseteq~⊈~nsubseteqq~⫅̸~nsucc~⊁~nsucceq~⪰̸~nsup~⊅~nsupE~⫆̸~nsupe~⊉~nsupset~⊃⃒~nsupseteq~⊉~nsupseteqq~⫆̸~ntgl~≹~ntlg~≸~ntriangleleft~⋪~ntrianglelefteq~⋬~ntriangleright~⋫~ntrianglerighteq~⋭~num~#~numero~№~numsp~ ~nvDash~⊭~nvHarr~⤄~nvap~≍⃒~nvdash~⊬~nvge~≥⃒~nvgt~>⃒~nvinfin~⧞~nvlArr~⤂~nvle~≤⃒~nvlt~<⃒~nvltrie~⊴⃒~nvrArr~⤃~nvrtrie~⊵⃒~nvsim~∼⃒~nwArr~⇖~nwarhk~⤣~nwarr~↖~nwarrow~↖~nwnear~⤧~oS~Ⓢ~oast~⊛~ocir~⊚~ocy~о~odash~⊝~odblac~ő~odiv~⨸~odot~⊙~odsold~⦼~ofcir~⦿~ofr~𝔬~ogon~˛~ogt~⧁~ohbar~⦵~ohm~Ω~oint~∮~olarr~↺~olcir~⦾~olcross~⦻~olt~⧀~omacr~ō~omid~⦶~ominus~⊖~oopf~𝕠~opar~⦷~operp~⦹~orarr~↻~ord~⩝~order~ℴ~orderof~ℴ~origof~⊶~oror~⩖~orslope~⩗~orv~⩛~oscr~ℴ~osol~⊘~otimesas~⨶~ovbar~⌽~par~∥~parallel~∥~parsim~⫳~parsl~⫽~pcy~п~percnt~%~period~.~pertenk~‱~pfr~𝔭~phiv~ϕ~phmmat~ℳ~phone~☎~pitchfork~⋔~planck~ℏ~planckh~ℎ~plankv~ℏ~plus~+~plusacir~⨣~plusb~⊞~pluscir~⨢~plusdo~∔~plusdu~⨥~pluse~⩲~plussim~⨦~plustwo~⨧~pm~±~pointint~⨕~popf~𝕡~pr~≺~prE~⪳~prap~⪷~prcue~≼~pre~⪯~prec~≺~precapprox~⪷~preccurlyeq~≼~preceq~⪯~precnapprox~⪹~precneqq~⪵~precnsim~⋨~precsim~≾~primes~ℙ~prnE~⪵~prnap~⪹~prnsim~⋨~profalar~⌮~profline~⌒~profsurf~⌓~propto~∝~prsim~≾~prurel~⊰~pscr~𝓅~puncsp~ ~qfr~𝔮~qint~⨌~qopf~𝕢~qprime~⁗~qscr~𝓆~quaternions~ℍ~quatint~⨖~quest~?~questeq~≟~rAarr~⇛~rAtail~⤜~rBarr~⤏~rHar~⥤~race~∽̱~racute~ŕ~raemptyv~⦳~rangd~⦒~range~⦥~rangle~⟩~rarrap~⥵~rarrb~⇥~rarrbfs~⤠~rarrc~⤳~rarrfs~⤞~rarrhk~↪~rarrlp~↬~rarrpl~⥅~rarrsim~⥴~rarrtl~↣~rarrw~↝~ratail~⤚~ratio~∶~rationals~ℚ~rbarr~⤍~rbbrk~❳~rbrace~}~rbrack~]~rbrke~⦌~rbrksld~⦎~rbrkslu~⦐~rcaron~ř~rcedil~ŗ~rcub~}~rcy~р~rdca~⤷~rdldhar~⥩~rdquor~”~rdsh~↳~realine~ℛ~realpart~ℜ~reals~ℝ~rect~▭~rfisht~⥽~rfr~𝔯~rhard~⇁~rharu~⇀~rharul~⥬~rhov~ϱ~rightarrow~→~rightarrowtail~↣~rightharpoondown~⇁~rightharpoonup~⇀~rightleftarrows~⇄~rightleftharpoons~⇌~rightrightarrows~⇉~rightsquigarrow~↝~rightthreetimes~⋌~ring~˚~risingdotseq~≓~rlarr~⇄~rlhar~⇌~rmoust~⎱~rmoustache~⎱~rnmid~⫮~roang~⟭~roarr~⇾~robrk~⟧~ropar~⦆~ropf~𝕣~roplus~⨮~rotimes~⨵~rpar~)~rpargt~⦔~rppolint~⨒~rrarr~⇉~rscr~𝓇~rsh~↱~rsqb~]~rsquor~’~rthree~⋌~rtimes~⋊~rtri~▹~rtrie~⊵~rtrif~▸~rtriltri~⧎~ruluhar~⥨~rx~℞~sacute~ś~sc~≻~scE~⪴~scap~⪸~sccue~≽~sce~⪰~scedil~ş~scirc~ŝ~scnE~⪶~scnap~⪺~scnsim~⋩~scpolint~⨓~scsim~≿~scy~с~sdotb~⊡~sdote~⩦~seArr~⇘~searhk~⤥~searr~↘~searrow~↘~semi~;~seswar~⤩~setminus~∖~setmn~∖~sext~✶~sfr~𝔰~sfrown~⌢~sharp~♯~shchcy~щ~shcy~ш~shortmid~∣~shortparallel~∥~sigmav~ς~simdot~⩪~sime~≃~simeq~≃~simg~⪞~simgE~⪠~siml~⪝~simlE~⪟~simne~≆~simplus~⨤~simrarr~⥲~slarr~←~smallsetminus~∖~smashp~⨳~smeparsl~⧤~smid~∣~smile~⌣~smt~⪪~smte~⪬~smtes~⪬︀~softcy~ь~sol~/~solb~⧄~solbar~⌿~sopf~𝕤~spadesuit~♠~spar~∥~sqcap~⊓~sqcaps~⊓︀~sqcup~⊔~sqcups~⊔︀~sqsub~⊏~sqsube~⊑~sqsubset~⊏~sqsubseteq~⊑~sqsup~⊐~sqsupe~⊒~sqsupset~⊐~sqsupseteq~⊒~squ~□~square~□~squarf~▪~squf~▪~srarr~→~sscr~𝓈~ssetmn~∖~ssmile~⌣~sstarf~⋆~star~☆~starf~★~straightepsilon~ϵ~straightphi~ϕ~strns~¯~subE~⫅~subdot~⪽~subedot~⫃~submult~⫁~subnE~⫋~subne~⊊~subplus~⪿~subrarr~⥹~subset~⊂~subseteq~⊆~subseteqq~⫅~subsetneq~⊊~subsetneqq~⫋~subsim~⫇~subsub~⫕~subsup~⫓~succ~≻~succapprox~⪸~succcurlyeq~≽~succeq~⪰~succnapprox~⪺~succneqq~⪶~succnsim~⋩~succsim~≿~sung~♪~supE~⫆~supdot~⪾~supdsub~⫘~supedot~⫄~suphsol~⟉~suphsub~⫗~suplarr~⥻~supmult~⫂~supnE~⫌~supne~⊋~supplus~⫀~supset~⊃~supseteq~⊇~supseteqq~⫆~supsetneq~⊋~supsetneqq~⫌~supsim~⫈~supsub~⫔~supsup~⫖~swArr~⇙~swarhk~⤦~swarr~↙~swarrow~↙~swnwar~⤪~target~⌖~tbrk~⎴~tcaron~ť~tcedil~ţ~tcy~т~tdot~⃛~telrec~⌕~tfr~𝔱~therefore~∴~thetav~ϑ~thickapprox~≈~thicksim~∼~thkap~≈~thksim~∼~timesb~⊠~timesbar~⨱~timesd~⨰~tint~∭~toea~⤨~top~⊤~topbot~⌶~topcir~⫱~topf~𝕥~topfork~⫚~tosa~⤩~tprime~‴~triangle~▵~triangledown~▿~triangleleft~◃~trianglelefteq~⊴~triangleq~≜~triangleright~▹~trianglerighteq~⊵~tridot~◬~trie~≜~triminus~⨺~triplus~⨹~trisb~⧍~tritime~⨻~trpezium~⏢~tscr~𝓉~tscy~ц~tshcy~ћ~tstrok~ŧ~twixt~≬~twoheadleftarrow~↞~twoheadrightarrow~↠~uHar~⥣~ubrcy~ў~ubreve~ŭ~ucy~у~udarr~⇅~udblac~ű~udhar~⥮~ufisht~⥾~ufr~𝔲~uharl~↿~uharr~↾~uhblk~▀~ulcorn~⌜~ulcorner~⌜~ulcrop~⌏~ultri~◸~umacr~ū~uogon~ų~uopf~𝕦~uparrow~↑~updownarrow~↕~upharpoonleft~↿~upharpoonright~↾~uplus~⊎~upsi~υ~upuparrows~⇈~urcorn~⌝~urcorner~⌝~urcrop~⌎~uring~ů~urtri~◹~uscr~𝓊~utdot~⋰~utilde~ũ~utri~▵~utrif~▴~uuarr~⇈~uwangle~⦧~vArr~⇕~vBar~⫨~vBarv~⫩~vDash~⊨~vangrt~⦜~varepsilon~ϵ~varkappa~ϰ~varnothing~∅~varphi~ϕ~varpi~ϖ~varpropto~∝~varr~↕~varrho~ϱ~varsigma~ς~varsubsetneq~⊊︀~varsubsetneqq~⫋︀~varsupsetneq~⊋︀~varsupsetneqq~⫌︀~vartheta~ϑ~vartriangleleft~⊲~vartriangleright~⊳~vcy~в~vdash~⊢~vee~∨~veebar~⊻~veeeq~≚~vellip~⋮~verbar~|~vert~|~vfr~𝔳~vltri~⊲~vnsub~⊂⃒~vnsup~⊃⃒~vopf~𝕧~vprop~∝~vrtri~⊳~vscr~𝓋~vsubnE~⫋︀~vsubne~⊊︀~vsupnE~⫌︀~vsupne~⊋︀~vzigzag~⦚~wcirc~ŵ~wedbar~⩟~wedge~∧~wedgeq~≙~wfr~𝔴~wopf~𝕨~wp~℘~wr~≀~wreath~≀~wscr~𝓌~xcap~⋂~xcirc~◯~xcup~⋃~xdtri~▽~xfr~𝔵~xhArr~⟺~xharr~⟷~xlArr~⟸~xlarr~⟵~xmap~⟼~xnis~⋻~xodot~⨀~xopf~𝕩~xoplus~⨁~xotime~⨂~xrArr~⟹~xrarr~⟶~xscr~𝓍~xsqcup~⨆~xuplus~⨄~xutri~△~xvee~⋁~xwedge~⋀~yacy~я~ycirc~ŷ~ycy~ы~yfr~𝔶~yicy~ї~yopf~𝕪~yscr~𝓎~yucy~ю~zacute~ź~zcaron~ž~zcy~з~zdot~ż~zeetrf~ℨ~zfr~𝔷~zhcy~ж~zigrarr~⇝~zopf~𝕫~zscr~𝓏~~AMP~&~COPY~©~GT~>~LT~<~QUOT~\"~REG~®", namedReferences['html4']);
+;// CONCATENATED MODULE: ./node_modules/html-entities/dist/esm/numeric-unicode-map.js
+var numericUnicodeMap = {
+  0: 65533,
+  128: 8364,
+  130: 8218,
+  131: 402,
+  132: 8222,
+  133: 8230,
+  134: 8224,
+  135: 8225,
+  136: 710,
+  137: 8240,
+  138: 352,
+  139: 8249,
+  140: 338,
+  142: 381,
+  145: 8216,
+  146: 8217,
+  147: 8220,
+  148: 8221,
+  149: 8226,
+  150: 8211,
+  151: 8212,
+  152: 732,
+  153: 8482,
+  154: 353,
+  155: 8250,
+  156: 339,
+  158: 382,
+  159: 376
+};
+;// CONCATENATED MODULE: ./node_modules/html-entities/dist/esm/surrogate-pairs.js
+var fromCodePoint = String.fromCodePoint || function (astralCodePoint) {
+  return String.fromCharCode(Math.floor((astralCodePoint - 0x10000) / 0x400) + 0xd800, (astralCodePoint - 0x10000) % 0x400 + 0xdc00);
+}; // @ts-expect-error - String.prototype.codePointAt might not exist in older node versions
+
+var surrogate_pairs_getCodePoint = String.prototype.codePointAt ? function (input, position) {
+  return input.codePointAt(position);
+} : function (input, position) {
+  return (input.charCodeAt(position) - 0xd800) * 0x400 + input.charCodeAt(position + 1) - 0xdc00 + 0x10000;
+};
+var highSurrogateFrom = 0xd800;
+var highSurrogateTo = 0xdbff;
+;// CONCATENATED MODULE: ./node_modules/html-entities/dist/esm/index.js
+var esm_assign = undefined && undefined.__assign || function () {
+  esm_assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return esm_assign.apply(this, arguments);
+};
+
+
+
+
+
+var allNamedReferences = esm_assign(esm_assign({}, namedReferences), {
+  all: namedReferences.html5
+});
+
+var encodeRegExps = {
+  specialChars: /[<>'"&]/g,
+  nonAscii: /[<>'"&\u0080-\uD7FF\uE000-\uFFFF\uDC00-\uDFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]?/g,
+  nonAsciiPrintable: /[<>'"&\x01-\x08\x11-\x15\x17-\x1F\x7f-\uD7FF\uE000-\uFFFF\uDC00-\uDFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]?/g,
+  nonAsciiPrintableOnly: /[\x01-\x08\x11-\x15\x17-\x1F\x7f-\uD7FF\uE000-\uFFFF\uDC00-\uDFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]?/g,
+  extensive: /[\x01-\x0c\x0e-\x1f\x21-\x2c\x2e-\x2f\x3a-\x40\x5b-\x60\x7b-\x7d\x7f-\uD7FF\uE000-\uFFFF\uDC00-\uDFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]?/g
+};
+var defaultEncodeOptions = {
+  mode: 'specialChars',
+  level: 'all',
+  numeric: 'decimal'
+};
+/** Encodes all the necessary (specified by `level`) characters in the text */
+
+function encode(text, _a) {
+  var _b = _a === void 0 ? defaultEncodeOptions : _a,
+      _c = _b.mode,
+      mode = _c === void 0 ? 'specialChars' : _c,
+      _d = _b.numeric,
+      numeric = _d === void 0 ? 'decimal' : _d,
+      _e = _b.level,
+      level = _e === void 0 ? 'all' : _e;
+
+  if (!text) {
+    return '';
+  }
+
+  var encodeRegExp = encodeRegExps[mode];
+  var references = allNamedReferences[level].characters;
+  var isHex = numeric === 'hexadecimal';
+  return String.prototype.replace.call(text, encodeRegExp, function (input) {
+    var result = references[input];
+
+    if (!result) {
+      var code = input.length > 1 ? getCodePoint(input, 0) : input.charCodeAt(0);
+      result = (isHex ? '&#x' + code.toString(16) : '&#' + code) + ';';
+    }
+
+    return result;
+  });
+}
+var defaultDecodeOptions = {
+  scope: 'body',
+  level: 'all'
+};
+var strict = /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);/g;
+var attribute = /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+)[;=]?/g;
+var baseDecodeRegExps = {
+  xml: {
+    strict: strict,
+    attribute: attribute,
+    body: bodyRegExps.xml
+  },
+  html4: {
+    strict: strict,
+    attribute: attribute,
+    body: bodyRegExps.html4
+  },
+  html5: {
+    strict: strict,
+    attribute: attribute,
+    body: bodyRegExps.html5
+  }
+};
+
+var decodeRegExps = esm_assign(esm_assign({}, baseDecodeRegExps), {
+  all: baseDecodeRegExps.html5
+});
+
+var fromCharCode = String.fromCharCode;
+var outOfBoundsChar = fromCharCode(65533);
+var defaultDecodeEntityOptions = {
+  level: 'all'
+};
+
+function getDecodedEntity(entity, references, isAttribute, isStrict) {
+  var decodeResult = entity;
+  var decodeEntityLastChar = entity[entity.length - 1];
+
+  if (isAttribute && decodeEntityLastChar === '=') {
+    decodeResult = entity;
+  } else if (isStrict && decodeEntityLastChar !== ';') {
+    decodeResult = entity;
+  } else {
+    var decodeResultByReference = references[entity];
+
+    if (decodeResultByReference) {
+      decodeResult = decodeResultByReference;
+    } else if (entity[0] === '&' && entity[1] === '#') {
+      var decodeSecondChar = entity[2];
+      var decodeCode = decodeSecondChar == 'x' || decodeSecondChar == 'X' ? parseInt(entity.substr(3), 16) : parseInt(entity.substr(2));
+      decodeResult = decodeCode >= 0x10ffff ? outOfBoundsChar : decodeCode > 65535 ? fromCodePoint(decodeCode) : fromCharCode(numericUnicodeMap[decodeCode] || decodeCode);
+    }
+  }
+
+  return decodeResult;
+}
+/** Decodes a single entity */
+
+
+function decodeEntity(entity, _a) {
+  var _b = _a === void 0 ? defaultDecodeEntityOptions : _a,
+      _c = _b.level,
+      level = _c === void 0 ? 'all' : _c;
+
+  if (!entity) {
+    return '';
+  }
+
+  return getDecodedEntity(entity, allNamedReferences[level].entities, false, false);
+}
+/** Decodes all entities in the text */
+
+function decode(text, _a) {
+  var _b = _a === void 0 ? defaultDecodeOptions : _a,
+      _c = _b.level,
+      level = _c === void 0 ? 'all' : _c,
+      _d = _b.scope,
+      scope = _d === void 0 ? level === 'xml' ? 'strict' : 'body' : _d;
+
+  if (!text) {
+    return '';
+  }
+
+  var decodeRegExp = decodeRegExps[level][scope];
+  var references = allNamedReferences[level].entities;
+  var isAttribute = scope === 'attribute';
+  var isStrict = scope === 'strict';
+  return text.replace(decodeRegExp, function (entity) {
+    return getDecodedEntity(entity, references, isAttribute, isStrict);
+  });
+}
 ;// CONCATENATED MODULE: ./node_modules/libram/dist/logger.js
 var _defaultHandlers;
 
@@ -7819,7 +3396,7 @@ var Clan = /*#__PURE__*/function () {
             degree = _match[2];
 
         return {
-          name: (0,lib.decode)(encodedName),
+          name: decode(encodedName),
           degree: Number.parseInt(degree),
           id: Number.parseInt(id)
         };
@@ -8109,7 +3686,7 @@ var Clan = /*#__PURE__*/function () {
       return (0,external_kolmafia_namespaceObject.xpath)(page, '//select[@name="whichclan"]//option').map(option => {
         var validHtml = "<select>".concat(option, "</select>");
         var id = Number.parseInt((0,external_kolmafia_namespaceObject.xpath)(validHtml, "//@value")[0]);
-        var name = (0,lib.decode)((0,external_kolmafia_namespaceObject.xpath)(validHtml, "//text()")[0]);
+        var name = decode((0,external_kolmafia_namespaceObject.xpath)(validHtml, "//text()")[0]);
         return new Clan(id, name);
       });
     }
@@ -10214,7 +5791,7 @@ var Resource = function Resource(pref, help, effects, default_value) {
 
 var consumptionResources = [new Resource("instant_skipDistilledFortifiedWine", "Do not grab the DFW lucky adventure (if you have numberology)"), new Resource("instant_saveAstralPilsners", n => "Save ".concat(n, "/6 astral pilsners (set a number)"), [], property_get("instant_saveAstralPilsners", false) ? 6 : 0), new Resource("instant_saveEuclideanAngle", "Do not pull a non-Euclidean Angle"), new Resource("instant_saveAbstraction", "Do not pull an Abstraction: Category"), new Resource("instant_savePerfectFreeze", "Do not craft and drink a perfect drink"), new Resource("instant_saveHoneyBun", "Do not eat a Honey Bun of Boris for the stats test", $effects(resources_templateObject || (resources_templateObject = resources_taggedTemplateLiteral(["Motherly Loved"])))), new Resource("instant_saveRoastedVegetableStats", "Do not eat a Roasted Vegetable of Jarlsberg for the stats test", $effects(resources_templateObject2 || (resources_templateObject2 = resources_taggedTemplateLiteral(["Wizard Sight"])))), new Resource("instant_saveRichRicotta", "Do not eat a Pete's Rich Ricotta for the stats test", $effects(resources_templateObject3 || (resources_templateObject3 = resources_taggedTemplateLiteral(["Rippin' Ricotta"])))), new Resource("instant_saveWileyWheyBar", "Do not eat a Pete's Wiley Whey Bar for the stats test"), new Resource("instant_saveRicottaCasserole", "Do not eat a Bake Veggie Ricotta Casserole for the stats test"), new Resource("instant_savePlainCalzone", "Do not eat a Plain Calzone", $effects(resources_templateObject4 || (resources_templateObject4 = resources_taggedTemplateLiteral(["Angering Pizza Purists"])))), new Resource("instant_saveBeesKnees", "Do not buy and drink Bee's Knees"), new Resource("instant_saveSockdollager", "Do not buy and drink a sockdollager"), new Resource("instant_saveBorisBeer", "Do not drink a Boris's Beer for the hot test"), new Resource("instant_saveRoastedVegetableItem", "Do not eat a Roasted Vegetable of Jarlsberg for the item test"), new Resource("instant_saveSacramentoWine", "Do not drink a Sacramento Wine for the item test"), new Resource("instant_savePillkeeper", "Do not acquire Hulkien, Rainbowolin and Fidoxene", $effects(resources_templateObject5 || (resources_templateObject5 = resources_taggedTemplateLiteral(["Hulkien, Rainbowolin, Fidoxene"])))), new Resource("instant_skipSynthExp", "Do not use synth for the Xp% buff"), new Resource("instant_skipSynthCold", "Do not use synth for the Cold Res buff"), new Resource("instant_saveBodySpradium", "Do not chew the body spradium if we have it", $effects(resources_templateObject6 || (resources_templateObject6 = resources_taggedTemplateLiteral(["Boxing Day Glow"])))), new Resource("instant_skipCabernetSauvignon", "Do not summon and drink a bottle of Cabernet Sauvignon", $effects(resources_templateObject7 || (resources_templateObject7 = resources_taggedTemplateLiteral(["Cabernet Hunter"]))))];
 var encounterResources = [new Resource("instant_saveWitchess", "Do not fight witchess monsters nor acquire Puzzle Champ", $effects(resources_templateObject8 || (resources_templateObject8 = resources_taggedTemplateLiteral(["Puzzle Champ"])))), new Resource("instant_saveBackups", n => "Save ".concat(n, "/11 backups (set a number)"), [], property_get("instant_saveBackups", false) ? 11 : 0), new Resource("instant_skipEarlyTrainsetMeat", "Do not spend an adventure in the Dire Warren pre-coil grabbing meat from the trainset"), new Resource("instant_saveLocketRedSkeleton", "Do not reminisce a Red Skeleton"), new Resource("instant_saveLocketWitchessKing", "Do not reminisce a Witchess King"), new Resource("instant_saveLocketFactoryWorker", "Do not reminisce a Factory Worker (female)"), new Resource("instant_skipMappingNinja", "Do not attempt to grab a li'l ninja costume for your tot"), new Resource("instant_saveSBForInnerElf", n => "Save ".concat(n, "/3 Snokebombs for Inner Elf"), [], property_get("instant_saveSBForInnerElf", false) ? 2 : 0), new Resource("instant_skipBishopsForRoyalty", "Save 3 Witchess fights for the Queen, King and Witch"), new Resource("instant_skipCyclopsEyedrops", "Do not spend a clover on Cyclops Eyedrops"), new Resource("instant_saveCyberRealmFights", n => "Save ".concat(n, "/").concat(lib_have(template_string_$skill(resources_templateObject9 || (resources_templateObject9 = resources_taggedTemplateLiteral(["OVERCLOCK(10)"])))) ? 10 : 0, " CyberRealm free fights (set a number)"), [], property_get("instant_saveCyberRealmFights", false) ? 10 : 0)];
-var farmingResources = [new Resource("instant_savePorquoise", "Do not autosell your porquoise"), new Resource("instant_saveFloundry", "Do not create a codpiece"), new Resource("instant_saveFortuneTeller", "Do not consult Zatara for buffs", [template_string_$effect(resources_templateObject10 || (resources_templateObject10 = resources_taggedTemplateLiteral(["A Girl Named Sue"]))), template_string_$effect(resources_templateObject11 || (resources_templateObject11 = resources_taggedTemplateLiteral(["There's No N in Love"]))), template_string_$effect(resources_templateObject12 || (resources_templateObject12 = resources_taggedTemplateLiteral(["Meet the Meat"]))), template_string_$effect(resources_templateObject13 || (resources_templateObject13 = resources_taggedTemplateLiteral(["Gunther Than Thou"]))), template_string_$effect(resources_templateObject14 || (resources_templateObject14 = resources_taggedTemplateLiteral(["Everybody Calls Him Gorgon"]))), template_string_$effect(resources_templateObject15 || (resources_templateObject15 = resources_taggedTemplateLiteral(["They Call Him Shifty Because..."])))]), new Resource("instant_saveSnackVoucher", "Do not use your snack voucher", $effects(resources_templateObject16 || (resources_templateObject16 = resources_taggedTemplateLiteral(["Wasabi With You, Pisces in the Skyces"])))), new Resource("instant_saveClipArt", "Only summon borrowed time"), new Resource("instant_saveDeck", "Do not use any deck summons"), new Resource("instant_saveBarrelShrine", "Do not get the barrel shrine buff", [template_string_$effect(resources_templateObject17 || (resources_templateObject17 = resources_taggedTemplateLiteral(["Barrel Chested"]))), template_string_$effect(resources_templateObject18 || (resources_templateObject18 = resources_taggedTemplateLiteral(["Pork Barrel"]))), template_string_$effect(resources_templateObject19 || (resources_templateObject19 = resources_taggedTemplateLiteral(["Warlock, Warstock, and Warbarrel"]))), template_string_$effect(resources_templateObject20 || (resources_templateObject20 = resources_taggedTemplateLiteral(["Beer Barrel Polka"])))]), new Resource("instant_saveTerminal", "Do not acquire items.enh and substats.enh", $effects(resources_templateObject21 || (resources_templateObject21 = resources_taggedTemplateLiteral(["items.enh, substats.enh"])))), new Resource("instant_saveCopDollars", "Do not acquire shoe gum with cop dollars", $effects(resources_templateObject22 || (resources_templateObject22 = resources_taggedTemplateLiteral(["Gummed Shoes"])))), new Resource("instant_saveLeafFights", "Do not use burning leaf free-fights to charge camel"), new Resource("instant_saveKGBClicks", "Do not use any KGB clicks"), new Resource("instant_saveGenie", "Do not use any genie wishes"), new Resource("instant_saveMonkeysPaw", "Do not use any monkey's paw wishes"), new Resource("instant_savePantogram", "Do not use your pantogram"), new Resource("instant_saveMummingTrunk", "Do not use your mumming trunk"), new Resource("instant_savePowerfulGlove", "Do not acquire Triple-Sized and Invisible Avatar", $effects(resources_templateObject23 || (resources_templateObject23 = resources_taggedTemplateLiteral(["Triple-Sized, Invisible Avatar"])))), new Resource("instant_saveCargoShorts", "Do not use a pull from your Cargo Shorts"), new Resource("instant_savePowerSeed", "Do not use any batteries", $effects(resources_templateObject24 || (resources_templateObject24 = resources_taggedTemplateLiteral(["AAA-Charged"])))), new Resource("instant_saveMayday", "Do not use your Mayday survival package"), new Resource("instant_savePumpkins", "Do not use harvested pumpkins"), new Resource("instant_saveSugar", "Do not spend tome uses on sugar shorts/chapeau/shank"), new Resource("instant_saveGarden", "Do not harvest your garden"), new Resource("instant_saveMoonTune", "Do not tune the moon for familiar weight test"), new Resource("instant_saveCinch", "Do not spend any cinch for leveling"), new Resource("instant_saveFreeRests", n => "Save ".concat(n, "/").concat((0,external_kolmafia_namespaceObject.totalFreeRests)(), " free rests (set a number)"), [], property_get("instant_saveFreeRests", false) ? (0,external_kolmafia_namespaceObject.totalFreeRests)() : 0), new Resource("instant_saveCatalogCredits", n => "Save ".concat(n, "/3 Mr. Store Catalog Credits (set a number)"), [], property_get("instant_saveCatalogCredits", false) ? 3 : 0), new Resource("instant_skipHighHeels", "Do not grab red-soled high heels from the Mr. Store Catalog"), new Resource("instant_skipMeatButler", "Do not grab the meat butler from the Mr. Store Catalog"), new Resource("instant_saveNumberology", n => "Save ".concat(n, "/").concat(property_get("skillLevel144") > 3 ? 3 : property_get("skillLevel144"), " Numberology casts"), [], property_get("instant_saveNumberology", false) ? 3 : 0), new Resource("instant_saveFavoriteBird", "Do not use Visit your Favorite Bird on any of the tests"), new Resource("instant_saveAugustScepter", "Do not use any August Scepter skills", $effects(resources_templateObject25 || (resources_templateObject25 = resources_taggedTemplateLiteral(["Incredibly Well Lit, Offhand Remarkable"])))), new Resource("instant_saveMonsterHabitats", n => "Save ".concat(n, "/3 Recall Facts: Monster Habitats! casts"), [], property_get("instant_saveMonsterHabitats", false) ? 3 : 0), new Resource("instant_saveMimicEggs", "Do not acquire any Chest Mimic eggs"), new Resource("instant_saveAprilingBandQuadTom", "Do not acquire the Apriling Band Quad Tom"), new Resource("instant_saveAprilingBandSaxophone", "Do not acquire the Apriling Band Saxophone"), new Resource("instant_saveAprilingBandStaff", "Do not acquire the Apriling Band Staff"), new Resource("instant_saveAprilingBandPiccolo", "Do not acquire the Apriling Band Piccolo"), new Resource("instant_saveEmbers", "Do not use any Sept-Ember Censer Embers"), new Resource("instant_skipBembershootForJacket", "Acquire 2 bembershoots and 1 jacket instead of 3 bembershoots"), new Resource("instant_savePhotoboothProps", "Do not acquire photobooth props"), new Resource("instant_saveStillsuit", "Do not drink stillsuit distillate for the item test"), new Resource("instant_saveTeaTree", "Do not use any teas from the Potted Tea Tree", $effects(resources_templateObject26 || (resources_templateObject26 = resources_taggedTemplateLiteral(["Frost Tea, Loyal Tea, Obscuri Tea, Serendipi Tea, Toast Tea"])))), new Resource("instant_saveAlliedRadio", n => "Save ".concat(n, "/3 Allied Radio Supply Drop Requests"), [], property_get("instant_saveAlliedRadio", false) ? 3 : 0), new Resource("instant_saveBCZBloodBath", "Do not use BCZ: Blood Bath", $effects(resources_templateObject27 || (resources_templateObject27 = resources_taggedTemplateLiteral(["Bloodbathed"])))), new Resource("instant_saveBCZDialitup", "Do not use BCZ: Dial it up to 11 for the spell damage test", $effects(resources_templateObject28 || (resources_templateObject28 = resources_taggedTemplateLiteral(["Up To 11"]))))];
+var farmingResources = [new Resource("instant_savePorquoise", "Do not autosell your porquoise"), new Resource("instant_saveFloundry", "Do not create a codpiece"), new Resource("instant_saveFortuneTeller", "Do not consult Zatara for buffs", [template_string_$effect(resources_templateObject10 || (resources_templateObject10 = resources_taggedTemplateLiteral(["A Girl Named Sue"]))), template_string_$effect(resources_templateObject11 || (resources_templateObject11 = resources_taggedTemplateLiteral(["There's No N in Love"]))), template_string_$effect(resources_templateObject12 || (resources_templateObject12 = resources_taggedTemplateLiteral(["Meet the Meat"]))), template_string_$effect(resources_templateObject13 || (resources_templateObject13 = resources_taggedTemplateLiteral(["Gunther Than Thou"]))), template_string_$effect(resources_templateObject14 || (resources_templateObject14 = resources_taggedTemplateLiteral(["Everybody Calls Him Gorgon"]))), template_string_$effect(resources_templateObject15 || (resources_templateObject15 = resources_taggedTemplateLiteral(["They Call Him Shifty Because..."])))]), new Resource("instant_saveSnackVoucher", "Do not use your snack voucher", $effects(resources_templateObject16 || (resources_templateObject16 = resources_taggedTemplateLiteral(["Wasabi With You, Pisces in the Skyces"])))), new Resource("instant_saveClipArt", "Only summon borrowed time"), new Resource("instant_saveDeck", "Do not use any deck summons"), new Resource("instant_saveBarrelShrine", "Do not get the barrel shrine buff", [template_string_$effect(resources_templateObject17 || (resources_templateObject17 = resources_taggedTemplateLiteral(["Barrel Chested"]))), template_string_$effect(resources_templateObject18 || (resources_templateObject18 = resources_taggedTemplateLiteral(["Pork Barrel"]))), template_string_$effect(resources_templateObject19 || (resources_templateObject19 = resources_taggedTemplateLiteral(["Warlock, Warstock, and Warbarrel"]))), template_string_$effect(resources_templateObject20 || (resources_templateObject20 = resources_taggedTemplateLiteral(["Beer Barrel Polka"])))]), new Resource("instant_saveTerminal", "Do not acquire items.enh and substats.enh", $effects(resources_templateObject21 || (resources_templateObject21 = resources_taggedTemplateLiteral(["items.enh, substats.enh"])))), new Resource("instant_saveCopDollars", "Do not acquire shoe gum with cop dollars", $effects(resources_templateObject22 || (resources_templateObject22 = resources_taggedTemplateLiteral(["Gummed Shoes"])))), new Resource("instant_saveLeafFights", "Do not use burning leaf free-fights to charge camel"), new Resource("instant_saveKGBClicks", "Do not use any KGB clicks"), new Resource("instant_saveGenie", "Do not use any genie wishes"), new Resource("instant_saveMonkeysPaw", "Do not use any monkey's paw wishes"), new Resource("instant_savePantogram", "Do not use your pantogram"), new Resource("instant_saveMummingTrunk", "Do not use your mumming trunk"), new Resource("instant_savePowerfulGlove", "Do not acquire Triple-Sized and Invisible Avatar", $effects(resources_templateObject23 || (resources_templateObject23 = resources_taggedTemplateLiteral(["Triple-Sized, Invisible Avatar"])))), new Resource("instant_saveCargoShorts", "Do not use a pull from your Cargo Shorts"), new Resource("instant_savePowerSeed", "Do not use any batteries", $effects(resources_templateObject24 || (resources_templateObject24 = resources_taggedTemplateLiteral(["AAA-Charged"])))), new Resource("instant_saveMayday", "Do not use your Mayday survival package"), new Resource("instant_savePumpkins", "Do not use harvested pumpkins"), new Resource("instant_saveSugar", "Do not spend tome uses on sugar shorts/chapeau/shank"), new Resource("instant_saveGarden", "Do not harvest your garden"), new Resource("instant_saveMoonTune", "Do not tune the moon for familiar weight test"), new Resource("instant_saveCinch", "Do not spend any cinch for leveling"), new Resource("instant_saveFreeRests", n => "Save ".concat(n, "/").concat((0,external_kolmafia_namespaceObject.totalFreeRests)(), " free rests (set a number)"), [], property_get("instant_saveFreeRests", false) ? (0,external_kolmafia_namespaceObject.totalFreeRests)() : 0), new Resource("instant_saveCatalogCredits", n => "Save ".concat(n, "/3 Mr. Store Catalog Credits (set a number)"), [], property_get("instant_saveCatalogCredits", false) ? 3 : 0), new Resource("instant_skipHighHeels", "Do not grab red-soled high heels from the Mr. Store Catalog"), new Resource("instant_skipMeatButler", "Do not grab the meat butler from the Mr. Store Catalog"), new Resource("instant_saveNumberology", n => "Save ".concat(n, "/").concat(property_get("skillLevel144") > 3 ? 3 : property_get("skillLevel144"), " Numberology casts"), [], property_get("instant_saveNumberology", false) ? 3 : 0), new Resource("instant_saveFavoriteBird", "Do not use Visit your Favorite Bird on any of the tests"), new Resource("instant_saveAugustScepter", "Do not use any August Scepter skills", $effects(resources_templateObject25 || (resources_templateObject25 = resources_taggedTemplateLiteral(["Incredibly Well Lit, Offhand Remarkable"])))), new Resource("instant_saveMonsterHabitats", n => "Save ".concat(n, "/3 Recall Facts: Monster Habitats! casts"), [], property_get("instant_saveMonsterHabitats", false) ? 3 : 0), new Resource("instant_saveMimicEggs", "Do not acquire any Chest Mimic eggs"), new Resource("instant_saveAprilingBandQuadTom", "Do not acquire the Apriling Band Quad Tom"), new Resource("instant_saveAprilingBandSaxophone", "Do not acquire the Apriling Band Saxophone"), new Resource("instant_saveAprilingBandStaff", "Do not acquire the Apriling Band Staff"), new Resource("instant_saveAprilingBandPiccolo", "Do not acquire the Apriling Band Piccolo"), new Resource("instant_saveEmbers", "Do not use any Sept-Ember Censer Embers"), new Resource("instant_skipBembershootForJacket", "Acquire 2 bembershoots and 1 jacket instead of 3 bembershoots"), new Resource("instant_savePhotoboothProps", "Do not acquire photobooth props"), new Resource("instant_saveStillsuit", "Do not drink stillsuit distillate for the item test"), new Resource("instant_saveTeaTree", "Do not use any teas from the Potted Tea Tree", $effects(resources_templateObject26 || (resources_templateObject26 = resources_taggedTemplateLiteral(["Frost Tea, Loyal Tea, Obscuri Tea, Serendipi Tea, Toast Tea"])))), new Resource("instant_saveAlliedRadio", n => "Save ".concat(n, "/3 Allied Radio Supply Drop Requests"), [], property_get("instant_saveAlliedRadio", false) ? 3 : 0), new Resource("instant_saveBCZBloodBath", "Do not use BCZ: Blood Bath", $effects(resources_templateObject27 || (resources_templateObject27 = resources_taggedTemplateLiteral(["Bloodbathed"])))), new Resource("instant_saveBCZDialitup", "Do not use BCZ: Dial it up to 11 for the spell damage test", $effects(resources_templateObject28 || (resources_templateObject28 = resources_taggedTemplateLiteral(["Up To 11"])))), new Resource("instant_saveClubEmTime", n => "Save ".concat(n, "/5 legendary seal-clubbing club free kills"), [], property_get("instant_saveClubEmTime", false) ? 5 : 0), new Resource("instant_saveClubNextWeek", n => "Save ".concat(n, "/5 legendary seal-clubbing club free kills"), [], property_get("instant_saveClubNextWeek", false) ? 5 : 0)];
 var otherResources = [new Resource("instant_skipGovernment", "Do not attempt to unlock the beach with meat to grab an anticheese"), new Resource("instant_skipAutomaticOptimizations", "Do not conduct automatic optimization of the route"), new Resource("instant_saveCandySword", "Do not use Candy Cane Sword Cane's Stab and Slash"), new Resource("instant_saveMayamCalendar", "Do not Consider the Calendar"), new Resource("instant_skipPatrioticScreech", "Do not use Patriotic Screech to banish constructs"), new Resource("instant_skipLeprecondo", "Do not (re)configure Leprecondo"), new Resource("instant_saveShowerGlobs", n => "Save at least ".concat(n, " globs of wet paper"), [], property_get("instant_saveShowerGlobs", false) ? 4 : 0), new Resource("instant_prioritizeParkaSpit", "Prefer Spitting Jurassic Acid (with 100 turn cd) over other turn-taking YRs (with 75 turn cd)")];
 var allResources = [].concat(consumptionResources, encounterResources, farmingResources, otherResources);
 var automaticallyExcludedBuffs = Array.from(allResources.map(resource => resource.effects).filter(efs => efs.length > 0)).reduce((acc, val) => acc.concat(val), []);
@@ -16271,11 +11848,11 @@ var trackedResource = function trackedResource(resource, name, maxUses) {
   if (maxUses) this.maxUses = maxUses;
 };
 var freeBanishResources = [new trackedResource("_feelHatredUsed", "Feel Hatred", 3), new trackedResource("_reflexHammerUsed", "Reflex Hammer", 3), new trackedResource("_latteRefillsUsed", "Latte Refills", 3), new trackedResource("_kgbTranquilizerDartUses", "KGB Tranquilizers", 3), new trackedResource("_snokebombUsed", "Snokebomb", 3)];
-var freeKillResources = [new trackedResource("_chestXRayUsed", "Chest X-Ray", 3), new trackedResource("_shatteringPunchUsed", "Shattering Punch", 3), new trackedResource("_gingerbreadMobHitUsed", "Gingerbread Mob Hit", 1), new trackedResource("_missileLauncherUsed", "Missile Launcher", 1), new trackedResource("_CSParkaYRUsed", "Parka YR")];
+var freeKillResources = [new trackedResource("_clubEmTimeUsed", "Club 'Em Back in Time", 5), new trackedResource("_chestXRayUsed", "Chest X-Ray", 3), new trackedResource("_shatteringPunchUsed", "Shattering Punch", 3), new trackedResource("_gingerbreadMobHitUsed", "Gingerbread Mob Hit", 1), new trackedResource("_missileLauncherUsed", "Missile Launcher", 1), new trackedResource("_CSParkaYRUsed", "Parka YR")];
 var notableSkillResources = [new trackedResource("_saberForceUses", "Saber Forces", 5), new trackedResource("_monstersMapped", "Monsters Mapped", 3), new trackedResource("_feelEnvyUsed", "Feel Envy", 3), new trackedResource("_sourceTerminalDigitizeUses", "Digitize", 3), new trackedResource("_sourceTerminalPortscanUses", "Portscan", 3), new trackedResource("_sourceTerminalEnhanceUses", "Source Terminal Enhances", 3), new trackedResource("_sourceTerminalDuplicateUses", "Duplicate", 1)];
 var freeFightResources = [new trackedResource("_shadowAffinityToday", "Shadow Rift", 11), new trackedResource("_snojoFreeFights", "Snojo", 10), new trackedResource("_neverendingPartyFreeTurns", "NEP", 10), new trackedResource("_witchessFights", "Witchess", 5), new trackedResource("_machineTunnelsAdv", "DMT", 5), new trackedResource("_loveTunnelUsed", "LOV Tunnel", 3), new trackedResource("_voteFreeFights", "Voters", 3), new trackedResource("_godLobsterFights", "God Lobster", 3), new trackedResource("_speakeasyFreeFights", "Oliver's Place", 3), new trackedResource("_aprilBandTomUses", "Apriling Band Quad Tom", 3), new trackedResource("_eldritchHorrorEvoked", "Eldritch Tentacle", 1), new trackedResource("_sausageFights", "Sausage Goblins")];
 var potentiallyFreeFightResources = [new trackedResource("_backUpUses", "Backup Camera", 11), new trackedResource("_leafMonstersFought", "Flaming Leaflets", 5), new trackedResource("_locketMonstersFought", "Locket Reminisces", 3), new trackedResource("_photocopyUsed", "Fax Machine", 1), new trackedResource("_chateauMonsterFought", "Chateau Painting", 1)];
-var farmingResourceResources = [new trackedResource("_powerfulGloveBatteryPowerUsed", "Powerful Glove Charges", 100), new trackedResource("_cinchUsed", "Cinch", 100), new trackedResource("_kgbClicksUsed", "KGB Clicks", 22), new trackedResource("_deckCardsDrawn", "Deck Draws", 15), new trackedResource("_mimicEggsObtained", "Mimic Eggs", 11), new trackedResource("_macrometeoriteUses", "Macrometeorites", 10), new trackedResource(template_string_$item(engine_engine_templateObject || (engine_engine_templateObject = engine_engine_taggedTemplateLiteral(["battery (AAA)"]))), "Batteries (AAA)", 7), new trackedResource("availableSeptEmbers", "Sept Embers", -7), new trackedResource(template_string_$item(engine_templateObject2 || (engine_templateObject2 = engine_engine_taggedTemplateLiteral(["pocket wish"]))), "Pocket Wishes (Genie + BofA)", 6), new trackedResource("_augSkillsCasts", "August Scepter Charges", 5), new trackedResource("_monkeyPawWishesUsed", "Monkey Paw Wishes", 5), new trackedResource("_beretBuskingUses", "Beret Busks", 5), new trackedResource("tomeSummons", "Tome Summons", 3), new trackedResource(template_string_$item(engine_templateObject3 || (engine_templateObject3 = engine_engine_taggedTemplateLiteral(["peppermint sprout"]))), "Peppermint Sprout", 3), new trackedResource("_monsterHabitatsRecalled", "Monster Habitats", 3), new trackedResource("_alliedRadioDropsUsed", "Allied Radio", 3), new trackedResource("_aprilBandInstruments", "April Band Instruments", 2), new trackedResource("_favoriteBirdVisited", "Favorite Bird", 1), new trackedResource("_clanFortuneBuffUsed", "Zatara Consult", 1), new trackedResource("_floundryItemCreated", "Clan Floundry", 1), new trackedResource("_gingerbreadCityNoonCompleted", "GingerbreadCity Noon", 1), new trackedResource("_gingerbreadCityMidnightCompleted", "GingerbreadCity Midnight", 1), new trackedResource("_pantogramModifier", "Pantogram", 1), new trackedResource("_cargoPocketEmptied", "Cargo Shorts", 1), new trackedResource("_freePillKeeperUsed", "Pillkeeper", 1), new trackedResource("_alliedRadioMaterielIntel", "Materiel Intel", 1), new trackedResource("_pottedTeaTreeUsed", "Tea Tree", 1), new trackedResource("timesRested", "Free Rests", (0,external_kolmafia_namespaceObject.totalFreeRests)())];
+var farmingResourceResources = [new trackedResource("_powerfulGloveBatteryPowerUsed", "Powerful Glove Charges", 100), new trackedResource("_cinchUsed", "Cinch", 100), new trackedResource("_kgbClicksUsed", "KGB Clicks", 22), new trackedResource("_deckCardsDrawn", "Deck Draws", 15), new trackedResource("_mimicEggsObtained", "Mimic Eggs", 11), new trackedResource("_freeBeachWalksUsed", "Beach Walks", 11), new trackedResource("_macrometeoriteUses", "Macrometeorites", 10), new trackedResource(template_string_$item(engine_engine_templateObject || (engine_engine_templateObject = engine_engine_taggedTemplateLiteral(["battery (AAA)"]))), "Batteries (AAA)", 7), new trackedResource("availableSeptEmbers", "Sept Embers", -7), new trackedResource(template_string_$item(engine_templateObject2 || (engine_templateObject2 = engine_engine_taggedTemplateLiteral(["pocket wish"]))), "Pocket Wishes (Genie + BofA)", 6), new trackedResource("_augSkillsCasts", "August Scepter Charges", 5), new trackedResource("_monkeyPawWishesUsed", "Monkey Paw Wishes", 5), new trackedResource("_beretBuskingUses", "Beret Busks", 5), new trackedResource("_clubEmNextWeekUsed", "Club 'Em Into Next Week", 5), new trackedResource("tomeSummons", "Tome Summons", 3), new trackedResource(template_string_$item(engine_templateObject3 || (engine_templateObject3 = engine_engine_taggedTemplateLiteral(["peppermint sprout"]))), "Peppermint Sprout", 3), new trackedResource("_monsterHabitatsRecalled", "Monster Habitats", 3), new trackedResource("_alliedRadioDropsUsed", "Allied Radio", 3), new trackedResource("_aprilBandInstruments", "April Band Instruments", 2), new trackedResource("_favoriteBirdVisited", "Favorite Bird", 1), new trackedResource("_clanFortuneBuffUsed", "Zatara Consult", 1), new trackedResource("_floundryItemCreated", "Clan Floundry", 1), new trackedResource("_gingerbreadCityNoonCompleted", "GingerbreadCity Noon", 1), new trackedResource("_gingerbreadCityMidnightCompleted", "GingerbreadCity Midnight", 1), new trackedResource("_pantogramModifier", "Pantogram", 1), new trackedResource("_cargoPocketEmptied", "Cargo Shorts", 1), new trackedResource("_freePillKeeperUsed", "Pillkeeper", 1), new trackedResource("_alliedRadioMaterielIntel", "Materiel Intel", 1), new trackedResource("_pottedTeaTreeUsed", "Tea Tree", 1), new trackedResource("timesRested", "Free Rests", (0,external_kolmafia_namespaceObject.totalFreeRests)())];
 var trackedResources = [].concat(freeBanishResources, freeKillResources, notableSkillResources, freeFightResources, potentiallyFreeFightResources, farmingResourceResources);
 var engine_Engine = /*#__PURE__*/function (_BaseEngine) {
   engine_engine_inherits(Engine, _BaseEngine);
@@ -18083,7 +13660,7 @@ function currentlyMapping() {
   return get("mappingMonsters");
 }
 ;// CONCATENATED MODULE: ./src/tasks/leveling.ts
-var leveling_templateObject, leveling_templateObject2, leveling_templateObject3, leveling_templateObject4, leveling_templateObject5, leveling_templateObject6, leveling_templateObject7, leveling_templateObject8, leveling_templateObject9, leveling_templateObject10, leveling_templateObject11, leveling_templateObject12, leveling_templateObject13, leveling_templateObject14, leveling_templateObject15, leveling_templateObject16, leveling_templateObject17, leveling_templateObject18, leveling_templateObject19, leveling_templateObject20, leveling_templateObject21, leveling_templateObject22, leveling_templateObject23, leveling_templateObject24, leveling_templateObject25, leveling_templateObject26, leveling_templateObject27, leveling_templateObject28, leveling_templateObject29, leveling_templateObject30, leveling_templateObject31, leveling_templateObject32, leveling_templateObject33, leveling_templateObject34, leveling_templateObject35, leveling_templateObject36, leveling_templateObject37, leveling_templateObject38, leveling_templateObject39, leveling_templateObject40, leveling_templateObject41, leveling_templateObject42, leveling_templateObject43, leveling_templateObject44, leveling_templateObject45, leveling_templateObject46, leveling_templateObject47, leveling_templateObject48, leveling_templateObject49, leveling_templateObject50, leveling_templateObject51, leveling_templateObject52, leveling_templateObject53, leveling_templateObject54, leveling_templateObject55, leveling_templateObject56, leveling_templateObject57, leveling_templateObject58, leveling_templateObject59, leveling_templateObject60, leveling_templateObject61, leveling_templateObject62, leveling_templateObject63, leveling_templateObject64, leveling_templateObject65, leveling_templateObject66, leveling_templateObject67, leveling_templateObject68, leveling_templateObject69, leveling_templateObject70, leveling_templateObject71, leveling_templateObject72, leveling_templateObject73, leveling_templateObject74, leveling_templateObject75, leveling_templateObject76, leveling_templateObject77, leveling_templateObject78, leveling_templateObject79, leveling_templateObject80, leveling_templateObject81, leveling_templateObject82, leveling_templateObject83, leveling_templateObject84, leveling_templateObject85, leveling_templateObject86, leveling_templateObject87, leveling_templateObject88, leveling_templateObject89, leveling_templateObject90, leveling_templateObject91, leveling_templateObject92, leveling_templateObject93, leveling_templateObject94, leveling_templateObject95, leveling_templateObject96, leveling_templateObject97, leveling_templateObject98, leveling_templateObject99, leveling_templateObject100, leveling_templateObject101, leveling_templateObject102, leveling_templateObject103, leveling_templateObject104, leveling_templateObject105, leveling_templateObject106, leveling_templateObject107, leveling_templateObject108, leveling_templateObject109, leveling_templateObject110, leveling_templateObject111, leveling_templateObject112, leveling_templateObject113, leveling_templateObject114, leveling_templateObject115, leveling_templateObject116, leveling_templateObject117, leveling_templateObject118, leveling_templateObject119, leveling_templateObject120, leveling_templateObject121, leveling_templateObject122, leveling_templateObject123, leveling_templateObject124, leveling_templateObject125, leveling_templateObject126, leveling_templateObject127, leveling_templateObject128, leveling_templateObject129, leveling_templateObject130, leveling_templateObject131, leveling_templateObject132, leveling_templateObject133, leveling_templateObject134, leveling_templateObject135, leveling_templateObject136, leveling_templateObject137, leveling_templateObject138, leveling_templateObject139, leveling_templateObject140, leveling_templateObject141, leveling_templateObject142, leveling_templateObject143, leveling_templateObject144, leveling_templateObject145, leveling_templateObject146, leveling_templateObject147, leveling_templateObject148, leveling_templateObject149, leveling_templateObject150, leveling_templateObject151, leveling_templateObject152, leveling_templateObject153, leveling_templateObject154, leveling_templateObject155, leveling_templateObject156, leveling_templateObject157, leveling_templateObject158, leveling_templateObject159, leveling_templateObject160, leveling_templateObject161, leveling_templateObject162, leveling_templateObject163, leveling_templateObject164, leveling_templateObject165, leveling_templateObject166, leveling_templateObject167, leveling_templateObject168, leveling_templateObject169, leveling_templateObject170, leveling_templateObject171, leveling_templateObject172, leveling_templateObject173, leveling_templateObject174, leveling_templateObject175, leveling_templateObject176, leveling_templateObject177, leveling_templateObject178, leveling_templateObject179, leveling_templateObject180, leveling_templateObject181, leveling_templateObject182, leveling_templateObject183, leveling_templateObject184, leveling_templateObject185, leveling_templateObject186, leveling_templateObject187, leveling_templateObject188, leveling_templateObject189, leveling_templateObject190, leveling_templateObject191, leveling_templateObject192, leveling_templateObject193, leveling_templateObject194, leveling_templateObject195, leveling_templateObject196, leveling_templateObject197, leveling_templateObject198, leveling_templateObject199, leveling_templateObject200, leveling_templateObject201, leveling_templateObject202, leveling_templateObject203, leveling_templateObject204, leveling_templateObject205, leveling_templateObject206, leveling_templateObject207, leveling_templateObject208, leveling_templateObject209, leveling_templateObject210, leveling_templateObject211, _filter$at, leveling_templateObject212, leveling_templateObject213, leveling_templateObject214, leveling_templateObject215, leveling_templateObject216, leveling_templateObject217, leveling_templateObject218, leveling_templateObject219, leveling_templateObject220, leveling_templateObject221, leveling_templateObject222, leveling_templateObject223, leveling_templateObject224, leveling_templateObject225, leveling_templateObject226, leveling_templateObject227, leveling_templateObject228, leveling_templateObject229, leveling_templateObject230, leveling_templateObject231, leveling_templateObject232, leveling_templateObject233, leveling_templateObject234, leveling_templateObject235, leveling_templateObject236, leveling_templateObject237, leveling_templateObject238, leveling_templateObject239, leveling_templateObject240, leveling_templateObject241, leveling_templateObject242, leveling_templateObject243, leveling_templateObject244, leveling_templateObject245, leveling_templateObject246, leveling_templateObject247, leveling_templateObject248, leveling_templateObject249, leveling_templateObject250, leveling_templateObject251, leveling_templateObject252, leveling_templateObject253, leveling_templateObject254, leveling_templateObject255, leveling_templateObject256, leveling_templateObject257, leveling_templateObject258, leveling_templateObject259, _templateObject260, _templateObject261, _templateObject262, _templateObject263, _templateObject264, _templateObject265, _templateObject266, _templateObject267, _templateObject268, _templateObject269, _templateObject270, _templateObject271, _templateObject272, _templateObject273, _templateObject274, _templateObject275, _templateObject276, _templateObject277, _templateObject278, _templateObject279, _templateObject280, _templateObject281, _templateObject282, _templateObject283, _templateObject284, _templateObject285, _templateObject286, _templateObject287, _templateObject288, _templateObject289, _templateObject290, _templateObject291, _templateObject292, _templateObject293, _templateObject294, _templateObject295, _templateObject296, _templateObject297, _templateObject298, _templateObject299, _templateObject300, _templateObject301, _templateObject302, _templateObject303, _templateObject304, _templateObject305, _templateObject306, _templateObject307, _templateObject308, _templateObject309, _templateObject310, _templateObject311, _templateObject312, _templateObject313, _templateObject314, _templateObject315, _templateObject316, _templateObject317, _templateObject318, _templateObject319, _templateObject320, _templateObject321, _templateObject322, _templateObject323, _templateObject324, _templateObject325, _templateObject326, _templateObject327, _templateObject328, _templateObject329, _templateObject330, _templateObject331, _templateObject332, _templateObject333, _templateObject334, _templateObject335, _templateObject336, _templateObject337, _templateObject338, _templateObject339, _templateObject340, _templateObject341, _templateObject342, _templateObject343, _templateObject344, _templateObject345, _templateObject346, _templateObject347, _templateObject348, _templateObject349, _templateObject350, _templateObject351, _templateObject352, _templateObject353, _templateObject354, _templateObject355, _templateObject356, _templateObject357, _templateObject358, _templateObject359, _templateObject360, _templateObject361, _templateObject362, _templateObject363, _templateObject364, _templateObject365, _templateObject366, _templateObject367, _templateObject368, _templateObject369, _templateObject370, _templateObject371, _templateObject372, _templateObject373, _templateObject374, _templateObject375, _templateObject376, _templateObject377, _templateObject378, _templateObject379, _templateObject380, _templateObject381, _templateObject382, _templateObject383, _templateObject384, _templateObject385, _templateObject386, _templateObject387, _templateObject388, _templateObject389, _templateObject390, _templateObject391, _templateObject392, _templateObject393, _templateObject394, _templateObject395, _templateObject396, _templateObject397, _templateObject398, _templateObject399, _templateObject400, _templateObject401, _templateObject402, _templateObject403, _templateObject404, _templateObject405, _templateObject406, _templateObject407, _templateObject408, _templateObject409, _templateObject410, _templateObject411, _templateObject412, _templateObject413, _templateObject414, _templateObject415, _templateObject416, _templateObject417, _templateObject418, _templateObject419, _templateObject420, _templateObject421, _templateObject422, _templateObject423, _templateObject424, _templateObject425, _templateObject426, _templateObject427, _templateObject428, _templateObject429, _templateObject430, _templateObject431, _templateObject432, _templateObject433, _templateObject434, _templateObject435, _templateObject436, _templateObject437, _templateObject438, _templateObject439, _templateObject440, _templateObject441, _templateObject442, _templateObject443, _templateObject444, _templateObject445, _templateObject446, _templateObject447, _templateObject448, _templateObject449, _templateObject450, _templateObject451, _templateObject452, _templateObject453, _templateObject454, _templateObject455, _templateObject456, _templateObject457, _templateObject458, _templateObject459, _templateObject460, _templateObject461, _templateObject462, _templateObject463, _templateObject464, _templateObject465, _templateObject466, _templateObject467, _templateObject468, _templateObject469, _templateObject470, _templateObject471, _templateObject472, _templateObject473, _templateObject474, _templateObject475, _templateObject476, _templateObject477, _templateObject478, _templateObject479, _templateObject480, _templateObject481, _templateObject482, _templateObject483, _templateObject484, _templateObject485, _templateObject486, _templateObject487, _templateObject488, _templateObject489, _templateObject490, _templateObject491, _templateObject492, _templateObject493, _templateObject494, _templateObject495, _templateObject496, _templateObject497, _templateObject498, _templateObject499, _templateObject500, _templateObject501, _templateObject502, _templateObject503, _templateObject504, _templateObject505, _templateObject506, _templateObject507, _templateObject508, _templateObject509, _templateObject510, _templateObject511, _templateObject512, _templateObject513, _templateObject514, _templateObject515, _templateObject516, _templateObject517, _templateObject518, _templateObject519, _templateObject520, _templateObject521, _templateObject522, _templateObject523, _templateObject524, _templateObject525, _templateObject526, _templateObject527, _templateObject528, _templateObject529, _templateObject530, _templateObject531, _templateObject532, _templateObject533, _templateObject534, _templateObject535, _templateObject536, _templateObject537, _templateObject538, _templateObject539, _templateObject540, _templateObject541, _templateObject542, _templateObject543, _templateObject544, _templateObject545, _templateObject546, _templateObject547, _templateObject548, _templateObject549, _templateObject550, _templateObject551, _templateObject552, _templateObject553, _templateObject554, _templateObject555, _templateObject556, _templateObject557, _templateObject558, _templateObject559, _templateObject560, _templateObject561, _templateObject562, _templateObject563, _templateObject564, _templateObject565, _templateObject566, _templateObject567, _templateObject568, _templateObject569, _templateObject570, _templateObject571, _templateObject572, _templateObject573, _templateObject574, _templateObject575, _templateObject576, _templateObject577, _templateObject578, _templateObject579, _templateObject580, _templateObject581, _templateObject582, _templateObject583, _templateObject584, _templateObject585, _templateObject586, _templateObject587, _templateObject588, _templateObject589, _templateObject590, _templateObject591, _templateObject592, _templateObject593, _templateObject594, _templateObject595, _templateObject596, _templateObject597, _templateObject598, _templateObject599, _templateObject600, _templateObject601, _templateObject602, _templateObject603, _templateObject604, _templateObject605, _templateObject606, _templateObject607, _templateObject608, _templateObject609, _templateObject610, _templateObject611, _templateObject612, _templateObject613, _templateObject614, _templateObject615, _templateObject616, _templateObject617, _templateObject618, _templateObject619, _templateObject620, _templateObject621, _templateObject622, _templateObject623;
+var leveling_templateObject, leveling_templateObject2, leveling_templateObject3, leveling_templateObject4, leveling_templateObject5, leveling_templateObject6, leveling_templateObject7, leveling_templateObject8, leveling_templateObject9, leveling_templateObject10, leveling_templateObject11, leveling_templateObject12, leveling_templateObject13, leveling_templateObject14, leveling_templateObject15, leveling_templateObject16, leveling_templateObject17, leveling_templateObject18, leveling_templateObject19, leveling_templateObject20, leveling_templateObject21, leveling_templateObject22, leveling_templateObject23, leveling_templateObject24, leveling_templateObject25, leveling_templateObject26, leveling_templateObject27, leveling_templateObject28, leveling_templateObject29, leveling_templateObject30, leveling_templateObject31, leveling_templateObject32, leveling_templateObject33, leveling_templateObject34, leveling_templateObject35, leveling_templateObject36, leveling_templateObject37, leveling_templateObject38, leveling_templateObject39, leveling_templateObject40, leveling_templateObject41, leveling_templateObject42, leveling_templateObject43, leveling_templateObject44, leveling_templateObject45, leveling_templateObject46, leveling_templateObject47, leveling_templateObject48, leveling_templateObject49, leveling_templateObject50, leveling_templateObject51, leveling_templateObject52, leveling_templateObject53, leveling_templateObject54, leveling_templateObject55, leveling_templateObject56, leveling_templateObject57, leveling_templateObject58, leveling_templateObject59, leveling_templateObject60, leveling_templateObject61, leveling_templateObject62, leveling_templateObject63, leveling_templateObject64, leveling_templateObject65, leveling_templateObject66, leveling_templateObject67, leveling_templateObject68, leveling_templateObject69, leveling_templateObject70, leveling_templateObject71, leveling_templateObject72, leveling_templateObject73, leveling_templateObject74, leveling_templateObject75, leveling_templateObject76, leveling_templateObject77, leveling_templateObject78, leveling_templateObject79, leveling_templateObject80, leveling_templateObject81, leveling_templateObject82, leveling_templateObject83, leveling_templateObject84, leveling_templateObject85, leveling_templateObject86, leveling_templateObject87, leveling_templateObject88, leveling_templateObject89, leveling_templateObject90, leveling_templateObject91, leveling_templateObject92, leveling_templateObject93, leveling_templateObject94, leveling_templateObject95, leveling_templateObject96, leveling_templateObject97, leveling_templateObject98, leveling_templateObject99, leveling_templateObject100, leveling_templateObject101, leveling_templateObject102, leveling_templateObject103, leveling_templateObject104, leveling_templateObject105, leveling_templateObject106, leveling_templateObject107, leveling_templateObject108, leveling_templateObject109, leveling_templateObject110, leveling_templateObject111, leveling_templateObject112, leveling_templateObject113, leveling_templateObject114, leveling_templateObject115, leveling_templateObject116, leveling_templateObject117, leveling_templateObject118, leveling_templateObject119, leveling_templateObject120, leveling_templateObject121, leveling_templateObject122, leveling_templateObject123, leveling_templateObject124, leveling_templateObject125, leveling_templateObject126, leveling_templateObject127, leveling_templateObject128, leveling_templateObject129, leveling_templateObject130, leveling_templateObject131, leveling_templateObject132, leveling_templateObject133, leveling_templateObject134, leveling_templateObject135, leveling_templateObject136, leveling_templateObject137, leveling_templateObject138, leveling_templateObject139, leveling_templateObject140, leveling_templateObject141, leveling_templateObject142, leveling_templateObject143, leveling_templateObject144, leveling_templateObject145, leveling_templateObject146, leveling_templateObject147, leveling_templateObject148, leveling_templateObject149, leveling_templateObject150, leveling_templateObject151, leveling_templateObject152, leveling_templateObject153, leveling_templateObject154, leveling_templateObject155, leveling_templateObject156, leveling_templateObject157, leveling_templateObject158, leveling_templateObject159, leveling_templateObject160, leveling_templateObject161, leveling_templateObject162, leveling_templateObject163, leveling_templateObject164, leveling_templateObject165, leveling_templateObject166, leveling_templateObject167, leveling_templateObject168, leveling_templateObject169, leveling_templateObject170, leveling_templateObject171, leveling_templateObject172, leveling_templateObject173, leveling_templateObject174, leveling_templateObject175, leveling_templateObject176, leveling_templateObject177, leveling_templateObject178, leveling_templateObject179, leveling_templateObject180, leveling_templateObject181, leveling_templateObject182, leveling_templateObject183, leveling_templateObject184, leveling_templateObject185, leveling_templateObject186, leveling_templateObject187, leveling_templateObject188, leveling_templateObject189, leveling_templateObject190, leveling_templateObject191, leveling_templateObject192, leveling_templateObject193, leveling_templateObject194, leveling_templateObject195, leveling_templateObject196, leveling_templateObject197, leveling_templateObject198, leveling_templateObject199, leveling_templateObject200, leveling_templateObject201, leveling_templateObject202, leveling_templateObject203, leveling_templateObject204, leveling_templateObject205, leveling_templateObject206, leveling_templateObject207, leveling_templateObject208, leveling_templateObject209, leveling_templateObject210, leveling_templateObject211, _filter$at, leveling_templateObject212, leveling_templateObject213, leveling_templateObject214, leveling_templateObject215, leveling_templateObject216, leveling_templateObject217, leveling_templateObject218, leveling_templateObject219, leveling_templateObject220, leveling_templateObject221, leveling_templateObject222, leveling_templateObject223, leveling_templateObject224, leveling_templateObject225, leveling_templateObject226, leveling_templateObject227, leveling_templateObject228, leveling_templateObject229, leveling_templateObject230, leveling_templateObject231, leveling_templateObject232, leveling_templateObject233, leveling_templateObject234, leveling_templateObject235, leveling_templateObject236, leveling_templateObject237, leveling_templateObject238, leveling_templateObject239, leveling_templateObject240, leveling_templateObject241, leveling_templateObject242, leveling_templateObject243, leveling_templateObject244, leveling_templateObject245, leveling_templateObject246, leveling_templateObject247, leveling_templateObject248, leveling_templateObject249, leveling_templateObject250, leveling_templateObject251, leveling_templateObject252, leveling_templateObject253, leveling_templateObject254, leveling_templateObject255, leveling_templateObject256, leveling_templateObject257, leveling_templateObject258, leveling_templateObject259, _templateObject260, _templateObject261, _templateObject262, _templateObject263, _templateObject264, _templateObject265, _templateObject266, _templateObject267, _templateObject268, _templateObject269, _templateObject270, _templateObject271, _templateObject272, _templateObject273, _templateObject274, _templateObject275, _templateObject276, _templateObject277, _templateObject278, _templateObject279, _templateObject280, _templateObject281, _templateObject282, _templateObject283, _templateObject284, _templateObject285, _templateObject286, _templateObject287, _templateObject288, _templateObject289, _templateObject290, _templateObject291, _templateObject292, _templateObject293, _templateObject294, _templateObject295, _templateObject296, _templateObject297, _templateObject298, _templateObject299, _templateObject300, _templateObject301, _templateObject302, _templateObject303, _templateObject304, _templateObject305, _templateObject306, _templateObject307, _templateObject308, _templateObject309, _templateObject310, _templateObject311, _templateObject312, _templateObject313, _templateObject314, _templateObject315, _templateObject316, _templateObject317, _templateObject318, _templateObject319, _templateObject320, _templateObject321, _templateObject322, _templateObject323, _templateObject324, _templateObject325, _templateObject326, _templateObject327, _templateObject328, _templateObject329, _templateObject330, _templateObject331, _templateObject332, _templateObject333, _templateObject334, _templateObject335, _templateObject336, _templateObject337, _templateObject338, _templateObject339, _templateObject340, _templateObject341, _templateObject342, _templateObject343, _templateObject344, _templateObject345, _templateObject346, _templateObject347, _templateObject348, _templateObject349, _templateObject350, _templateObject351, _templateObject352, _templateObject353, _templateObject354, _templateObject355, _templateObject356, _templateObject357, _templateObject358, _templateObject359, _templateObject360, _templateObject361, _templateObject362, _templateObject363, _templateObject364, _templateObject365, _templateObject366, _templateObject367, _templateObject368, _templateObject369, _templateObject370, _templateObject371, _templateObject372, _templateObject373, _templateObject374, _templateObject375, _templateObject376, _templateObject377, _templateObject378, _templateObject379, _templateObject380, _templateObject381, _templateObject382, _templateObject383, _templateObject384, _templateObject385, _templateObject386, _templateObject387, _templateObject388, _templateObject389, _templateObject390, _templateObject391, _templateObject392, _templateObject393, _templateObject394, _templateObject395, _templateObject396, _templateObject397, _templateObject398, _templateObject399, _templateObject400, _templateObject401, _templateObject402, _templateObject403, _templateObject404, _templateObject405, _templateObject406, _templateObject407, _templateObject408, _templateObject409, _templateObject410, _templateObject411, _templateObject412, _templateObject413, _templateObject414, _templateObject415, _templateObject416, _templateObject417, _templateObject418, _templateObject419, _templateObject420, _templateObject421, _templateObject422, _templateObject423, _templateObject424, _templateObject425, _templateObject426, _templateObject427, _templateObject428, _templateObject429, _templateObject430, _templateObject431, _templateObject432, _templateObject433, _templateObject434, _templateObject435, _templateObject436, _templateObject437, _templateObject438, _templateObject439, _templateObject440, _templateObject441, _templateObject442, _templateObject443, _templateObject444, _templateObject445, _templateObject446, _templateObject447, _templateObject448, _templateObject449, _templateObject450, _templateObject451, _templateObject452, _templateObject453, _templateObject454, _templateObject455, _templateObject456, _templateObject457, _templateObject458, _templateObject459, _templateObject460, _templateObject461, _templateObject462, _templateObject463, _templateObject464, _templateObject465, _templateObject466, _templateObject467, _templateObject468, _templateObject469, _templateObject470, _templateObject471, _templateObject472, _templateObject473, _templateObject474, _templateObject475, _templateObject476, _templateObject477, _templateObject478, _templateObject479, _templateObject480, _templateObject481, _templateObject482, _templateObject483, _templateObject484, _templateObject485, _templateObject486, _templateObject487, _templateObject488, _templateObject489, _templateObject490, _templateObject491, _templateObject492, _templateObject493, _templateObject494, _templateObject495, _templateObject496, _templateObject497, _templateObject498, _templateObject499, _templateObject500, _templateObject501, _templateObject502, _templateObject503, _templateObject504, _templateObject505, _templateObject506, _templateObject507, _templateObject508, _templateObject509, _templateObject510, _templateObject511, _templateObject512, _templateObject513, _templateObject514, _templateObject515, _templateObject516, _templateObject517, _templateObject518, _templateObject519, _templateObject520, _templateObject521, _templateObject522, _templateObject523, _templateObject524, _templateObject525, _templateObject526, _templateObject527, _templateObject528, _templateObject529, _templateObject530, _templateObject531, _templateObject532, _templateObject533, _templateObject534, _templateObject535, _templateObject536, _templateObject537, _templateObject538, _templateObject539, _templateObject540, _templateObject541, _templateObject542, _templateObject543, _templateObject544, _templateObject545, _templateObject546, _templateObject547, _templateObject548, _templateObject549, _templateObject550, _templateObject551, _templateObject552, _templateObject553, _templateObject554, _templateObject555, _templateObject556, _templateObject557, _templateObject558, _templateObject559, _templateObject560, _templateObject561, _templateObject562, _templateObject563, _templateObject564, _templateObject565, _templateObject566, _templateObject567, _templateObject568, _templateObject569, _templateObject570, _templateObject571, _templateObject572, _templateObject573, _templateObject574, _templateObject575, _templateObject576, _templateObject577, _templateObject578, _templateObject579, _templateObject580, _templateObject581, _templateObject582, _templateObject583, _templateObject584, _templateObject585, _templateObject586, _templateObject587, _templateObject588, _templateObject589, _templateObject590, _templateObject591, _templateObject592, _templateObject593, _templateObject594, _templateObject595, _templateObject596, _templateObject597, _templateObject598, _templateObject599, _templateObject600, _templateObject601, _templateObject602, _templateObject603, _templateObject604, _templateObject605, _templateObject606, _templateObject607, _templateObject608, _templateObject609, _templateObject610, _templateObject611, _templateObject612, _templateObject613, _templateObject614, _templateObject615, _templateObject616, _templateObject617, _templateObject618, _templateObject619, _templateObject620, _templateObject621, _templateObject622, _templateObject623, _templateObject624, _templateObject625, _templateObject626, _templateObject627, _templateObject628, _templateObject629, _templateObject630, _templateObject631, _templateObject632, _templateObject633, _templateObject634, _templateObject635, _templateObject636, _templateObject637, _templateObject638, _templateObject639, _templateObject640, _templateObject641;
 
 function leveling_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -18643,38 +14220,63 @@ var LevelingQuest = {
       tries: 1
     }
   }, {
-    name: "June Cleaver NC",
-    completed: () => !lib_have(template_string_$item(_templateObject271 || (_templateObject271 = leveling_taggedTemplateLiteral(["June cleaver"])))) || property_get("_juneCleaverFightsLeft") > 0,
+    name: "Club 'Em Into Next Week",
+    prepare: () => {
+      (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
+      unbreakableUmbrella();
+      garbageShirt();
+      tryAcquiringEffects(usefulEffects);
+      attemptRestoringMpWithFreeRests(50);
+    },
+    completed: () => // eslint-disable-next-line libram/verify-constants
+    !lib_have(template_string_$item(_templateObject271 || (_templateObject271 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))) || property_get("clubEmNextWeekMonster", "") === "" || (0,external_kolmafia_namespaceObject.myTurncount)() < property_get("clubEmNextWeekMonsterTurn", 0) + 8,
     do: () => {
+      var counter = property_get("clubEmNextWeekMonsterTurn", 0);
       (0,external_kolmafia_namespaceObject.adv1)($location(_templateObject272 || (_templateObject272 = leveling_taggedTemplateLiteral(["Noob Cave"]))));
+      if (property_get("clubEmNextWeekMonsterTurn", 0) === counter) throw new Error("Failed to increment clubEmNextWeekMonsterTurn! Find out what went wrong!");
+      if (property_get("_clubEmNextWeekUsed", 0) >= 5 - property_get("instant_saveClubEmNextWeek", 0)) _set("clubEmNextWeekMonster", "");
+    },
+    combat: new CombatStrategy().macro(combat_Macro.externalIf(property_get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject273 || (_templateObject273 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))), combat_Macro.trySkill(template_string_$skill(_templateObject274 || (_templateObject274 = leveling_taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))).externalIf(property_get("_clubEmNextWeekUsed", 0) < 5 - property_get("instant_saveClubEmNextWeek", 0), // eslint-disable-next-line libram/verify-constants
+    combat_Macro.trySkill(template_string_$skill(_templateObject275 || (_templateObject275 = leveling_taggedTemplateLiteral(["Club 'Em Into Next Week"])))).abort()).if_("monstername ".concat(property_get("clubEmNextWeekMonster")), combat_Macro["default"]()).abort()),
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
+      modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
+    }),
+    limit: {
+      tries: 5
+    }
+  }, {
+    name: "June Cleaver NC",
+    completed: () => !lib_have(template_string_$item(_templateObject276 || (_templateObject276 = leveling_taggedTemplateLiteral(["June cleaver"])))) || property_get("_juneCleaverFightsLeft") > 0,
+    do: () => {
+      (0,external_kolmafia_namespaceObject.adv1)($location(_templateObject277 || (_templateObject277 = leveling_taggedTemplateLiteral(["Noob Cave"]))));
       _set("lastEncounter", "");
     },
     outfit: {
-      weapon: template_string_$item(_templateObject273 || (_templateObject273 = leveling_taggedTemplateLiteral(["June cleaver"])))
+      weapon: template_string_$item(_templateObject278 || (_templateObject278 = leveling_taggedTemplateLiteral(["June cleaver"])))
     },
     combat: new CombatStrategy().macro(combat_Macro.abort()),
     choices: {
       1467: 3,
       // Grab adv
-      1468: mainStat === template_string_$stat(_templateObject274 || (_templateObject274 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 2 : mainStat === template_string_$stat(_templateObject275 || (_templateObject275 = leveling_taggedTemplateLiteral(["Moxie"]))) ? 1 : 4,
+      1468: mainStat === template_string_$stat(_templateObject279 || (_templateObject279 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 2 : mainStat === template_string_$stat(_templateObject280 || (_templateObject280 = leveling_taggedTemplateLiteral(["Moxie"]))) ? 1 : 4,
       // Grab main substats else skip
       1469: 3,
       // Grab meat
-      1470: mainStat === template_string_$stat(_templateObject276 || (_templateObject276 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 3 : 4,
+      1470: mainStat === template_string_$stat(_templateObject281 || (_templateObject281 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 3 : 4,
       // Grab main substats else skip
-      1471: mainStat === template_string_$stat(_templateObject277 || (_templateObject277 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 2 : mainStat === template_string_$stat(_templateObject278 || (_templateObject278 = leveling_taggedTemplateLiteral(["Mysticality"]))) ? 3 : 1,
+      1471: mainStat === template_string_$stat(_templateObject282 || (_templateObject282 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 2 : mainStat === template_string_$stat(_templateObject283 || (_templateObject283 = leveling_taggedTemplateLiteral(["Mysticality"]))) ? 3 : 1,
       // Grab main substats else savings bond
       1472: 1,
       // Grab trampled ticket stub
-      1473: mainStat === template_string_$stat(_templateObject279 || (_templateObject279 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 1 : 3,
+      1473: mainStat === template_string_$stat(_templateObject284 || (_templateObject284 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 1 : 3,
       // Grab main substats else hot res
-      1474: mainStat === template_string_$stat(_templateObject280 || (_templateObject280 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 3 : mainStat === template_string_$stat(_templateObject281 || (_templateObject281 = leveling_taggedTemplateLiteral(["Mysticality"]))) ? 1 : 4,
+      1474: mainStat === template_string_$stat(_templateObject285 || (_templateObject285 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 3 : mainStat === template_string_$stat(_templateObject286 || (_templateObject286 = leveling_taggedTemplateLiteral(["Mysticality"]))) ? 1 : 4,
       // Grab main substats else skip
-      1475: mainStat === template_string_$stat(_templateObject282 || (_templateObject282 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 2 : 1 // Grab main substats else mother necklace
+      1475: mainStat === template_string_$stat(_templateObject287 || (_templateObject287 = leveling_taggedTemplateLiteral(["Muscle"]))) ? 2 : 1 // Grab main substats else mother necklace
 
     },
     post: () => {
-      if (lib_have(template_string_$effect(_templateObject283 || (_templateObject283 = leveling_taggedTemplateLiteral(["Beaten Up"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");
+      if (lib_have(template_string_$effect(_templateObject288 || (_templateObject288 = leveling_taggedTemplateLiteral(["Beaten Up"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");
     },
     limit: {
       tries: 10
@@ -18684,27 +14286,27 @@ var LevelingQuest = {
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
 
-      if (!lib_have(template_string_$effect(_templateObject284 || (_templateObject284 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) && !lib_have(template_string_$item(_templateObject285 || (_templateObject285 = leveling_taggedTemplateLiteral(["blue rocket"]))))) {
+      if (!lib_have(template_string_$effect(_templateObject289 || (_templateObject289 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) && !lib_have(template_string_$item(_templateObject290 || (_templateObject290 = leveling_taggedTemplateLiteral(["blue rocket"]))))) {
         if ((0,external_kolmafia_namespaceObject.myMeat)() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
-        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject286 || (_templateObject286 = leveling_taggedTemplateLiteral(["blue rocket"]))), 1);
+        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject291 || (_templateObject291 = leveling_taggedTemplateLiteral(["blue rocket"]))), 1);
       }
 
       unbreakableUmbrella();
       docBag();
       attemptRestoringMpWithFreeRests(50);
 
-      if (!lib_have(template_string_$effect(_templateObject287 || (_templateObject287 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !lib_have(template_string_$item(_templateObject288 || (_templateObject288 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
-        if ((0,external_kolmafia_namespaceObject.myMeat)() >= 250) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject289 || (_templateObject289 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
+      if (!lib_have(template_string_$effect(_templateObject292 || (_templateObject292 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !lib_have(template_string_$item(_templateObject293 || (_templateObject293 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
+        if ((0,external_kolmafia_namespaceObject.myMeat)() >= 250) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject294 || (_templateObject294 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
       }
 
-      setChoice($monster(_templateObject290 || (_templateObject290 = leveling_taggedTemplateLiteral(["amateur ninja"]))));
+      setChoice($monster(_templateObject295 || (_templateObject295 = leveling_taggedTemplateLiteral(["amateur ninja"]))));
     },
-    completed: () => !lib_have(template_string_$item(_templateObject291 || (_templateObject291 = leveling_taggedTemplateLiteral(["Peridot of Peril"])))) || lib_have(template_string_$item(_templateObject292 || (_templateObject292 = leveling_taggedTemplateLiteral(["li'l ninja costume"])))) || !lib_have(template_string_$familiar(_templateObject293 || (_templateObject293 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"])))),
-    do: $location(_templateObject294 || (_templateObject294 = leveling_taggedTemplateLiteral(["The Haiku Dungeon"]))),
-    combat: new CombatStrategy().macro(combat_Macro.if_($monster(_templateObject295 || (_templateObject295 = leveling_taggedTemplateLiteral(["amateur ninja"]))), combat_Macro.tryItem(template_string_$item(_templateObject296 || (_templateObject296 = leveling_taggedTemplateLiteral(["blue rocket"])))).tryItem(template_string_$item(_templateObject297 || (_templateObject297 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject298 || (_templateObject298 = leveling_taggedTemplateLiteral(["Chest X-Ray"])))).trySkill(template_string_$skill(_templateObject299 || (_templateObject299 = leveling_taggedTemplateLiteral(["Gingerbread Mob Hit"])))).trySkill(template_string_$skill(_templateObject300 || (_templateObject300 = leveling_taggedTemplateLiteral(["Shattering Punch"])))).default()).abort()),
+    completed: () => !lib_have(template_string_$item(_templateObject296 || (_templateObject296 = leveling_taggedTemplateLiteral(["Peridot of Peril"])))) || lib_have(template_string_$item(_templateObject297 || (_templateObject297 = leveling_taggedTemplateLiteral(["li'l ninja costume"])))) || !lib_have(template_string_$familiar(_templateObject298 || (_templateObject298 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"])))),
+    do: $location(_templateObject299 || (_templateObject299 = leveling_taggedTemplateLiteral(["The Haiku Dungeon"]))),
+    combat: new CombatStrategy().macro(combat_Macro.if_($monster(_templateObject300 || (_templateObject300 = leveling_taggedTemplateLiteral(["amateur ninja"]))), combat_Macro.tryItem(template_string_$item(_templateObject301 || (_templateObject301 = leveling_taggedTemplateLiteral(["blue rocket"])))).tryItem(template_string_$item(_templateObject302 || (_templateObject302 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject303 || (_templateObject303 = leveling_taggedTemplateLiteral(["Chest X-Ray"])))).trySkill(template_string_$skill(_templateObject304 || (_templateObject304 = leveling_taggedTemplateLiteral(["Gingerbread Mob Hit"])))).trySkill(template_string_$skill(_templateObject305 || (_templateObject305 = leveling_taggedTemplateLiteral(["Shattering Punch"])))).default()).abort()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      acc2: template_string_$item(_templateObject301 || (_templateObject301 = leveling_taggedTemplateLiteral(["Peridot of Peril"]))),
-      familiar: template_string_$familiar(_templateObject302 || (_templateObject302 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"]))),
+      acc2: template_string_$item(_templateObject306 || (_templateObject306 = leveling_taggedTemplateLiteral(["Peridot of Peril"]))),
+      familiar: template_string_$familiar(_templateObject307 || (_templateObject307 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"]))),
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
     post: () => sellMiscellaneousItems(),
@@ -18716,24 +14318,24 @@ var LevelingQuest = {
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
 
-      if (!lib_have(template_string_$effect(_templateObject303 || (_templateObject303 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) && !lib_have(template_string_$item(_templateObject304 || (_templateObject304 = leveling_taggedTemplateLiteral(["blue rocket"]))))) {
+      if (!lib_have(template_string_$effect(_templateObject308 || (_templateObject308 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) && !lib_have(template_string_$item(_templateObject309 || (_templateObject309 = leveling_taggedTemplateLiteral(["blue rocket"]))))) {
         if ((0,external_kolmafia_namespaceObject.myMeat)() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
-        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject305 || (_templateObject305 = leveling_taggedTemplateLiteral(["blue rocket"]))), 1);
+        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject310 || (_templateObject310 = leveling_taggedTemplateLiteral(["blue rocket"]))), 1);
       }
 
       unbreakableUmbrella();
       docBag();
       attemptRestoringMpWithFreeRests(50);
 
-      if (!lib_have(template_string_$effect(_templateObject306 || (_templateObject306 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !lib_have(template_string_$item(_templateObject307 || (_templateObject307 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
-        if ((0,external_kolmafia_namespaceObject.myMeat)() >= 250) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject308 || (_templateObject308 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
+      if (!lib_have(template_string_$effect(_templateObject311 || (_templateObject311 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !lib_have(template_string_$item(_templateObject312 || (_templateObject312 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
+        if ((0,external_kolmafia_namespaceObject.myMeat)() >= 250) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject313 || (_templateObject313 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
       }
     },
-    completed: () => !lib_have(template_string_$skill(_templateObject309 || (_templateObject309 = leveling_taggedTemplateLiteral(["Map the Monsters"])))) || property_get("_monstersMapped") >= 3 || lib_have(template_string_$item(_templateObject310 || (_templateObject310 = leveling_taggedTemplateLiteral(["li'l ninja costume"])))) || !lib_have(template_string_$familiar(_templateObject311 || (_templateObject311 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"])))) || property_get("instant_skipMappingNinja", false),
-    do: () => mapMonster($location(_templateObject312 || (_templateObject312 = leveling_taggedTemplateLiteral(["The Haiku Dungeon"]))), $monster(_templateObject313 || (_templateObject313 = leveling_taggedTemplateLiteral(["amateur ninja"])))),
-    combat: new CombatStrategy().macro(combat_Macro.if_($monster(_templateObject314 || (_templateObject314 = leveling_taggedTemplateLiteral(["amateur ninja"]))), combat_Macro.tryItem(template_string_$item(_templateObject315 || (_templateObject315 = leveling_taggedTemplateLiteral(["blue rocket"])))).tryItem(template_string_$item(_templateObject316 || (_templateObject316 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject317 || (_templateObject317 = leveling_taggedTemplateLiteral(["Chest X-Ray"])))).trySkill(template_string_$skill(_templateObject318 || (_templateObject318 = leveling_taggedTemplateLiteral(["Gingerbread Mob Hit"])))).trySkill(template_string_$skill(_templateObject319 || (_templateObject319 = leveling_taggedTemplateLiteral(["Shattering Punch"])))).default()).abort()),
+    completed: () => !lib_have(template_string_$skill(_templateObject314 || (_templateObject314 = leveling_taggedTemplateLiteral(["Map the Monsters"])))) || property_get("_monstersMapped") >= 3 || lib_have(template_string_$item(_templateObject315 || (_templateObject315 = leveling_taggedTemplateLiteral(["li'l ninja costume"])))) || !lib_have(template_string_$familiar(_templateObject316 || (_templateObject316 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"])))) || property_get("instant_skipMappingNinja", false),
+    do: () => mapMonster($location(_templateObject317 || (_templateObject317 = leveling_taggedTemplateLiteral(["The Haiku Dungeon"]))), $monster(_templateObject318 || (_templateObject318 = leveling_taggedTemplateLiteral(["amateur ninja"])))),
+    combat: new CombatStrategy().macro(combat_Macro.if_($monster(_templateObject319 || (_templateObject319 = leveling_taggedTemplateLiteral(["amateur ninja"]))), combat_Macro.tryItem(template_string_$item(_templateObject320 || (_templateObject320 = leveling_taggedTemplateLiteral(["blue rocket"])))).tryItem(template_string_$item(_templateObject321 || (_templateObject321 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject322 || (_templateObject322 = leveling_taggedTemplateLiteral(["Chest X-Ray"])))).trySkill(template_string_$skill(_templateObject323 || (_templateObject323 = leveling_taggedTemplateLiteral(["Gingerbread Mob Hit"])))).trySkill(template_string_$skill(_templateObject324 || (_templateObject324 = leveling_taggedTemplateLiteral(["Shattering Punch"])))).default()).abort()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      familiar: template_string_$familiar(_templateObject320 || (_templateObject320 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"]))),
+      familiar: template_string_$familiar(_templateObject325 || (_templateObject325 = leveling_taggedTemplateLiteral(["Trick-or-Treating Tot"]))),
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
     post: () => sellMiscellaneousItems(),
@@ -18745,22 +14347,22 @@ var LevelingQuest = {
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
 
-      if (!lib_have(template_string_$effect(_templateObject321 || (_templateObject321 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) && !lib_have(template_string_$item(_templateObject322 || (_templateObject322 = leveling_taggedTemplateLiteral(["blue rocket"]))))) {
+      if (!lib_have(template_string_$effect(_templateObject326 || (_templateObject326 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) && !lib_have(template_string_$item(_templateObject327 || (_templateObject327 = leveling_taggedTemplateLiteral(["blue rocket"]))))) {
         if ((0,external_kolmafia_namespaceObject.myMeat)() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
-        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject323 || (_templateObject323 = leveling_taggedTemplateLiteral(["blue rocket"]))), 1);
+        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject328 || (_templateObject328 = leveling_taggedTemplateLiteral(["blue rocket"]))), 1);
       }
 
       unbreakableUmbrella();
       attemptRestoringMpWithFreeRests(50);
 
-      if (!lib_have(template_string_$effect(_templateObject324 || (_templateObject324 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !lib_have(template_string_$item(_templateObject325 || (_templateObject325 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
-        if ((0,external_kolmafia_namespaceObject.myMeat)() >= 250) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject326 || (_templateObject326 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
+      if (!lib_have(template_string_$effect(_templateObject329 || (_templateObject329 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !lib_have(template_string_$item(_templateObject330 || (_templateObject330 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
+        if ((0,external_kolmafia_namespaceObject.myMeat)() >= 250) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject331 || (_templateObject331 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
       }
     },
-    completed: () => lib_have(template_string_$effect(_templateObject327 || (_templateObject327 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) || haveCBBIngredients(false),
+    completed: () => lib_have(template_string_$effect(_templateObject332 || (_templateObject332 = leveling_taggedTemplateLiteral(["Everything Looks Blue"])))) || haveCBBIngredients(false),
     do: powerlevelingLocation(),
     // if your powerleveling location is the NEP you don't immediately get the MP regen
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject328 || (_templateObject328 = leveling_taggedTemplateLiteral(["Sea *dent: Talk to Some Fish"])))).trySkill(template_string_$skill(_templateObject329 || (_templateObject329 = leveling_taggedTemplateLiteral(["Curse of Weaksauce"])))).tryItem(template_string_$item(_templateObject330 || (_templateObject330 = leveling_taggedTemplateLiteral(["blue rocket"])))).tryItem(template_string_$item(_templateObject331 || (_templateObject331 = leveling_taggedTemplateLiteral(["red rocket"])))).default()),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject333 || (_templateObject333 = leveling_taggedTemplateLiteral(["Sea *dent: Talk to Some Fish"])))).trySkill(template_string_$skill(_templateObject334 || (_templateObject334 = leveling_taggedTemplateLiteral(["Curse of Weaksauce"])))).tryItem(template_string_$item(_templateObject335 || (_templateObject335 = leveling_taggedTemplateLiteral(["blue rocket"])))).tryItem(template_string_$item(_templateObject336 || (_templateObject336 = leveling_taggedTemplateLiteral(["red rocket"])))).default()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit(false)), {}, {
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
@@ -18783,15 +14385,15 @@ var LevelingQuest = {
     },
     // We need to spend at least 1adv to get the mp regen from Glowing Blue
     // This is only an issue if our powerleveling zone is the NEP, since the previous fight would be free
-    completed: () => powerlevelingLocation() !== $location(_templateObject332 || (_templateObject332 = leveling_taggedTemplateLiteral(["The Neverending Party"]))) || (0,external_kolmafia_namespaceObject.haveEffect)(template_string_$effect(_templateObject333 || (_templateObject333 = leveling_taggedTemplateLiteral(["Glowing Blue"])))) !== 10 || (0,external_kolmafia_namespaceObject.myMp)() >= 500 || haveCBBIngredients(false),
+    completed: () => powerlevelingLocation() !== $location(_templateObject337 || (_templateObject337 = leveling_taggedTemplateLiteral(["The Neverending Party"]))) || (0,external_kolmafia_namespaceObject.haveEffect)(template_string_$effect(_templateObject338 || (_templateObject338 = leveling_taggedTemplateLiteral(["Glowing Blue"])))) !== 10 || (0,external_kolmafia_namespaceObject.myMp)() >= 500 || haveCBBIngredients(false),
     // But we can't benefit from Blue Rocket if we are only doing free fights
-    do: () => canScreech() ? $location(_templateObject334 || (_templateObject334 = leveling_taggedTemplateLiteral(["Noob Cave"]))) : $location(_templateObject335 || (_templateObject335 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
+    do: () => canScreech() ? $location(_templateObject339 || (_templateObject339 = leveling_taggedTemplateLiteral(["Noob Cave"]))) : $location(_templateObject340 || (_templateObject340 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
     // Use a non-wanderer zone unless we need to screech
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit(false)), {}, {
-      familiar: canScreech() && cyberRealmTurnsAvailable() > 0 ? template_string_$familiar(_templateObject336 || (_templateObject336 = leveling_taggedTemplateLiteral(["Patriotic Eagle"]))) : chooseFamiliar(false),
+      familiar: canScreech() && cyberRealmTurnsAvailable() > 0 ? template_string_$familiar(_templateObject341 || (_templateObject341 = leveling_taggedTemplateLiteral(["Patriotic Eagle"]))) : chooseFamiliar(false),
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip miniature crystal ball, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
-    combat: new CombatStrategy().macro(combat_Macro.if_("monstername crate", combat_Macro.trySkill(template_string_$skill(_templateObject337 || (_templateObject337 = leveling_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"]))))).attack().repeat()),
+    combat: new CombatStrategy().macro(combat_Macro.if_("monstername crate", combat_Macro.trySkill(template_string_$skill(_templateObject342 || (_templateObject342 = leveling_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"]))))).attack().repeat()),
     post: () => {
       sendAutumnaton();
       sellMiscellaneousItems();
@@ -18801,7 +14403,7 @@ var LevelingQuest = {
     }
   }, {
     name: "Get Rufus Quest",
-    completed: () => property_get("_shadowAffinityToday") || !lib_have(template_string_$item(_templateObject338 || (_templateObject338 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"])))),
+    completed: () => property_get("_shadowAffinityToday") || !lib_have(template_string_$item(_templateObject343 || (_templateObject343 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"])))),
     do: () => {
       chooseQuest(() => 2);
       if ((0,external_kolmafia_namespaceObject.holiday)().includes("April Fool's Day")) (0,external_kolmafia_namespaceObject.visitUrl)("questlog.php?which=7");
@@ -18816,23 +14418,23 @@ var LevelingQuest = {
       unbreakableUmbrella();
       attemptRestoringMpWithFreeRests(50);
 
-      if (!lib_have(template_string_$effect(_templateObject339 || (_templateObject339 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !lib_have(template_string_$item(_templateObject340 || (_templateObject340 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
-        if ((0,external_kolmafia_namespaceObject.myMeat)() >= 250) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject341 || (_templateObject341 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
+      if (!lib_have(template_string_$effect(_templateObject344 || (_templateObject344 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !lib_have(template_string_$item(_templateObject345 || (_templateObject345 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
+        if ((0,external_kolmafia_namespaceObject.myMeat)() >= 250) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject346 || (_templateObject346 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
       }
 
-      if ((0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject342 || (_templateObject342 = leveling_taggedTemplateLiteral(["Pastamancer"]))) && lib_have(template_string_$item(_templateObject343 || (_templateObject343 = leveling_taggedTemplateLiteral(["Sept-Ember Censer"])))) && lib_have(template_string_$item(_templateObject344 || (_templateObject344 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) && property_get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-      !property_get("instant_saveEmbers", false) && !lib_have(template_string_$item(_templateObject345 || (_templateObject345 = leveling_taggedTemplateLiteral(["bembershoot"])))) // We have not used the mouthwash yet
-      ) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject346 || (_templateObject346 = leveling_taggedTemplateLiteral(["hat"]))), template_string_$item(_templateObject347 || (_templateObject347 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))); // Grab Grizzly Beard for mouthwash
+      if ((0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject347 || (_templateObject347 = leveling_taggedTemplateLiteral(["Pastamancer"]))) && lib_have(template_string_$item(_templateObject348 || (_templateObject348 = leveling_taggedTemplateLiteral(["Sept-Ember Censer"])))) && lib_have(template_string_$item(_templateObject349 || (_templateObject349 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) && property_get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+      !property_get("instant_saveEmbers", false) && !lib_have(template_string_$item(_templateObject350 || (_templateObject350 = leveling_taggedTemplateLiteral(["bembershoot"])))) // We have not used the mouthwash yet
+      ) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject351 || (_templateObject351 = leveling_taggedTemplateLiteral(["hat"]))), template_string_$item(_templateObject352 || (_templateObject352 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))); // Grab Grizzly Beard for mouthwash
     },
-    completed: () => lib_have(template_string_$item(_templateObject348 || (_templateObject348 = leveling_taggedTemplateLiteral(["Rufus's shadow lodestone"])))) || !lib_have(template_string_$effect(_templateObject349 || (_templateObject349 = leveling_taggedTemplateLiteral(["Shadow Affinity"])))) && property_get("encountersUntilSRChoice") !== 0 || !lib_have(template_string_$item(_templateObject350 || (_templateObject350 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"])))),
+    completed: () => lib_have(template_string_$item(_templateObject353 || (_templateObject353 = leveling_taggedTemplateLiteral(["Rufus's shadow lodestone"])))) || !lib_have(template_string_$effect(_templateObject354 || (_templateObject354 = leveling_taggedTemplateLiteral(["Shadow Affinity"])))) && property_get("encountersUntilSRChoice") !== 0 || !lib_have(template_string_$item(_templateObject355 || (_templateObject355 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"])))),
     do: bestShadowRift(),
-    combat: new CombatStrategy().macro(combat_Macro.tryItem(template_string_$item(_templateObject351 || (_templateObject351 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject352 || (_templateObject352 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).default()),
+    combat: new CombatStrategy().macro(combat_Macro.tryItem(template_string_$item(_templateObject356 || (_templateObject356 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject357 || (_templateObject357 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).default()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
     post: () => {
       if (lib_have(rufusTarget())) {
-        property_withChoice(1498, 1, () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject353 || (_templateObject353 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"])))));
+        property_withChoice(1498, 1, () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject358 || (_templateObject358 = leveling_taggedTemplateLiteral(["closed-circuit pay phone"])))));
       }
 
       sendAutumnaton();
@@ -18845,7 +14447,7 @@ var LevelingQuest = {
     name: "Use Reagent Booster",
     completed: () => !lib_have(reagentBoosterIngredient) && !lib_have(reagentBoosterItem) || acquiredOrExcluded(reagentBoosterEffect),
     do: () => {
-      if (property_get("reagentSummons") === 0) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject354 || (_templateObject354 = leveling_taggedTemplateLiteral(["Advanced Saucecrafting"]))), 1);
+      if (property_get("reagentSummons") === 0) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject359 || (_templateObject359 = leveling_taggedTemplateLiteral(["Advanced Saucecrafting"]))), 1);
 
       if (!lib_have(reagentBoosterItem)) {
         (0,external_kolmafia_namespaceObject.create)(reagentBoosterItem, 1);
@@ -18858,7 +14460,7 @@ var LevelingQuest = {
     ready: () => property_get("_loveTunnelUsed") || !property_get("loveTunnelAvailable"),
     completed: () => !lib_have(reagentBalancerIngredient) && (0,external_kolmafia_namespaceObject.itemAmount)(reagentBalancerItem) <= 1 || acquiredOrExcluded(reagentBalancerEffect) || (0,external_kolmafia_namespaceObject.itemAmount)(reagentBalancerItem) === 1,
     do: () => {
-      if (property_get("reagentSummons") === 0) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject355 || (_templateObject355 = leveling_taggedTemplateLiteral(["Advanced Saucecrafting"]))), 1);
+      if (property_get("reagentSummons") === 0) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject360 || (_templateObject360 = leveling_taggedTemplateLiteral(["Advanced Saucecrafting"]))), 1);
 
       if (!lib_have(reagentBalancerItem)) {
         (0,external_kolmafia_namespaceObject.create)(reagentBalancerItem, 1);
@@ -18882,15 +14484,15 @@ var LevelingQuest = {
 
       unbreakableUmbrella();
       attemptRestoringMpWithFreeRests(50);
-      if ((0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject356 || (_templateObject356 = leveling_taggedTemplateLiteral(["Pastamancer"]))) && lib_have(template_string_$item(_templateObject357 || (_templateObject357 = leveling_taggedTemplateLiteral(["Sept-Ember Censer"])))) && lib_have(template_string_$item(_templateObject358 || (_templateObject358 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) && property_get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-      !property_get("instant_saveEmbers", false) && !lib_have(template_string_$item(_templateObject359 || (_templateObject359 = leveling_taggedTemplateLiteral(["bembershoot"])))) // We have not used the mouthwash yet
-      ) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject360 || (_templateObject360 = leveling_taggedTemplateLiteral(["hat"]))), template_string_$item(_templateObject361 || (_templateObject361 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))); // Grab Grizzly Beard for mouthwash
+      if ((0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject361 || (_templateObject361 = leveling_taggedTemplateLiteral(["Pastamancer"]))) && lib_have(template_string_$item(_templateObject362 || (_templateObject362 = leveling_taggedTemplateLiteral(["Sept-Ember Censer"])))) && lib_have(template_string_$item(_templateObject363 || (_templateObject363 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) && property_get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+      !property_get("instant_saveEmbers", false) && !lib_have(template_string_$item(_templateObject364 || (_templateObject364 = leveling_taggedTemplateLiteral(["bembershoot"])))) // We have not used the mouthwash yet
+      ) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject365 || (_templateObject365 = leveling_taggedTemplateLiteral(["hat"]))), template_string_$item(_templateObject366 || (_templateObject366 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))); // Grab Grizzly Beard for mouthwash
     },
     completed: () => property_get("_snojoFreeFights") >= 10 || !property_get("snojoAvailable"),
-    do: $location(_templateObject362 || (_templateObject362 = leveling_taggedTemplateLiteral(["The X-32-F Combat Training Snowman"]))),
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject363 || (_templateObject363 = leveling_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"])))).trySkill(template_string_$skill(_templateObject364 || (_templateObject364 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).default()),
+    do: $location(_templateObject367 || (_templateObject367 = leveling_taggedTemplateLiteral(["The X-32-F Combat Training Snowman"]))),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject368 || (_templateObject368 = leveling_taggedTemplateLiteral(["%fn, Release the Patriotic Screech!"])))).trySkill(template_string_$skill(_templateObject369 || (_templateObject369 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).default()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      familiar: canScreech() && cyberRealmTurnsAvailable() > 0 ? template_string_$familiar(_templateObject365 || (_templateObject365 = leveling_taggedTemplateLiteral(["Patriotic Eagle"]))) : chooseFamiliar(true),
+      familiar: canScreech() && cyberRealmTurnsAvailable() > 0 ? template_string_$familiar(_templateObject370 || (_templateObject370 = leveling_taggedTemplateLiteral(["Patriotic Eagle"]))) : chooseFamiliar(true),
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
     limit: {
@@ -18904,25 +14506,25 @@ var LevelingQuest = {
   }, {
     name: "CyberSpace Zone",
     prepare: () => {
-      if (!lib_have(template_string_$item(_templateObject366 || (_templateObject366 = leveling_taggedTemplateLiteral(["datastick"]))))) (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=serverroom&action=serverroom_chipdrawer");
-      tryAcquiringEffects($effects(_templateObject367 || (_templateObject367 = leveling_taggedTemplateLiteral(["Honeypotted, Null Afternoon, Feeling Nervous, Scarysauce, Jalape\xF1o Saucesphere"]))));
+      if (!lib_have(template_string_$item(_templateObject371 || (_templateObject371 = leveling_taggedTemplateLiteral(["datastick"]))))) (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=serverroom&action=serverroom_chipdrawer");
+      tryAcquiringEffects($effects(_templateObject372 || (_templateObject372 = leveling_taggedTemplateLiteral(["Honeypotted, Null Afternoon, Feeling Nervous, Scarysauce, Jalape\xF1o Saucesphere"]))));
     },
     completed: () => cyberRealmTurnsAvailable() <= 0,
     do: () => cyberRealmZone(),
-    combat: new CombatStrategy().macro(combat_Macro.if_("monstername hacker", combat_Macro["default"]()).trySkillRepeat(template_string_$skill(_templateObject368 || (_templateObject368 = leveling_taggedTemplateLiteral(["Throw Cyber Rock"]))))),
+    combat: new CombatStrategy().macro(combat_Macro.if_("monstername hacker", combat_Macro["default"]()).trySkillRepeat(template_string_$skill(_templateObject373 || (_templateObject373 = leveling_taggedTemplateLiteral(["Throw Cyber Rock"]))))),
     outfit: () => {
       var _filter;
 
       return leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-        acc1: template_string_$item(_templateObject369 || (_templateObject369 = leveling_taggedTemplateLiteral(["datastick"]))),
-        acc3: (_filter = template_string_$items(_templateObject370 || (_templateObject370 = leveling_taggedTemplateLiteral(["PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit"]))).filter(lib_have)) === null || _filter === void 0 ? void 0 : _filter[0]
+        acc1: template_string_$item(_templateObject374 || (_templateObject374 = leveling_taggedTemplateLiteral(["datastick"]))),
+        acc3: (_filter = template_string_$items(_templateObject375 || (_templateObject375 = leveling_taggedTemplateLiteral(["PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit"]))).filter(lib_have)) === null || _filter === void 0 ? void 0 : _filter[0]
       });
     },
     post: () => {
       sendAutumnaton();
 
       if (cyberRealmTurnsAvailable() <= 0) {
-        $effects(_templateObject371 || (_templateObject371 = leveling_taggedTemplateLiteral(["Feeling Nervous, Scarysauce, Jalape\xF1o Saucesphere"]))).forEach(e => (0,external_kolmafia_namespaceObject.cliExecute)("shrug ".concat(e)));
+        $effects(_templateObject376 || (_templateObject376 = leveling_taggedTemplateLiteral(["Feeling Nervous, Scarysauce, Jalape\xF1o Saucesphere"]))).forEach(e => (0,external_kolmafia_namespaceObject.cliExecute)("shrug ".concat(e)));
       }
     },
     limit: {
@@ -18931,32 +14533,32 @@ var LevelingQuest = {
   }, {
     name: "Crystal Ball",
     completed: () => property_get("_monsterHabitatsFightsLeft") > 0 || // habitats have higher priority
-    crystalBallFreeFightLocation() === external_kolmafia_namespaceObject.Location.none || !lib_have(template_string_$item(_templateObject372 || (_templateObject372 = leveling_taggedTemplateLiteral(["miniature crystal ball"])))),
+    crystalBallFreeFightLocation() === external_kolmafia_namespaceObject.Location.none || !lib_have(template_string_$item(_templateObject377 || (_templateObject377 = leveling_taggedTemplateLiteral(["miniature crystal ball"])))),
     do: () => crystalBallFreeFightLocation(),
     limit: {
       tries: 10
     },
     combat: new CombatStrategy().macro(combat_Macro["default"]()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      famequip: template_string_$item(_templateObject373 || (_templateObject373 = leveling_taggedTemplateLiteral(["miniature crystal ball"])))
+      famequip: template_string_$item(_templateObject378 || (_templateObject378 = leveling_taggedTemplateLiteral(["miniature crystal ball"])))
     })
   }, {
     name: "Flaming Leaflets",
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
       unbreakableUmbrella();
-      if (lib_have(template_string_$item(_templateObject374 || (_templateObject374 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"])))) && property_get("_otoscopeUsed") < 3) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject375 || (_templateObject375 = leveling_taggedTemplateLiteral(["acc3"]))), template_string_$item(_templateObject376 || (_templateObject376 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))));
+      if (lib_have(template_string_$item(_templateObject379 || (_templateObject379 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"])))) && property_get("_otoscopeUsed") < 3) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject380 || (_templateObject380 = leveling_taggedTemplateLiteral(["acc3"]))), template_string_$item(_templateObject381 || (_templateObject381 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))));
       attemptRestoringMpWithFreeRests(50);
-      if ((0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject377 || (_templateObject377 = leveling_taggedTemplateLiteral(["Pastamancer"]))) && lib_have(template_string_$item(_templateObject378 || (_templateObject378 = leveling_taggedTemplateLiteral(["Sept-Ember Censer"])))) && lib_have(template_string_$item(_templateObject379 || (_templateObject379 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) && property_get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-      !property_get("instant_saveEmbers", false) && !lib_have(template_string_$item(_templateObject380 || (_templateObject380 = leveling_taggedTemplateLiteral(["bembershoot"])))) // We have not used the mouthwash yet
-      ) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject381 || (_templateObject381 = leveling_taggedTemplateLiteral(["hat"]))), template_string_$item(_templateObject382 || (_templateObject382 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))); // Grab Grizzly Beard for mouthwash
+      if ((0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject382 || (_templateObject382 = leveling_taggedTemplateLiteral(["Pastamancer"]))) && lib_have(template_string_$item(_templateObject383 || (_templateObject383 = leveling_taggedTemplateLiteral(["Sept-Ember Censer"])))) && lib_have(template_string_$item(_templateObject384 || (_templateObject384 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) && property_get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+      !property_get("instant_saveEmbers", false) && !lib_have(template_string_$item(_templateObject385 || (_templateObject385 = leveling_taggedTemplateLiteral(["bembershoot"])))) // We have not used the mouthwash yet
+      ) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject386 || (_templateObject386 = leveling_taggedTemplateLiteral(["hat"]))), template_string_$item(_templateObject387 || (_templateObject387 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))); // Grab Grizzly Beard for mouthwash
     },
-    completed: () => property_get("_leafMonstersFought") >= 5 || !lib_have(template_string_$item(_templateObject383 || (_templateObject383 = leveling_taggedTemplateLiteral(["inflammable leaf"]))), 11) || property_get("instant_saveLeafFights", false),
+    completed: () => property_get("_leafMonstersFought") >= 5 || !lib_have(template_string_$item(_templateObject388 || (_templateObject388 = leveling_taggedTemplateLiteral(["inflammable leaf"]))), 11) || property_get("instant_saveLeafFights", false),
     do: () => {
       (0,external_kolmafia_namespaceObject.visitUrl)("campground.php?preaction=leaves");
       (0,external_kolmafia_namespaceObject.visitUrl)("choice.php?pwd&whichchoice=1510&option=1&leaves=11");
     },
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject384 || (_templateObject384 = leveling_taggedTemplateLiteral(["Otoscope"])))).default()),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject389 || (_templateObject389 = leveling_taggedTemplateLiteral(["Otoscope"])))).default()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
       modifier: "Item Drop, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™"
     }),
@@ -18972,13 +14574,13 @@ var LevelingQuest = {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
       unbreakableUmbrella();
       attemptRestoringMpWithFreeRests(50);
-      if ((0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject385 || (_templateObject385 = leveling_taggedTemplateLiteral(["Pastamancer"]))) && lib_have(template_string_$item(_templateObject386 || (_templateObject386 = leveling_taggedTemplateLiteral(["Sept-Ember Censer"])))) && lib_have(template_string_$item(_templateObject387 || (_templateObject387 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) && property_get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-      !property_get("instant_saveEmbers", false) && !lib_have(template_string_$item(_templateObject388 || (_templateObject388 = leveling_taggedTemplateLiteral(["bembershoot"])))) // We have not used the mouthwash yet
-      ) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject389 || (_templateObject389 = leveling_taggedTemplateLiteral(["hat"]))), template_string_$item(_templateObject390 || (_templateObject390 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))); // Grab Grizzly Beard for mouthwash
+      if ((0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject390 || (_templateObject390 = leveling_taggedTemplateLiteral(["Pastamancer"]))) && lib_have(template_string_$item(_templateObject391 || (_templateObject391 = leveling_taggedTemplateLiteral(["Sept-Ember Censer"])))) && lib_have(template_string_$item(_templateObject392 || (_templateObject392 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) && property_get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+      !property_get("instant_saveEmbers", false) && !lib_have(template_string_$item(_templateObject393 || (_templateObject393 = leveling_taggedTemplateLiteral(["bembershoot"])))) // We have not used the mouthwash yet
+      ) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject394 || (_templateObject394 = leveling_taggedTemplateLiteral(["hat"]))), template_string_$item(_templateObject395 || (_templateObject395 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))); // Grab Grizzly Beard for mouthwash
     },
     completed: () => property_get("_snokebombUsed") >= 3 - property_get("instant_saveSBForInnerElf", 0),
     do: powerlevelingLocation(),
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject391 || (_templateObject391 = leveling_taggedTemplateLiteral(["Snokebomb"])))).abort()),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject396 || (_templateObject396 = leveling_taggedTemplateLiteral(["Snokebomb"])))).abort()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
@@ -18997,47 +14599,47 @@ var LevelingQuest = {
     }
   }, {
     name: "Get Totem and Saucepan",
-    completed: () => lib_have(template_string_$item(_templateObject392 || (_templateObject392 = leveling_taggedTemplateLiteral(["turtle totem"])))) && lib_have(template_string_$item(_templateObject393 || (_templateObject393 = leveling_taggedTemplateLiteral(["saucepan"])))),
+    completed: () => lib_have(template_string_$item(_templateObject397 || (_templateObject397 = leveling_taggedTemplateLiteral(["turtle totem"])))) && lib_have(template_string_$item(_templateObject398 || (_templateObject398 = leveling_taggedTemplateLiteral(["saucepan"])))),
     do: () => {
-      (0,external_kolmafia_namespaceObject.buy)(1, template_string_$item(_templateObject394 || (_templateObject394 = leveling_taggedTemplateLiteral(["chewing gum on a string"]))));
-      (0,external_kolmafia_namespaceObject.use)(1, template_string_$item(_templateObject395 || (_templateObject395 = leveling_taggedTemplateLiteral(["chewing gum on a string"]))));
+      (0,external_kolmafia_namespaceObject.buy)(1, template_string_$item(_templateObject399 || (_templateObject399 = leveling_taggedTemplateLiteral(["chewing gum on a string"]))));
+      (0,external_kolmafia_namespaceObject.use)(1, template_string_$item(_templateObject400 || (_templateObject400 = leveling_taggedTemplateLiteral(["chewing gum on a string"]))));
     },
     limit: {
       tries: 50
     }
   }, {
     name: "Red Skeleton",
-    ready: () => !lib_have(template_string_$effect(_templateObject396 || (_templateObject396 = leveling_taggedTemplateLiteral(["Everything Looks Yellow"])))) || lib_have(template_string_$skill(_templateObject397 || (_templateObject397 = leveling_taggedTemplateLiteral(["Feel Envy"])))) && property_get("_feelEnvyUsed") < 3 || lib_have(template_string_$item(_templateObject398 || (_templateObject398 = leveling_taggedTemplateLiteral(["April Shower Thoughts shield"])))) && lib_have(template_string_$skill(_templateObject399 || (_templateObject399 = leveling_taggedTemplateLiteral(["Northern Explosion"])))),
+    ready: () => !lib_have(template_string_$effect(_templateObject401 || (_templateObject401 = leveling_taggedTemplateLiteral(["Everything Looks Yellow"])))) || lib_have(template_string_$skill(_templateObject402 || (_templateObject402 = leveling_taggedTemplateLiteral(["Feel Envy"])))) && property_get("_feelEnvyUsed") < 3 || lib_have(template_string_$item(_templateObject403 || (_templateObject403 = leveling_taggedTemplateLiteral(["April Shower Thoughts shield"])))) && lib_have(template_string_$skill(_templateObject404 || (_templateObject404 = leveling_taggedTemplateLiteral(["Northern Explosion"])))),
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
 
       if (useParkaSpit) {
         (0,external_kolmafia_namespaceObject.cliExecute)("parka dilophosaur");
-      } else if (!lib_have(template_string_$item(_templateObject400 || (_templateObject400 = leveling_taggedTemplateLiteral(["yellow rocket"])))) && !lib_have(template_string_$effect(_templateObject401 || (_templateObject401 = leveling_taggedTemplateLiteral(["Everything Looks Yellow"]))))) {
+      } else if (!lib_have(template_string_$item(_templateObject405 || (_templateObject405 = leveling_taggedTemplateLiteral(["yellow rocket"])))) && !lib_have(template_string_$effect(_templateObject406 || (_templateObject406 = leveling_taggedTemplateLiteral(["Everything Looks Yellow"]))))) {
         if ((0,external_kolmafia_namespaceObject.myMeat)() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
-        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject402 || (_templateObject402 = leveling_taggedTemplateLiteral(["yellow rocket"]))), 1);
+        (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject407 || (_templateObject407 = leveling_taggedTemplateLiteral(["yellow rocket"]))), 1);
       }
 
-      if (lib_have(template_string_$item(_templateObject403 || (_templateObject403 = leveling_taggedTemplateLiteral(["Roman Candelabra"])))) && !lib_have(template_string_$effect(_templateObject404 || (_templateObject404 = leveling_taggedTemplateLiteral(["Everything Looks Yellow"]))))) {
-        (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject405 || (_templateObject405 = leveling_taggedTemplateLiteral(["offhand"]))), template_string_$item(_templateObject406 || (_templateObject406 = leveling_taggedTemplateLiteral(["Roman Candelabra"]))));
-      } else if (lib_have(template_string_$item(_templateObject407 || (_templateObject407 = leveling_taggedTemplateLiteral(["April Shower Thoughts shield"])))) && lib_have(template_string_$skill(_templateObject408 || (_templateObject408 = leveling_taggedTemplateLiteral(["Northern Explosion"]))))) {
-        (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject409 || (_templateObject409 = leveling_taggedTemplateLiteral(["offhand"]))), template_string_$item(_templateObject410 || (_templateObject410 = leveling_taggedTemplateLiteral(["April Shower Thoughts shield"]))));
+      if (lib_have(template_string_$item(_templateObject408 || (_templateObject408 = leveling_taggedTemplateLiteral(["Roman Candelabra"])))) && !lib_have(template_string_$effect(_templateObject409 || (_templateObject409 = leveling_taggedTemplateLiteral(["Everything Looks Yellow"]))))) {
+        (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject410 || (_templateObject410 = leveling_taggedTemplateLiteral(["offhand"]))), template_string_$item(_templateObject411 || (_templateObject411 = leveling_taggedTemplateLiteral(["Roman Candelabra"]))));
+      } else if (lib_have(template_string_$item(_templateObject412 || (_templateObject412 = leveling_taggedTemplateLiteral(["April Shower Thoughts shield"])))) && lib_have(template_string_$skill(_templateObject413 || (_templateObject413 = leveling_taggedTemplateLiteral(["Northern Explosion"]))))) {
+        (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject414 || (_templateObject414 = leveling_taggedTemplateLiteral(["offhand"]))), template_string_$item(_templateObject415 || (_templateObject415 = leveling_taggedTemplateLiteral(["April Shower Thoughts shield"]))));
       } else {
         unbreakableUmbrella();
       }
 
-      if ((0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject411 || (_templateObject411 = leveling_taggedTemplateLiteral(["Pastamancer"]))) && lib_have(template_string_$item(_templateObject412 || (_templateObject412 = leveling_taggedTemplateLiteral(["Sept-Ember Censer"])))) && lib_have(template_string_$item(_templateObject413 || (_templateObject413 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) && property_get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-      !property_get("instant_saveEmbers", false) && !lib_have(template_string_$item(_templateObject414 || (_templateObject414 = leveling_taggedTemplateLiteral(["bembershoot"])))) // We have not used the mouthwash yet
-      ) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject415 || (_templateObject415 = leveling_taggedTemplateLiteral(["hat"]))), template_string_$item(_templateObject416 || (_templateObject416 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))); // Grab Grizzly Beard for mouthwash
+      if ((0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject416 || (_templateObject416 = leveling_taggedTemplateLiteral(["Pastamancer"]))) && lib_have(template_string_$item(_templateObject417 || (_templateObject417 = leveling_taggedTemplateLiteral(["Sept-Ember Censer"])))) && lib_have(template_string_$item(_templateObject418 || (_templateObject418 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))) && property_get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+      !property_get("instant_saveEmbers", false) && !lib_have(template_string_$item(_templateObject419 || (_templateObject419 = leveling_taggedTemplateLiteral(["bembershoot"])))) // We have not used the mouthwash yet
+      ) (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject420 || (_templateObject420 = leveling_taggedTemplateLiteral(["hat"]))), template_string_$item(_templateObject421 || (_templateObject421 = leveling_taggedTemplateLiteral(["Daylight Shavings Helmet"])))); // Grab Grizzly Beard for mouthwash
     },
-    completed: () => monstersReminisced().includes($monster(_templateObject417 || (_templateObject417 = leveling_taggedTemplateLiteral(["red skeleton"])))) || !availableLocketMonsters().includes($monster(_templateObject418 || (_templateObject418 = leveling_taggedTemplateLiteral(["red skeleton"])))) || property_get("instant_saveLocketRedSkeleton", false),
-    do: () => reminisce($monster(_templateObject419 || (_templateObject419 = leveling_taggedTemplateLiteral(["red skeleton"])))),
-    combat: new CombatStrategy().macro(() => combat_Macro.if_("!haseffect Everything Looks Yellow", combat_Macro.externalIf(useParkaSpit, combat_Macro.trySkill(template_string_$skill(_templateObject420 || (_templateObject420 = leveling_taggedTemplateLiteral(["Spit jurassic acid"]))))).trySkill(template_string_$skill(_templateObject421 || (_templateObject421 = leveling_taggedTemplateLiteral(["Blow the Yellow Candle!"])))).tryItem(template_string_$item(_templateObject422 || (_templateObject422 = leveling_taggedTemplateLiteral(["yellow rocket"]))))).externalIf(lib_have(template_string_$item(_templateObject423 || (_templateObject423 = leveling_taggedTemplateLiteral(["April Shower Thoughts shield"])))), combat_Macro.trySkill(template_string_$skill(_templateObject424 || (_templateObject424 = leveling_taggedTemplateLiteral(["Northern Explosion"]))))).trySkill(template_string_$skill(_templateObject425 || (_templateObject425 = leveling_taggedTemplateLiteral(["Feel Envy"])))).default()),
+    completed: () => monstersReminisced().includes($monster(_templateObject422 || (_templateObject422 = leveling_taggedTemplateLiteral(["red skeleton"])))) || !availableLocketMonsters().includes($monster(_templateObject423 || (_templateObject423 = leveling_taggedTemplateLiteral(["red skeleton"])))) || property_get("instant_saveLocketRedSkeleton", false),
+    do: () => reminisce($monster(_templateObject424 || (_templateObject424 = leveling_taggedTemplateLiteral(["red skeleton"])))),
+    combat: new CombatStrategy().macro(() => combat_Macro.if_("!haseffect Everything Looks Yellow", combat_Macro.externalIf(useParkaSpit, combat_Macro.trySkill(template_string_$skill(_templateObject425 || (_templateObject425 = leveling_taggedTemplateLiteral(["Spit jurassic acid"]))))).trySkill(template_string_$skill(_templateObject426 || (_templateObject426 = leveling_taggedTemplateLiteral(["Blow the Yellow Candle!"])))).tryItem(template_string_$item(_templateObject427 || (_templateObject427 = leveling_taggedTemplateLiteral(["yellow rocket"]))))).externalIf(lib_have(template_string_$item(_templateObject428 || (_templateObject428 = leveling_taggedTemplateLiteral(["April Shower Thoughts shield"])))), combat_Macro.trySkill(template_string_$skill(_templateObject429 || (_templateObject429 = leveling_taggedTemplateLiteral(["Northern Explosion"]))))).trySkill(template_string_$skill(_templateObject430 || (_templateObject430 = leveling_taggedTemplateLiteral(["Feel Envy"])))).default()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit(false)), {}, {
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
     post: () => {
-      (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject426 || (_templateObject426 = leveling_taggedTemplateLiteral(["red box"]))), 1);
+      (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject431 || (_templateObject431 = leveling_taggedTemplateLiteral(["red box"]))), 1);
       sendAutumnaton();
       sellMiscellaneousItems();
     },
@@ -19050,27 +14652,27 @@ var LevelingQuest = {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
       unbreakableUmbrella();
       tryAcquiringEffects(usefulEffects);
-      if (mainStat === template_string_$stat(_templateObject427 || (_templateObject427 = leveling_taggedTemplateLiteral(["Muscle"])))) tryAcquiringEffects(prismaticEffects);
-      tryAcquiringEffect(template_string_$effect(_templateObject428 || (_templateObject428 = leveling_taggedTemplateLiteral(["Comic Violence"])))); // Try acquiring at least +100% item for guaranteed drops
+      if (mainStat === template_string_$stat(_templateObject432 || (_templateObject432 = leveling_taggedTemplateLiteral(["Muscle"])))) tryAcquiringEffects(prismaticEffects);
+      tryAcquiringEffect(template_string_$effect(_templateObject433 || (_templateObject433 = leveling_taggedTemplateLiteral(["Comic Violence"])))); // Try acquiring at least +100% item for guaranteed drops
 
-      var itemDropEffects = [template_string_$effect(_templateObject429 || (_templateObject429 = leveling_taggedTemplateLiteral(["Fat Leon's Phat Loot Lyric"]))), template_string_$effect(_templateObject430 || (_templateObject430 = leveling_taggedTemplateLiteral(["Singer's Faithful Ocelot"]))), template_string_$effect(_templateObject431 || (_templateObject431 = leveling_taggedTemplateLiteral(["The Spirit of Taking"]))), // eslint-disable-next-line libram/verify-constants
-      template_string_$effect(_templateObject432 || (_templateObject432 = leveling_taggedTemplateLiteral(["Who's Going to Pay This Drunken Sailor?"])))];
-      if ((0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject433 || (_templateObject433 = leveling_taggedTemplateLiteral(["Pastamancer"])))) itemDropEffects.push(template_string_$effect(_templateObject434 || (_templateObject434 = leveling_taggedTemplateLiteral(["Spice Haze"]))));
+      var itemDropEffects = [template_string_$effect(_templateObject434 || (_templateObject434 = leveling_taggedTemplateLiteral(["Fat Leon's Phat Loot Lyric"]))), template_string_$effect(_templateObject435 || (_templateObject435 = leveling_taggedTemplateLiteral(["Singer's Faithful Ocelot"]))), template_string_$effect(_templateObject436 || (_templateObject436 = leveling_taggedTemplateLiteral(["The Spirit of Taking"]))), // eslint-disable-next-line libram/verify-constants
+      template_string_$effect(_templateObject437 || (_templateObject437 = leveling_taggedTemplateLiteral(["Who's Going to Pay This Drunken Sailor?"])))];
+      if ((0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject438 || (_templateObject438 = leveling_taggedTemplateLiteral(["Pastamancer"])))) itemDropEffects.push(template_string_$effect(_templateObject439 || (_templateObject439 = leveling_taggedTemplateLiteral(["Spice Haze"]))));
       tryAcquiringEffects(itemDropEffects);
     },
     completed: () => property_get("_loveTunnelUsed") || !property_get("loveTunnelAvailable"),
     do: () => fightAll(LOVEquip, "Open Heart Surgery", "LOV Extraterrestrial Chocolate"),
-    combat: new CombatStrategy().macro(combat_Macro.if_($monster(_templateObject435 || (_templateObject435 = leveling_taggedTemplateLiteral(["LOV Enforcer"]))), combat_Macro.attack().repeat()).if_($monster(_templateObject436 || (_templateObject436 = leveling_taggedTemplateLiteral(["LOV Engineer"]))), combat_Macro.while_("!mpbelow ".concat((0,external_kolmafia_namespaceObject.mpCost)(template_string_$skill(_templateObject437 || (_templateObject437 = leveling_taggedTemplateLiteral(["Toynado"])))), " && hasskill ").concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(_templateObject438 || (_templateObject438 = leveling_taggedTemplateLiteral(["Toynado"]))))), combat_Macro.skill(template_string_$skill(_templateObject439 || (_templateObject439 = leveling_taggedTemplateLiteral(["Toynado"]))))).while_("!mpbelow ".concat((0,external_kolmafia_namespaceObject.mpCost)(template_string_$skill(_templateObject440 || (_templateObject440 = leveling_taggedTemplateLiteral(["Saucestorm"])))), " && hasskill ").concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(_templateObject441 || (_templateObject441 = leveling_taggedTemplateLiteral(["Saucestorm"]))))), combat_Macro.skill(template_string_$skill(_templateObject442 || (_templateObject442 = leveling_taggedTemplateLiteral(["Saucestorm"]))))).default()).if_($monster(_templateObject443 || (_templateObject443 = leveling_taggedTemplateLiteral(["LOV Equivocator"]))), combat_Macro["default"]())),
+    combat: new CombatStrategy().macro(combat_Macro.if_($monster(_templateObject440 || (_templateObject440 = leveling_taggedTemplateLiteral(["LOV Enforcer"]))), combat_Macro.attack().repeat()).if_($monster(_templateObject441 || (_templateObject441 = leveling_taggedTemplateLiteral(["LOV Engineer"]))), combat_Macro.while_("!mpbelow ".concat((0,external_kolmafia_namespaceObject.mpCost)(template_string_$skill(_templateObject442 || (_templateObject442 = leveling_taggedTemplateLiteral(["Toynado"])))), " && hasskill ").concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(_templateObject443 || (_templateObject443 = leveling_taggedTemplateLiteral(["Toynado"]))))), combat_Macro.skill(template_string_$skill(_templateObject444 || (_templateObject444 = leveling_taggedTemplateLiteral(["Toynado"]))))).while_("!mpbelow ".concat((0,external_kolmafia_namespaceObject.mpCost)(template_string_$skill(_templateObject445 || (_templateObject445 = leveling_taggedTemplateLiteral(["Saucestorm"])))), " && hasskill ").concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(_templateObject446 || (_templateObject446 = leveling_taggedTemplateLiteral(["Saucestorm"]))))), combat_Macro.skill(template_string_$skill(_templateObject447 || (_templateObject447 = leveling_taggedTemplateLiteral(["Saucestorm"]))))).default()).if_($monster(_templateObject448 || (_templateObject448 = leveling_taggedTemplateLiteral(["LOV Equivocator"]))), combat_Macro["default"]())),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit(false)), {}, {
-      weapon: template_string_$item(_templateObject444 || (_templateObject444 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"]))),
+      weapon: template_string_$item(_templateObject449 || (_templateObject449 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"]))),
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic\u2122")
     }),
     limit: {
       tries: 1
     },
     post: () => {
-      if (lib_have(template_string_$effect(_templateObject445 || (_templateObject445 = leveling_taggedTemplateLiteral(["Beaten Up"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");
-      if (lib_have(template_string_$item(_templateObject446 || (_templateObject446 = leveling_taggedTemplateLiteral(["LOV Extraterrestrial Chocolate"]))))) (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject447 || (_templateObject447 = leveling_taggedTemplateLiteral(["LOV Extraterrestrial Chocolate"]))), 1);
+      if (lib_have(template_string_$effect(_templateObject450 || (_templateObject450 = leveling_taggedTemplateLiteral(["Beaten Up"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");
+      if (lib_have(template_string_$item(_templateObject451 || (_templateObject451 = leveling_taggedTemplateLiteral(["LOV Extraterrestrial Chocolate"]))))) (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject452 || (_templateObject452 = leveling_taggedTemplateLiteral(["LOV Extraterrestrial Chocolate"]))), 1);
       sendAutumnaton();
       sellMiscellaneousItems();
     }
@@ -19078,7 +14680,7 @@ var LevelingQuest = {
     name: "Restore Cinch",
     completed: () => property_get("timesRested") >= (0,external_kolmafia_namespaceObject.totalFreeRests)() - property_get("instant_saveFreeRests", 0) || property_get("_cinchUsed") <= 95 || !useCinch,
     prepare: () => {
-      if (lib_have(template_string_$item(_templateObject448 || (_templateObject448 = leveling_taggedTemplateLiteral(["Newbiesport\u2122 tent"]))))) (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject449 || (_templateObject449 = leveling_taggedTemplateLiteral(["Newbiesport\u2122 tent"]))));
+      if (lib_have(template_string_$item(_templateObject453 || (_templateObject453 = leveling_taggedTemplateLiteral(["Newbiesport\u2122 tent"]))))) (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject454 || (_templateObject454 = leveling_taggedTemplateLiteral(["Newbiesport\u2122 tent"]))));
     },
     do: () => {
       if (property_get("chateauAvailable")) {
@@ -19094,23 +14696,23 @@ var LevelingQuest = {
     }
   }, {
     name: "Monster Habitats",
-    ready: () => property_get("_monsterHabitatsFightsLeft") > (habitatCastsLeft() > 0 ? 1 : 0) && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject450 || (_templateObject450 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))),
+    ready: () => property_get("_monsterHabitatsFightsLeft") > (habitatCastsLeft() > 0 ? 1 : 0) && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject455 || (_templateObject455 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))),
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
-      if (!(0,external_kolmafia_namespaceObject.haveEquipped)(template_string_$item(_templateObject451 || (_templateObject451 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))))) unbreakableUmbrella();
+      if (!(0,external_kolmafia_namespaceObject.haveEquipped)(template_string_$item(_templateObject456 || (_templateObject456 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))))) unbreakableUmbrella();
       garbageShirt();
       tryAcquiringEffects(usefulEffects);
       attemptRestoringMpWithFreeRests(50);
     },
     completed: () => property_get("_monsterHabitatsFightsLeft") <= (habitatCastsLeft() > 0 ? 1 : 0),
-    do: $location(_templateObject452 || (_templateObject452 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
+    do: $location(_templateObject457 || (_templateObject457 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
     combat: new CombatStrategy().macro(() => {
-      return combat_Macro.if_($monster(_templateObject453 || (_templateObject453 = leveling_taggedTemplateLiteral(["fluffy bunny"]))), combat_Macro.banish().abort()).default(useCinch);
+      return combat_Macro.if_($monster(_templateObject458 || (_templateObject458 = leveling_taggedTemplateLiteral(["fluffy bunny"]))), combat_Macro.banish().abort()).default(useCinch);
     }),
-    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit), Array.from(getBanishedMonsters().values()).includes($monster(_templateObject454 || (_templateObject454 = leveling_taggedTemplateLiteral(["fluffy bunny"])))) ? {} : {
-      offhand: template_string_$item(_templateObject455 || (_templateObject455 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))),
-      acc1: template_string_$item(_templateObject456 || (_templateObject456 = leveling_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))),
-      acc2: template_string_$item(_templateObject457 || (_templateObject457 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))),
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit), Array.from(getBanishedMonsters().values()).includes($monster(_templateObject459 || (_templateObject459 = leveling_taggedTemplateLiteral(["fluffy bunny"])))) ? {} : {
+      offhand: template_string_$item(_templateObject460 || (_templateObject460 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))),
+      acc1: template_string_$item(_templateObject461 || (_templateObject461 = leveling_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))),
+      acc2: template_string_$item(_templateObject462 || (_templateObject462 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))),
       modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball")
     }),
     post: () => {
@@ -19122,23 +14724,23 @@ var LevelingQuest = {
     }
   }, {
     name: "Monster Habitats (Re-application)",
-    ready: () => property_get("_monsterHabitatsFightsLeft") === 1 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject458 || (_templateObject458 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))),
+    ready: () => property_get("_monsterHabitatsFightsLeft") === 1 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject463 || (_templateObject463 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))),
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
-      if (!(0,external_kolmafia_namespaceObject.haveEquipped)(template_string_$item(_templateObject459 || (_templateObject459 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))))) unbreakableUmbrella();
+      if (!(0,external_kolmafia_namespaceObject.haveEquipped)(template_string_$item(_templateObject464 || (_templateObject464 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))))) unbreakableUmbrella();
       garbageShirt();
       tryAcquiringEffects(usefulEffects);
       attemptRestoringMpWithFreeRests(50);
     },
     completed: () => property_get("_monsterHabitatsFightsLeft") === 0,
-    do: $location(_templateObject460 || (_templateObject460 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
+    do: $location(_templateObject465 || (_templateObject465 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
     combat: new CombatStrategy().macro(() => {
-      return combat_Macro.if_($monster(_templateObject461 || (_templateObject461 = leveling_taggedTemplateLiteral(["fluffy bunny"]))), combat_Macro.banish().abort()).trySkill(template_string_$skill(_templateObject462 || (_templateObject462 = leveling_taggedTemplateLiteral(["Recall Facts: Monster Habitats"])))).default(useCinch);
+      return combat_Macro.if_($monster(_templateObject466 || (_templateObject466 = leveling_taggedTemplateLiteral(["fluffy bunny"]))), combat_Macro.banish().abort()).trySkill(template_string_$skill(_templateObject467 || (_templateObject467 = leveling_taggedTemplateLiteral(["Recall Facts: Monster Habitats"])))).default(useCinch);
     }),
-    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit), Array.from(getBanishedMonsters().values()).includes($monster(_templateObject463 || (_templateObject463 = leveling_taggedTemplateLiteral(["fluffy bunny"])))) ? {} : {
-      offhand: template_string_$item(_templateObject464 || (_templateObject464 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))),
-      acc1: template_string_$item(_templateObject465 || (_templateObject465 = leveling_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))),
-      acc2: template_string_$item(_templateObject466 || (_templateObject466 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))),
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit), Array.from(getBanishedMonsters().values()).includes($monster(_templateObject468 || (_templateObject468 = leveling_taggedTemplateLiteral(["fluffy bunny"])))) ? {} : {
+      offhand: template_string_$item(_templateObject469 || (_templateObject469 = leveling_taggedTemplateLiteral(["latte lovers member's mug"]))),
+      acc1: template_string_$item(_templateObject470 || (_templateObject470 = leveling_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))),
+      acc2: template_string_$item(_templateObject471 || (_templateObject471 = leveling_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))),
       modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball")
     }),
     post: () => {
@@ -19165,13 +14767,13 @@ var LevelingQuest = {
     completed: () => {
       var _get2;
 
-      return !lib_have(template_string_$item(_templateObject467 || (_templateObject467 = leveling_taggedTemplateLiteral(["backup camera"])))) || !freeFightMonsters.includes((_get2 = property_get("lastCopyableMonster")) !== null && _get2 !== void 0 ? _get2 : $monster.none) || property_get("_backUpUses") >= 11 - utils_clamp(property_get("instant_saveBackups", 0), 0, 11) || (0,external_kolmafia_namespaceObject.myBasestat)(mainStat) >= 190;
+      return !lib_have(template_string_$item(_templateObject472 || (_templateObject472 = leveling_taggedTemplateLiteral(["backup camera"])))) || !freeFightMonsters.includes((_get2 = property_get("lastCopyableMonster")) !== null && _get2 !== void 0 ? _get2 : $monster.none) || property_get("_backUpUses") >= 11 - utils_clamp(property_get("instant_saveBackups", 0), 0, 11) || (0,external_kolmafia_namespaceObject.myBasestat)(mainStat) >= 190;
     },
     // no longer need to back up Witchess Kings
-    do: $location(_templateObject468 || (_templateObject468 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject469 || (_templateObject469 = leveling_taggedTemplateLiteral(["Back-Up to your Last Enemy"])))).default(useCinch)),
+    do: $location(_templateObject473 || (_templateObject473 = leveling_taggedTemplateLiteral(["The Dire Warren"]))),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject474 || (_templateObject474 = leveling_taggedTemplateLiteral(["Back-Up to your Last Enemy"])))).default(useCinch)),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      acc3: template_string_$item(_templateObject470 || (_templateObject470 = leveling_taggedTemplateLiteral(["backup camera"]))),
+      acc3: template_string_$item(_templateObject475 || (_templateObject475 = leveling_taggedTemplateLiteral(["backup camera"]))),
       modifier: "".concat(baseOutfit().modifier, ", -equip miniature crystal ball")
     }),
     post: () => {
@@ -19194,12 +14796,16 @@ var LevelingQuest = {
       attemptRestoringMpWithFreeRests(50);
     },
     ready: () => getKramcoWandererChance() >= 1.0,
-    completed: () => getKramcoWandererChance() < 1.0 || !lib_have(template_string_$item(_templateObject471 || (_templateObject471 = leveling_taggedTemplateLiteral(["Kramco Sausage-o-Matic\u2122"])))),
-    do: $location(_templateObject472 || (_templateObject472 = leveling_taggedTemplateLiteral(["Noob Cave"]))),
+    completed: () => getKramcoWandererChance() < 1.0 || !lib_have(template_string_$item(_templateObject476 || (_templateObject476 = leveling_taggedTemplateLiteral(["Kramco Sausage-o-Matic\u2122"])))),
+    do: $location(_templateObject477 || (_templateObject477 = leveling_taggedTemplateLiteral(["Noob Cave"]))),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      offhand: template_string_$item(_templateObject473 || (_templateObject473 = leveling_taggedTemplateLiteral(["Kramco Sausage-o-Matic\u2122"])))
+      weapon: property_get("_clubEmNextWeekUsed", 0) >= 5 - property_get("instant_saveClubEmNextWeek", 0) || // eslint-disable-next-line libram/verify-constants
+      !lib_have(template_string_$item(_templateObject478 || (_templateObject478 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))) ? baseOutfit().weapon : // eslint-disable-next-line libram/verify-constants
+      template_string_$item(_templateObject479 || (_templateObject479 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"]))),
+      offhand: template_string_$item(_templateObject480 || (_templateObject480 = leveling_taggedTemplateLiteral(["Kramco Sausage-o-Matic\u2122"])))
     }),
-    combat: new CombatStrategy().macro(() => combat_Macro.externalIf(property_get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject474 || (_templateObject474 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))), combat_Macro.trySkill(template_string_$skill(_templateObject475 || (_templateObject475 = leveling_taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))).default(useCinch)),
+    combat: new CombatStrategy().macro(() => combat_Macro.externalIf(property_get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject481 || (_templateObject481 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))), combat_Macro.trySkill(template_string_$skill(_templateObject482 || (_templateObject482 = leveling_taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))) // eslint-disable-next-line libram/verify-constants
+    .trySkill(template_string_$skill(_templateObject483 || (_templateObject483 = leveling_taggedTemplateLiteral(["Club 'Em Into Next Week"])))).default(useCinch)),
     post: () => {
       sendAutumnaton();
       sellMiscellaneousItems();
@@ -19211,13 +14817,13 @@ var LevelingQuest = {
       unbreakableUmbrella();
       attemptRestoringMpWithFreeRests(50);
       if (SourceTerminal_have()) (0,external_kolmafia_namespaceObject.cliExecute)("terminal educate portscan");
-      setChoice($monster(_templateObject476 || (_templateObject476 = leveling_taggedTemplateLiteral(["goblin flapper"]))));
+      setChoice($monster(_templateObject484 || (_templateObject484 = leveling_taggedTemplateLiteral(["goblin flapper"]))));
     },
     completed: () => property_get("_speakeasyFreeFights") >= 1 || !property_get("ownsSpeakeasy"),
-    do: $location(_templateObject477 || (_templateObject477 = leveling_taggedTemplateLiteral(["An Unusually Quiet Barroom Brawl"]))),
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject478 || (_templateObject478 = leveling_taggedTemplateLiteral(["Feel Envy"])))).trySkill(template_string_$skill(_templateObject479 || (_templateObject479 = leveling_taggedTemplateLiteral(["Portscan"])))).default()),
+    do: $location(_templateObject485 || (_templateObject485 = leveling_taggedTemplateLiteral(["An Unusually Quiet Barroom Brawl"]))),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject486 || (_templateObject486 = leveling_taggedTemplateLiteral(["Feel Envy"])))).trySkill(template_string_$skill(_templateObject487 || (_templateObject487 = leveling_taggedTemplateLiteral(["Portscan"])))).default()),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      acc3: template_string_$item(_templateObject480 || (_templateObject480 = leveling_taggedTemplateLiteral(["Peridot of Peril"])))
+      acc3: template_string_$item(_templateObject488 || (_templateObject488 = leveling_taggedTemplateLiteral(["Peridot of Peril"])))
     }),
     limit: {
       tries: 1
@@ -19234,9 +14840,9 @@ var LevelingQuest = {
       attemptRestoringMpWithFreeRests(50);
       if (SourceTerminal_have()) (0,external_kolmafia_namespaceObject.cliExecute)("terminal educate portscan");
     },
-    completed: () => property_get("_speakeasyFreeFights") >= 1 || !property_get("ownsSpeakeasy") || !lib_have(template_string_$skill(_templateObject481 || (_templateObject481 = leveling_taggedTemplateLiteral(["Map the Monsters"])))) || property_get("_monstersMapped") >= 3,
-    do: () => mapMonster($location(_templateObject482 || (_templateObject482 = leveling_taggedTemplateLiteral(["An Unusually Quiet Barroom Brawl"]))), $monster(_templateObject483 || (_templateObject483 = leveling_taggedTemplateLiteral(["goblin flapper"])))),
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject484 || (_templateObject484 = leveling_taggedTemplateLiteral(["Feel Envy"])))).trySkill(template_string_$skill(_templateObject485 || (_templateObject485 = leveling_taggedTemplateLiteral(["Portscan"])))).default()),
+    completed: () => property_get("_speakeasyFreeFights") >= 1 || !property_get("ownsSpeakeasy") || !lib_have(template_string_$skill(_templateObject489 || (_templateObject489 = leveling_taggedTemplateLiteral(["Map the Monsters"])))) || property_get("_monstersMapped") >= 3,
+    do: () => mapMonster($location(_templateObject490 || (_templateObject490 = leveling_taggedTemplateLiteral(["An Unusually Quiet Barroom Brawl"]))), $monster(_templateObject491 || (_templateObject491 = leveling_taggedTemplateLiteral(["goblin flapper"])))),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject492 || (_templateObject492 = leveling_taggedTemplateLiteral(["Feel Envy"])))).trySkill(template_string_$skill(_templateObject493 || (_templateObject493 = leveling_taggedTemplateLiteral(["Portscan"])))).default()),
     outfit: () => baseOutfit(),
     limit: {
       tries: 1
@@ -19254,8 +14860,8 @@ var LevelingQuest = {
       if (SourceTerminal_have()) (0,external_kolmafia_namespaceObject.cliExecute)("terminal educate portscan");
     },
     completed: () => property_get("_speakeasyFreeFights") >= 2 || !property_get("ownsSpeakeasy") || !SourceTerminal_have() || property_get("_sourceTerminalPortscanUses") > 0,
-    do: $location(_templateObject486 || (_templateObject486 = leveling_taggedTemplateLiteral(["An Unusually Quiet Barroom Brawl"]))),
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject487 || (_templateObject487 = leveling_taggedTemplateLiteral(["Portscan"])))).default()),
+    do: $location(_templateObject494 || (_templateObject494 = leveling_taggedTemplateLiteral(["An Unusually Quiet Barroom Brawl"]))),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject495 || (_templateObject495 = leveling_taggedTemplateLiteral(["Portscan"])))).default()),
     outfit: () => baseOutfit(),
     limit: {
       tries: 1
@@ -19272,7 +14878,7 @@ var LevelingQuest = {
       attemptRestoringMpWithFreeRests(50);
     },
     completed: () => property_get("_speakeasyFreeFights") >= 3 || !property_get("ownsSpeakeasy"),
-    do: $location(_templateObject488 || (_templateObject488 = leveling_taggedTemplateLiteral(["An Unusually Quiet Barroom Brawl"]))),
+    do: $location(_templateObject496 || (_templateObject496 = leveling_taggedTemplateLiteral(["An Unusually Quiet Barroom Brawl"]))),
     combat: new CombatStrategy().macro(combat_Macro["default"]()),
     outfit: () => baseOutfit(),
     limit: {
@@ -19290,16 +14896,16 @@ var LevelingQuest = {
       tryAcquiringEffects(usefulEffects);
       attemptRestoringMpWithFreeRests(50);
     },
-    completed: () => property_get("_godLobsterFights") >= 3 || !lib_have(template_string_$familiar(_templateObject489 || (_templateObject489 = leveling_taggedTemplateLiteral(["God Lobster"])))),
+    completed: () => property_get("_godLobsterFights") >= 3 || !lib_have(template_string_$familiar(_templateObject497 || (_templateObject497 = leveling_taggedTemplateLiteral(["God Lobster"])))),
     do: () => (0,external_kolmafia_namespaceObject.visitUrl)("main.php?fightgodlobster=1"),
     combat: new CombatStrategy().macro(combat_Macro["default"](useCinch)),
     choices: {
-      1310: lib_have(template_string_$item(_templateObject490 || (_templateObject490 = leveling_taggedTemplateLiteral(["God Lobster's Ring"])))) ? 2 : 3
+      1310: lib_have(template_string_$item(_templateObject498 || (_templateObject498 = leveling_taggedTemplateLiteral(["God Lobster's Ring"])))) ? 2 : 3
     },
     // Get xp on last fight
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      famequip: template_string_$items(_templateObject491 || (_templateObject491 = leveling_taggedTemplateLiteral(["God Lobster's Ring, God Lobster's Scepter"]))),
-      familiar: template_string_$familiar(_templateObject492 || (_templateObject492 = leveling_taggedTemplateLiteral(["God Lobster"])))
+      famequip: template_string_$items(_templateObject499 || (_templateObject499 = leveling_taggedTemplateLiteral(["God Lobster's Ring, God Lobster's Scepter"]))),
+      familiar: template_string_$familiar(_templateObject500 || (_templateObject500 = leveling_taggedTemplateLiteral(["God Lobster"])))
     }),
     limit: {
       tries: 3
@@ -19316,10 +14922,10 @@ var LevelingQuest = {
       tryAcquiringEffects(usefulEffects);
       attemptRestoringMpWithFreeRests(50);
     },
-    completed: () => property_get("_eldritchHorrorEvoked") || !lib_have(template_string_$skill(_templateObject493 || (_templateObject493 = leveling_taggedTemplateLiteral(["Evoke Eldritch Horror"])))),
-    do: () => (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject494 || (_templateObject494 = leveling_taggedTemplateLiteral(["Evoke Eldritch Horror"])))),
+    completed: () => property_get("_eldritchHorrorEvoked") || !lib_have(template_string_$skill(_templateObject501 || (_templateObject501 = leveling_taggedTemplateLiteral(["Evoke Eldritch Horror"])))),
+    do: () => (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject502 || (_templateObject502 = leveling_taggedTemplateLiteral(["Evoke Eldritch Horror"])))),
     post: () => {
-      if (lib_have(template_string_$effect(_templateObject495 || (_templateObject495 = leveling_taggedTemplateLiteral(["Beaten Up"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");
+      if (lib_have(template_string_$effect(_templateObject503 || (_templateObject503 = leveling_taggedTemplateLiteral(["Beaten Up"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");
       sendAutumnaton();
       sellMiscellaneousItems();
     },
@@ -19333,8 +14939,8 @@ var LevelingQuest = {
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
 
-      if (lib_have(template_string_$item(_templateObject496 || (_templateObject496 = leveling_taggedTemplateLiteral(["Roman Candelabra"])))) && !lib_have(template_string_$effect(_templateObject497 || (_templateObject497 = leveling_taggedTemplateLiteral(["Everything Looks Purple"]))))) {
-        (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject498 || (_templateObject498 = leveling_taggedTemplateLiteral(["offhand"]))), template_string_$item(_templateObject499 || (_templateObject499 = leveling_taggedTemplateLiteral(["Roman Candelabra"]))));
+      if (lib_have(template_string_$item(_templateObject504 || (_templateObject504 = leveling_taggedTemplateLiteral(["Roman Candelabra"])))) && !lib_have(template_string_$effect(_templateObject505 || (_templateObject505 = leveling_taggedTemplateLiteral(["Everything Looks Purple"]))))) {
+        (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject506 || (_templateObject506 = leveling_taggedTemplateLiteral(["offhand"]))), template_string_$item(_templateObject507 || (_templateObject507 = leveling_taggedTemplateLiteral(["Roman Candelabra"]))));
       } else {
         unbreakableUmbrella();
       }
@@ -19344,11 +14950,16 @@ var LevelingQuest = {
     },
     completed: () => property_get("_witchessFights") >= 4 - (property_get("instant_skipBishopsForRoyalty", false) ? 2 : 0) || !Witchess_have() || property_get("instant_saveWitchess", false),
     do: () => {
-      fightPiece($monster(_templateObject500 || (_templateObject500 = leveling_taggedTemplateLiteral(["Witchess Bishop"]))));
+      fightPiece($monster(_templateObject508 || (_templateObject508 = leveling_taggedTemplateLiteral(["Witchess Bishop"]))));
       (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     },
-    combat: new CombatStrategy().macro(() => combat_Macro.externalIf(property_get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject501 || (_templateObject501 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))), combat_Macro.trySkill(template_string_$skill(_templateObject502 || (_templateObject502 = leveling_taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))).trySkill(template_string_$skill(_templateObject503 || (_templateObject503 = leveling_taggedTemplateLiteral(["Blow the Purple Candle!"])))).default(useCinch)),
-    outfit: () => baseOutfit(),
+    combat: new CombatStrategy().macro(() => combat_Macro.externalIf(property_get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject509 || (_templateObject509 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))), combat_Macro.trySkill(template_string_$skill(_templateObject510 || (_templateObject510 = leveling_taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))).trySkill(template_string_$skill(_templateObject511 || (_templateObject511 = leveling_taggedTemplateLiteral(["Blow the Purple Candle!"])))) // eslint-disable-next-line libram/verify-constants
+    .trySkill(template_string_$skill(_templateObject512 || (_templateObject512 = leveling_taggedTemplateLiteral(["Club 'Em Into Next Week"])))).default(useCinch)),
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
+      weapon: property_get("_clubEmNextWeekUsed", 0) >= 5 - property_get("instant_saveClubEmNextWeek", 0) || // eslint-disable-next-line libram/verify-constants
+      !lib_have(template_string_$item(_templateObject513 || (_templateObject513 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))) ? baseOutfit().weapon : // eslint-disable-next-line libram/verify-constants
+      template_string_$item(_templateObject514 || (_templateObject514 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))
+    }),
     post: () => {
       (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
       sendAutumnaton();
@@ -19365,11 +14976,11 @@ var LevelingQuest = {
       tryAcquiringEffects(usefulEffects);
       attemptRestoringMpWithFreeRests(50);
     },
-    completed: () => property_get("_machineTunnelsAdv") >= 5 || !lib_have(template_string_$familiar(_templateObject504 || (_templateObject504 = leveling_taggedTemplateLiteral(["Machine Elf"])))),
-    do: $location(_templateObject505 || (_templateObject505 = leveling_taggedTemplateLiteral(["The Deep Machine Tunnels"]))),
+    completed: () => property_get("_machineTunnelsAdv") >= 5 || !lib_have(template_string_$familiar(_templateObject515 || (_templateObject515 = leveling_taggedTemplateLiteral(["Machine Elf"])))),
+    do: $location(_templateObject516 || (_templateObject516 = leveling_taggedTemplateLiteral(["The Deep Machine Tunnels"]))),
     combat: new CombatStrategy().macro(combat_Macro["default"](useCinch)),
     outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      familiar: template_string_$familiar(_templateObject506 || (_templateObject506 = leveling_taggedTemplateLiteral(["Machine Elf"])))
+      familiar: template_string_$familiar(_templateObject517 || (_templateObject517 = leveling_taggedTemplateLiteral(["Machine Elf"])))
     }),
     limit: {
       tries: 5
@@ -19380,7 +14991,7 @@ var LevelingQuest = {
     }
   }, {
     name: "Powerlevel",
-    completed: () => (0,external_kolmafia_namespaceObject.myBasestat)(mainStat) >= targetBaseMainStat - targetBaseMainStatGap && (haveCBBIngredients(false) || overleveled() || craftedCBBEffects.some(ef => lib_have(ef)) || craftedCBBEffects.every(ef => acquiredOrExcluded(ef))) && (powerlevelingLocation() !== $location(_templateObject507 || (_templateObject507 = leveling_taggedTemplateLiteral(["The Neverending Party"]))) || property_get("_neverendingPartyFreeTurns") >= 10),
+    completed: () => (0,external_kolmafia_namespaceObject.myBasestat)(mainStat) >= targetBaseMainStat - targetBaseMainStatGap && (haveCBBIngredients(false) || overleveled() || craftedCBBEffects.some(ef => lib_have(ef)) || craftedCBBEffects.every(ef => acquiredOrExcluded(ef))) && (powerlevelingLocation() !== $location(_templateObject518 || (_templateObject518 = leveling_taggedTemplateLiteral(["The Neverending Party"]))) || property_get("_neverendingPartyFreeTurns") >= 10),
     do: powerlevelingLocation(),
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
@@ -19389,12 +15000,12 @@ var LevelingQuest = {
       tryAcquiringEffects(usefulEffects);
       attemptRestoringMpWithFreeRests(50);
 
-      if (!lib_have(template_string_$effect(_templateObject508 || (_templateObject508 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !lib_have(template_string_$item(_templateObject509 || (_templateObject509 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
-        if ((0,external_kolmafia_namespaceObject.myMeat)() >= 250) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject510 || (_templateObject510 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
+      if (!lib_have(template_string_$effect(_templateObject519 || (_templateObject519 = leveling_taggedTemplateLiteral(["Everything Looks Red"])))) && !lib_have(template_string_$item(_templateObject520 || (_templateObject520 = leveling_taggedTemplateLiteral(["red rocket"]))))) {
+        if ((0,external_kolmafia_namespaceObject.myMeat)() >= 250) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject521 || (_templateObject521 = leveling_taggedTemplateLiteral(["red rocket"]))), 1);
       }
     },
     outfit: () => leveling_objectSpread({
-      back: property_get("_batWingsFreeFights") < 5 ? template_string_$item(_templateObject511 || (_templateObject511 = leveling_taggedTemplateLiteral(["bat wings"]))) : undefined
+      back: property_get("_batWingsFreeFights") < 5 ? template_string_$item(_templateObject522 || (_templateObject522 = leveling_taggedTemplateLiteral(["bat wings"]))) : undefined
     }, baseOutfit()),
     limit: {
       tries: 60
@@ -19405,10 +15016,10 @@ var LevelingQuest = {
       1322: 2,
       1324: 5
     },
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject512 || (_templateObject512 = leveling_taggedTemplateLiteral(["Sea *dent: Talk to Some Fish"])))).tryItem(template_string_$item(_templateObject513 || (_templateObject513 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject514 || (_templateObject514 = leveling_taggedTemplateLiteral(["Bowl Sideways"])))).trySkill(template_string_$skill(_templateObject515 || (_templateObject515 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).default(useCinch)),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject523 || (_templateObject523 = leveling_taggedTemplateLiteral(["Sea *dent: Talk to Some Fish"])))).tryItem(template_string_$item(_templateObject524 || (_templateObject524 = leveling_taggedTemplateLiteral(["red rocket"])))).trySkill(template_string_$skill(_templateObject525 || (_templateObject525 = leveling_taggedTemplateLiteral(["Bowl Sideways"])))).trySkill(template_string_$skill(_templateObject526 || (_templateObject526 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).default(useCinch)),
     post: () => {
       haveCBBIngredients(false, true);
-      if (lib_have(template_string_$item(_templateObject516 || (_templateObject516 = leveling_taggedTemplateLiteral(["SMOOCH coffee cup"]))))) (0,external_kolmafia_namespaceObject.chew)(template_string_$item(_templateObject517 || (_templateObject517 = leveling_taggedTemplateLiteral(["SMOOCH coffee cup"]))), 1);
+      if (lib_have(template_string_$item(_templateObject527 || (_templateObject527 = leveling_taggedTemplateLiteral(["SMOOCH coffee cup"]))))) (0,external_kolmafia_namespaceObject.chew)(template_string_$item(_templateObject528 || (_templateObject528 = leveling_taggedTemplateLiteral(["SMOOCH coffee cup"]))), 1);
       sendAutumnaton();
       sellMiscellaneousItems();
     }
@@ -19421,7 +15032,7 @@ var LevelingQuest = {
     }
   }, {
     name: "Free Fight Busks",
-    completed: () => !lib_have(template_string_$item(_templateObject518 || (_templateObject518 = leveling_taggedTemplateLiteral(["prismatic beret"])))) || currentBusk() > Math.max.apply(Math, leveling_toConsumableArray(property_get("instant_freeFightBusks", "0:0").split(",").map(s => {
+    completed: () => !lib_have(template_string_$item(_templateObject529 || (_templateObject529 = leveling_taggedTemplateLiteral(["prismatic beret"])))) || currentBusk() > Math.max.apply(Math, leveling_toConsumableArray(property_get("instant_freeFightBusks", "0:0").split(",").map(s => {
       var _s$split$at2, _s$split2;
 
       return (0,external_kolmafia_namespaceObject.toInt)((_s$split$at2 = (_s$split2 = s.split(":")) === null || _s$split2 === void 0 ? void 0 : _s$split2.at(0)) !== null && _s$split$at2 !== void 0 ? _s$split$at2 : "0");
@@ -19432,14 +15043,14 @@ var LevelingQuest = {
     }
   }, {
     name: "Acquire Wad of Dough",
-    completed: () => lib_have(template_string_$item(_templateObject519 || (_templateObject519 = leveling_taggedTemplateLiteral(["wad of dough"])))) || property_get("instant_saveHoneyBun", false) && property_get("instant_saveWileyWheyBar", false),
+    completed: () => lib_have(template_string_$item(_templateObject530 || (_templateObject530 = leveling_taggedTemplateLiteral(["wad of dough"])))) || property_get("instant_saveHoneyBun", false) && property_get("instant_saveWileyWheyBar", false),
     do: () => {
       if ((0,external_kolmafia_namespaceObject.myMeat)() < 100) throw new Error("Insufficient Meat to purchase all-purpose flower!");
-      if (!lib_have(template_string_$item(_templateObject520 || (_templateObject520 = leveling_taggedTemplateLiteral(["all-purpose flower"]))))) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject521 || (_templateObject521 = leveling_taggedTemplateLiteral(["all-purpose flower"]))), 1);
-      (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject522 || (_templateObject522 = leveling_taggedTemplateLiteral(["all-purpose flower"]))), 1);
+      if (!lib_have(template_string_$item(_templateObject531 || (_templateObject531 = leveling_taggedTemplateLiteral(["all-purpose flower"]))))) (0,external_kolmafia_namespaceObject.buy)(template_string_$item(_templateObject532 || (_templateObject532 = leveling_taggedTemplateLiteral(["all-purpose flower"]))), 1);
+      (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject533 || (_templateObject533 = leveling_taggedTemplateLiteral(["all-purpose flower"]))), 1);
     },
     post: () => {
-      if (!lib_have(template_string_$item(_templateObject523 || (_templateObject523 = leveling_taggedTemplateLiteral(["flat dough"]))))) (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject524 || (_templateObject524 = leveling_taggedTemplateLiteral(["wad of dough"]))), 1);
+      if (!lib_have(template_string_$item(_templateObject534 || (_templateObject534 = leveling_taggedTemplateLiteral(["flat dough"]))))) (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject535 || (_templateObject535 = leveling_taggedTemplateLiteral(["wad of dough"]))), 1);
     },
     limit: {
       tries: 1
@@ -19458,9 +15069,9 @@ var LevelingQuest = {
         }
       });
 
-      if ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject525 || (_templateObject525 = leveling_taggedTemplateLiteral(["Vegetable of Jarlsberg"])))) >= 2 && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject526 || (_templateObject526 = leveling_taggedTemplateLiteral(["St. Sneaky Pete's Whey"])))) >= 2 && !acquiredOrExcluded(template_string_$effect(_templateObject527 || (_templateObject527 = leveling_taggedTemplateLiteral(["Pretty Delicious"])))) && !property_get("instant_saveRicottaCasserole", false)) {
-        if (!lib_have(template_string_$item(_templateObject528 || (_templateObject528 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))))) (0,external_kolmafia_namespaceObject.create)(template_string_$item(_templateObject529 || (_templateObject529 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))), 1);
-        (0,external_kolmafia_namespaceObject.eat)(template_string_$item(_templateObject530 || (_templateObject530 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))), 1);
+      if ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject536 || (_templateObject536 = leveling_taggedTemplateLiteral(["Vegetable of Jarlsberg"])))) >= 2 && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject537 || (_templateObject537 = leveling_taggedTemplateLiteral(["St. Sneaky Pete's Whey"])))) >= 2 && !acquiredOrExcluded(template_string_$effect(_templateObject538 || (_templateObject538 = leveling_taggedTemplateLiteral(["Pretty Delicious"])))) && !property_get("instant_saveRicottaCasserole", false)) {
+        if (!lib_have(template_string_$item(_templateObject539 || (_templateObject539 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))))) (0,external_kolmafia_namespaceObject.create)(template_string_$item(_templateObject540 || (_templateObject540 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))), 1);
+        (0,external_kolmafia_namespaceObject.eat)(template_string_$item(_templateObject541 || (_templateObject541 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))), 1);
       }
 
       triedCraftingCBBFoods = true;
@@ -19471,7 +15082,7 @@ var LevelingQuest = {
   }, {
     name: "Drink Bee's Knees",
     after: ["Powerlevel"],
-    completed: () => acquiredOrExcluded(template_string_$effect(_templateObject531 || (_templateObject531 = leveling_taggedTemplateLiteral(["On the Trolley"])))) || property_get("instant_saveBeesKnees", false),
+    completed: () => acquiredOrExcluded(template_string_$effect(_templateObject542 || (_templateObject542 = leveling_taggedTemplateLiteral(["On the Trolley"])))) || property_get("instant_saveBeesKnees", false),
     do: () => {
       if ((0,external_kolmafia_namespaceObject.myMeat)() < 500) throw new Error("Insufficient Meat to purchase Bee's Knees!");
       tryAcquiringOdeToBooze();
@@ -19482,23 +15093,23 @@ var LevelingQuest = {
     }
   }, {
     name: "Acquire Lyle's Buff",
-    completed: () => acquiredOrExcluded(template_string_$effect(_templateObject532 || (_templateObject532 = leveling_taggedTemplateLiteral(["Favored by Lyle"])))) || property_get("_lyleFavored"),
-    do: () => tryAcquiringEffects($effects(_templateObject533 || (_templateObject533 = leveling_taggedTemplateLiteral(["Favored by Lyle, Starry-Eyed"])))),
+    completed: () => acquiredOrExcluded(template_string_$effect(_templateObject543 || (_templateObject543 = leveling_taggedTemplateLiteral(["Favored by Lyle"])))) || property_get("_lyleFavored"),
+    do: () => tryAcquiringEffects($effects(_templateObject544 || (_templateObject544 = leveling_taggedTemplateLiteral(["Favored by Lyle, Starry-Eyed"])))),
     limit: {
       tries: 1
     }
   }, {
     name: "Cross Streams",
-    completed: () => property_get("_streamsCrossed") || acquiredOrExcluded(template_string_$effect(_templateObject534 || (_templateObject534 = leveling_taggedTemplateLiteral(["Total Protonic Reversal"])))) || !lib_have(template_string_$item(_templateObject535 || (_templateObject535 = leveling_taggedTemplateLiteral(["protonic accelerator pack"])))),
+    completed: () => property_get("_streamsCrossed") || acquiredOrExcluded(template_string_$effect(_templateObject545 || (_templateObject545 = leveling_taggedTemplateLiteral(["Total Protonic Reversal"])))) || !lib_have(template_string_$item(_templateObject546 || (_templateObject546 = leveling_taggedTemplateLiteral(["protonic accelerator pack"])))),
     do: () => (0,external_kolmafia_namespaceObject.cliExecute)("crossstreams"),
     limit: {
       tries: 1
     }
   }, {
     name: "Apriling Band Quad Tom Sandworms",
-    completed: () => !lib_have(template_string_$item(_templateObject536 || (_templateObject536 = leveling_taggedTemplateLiteral(["Apriling band quad tom"])))) || property_get("_aprilBandTomUses") >= 3,
+    completed: () => !lib_have(template_string_$item(_templateObject547 || (_templateObject547 = leveling_taggedTemplateLiteral(["Apriling band quad tom"])))) || property_get("_aprilBandTomUses") >= 3,
     do: () => {
-      play(template_string_$item(_templateObject537 || (_templateObject537 = leveling_taggedTemplateLiteral(["Apriling band quad tom"]))));
+      play(template_string_$item(_templateObject548 || (_templateObject548 = leveling_taggedTemplateLiteral(["Apriling band quad tom"]))));
       (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     },
     combat: new CombatStrategy().macro(combat_Macro["default"](useCinch)),
@@ -19515,8 +15126,8 @@ var LevelingQuest = {
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
 
-      if (lib_have(template_string_$item(_templateObject538 || (_templateObject538 = leveling_taggedTemplateLiteral(["Roman Candelabra"])))) && !lib_have(template_string_$effect(_templateObject539 || (_templateObject539 = leveling_taggedTemplateLiteral(["Everything Looks Purple"]))))) {
-        (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject540 || (_templateObject540 = leveling_taggedTemplateLiteral(["offhand"]))), template_string_$item(_templateObject541 || (_templateObject541 = leveling_taggedTemplateLiteral(["Roman Candelabra"]))));
+      if (lib_have(template_string_$item(_templateObject549 || (_templateObject549 = leveling_taggedTemplateLiteral(["Roman Candelabra"])))) && !lib_have(template_string_$effect(_templateObject550 || (_templateObject550 = leveling_taggedTemplateLiteral(["Everything Looks Purple"]))))) {
+        (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject551 || (_templateObject551 = leveling_taggedTemplateLiteral(["offhand"]))), template_string_$item(_templateObject552 || (_templateObject552 = leveling_taggedTemplateLiteral(["Roman Candelabra"]))));
       } else {
         unbreakableUmbrella();
       }
@@ -19524,29 +15135,34 @@ var LevelingQuest = {
       tryAcquiringEffects(usefulEffects);
       attemptRestoringMpWithFreeRests(50);
     },
-    completed: () => property_get("instant_saveMimicEggs", false) || property_get("_mimicEggsObtained") > 0 || !haveAndNotExcluded(template_string_$familiar(_templateObject542 || (_templateObject542 = leveling_taggedTemplateLiteral(["Chest Mimic"])))) || !(lib_have(template_string_$familiar(_templateObject543 || (_templateObject543 = leveling_taggedTemplateLiteral(["Shorter-Order Cook"])))) && lib_have(template_string_$item(_templateObject544 || (_templateObject544 = leveling_taggedTemplateLiteral(["blue plate"]))))) && !(lib_have(template_string_$item(_templateObject545 || (_templateObject545 = leveling_taggedTemplateLiteral(["Apriling band piccolo"])))) && property_get("_aprilBandPiccoloUses") < 3),
+    completed: () => property_get("instant_saveMimicEggs", false) || property_get("_mimicEggsObtained") > 0 || !haveAndNotExcluded(template_string_$familiar(_templateObject553 || (_templateObject553 = leveling_taggedTemplateLiteral(["Chest Mimic"])))) || !(lib_have(template_string_$familiar(_templateObject554 || (_templateObject554 = leveling_taggedTemplateLiteral(["Shorter-Order Cook"])))) && lib_have(template_string_$item(_templateObject555 || (_templateObject555 = leveling_taggedTemplateLiteral(["blue plate"]))))) && !(lib_have(template_string_$item(_templateObject556 || (_templateObject556 = leveling_taggedTemplateLiteral(["Apriling band piccolo"])))) && property_get("_aprilBandPiccoloUses") < 3),
     do: () => {
       var currentFamiliar = (0,external_kolmafia_namespaceObject.myFamiliar)();
 
-      if (haveAndNotExcluded(template_string_$familiar(_templateObject546 || (_templateObject546 = leveling_taggedTemplateLiteral(["Shorter-Order Cook"])))) && lib_have(template_string_$item(_templateObject547 || (_templateObject547 = leveling_taggedTemplateLiteral(["blue plate"]))))) {
-        (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject548 || (_templateObject548 = leveling_taggedTemplateLiteral(["Shorter-Order Cook"]))));
-        (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject549 || (_templateObject549 = leveling_taggedTemplateLiteral(["familiar"]))), template_string_$item(_templateObject550 || (_templateObject550 = leveling_taggedTemplateLiteral(["blue plate"]))));
+      if (haveAndNotExcluded(template_string_$familiar(_templateObject557 || (_templateObject557 = leveling_taggedTemplateLiteral(["Shorter-Order Cook"])))) && lib_have(template_string_$item(_templateObject558 || (_templateObject558 = leveling_taggedTemplateLiteral(["blue plate"]))))) {
+        (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject559 || (_templateObject559 = leveling_taggedTemplateLiteral(["Shorter-Order Cook"]))));
+        (0,external_kolmafia_namespaceObject.equip)($slot(_templateObject560 || (_templateObject560 = leveling_taggedTemplateLiteral(["familiar"]))), template_string_$item(_templateObject561 || (_templateObject561 = leveling_taggedTemplateLiteral(["blue plate"]))));
       }
 
-      (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject551 || (_templateObject551 = leveling_taggedTemplateLiteral(["Chest Mimic"]))));
+      (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject562 || (_templateObject562 = leveling_taggedTemplateLiteral(["Chest Mimic"]))));
 
-      if (lib_have(template_string_$item(_templateObject552 || (_templateObject552 = leveling_taggedTemplateLiteral(["Apriling band piccolo"])))) && property_get("_aprilBandPiccoloUses") < 3) {
-        (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(_templateObject553 || (_templateObject553 = leveling_taggedTemplateLiteral(["Apriling band piccolo"])))); // We can't play the piccolo if it's equipped on a non-current familiar
+      if (lib_have(template_string_$item(_templateObject563 || (_templateObject563 = leveling_taggedTemplateLiteral(["Apriling band piccolo"])))) && property_get("_aprilBandPiccoloUses") < 3) {
+        (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(_templateObject564 || (_templateObject564 = leveling_taggedTemplateLiteral(["Apriling band piccolo"])))); // We can't play the piccolo if it's equipped on a non-current familiar
 
-        Array(3 - property_get("_aprilBandPiccoloUses")).fill(0).forEach(() => play(template_string_$item(_templateObject554 || (_templateObject554 = leveling_taggedTemplateLiteral(["Apriling band piccolo"])))));
+        Array(3 - property_get("_aprilBandPiccoloUses")).fill(0).forEach(() => play(template_string_$item(_templateObject565 || (_templateObject565 = leveling_taggedTemplateLiteral(["Apriling band piccolo"])))));
       }
 
-      receive($monster(_templateObject555 || (_templateObject555 = leveling_taggedTemplateLiteral(["sausage goblin"]))));
+      receive($monster(_templateObject566 || (_templateObject566 = leveling_taggedTemplateLiteral(["sausage goblin"]))));
       (0,external_kolmafia_namespaceObject.useFamiliar)(currentFamiliar);
-      differentiate($monster(_templateObject556 || (_templateObject556 = leveling_taggedTemplateLiteral(["sausage goblin"]))));
+      differentiate($monster(_templateObject567 || (_templateObject567 = leveling_taggedTemplateLiteral(["sausage goblin"]))));
     },
-    combat: new CombatStrategy().macro(() => combat_Macro.externalIf(property_get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject557 || (_templateObject557 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))), combat_Macro.trySkill(template_string_$skill(_templateObject558 || (_templateObject558 = leveling_taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))).trySkill(template_string_$skill(_templateObject559 || (_templateObject559 = leveling_taggedTemplateLiteral(["Blow the Purple Candle!"])))).default(useCinch)),
-    outfit: () => baseOutfit(),
+    combat: new CombatStrategy().macro(() => combat_Macro.externalIf(property_get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject568 || (_templateObject568 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))), combat_Macro.trySkill(template_string_$skill(_templateObject569 || (_templateObject569 = leveling_taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))).trySkill(template_string_$skill(_templateObject570 || (_templateObject570 = leveling_taggedTemplateLiteral(["Blow the Purple Candle!"])))) // eslint-disable-next-line libram/verify-constants
+    .trySkill(template_string_$skill(_templateObject571 || (_templateObject571 = leveling_taggedTemplateLiteral(["Club 'Em Into Next Week"])))).default(useCinch)),
+    outfit: () => leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
+      weapon: property_get("_clubEmNextWeekUsed", 0) >= 5 - property_get("instant_saveClubEmNextWeek", 0) || // eslint-disable-next-line libram/verify-constants
+      !lib_have(template_string_$item(_templateObject572 || (_templateObject572 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))) ? baseOutfit().weapon : // eslint-disable-next-line libram/verify-constants
+      template_string_$item(_templateObject573 || (_templateObject573 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))
+    }),
     post: () => {
       (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
       sendAutumnaton();
@@ -19559,13 +15175,13 @@ var LevelingQuest = {
     name: "Witchess King",
     prepare: () => {
       garbageShirt();
-      tryAcquiringEffects([].concat(leveling_toConsumableArray(usefulEffects.filter(ef => !$effects(_templateObject560 || (_templateObject560 = leveling_taggedTemplateLiteral(["Song of Sauce, Song of Bravado"]))).includes(ef))), prismaticEffects, wdmgEffects));
+      tryAcquiringEffects([].concat(leveling_toConsumableArray(usefulEffects.filter(ef => !$effects(_templateObject574 || (_templateObject574 = leveling_taggedTemplateLiteral(["Song of Sauce, Song of Bravado"]))).includes(ef))), prismaticEffects, wdmgEffects));
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
       attemptRestoringMpWithFreeRests(50);
     },
-    completed: () => lib_have(template_string_$item(_templateObject561 || (_templateObject561 = leveling_taggedTemplateLiteral(["dented scepter"])))) || property_get("_witchessFights") >= 5 || !Witchess_have() || property_get("instant_saveWitchess", false),
-    do: () => fightPiece($monster(_templateObject562 || (_templateObject562 = leveling_taggedTemplateLiteral(["Witchess King"])))),
-    combat: new CombatStrategy().macro(combat_Macro.while_("!mpbelow ".concat((0,external_kolmafia_namespaceObject.mpCost)(template_string_$skill(_templateObject563 || (_templateObject563 = leveling_taggedTemplateLiteral(["Toynado"])))), " && hasskill ").concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(_templateObject564 || (_templateObject564 = leveling_taggedTemplateLiteral(["Toynado"]))))), combat_Macro.skill(template_string_$skill(_templateObject565 || (_templateObject565 = leveling_taggedTemplateLiteral(["Toynado"]))))).default(useCinch)),
+    completed: () => lib_have(template_string_$item(_templateObject575 || (_templateObject575 = leveling_taggedTemplateLiteral(["dented scepter"])))) || property_get("_witchessFights") >= 5 || !Witchess_have() || property_get("instant_saveWitchess", false),
+    do: () => fightPiece($monster(_templateObject576 || (_templateObject576 = leveling_taggedTemplateLiteral(["Witchess King"])))),
+    combat: new CombatStrategy().macro(combat_Macro.while_("!mpbelow ".concat((0,external_kolmafia_namespaceObject.mpCost)(template_string_$skill(_templateObject577 || (_templateObject577 = leveling_taggedTemplateLiteral(["Toynado"])))), " && hasskill ").concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(_templateObject578 || (_templateObject578 = leveling_taggedTemplateLiteral(["Toynado"]))))), combat_Macro.skill(template_string_$skill(_templateObject579 || (_templateObject579 = leveling_taggedTemplateLiteral(["Toynado"]))))).default(useCinch)),
     outfit: () => baseOutfit(),
     post: () => {
       sendAutumnaton();
@@ -19578,17 +15194,17 @@ var LevelingQuest = {
     name: "Witchess Witch",
     prepare: () => {
       garbageShirt();
-      tryAcquiringEffects([].concat(leveling_toConsumableArray(usefulEffects.filter(ef => !$effects(_templateObject566 || (_templateObject566 = leveling_taggedTemplateLiteral(["Song of Sauce, Song of Bravado"]))).includes(ef))), prismaticEffects, wdmgEffects));
+      tryAcquiringEffects([].concat(leveling_toConsumableArray(usefulEffects.filter(ef => !$effects(_templateObject580 || (_templateObject580 = leveling_taggedTemplateLiteral(["Song of Sauce, Song of Bravado"]))).includes(ef))), prismaticEffects, wdmgEffects));
       if (property_get("_hotTubSoaks") < 5 && (0,external_kolmafia_namespaceObject.myHp)() < (0,external_kolmafia_namespaceObject.myMaxhp)()) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
       attemptRestoringMpWithFreeRests(50);
     },
-    completed: () => lib_have(template_string_$item(_templateObject567 || (_templateObject567 = leveling_taggedTemplateLiteral(["battle broom"])))) || property_get("_witchessFights") >= 5 || !Witchess_have() || property_get("instant_saveWitchess", false),
-    do: () => fightPiece($monster(_templateObject568 || (_templateObject568 = leveling_taggedTemplateLiteral(["Witchess Witch"])))),
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject569 || (_templateObject569 = leveling_taggedTemplateLiteral(["Curse of Weaksauce"])))).attack().repeat()),
+    completed: () => lib_have(template_string_$item(_templateObject581 || (_templateObject581 = leveling_taggedTemplateLiteral(["battle broom"])))) || property_get("_witchessFights") >= 5 || !Witchess_have() || property_get("instant_saveWitchess", false),
+    do: () => fightPiece($monster(_templateObject582 || (_templateObject582 = leveling_taggedTemplateLiteral(["Witchess Witch"])))),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject583 || (_templateObject583 = leveling_taggedTemplateLiteral(["Curse of Weaksauce"])))).attack().repeat()),
     outfit: leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      weapon: lib_have(template_string_$effect(_templateObject570 || (_templateObject570 = leveling_taggedTemplateLiteral(["Comic Violence"])))) && lib_have(template_string_$item(_templateObject571 || (_templateObject571 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) ? template_string_$item(_templateObject572 || (_templateObject572 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"]))) : template_string_$item(_templateObject573 || (_templateObject573 = leveling_taggedTemplateLiteral(["June cleaver"]))),
-      offhand: lib_have(template_string_$skill(_templateObject574 || (_templateObject574 = leveling_taggedTemplateLiteral(["Double-Fisted Skull Smashing"])))) ? template_string_$item(_templateObject575 || (_templateObject575 = leveling_taggedTemplateLiteral(["dented scepter"]))) : undefined,
+      weapon: lib_have(template_string_$effect(_templateObject584 || (_templateObject584 = leveling_taggedTemplateLiteral(["Comic Violence"])))) && lib_have(template_string_$item(_templateObject585 || (_templateObject585 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) ? template_string_$item(_templateObject586 || (_templateObject586 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"]))) : template_string_$item(_templateObject587 || (_templateObject587 = leveling_taggedTemplateLiteral(["June cleaver"]))),
+      offhand: lib_have(template_string_$skill(_templateObject588 || (_templateObject588 = leveling_taggedTemplateLiteral(["Double-Fisted Skull Smashing"])))) ? template_string_$item(_templateObject589 || (_templateObject589 = leveling_taggedTemplateLiteral(["dented scepter"]))) : undefined,
       modifier: "weapon dmg"
     }),
     post: () => {
@@ -19602,17 +15218,17 @@ var LevelingQuest = {
     name: "Witchess Queen",
     prepare: () => {
       garbageShirt();
-      tryAcquiringEffects([].concat(leveling_toConsumableArray(usefulEffects.filter(ef => !$effects(_templateObject576 || (_templateObject576 = leveling_taggedTemplateLiteral(["Song of Sauce, Song of Bravado"]))).includes(ef))), prismaticEffects, wdmgEffects));
+      tryAcquiringEffects([].concat(leveling_toConsumableArray(usefulEffects.filter(ef => !$effects(_templateObject590 || (_templateObject590 = leveling_taggedTemplateLiteral(["Song of Sauce, Song of Bravado"]))).includes(ef))), prismaticEffects, wdmgEffects));
       if (property_get("_hotTubSoaks") < 5 && (0,external_kolmafia_namespaceObject.myHp)() < (0,external_kolmafia_namespaceObject.myMaxhp)()) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
       attemptRestoringMpWithFreeRests(50);
     },
-    completed: () => lib_have(template_string_$item(_templateObject577 || (_templateObject577 = leveling_taggedTemplateLiteral(["very pointy crown"])))) || property_get("_witchessFights") >= 5 || !Witchess_have() || property_get("instant_saveWitchess", false),
-    do: () => fightPiece($monster(_templateObject578 || (_templateObject578 = leveling_taggedTemplateLiteral(["Witchess Queen"])))),
+    completed: () => lib_have(template_string_$item(_templateObject591 || (_templateObject591 = leveling_taggedTemplateLiteral(["very pointy crown"])))) || property_get("_witchessFights") >= 5 || !Witchess_have() || property_get("instant_saveWitchess", false),
+    do: () => fightPiece($monster(_templateObject592 || (_templateObject592 = leveling_taggedTemplateLiteral(["Witchess Queen"])))),
     combat: new CombatStrategy().macro(combat_Macro.attack().repeat()),
     outfit: leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-      weapon: lib_have(template_string_$effect(_templateObject579 || (_templateObject579 = leveling_taggedTemplateLiteral(["Comic Violence"])))) && lib_have(template_string_$item(_templateObject580 || (_templateObject580 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) ? template_string_$item(_templateObject581 || (_templateObject581 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"]))) : template_string_$item(_templateObject582 || (_templateObject582 = leveling_taggedTemplateLiteral(["June cleaver"]))),
-      offhand: lib_have(template_string_$skill(_templateObject583 || (_templateObject583 = leveling_taggedTemplateLiteral(["Double-Fisted Skull Smashing"])))) ? template_string_$item(_templateObject584 || (_templateObject584 = leveling_taggedTemplateLiteral(["dented scepter"]))) : undefined
+      weapon: lib_have(template_string_$effect(_templateObject593 || (_templateObject593 = leveling_taggedTemplateLiteral(["Comic Violence"])))) && lib_have(template_string_$item(_templateObject594 || (_templateObject594 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) ? template_string_$item(_templateObject595 || (_templateObject595 = leveling_taggedTemplateLiteral(["Fourth of May Cosplay Saber"]))) : template_string_$item(_templateObject596 || (_templateObject596 = leveling_taggedTemplateLiteral(["June cleaver"]))),
+      offhand: lib_have(template_string_$skill(_templateObject597 || (_templateObject597 = leveling_taggedTemplateLiteral(["Double-Fisted Skull Smashing"])))) ? template_string_$item(_templateObject598 || (_templateObject598 = leveling_taggedTemplateLiteral(["dented scepter"]))) : undefined
     }),
     post: () => {
       sendAutumnaton();
@@ -19630,10 +15246,10 @@ var LevelingQuest = {
       tryAcquiringEffects(usefulEffects);
       attemptRestoringMpWithFreeRests(50);
     },
-    completed: () => monstersReminisced().includes($monster(_templateObject585 || (_templateObject585 = leveling_taggedTemplateLiteral(["Witchess King"])))) || !availableLocketMonsters().includes($monster(_templateObject586 || (_templateObject586 = leveling_taggedTemplateLiteral(["Witchess King"])))) || property_get("instant_saveLocketWitchessKing", false) || lib_have(template_string_$item(_templateObject587 || (_templateObject587 = leveling_taggedTemplateLiteral(["dented scepter"])))),
-    do: () => reminisce($monster(_templateObject588 || (_templateObject588 = leveling_taggedTemplateLiteral(["Witchess King"])))),
-    combat: new CombatStrategy().macro(() => combat_Macro.externalIf(property_get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject589 || (_templateObject589 = leveling_taggedTemplateLiteral(["fluffy bunny"]))))), combat_Macro.trySkill(template_string_$skill(_templateObject590 || (_templateObject590 = leveling_taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))).while_("!mpbelow ".concat((0,external_kolmafia_namespaceObject.mpCost)(template_string_$skill(_templateObject591 || (_templateObject591 = leveling_taggedTemplateLiteral(["Toynado"])))), " && hasskill ").concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(_templateObject592 || (_templateObject592 = leveling_taggedTemplateLiteral(["Toynado"]))))), combat_Macro.skill(template_string_$skill(_templateObject593 || (_templateObject593 = leveling_taggedTemplateLiteral(["Toynado"]))))).default(useCinch)),
-    outfit: () => baseOutfit(),
+    completed: () => monstersReminisced().includes($monster(_templateObject599 || (_templateObject599 = leveling_taggedTemplateLiteral(["Witchess King"])))) || !availableLocketMonsters().includes($monster(_templateObject600 || (_templateObject600 = leveling_taggedTemplateLiteral(["Witchess King"])))) || property_get("instant_saveLocketWitchessKing", false) || lib_have(template_string_$item(_templateObject601 || (_templateObject601 = leveling_taggedTemplateLiteral(["dented scepter"])))),
+    do: () => reminisce($monster(_templateObject602 || (_templateObject602 = leveling_taggedTemplateLiteral(["Witchess King"])))),
+    combat: new CombatStrategy().macro(() => combat_Macro.while_("!mpbelow ".concat((0,external_kolmafia_namespaceObject.mpCost)(template_string_$skill(_templateObject603 || (_templateObject603 = leveling_taggedTemplateLiteral(["Toynado"])))), " && hasskill ").concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(_templateObject604 || (_templateObject604 = leveling_taggedTemplateLiteral(["Toynado"]))))), combat_Macro.skill(template_string_$skill(_templateObject605 || (_templateObject605 = leveling_taggedTemplateLiteral(["Toynado"]))))).default(useCinch)),
+    outfit: baseOutfit(),
     post: () => {
       sendAutumnaton();
       sellMiscellaneousItems();
@@ -19647,7 +15263,7 @@ var LevelingQuest = {
     prepare: () => {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
 
-      if ((0,external_kolmafia_namespaceObject.equippedItem)($slot(_templateObject594 || (_templateObject594 = leveling_taggedTemplateLiteral(["offhand"])))) !== template_string_$item(_templateObject595 || (_templateObject595 = leveling_taggedTemplateLiteral(["latte lovers member's mug"])))) {
+      if ((0,external_kolmafia_namespaceObject.equippedItem)($slot(_templateObject606 || (_templateObject606 = leveling_taggedTemplateLiteral(["offhand"])))) !== template_string_$item(_templateObject607 || (_templateObject607 = leveling_taggedTemplateLiteral(["latte lovers member's mug"])))) {
         unbreakableUmbrella();
       }
 
@@ -19657,13 +15273,22 @@ var LevelingQuest = {
       attemptRestoringMpWithFreeRests(50);
     },
     outfit: () => {
-      if (chooseLibram() === template_string_$skill.none || !lib_have(template_string_$item(_templateObject596 || (_templateObject596 = leveling_taggedTemplateLiteral(["latte lovers member's mug"])))) || property_get("_latteRefillsUsed") >= 3) return baseOutfit();else return leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
-        offhand: template_string_$item(_templateObject597 || (_templateObject597 = leveling_taggedTemplateLiteral(["latte lovers member's mug"])))
+      if (chooseLibram() === template_string_$skill.none || !lib_have(template_string_$item(_templateObject608 || (_templateObject608 = leveling_taggedTemplateLiteral(["latte lovers member's mug"])))) || property_get("_latteRefillsUsed") >= 3) return leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
+        weapon: property_get("_clubEmTimeUsed", 0) >= 5 - property_get("instant_saveClubEmTime", 0) || // eslint-disable-next-line libram/verify-constants
+        !lib_have(template_string_$item(_templateObject609 || (_templateObject609 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))) ? baseOutfit().weapon : // eslint-disable-next-line libram/verify-constants
+        template_string_$item(_templateObject610 || (_templateObject610 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))
+      });else return leveling_objectSpread(leveling_objectSpread({}, baseOutfit()), {}, {
+        weapon: property_get("_clubEmTimeUsed", 0) >= 5 - property_get("instant_saveClubEmTime", 0) || // eslint-disable-next-line libram/verify-constants
+        !lib_have(template_string_$item(_templateObject611 || (_templateObject611 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))) ? baseOutfit().weapon : // eslint-disable-next-line libram/verify-constants
+        template_string_$item(_templateObject612 || (_templateObject612 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"]))),
+        offhand: template_string_$item(_templateObject613 || (_templateObject613 = leveling_taggedTemplateLiteral(["latte lovers member's mug"])))
       });
     },
-    completed: () => (0,external_kolmafia_namespaceObject.myBasestat)(mainStat) >= targetBaseMainStat && (property_get("_shatteringPunchUsed") >= 3 || !lib_have(template_string_$skill(_templateObject598 || (_templateObject598 = leveling_taggedTemplateLiteral(["Shattering Punch"]))))) && (property_get("_gingerbreadMobHitUsed") || !lib_have(template_string_$skill(_templateObject599 || (_templateObject599 = leveling_taggedTemplateLiteral(["Gingerbread Mob Hit"]))))) && (haveCBBIngredients(true) || overleveled()),
+    completed: () => (0,external_kolmafia_namespaceObject.myBasestat)(mainStat) >= targetBaseMainStat && (property_get("_clubEmTimeUsed", 0) >= 5 - property_get("instant_saveClubEmTime", 0) || // eslint-disable-next-line libram/verify-constants
+    !lib_have(template_string_$item(_templateObject614 || (_templateObject614 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"]))))) && (property_get("_shatteringPunchUsed") >= 3 || !lib_have(template_string_$skill(_templateObject615 || (_templateObject615 = leveling_taggedTemplateLiteral(["Shattering Punch"]))))) && (property_get("_gingerbreadMobHitUsed") || !lib_have(template_string_$skill(_templateObject616 || (_templateObject616 = leveling_taggedTemplateLiteral(["Gingerbread Mob Hit"]))))) && (haveCBBIngredients(true) || overleveled()),
     do: powerlevelingLocation(),
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject600 || (_templateObject600 = leveling_taggedTemplateLiteral(["Sea *dent: Talk to Some Fish"])))).trySkill(template_string_$skill(_templateObject601 || (_templateObject601 = leveling_taggedTemplateLiteral(["Feel Pride"])))).trySkill(template_string_$skill(_templateObject602 || (_templateObject602 = leveling_taggedTemplateLiteral(["Cincho: Confetti Extravaganza"])))).trySkill(template_string_$skill(_templateObject603 || (_templateObject603 = leveling_taggedTemplateLiteral(["Gulp Latte"])))).trySkill(template_string_$skill(_templateObject604 || (_templateObject604 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).trySkill(template_string_$skill(_templateObject605 || (_templateObject605 = leveling_taggedTemplateLiteral(["Chest X-Ray"])))).trySkill(template_string_$skill(_templateObject606 || (_templateObject606 = leveling_taggedTemplateLiteral(["Shattering Punch"])))).trySkill(template_string_$skill(_templateObject607 || (_templateObject607 = leveling_taggedTemplateLiteral(["Gingerbread Mob Hit"])))).trySkill(template_string_$skill(_templateObject608 || (_templateObject608 = leveling_taggedTemplateLiteral(["Bowl Sideways"])))).default(useCinch)),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(_templateObject617 || (_templateObject617 = leveling_taggedTemplateLiteral(["Sea *dent: Talk to Some Fish"])))).trySkill(template_string_$skill(_templateObject618 || (_templateObject618 = leveling_taggedTemplateLiteral(["Feel Pride"])))).trySkill(template_string_$skill(_templateObject619 || (_templateObject619 = leveling_taggedTemplateLiteral(["Cincho: Confetti Extravaganza"])))).trySkill(template_string_$skill(_templateObject620 || (_templateObject620 = leveling_taggedTemplateLiteral(["Gulp Latte"])))).trySkill(template_string_$skill(_templateObject621 || (_templateObject621 = leveling_taggedTemplateLiteral(["Recall Facts: %phylum Circadian Rhythms"])))).trySkill(template_string_$skill(_templateObject622 || (_templateObject622 = leveling_taggedTemplateLiteral(["Chest X-Ray"])))) // eslint-disable-next-line libram/verify-constants
+    .trySkill(template_string_$skill(_templateObject623 || (_templateObject623 = leveling_taggedTemplateLiteral(["Club 'Em Back in Time"])))).trySkill(template_string_$skill(_templateObject624 || (_templateObject624 = leveling_taggedTemplateLiteral(["Shattering Punch"])))).trySkill(template_string_$skill(_templateObject625 || (_templateObject625 = leveling_taggedTemplateLiteral(["Gingerbread Mob Hit"])))).trySkill(template_string_$skill(_templateObject626 || (_templateObject626 = leveling_taggedTemplateLiteral(["Bowl Sideways"])))).default(useCinch)),
     choices: {
       1094: 5,
       1115: 6,
@@ -19671,18 +15296,18 @@ var LevelingQuest = {
       1324: 5
     },
     post: () => {
-      if ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject609 || (_templateObject609 = leveling_taggedTemplateLiteral(["Vegetable of Jarlsberg"])))) >= 2 && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject610 || (_templateObject610 = leveling_taggedTemplateLiteral(["St. Sneaky Pete's Whey"])))) >= 2 && !acquiredOrExcluded(template_string_$effect(_templateObject611 || (_templateObject611 = leveling_taggedTemplateLiteral(["Pretty Delicious"])))) && !property_get("instant_saveRicottaCasserole", false)) {
-        if (!lib_have(template_string_$item(_templateObject612 || (_templateObject612 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))))) (0,external_kolmafia_namespaceObject.create)(template_string_$item(_templateObject613 || (_templateObject613 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))), 1);
-        (0,external_kolmafia_namespaceObject.eat)(template_string_$item(_templateObject614 || (_templateObject614 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))), 1);
+      if ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject627 || (_templateObject627 = leveling_taggedTemplateLiteral(["Vegetable of Jarlsberg"])))) >= 2 && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject628 || (_templateObject628 = leveling_taggedTemplateLiteral(["St. Sneaky Pete's Whey"])))) >= 2 && !acquiredOrExcluded(template_string_$effect(_templateObject629 || (_templateObject629 = leveling_taggedTemplateLiteral(["Pretty Delicious"])))) && !property_get("instant_saveRicottaCasserole", false)) {
+        if (!lib_have(template_string_$item(_templateObject630 || (_templateObject630 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))))) (0,external_kolmafia_namespaceObject.create)(template_string_$item(_templateObject631 || (_templateObject631 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))), 1);
+        (0,external_kolmafia_namespaceObject.eat)(template_string_$item(_templateObject632 || (_templateObject632 = leveling_taggedTemplateLiteral(["baked veggie ricotta casserole"]))), 1);
       }
 
-      if ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject615 || (_templateObject615 = leveling_taggedTemplateLiteral(["St. Sneaky Pete's Whey"])))) >= 1 && !acquiredOrExcluded(template_string_$effect(_templateObject616 || (_templateObject616 = leveling_taggedTemplateLiteral(["Awfully Wily"])))) && !property_get("instant_saveWileyWheyBar", false)) {
-        (0,external_kolmafia_namespaceObject.create)(template_string_$item(_templateObject617 || (_templateObject617 = leveling_taggedTemplateLiteral(["Pete's wiley whey bar"]))), 1);
-        (0,external_kolmafia_namespaceObject.eat)(template_string_$item(_templateObject618 || (_templateObject618 = leveling_taggedTemplateLiteral(["Pete's wiley whey bar"]))), 1);
+      if ((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject633 || (_templateObject633 = leveling_taggedTemplateLiteral(["St. Sneaky Pete's Whey"])))) >= 1 && !acquiredOrExcluded(template_string_$effect(_templateObject634 || (_templateObject634 = leveling_taggedTemplateLiteral(["Awfully Wily"])))) && !property_get("instant_saveWileyWheyBar", false)) {
+        (0,external_kolmafia_namespaceObject.create)(template_string_$item(_templateObject635 || (_templateObject635 = leveling_taggedTemplateLiteral(["Pete's wiley whey bar"]))), 1);
+        (0,external_kolmafia_namespaceObject.eat)(template_string_$item(_templateObject636 || (_templateObject636 = leveling_taggedTemplateLiteral(["Pete's wiley whey bar"]))), 1);
       }
 
       haveCBBIngredients(true, true);
-      if (lib_have(template_string_$item(_templateObject619 || (_templateObject619 = leveling_taggedTemplateLiteral(["SMOOCH coffee cup"]))))) (0,external_kolmafia_namespaceObject.chew)(template_string_$item(_templateObject620 || (_templateObject620 = leveling_taggedTemplateLiteral(["SMOOCH coffee cup"]))), 1);
+      if (lib_have(template_string_$item(_templateObject637 || (_templateObject637 = leveling_taggedTemplateLiteral(["SMOOCH coffee cup"]))))) (0,external_kolmafia_namespaceObject.chew)(template_string_$item(_templateObject638 || (_templateObject638 = leveling_taggedTemplateLiteral(["SMOOCH coffee cup"]))), 1);
       sendAutumnaton();
       sellMiscellaneousItems();
       burnLibram(500);
@@ -19694,8 +15319,8 @@ var LevelingQuest = {
   }, {
     name: "Open wardrobe-o-matic",
     // Assume we won't be leveling any more, even in aftercore, for the rest of the day
-    completed: () => !lib_have(template_string_$item(_templateObject621 || (_templateObject621 = leveling_taggedTemplateLiteral(["wardrobe-o-matic"])))) || template_string_$items(_templateObject622 || (_templateObject622 = leveling_taggedTemplateLiteral(["futuristic shirt, futuristic hat, futuristic collar"]))).some(it => lib_have(it)),
-    do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject623 || (_templateObject623 = leveling_taggedTemplateLiteral(["wardrobe-o-matic"])))),
+    completed: () => !lib_have(template_string_$item(_templateObject639 || (_templateObject639 = leveling_taggedTemplateLiteral(["wardrobe-o-matic"])))) || template_string_$items(_templateObject640 || (_templateObject640 = leveling_taggedTemplateLiteral(["futuristic shirt, futuristic hat, futuristic collar"]))).some(it => lib_have(it)),
+    do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject641 || (_templateObject641 = leveling_taggedTemplateLiteral(["wardrobe-o-matic"])))),
     limit: {
       tries: 1
     }
@@ -20557,7 +16182,7 @@ function furnitureBonuses() {
   return furniture.reduce((acc, piece) => Leprecondo_objectSpread(Leprecondo_objectSpread({}, Furniture[piece]), acc), {});
 }
 ;// CONCATENATED MODULE: ./src/tasks/runstart.ts
-var runstart_templateObject, runstart_templateObject2, runstart_templateObject3, runstart_templateObject4, runstart_templateObject5, runstart_templateObject6, runstart_templateObject7, runstart_templateObject8, runstart_templateObject9, runstart_templateObject10, runstart_templateObject11, runstart_templateObject12, runstart_templateObject13, runstart_templateObject14, runstart_templateObject15, runstart_templateObject16, runstart_templateObject17, runstart_templateObject18, runstart_templateObject19, runstart_templateObject20, runstart_templateObject21, runstart_templateObject22, runstart_templateObject23, runstart_templateObject24, runstart_templateObject25, runstart_templateObject26, runstart_templateObject27, runstart_templateObject28, runstart_templateObject29, runstart_templateObject30, runstart_templateObject31, runstart_templateObject32, runstart_templateObject33, runstart_templateObject34, runstart_templateObject35, runstart_templateObject36, runstart_templateObject37, runstart_templateObject38, runstart_templateObject39, runstart_templateObject40, runstart_templateObject41, runstart_templateObject42, runstart_templateObject43, runstart_templateObject44, runstart_templateObject45, runstart_templateObject46, runstart_templateObject47, runstart_templateObject48, runstart_templateObject49, runstart_templateObject50, runstart_templateObject51, runstart_templateObject52, runstart_templateObject53, runstart_templateObject54, runstart_templateObject55, runstart_templateObject56, runstart_templateObject57, runstart_templateObject58, runstart_templateObject59, runstart_templateObject60, runstart_templateObject61, runstart_templateObject62, runstart_templateObject63, runstart_templateObject64, runstart_templateObject65, runstart_templateObject66, runstart_templateObject67, runstart_templateObject68, runstart_templateObject69, runstart_templateObject70, runstart_templateObject71, runstart_templateObject72, runstart_templateObject73, runstart_templateObject74, runstart_templateObject75, runstart_templateObject76, runstart_templateObject77, runstart_templateObject78, runstart_templateObject79, runstart_templateObject80, runstart_templateObject81, runstart_templateObject82, runstart_templateObject83, runstart_templateObject84, runstart_templateObject85, runstart_templateObject86, runstart_templateObject87, runstart_templateObject88, runstart_templateObject89, runstart_templateObject90, runstart_templateObject91, runstart_templateObject92, runstart_templateObject93, runstart_templateObject94, runstart_templateObject95, runstart_templateObject96, runstart_templateObject97, runstart_templateObject98, runstart_templateObject99, runstart_templateObject100, runstart_templateObject101, runstart_templateObject102, runstart_templateObject103, runstart_templateObject104, runstart_templateObject105, runstart_templateObject106, runstart_templateObject107, runstart_templateObject108, runstart_templateObject109, runstart_templateObject110, runstart_templateObject111, runstart_templateObject112, runstart_templateObject113, runstart_templateObject114, runstart_templateObject115, runstart_templateObject116, runstart_templateObject117, runstart_templateObject118, runstart_templateObject119, runstart_templateObject120, runstart_templateObject121, runstart_templateObject122, runstart_templateObject123, runstart_templateObject124, runstart_templateObject125, runstart_templateObject126, runstart_templateObject127, runstart_templateObject128, runstart_templateObject129, runstart_templateObject130, runstart_templateObject131, runstart_templateObject132, runstart_templateObject133, runstart_templateObject134, runstart_templateObject135, runstart_templateObject136, runstart_templateObject137, runstart_templateObject138, runstart_templateObject139, runstart_templateObject140, runstart_templateObject141, runstart_templateObject142, runstart_templateObject143, runstart_templateObject144, runstart_templateObject145, runstart_templateObject146, runstart_templateObject147, runstart_templateObject148, runstart_templateObject149, runstart_templateObject150, runstart_templateObject151, runstart_templateObject152, runstart_templateObject153, runstart_templateObject154, runstart_templateObject155, runstart_templateObject156, runstart_templateObject157, runstart_templateObject158, runstart_templateObject159, runstart_templateObject160, runstart_templateObject161, runstart_templateObject162, runstart_templateObject163, runstart_templateObject164, runstart_templateObject165, runstart_templateObject166, runstart_templateObject167, runstart_templateObject168, runstart_templateObject169, runstart_templateObject170, runstart_templateObject171, runstart_templateObject172, runstart_templateObject173, runstart_templateObject174, runstart_templateObject175, runstart_templateObject176, runstart_templateObject177, runstart_templateObject178, runstart_templateObject179, runstart_templateObject180, runstart_templateObject181, runstart_templateObject182, runstart_templateObject183, runstart_templateObject184, runstart_templateObject185, runstart_templateObject186, runstart_templateObject187, runstart_templateObject188, runstart_templateObject189, runstart_templateObject190, runstart_templateObject191, runstart_templateObject192, runstart_templateObject193, runstart_templateObject194, runstart_templateObject195, runstart_templateObject196, runstart_templateObject197, runstart_templateObject198, runstart_templateObject199, runstart_templateObject200, runstart_templateObject201, runstart_templateObject202, runstart_templateObject203, runstart_templateObject204, runstart_templateObject205, runstart_templateObject206, runstart_templateObject207, runstart_templateObject208, runstart_templateObject209, runstart_templateObject210, runstart_templateObject211, runstart_templateObject212, runstart_templateObject213, runstart_templateObject214, runstart_templateObject215, runstart_templateObject216, runstart_templateObject217, runstart_templateObject218, runstart_templateObject219, runstart_templateObject220, runstart_templateObject221, runstart_templateObject222, runstart_templateObject223, runstart_templateObject224, runstart_templateObject225, runstart_templateObject226, runstart_templateObject227, runstart_templateObject228, runstart_templateObject229, runstart_templateObject230, runstart_templateObject231, runstart_templateObject232, runstart_templateObject233, runstart_templateObject234, runstart_templateObject235, runstart_templateObject236, runstart_templateObject237, runstart_templateObject238, runstart_templateObject239, runstart_templateObject240, runstart_templateObject241, runstart_templateObject242, runstart_templateObject243, runstart_templateObject244, runstart_templateObject245, runstart_templateObject246, runstart_templateObject247, runstart_templateObject248, runstart_templateObject249, runstart_templateObject250, runstart_templateObject251, runstart_templateObject252, runstart_templateObject253, runstart_templateObject254, runstart_templateObject255, runstart_templateObject256, runstart_templateObject257, runstart_templateObject258, runstart_templateObject259, runstart_templateObject260, runstart_templateObject261, runstart_templateObject262, runstart_templateObject263, runstart_templateObject264, runstart_templateObject265, runstart_templateObject266, runstart_templateObject267, runstart_templateObject268, runstart_templateObject269, runstart_templateObject270, runstart_templateObject271, runstart_templateObject272, runstart_templateObject273, runstart_templateObject274, runstart_templateObject275, runstart_templateObject276, runstart_templateObject277, runstart_templateObject278, runstart_templateObject279, runstart_templateObject280, runstart_templateObject281, runstart_templateObject282, runstart_templateObject283, runstart_templateObject284, runstart_templateObject285, runstart_templateObject286, runstart_templateObject287, runstart_templateObject288, runstart_templateObject289, runstart_templateObject290, runstart_templateObject291, runstart_templateObject292, runstart_templateObject293, runstart_templateObject294, runstart_templateObject295, runstart_templateObject296, runstart_templateObject297, runstart_templateObject298, runstart_templateObject299, runstart_templateObject300, runstart_templateObject301, runstart_templateObject302, runstart_templateObject303, runstart_templateObject304, runstart_templateObject305, runstart_templateObject306, runstart_templateObject307, runstart_templateObject308, runstart_templateObject309, runstart_templateObject310, runstart_templateObject311, runstart_templateObject312, runstart_templateObject313, runstart_templateObject314, runstart_templateObject315, runstart_templateObject316, runstart_templateObject317, runstart_templateObject318, runstart_templateObject319;
+var runstart_templateObject, runstart_templateObject2, runstart_templateObject3, runstart_templateObject4, runstart_templateObject5, runstart_templateObject6, runstart_templateObject7, runstart_templateObject8, runstart_templateObject9, runstart_templateObject10, runstart_templateObject11, runstart_templateObject12, runstart_templateObject13, runstart_templateObject14, runstart_templateObject15, runstart_templateObject16, runstart_templateObject17, runstart_templateObject18, runstart_templateObject19, runstart_templateObject20, runstart_templateObject21, runstart_templateObject22, runstart_templateObject23, runstart_templateObject24, runstart_templateObject25, runstart_templateObject26, runstart_templateObject27, runstart_templateObject28, runstart_templateObject29, runstart_templateObject30, runstart_templateObject31, runstart_templateObject32, runstart_templateObject33, runstart_templateObject34, runstart_templateObject35, runstart_templateObject36, runstart_templateObject37, runstart_templateObject38, runstart_templateObject39, runstart_templateObject40, runstart_templateObject41, runstart_templateObject42, runstart_templateObject43, runstart_templateObject44, runstart_templateObject45, runstart_templateObject46, runstart_templateObject47, runstart_templateObject48, runstart_templateObject49, runstart_templateObject50, runstart_templateObject51, runstart_templateObject52, runstart_templateObject53, runstart_templateObject54, runstart_templateObject55, runstart_templateObject56, runstart_templateObject57, runstart_templateObject58, runstart_templateObject59, runstart_templateObject60, runstart_templateObject61, runstart_templateObject62, runstart_templateObject63, runstart_templateObject64, runstart_templateObject65, runstart_templateObject66, runstart_templateObject67, runstart_templateObject68, runstart_templateObject69, runstart_templateObject70, runstart_templateObject71, runstart_templateObject72, runstart_templateObject73, runstart_templateObject74, runstart_templateObject75, runstart_templateObject76, runstart_templateObject77, runstart_templateObject78, runstart_templateObject79, runstart_templateObject80, runstart_templateObject81, runstart_templateObject82, runstart_templateObject83, runstart_templateObject84, runstart_templateObject85, runstart_templateObject86, runstart_templateObject87, runstart_templateObject88, runstart_templateObject89, runstart_templateObject90, runstart_templateObject91, runstart_templateObject92, runstart_templateObject93, runstart_templateObject94, runstart_templateObject95, runstart_templateObject96, runstart_templateObject97, runstart_templateObject98, runstart_templateObject99, runstart_templateObject100, runstart_templateObject101, runstart_templateObject102, runstart_templateObject103, runstart_templateObject104, runstart_templateObject105, runstart_templateObject106, runstart_templateObject107, runstart_templateObject108, runstart_templateObject109, runstart_templateObject110, runstart_templateObject111, runstart_templateObject112, runstart_templateObject113, runstart_templateObject114, runstart_templateObject115, runstart_templateObject116, runstart_templateObject117, runstart_templateObject118, runstart_templateObject119, runstart_templateObject120, runstart_templateObject121, runstart_templateObject122, runstart_templateObject123, runstart_templateObject124, runstart_templateObject125, runstart_templateObject126, runstart_templateObject127, runstart_templateObject128, runstart_templateObject129, runstart_templateObject130, runstart_templateObject131, runstart_templateObject132, runstart_templateObject133, runstart_templateObject134, runstart_templateObject135, runstart_templateObject136, runstart_templateObject137, runstart_templateObject138, runstart_templateObject139, runstart_templateObject140, runstart_templateObject141, runstart_templateObject142, runstart_templateObject143, runstart_templateObject144, runstart_templateObject145, runstart_templateObject146, runstart_templateObject147, runstart_templateObject148, runstart_templateObject149, runstart_templateObject150, runstart_templateObject151, runstart_templateObject152, runstart_templateObject153, runstart_templateObject154, runstart_templateObject155, runstart_templateObject156, runstart_templateObject157, runstart_templateObject158, runstart_templateObject159, runstart_templateObject160, runstart_templateObject161, runstart_templateObject162, runstart_templateObject163, runstart_templateObject164, runstart_templateObject165, runstart_templateObject166, runstart_templateObject167, runstart_templateObject168, runstart_templateObject169, runstart_templateObject170, runstart_templateObject171, runstart_templateObject172, runstart_templateObject173, runstart_templateObject174, runstart_templateObject175, runstart_templateObject176, runstart_templateObject177, runstart_templateObject178, runstart_templateObject179, runstart_templateObject180, runstart_templateObject181, runstart_templateObject182, runstart_templateObject183, runstart_templateObject184, runstart_templateObject185, runstart_templateObject186, runstart_templateObject187, runstart_templateObject188, runstart_templateObject189, runstart_templateObject190, runstart_templateObject191, runstart_templateObject192, runstart_templateObject193, runstart_templateObject194, runstart_templateObject195, runstart_templateObject196, runstart_templateObject197, runstart_templateObject198, runstart_templateObject199, runstart_templateObject200, runstart_templateObject201, runstart_templateObject202, runstart_templateObject203, runstart_templateObject204, runstart_templateObject205, runstart_templateObject206, runstart_templateObject207, runstart_templateObject208, runstart_templateObject209, runstart_templateObject210, runstart_templateObject211, runstart_templateObject212, runstart_templateObject213, runstart_templateObject214, runstart_templateObject215, runstart_templateObject216, runstart_templateObject217, runstart_templateObject218, runstart_templateObject219, runstart_templateObject220, runstart_templateObject221, runstart_templateObject222, runstart_templateObject223, runstart_templateObject224, runstart_templateObject225, runstart_templateObject226, runstart_templateObject227, runstart_templateObject228, runstart_templateObject229, runstart_templateObject230, runstart_templateObject231, runstart_templateObject232, runstart_templateObject233, runstart_templateObject234, runstart_templateObject235, runstart_templateObject236, runstart_templateObject237, runstart_templateObject238, runstart_templateObject239, runstart_templateObject240, runstart_templateObject241, runstart_templateObject242, runstart_templateObject243, runstart_templateObject244, runstart_templateObject245, runstart_templateObject246, runstart_templateObject247, runstart_templateObject248, runstart_templateObject249, runstart_templateObject250, runstart_templateObject251, runstart_templateObject252, runstart_templateObject253, runstart_templateObject254, runstart_templateObject255, runstart_templateObject256, runstart_templateObject257, runstart_templateObject258, runstart_templateObject259, runstart_templateObject260, runstart_templateObject261, runstart_templateObject262, runstart_templateObject263, runstart_templateObject264, runstart_templateObject265, runstart_templateObject266, runstart_templateObject267, runstart_templateObject268, runstart_templateObject269, runstart_templateObject270, runstart_templateObject271, runstart_templateObject272, runstart_templateObject273, runstart_templateObject274, runstart_templateObject275, runstart_templateObject276, runstart_templateObject277, runstart_templateObject278, runstart_templateObject279, runstart_templateObject280, runstart_templateObject281, runstart_templateObject282, runstart_templateObject283, runstart_templateObject284, runstart_templateObject285, runstart_templateObject286, runstart_templateObject287, runstart_templateObject288, runstart_templateObject289, runstart_templateObject290, runstart_templateObject291, runstart_templateObject292, runstart_templateObject293, runstart_templateObject294, runstart_templateObject295, runstart_templateObject296, runstart_templateObject297, runstart_templateObject298, runstart_templateObject299, runstart_templateObject300, runstart_templateObject301, runstart_templateObject302, runstart_templateObject303, runstart_templateObject304, runstart_templateObject305, runstart_templateObject306, runstart_templateObject307, runstart_templateObject308, runstart_templateObject309, runstart_templateObject310, runstart_templateObject311, runstart_templateObject312, runstart_templateObject313, runstart_templateObject314, runstart_templateObject315, runstart_templateObject316, runstart_templateObject317, runstart_templateObject318, runstart_templateObject319, runstart_templateObject320, runstart_templateObject321, runstart_templateObject322;
 
 function runstart_slicedToArray(arr, i) { return runstart_arrayWithHoles(arr) || runstart_iterableToArrayLimit(arr, i) || runstart_unsupportedIterableToArray(arr, i) || runstart_nonIterableRest(); }
 
@@ -21451,22 +17076,26 @@ var RunStartQuest = {
       (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     },
     outfit: () => runstart_objectSpread(runstart_objectSpread({}, baseOutfit()), {}, {
-      offhand: template_string_$item(runstart_templateObject299 || (runstart_templateObject299 = runstart_taggedTemplateLiteral(["Kramco Sausage-o-Matic\u2122"])))
+      weapon: property_get("_clubEmNextWeekUsed", 0) >= 5 - property_get("instant_saveClubEmNextWeek", 0) || // eslint-disable-next-line libram/verify-constants
+      !lib_have(template_string_$item(runstart_templateObject299 || (runstart_templateObject299 = runstart_taggedTemplateLiteral(["legendary seal-clubbing club"])))) ? baseOutfit().weapon : // eslint-disable-next-line libram/verify-constants
+      template_string_$item(runstart_templateObject300 || (runstart_templateObject300 = runstart_taggedTemplateLiteral(["legendary seal-clubbing club"]))),
+      offhand: template_string_$item(runstart_templateObject301 || (runstart_templateObject301 = runstart_taggedTemplateLiteral(["Kramco Sausage-o-Matic\u2122"])))
     }),
     post: () => {
       (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     },
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(runstart_templateObject300 || (runstart_templateObject300 = runstart_taggedTemplateLiteral(["Blow the Purple Candle!"])))).default())
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(runstart_templateObject302 || (runstart_templateObject302 = runstart_taggedTemplateLiteral(["Blow the Purple Candle!"])))) // eslint-disable-next-line libram/verify-constants
+    .trySkill(template_string_$skill(runstart_templateObject303 || (runstart_templateObject303 = runstart_taggedTemplateLiteral(["Club 'Em Into Next Week"])))).default())
   }, {
     name: "Bakery Pledge",
-    ready: () => lib_have(template_string_$familiar(runstart_templateObject301 || (runstart_templateObject301 = runstart_taggedTemplateLiteral(["Patriotic Eagle"])))) && haveFreeRunSource(),
-    completed: () => lib_have(template_string_$effect(runstart_templateObject302 || (runstart_templateObject302 = runstart_taggedTemplateLiteral(["Citizen of a Zone"])))) || !lib_have(template_string_$familiar(runstart_templateObject303 || (runstart_templateObject303 = runstart_taggedTemplateLiteral(["Patriotic Eagle"])))) || property_get("_citizenZone").includes("Madness Bakery") || property_get("_instant_pledgeUsed", false),
-    do: $location(runstart_templateObject304 || (runstart_templateObject304 = runstart_taggedTemplateLiteral(["Madness Bakery"]))),
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(runstart_templateObject305 || (runstart_templateObject305 = runstart_taggedTemplateLiteral(["%fn, let's pledge allegiance to a Zone"])))).trySkill(template_string_$skill(runstart_templateObject306 || (runstart_templateObject306 = runstart_taggedTemplateLiteral(["Spring Away"])))).trySkill(template_string_$skill(runstart_templateObject307 || (runstart_templateObject307 = runstart_taggedTemplateLiteral(["Blow the Green Candle!"])))).default()),
+    ready: () => lib_have(template_string_$familiar(runstart_templateObject304 || (runstart_templateObject304 = runstart_taggedTemplateLiteral(["Patriotic Eagle"])))) && haveFreeRunSource(),
+    completed: () => lib_have(template_string_$effect(runstart_templateObject305 || (runstart_templateObject305 = runstart_taggedTemplateLiteral(["Citizen of a Zone"])))) || !lib_have(template_string_$familiar(runstart_templateObject306 || (runstart_templateObject306 = runstart_taggedTemplateLiteral(["Patriotic Eagle"])))) || property_get("_citizenZone").includes("Madness Bakery") || property_get("_instant_pledgeUsed", false),
+    do: $location(runstart_templateObject307 || (runstart_templateObject307 = runstart_taggedTemplateLiteral(["Madness Bakery"]))),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(runstart_templateObject308 || (runstart_templateObject308 = runstart_taggedTemplateLiteral(["%fn, let's pledge allegiance to a Zone"])))).trySkill(template_string_$skill(runstart_templateObject309 || (runstart_templateObject309 = runstart_taggedTemplateLiteral(["Spring Away"])))).trySkill(template_string_$skill(runstart_templateObject310 || (runstart_templateObject310 = runstart_taggedTemplateLiteral(["Blow the Green Candle!"])))).default()),
     outfit: () => runstart_objectSpread(runstart_objectSpread({}, baseOutfit), {}, {
-      familiar: template_string_$familiar(runstart_templateObject308 || (runstart_templateObject308 = runstart_taggedTemplateLiteral(["Patriotic Eagle"]))),
-      offhand: lib_have(template_string_$item(runstart_templateObject309 || (runstart_templateObject309 = runstart_taggedTemplateLiteral(["Roman Candelabra"])))) ? template_string_$item(runstart_templateObject310 || (runstart_templateObject310 = runstart_taggedTemplateLiteral(["Roman Candelabra"]))) : undefined,
-      acc2: lib_have(template_string_$item(runstart_templateObject311 || (runstart_templateObject311 = runstart_taggedTemplateLiteral(["spring shoes"])))) ? template_string_$item(runstart_templateObject312 || (runstart_templateObject312 = runstart_taggedTemplateLiteral(["spring shoes"]))) : undefined
+      familiar: template_string_$familiar(runstart_templateObject311 || (runstart_templateObject311 = runstart_taggedTemplateLiteral(["Patriotic Eagle"]))),
+      offhand: lib_have(template_string_$item(runstart_templateObject312 || (runstart_templateObject312 = runstart_taggedTemplateLiteral(["Roman Candelabra"])))) ? template_string_$item(runstart_templateObject313 || (runstart_templateObject313 = runstart_taggedTemplateLiteral(["Roman Candelabra"]))) : undefined,
+      acc2: lib_have(template_string_$item(runstart_templateObject314 || (runstart_templateObject314 = runstart_taggedTemplateLiteral(["spring shoes"])))) ? template_string_$item(runstart_templateObject315 || (runstart_templateObject315 = runstart_taggedTemplateLiteral(["spring shoes"]))) : undefined
     }),
     post: () => {
       if (property_get("lastEncounter") !== "Our Bakery in the Middle of Our Street") _set("_instant_pledgeUsed", true);
@@ -21480,19 +17109,19 @@ var RunStartQuest = {
       (0,external_kolmafia_namespaceObject.restoreHp)(utils_clamp(1000, (0,external_kolmafia_namespaceObject.myMaxhp)() / 2, (0,external_kolmafia_namespaceObject.myMaxhp)()));
       attemptRestoringMpWithFreeRests(50);
     },
-    completed: () => property_get("_eldritchHorrorEvoked") || !lib_have(template_string_$skill(runstart_templateObject313 || (runstart_templateObject313 = runstart_taggedTemplateLiteral(["Evoke Eldritch Horror"])))) || !lib_have(template_string_$item(runstart_templateObject314 || (runstart_templateObject314 = runstart_taggedTemplateLiteral(["Roman Candelabra"])))) || lib_have(template_string_$effect(runstart_templateObject315 || (runstart_templateObject315 = runstart_taggedTemplateLiteral(["Everything Looks Purple"])))),
+    completed: () => property_get("_eldritchHorrorEvoked") || !lib_have(template_string_$skill(runstart_templateObject316 || (runstart_templateObject316 = runstart_taggedTemplateLiteral(["Evoke Eldritch Horror"])))) || !lib_have(template_string_$item(runstart_templateObject317 || (runstart_templateObject317 = runstart_taggedTemplateLiteral(["Roman Candelabra"])))) || lib_have(template_string_$effect(runstart_templateObject318 || (runstart_templateObject318 = runstart_taggedTemplateLiteral(["Everything Looks Purple"])))),
     do: () => {
-      (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(runstart_templateObject316 || (runstart_templateObject316 = runstart_taggedTemplateLiteral(["Evoke Eldritch Horror"]))));
+      (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(runstart_templateObject319 || (runstart_templateObject319 = runstart_taggedTemplateLiteral(["Evoke Eldritch Horror"]))));
       (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     },
     post: () => {
       (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
-      if (lib_have(template_string_$effect(runstart_templateObject317 || (runstart_templateObject317 = runstart_taggedTemplateLiteral(["Beaten Up"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");
+      if (lib_have(template_string_$effect(runstart_templateObject320 || (runstart_templateObject320 = runstart_taggedTemplateLiteral(["Beaten Up"]))))) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");
       sendAutumnaton();
     },
-    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(runstart_templateObject318 || (runstart_templateObject318 = runstart_taggedTemplateLiteral(["Blow the Purple Candle!"])))).default(!property_get("instant_saveCinch", false))),
+    combat: new CombatStrategy().macro(combat_Macro.trySkill(template_string_$skill(runstart_templateObject321 || (runstart_templateObject321 = runstart_taggedTemplateLiteral(["Blow the Purple Candle!"])))).default(!property_get("instant_saveCinch", false))),
     outfit: () => runstart_objectSpread(runstart_objectSpread({}, baseOutfit()), {}, {
-      offhand: template_string_$item(runstart_templateObject319 || (runstart_templateObject319 = runstart_taggedTemplateLiteral(["Roman Candelabra"])))
+      offhand: template_string_$item(runstart_templateObject322 || (runstart_templateObject322 = runstart_taggedTemplateLiteral(["Roman Candelabra"])))
     }),
     limit: {
       tries: 1
@@ -23976,7 +19605,7 @@ var args = Args.create("InstantSCCS", "An automated low-shiny SCCS script.", {
   })
 });
 function main_main(command) {
-  sinceKolmafiaRevision(28830);
+  sinceKolmafiaRevision(28866);
   checkGithubVersion();
   Args.fill(args, command);
 
@@ -24060,8 +19689,6 @@ function main_main(command) {
 function runComplete() {
   return property_get("kingLiberated") && property_get("lastEmptiedStorage") === (0,external_kolmafia_namespaceObject.myAscensions)();
 }
-})();
-
 var __webpack_export_target__ = exports;
 for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
 if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
