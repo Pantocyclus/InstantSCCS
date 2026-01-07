@@ -2336,9 +2336,9 @@ has@^1.0.3:
     function-bind "^1.1.1"
 
 html-entities@^2.5.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-2.5.2.tgz#201a3cf95d3a15be7099521620d19dfb4f65359f"
-  integrity sha512-K//PSRMQk4FZ78Kyau+mZurHn3FH0Vwr+H36eE0rPbeYkRRi9YxceYPhuN60UwWorxyKHhqoAJl2OFKa4BVtaA==
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-2.6.0.tgz#7c64f1ea3b36818ccae3d3fb48b6974208e984f8"
+  integrity sha512-kig+rMn/QOVRvr7c86gQ8lWXq+Hkv6CbAH1hLu+RG338StTpE8Z0b44SDVaqVu7HGKf27frdmUYEs9hTUX/cLQ==
 
 human-signals@^2.1.0:
   version "2.1.0"
@@ -2644,10 +2644,10 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-kolmafia@^5.28832.0:
-  version "5.28832.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28832.0.tgz#b62f0ce5816c4bdaee12e6eee8dcb2756a49441c"
-  integrity sha512-xRN4oETIORobsSrMtEt5h5bMOE6g0KwG+55qPSjkeFRexTUNFf/Pq5UztORO2JOqmkhG/OPJ/QXfzXFFY8mJCg==
+kolmafia@^5.28867.0:
+  version "5.28867.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28867.0.tgz#12d4231b86ecf7f0cbedb92e360d63c2f41c75e1"
+  integrity sha512-moJqpImUhe4e3+pmlECW7Oowh2u2WwPDLwfD29o1uz7Sx6p1abE88fujUkUu8WRgciGCoweNHNDmdIQ4tum8WA==
 
 levn@^0.4.1:
   version "0.4.1"

@@ -1142,12 +1142,24 @@ export const RunStartQuest: Quest = {
       },
       outfit: () => ({
         ...baseOutfit(),
+        weapon:
+          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
+          // eslint-disable-next-line libram/verify-constants
+          !have($item`legendary seal-clubbing club`)
+            ? baseOutfit().weapon
+            : // eslint-disable-next-line libram/verify-constants
+              $item`legendary seal-clubbing club`,
         offhand: $item`Kramco Sausage-o-Matic™`,
       }),
       post: (): void => {
         visitUrl("main.php");
       },
-      combat: new CombatStrategy().macro(Macro.trySkill($skill`Blow the Purple Candle!`).default()),
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Blow the Purple Candle!`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Club 'Em Into Next Week`)
+          .default(),
+      ),
     },
     {
       name: "Bakery Pledge",

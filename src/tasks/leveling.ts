@@ -36,6 +36,7 @@ import {
   myMeat,
   myMp,
   mySoulsauce,
+  myTurncount,
   print,
   putCloset,
   refreshStatus,
@@ -915,6 +916,55 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Club 'Em Into Next Week",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        garbageShirt();
+        tryAcquiringEffects(usefulEffects);
+        attemptRestoringMpWithFreeRests(50);
+      },
+      completed: () =>
+        // eslint-disable-next-line libram/verify-constants
+        !have($item`legendary seal-clubbing club`) ||
+        get("clubEmNextWeekMonster", "") === "" ||
+        myTurncount() < get("clubEmNextWeekMonsterTurn", 0) + 8,
+      do: () => {
+        const counter = get("clubEmNextWeekMonsterTurn", 0);
+
+        adv1($location`Noob Cave`);
+
+        if (get("clubEmNextWeekMonsterTurn", 0) === counter)
+          throw new Error(
+            "Failed to increment clubEmNextWeekMonsterTurn! Find out what went wrong!",
+          );
+
+        if (get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0))
+          set("clubEmNextWeekMonster", "");
+      },
+      combat: new CombatStrategy().macro(
+        Macro.externalIf(
+          get("_monsterHabitatsFightsLeft") <= 1 &&
+            habitatCastsLeft() > 0 &&
+            (haveFreeBanish() ||
+              Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
+          Macro.trySkill($skill`Recall Facts: Monster Habitats`),
+        )
+          .externalIf(
+            get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
+            // eslint-disable-next-line libram/verify-constants
+            Macro.trySkill($skill`Club 'Em Into Next Week`).abort(),
+          )
+          .if_(`monstername ${get("clubEmNextWeekMonster")}`, Macro.default())
+          .abort(),
+      ),
+      outfit: () => ({
+        ...baseOutfit(),
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+      }),
+      limit: { tries: 5 },
+    },
+    {
       name: "June Cleaver NC",
       completed: () => !have($item`June cleaver`) || get("_juneCleaverFightsLeft") > 0,
       do: (): void => {
@@ -1599,6 +1649,13 @@ export const LevelingQuest: Quest = {
       do: $location`Noob Cave`,
       outfit: () => ({
         ...baseOutfit(),
+        weapon:
+          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
+          // eslint-disable-next-line libram/verify-constants
+          !have($item`legendary seal-clubbing club`)
+            ? baseOutfit().weapon
+            : // eslint-disable-next-line libram/verify-constants
+              $item`legendary seal-clubbing club`,
         offhand: $item`Kramco Sausage-o-Matic™`,
       }),
       combat: new CombatStrategy().macro(() =>
@@ -1608,7 +1665,10 @@ export const LevelingQuest: Quest = {
             (haveFreeBanish() ||
               Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),
-        ).default(useCinch),
+        )
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Club 'Em Into Next Week`)
+          .default(useCinch),
       ),
       post: (): void => {
         sendAutumnaton();
@@ -1777,9 +1837,20 @@ export const LevelingQuest: Quest = {
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),
         )
           .trySkill($skill`Blow the Purple Candle!`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Club 'Em Into Next Week`)
           .default(useCinch),
       ),
-      outfit: () => baseOutfit(),
+      outfit: () => ({
+        ...baseOutfit(),
+        weapon:
+          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
+          // eslint-disable-next-line libram/verify-constants
+          !have($item`legendary seal-clubbing club`)
+            ? baseOutfit().weapon
+            : // eslint-disable-next-line libram/verify-constants
+              $item`legendary seal-clubbing club`,
+      }),
       post: (): void => {
         visitUrl("main.php");
         sendAutumnaton();
@@ -2007,9 +2078,20 @@ export const LevelingQuest: Quest = {
           Macro.trySkill($skill`Recall Facts: Monster Habitats`),
         )
           .trySkill($skill`Blow the Purple Candle!`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Club 'Em Into Next Week`)
           .default(useCinch),
       ),
-      outfit: () => baseOutfit(),
+      outfit: () => ({
+        ...baseOutfit(),
+        weapon:
+          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
+          // eslint-disable-next-line libram/verify-constants
+          !have($item`legendary seal-clubbing club`)
+            ? baseOutfit().weapon
+            : // eslint-disable-next-line libram/verify-constants
+              $item`legendary seal-clubbing club`,
+      }),
       post: (): void => {
         visitUrl("main.php");
         sendAutumnaton();
@@ -2137,20 +2219,12 @@ export const LevelingQuest: Quest = {
         have($item`dented scepter`),
       do: () => CombatLoversLocket.reminisce($monster`Witchess King`),
       combat: new CombatStrategy().macro(() =>
-        Macro.externalIf(
-          get("_monsterHabitatsFightsLeft") <= 1 &&
-            habitatCastsLeft() > 0 &&
-            (haveFreeBanish() ||
-              Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
-          Macro.trySkill($skill`Recall Facts: Monster Habitats`),
-        )
-          .while_(
-            `!mpbelow ${mpCost($skill`Toynado`)} && hasskill ${toInt($skill`Toynado`)}`,
-            Macro.skill($skill`Toynado`),
-          )
-          .default(useCinch),
+        Macro.while_(
+          `!mpbelow ${mpCost($skill`Toynado`)} && hasskill ${toInt($skill`Toynado`)}`,
+          Macro.skill($skill`Toynado`),
+        ).default(useCinch),
       ),
-      outfit: () => baseOutfit(),
+      outfit: baseOutfit(),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -2176,15 +2250,34 @@ export const LevelingQuest: Quest = {
           !have($item`latte lovers member's mug`) ||
           get("_latteRefillsUsed") >= 3
         )
-          return baseOutfit();
+          return {
+            ...baseOutfit(),
+            weapon:
+              get("_clubEmTimeUsed", 0) >= 5 - get("instant_saveClubEmTime", 0) ||
+              // eslint-disable-next-line libram/verify-constants
+              !have($item`legendary seal-clubbing club`)
+                ? baseOutfit().weapon
+                : // eslint-disable-next-line libram/verify-constants
+                  $item`legendary seal-clubbing club`,
+          };
         else
           return {
             ...baseOutfit(),
+            weapon:
+              get("_clubEmTimeUsed", 0) >= 5 - get("instant_saveClubEmTime", 0) ||
+              // eslint-disable-next-line libram/verify-constants
+              !have($item`legendary seal-clubbing club`)
+                ? baseOutfit().weapon
+                : // eslint-disable-next-line libram/verify-constants
+                  $item`legendary seal-clubbing club`,
             offhand: $item`latte lovers member's mug`,
           };
       },
       completed: () =>
         myBasestat(mainStat) >= targetBaseMainStat &&
+        (get("_clubEmTimeUsed", 0) >= 5 - get("instant_saveClubEmTime", 0) ||
+          // eslint-disable-next-line libram/verify-constants
+          !have($item`legendary seal-clubbing club`)) &&
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         (haveCBBIngredients(true) || overleveled()),
@@ -2196,6 +2289,8 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Gulp Latte`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
           .trySkill($skill`Chest X-Ray`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Club 'Em Back in Time`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)
           .trySkill($skill`Bowl Sideways`)

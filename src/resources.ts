@@ -260,6 +260,18 @@ const farmingResources: Resource[] = [
     "Do not use BCZ: Dial it up to 11 for the spell damage test",
     $effects`Up To 11`,
   ),
+  new Resource(
+    "instant_saveClubEmTime",
+    (n) => `Save ${n}/5 legendary seal-clubbing club free kills`,
+    [],
+    get("instant_saveClubEmTime", false) ? 5 : 0,
+  ),
+  new Resource(
+    "instant_saveClubNextWeek",
+    (n) => `Save ${n}/5 legendary seal-clubbing club free kills`,
+    [],
+    get("instant_saveClubNextWeek", false) ? 5 : 0,
+  ),
 ];
 
 const otherResources: Resource[] = [
