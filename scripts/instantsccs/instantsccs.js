@@ -6029,7 +6029,72 @@ var useCenser = lib_have(template_string_$item(lib_templateObject3 || (lib_templ
 var testModifiers = new Map([[CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]], [CommunityService.Muscle, ["Muscle", "Muscle Percent"]], [CommunityService.Mysticality, ["Mysticality", "Mysticality Percent"]], [CommunityService.Moxie, ["Moxie", "Moxie Percent"]], [CommunityService.FamiliarWeight, ["Familiar Weight"]], [CommunityService.WeaponDamage, ["Weapon Damage", "Weapon Damage Percent"]], [CommunityService.SpellDamage, ["Spell Damage", "Spell Damage Percent"]], [CommunityService.Noncombat, ["Combat Rate"]], [CommunityService.BoozeDrop, ["Item Drop", "Booze Drop"]], [CommunityService.HotRes, ["Hot Resistance"]], [CommunityService.CoilWire, []]]);
 var testAbbreviations = new Map([[CommunityService.HP, "hp"], [CommunityService.Muscle, "mus"], [CommunityService.Mysticality, "myst"], [CommunityService.Moxie, "mox"], [CommunityService.FamiliarWeight, "fam"], [CommunityService.WeaponDamage, "weapon"], [CommunityService.SpellDamage, "spell"], [CommunityService.Noncombat, "com"], [CommunityService.BoozeDrop, "booze"], [CommunityService.HotRes, "hot"], [CommunityService.CoilWire, "coil"]]);
 var testLimits = new Map([[CommunityService.HP, 1], [CommunityService.Muscle, 2], [CommunityService.Mysticality, 1], [CommunityService.Moxie, 5], [CommunityService.FamiliarWeight, 50], [CommunityService.WeaponDamage, 35], [CommunityService.SpellDamage, 55], [CommunityService.Noncombat, 12], [CommunityService.BoozeDrop, 30], [CommunityService.HotRes, 35], [CommunityService.CoilWire, 60]]);
+
+function writeToWhiteboard(text) {
+  (0,external_kolmafia_namespaceObject.visitUrl)("clan_basement.php?whiteboard=".concat(text, "&action=whitewrite"));
+}
+
+function readWhiteboard() {
+  var _visitUrl$match$at, _visitUrl$match;
+
+  return ((_visitUrl$match$at = (_visitUrl$match = (0,external_kolmafia_namespaceObject.visitUrl)("clan_basement.php?whiteboard=1").match(RegExp(/cols=60>([\s\S]*?)<\/textarea>/))) === null || _visitUrl$match === void 0 ? void 0 : _visitUrl$match.at(1)) !== null && _visitUrl$match$at !== void 0 ? _visitUrl$match$at : "").replace(RegExp(/[\r\n]/), "\n");
+}
+
+function updateRunStats() {
+  var text = readWhiteboard();
+  var SHA = checkGithubVersion(false).slice(0, 7);
+  var playerId = (0,external_kolmafia_namespaceObject.toInt)((0,external_kolmafia_namespaceObject.myId)());
+  var date = (0,external_kolmafia_namespaceObject.todayToString)();
+  var playerExists = false;
+  var stats = text.split("\n").map(row => {
+    var _parts$0$match$at, _parts$0$match, _parts$1$match$at, _parts$1$match;
+
+    var parts = row.split(" ");
+    if (parts.length !== 3) return "";
+    var entryDate = (0,external_kolmafia_namespaceObject.formatDateTime)("dd-MMM-yy", (_parts$0$match$at = (_parts$0$match = parts[0].match(RegExp(/\[(\d{2}-\w{3}-\d{2})\]/))) === null || _parts$0$match === void 0 ? void 0 : _parts$0$match.at(1)) !== null && _parts$0$match$at !== void 0 ? _parts$0$match$at : "", "yyyyMMdd");
+    if (entryDate.includes("Bad")) return "";
+    var entryId = (0,external_kolmafia_namespaceObject.toInt)((_parts$1$match$at = (_parts$1$match = parts[1].match(RegExp(/\(#(\d+)\)/))) === null || _parts$1$match === void 0 ? void 0 : _parts$1$match.at(1)) !== null && _parts$1$match$at !== void 0 ? _parts$1$match$at : "-1");
+    if (entryId === -1) return "";
+    var entryHash = parts[2].slice(0, 7);
+    if (entryHash.length !== 7) return "";
+
+    if (entryId === playerId) {
+      playerExists = true;
+      entryHash = SHA;
+    }
+
+    return "".concat(entryDate, " ").concat(entryId, " ").concat(entryHash);
+  }).filter(row => row.split(" ").length === 3);
+
+  if (!playerExists) {
+    stats.push("".concat(date, " ").concat(playerId, " ").concat(SHA));
+  }
+
+  var updateText = stats.sort((a, b) => {
+    var aParts = a.split(" ");
+    if (aParts.length !== 3) return 1;
+    var bParts = b.split(" ");
+    if (bParts.length !== 3) return -1;
+    var aDate = (0,external_kolmafia_namespaceObject.toInt)(aParts[0]);
+    var bDate = (0,external_kolmafia_namespaceObject.toInt)(bParts[0]);
+    if (aDate !== bDate) return bDate - aDate;
+    var aId = (0,external_kolmafia_namespaceObject.toInt)(aParts[1]);
+    var bId = (0,external_kolmafia_namespaceObject.toInt)(bParts[1]);
+    return aId - bId;
+  }).map(row => {
+    var parts = row.split(" ");
+    if (parts.length !== 3) return "";
+    var entryDate = (0,external_kolmafia_namespaceObject.formatDateTime)("yyyyMMdd", parts[0], "dd-MMM-yy");
+    var entryId = parts[1];
+    var entryHash = parts[2];
+    return "[".concat(entryDate, "] (#").concat(entryId, ") ").concat(entryHash);
+  }).filter(row => row.split(" ").length === 3).join("\n");
+  writeToWhiteboard(updateText);
+}
 function checkGithubVersion() {
+  var verbose = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  var SHAString = "";
+
   try {
     var _releaseBranch$commit;
 
@@ -6038,18 +6103,23 @@ function checkGithubVersion() {
     var releaseSHA = (_releaseBranch$commit = releaseBranch === null || releaseBranch === void 0 ? void 0 : releaseBranch.commit.sha) !== null && _releaseBranch$commit !== void 0 ? _releaseBranch$commit : "Not Found";
     var localBranch = (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release");
     var localSHA = localBranch.commit;
+    SHAString = localSHA;
 
-    if (releaseSHA === localSHA) {
-      (0,external_kolmafia_namespaceObject.print)("InstantSCCS is up to date!", "green");
-    } else {
-      (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date - your version was last updated on ".concat(localBranch.last_changed_date, "."), "red");
-      (0,external_kolmafia_namespaceObject.print)("Please run 'git update'!", "red");
-      (0,external_kolmafia_namespaceObject.print)("Local Version: ".concat(localSHA, "."));
-      (0,external_kolmafia_namespaceObject.print)("Release Version: ".concat(releaseSHA));
+    if (verbose) {
+      if (releaseSHA === localSHA) {
+        (0,external_kolmafia_namespaceObject.print)("InstantSCCS is up to date!", "green");
+      } else {
+        (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date - your version was last updated on ".concat(localBranch.last_changed_date, "."), "red");
+        (0,external_kolmafia_namespaceObject.print)("Please run 'git update'!", "red");
+        (0,external_kolmafia_namespaceObject.print)("Local Version: ".concat(localSHA, "."));
+        (0,external_kolmafia_namespaceObject.print)("Release Version: ".concat(releaseSHA));
+      }
     }
   } catch (e) {
     (0,external_kolmafia_namespaceObject.print)("Failed to fetch GitHub data", "red");
   }
+
+  return SHAString;
 }
 function simpleDateDiff(t1, t2) {
   // Returns difference in milliseconds
@@ -17490,7 +17560,10 @@ var BoozeDropQuest = {
 
 
       if (Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite")) {
-        Clan["with"]("CSLoopers Unite", () => (0,external_kolmafia_namespaceObject.cliExecute)("fax receive"));
+        Clan["with"]("CSLoopers Unite", () => {
+          updateRunStats();
+          (0,external_kolmafia_namespaceObject.cliExecute)("fax receive");
+        });
       } else {
         if (!(0,external_kolmafia_namespaceObject.visitUrl)("messages.php?box=Outbox").includes("#3626664")) {
           (0,external_kolmafia_namespaceObject.print)("Requesting whitelist to CS clan...", "blue");
