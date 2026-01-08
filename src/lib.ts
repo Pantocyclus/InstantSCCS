@@ -10,6 +10,7 @@ import {
   equippedItem,
   Familiar,
   familiarWeight,
+  formatDateTime,
   getCampground,
   getClanName,
   getMonsters,
@@ -50,6 +51,7 @@ import {
   storageAmount,
   sweetSynthesis,
   takeStorage,
+  todayToString,
   toInt,
   toItem,
   toSkill,
@@ -157,7 +159,91 @@ const testLimits: Map<CommunityService, number> = new Map([
   [CommunityService.CoilWire, 60],
 ]);
 
-export function checkGithubVersion(): void {
+function writeToWhiteboard(text: string): void {
+  visitUrl(`clan_basement.php?whiteboard=${text}&action=whitewrite`);
+}
+
+function readWhiteboard(): string {
+  return (
+    visitUrl("clan_basement.php?whiteboard=1")
+      .match(RegExp(/cols=60>([\s\S]*?)<\/textarea>/))
+      ?.at(1) ?? ""
+  ).replace(RegExp(/[\r\n]/), "\n");
+}
+
+export function updateRunStats(): void {
+  const text = readWhiteboard();
+  const SHA = checkGithubVersion(false).slice(0, 7);
+  const playerId = toInt(myId());
+  const date = todayToString();
+
+  let playerExists = false;
+
+  const stats = text
+    .split("\n")
+    .map((row) => {
+      const parts = row.split(" ");
+      if (parts.length !== 3) return "";
+
+      const entryDate = formatDateTime(
+        "dd-MMM-yy",
+        parts[0].match(RegExp(/\[(\d{2}-\w{3}-\d{2})\]/))?.at(1) ?? "",
+        "yyyyMMdd",
+      );
+      if (entryDate.includes("Bad")) return "";
+
+      const entryId = toInt(parts[1].match(RegExp(/\(#(\d+)\)/))?.at(1) ?? "-1");
+      if (entryId === -1) return "";
+
+      let entryHash = parts[2].slice(0, 7);
+      if (entryHash.length !== 7) return "";
+
+      if (entryId === playerId) {
+        playerExists = true;
+        entryHash = SHA;
+      }
+
+      return `${entryDate} ${entryId} ${entryHash}`;
+    })
+    .filter((row) => row.split(" ").length === 3);
+
+  if (!playerExists) {
+    stats.push(`${date} ${playerId} ${SHA}`);
+  }
+
+  const updateText = stats
+    .sort((a, b) => {
+      const aParts = a.split(" ");
+      if (aParts.length !== 3) return 1;
+      const bParts = b.split(" ");
+      if (bParts.length !== 3) return -1;
+
+      const aDate = toInt(aParts[0]);
+      const bDate = toInt(bParts[0]);
+
+      if (aDate !== bDate) return bDate - aDate;
+
+      const aId = toInt(aParts[1]);
+      const bId = toInt(bParts[1]);
+
+      return aId - bId;
+    })
+    .map((row) => {
+      const parts = row.split(" ");
+      if (parts.length !== 3) return "";
+      const entryDate = formatDateTime("yyyyMMdd", parts[0], "dd-MMM-yy");
+      const entryId = parts[1];
+      const entryHash = parts[2];
+      return `[${entryDate}] (#${entryId}) ${entryHash}`;
+    })
+    .filter((row) => row.split(" ").length === 3)
+    .join("\n");
+
+  writeToWhiteboard(updateText);
+}
+
+export function checkGithubVersion(verbose = true): string {
+  let SHAString = "";
   try {
     const gitBranches: { name: string; commit: { sha: string } }[] = JSON.parse(
       visitUrl(`https://api.github.com/repos/Pantocyclus/InstantSCCS/branches`),
@@ -166,20 +252,24 @@ export function checkGithubVersion(): void {
     const releaseSHA = releaseBranch?.commit.sha ?? "Not Found";
     const localBranch = gitInfo("Pantocyclus-instantsccs-release");
     const localSHA = localBranch.commit;
-    if (releaseSHA === localSHA) {
-      print("InstantSCCS is up to date!", "green");
-    } else {
-      print(
-        `InstantSCCS is out of date - your version was last updated on ${localBranch.last_changed_date}.`,
-        "red",
-      );
-      print("Please run 'git update'!", "red");
-      print(`Local Version: ${localSHA}.`);
-      print(`Release Version: ${releaseSHA}`);
+    SHAString = localSHA;
+    if (verbose) {
+      if (releaseSHA === localSHA) {
+        print("InstantSCCS is up to date!", "green");
+      } else {
+        print(
+          `InstantSCCS is out of date - your version was last updated on ${localBranch.last_changed_date}.`,
+          "red",
+        );
+        print("Please run 'git update'!", "red");
+        print(`Local Version: ${localSHA}.`);
+        print(`Release Version: ${releaseSHA}`);
+      }
     }
   } catch (e) {
     print("Failed to fetch GitHub data", "red");
   }
+  return SHAString;
 }
 
 export function simpleDateDiff(t1: string, t2: string): number {
