@@ -201,4 +201,10 @@ Note that the script<br/>
 
 KoLMafia periodically creates a backup of your existing preferences in a `.bak` file, which you may simply rename the extension to `.txt` to restore your preferences to the latest snapshot it has taken.<br/>
 
-However, the above may not work in cases where KoLMafia replaces the backup with a snapshot of your corrupted preferences before you could realise that they have been wiped. As an additional measure, you may `set instant_logprefs=true` to enable writing your customized InstantSCCS preferences to your session logs, which should greatly aid in recovering your lost preferences should your `.bak` file be unusable.
+However, the above may not work in cases where KoLMafia replaces the backup with a snapshot of your corrupted preferences before you could realise that they have been wiped. As an additional measure, you may `set instant_logprefs=true` to enable writing your customized InstantSCCS preferences to your session logs, which should greatly aid in recovering your lost preferences should your `.bak` file be unusable.<br/>
+
+### Does the script collect any data from my account?
+
+Inspired by other community projects such as [Excavator](https://github.com/loathers/excavator), InstantSCCS also tries to collect data to be used in improving the script for all users. This feature is **enabled by default** (if you are whitelisted to CSLoopers Unite, the script uses the Clan Basement Whiteboard to collect and organize the data publicly). No personal or sensitive information will ever be recorded. <br/>
+
+In view of full transparency, both the [source code](https://github.com/Pantocyclus/InstantSCCS/tree/main/src) of the script and the recorded data are publicly auditable. However, if you would prefer to continue using the script without having any of your data publicly tracked, you may opt out of the data collection at any time with `set instant_collectData=false`.<br/>
