@@ -171,72 +171,80 @@ function readWhiteboard(): string {
   ).replace(RegExp(/[\r\n]/), "\n");
 }
 
-export function updateRunStats(remarks = "Nothing to report"): void {
+export function updateRunStats(): void {
   if (get("instant_collectData", false)) return;
-  const text = readWhiteboard();
-  const SHA = checkGithubVersion(false).slice(0, 7);
-  const playerId = toInt(myId());
-  const date = todayToString();
+  try {
+    const text = readWhiteboard();
+    const SHA = checkGithubVersion(false).slice(0, 7);
+    const playerId = toInt(myId());
+    const date = todayToString();
 
-  const stats = text
-    .split("\n")
-    .map((row) => {
-      const parts = row.split(" ");
-      if (parts.length < 3) return "";
+    // ========== DATA TO TRACK ===========
+    // Have club | # Club Em' Into Next Week Used | # Club Em' Back in Time Used
+    // eslint-disable-next-line libram/verify-constants
+    const remarks = `${toInt(have($item`legendary seal-clubbing club`))} | ${get("_clubEmNextWeekUsed", 0)}/${5 - get("instant_saveClubEmNextWeek", 0)} | ${get("_clubEmTimeUsed", 0)}/${5 - get("instant_saveClubEmTime", 0)}`;
+    // ====================================
 
-      const entryDate = formatDateTime(
-        "dd-MMM-yy",
-        parts[0].match(RegExp(/\[(\d{2}-\w{3}-\d{2})\]/))?.at(1) ?? "",
-        "yyyyMMdd",
-      );
-      if (entryDate.includes("Bad")) return "";
+    const stats = text
+      .split("\n")
+      .map((row) => {
+        const parts = row.split(" ");
+        if (parts.length < 3) return "";
 
-      const entryId = toInt(parts[1].match(RegExp(/\(#(\d+)\)/))?.at(1) ?? "-1");
-      if (entryId === -1) return "";
+        const entryId = toInt(parts[1].match(RegExp(/\(#(\d+)\)/))?.at(1) ?? "-1");
+        if (entryId === -1 || entryId === playerId) return "";
 
-      const entryHash = parts[2].slice(0, 7);
-      if (entryHash.length !== 7) return "";
+        const entryDate = formatDateTime(
+          "dd-MMM-yy",
+          parts[0].match(RegExp(/\[(\d{2}-\w{3}-\d{2})\]/))?.at(1) ?? "",
+          "yyyyMMdd",
+        );
+        if (entryDate.includes("Bad")) return "";
 
-      if (entryId === playerId) {
-        return "";
-      }
+        const entryHash = parts[2].slice(0, 7);
+        if (entryHash.length !== 7) return "";
 
-      return `${entryDate} ${entryId} ${entryHash} ${remarks}`;
-    })
-    .filter((row) => row.split(" ").length >= 3);
+        const entryRemarks = parts.slice(3).join(" ");
 
-  stats.unshift(`${date} ${playerId} ${SHA} ${remarks}`);
+        return `${entryDate} ${entryId} ${entryHash} ${entryRemarks}`;
+      })
+      .filter((row) => row.split(" ").length >= 3);
 
-  const updateText = stats
-    // .sort((a, b) => {
-    //   const aParts = a.split(" ");
-    //   if (aParts.length < 3) return 1;
-    //   const bParts = b.split(" ");
-    //   if (bParts.length < 3) return -1;
+    stats.unshift(`${date} ${playerId} ${SHA} ${remarks}`);
 
-    //   const aDate = toInt(aParts[0]);
-    //   const bDate = toInt(bParts[0]);
+    const updateText = stats
+      // .sort((a, b) => {
+      //   const aParts = a.split(" ");
+      //   if (aParts.length < 3) return 1;
+      //   const bParts = b.split(" ");
+      //   if (bParts.length < 3) return -1;
 
-    //   if (aDate !== bDate) return bDate - aDate;
+      //   const aDate = toInt(aParts[0]);
+      //   const bDate = toInt(bParts[0]);
 
-    //   const aId = toInt(aParts[1]);
-    //   const bId = toInt(bParts[1]);
+      //   if (aDate !== bDate) return bDate - aDate;
 
-    //   return aId - bId;
-    // })
-    .map((row) => {
-      const parts = row.split(" ");
-      if (parts.length < 3) return "";
-      const entryDate = formatDateTime("yyyyMMdd", parts[0], "dd-MMM-yy");
-      const entryId = parts[1];
-      const entryHash = parts[2];
-      const entryRemarks = parts.slice(3).join(" ");
-      return `[${entryDate}] (#${entryId}) ${entryHash} ${entryRemarks}`;
-    })
-    .filter((row) => row.split(" ").length >= 3)
-    .join("\n");
+      //   const aId = toInt(aParts[1]);
+      //   const bId = toInt(bParts[1]);
 
-  writeToWhiteboard(updateText);
+      //   return aId - bId;
+      // })
+      .map((row) => {
+        const parts = row.split(" ");
+        if (parts.length < 3) return "";
+        const entryDate = formatDateTime("yyyyMMdd", parts[0], "dd-MMM-yy");
+        const entryId = parts[1];
+        const entryHash = parts[2];
+        const entryRemarks = parts.slice(3).join(" ");
+        return `[${entryDate}] (#${entryId}) ${entryHash} ${entryRemarks}`;
+      })
+      .filter((row) => row.split(" ").length >= 3)
+      .join("\n");
+
+    writeToWhiteboard(updateText);
+  } catch (e) {
+    //No-op
+  }
 }
 
 export function checkGithubVersion(verbose = true): string {
