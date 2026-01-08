@@ -171,19 +171,18 @@ function readWhiteboard(): string {
   ).replace(RegExp(/[\r\n]/), "\n");
 }
 
-export function updateRunStats(): void {
+export function updateRunStats(remarks = "Nothing to report"): void {
+  if (get("instant_collectData", false)) return;
   const text = readWhiteboard();
   const SHA = checkGithubVersion(false).slice(0, 7);
   const playerId = toInt(myId());
   const date = todayToString();
 
-  let playerExists = false;
-
   const stats = text
     .split("\n")
     .map((row) => {
       const parts = row.split(" ");
-      if (parts.length !== 3) return "";
+      if (parts.length < 3) return "";
 
       const entryDate = formatDateTime(
         "dd-MMM-yy",
@@ -195,48 +194,46 @@ export function updateRunStats(): void {
       const entryId = toInt(parts[1].match(RegExp(/\(#(\d+)\)/))?.at(1) ?? "-1");
       if (entryId === -1) return "";
 
-      let entryHash = parts[2].slice(0, 7);
+      const entryHash = parts[2].slice(0, 7);
       if (entryHash.length !== 7) return "";
 
       if (entryId === playerId) {
-        playerExists = true;
-        entryHash = SHA;
+        return "";
       }
 
-      return `${entryDate} ${entryId} ${entryHash}`;
+      return `${entryDate} ${entryId} ${entryHash} ${remarks}`;
     })
-    .filter((row) => row.split(" ").length === 3);
+    .filter((row) => row.split(" ").length >= 3);
 
-  if (!playerExists) {
-    stats.push(`${date} ${playerId} ${SHA}`);
-  }
+  stats.unshift(`${date} ${playerId} ${SHA} ${remarks}`);
 
   const updateText = stats
-    .sort((a, b) => {
-      const aParts = a.split(" ");
-      if (aParts.length !== 3) return 1;
-      const bParts = b.split(" ");
-      if (bParts.length !== 3) return -1;
+    // .sort((a, b) => {
+    //   const aParts = a.split(" ");
+    //   if (aParts.length < 3) return 1;
+    //   const bParts = b.split(" ");
+    //   if (bParts.length < 3) return -1;
 
-      const aDate = toInt(aParts[0]);
-      const bDate = toInt(bParts[0]);
+    //   const aDate = toInt(aParts[0]);
+    //   const bDate = toInt(bParts[0]);
 
-      if (aDate !== bDate) return bDate - aDate;
+    //   if (aDate !== bDate) return bDate - aDate;
 
-      const aId = toInt(aParts[1]);
-      const bId = toInt(bParts[1]);
+    //   const aId = toInt(aParts[1]);
+    //   const bId = toInt(bParts[1]);
 
-      return aId - bId;
-    })
+    //   return aId - bId;
+    // })
     .map((row) => {
       const parts = row.split(" ");
-      if (parts.length !== 3) return "";
+      if (parts.length < 3) return "";
       const entryDate = formatDateTime("yyyyMMdd", parts[0], "dd-MMM-yy");
       const entryId = parts[1];
       const entryHash = parts[2];
-      return `[${entryDate}] (#${entryId}) ${entryHash}`;
+      const entryRemarks = parts.slice(3).join(" ");
+      return `[${entryDate}] (#${entryId}) ${entryHash} ${entryRemarks}`;
     })
-    .filter((row) => row.split(" ").length === 3)
+    .filter((row) => row.split(" ").length >= 3)
     .join("\n");
 
   writeToWhiteboard(updateText);
