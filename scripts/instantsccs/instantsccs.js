@@ -6051,44 +6051,86 @@ function updateRunStats() {
     // Have club | # Club Em' Into Next Week Used | # Club Em' Back in Time Used
     // eslint-disable-next-line libram/verify-constants
 
-    var remarks = "".concat((0,external_kolmafia_namespaceObject.toInt)(lib_have(template_string_$item(lib_templateObject4 || (lib_templateObject4 = lib_taggedTemplateLiteral(["legendary seal-clubbing club"]))))), " | ").concat(property_get("_clubEmNextWeekUsed", 0), "/").concat(5 - property_get("instant_saveClubEmNextWeek", 0), " | ").concat(property_get("_clubEmTimeUsed", 0), "/").concat(5 - property_get("instant_saveClubEmTime", 0)); // ====================================
+    var remarks = "".concat((0,external_kolmafia_namespaceObject.toInt)(lib_have(template_string_$item(lib_templateObject4 || (lib_templateObject4 = lib_taggedTemplateLiteral(["legendary seal-clubbing club"]))))), " | ").concat(property_get("_clubEmNextWeekUsed", 0), "/").concat(5 - property_get("instant_saveClubEmNextWeek", 0), " | ").concat(property_get("_clubEmTimeUsed", 0), "/").concat(5 - property_get("instant_saveClubEmTime", 0), " | ").concat(property_get("clubEmNextWeekMonster", "")); // ====================================
 
-    var stats = text.split("\n").map(row => {
+    var parsedWhiteboard = text.split("\n").map(row => {
       var _parts$1$match$at, _parts$1$match, _parts$0$match$at, _parts$0$match;
 
       var parts = row.split(" ");
-      if (parts.length < 3) return "";
+
+      if (parts.length < 3) {
+        // print(`Bad Length: ${parts.length}`);
+        return [false, row];
+      }
+
       var entryId = (0,external_kolmafia_namespaceObject.toInt)((_parts$1$match$at = (_parts$1$match = parts[1].match(RegExp(/\(#(\d+)\)/))) === null || _parts$1$match === void 0 ? void 0 : _parts$1$match.at(1)) !== null && _parts$1$match$at !== void 0 ? _parts$1$match$at : "-1");
-      if (entryId === -1 || entryId === playerId) return "";
-      var entryDate = (0,external_kolmafia_namespaceObject.formatDateTime)("dd-MMM-yy", (_parts$0$match$at = (_parts$0$match = parts[0].match(RegExp(/\[(\d{2}-\w{3}-\d{2})\]/))) === null || _parts$0$match === void 0 ? void 0 : _parts$0$match.at(1)) !== null && _parts$0$match$at !== void 0 ? _parts$0$match$at : "", "yyyyMMdd");
-      if (entryDate.includes("Bad")) return "";
+
+      if (entryId === -1) {
+        // print(`Bad Id: ${parts[1]}`);
+        return [false, row];
+      } else if (entryId === playerId) {
+        // print(`Player Id: ${entryId}`);
+        return [false, ""];
+      }
+
+      var entryDate = (0,external_kolmafia_namespaceObject.formatDateTime)("dd-MM-yy", (_parts$0$match$at = (_parts$0$match = parts[0].match(RegExp(/\[(\d{2}-\w{2}-\d{2})\]/))) === null || _parts$0$match === void 0 ? void 0 : _parts$0$match.at(1)) !== null && _parts$0$match$at !== void 0 ? _parts$0$match$at : "", "yyyyMMdd");
+
+      if (entryDate.includes("Bad")) {
+        // print(`Bad Date: ${parts[0]}`);
+        return [false, row];
+      }
+
       var entryHash = parts[2].slice(0, 7);
-      if (entryHash.length !== 7) return "";
+
+      if (entryHash.length !== 7) {
+        // print(`Bad Hash: ${entryHash}`);
+        return [false, row];
+      }
+
       var entryRemarks = parts.slice(3).join(" ");
-      return "".concat(entryDate, " ").concat(entryId, " ").concat(entryHash, " ").concat(entryRemarks);
-    }).filter(row => row.split(" ").length >= 3);
-    stats.unshift("".concat(date, " ").concat(playerId, " ").concat(SHA, " ").concat(remarks));
-    var updateText = stats // .sort((a, b) => {
-    //   const aParts = a.split(" ");
-    //   if (aParts.length < 3) return 1;
-    //   const bParts = b.split(" ");
-    //   if (bParts.length < 3) return -1;
-    //   const aDate = toInt(aParts[0]);
-    //   const bDate = toInt(bParts[0]);
-    //   if (aDate !== bDate) return bDate - aDate;
-    //   const aId = toInt(aParts[1]);
-    //   const bId = toInt(bParts[1]);
-    //   return aId - bId;
-    // })
-    .map(row => {
+      return [true, "".concat(entryDate, " ").concat(entryId, " ").concat(entryHash, " ").concat(entryRemarks)];
+    });
+    var stats = parsedWhiteboard.filter(_ref => {
+      var _ref2 = src_lib_slicedToArray(_ref, 1),
+          valid = _ref2[0];
+
+      return valid;
+    });
+    stats.unshift([true, "".concat(date, " ").concat(playerId, " ").concat(SHA, " ").concat(remarks)]);
+    var mappedStats = stats.map(_ref3 => {
+      var _ref4 = src_lib_slicedToArray(_ref3, 2),
+          valid = _ref4[0],
+          row = _ref4[1];
+
+      if (!valid) return [false, row];
       var parts = row.split(" ");
-      if (parts.length < 3) return "";
-      var entryDate = (0,external_kolmafia_namespaceObject.formatDateTime)("yyyyMMdd", parts[0], "dd-MMM-yy");
+      var entryDate = (0,external_kolmafia_namespaceObject.formatDateTime)("yyyyMMdd", parts[0], "dd-MM-yy");
       var entryId = parts[1];
       var entryHash = parts[2];
       var entryRemarks = parts.slice(3).join(" ");
-      return "[".concat(entryDate, "] (#").concat(entryId, ") ").concat(entryHash, " ").concat(entryRemarks);
-    }).filter(row => row.split(" ").length >= 3).join("\n");
+      return [true, "[".concat(entryDate, "] (#").concat(entryId, ") ").concat(entryHash, " ").concat(entryRemarks)];
+    });
+    var updateText = [].concat(src_lib_toConsumableArray(mappedStats.filter(_ref5 => {
+      var _ref6 = src_lib_slicedToArray(_ref5, 1),
+          valid = _ref6[0];
+
+      return valid;
+    })), src_lib_toConsumableArray(mappedStats.filter(_ref7 => {
+      var _ref8 = src_lib_slicedToArray(_ref7, 1),
+          valid = _ref8[0];
+
+      return !valid;
+    })), src_lib_toConsumableArray(parsedWhiteboard.filter(_ref9 => {
+      var _ref10 = src_lib_slicedToArray(_ref9, 1),
+          valid = _ref10[0];
+
+      return !valid;
+    }))).map(_ref11 => {
+      var _ref12 = src_lib_slicedToArray(_ref11, 2),
+          row = _ref12[1];
+
+      return row.replace(RegExp(/[\\r\\n]/g), "");
+    }).filter(row => row.length >= 15).join("\n");
     writeToWhiteboard(updateText);
   } catch (e) {//No-op
   }
@@ -6473,20 +6515,20 @@ function haveCandies(a, b) {
 }
 
 function complexCandyPairs(rem) {
-  return complexCandies.map((a, i) => complexCandies.slice(i).map(b => [a, b])).reduce((acc, val) => acc.concat(val), []).filter(_ref => {
-    var _ref2 = src_lib_slicedToArray(_ref, 2),
-        a = _ref2[0],
-        b = _ref2[1];
+  return complexCandies.map((a, i) => complexCandies.slice(i).map(b => [a, b])).reduce((acc, val) => acc.concat(val), []).filter(_ref13 => {
+    var _ref14 = src_lib_slicedToArray(_ref13, 2),
+        a = _ref14[0],
+        b = _ref14[1];
 
     return ((0,external_kolmafia_namespaceObject.toInt)(a) + (0,external_kolmafia_namespaceObject.toInt)(b)) % 5 === rem;
   });
 }
 
 function simpleCandyPairs(rem) {
-  return simpleCandies.map((a, i) => simpleCandies.slice(i).map(b => [a, b])).reduce((acc, val) => acc.concat(val), []).filter(_ref3 => {
-    var _ref4 = src_lib_slicedToArray(_ref3, 2),
-        a = _ref4[0],
-        b = _ref4[1];
+  return simpleCandies.map((a, i) => simpleCandies.slice(i).map(b => [a, b])).reduce((acc, val) => acc.concat(val), []).filter(_ref15 => {
+    var _ref16 = src_lib_slicedToArray(_ref15, 2),
+        a = _ref16[0],
+        b = _ref16[1];
 
     return ((0,external_kolmafia_namespaceObject.toInt)(a) + (0,external_kolmafia_namespaceObject.toInt)(b)) % 5 === rem;
   });
@@ -6499,19 +6541,19 @@ function simpleCandyPairs(rem) {
 
 
 function getValidComplexCandyPairs(rem) {
-  return complexCandyPairs(rem).filter(_ref5 => {
-    var _ref6 = src_lib_slicedToArray(_ref5, 2),
-        a = _ref6[0],
-        b = _ref6[1];
+  return complexCandyPairs(rem).filter(_ref17 => {
+    var _ref18 = src_lib_slicedToArray(_ref17, 2),
+        a = _ref18[0],
+        b = _ref18[1];
 
     return haveCandies(a, b);
   });
 }
 function getValidSimpleCandyPairs(rem) {
-  return simpleCandyPairs(rem).filter(_ref7 => {
-    var _ref8 = src_lib_slicedToArray(_ref7, 2),
-        a = _ref8[0],
-        b = _ref8[1];
+  return simpleCandyPairs(rem).filter(_ref19 => {
+    var _ref20 = src_lib_slicedToArray(_ref19, 2),
+        a = _ref20[0],
+        b = _ref20[1];
 
     return haveCandies(a, b);
   });
@@ -6842,15 +6884,15 @@ function safeFreeFightLocations() {
 function crystalBallFreeFightLocation() {
   var _filter$map$at;
 
-  var freeFightLocation = (_filter$map$at = src_lib_toConsumableArray(ponder()).filter(_ref9 => {
-    var _ref10 = src_lib_slicedToArray(_ref9, 2),
-        loc = _ref10[0],
-        mon = _ref10[1];
+  var freeFightLocation = (_filter$map$at = src_lib_toConsumableArray(ponder()).filter(_ref21 => {
+    var _ref22 = src_lib_slicedToArray(_ref21, 2),
+        loc = _ref22[0],
+        mon = _ref22[1];
 
     return safeFreeFightLocations().includes(loc) && freeFightMonsters.includes(mon);
-  }).map(_ref11 => {
-    var _ref12 = src_lib_slicedToArray(_ref11, 1),
-        loc = _ref12[0];
+  }).map(_ref23 => {
+    var _ref24 = src_lib_slicedToArray(_ref23, 1),
+        loc = _ref24[0];
 
     return loc;
   }).at(0)) !== null && _filter$map$at !== void 0 ? _filter$map$at : external_kolmafia_namespaceObject.Location.none;
