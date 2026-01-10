@@ -117,6 +117,8 @@ export const useParkaSpit =
   (have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`));
 export const useCenser = have($item`Sept-Ember Censer`) && !get("instant_saveEmbers", false);
 
+export let releaseSHA = "Unknown";
+
 export const testModifiers: Map<CommunityService, string[]> = new Map([
   [CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]],
   [CommunityService.Muscle, ["Muscle", "Muscle Percent"]],
@@ -175,18 +177,28 @@ export function updateRunStats(): void {
   if (get("instant_collectData", false)) return;
   try {
     const text = readWhiteboard();
-    const SHA = checkGithubVersion(false).slice(0, 7);
+    const SHA = gitInfo("Pantocyclus-instantsccs-release").commit.slice(0, 7);
     const playerId = toInt(myId());
     const date = todayToString();
 
     // ========== DATA TO TRACK ===========
-    // Have club | # Club Em' Into Next Week Used | # Club Em' Back in Time Used
-    // eslint-disable-next-line libram/verify-constants
-    const remarks = `${toInt(have($item`legendary seal-clubbing club`))} | ${get("_clubEmNextWeekUsed", 0)}/${5 - get("instant_saveClubEmNextWeek", 0)} | ${get("_clubEmTimeUsed", 0)}/${5 - get("instant_saveClubEmTime", 0)} | ${get("clubEmNextWeekMonster", "")}`;
+    const remarks = [
+      // eslint-disable-next-line libram/verify-constants
+      `${toInt(have($item`legendary seal-clubbing club`))}`,
+      `${get("_clubEmNextWeekUsed", 0)}/${5 - get("instant_saveClubEmNextWeek", 0)}`,
+      `${get("_clubEmTimeUsed", 0)}/${5 - get("instant_saveClubEmTime", 0)}`,
+      `${get("clubEmNextWeekMonster", "")}`,
+    ].join(" | ");
     // ====================================
 
-    type textCheck = [boolean, string];
-    const parsedWhiteboard: textCheck[] = text.split("\n").map((row) => {
+    type TextCheck = [boolean, string];
+    const parsedWhiteboard: TextCheck[] = text.split("\n").map((row) => {
+      if (row.includes("Latest Release Version: ")) {
+        if (releaseSHA === "Unknown") {
+          releaseSHA = row.split(": ")?.at(1) ?? "Unknown";
+        }
+        return [false, ""];
+      }
       const parts = row.split(" ");
       if (parts.length < 3) {
         // print(`Bad Length: ${parts.length}`);
@@ -204,7 +216,7 @@ export function updateRunStats(): void {
 
       const entryDate = formatDateTime(
         "dd-MM-yy",
-        parts[0].match(RegExp(/\[(\d{2}-\w{2}-\d{2})\]/))?.at(1) ?? "",
+        parts[0].match(RegExp(/\[(\d{2}-\d{2}-\d{2})\]/))?.at(1) ?? "",
         "yyyyMMdd",
       );
       if (entryDate.includes("Bad")) {
@@ -220,13 +232,13 @@ export function updateRunStats(): void {
 
       const entryRemarks = parts.slice(3).join(" ");
 
-      return [true, `${entryDate} ${entryId} ${entryHash} ${entryRemarks}` as string];
+      return [true, `${entryDate} ${entryId} ${entryHash} ${entryRemarks}`];
     });
 
     const stats = parsedWhiteboard.filter(([valid]) => valid);
     stats.unshift([true, `${date} ${playerId} ${SHA} ${remarks}`]);
 
-    const mappedStats: textCheck[] = stats.map(([valid, row]) => {
+    const mappedStats: TextCheck[] = stats.map(([valid, row]) => {
       if (!valid) return [false, row];
       const parts = row.split(" ");
       const entryDate = formatDateTime("yyyyMMdd", parts[0], "dd-MM-yy");
@@ -237,6 +249,7 @@ export function updateRunStats(): void {
     });
 
     const updateText = [
+      [false, `===== Latest Release Version: ${releaseSHA.slice(0, 7)} =====`] as TextCheck,
       ...mappedStats.filter(([valid]) => valid),
       ...mappedStats.filter(([valid]) => !valid),
       ...parsedWhiteboard.filter(([valid]) => !valid),
@@ -251,34 +264,32 @@ export function updateRunStats(): void {
   }
 }
 
-export function checkGithubVersion(verbose = true): string {
-  let SHAString = "";
+export function checkGithubVersion(): boolean {
+  let latest = false;
   try {
     const gitBranches: { name: string; commit: { sha: string } }[] = JSON.parse(
       visitUrl(`https://api.github.com/repos/Pantocyclus/InstantSCCS/branches`),
     );
     const releaseBranch = gitBranches.find((branchInfo) => branchInfo.name === "release");
-    const releaseSHA = releaseBranch?.commit.sha ?? "Not Found";
+    releaseSHA = releaseBranch?.commit.sha ?? "Unknown";
     const localBranch = gitInfo("Pantocyclus-instantsccs-release");
     const localSHA = localBranch.commit;
-    SHAString = localSHA;
-    if (verbose) {
-      if (releaseSHA === localSHA) {
-        print("InstantSCCS is up to date!", "green");
-      } else {
-        print(
-          `InstantSCCS is out of date - your version was last updated on ${localBranch.last_changed_date}.`,
-          "red",
-        );
-        print("Please run 'git update'!", "red");
-        print(`Local Version: ${localSHA}.`);
-        print(`Release Version: ${releaseSHA}`);
-      }
+    if (releaseSHA === localSHA) {
+      print("InstantSCCS is up to date!", "green");
+      latest = true;
+    } else {
+      print(
+        `InstantSCCS is out of date - your version was last updated on ${localBranch.last_changed_date}.`,
+        "red",
+      );
+      print("Please run 'git update'!", "red");
+      print(`Local Version: ${localSHA}.`);
+      print(`Release Version: ${releaseSHA}`);
     }
   } catch (e) {
     print("Failed to fetch GitHub data", "red");
   }
-  return SHAString;
+  return latest;
 }
 
 export function simpleDateDiff(t1: string, t2: string): number {
