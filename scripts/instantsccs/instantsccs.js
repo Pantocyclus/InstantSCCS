@@ -6026,6 +6026,7 @@ var startingClan = (0,external_kolmafia_namespaceObject.getClanName)();
 var motherSlimeClan = Clan.getWhitelisted().find(c => c.name.toLowerCase() === property_get("instant_motherSlimeClan", "").toLowerCase()) ? property_get("instant_motherSlimeClan", "") : Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite") ? "CSLoopers Unite" : "";
 var useParkaSpit = property_get("instant_prioritizeParkaSpit", false) || lib_have(template_string_$item(lib_templateObject || (lib_templateObject = lib_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) && lib_have(template_string_$skill(lib_templateObject2 || (lib_templateObject2 = lib_taggedTemplateLiteral(["Feel Envy"]))));
 var useCenser = lib_have(template_string_$item(lib_templateObject3 || (lib_templateObject3 = lib_taggedTemplateLiteral(["Sept-Ember Censer"])))) && !property_get("instant_saveEmbers", false);
+var releaseSHA = "Unknown";
 var testModifiers = new Map([[CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]], [CommunityService.Muscle, ["Muscle", "Muscle Percent"]], [CommunityService.Mysticality, ["Mysticality", "Mysticality Percent"]], [CommunityService.Moxie, ["Moxie", "Moxie Percent"]], [CommunityService.FamiliarWeight, ["Familiar Weight"]], [CommunityService.WeaponDamage, ["Weapon Damage", "Weapon Damage Percent"]], [CommunityService.SpellDamage, ["Spell Damage", "Spell Damage Percent"]], [CommunityService.Noncombat, ["Combat Rate"]], [CommunityService.BoozeDrop, ["Item Drop", "Booze Drop"]], [CommunityService.HotRes, ["Hot Resistance"]], [CommunityService.CoilWire, []]]);
 var testAbbreviations = new Map([[CommunityService.HP, "hp"], [CommunityService.Muscle, "mus"], [CommunityService.Mysticality, "myst"], [CommunityService.Moxie, "mox"], [CommunityService.FamiliarWeight, "fam"], [CommunityService.WeaponDamage, "weapon"], [CommunityService.SpellDamage, "spell"], [CommunityService.Noncombat, "com"], [CommunityService.BoozeDrop, "booze"], [CommunityService.HotRes, "hot"], [CommunityService.CoilWire, "coil"]]);
 var testLimits = new Map([[CommunityService.HP, 1], [CommunityService.Muscle, 2], [CommunityService.Mysticality, 1], [CommunityService.Moxie, 5], [CommunityService.FamiliarWeight, 50], [CommunityService.WeaponDamage, 35], [CommunityService.SpellDamage, 55], [CommunityService.Noncombat, 12], [CommunityService.BoozeDrop, 30], [CommunityService.HotRes, 35], [CommunityService.CoilWire, 60]]);
@@ -6045,16 +6046,25 @@ function updateRunStats() {
 
   try {
     var text = readWhiteboard();
-    var SHA = checkGithubVersion(false).slice(0, 7);
+    var SHA = (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release").commit.slice(0, 7);
     var playerId = (0,external_kolmafia_namespaceObject.toInt)((0,external_kolmafia_namespaceObject.myId)());
     var date = (0,external_kolmafia_namespaceObject.todayToString)(); // ========== DATA TO TRACK ===========
-    // Have club | # Club Em' Into Next Week Used | # Club Em' Back in Time Used
-    // eslint-disable-next-line libram/verify-constants
 
-    var remarks = "".concat((0,external_kolmafia_namespaceObject.toInt)(lib_have(template_string_$item(lib_templateObject4 || (lib_templateObject4 = lib_taggedTemplateLiteral(["legendary seal-clubbing club"]))))), " | ").concat(property_get("_clubEmNextWeekUsed", 0), "/").concat(5 - property_get("instant_saveClubEmNextWeek", 0), " | ").concat(property_get("_clubEmTimeUsed", 0), "/").concat(5 - property_get("instant_saveClubEmTime", 0), " | ").concat(property_get("clubEmNextWeekMonster", "")); // ====================================
+    var remarks = [// eslint-disable-next-line libram/verify-constants
+    "".concat((0,external_kolmafia_namespaceObject.toInt)(lib_have(template_string_$item(lib_templateObject4 || (lib_templateObject4 = lib_taggedTemplateLiteral(["legendary seal-clubbing club"])))))), "".concat(property_get("_clubEmNextWeekUsed", 0), "/").concat(5 - property_get("instant_saveClubEmNextWeek", 0)), "".concat(property_get("_clubEmTimeUsed", 0), "/").concat(5 - property_get("instant_saveClubEmTime", 0)), "".concat(property_get("clubEmNextWeekMonster", ""))].join(" | "); // ====================================
 
     var parsedWhiteboard = text.split("\n").map(row => {
       var _parts$1$match$at, _parts$1$match, _parts$0$match$at, _parts$0$match;
+
+      if (row.includes("Latest Release Version: ")) {
+        if (releaseSHA === "Unknown") {
+          var _row$split$at, _row$split;
+
+          releaseSHA = (_row$split$at = (_row$split = row.split(": ")) === null || _row$split === void 0 ? void 0 : _row$split.at(1)) !== null && _row$split$at !== void 0 ? _row$split$at : "Unknown";
+        }
+
+        return [false, ""];
+      }
 
       var parts = row.split(" ");
 
@@ -6073,7 +6083,7 @@ function updateRunStats() {
         return [false, ""];
       }
 
-      var entryDate = (0,external_kolmafia_namespaceObject.formatDateTime)("dd-MM-yy", (_parts$0$match$at = (_parts$0$match = parts[0].match(RegExp(/\[(\d{2}-\w{2}-\d{2})\]/))) === null || _parts$0$match === void 0 ? void 0 : _parts$0$match.at(1)) !== null && _parts$0$match$at !== void 0 ? _parts$0$match$at : "", "yyyyMMdd");
+      var entryDate = (0,external_kolmafia_namespaceObject.formatDateTime)("dd-MM-yy", (_parts$0$match$at = (_parts$0$match = parts[0].match(RegExp(/\[(\d{2}-\d{2}-\d{2})\]/))) === null || _parts$0$match === void 0 ? void 0 : _parts$0$match.at(1)) !== null && _parts$0$match$at !== void 0 ? _parts$0$match$at : "", "yyyyMMdd");
 
       if (entryDate.includes("Bad")) {
         // print(`Bad Date: ${parts[0]}`);
@@ -6110,7 +6120,7 @@ function updateRunStats() {
       var entryRemarks = parts.slice(3).join(" ");
       return [true, "[".concat(entryDate, "] (#").concat(entryId, ") ").concat(entryHash, " ").concat(entryRemarks)];
     });
-    var updateText = [].concat(src_lib_toConsumableArray(mappedStats.filter(_ref5 => {
+    var updateText = [[false, "===== Latest Release Version: ".concat(releaseSHA.slice(0, 7), " =====")]].concat(src_lib_toConsumableArray(mappedStats.filter(_ref5 => {
       var _ref6 = src_lib_slicedToArray(_ref5, 1),
           valid = _ref6[0];
 
@@ -6136,34 +6146,31 @@ function updateRunStats() {
   }
 }
 function checkGithubVersion() {
-  var verbose = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-  var SHAString = "";
+  var latest = false;
 
   try {
     var _releaseBranch$commit;
 
     var gitBranches = JSON.parse((0,external_kolmafia_namespaceObject.visitUrl)("https://api.github.com/repos/Pantocyclus/InstantSCCS/branches"));
     var releaseBranch = gitBranches.find(branchInfo => branchInfo.name === "release");
-    var releaseSHA = (_releaseBranch$commit = releaseBranch === null || releaseBranch === void 0 ? void 0 : releaseBranch.commit.sha) !== null && _releaseBranch$commit !== void 0 ? _releaseBranch$commit : "Not Found";
+    releaseSHA = (_releaseBranch$commit = releaseBranch === null || releaseBranch === void 0 ? void 0 : releaseBranch.commit.sha) !== null && _releaseBranch$commit !== void 0 ? _releaseBranch$commit : "Unknown";
     var localBranch = (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release");
     var localSHA = localBranch.commit;
-    SHAString = localSHA;
 
-    if (verbose) {
-      if (releaseSHA === localSHA) {
-        (0,external_kolmafia_namespaceObject.print)("InstantSCCS is up to date!", "green");
-      } else {
-        (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date - your version was last updated on ".concat(localBranch.last_changed_date, "."), "red");
-        (0,external_kolmafia_namespaceObject.print)("Please run 'git update'!", "red");
-        (0,external_kolmafia_namespaceObject.print)("Local Version: ".concat(localSHA, "."));
-        (0,external_kolmafia_namespaceObject.print)("Release Version: ".concat(releaseSHA));
-      }
+    if (releaseSHA === localSHA) {
+      (0,external_kolmafia_namespaceObject.print)("InstantSCCS is up to date!", "green");
+      latest = true;
+    } else {
+      (0,external_kolmafia_namespaceObject.print)("InstantSCCS is out of date - your version was last updated on ".concat(localBranch.last_changed_date, "."), "red");
+      (0,external_kolmafia_namespaceObject.print)("Please run 'git update'!", "red");
+      (0,external_kolmafia_namespaceObject.print)("Local Version: ".concat(localSHA, "."));
+      (0,external_kolmafia_namespaceObject.print)("Release Version: ".concat(releaseSHA));
     }
   } catch (e) {
     (0,external_kolmafia_namespaceObject.print)("Failed to fetch GitHub data", "red");
   }
 
-  return SHAString;
+  return latest;
 }
 function simpleDateDiff(t1, t2) {
   // Returns difference in milliseconds
