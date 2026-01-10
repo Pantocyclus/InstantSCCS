@@ -6129,7 +6129,7 @@ function updateRunStats() {
       var _ref12 = src_lib_slicedToArray(_ref11, 2),
           row = _ref12[1];
 
-      return row.replace(RegExp(/[\\r\\n]/g), "");
+      return row;
     }).filter(row => row.length >= 15).join("\n");
     writeToWhiteboard(updateText);
   } catch (e) {//No-op
