@@ -241,7 +241,7 @@ export function updateRunStats(): void {
       ...mappedStats.filter(([valid]) => !valid),
       ...parsedWhiteboard.filter(([valid]) => !valid),
     ]
-      .map(([, row]) => row.replace(RegExp(/[\\r\\n]/g), ""))
+      .map(([, row]) => row)
       .filter((row) => row.length >= 15)
       .join("\n");
 
