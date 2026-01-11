@@ -117,7 +117,7 @@ export const useParkaSpit =
   (have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`));
 export const useCenser = have($item`Sept-Ember Censer`) && !get("instant_saveEmbers", false);
 
-export let releaseSHA = "Unknown";
+export let releaseSHA = "unknown";
 
 export const testModifiers: Map<CommunityService, string[]> = new Map([
   [CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]],
@@ -177,7 +177,10 @@ export function updateRunStats(): void {
   if (get("instant_collectData", false)) return;
   try {
     const text = readWhiteboard();
-    const SHA = gitInfo("Pantocyclus-instantsccs-release").commit.slice(0, 7);
+    const SHA =
+      gitInfo("Pantocyclus-instantsccs-release").commit.length > 0
+        ? gitInfo("Pantocyclus-instantsccs-release").commit.slice(0, 7)
+        : "unknown";
     const playerId = toInt(myId());
     const date = todayToString();
 
@@ -194,8 +197,8 @@ export function updateRunStats(): void {
     type TextCheck = [boolean, string];
     const parsedWhiteboard: TextCheck[] = text.split("\n").map((row) => {
       if (row.includes("Latest Release Version: ")) {
-        if (releaseSHA === "Unknown") {
-          releaseSHA = row.split(": ")?.at(1) ?? "Unknown";
+        if (releaseSHA === "unknown") {
+          releaseSHA = row.split(": ")?.at(1) ?? "unknown";
         }
         return [false, ""];
       }
@@ -271,7 +274,7 @@ export function checkGithubVersion(): boolean {
       visitUrl(`https://api.github.com/repos/Pantocyclus/InstantSCCS/branches`),
     );
     const releaseBranch = gitBranches.find((branchInfo) => branchInfo.name === "release");
-    releaseSHA = releaseBranch?.commit.sha ?? "Unknown";
+    releaseSHA = releaseBranch?.commit.sha ?? "unknown";
     const localBranch = gitInfo("Pantocyclus-instantsccs-release");
     const localSHA = localBranch.commit;
     if (releaseSHA === localSHA) {
