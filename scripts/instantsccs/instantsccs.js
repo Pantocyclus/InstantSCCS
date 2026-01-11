@@ -6026,7 +6026,7 @@ var startingClan = (0,external_kolmafia_namespaceObject.getClanName)();
 var motherSlimeClan = Clan.getWhitelisted().find(c => c.name.toLowerCase() === property_get("instant_motherSlimeClan", "").toLowerCase()) ? property_get("instant_motherSlimeClan", "") : Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite") ? "CSLoopers Unite" : "";
 var useParkaSpit = property_get("instant_prioritizeParkaSpit", false) || lib_have(template_string_$item(lib_templateObject || (lib_templateObject = lib_taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) && lib_have(template_string_$skill(lib_templateObject2 || (lib_templateObject2 = lib_taggedTemplateLiteral(["Feel Envy"]))));
 var useCenser = lib_have(template_string_$item(lib_templateObject3 || (lib_templateObject3 = lib_taggedTemplateLiteral(["Sept-Ember Censer"])))) && !property_get("instant_saveEmbers", false);
-var releaseSHA = "Unknown";
+var releaseSHA = "unknown";
 var testModifiers = new Map([[CommunityService.HP, ["Maximum HP", "Maximum HP Percent", "Muscle", "Muscle Percent"]], [CommunityService.Muscle, ["Muscle", "Muscle Percent"]], [CommunityService.Mysticality, ["Mysticality", "Mysticality Percent"]], [CommunityService.Moxie, ["Moxie", "Moxie Percent"]], [CommunityService.FamiliarWeight, ["Familiar Weight"]], [CommunityService.WeaponDamage, ["Weapon Damage", "Weapon Damage Percent"]], [CommunityService.SpellDamage, ["Spell Damage", "Spell Damage Percent"]], [CommunityService.Noncombat, ["Combat Rate"]], [CommunityService.BoozeDrop, ["Item Drop", "Booze Drop"]], [CommunityService.HotRes, ["Hot Resistance"]], [CommunityService.CoilWire, []]]);
 var testAbbreviations = new Map([[CommunityService.HP, "hp"], [CommunityService.Muscle, "mus"], [CommunityService.Mysticality, "myst"], [CommunityService.Moxie, "mox"], [CommunityService.FamiliarWeight, "fam"], [CommunityService.WeaponDamage, "weapon"], [CommunityService.SpellDamage, "spell"], [CommunityService.Noncombat, "com"], [CommunityService.BoozeDrop, "booze"], [CommunityService.HotRes, "hot"], [CommunityService.CoilWire, "coil"]]);
 var testLimits = new Map([[CommunityService.HP, 1], [CommunityService.Muscle, 2], [CommunityService.Mysticality, 1], [CommunityService.Moxie, 5], [CommunityService.FamiliarWeight, 50], [CommunityService.WeaponDamage, 35], [CommunityService.SpellDamage, 55], [CommunityService.Noncombat, 12], [CommunityService.BoozeDrop, 30], [CommunityService.HotRes, 35], [CommunityService.CoilWire, 60]]);
@@ -6046,7 +6046,7 @@ function updateRunStats() {
 
   try {
     var text = readWhiteboard();
-    var SHA = (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release").commit.slice(0, 7);
+    var SHA = (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release").commit.length > 0 ? (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release").commit.slice(0, 7) : "unknown";
     var playerId = (0,external_kolmafia_namespaceObject.toInt)((0,external_kolmafia_namespaceObject.myId)());
     var date = (0,external_kolmafia_namespaceObject.todayToString)(); // ========== DATA TO TRACK ===========
 
@@ -6057,10 +6057,10 @@ function updateRunStats() {
       var _parts$1$match$at, _parts$1$match, _parts$0$match$at, _parts$0$match;
 
       if (row.includes("Latest Release Version: ")) {
-        if (releaseSHA === "Unknown") {
+        if (releaseSHA === "unknown") {
           var _row$split$at, _row$split;
 
-          releaseSHA = (_row$split$at = (_row$split = row.split(": ")) === null || _row$split === void 0 ? void 0 : _row$split.at(1)) !== null && _row$split$at !== void 0 ? _row$split$at : "Unknown";
+          releaseSHA = (_row$split$at = (_row$split = row.split(": ")) === null || _row$split === void 0 ? void 0 : _row$split.at(1)) !== null && _row$split$at !== void 0 ? _row$split$at : "unknown";
         }
 
         return [false, ""];
@@ -6153,7 +6153,7 @@ function checkGithubVersion() {
 
     var gitBranches = JSON.parse((0,external_kolmafia_namespaceObject.visitUrl)("https://api.github.com/repos/Pantocyclus/InstantSCCS/branches"));
     var releaseBranch = gitBranches.find(branchInfo => branchInfo.name === "release");
-    releaseSHA = (_releaseBranch$commit = releaseBranch === null || releaseBranch === void 0 ? void 0 : releaseBranch.commit.sha) !== null && _releaseBranch$commit !== void 0 ? _releaseBranch$commit : "Unknown";
+    releaseSHA = (_releaseBranch$commit = releaseBranch === null || releaseBranch === void 0 ? void 0 : releaseBranch.commit.sha) !== null && _releaseBranch$commit !== void 0 ? _releaseBranch$commit : "unknown";
     var localBranch = (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release");
     var localSHA = localBranch.commit;
 
