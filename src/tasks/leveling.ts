@@ -47,7 +47,7 @@ import {
   toInt,
   toItem,
   totalFreeRests,
-  totalTurnsPlayed.
+  totalTurnsPlayed,
   use,
   useFamiliar,
   useSkill,
