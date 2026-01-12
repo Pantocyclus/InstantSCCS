@@ -960,6 +960,8 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
+        // eslint-disable-next-line libram/verify-constants
+        weapon: $item`legendary seal-clubbing club`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
       }),
       limit: { tries: 5 },
