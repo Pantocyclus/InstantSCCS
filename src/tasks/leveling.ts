@@ -36,7 +36,6 @@ import {
   myMeat,
   myMp,
   mySoulsauce,
-  myTurncount,
   print,
   putCloset,
   refreshStatus,
@@ -48,6 +47,7 @@ import {
   toInt,
   toItem,
   totalFreeRests,
+  totalTurnsPlayed.
   use,
   useFamiliar,
   useSkill,
@@ -928,7 +928,7 @@ export const LevelingQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         !have($item`legendary seal-clubbing club`) ||
         get("clubEmNextWeekMonster", "") === "" ||
-        myTurncount() < get("clubEmNextWeekMonsterTurn", 0) + 8,
+        totalTurnsPlayed() < get("clubEmNextWeekMonsterTurn", 0) + 8,
       do: () => {
         const counter = get("clubEmNextWeekMonsterTurn", 0);
 
