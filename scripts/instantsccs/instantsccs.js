@@ -14350,7 +14350,7 @@ var LevelingQuest = {
       attemptRestoringMpWithFreeRests(50);
     },
     completed: () => // eslint-disable-next-line libram/verify-constants
-    !lib_have(template_string_$item(_templateObject271 || (_templateObject271 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))) || property_get("clubEmNextWeekMonster", "") === "" || (0,external_kolmafia_namespaceObject.myTurncount)() < property_get("clubEmNextWeekMonsterTurn", 0) + 8,
+    !lib_have(template_string_$item(_templateObject271 || (_templateObject271 = leveling_taggedTemplateLiteral(["legendary seal-clubbing club"])))) || property_get("clubEmNextWeekMonster", "") === "" || (0,external_kolmafia_namespaceObject.totalTurnsPlayed)() < property_get("clubEmNextWeekMonsterTurn", 0) + 8,
     do: () => {
       var counter = property_get("clubEmNextWeekMonsterTurn", 0);
       (0,external_kolmafia_namespaceObject.adv1)($location(_templateObject272 || (_templateObject272 = leveling_taggedTemplateLiteral(["Noob Cave"]))));
