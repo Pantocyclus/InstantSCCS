@@ -1,4 +1,5 @@
 import {
+  availableAmount,
   buy,
   canEquip,
   chew,
@@ -185,14 +186,33 @@ export function updateRunStats(): void {
     const date = todayToString();
 
     // ========== DATA TO TRACK ===========
-    const remarks = [
-      // eslint-disable-next-line libram/verify-constants
-      `${toInt(have($item`legendary seal-clubbing club`))}`,
-      `${get("_clubEmNextWeekUsed", 0)}/${5 - get("instant_saveClubEmNextWeek", 0)}`,
-      `${get("_clubEmTimeUsed", 0)}/${5 - get("instant_saveClubEmTime", 0)}`,
-      `${get("clubEmNextWeekMonster", "")}`,
-    ].join(" | ");
-    // ====================================
+    const remarks = (
+      visitUrl("clan_freadtopic.php?topicid=197960")
+        .match(RegExp(/Currently Tracked Stats:<br>(.*?)<\/td>/))
+        ?.at(1)
+        ?.replace(RegExp(/<br>/g), "\n") ?? ""
+    )
+      .split("\n")
+      .filter((l) => l.length > 0)
+      .map((l) => {
+        const s = l.split(" / ");
+        return s
+          .map((val) => {
+            let num = "?";
+
+            if (Number.isInteger(parseInt(val))) {
+              num = val;
+            } else if (toItem(val.match(/\[(\d+)\]/)?.at(1) ?? "") !== $item.none) {
+              num = availableAmount(toItem(val)).toString();
+            } else {
+              num = get(val.replace(/[\s']/g, ""), "?");
+            }
+            return num;
+          })
+          .join("/");
+      })
+      .filter((l) => l.length > 0)
+      .join(" | ");
 
     type TextCheck = [boolean, string];
     const parsedWhiteboard: TextCheck[] = text.split("\n").map((row) => {
