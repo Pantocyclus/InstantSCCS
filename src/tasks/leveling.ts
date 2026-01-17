@@ -289,6 +289,18 @@ export function powerlevelingLocation(): Location {
   return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`; // Default location
 }
 
+function completedPowerleveling(): boolean {
+  return (
+    myBasestat(mainStat) >= targetBaseMainStat - targetBaseMainStatGap &&
+    (haveCBBIngredients(false) ||
+      overleveled() ||
+      craftedCBBEffects.some((ef) => have(ef)) ||
+      craftedCBBEffects.every((ef) => acquiredOrExcluded(ef))) &&
+    (powerlevelingLocation() !== $location`The Neverending Party` ||
+      get("_neverendingPartyFreeTurns") >= 10)
+  );
+}
+
 function sellMiscellaneousItems(): void {
   const items: Item[] = [
     $item`cardboard ore`,
@@ -1316,6 +1328,75 @@ export const LevelingQuest: Quest = {
       }),
     },
     {
+      name: "Mimic Sausage Goblins",
+      ready: () =>
+        // eslint-disable-next-line libram/verify-constants
+        (have($item`legendary seal-clubbing club`) && !have($item`Kramco Sausage-o-Matic™`)) ||
+        completedPowerleveling(),
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Purple`)) {
+          equip($slot`offhand`, $item`Roman Candelabra`);
+        } else {
+          unbreakableUmbrella();
+        }
+        tryAcquiringEffects(usefulEffects);
+        attemptRestoringMpWithFreeRests(50);
+      },
+      completed: () =>
+        get("instant_saveMimicEggs", false) ||
+        get("_mimicEggsObtained") > 0 ||
+        !haveAndNotExcluded($familiar`Chest Mimic`) ||
+        (!(have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) &&
+          !(have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3)),
+      do: (): void => {
+        const currentFamiliar = myFamiliar();
+        if (haveAndNotExcluded($familiar`Shorter-Order Cook`) && have($item`blue plate`)) {
+          useFamiliar($familiar`Shorter-Order Cook`);
+          equip($slot`familiar`, $item`blue plate`);
+        }
+        useFamiliar($familiar`Chest Mimic`);
+        if (have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3) {
+          retrieveItem($item`Apriling band piccolo`); // We can't play the piccolo if it's equipped on a non-current familiar
+          Array(3 - get("_aprilBandPiccoloUses"))
+            .fill(0)
+            .forEach(() => AprilingBandHelmet.play($item`Apriling band piccolo`));
+        }
+        ChestMimic.receive($monster`sausage goblin`);
+        useFamiliar(currentFamiliar);
+        ChestMimic.differentiate($monster`sausage goblin`);
+      },
+      combat: new CombatStrategy().macro(() =>
+        Macro.externalIf(
+          get("_monsterHabitatsFightsLeft") <= 1 &&
+            habitatCastsLeft() > 0 &&
+            (haveFreeBanish() ||
+              Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
+          Macro.trySkill($skill`Recall Facts: Monster Habitats`),
+        )
+          .trySkill($skill`Blow the Purple Candle!`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Club 'Em Into Next Week`)
+          .default(useCinch),
+      ),
+      outfit: () => ({
+        ...baseOutfit(),
+        weapon:
+          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
+          // eslint-disable-next-line libram/verify-constants
+          !have($item`legendary seal-clubbing club`)
+            ? baseOutfit().weapon
+            : // eslint-disable-next-line libram/verify-constants
+              $item`legendary seal-clubbing club`,
+      }),
+      post: (): void => {
+        visitUrl("main.php");
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Flaming Leaflets",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
@@ -1342,9 +1423,21 @@ export const LevelingQuest: Quest = {
         visitUrl("campground.php?preaction=leaves");
         visitUrl("choice.php?pwd&whichchoice=1510&option=1&leaves=11");
       },
-      combat: new CombatStrategy().macro(Macro.trySkill($skill`Otoscope`).default()),
+      combat: new CombatStrategy().macro(
+        Macro.trySkill($skill`Otoscope`)
+          // eslint-disable-next-line libram/verify-constants
+          .trySkill($skill`Club 'Em Into Next Week`)
+          .default(),
+      ),
       outfit: () => ({
         ...baseOutfit(),
+        weapon:
+          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
+          // eslint-disable-next-line libram/verify-constants
+          (have($item`legendary seal-clubbing club`) && !have($item`Kramco Sausage-o-Matic™`))
+            ? // eslint-disable-next-line libram/verify-constants
+              $item`legendary seal-clubbing club`
+            : baseOutfit().weapon,
         modifier:
           "Item Drop, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™",
       }),
@@ -1883,14 +1976,7 @@ export const LevelingQuest: Quest = {
     },
     {
       name: "Powerlevel",
-      completed: () =>
-        myBasestat(mainStat) >= targetBaseMainStat - targetBaseMainStatGap &&
-        (haveCBBIngredients(false) ||
-          overleveled() ||
-          craftedCBBEffects.some((ef) => have(ef)) ||
-          craftedCBBEffects.every((ef) => acquiredOrExcluded(ef))) &&
-        (powerlevelingLocation() !== $location`The Neverending Party` ||
-          get("_neverendingPartyFreeTurns") >= 10),
+      completed: () => completedPowerleveling(),
       do: powerlevelingLocation(),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
@@ -2035,71 +2121,6 @@ export const LevelingQuest: Quest = {
         sellMiscellaneousItems();
       },
       limit: { tries: 3 },
-    },
-    {
-      name: "Mimic Sausage Goblins",
-      prepare: (): void => {
-        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Purple`)) {
-          equip($slot`offhand`, $item`Roman Candelabra`);
-        } else {
-          unbreakableUmbrella();
-        }
-        tryAcquiringEffects(usefulEffects);
-        attemptRestoringMpWithFreeRests(50);
-      },
-      completed: () =>
-        get("instant_saveMimicEggs", false) ||
-        get("_mimicEggsObtained") > 0 ||
-        !haveAndNotExcluded($familiar`Chest Mimic`) ||
-        (!(have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) &&
-          !(have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3)),
-      do: (): void => {
-        const currentFamiliar = myFamiliar();
-        if (haveAndNotExcluded($familiar`Shorter-Order Cook`) && have($item`blue plate`)) {
-          useFamiliar($familiar`Shorter-Order Cook`);
-          equip($slot`familiar`, $item`blue plate`);
-        }
-        useFamiliar($familiar`Chest Mimic`);
-        if (have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3) {
-          retrieveItem($item`Apriling band piccolo`); // We can't play the piccolo if it's equipped on a non-current familiar
-          Array(3 - get("_aprilBandPiccoloUses"))
-            .fill(0)
-            .forEach(() => AprilingBandHelmet.play($item`Apriling band piccolo`));
-        }
-        ChestMimic.receive($monster`sausage goblin`);
-        useFamiliar(currentFamiliar);
-        ChestMimic.differentiate($monster`sausage goblin`);
-      },
-      combat: new CombatStrategy().macro(() =>
-        Macro.externalIf(
-          get("_monsterHabitatsFightsLeft") <= 1 &&
-            habitatCastsLeft() > 0 &&
-            (haveFreeBanish() ||
-              Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
-          Macro.trySkill($skill`Recall Facts: Monster Habitats`),
-        )
-          .trySkill($skill`Blow the Purple Candle!`)
-          // eslint-disable-next-line libram/verify-constants
-          .trySkill($skill`Club 'Em Into Next Week`)
-          .default(useCinch),
-      ),
-      outfit: () => ({
-        ...baseOutfit(),
-        weapon:
-          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
-          // eslint-disable-next-line libram/verify-constants
-          !have($item`legendary seal-clubbing club`)
-            ? baseOutfit().weapon
-            : // eslint-disable-next-line libram/verify-constants
-              $item`legendary seal-clubbing club`,
-      }),
-      post: (): void => {
-        visitUrl("main.php");
-        sendAutumnaton();
-        sellMiscellaneousItems();
-      },
-      limit: { tries: 1 },
     },
     {
       name: "Witchess King",

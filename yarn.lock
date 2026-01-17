@@ -1863,7 +1863,7 @@ eslint-config-prettier@^9.1.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-9.1.0.tgz#31af3d94578645966c082fcb71a5846d3c94867f"
   integrity sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==
 
-eslint-plugin-libram@^0.4.27:
+eslint-plugin-libram@^0.4.35:
   version "0.4.35"
   resolved "https://registry.yarnpkg.com/eslint-plugin-libram/-/eslint-plugin-libram-0.4.35.tgz#957599602a1588d105deb78a7c1571aa1a022dc5"
   integrity sha512-VW61F6TAh7R2Fj+YNzyqmtsXDkTGU/MBZ22t8MTlm5vK2Elswb42LwmZkfTfSka0J28Q3907XtFCFlKey1ZZZA==
@@ -2644,10 +2644,10 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-kolmafia@^5.28867.0:
-  version "5.28867.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28867.0.tgz#12d4231b86ecf7f0cbedb92e360d63c2f41c75e1"
-  integrity sha512-moJqpImUhe4e3+pmlECW7Oowh2u2WwPDLwfD29o1uz7Sx6p1abE88fujUkUu8WRgciGCoweNHNDmdIQ4tum8WA==
+kolmafia@^5.28891.0:
+  version "5.28891.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28891.0.tgz#afffe00a9809becc99592e9420a599a69e1f8cb0"
+  integrity sha512-mzq4uO9QVmRUOEsjQg7z6JWWv3H48Tw3bEbKwjQgSmraBUFStu5+ZE0yy3ViZJX1DS/fui/nHopYAigBhVnm7w==
 
 levn@^0.4.1:
   version "0.4.1"
