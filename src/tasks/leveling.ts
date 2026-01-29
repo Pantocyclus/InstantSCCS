@@ -1156,6 +1156,42 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Snokebomb",
+      prepare: (): void => {
+        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
+        unbreakableUmbrella();
+        attemptRestoringMpWithFreeRests(50);
+
+        if (
+          myClass() === $class`Pastamancer` &&
+          have($item`Sept-Ember Censer`) &&
+          have($item`Daylight Shavings Helmet`) &&
+          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+          !get("instant_saveEmbers", false) &&
+          !have($item`bembershoot`) // We have not used the mouthwash yet
+        )
+          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
+      },
+      completed: () => get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0),
+      do: powerlevelingLocation(),
+      combat: new CombatStrategy().macro(Macro.trySkill($skill`Snokebomb`).abort()),
+      outfit: () => ({
+        ...baseOutfit(),
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+      }),
+      choices: {
+        1094: 5,
+        1115: 6,
+        1322: 2,
+        1324: 5,
+      },
+      post: (): void => {
+        sendAutumnaton();
+        sellMiscellaneousItems();
+      },
+      limit: { tries: 4 },
+    },
+    {
       name: "Get Rufus Quest",
       completed: () => get("_shadowAffinityToday") || !have($item`closed-circuit pay phone`),
       do: (): void => {
@@ -1445,42 +1481,6 @@ export const LevelingQuest: Quest = {
       post: (): void => {
         sellMiscellaneousItems();
       },
-    },
-    {
-      name: "Snokebomb",
-      prepare: (): void => {
-        restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
-        attemptRestoringMpWithFreeRests(50);
-
-        if (
-          myClass() === $class`Pastamancer` &&
-          have($item`Sept-Ember Censer`) &&
-          have($item`Daylight Shavings Helmet`) &&
-          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-          !get("instant_saveEmbers", false) &&
-          !have($item`bembershoot`) // We have not used the mouthwash yet
-        )
-          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
-      },
-      completed: () => get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0),
-      do: powerlevelingLocation(),
-      combat: new CombatStrategy().macro(Macro.trySkill($skill`Snokebomb`).abort()),
-      outfit: () => ({
-        ...baseOutfit(),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
-      }),
-      choices: {
-        1094: 5,
-        1115: 6,
-        1322: 2,
-        1324: 5,
-      },
-      post: (): void => {
-        sendAutumnaton();
-        sellMiscellaneousItems();
-      },
-      limit: { tries: 4 },
     },
     {
       name: "Get Totem and Saucepan",
