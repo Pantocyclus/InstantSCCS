@@ -740,17 +740,38 @@ export const LevelingQuest: Quest = {
           tryAcquiringEffect($effect`Cyber Resist x2000`);
         }
 
-        // Grab Bembershoots
-        const bembershootQty = get("instant_skipBembershootForJacket", false) ? 2 : 3;
-        visitUrl(
-          `shop.php?whichshop=september&action=buyitem&quantity=${bembershootQty}&whichrow=1516&pwd`,
+        const jacketEmbers =
+          get("instant_skipBembershootForJacket", false) && !have($item`embers-only jacket`)
+            ? 1
+            : 0;
+        const bembershootEmbers = Math.max(
+          0,
+          Math.min(get("instant_skipDuplicateBembershoots", false) ? 1 : 3, 3 - jacketEmbers) -
+            itemAmount($item`bembershoot`),
         );
+        const mouthwashEmbers = get("availableSeptEmbers") - jacketEmbers - bembershootEmbers; // This could be >7 on multi-day runs
+
+        // Grab Bembershoots
+        if (bembershootEmbers > 0) {
+          const bembershootQty = bembershootEmbers;
+          visitUrl(
+            `shop.php?whichshop=september&action=buyitem&quantity=${bembershootQty}&whichrow=1516&pwd`,
+          );
+        }
 
         // Grab Mouthwashes
-        visitUrl("shop.php?whichshop=september&action=buyitem&quantity=2&whichrow=1512&pwd");
+        if (mouthwashEmbers >= 2) {
+          const mouthwashQty = Math.floor(mouthwashEmbers / 2);
+          visitUrl(
+            `shop.php?whichshop=september&action=buyitem&quantity=${mouthwashQty}&whichrow=1512&pwd`,
+          );
+        }
 
-        cliExecute("maximize cold res");
-        use($item`Mmm-brr! brand mouthwash`, 2);
+        // Use all the Mouthwashes we have (in case we also pulled any)
+        if (itemAmount($item`Mmm-brr! brand mouthwash`) > 0) {
+          cliExecute("maximize cold res");
+          use($item`Mmm-brr! brand mouthwash`, itemAmount($item`Mmm-brr! brand mouthwash`));
+        }
       },
       limit: { tries: 1 },
       outfit: {

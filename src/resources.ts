@@ -241,6 +241,10 @@ const farmingResources: Resource[] = [
     "instant_skipBembershootForJacket",
     "Acquire 2 bembershoots and 1 jacket instead of 3 bembershoots",
   ),
+  new Resource(
+    "instant_skipDuplicateBembershoots",
+    "Only acquire 1 bembershoot for Mouthwash powerleveling",
+  ),
   new Resource("instant_savePhotoboothProps", "Do not acquire photobooth props"),
   new Resource("instant_saveStillsuit", "Do not drink stillsuit distillate for the item test"),
   new Resource(
