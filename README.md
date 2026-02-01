@@ -158,9 +158,9 @@ If you're scripting your own run, try eating the Deep Dish of Legend early (this
 
 ### What range of shininess is this script suitable for?
 
-This script supports runs from anywhere between 90-320 turns (assuming no manual pulls; correct as of September 2023).If you are able to cap all the stat tests without using any CBB foods (including the T4 ones) because you have access to a bunch of free fights, stat% and xp% buffs, the script now fully supports running without CBB and can be pretty close to optimal (you might even want to consider setting `_instant_skip<Calzone|DeepDish|Pizza>OfLegend` in your wrapper prior to running the script to save all 5 pulls for other manual turncutting pulls [or to run it in HC]).<br/>
+This script supports runs from anywhere between 90-320 turns (assuming no manual pulls; correct as of September 2023).If you are able to cap all the stat tests without using any CBB foods (including the T4 ones) because you have access to a bunch of free fights, stat% and xp% buffs, the script now fully supports running without CBB and can be pretty close to optimal (you might even want to consider blacklisting the legend pizza buffs with `set instant_explicitlyExcludedBuffs=2740,2741,2742` to have the script avoid pulling and consuming the legend pizzas).<br/>
 
-However, you may also consider using one of these other scripts listed [here](https://loathers.github.io/CS-Scripting-Resources.html) instead to eke out that last bit of efficiency. For example, [this personal script](https://github.com/Pantocyclus/InstantHCCS) is able to achieve a ~1/91 HCCS with fewer resources and organs used as compared to the ~1/93 HCCS (yes, HC) that I get with InstantSCCS (with my preferences already set to largely optimize for profits).<br/>
+However, you may also consider using one of these other scripts listed [here](https://loathers.github.io/CS-Scripting-Resources.html) instead to eke out that last bit of efficiency. For example, [this personal script](https://github.com/Pantocyclus/InstantHCCS) is able to achieve a ~1/70 HCCS with fewer resources and organs used as compared to the ~1/93 HCCS (yes, HC) that I get with InstantSCCS (with my preferences already set to largely optimize for profits).<br/>
 
 ### Why is InstantSCCS not using the S.I.T. Course Completion Certificate?
 
