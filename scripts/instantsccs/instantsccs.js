@@ -6242,7 +6242,7 @@ function runTest(csTest) {
     (0,external_kolmafia_namespaceObject.print)("Expected to take ".concat(testTurns, ", which is more than ").concat(maxTurns, "."), "red");
     (0,external_kolmafia_namespaceObject.print)("Either there was a bug, or you are under-prepared for this test", "red");
     (0,external_kolmafia_namespaceObject.print)("Manually complete the test if you think this is fine.", "red");
-    (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set ".concat(csTestLimitPref, "=<new limit>'"), "red");
+    (0,external_kolmafia_namespaceObject.print)("You may also increase the turn limit by typing 'set instant_".concat(csTestLimitPref, "TestTurnLimit=<new limit>'"), "red");
   }
 
   var result = withProperty("_mummeryMods", "", () => csTest.run(() => logTestSetup(csTest), maxTurns));
