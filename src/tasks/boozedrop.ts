@@ -88,7 +88,7 @@ export const BoozeDropQuest: Quest = {
         attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
-        !have($familiar`Ghost of Crimbo Carols`) ||
+        !haveAndNotExcluded($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
         acquiredOrExcluded($effect`All I Want For Crimbo Is Stuff`) ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(

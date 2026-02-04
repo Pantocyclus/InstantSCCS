@@ -62,7 +62,9 @@ function miniKiwi(): Familiar {
 }
 
 export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
-  const defaultFam = have($familiar`Cookbookbat`) ? $familiar`Cookbookbat` : $familiar.none;
+  const defaultFam = haveAndNotExcluded($familiar`Cookbookbat`)
+    ? $familiar`Cookbookbat`
+    : $familiar.none;
   const familiars = [
     cookbookbat,
     shorterOrderCook,

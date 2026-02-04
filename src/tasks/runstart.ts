@@ -95,7 +95,6 @@ import {
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { baseOutfit, unbreakableUmbrella } from "../outfit";
-import { excludedFamiliars } from "../resources";
 import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
 import {
   discoveredFurniture,
@@ -746,9 +745,7 @@ export const RunStartQuest: Quest = {
         // If we can benefit greatly from the famxp, we should highly prioritize the piccolo
         // (to consider: but it isn't very useful if we already have other copyable sources available [e.g. kramco])
         const canUseMimic =
-          have($familiar`Chest Mimic`) &&
-          !excludedFamiliars.includes($familiar`Chest Mimic`) &&
-          !get("instant_saveMimicEggs", false);
+          haveAndNotExcluded($familiar`Chest Mimic`) && !get("instant_saveMimicEggs", false);
         const canUseCopier =
           (have($item`backup camera`) && get("instant_saveBackups", 0) < 11) ||
           (have($skill`Recall Facts: Monster Habitats`) &&
@@ -792,11 +789,7 @@ export const RunStartQuest: Quest = {
             MayamCalendar.toCombinationString(["chair", "meat", "yam3", "clock"]),
           );
         } else {
-          if (
-            have($familiar`Chest Mimic`) &&
-            !excludedFamiliars.includes($familiar`Chest Mimic`) &&
-            !get("instant_saveMimicEggs", false)
-          ) {
+          if (haveAndNotExcluded($familiar`Chest Mimic`) && !get("instant_saveMimicEggs", false)) {
             useFamiliar($familiar`Chest Mimic`);
           } else if (sombrero() !== $familiar.none) {
             useFamiliar(sombrero());
@@ -1126,7 +1119,7 @@ export const RunStartQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         attemptRestoringMpWithFreeRests(50);
         if (
-          have($familiar`Left-Hand Man`) &&
+          haveAndNotExcluded($familiar`Left-Hand Man`) &&
           have($item`Roman Candelabra`) &&
           !have($effect`Everything Looks Purple`)
         ) {
@@ -1163,10 +1156,10 @@ export const RunStartQuest: Quest = {
     },
     {
       name: "Bakery Pledge",
-      ready: () => have($familiar`Patriotic Eagle`) && haveFreeRunSource(),
+      ready: () => haveAndNotExcluded($familiar`Patriotic Eagle`) && haveFreeRunSource(),
       completed: () =>
         have($effect`Citizen of a Zone`) ||
-        !have($familiar`Patriotic Eagle`) ||
+        !haveAndNotExcluded($familiar`Patriotic Eagle`) ||
         get("_citizenZone").includes("Madness Bakery") ||
         get("_instant_pledgeUsed", false),
       do: $location`Madness Bakery`,
