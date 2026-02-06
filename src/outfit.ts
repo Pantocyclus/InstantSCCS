@@ -1,33 +1,74 @@
 import { OutfitSpec } from "grimoire-kolmafia";
-import { cliExecute, equip, equippedItem, Item, myPrimestat } from "kolmafia";
-import { $effect, $item, $skill, $slot, $stat, DaylightShavings, examine, get, have } from "libram";
+import { cliExecute, Effect, equippedItem, Item, myClass, myPrimestat } from "kolmafia";
+import {
+  $class,
+  $effect,
+  $item,
+  $skill,
+  $slot,
+  $stat,
+  DaylightShavings,
+  examine,
+  get,
+  have,
+} from "libram";
 import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
 import { chooseFamiliar } from "./familiars";
 
-export function garbageShirt(): void {
+export function reduceItemUndefinedArray(arr: (Item | undefined)[]): Item[] | undefined {
+  const itemArray = arr.filter((it) => it !== undefined) as Item[];
+  if (itemArray.length > 0) return itemArray;
+  return undefined;
+}
+
+export function daylightShavingsHelmet(): Item | undefined {
+  return myClass() === $class`Pastamancer` &&
+    have($item`Sept-Ember Censer`) &&
+    have($item`Daylight Shavings Helmet`) &&
+    get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
+    !get("instant_saveEmbers", false) &&
+    !have($item`bembershoot`) // We have not used the mouthwash yet
+    ? $item`Daylight Shavings Helmet` // Grab Grizzly Beard for mouthwash
+    : undefined;
+}
+
+export function legendarySealClubbingClub(str: string): Item | undefined {
+  if (
+    // eslint-disable-next-line libram/verify-constants
+    have($item`legendary seal-clubbing club`) &&
+    get(`_clubEm${str}Used`, 0) < 5 - get(`instant_saveClubEm${str}`, 0)
+  )
+    // eslint-disable-next-line libram/verify-constants
+    return $item`legendary seal-clubbing club`;
+  return undefined;
+}
+
+export function romanCandelabra(ef: Effect): Item | undefined {
+  if (have($item`Roman Candelabra`) && !have(ef)) {
+    return $item`Roman Candelabra`;
+  }
+  return undefined;
+}
+
+export function garbageShirt(): Item | undefined {
   if (
     have($item`January's Garbage Tote`) &&
     get("garbageShirtCharge") > 0 &&
     have($skill`Torso Awareness`)
   ) {
     if (get("garbageShirtCharge") === 1) {
-      if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`)
-        equip($slot`shirt`, $item.none);
+      if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`) return $item.none;
     } else {
       if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-      equip($slot`shirt`, $item`makeshift garbage shirt`);
+      return $item`makeshift garbage shirt`;
     }
   }
+  return undefined;
 }
 
-export function unbreakableUmbrella(): void {
-  if (have($item`unbreakable umbrella`) && get("umbrellaState") !== "broken")
-    cliExecute("umbrella ml");
-}
-
-export function docBag(): void {
-  if (have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3)
-    equip($slot`acc3`, $item`Lil' Doctor™ bag`);
+export function docBag(): Item | undefined {
+  if (have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3) return $item`Lil' Doctor™ bag`;
+  return undefined;
 }
 
 export function sugarItemsAboutToBreak(): Item[] {

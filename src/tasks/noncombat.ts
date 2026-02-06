@@ -97,8 +97,6 @@ export const NoncombatQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Noncombat.isDone(),
       prepare: (): void => {
-        if (have($item`Jurassic Parka`) && get("parkaMode") !== "pterodactyl")
-          cliExecute("parka pterodactyl");
         if (
           get("_kgbClicksUsed") < 22 &&
           have($item`Kremlin's Greatest Briefcase`) &&
@@ -161,6 +159,7 @@ export const NoncombatQuest: Quest = {
       outfit: {
         familiar: have($familiar`Peace Turkey`) ? $familiar`Peace Turkey` : $familiar`Disgeist`,
         modifier: comTestMaximizerString,
+        modes: { parka: "pterodactyl" },
       },
       post: (): void => {
         uneffect($effect`The Sonata of Sneakiness`);

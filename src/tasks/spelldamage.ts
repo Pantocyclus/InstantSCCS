@@ -1,7 +1,6 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
   buy,
-  cliExecute,
   create,
   drink,
   Effect,
@@ -154,7 +153,6 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Inner Elf",
       prepare: (): void => {
-        if (have($item`Jurassic Parka`)) cliExecute("parka pterodactyl");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (
           myHp() > 30 &&
@@ -184,6 +182,7 @@ export const SpellDamageQuest: Quest = {
         acc2: $item`Eight Days a Week Pill Keeper`,
         familiar: $familiar`Machine Elf`,
         modifier: "init",
+        modes: { parka: "pterodactyl" },
       },
       post: () => Clan.join(startingClan),
       limit: { tries: 1 },

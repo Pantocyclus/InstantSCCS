@@ -94,7 +94,7 @@ import {
 } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
-import { baseOutfit, unbreakableUmbrella } from "../outfit";
+import { baseOutfit, reduceItemUndefinedArray, romanCandelabra } from "../outfit";
 import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
 import {
   discoveredFurniture,
@@ -828,7 +828,6 @@ export const RunStartQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
-        unbreakableUmbrella();
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
       completed: () =>
@@ -868,7 +867,7 @@ export const RunStartQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
-        offhand: $item`Roman Candelabra`,
+        offhand: romanCandelabra($effect`Everything Looks Yellow`),
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
       }),
       post: (): void => {
@@ -889,7 +888,6 @@ export const RunStartQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
-        unbreakableUmbrella();
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
       completed: () =>
@@ -909,7 +907,7 @@ export const RunStartQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
-        offhand: $item`Roman Candelabra`,
+        offhand: romanCandelabra($effect`Everything Looks Yellow`),
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
       }),
       post: (): void => {
@@ -928,7 +926,6 @@ export const RunStartQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
-        unbreakableUmbrella();
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
         PeridotOfPeril.setChoice($monster`novelty tropical skeleton`);
       },
@@ -949,7 +946,7 @@ export const RunStartQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
-        offhand: $item`Roman Candelabra`,
+        offhand: romanCandelabra($effect`Everything Looks Yellow`),
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
         acc3: $item`Peridot of Peril`,
       }),
@@ -969,7 +966,6 @@ export const RunStartQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
-        unbreakableUmbrella();
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
       completed: () =>
@@ -998,11 +994,15 @@ export const RunStartQuest: Quest = {
           ),
         ).abort(),
       ),
-      outfit: () => ({
+      outfit: (): OutfitSpec => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
-        offhand: $item`Roman Candelabra`,
+        offhand: reduceItemUndefinedArray([
+          romanCandelabra($effect`Everything Looks Yellow`),
+          $item`unbreakable umbrella`,
+        ]),
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
+        modes: { umbrella: "broken" },
       }),
       post: (): void => {
         if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
@@ -1019,11 +1019,6 @@ export const RunStartQuest: Quest = {
         } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
-        }
-        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Yellow`)) {
-          equip($slot`offhand`, $item`Roman Candelabra`);
-        } else {
-          unbreakableUmbrella();
         }
         if (get("_snokebombUsed") === 0) attemptRestoringMpWithFreeRests(50);
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
@@ -1066,10 +1061,15 @@ export const RunStartQuest: Quest = {
       outfit: (): OutfitSpec => {
         return {
           shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
+          offhand: reduceItemUndefinedArray([
+            romanCandelabra($effect`Everything Looks Yellow`),
+            $item`unbreakable umbrella`,
+          ]),
           acc2: $item`cursed monkey's paw`,
           acc3: !have($effect`Everything Looks Green`) ? $item`spring shoes` : undefined,
           familiar: chooseFamiliar(false),
           modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
+          modes: { umbrella: "broken" },
         };
       },
       post: (): void => {
@@ -1172,7 +1172,7 @@ export const RunStartQuest: Quest = {
       outfit: () => ({
         ...baseOutfit,
         familiar: $familiar`Patriotic Eagle`,
-        offhand: have($item`Roman Candelabra`) ? $item`Roman Candelabra` : undefined,
+        offhand: romanCandelabra($effect`Everything Looks Green`),
         acc2: have($item`spring shoes`) ? $item`spring shoes` : undefined,
       }),
       post: (): void => {
@@ -1206,7 +1206,7 @@ export const RunStartQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
-        offhand: $item`Roman Candelabra`,
+        offhand: romanCandelabra($effect`Everything Looks Purple`),
       }),
       limit: { tries: 1 },
     },

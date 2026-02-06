@@ -66,9 +66,11 @@ export const HotResQuest: Quest = {
     {
       name: "Reminisce Factory Worker (female)",
       prepare: (): void => {
-        if (useParkaSpit) {
-          cliExecute("parka dilophosaur");
-        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
+        if (
+          !useParkaSpit &&
+          !have($item`yellow rocket`) &&
+          !have($effect`Everything Looks Yellow`)
+        ) {
           buy($item`yellow rocket`, 1);
         }
       },
@@ -89,6 +91,7 @@ export const HotResQuest: Quest = {
         familiar: chooseFamiliar(false),
         modifier: "Item Drop",
         avoid: sugarItemsAboutToBreak(),
+        modes: { parka: "dilophosaur" },
       }),
       choices: { 1387: 3 },
       combat: new CombatStrategy().macro(
@@ -209,8 +212,6 @@ export const HotResQuest: Quest = {
     {
       name: "Test",
       prepare: (): void => {
-        cliExecute("retrocape vampire hold");
-        if (get("parkaMode") !== "pterodactyl") cliExecute("parka pterodactyl");
         if (
           get("_kgbClicksUsed") < 22 &&
           have($item`Kremlin's Greatest Briefcase`) &&
@@ -271,6 +272,7 @@ export const HotResQuest: Quest = {
       outfit: {
         modifier: hotTestMaximizerString,
         familiar: $familiar`Exotic Parrot`,
+        modes: { parka: "pterodactyl", retrocape: ["vampire", "hold"] },
       },
       post: (): void => {
         if (get("_horsery") === "pale horse") cliExecute("horsery dark");
