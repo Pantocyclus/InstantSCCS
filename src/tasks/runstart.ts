@@ -450,8 +450,7 @@ export const RunStartQuest: Quest = {
     {
       name: "BoomBox",
       completed: () =>
-        SongBoom.song() === "These Fists Were Made for Punchin'" ||
-        !have($item`SongBoom™ BoomBox`),
+        SongBoom.song() === "These Fists Were Made for Punchin'" || !have($item`SongBoom™ BoomBox`),
       do: () => SongBoom.setSong("These Fists Were Made for Punchin'"),
       limit: { tries: 1 },
     },
@@ -1148,6 +1147,7 @@ export const RunStartQuest: Quest = {
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Blow the Purple Candle!`)
+          // eslint-disable-next-line libram/verify-constants
           .trySkill($skill`Club 'Em Into Next Week`)
           .default(),
       ),

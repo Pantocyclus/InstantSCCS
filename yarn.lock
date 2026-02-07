@@ -1860,7 +1860,7 @@ keyv@^4.5.4:
   dependencies:
     json-buffer "3.0.1"
 
-kolmafia@latest:
+kolmafia@^5.28906.0:
   version "5.28906.0"
   resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28906.0.tgz#217175b4ae148bf6278d1813600dca67a75c9f7b"
   integrity sha512-PsjRqOxwRNeKgjDX5DTBFKxsK1R5EfDGJxrdY27vEUVpJnmjb688GkzGOzBCjO/paH4mEPluWv/aNpSSTIDZyQ==

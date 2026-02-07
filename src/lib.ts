@@ -282,6 +282,7 @@ export function updateRunStats(): void {
       .join("\n");
 
     writeToWhiteboard(updateText);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     //No-op
   }
@@ -309,6 +310,7 @@ export function checkGithubVersion(): boolean {
       print(`Local Version: ${localSHA}.`);
       print(`Release Version: ${releaseSHA}`);
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     print("Failed to fetch GitHub data", "red");
   }

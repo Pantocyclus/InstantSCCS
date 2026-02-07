@@ -167,6 +167,7 @@ export const BoozeDropQuest: Quest = {
         acquiredOrExcluded($effect`I See Everything Thrice!`) ||
         get("instant_skipGovernment", false),
       do: (): void => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         inMuscleSign()
           ? retrieveItem($item`bitchin' meatcar`)
           : retrieveItem($item`Desert Bus pass`);
@@ -439,6 +440,7 @@ export const BoozeDropQuest: Quest = {
           $effect`Singer's Faithful Ocelot`,
           $effect`Steely-Eyed Squint`,
           $effect`Uncucumbered`,
+          // eslint-disable-next-line libram/verify-constants
           $effect`Who's Going to Pay This Drunken Sailor?`,
         ];
         tryAcquiringEffects(usefulEffects, true);
