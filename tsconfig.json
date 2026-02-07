@@ -13,7 +13,7 @@
     "noImplicitReturns": true,
     "pretty": true,
     "strict": true,
-    "target": "es2022",
+    "target": "es2022"
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "*.ts"],
+  "include": ["src/**/*.ts", "test/**/*.ts", "*.ts"]
 }
