@@ -34,11 +34,9 @@ export function daylightShavingsHelmet(): Item | undefined {
 
 export function legendarySealClubbingClub(str: string): Item | undefined {
   if (
-    // eslint-disable-next-line libram/verify-constants
     have($item`legendary seal-clubbing club`) &&
     get(`_clubEm${str}Used`, 0) < 5 - get(`instant_saveClubEm${str}`, 0)
   )
-    // eslint-disable-next-line libram/verify-constants
     return $item`legendary seal-clubbing club`;
   return undefined;
 }

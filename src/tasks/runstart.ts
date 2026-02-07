@@ -94,7 +94,12 @@ import {
 } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
-import { baseOutfit, reduceItemUndefinedArray, romanCandelabra } from "../outfit";
+import {
+  baseOutfit,
+  legendarySealClubbingClub,
+  reduceItemUndefinedArray,
+  romanCandelabra,
+} from "../outfit";
 import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
 import {
   discoveredFurniture,
@@ -1135,13 +1140,7 @@ export const RunStartQuest: Quest = {
       },
       outfit: () => ({
         ...baseOutfit(),
-        weapon:
-          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
-          // eslint-disable-next-line libram/verify-constants
-          !have($item`legendary seal-clubbing club`)
-            ? baseOutfit().weapon
-            : // eslint-disable-next-line libram/verify-constants
-              $item`legendary seal-clubbing club`,
+        weapon: legendarySealClubbingClub("NextWeek"),
         offhand: $item`Kramco Sausage-o-Matic™`,
       }),
       post: (): void => {
@@ -1149,7 +1148,6 @@ export const RunStartQuest: Quest = {
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Blow the Purple Candle!`)
-          // eslint-disable-next-line libram/verify-constants
           .trySkill($skill`Club 'Em Into Next Week`)
           .default(),
       ),
