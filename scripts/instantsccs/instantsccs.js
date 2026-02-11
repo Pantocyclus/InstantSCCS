@@ -13905,7 +13905,7 @@ var LevelingQuest = {
       kolmafia.restoreHp(clamp(1000, kolmafia.myMaxhp() / 2, kolmafia.myMaxhp()));
       attemptRestoringMpWithFreeRests(50);
     },
-    completed: () => get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0),
+    completed: () => get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0) || get("_monsterHabitatsFightsLeft") > 0,
     do: powerlevelingLocation(),
     combat: new CombatStrategy().macro(Macro.trySkill($skill(_templateObject351 || (_templateObject351 = _taggedTemplateLiteral(["Snokebomb"])))).abort()),
     outfit: () => _objectSpread2(_objectSpread2({}, baseOutfit()), {}, {
