@@ -1196,7 +1196,9 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         attemptRestoringMpWithFreeRests(50);
       },
-      completed: () => get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0),
+      completed: () =>
+        get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0) ||
+        get("_monsterHabitatsFightsLeft") > 0,
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Snokebomb`).abort()),
       outfit: () => ({
