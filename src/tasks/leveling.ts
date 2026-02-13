@@ -12,11 +12,9 @@ import {
   Effect,
   effectModifier,
   equip,
-  equippedItem,
   getCampground,
   getWorkshed,
   haveEffect,
-  haveEquipped,
   holiday,
   inebrietyLimit,
   inHardcore,
@@ -137,7 +135,16 @@ import {
   wishFor,
   xpWishEffect,
 } from "../lib";
-import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella, mobiusRing } from "../outfit";
+import {
+  baseOutfit,
+  daylightShavingsHelmet,
+  docBag,
+  garbageShirt,
+  legendarySealClubbingClub,
+  reduceItemUndefinedArray,
+  romanCandelabra,
+  mobiusRing,
+} from "../outfit";
 import Macro, { haveFreeBanish } from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { chooseQuest, rufusTarget } from "libram/dist/resources/2023/ClosedCircuitPayphone";
@@ -632,11 +639,14 @@ export const LevelingQuest: Quest = {
         get("_batWingsRestUsed") >= 11 ||
         myMp() >= Math.min(200, myMaxmp()),
       do: (): void => {
-        equip($slot`back`, $item`bat wings`);
         if (myMp() < Math.min(200, myMaxmp())) {
           useSkill($skill`Rest upside down`);
         }
       },
+      outfit: () => ({
+        ...baseOutfit(),
+        back: $item`bat wings`,
+      }),
       limit: { tries: 11 },
     },
     {
@@ -952,8 +962,6 @@ export const LevelingQuest: Quest = {
       name: "Club 'Em Into Next Week",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
-        garbageShirt();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -993,9 +1001,12 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
+        shirt: garbageShirt(),
         // eslint-disable-next-line libram/verify-constants
         weapon: $item`legendary seal-clubbing club`,
+        offhand: $item`unbreakable umbrella`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modes: { umbrella: "broken" },
       }),
       limit: { tries: 5 },
     },
@@ -1032,7 +1043,6 @@ export const LevelingQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
           buy($item`blue rocket`, 1);
         }
-        unbreakableUmbrella();
         mobiusRing();
         docBag();
         attemptRestoringMpWithFreeRests(50);
@@ -1044,7 +1054,7 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !have($item`Peridot of Peril`) ||
         have($item`li'l ninja costume`) ||
-        !have($familiar`Trick-or-Treating Tot`),
+        !haveAndNotExcluded($familiar`Trick-or-Treating Tot`),
       do: $location`The Haiku Dungeon`,
       combat: new CombatStrategy().macro(
         Macro.if_(
@@ -1059,9 +1069,12 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
+        offhand: $item`unbreakable umbrella`,
         acc2: $item`Peridot of Peril`,
+        acc3: docBag(),
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
       limit: { tries: 1 },
@@ -1074,8 +1087,6 @@ export const LevelingQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
           buy($item`blue rocket`, 1);
         }
-        unbreakableUmbrella();
-        docBag();
         attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
@@ -1085,7 +1096,7 @@ export const LevelingQuest: Quest = {
         !have($skill`Map the Monsters`) ||
         get("_monstersMapped") >= 3 ||
         have($item`li'l ninja costume`) ||
-        !have($familiar`Trick-or-Treating Tot`) ||
+        !haveAndNotExcluded($familiar`Trick-or-Treating Tot`) ||
         get("instant_skipMappingNinja", false),
       do: () => mapMonster($location`The Haiku Dungeon`, $monster`amateur ninja`),
       combat: new CombatStrategy().macro(
@@ -1101,8 +1112,11 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
+        offhand: $item`unbreakable umbrella`,
+        acc3: docBag(),
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
       limit: { tries: 1 },
@@ -1115,7 +1129,6 @@ export const LevelingQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
           buy($item`blue rocket`, 1);
         }
-        unbreakableUmbrella();
         attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
@@ -1132,7 +1145,9 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(false),
+        offhand: $item`unbreakable umbrella`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
       choices: {
@@ -1147,7 +1162,6 @@ export const LevelingQuest: Quest = {
       name: "Restore MP with Glowing Blue (continued)",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         attemptRestoringMpWithFreeRests(50);
       },
       // We need to spend at least 1adv to get the mp regen from Glowing Blue
@@ -1160,11 +1174,13 @@ export const LevelingQuest: Quest = {
       do: () => (canScreech() ? $location`Noob Cave` : $location`The Dire Warren`), // Use a non-wanderer zone unless we need to screech
       outfit: () => ({
         ...baseOutfit(false),
+        offhand: $item`unbreakable umbrella`,
         familiar:
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(false),
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip miniature crystal ball, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modes: { umbrella: "broken" },
       }),
       combat: new CombatStrategy().macro(
         Macro.if_("monstername crate", Macro.trySkill($skill`%fn, Release the Patriotic Screech!`))
@@ -1181,26 +1197,20 @@ export const LevelingQuest: Quest = {
       name: "Snokebomb",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         mobiusRing();
         attemptRestoringMpWithFreeRests(50);
-
-        if (
-          myClass() === $class`Pastamancer` &&
-          have($item`Sept-Ember Censer`) &&
-          have($item`Daylight Shavings Helmet`) &&
-          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-          !get("instant_saveEmbers", false) &&
-          !have($item`bembershoot`) // We have not used the mouthwash yet
-        )
-          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
       },
-      completed: () => get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0),
+      completed: () =>
+        get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0) ||
+        get("_monsterHabitatsFightsLeft") > 0,
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Snokebomb`).abort()),
       outfit: () => ({
         ...baseOutfit(),
+        hat: daylightShavingsHelmet(),
+        offhand: $item`unbreakable umbrella`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modes: { umbrella: "broken" },
       }),
       choices: {
         1094: 5,
@@ -1227,22 +1237,11 @@ export const LevelingQuest: Quest = {
       name: "Shadow Rift",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         mobiusRing();
         attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
         }
-
-        if (
-          myClass() === $class`Pastamancer` &&
-          have($item`Sept-Ember Censer`) &&
-          have($item`Daylight Shavings Helmet`) &&
-          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-          !get("instant_saveEmbers", false) &&
-          !have($item`bembershoot`) // We have not used the mouthwash yet
-        )
-          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
       },
       completed: () =>
         have($item`Rufus's shadow lodestone`) ||
@@ -1256,7 +1255,10 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
+        hat: daylightShavingsHelmet(),
+        offhand: $item`unbreakable umbrella`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modes: { umbrella: "broken" },
       }),
       post: (): void => {
         if (have(rufusTarget() as Item)) {
@@ -1307,18 +1309,7 @@ export const LevelingQuest: Quest = {
           visitUrl("place.php?whichplace=snojo&action=snojo_controller");
           runChoice(1);
         }
-        unbreakableUmbrella();
         attemptRestoringMpWithFreeRests(50);
-
-        if (
-          myClass() === $class`Pastamancer` &&
-          have($item`Sept-Ember Censer`) &&
-          have($item`Daylight Shavings Helmet`) &&
-          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-          !get("instant_saveEmbers", false) &&
-          !have($item`bembershoot`) // We have not used the mouthwash yet
-        )
-          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
       },
       completed: () => get("_snojoFreeFights") >= 10 || !get("snojoAvailable"),
       do: $location`The X-32-F Combat Training Snowman`,
@@ -1329,11 +1320,14 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
+        hat: daylightShavingsHelmet(),
+        offhand: $item`unbreakable umbrella`,
         familiar:
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(true),
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modes: { umbrella: "broken" },
       }),
       limit: { tries: 10 },
       post: (): void => {
@@ -1395,23 +1389,18 @@ export const LevelingQuest: Quest = {
         completedPowerleveling(),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Purple`)) {
-          equip($slot`offhand`, $item`Roman Candelabra`);
-        } else {
-          unbreakableUmbrella();
-        }
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         get("instant_saveMimicEggs", false) ||
         get("_mimicEggsObtained") > 0 ||
-        !haveAndNotExcluded($familiar`Chest Mimic`) ||
+        !have($familiar`Chest Mimic`) ||
         (!(have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) &&
           !(have($item`Apriling band piccolo`) && get("_aprilBandPiccoloUses") < 3)),
       do: (): void => {
         const currentFamiliar = myFamiliar();
-        if (haveAndNotExcluded($familiar`Shorter-Order Cook`) && have($item`blue plate`)) {
+        if (have($familiar`Shorter-Order Cook`) && have($item`blue plate`)) {
           useFamiliar($familiar`Shorter-Order Cook`);
           equip($slot`familiar`, $item`blue plate`);
         }
@@ -1441,13 +1430,12 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
-        weapon:
-          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
-          // eslint-disable-next-line libram/verify-constants
-          !have($item`legendary seal-clubbing club`)
-            ? baseOutfit().weapon
-            : // eslint-disable-next-line libram/verify-constants
-              $item`legendary seal-clubbing club`,
+        weapon: legendarySealClubbingClub("NextWeek"),
+        offhand: reduceItemUndefinedArray([
+          romanCandelabra($effect`Everything Looks Purple`),
+          $item`unbreakable umbrella`,
+        ]),
+        modes: { umbrella: "broken" },
       }),
       post: (): void => {
         visitUrl("main.php");
@@ -1460,20 +1448,7 @@ export const LevelingQuest: Quest = {
       name: "Flaming Leaflets",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
-        if (have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3)
-          equip($slot`acc3`, $item`Lil' Doctor™ bag`);
         attemptRestoringMpWithFreeRests(50);
-
-        if (
-          myClass() === $class`Pastamancer` &&
-          have($item`Sept-Ember Censer`) &&
-          have($item`Daylight Shavings Helmet`) &&
-          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-          !get("instant_saveEmbers", false) &&
-          !have($item`bembershoot`) // We have not used the mouthwash yet
-        )
-          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
       },
       completed: () =>
         get("_leafMonstersFought") >= 5 ||
@@ -1491,15 +1466,16 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
-        weapon:
-          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
-          // eslint-disable-next-line libram/verify-constants
-          (have($item`legendary seal-clubbing club`) && !have($item`Kramco Sausage-o-Matic™`))
-            ? // eslint-disable-next-line libram/verify-constants
-              $item`legendary seal-clubbing club`
-            : baseOutfit().weapon,
+        hat: daylightShavingsHelmet(),
+        weapon: legendarySealClubbingClub("NextWeek"),
+        offhand: $item`unbreakable umbrella`,
+        acc3:
+          have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3
+            ? $item`Lil' Doctor™ bag`
+            : undefined,
         modifier:
           "Item Drop, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™",
+        modes: { umbrella: "broken" },
       }),
       limit: { tries: 5 },
       post: (): void => {
@@ -1523,29 +1499,14 @@ export const LevelingQuest: Quest = {
         (have($item`April Shower Thoughts shield`) && have($skill`Northern Explosion`)),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (useParkaSpit) {
-          cliExecute("parka dilophosaur");
-        } else if (!have($item`yellow rocket`) && !have($effect`Everything Looks Yellow`)) {
+        if (
+          !useParkaSpit &&
+          !have($item`yellow rocket`) &&
+          !have($effect`Everything Looks Yellow`)
+        ) {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
-        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Yellow`)) {
-          equip($slot`offhand`, $item`Roman Candelabra`);
-        } else if (have($item`April Shower Thoughts shield`) && have($skill`Northern Explosion`)) {
-          equip($slot`offhand`, $item`April Shower Thoughts shield`);
-        } else {
-          unbreakableUmbrella();
-        }
-
-        if (
-          myClass() === $class`Pastamancer` &&
-          have($item`Sept-Ember Censer`) &&
-          have($item`Daylight Shavings Helmet`) &&
-          get("lastBeardBuff") === 0 && // We have not gotten the beard buff yet
-          !get("instant_saveEmbers", false) &&
-          !have($item`bembershoot`) // We have not used the mouthwash yet
-        )
-          equip($slot`hat`, $item`Daylight Shavings Helmet`); // Grab Grizzly Beard for mouthwash
       },
       completed: () =>
         CombatLoversLocket.monstersReminisced().includes($monster`red skeleton`) ||
@@ -1568,7 +1529,16 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(false),
+        hat: daylightShavingsHelmet(),
+        offhand: reduceItemUndefinedArray([
+          romanCandelabra($effect`Everything Looks Yellow`),
+          have($item`April Shower Thoughts shield`) && have($skill`Northern Explosion`)
+            ? $item`April Shower Thoughts shield`
+            : undefined,
+          $item`unbreakable umbrella`,
+        ]),
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modes: { parka: "dilophosaur" },
       }),
       post: (): void => {
         use($item`red box`, 1);
@@ -1581,7 +1551,6 @@ export const LevelingQuest: Quest = {
       name: "LOV Tunnel",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         tryAcquiringEffects(usefulEffects);
         if (mainStat === $stat`Muscle`) tryAcquiringEffects(prismaticEffects);
         tryAcquiringEffect($effect`Comic Violence`);
@@ -1619,7 +1588,9 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(false),
         weapon: $item`Fourth of May Cosplay Saber`,
+        offhand: $item`unbreakable umbrella`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modes: { umbrella: "broken" },
       }),
       limit: { tries: 1 },
       post: (): void => {
@@ -1658,8 +1629,6 @@ export const LevelingQuest: Quest = {
           Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (!haveEquipped($item`latte lovers member's mug`)) unbreakableUmbrella();
-        garbageShirt();
         mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
@@ -1669,15 +1638,17 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(() => {
         return Macro.if_($monster`fluffy bunny`, Macro.banish().abort()).default(useCinch);
       }),
-      outfit: () => ({
+      outfit: (): OutfitSpec => ({
         ...baseOutfit,
         ...(Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)
           ? {}
           : {
-              offhand: $item`latte lovers member's mug`,
+              shirt: garbageShirt(),
+              offhand: $items`latte lovers member's mug, unbreakable umbrella`,
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
               modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
+              modes: { umbrella: "broken" },
             }),
       }),
       post: (): void => {
@@ -1694,8 +1665,6 @@ export const LevelingQuest: Quest = {
           Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (!haveEquipped($item`latte lovers member's mug`)) unbreakableUmbrella();
-        garbageShirt();
         mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
@@ -1709,14 +1678,16 @@ export const LevelingQuest: Quest = {
       }),
       outfit: () => ({
         ...baseOutfit,
+        shirt: garbageShirt(),
         ...(Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)
-          ? {}
+          ? { offhand: $item`unbreakable umbrella` }
           : {
-              offhand: $item`latte lovers member's mug`,
+              offhand: $items`latte lovers member's mug, unbreakable umbrella`,
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
               modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
             }),
+        modes: { umbrella: "broken" },
       }),
       post: (): void => {
         sendAutumnaton();
@@ -1729,9 +1700,7 @@ export const LevelingQuest: Quest = {
       ready: () => freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         garbageShirt();
-        mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1746,8 +1715,11 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
+        shirt: garbageShirt(),
+        offhand: $item`unbreakable umbrella`,
         acc3: $item`backup camera`,
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
+        modes: { umbrella: "broken" },
       }),
       post: (): void => {
         if (!freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none))
@@ -1761,8 +1733,6 @@ export const LevelingQuest: Quest = {
       name: "Kramco",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
-        garbageShirt();
         mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
@@ -1772,13 +1742,8 @@ export const LevelingQuest: Quest = {
       do: $location`Noob Cave`,
       outfit: () => ({
         ...baseOutfit(),
-        weapon:
-          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
-          // eslint-disable-next-line libram/verify-constants
-          !have($item`legendary seal-clubbing club`)
-            ? baseOutfit().weapon
-            : // eslint-disable-next-line libram/verify-constants
-              $item`legendary seal-clubbing club`,
+        shirt: garbageShirt(),
+        weapon: legendarySealClubbingClub("NextWeek"),
         offhand: $item`Kramco Sausage-o-Matic™`,
       }),
       combat: new CombatStrategy().macro(() =>
@@ -1802,7 +1767,6 @@ export const LevelingQuest: Quest = {
       name: "Oliver's Place (Peridot)",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         mobiusRing();
         attemptRestoringMpWithFreeRests(50);
         if (SourceTerminal.have()) cliExecute("terminal educate portscan");
@@ -1817,7 +1781,9 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
+        offhand: $item`unbreakable umbrella`,
         acc3: $item`Peridot of Peril`,
+        modes: { umbrella: "broken" },
       }),
       limit: { tries: 1 },
       post: (): void => {
@@ -1829,7 +1795,6 @@ export const LevelingQuest: Quest = {
       name: "Oliver's Place (Map)",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         attemptRestoringMpWithFreeRests(50);
         if (SourceTerminal.have()) cliExecute("terminal educate portscan");
       },
@@ -1844,7 +1809,11 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Portscan`)
           .default(),
       ),
-      outfit: () => baseOutfit(),
+      outfit: () => ({
+        ...baseOutfit(),
+        offhand: $item`unbreakable umbrella`,
+        modes: { umbrella: "broken" },
+      }),
       limit: { tries: 1 },
       post: (): void => {
         sendAutumnaton();
@@ -1855,7 +1824,6 @@ export const LevelingQuest: Quest = {
       name: "Oliver's Place (Portscan)",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         attemptRestoringMpWithFreeRests(50);
         if (SourceTerminal.have()) cliExecute("terminal educate portscan");
       },
@@ -1866,7 +1834,11 @@ export const LevelingQuest: Quest = {
         get("_sourceTerminalPortscanUses") > 0,
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(Macro.trySkill($skill`Portscan`).default()),
-      outfit: () => baseOutfit(),
+      outfit: () => ({
+        ...baseOutfit(),
+        offhand: $item`unbreakable umbrella`,
+        modes: { umbrella: "broken" },
+      }),
       limit: { tries: 1 },
       post: (): void => {
         sendAutumnaton();
@@ -1877,13 +1849,16 @@ export const LevelingQuest: Quest = {
       name: "Oliver's Place",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         attemptRestoringMpWithFreeRests(50);
       },
       completed: () => get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy"),
       do: $location`An Unusually Quiet Barroom Brawl`,
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: () => baseOutfit(),
+      outfit: () => ({
+        ...baseOutfit(),
+        offhand: $item`unbreakable umbrella`,
+        modes: { umbrella: "broken" },
+      }),
       limit: { tries: 3 },
       post: (): void => {
         sendAutumnaton();
@@ -1894,18 +1869,19 @@ export const LevelingQuest: Quest = {
       name: "God Lobster",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
-      completed: () => get("_godLobsterFights") >= 3 || !have($familiar`God Lobster`),
+      completed: () => get("_godLobsterFights") >= 3 || !haveAndNotExcluded($familiar`God Lobster`),
       do: () => visitUrl("main.php?fightgodlobster=1"),
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
       choices: { 1310: have($item`God Lobster's Ring`) ? 2 : 3 }, // Get xp on last fight
       outfit: () => ({
         ...baseOutfit(),
+        offhand: $item`unbreakable umbrella`,
         famequip: $items`God Lobster's Ring, God Lobster's Scepter`,
         familiar: $familiar`God Lobster`,
+        modes: { umbrella: "broken" },
       }),
       limit: { tries: 3 },
       post: (): void => {
@@ -1917,7 +1893,6 @@ export const LevelingQuest: Quest = {
       name: "Eldritch Tentacle",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1929,18 +1904,17 @@ export const LevelingQuest: Quest = {
         sellMiscellaneousItems();
       },
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
-      outfit: () => baseOutfit(),
+      outfit: () => ({
+        ...baseOutfit(),
+        offhand: $item`unbreakable umbrella`,
+        modes: { umbrella: "broken" },
+      }),
       limit: { tries: 1 },
     },
     {
       name: "Witchess Bishop",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (have($item`Roman Candelabra`) && !have($effect`Everything Looks Purple`)) {
-          equip($slot`offhand`, $item`Roman Candelabra`);
-        } else {
-          unbreakableUmbrella();
-        }
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1967,13 +1941,12 @@ export const LevelingQuest: Quest = {
       ),
       outfit: () => ({
         ...baseOutfit(),
-        weapon:
-          get("_clubEmNextWeekUsed", 0) >= 5 - get("instant_saveClubEmNextWeek", 0) ||
-          // eslint-disable-next-line libram/verify-constants
-          !have($item`legendary seal-clubbing club`)
-            ? baseOutfit().weapon
-            : // eslint-disable-next-line libram/verify-constants
-              $item`legendary seal-clubbing club`,
+        weapon: legendarySealClubbingClub("NextWeek"),
+        offhand: reduceItemUndefinedArray([
+          romanCandelabra($effect`Everything Looks Purple`),
+          $item`unbreakable umbrella`,
+        ]),
+        modes: { umbrella: "broken" },
       }),
       post: (): void => {
         visitUrl("main.php");
@@ -1986,16 +1959,18 @@ export const LevelingQuest: Quest = {
       name: "DMT",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
-      completed: () => get("_machineTunnelsAdv") >= 5 || !have($familiar`Machine Elf`),
+      completed: () =>
+        get("_machineTunnelsAdv") >= 5 || !haveAndNotExcluded($familiar`Machine Elf`),
       do: $location`The Deep Machine Tunnels`,
       combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: () => ({
         ...baseOutfit(),
+        offhand: $item`unbreakable umbrella`,
         familiar: $familiar`Machine Elf`,
+        modes: { umbrella: "broken" },
       }),
       limit: { tries: 5 },
       post: (): void => {
@@ -2009,8 +1984,6 @@ export const LevelingQuest: Quest = {
       do: powerlevelingLocation(),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
-        garbageShirt();
         mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
@@ -2019,8 +1992,11 @@ export const LevelingQuest: Quest = {
         }
       },
       outfit: () => ({
-        back: get("_batWingsFreeFights") < 5 ? $item`bat wings` : undefined,
         ...baseOutfit(),
+        back: get("_batWingsFreeFights") < 5 ? $item`bat wings` : undefined,
+        shirt: garbageShirt(),
+        offhand: $item`unbreakable umbrella`,
+        modes: { umbrella: "broken" },
       }),
       limit: { tries: 60 },
       choices: {
@@ -2155,7 +2131,6 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess King",
       prepare: (): void => {
-        garbageShirt();
         tryAcquiringEffects([
           ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
           ...prismaticEffects,
@@ -2176,7 +2151,10 @@ export const LevelingQuest: Quest = {
           Macro.skill($skill`Toynado`),
         ).default(useCinch),
       ),
-      outfit: () => baseOutfit(),
+      outfit: () => ({
+        ...baseOutfit(),
+        shirt: garbageShirt(),
+      }),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -2186,7 +2164,6 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Witch",
       prepare: (): void => {
-        garbageShirt();
         tryAcquiringEffects([
           ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
           ...prismaticEffects,
@@ -2209,6 +2186,7 @@ export const LevelingQuest: Quest = {
       ),
       outfit: {
         ...baseOutfit(),
+        shirt: garbageShirt(),
         weapon:
           have($effect`Comic Violence`) && have($item`Fourth of May Cosplay Saber`)
             ? $item`Fourth of May Cosplay Saber`
@@ -2225,7 +2203,6 @@ export const LevelingQuest: Quest = {
     {
       name: "Witchess Queen",
       prepare: (): void => {
-        garbageShirt();
         tryAcquiringEffects([
           ...usefulEffects.filter((ef) => !$effects`Song of Sauce, Song of Bravado`.includes(ef)),
           ...prismaticEffects,
@@ -2242,14 +2219,15 @@ export const LevelingQuest: Quest = {
         get("instant_saveWitchess", false),
       do: () => Witchess.fightPiece($monster`Witchess Queen`),
       combat: new CombatStrategy().macro(Macro.attack().repeat()),
-      outfit: {
+      outfit: () => ({
         ...baseOutfit(),
+        shirt: garbageShirt(),
         weapon:
           have($effect`Comic Violence`) && have($item`Fourth of May Cosplay Saber`)
             ? $item`Fourth of May Cosplay Saber`
             : $item`June cleaver`,
         offhand: have($skill`Double-Fisted Skull Smashing`) ? $item`dented scepter` : undefined,
-      },
+      }),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -2260,9 +2238,6 @@ export const LevelingQuest: Quest = {
       name: "Witchess King (Locket)",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        unbreakableUmbrella();
-        garbageShirt();
-        tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
@@ -2277,7 +2252,12 @@ export const LevelingQuest: Quest = {
           Macro.skill($skill`Toynado`),
         ).default(useCinch),
       ),
-      outfit: baseOutfit(),
+      outfit: () => ({
+        ...baseOutfit(),
+        shirt: garbageShirt(),
+        offhand: $item`unbreakable umbrella`,
+        modes: { umbrella: "broken" },
+      }),
       post: (): void => {
         sendAutumnaton();
         sellMiscellaneousItems();
@@ -2289,11 +2269,6 @@ export const LevelingQuest: Quest = {
       after: ["Craft and Eat CBB Foods", "Drink Bee's Knees"],
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        if (equippedItem($slot`offhand`) !== $item`latte lovers member's mug`) {
-          unbreakableUmbrella();
-        }
-        garbageShirt();
-        docBag();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -2305,25 +2280,20 @@ export const LevelingQuest: Quest = {
         )
           return {
             ...baseOutfit(),
-            weapon:
-              get("_clubEmTimeUsed", 0) >= 5 - get("instant_saveClubEmTime", 0) ||
-              // eslint-disable-next-line libram/verify-constants
-              !have($item`legendary seal-clubbing club`)
-                ? baseOutfit().weapon
-                : // eslint-disable-next-line libram/verify-constants
-                  $item`legendary seal-clubbing club`,
+            shirt: garbageShirt(),
+            weapon: legendarySealClubbingClub("Time"),
+            offhand: $item`unbreakable umbrella`,
+            acc3: docBag(),
+            modes: { umbrella: "broken" },
           };
         else
           return {
             ...baseOutfit(),
-            weapon:
-              get("_clubEmTimeUsed", 0) >= 5 - get("instant_saveClubEmTime", 0) ||
-              // eslint-disable-next-line libram/verify-constants
-              !have($item`legendary seal-clubbing club`)
-                ? baseOutfit().weapon
-                : // eslint-disable-next-line libram/verify-constants
-                  $item`legendary seal-clubbing club`,
-            offhand: $item`latte lovers member's mug`,
+            shirt: garbageShirt(),
+            weapon: legendarySealClubbingClub("Time"),
+            offhand: $items`latte lovers member's mug, unbreakable umbrella`,
+            acc3: docBag(),
+            modes: { umbrella: "broken" },
           };
       },
       completed: () =>

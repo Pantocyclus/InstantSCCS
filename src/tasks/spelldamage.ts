@@ -1,7 +1,6 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
   buy,
-  cliExecute,
   create,
   drink,
   Effect,
@@ -52,6 +51,7 @@ import {
   attemptRestoringMpWithFreeRests,
   handleCustomBusks,
   handleCustomPulls,
+  haveAndNotExcluded,
   motherSlimeClan,
   runTest,
   startingClan,
@@ -133,7 +133,7 @@ export const SpellDamageQuest: Quest = {
         attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
-        !have($familiar`Ghost of Crimbo Carols`) ||
+        !haveAndNotExcluded($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
         acquiredOrExcluded($effect`Do You Crush What I Crush?`) ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
@@ -153,7 +153,6 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Inner Elf",
       prepare: (): void => {
-        if (have($item`Jurassic Parka`)) cliExecute("parka pterodactyl");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (
           myHp() > 30 &&
@@ -166,7 +165,7 @@ export const SpellDamageQuest: Quest = {
         Clan.join(motherSlimeClan);
       },
       completed: () =>
-        !have($familiar`Machine Elf`) ||
+        !haveAndNotExcluded($familiar`Machine Elf`) ||
         !haveMotherSlimeBanish() ||
         acquiredOrExcluded($effect`Inner Elf`) ||
         motherSlimeClan === "",
@@ -183,6 +182,7 @@ export const SpellDamageQuest: Quest = {
         acc2: $item`Eight Days a Week Pill Keeper`,
         familiar: $familiar`Machine Elf`,
         modifier: "init",
+        modes: { parka: "pterodactyl" },
       },
       post: () => Clan.join(startingClan),
       limit: { tries: 1 },
@@ -203,7 +203,10 @@ export const SpellDamageQuest: Quest = {
       ),
       outfit: () => ({
         weapon: $item`Fourth of May Cosplay Saber`,
-        familiar: get("camelSpit") >= 100 ? $familiar`Melodramedary` : chooseFamiliar(false),
+        familiar:
+          haveAndNotExcluded($familiar`Melodramedary`) && get("camelSpit") >= 100
+            ? $familiar`Melodramedary`
+            : chooseFamiliar(false),
         avoid: sugarItemsAboutToBreak(),
       }),
       choices: { 1387: 3 },

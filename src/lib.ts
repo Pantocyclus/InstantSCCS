@@ -282,6 +282,7 @@ export function updateRunStats(): void {
       .join("\n");
 
     writeToWhiteboard(updateText);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     //No-op
   }
@@ -309,6 +310,7 @@ export function checkGithubVersion(): boolean {
       print(`Local Version: ${localSHA}.`);
       print(`Release Version: ${releaseSHA}`);
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     print("Failed to fetch GitHub data", "red");
   }
@@ -391,7 +393,7 @@ export function runTest(csTest: CommunityService): void {
     print("Either there was a bug, or you are under-prepared for this test", "red");
     print("Manually complete the test if you think this is fine.", "red");
     print(
-      `You may also increase the turn limit by typing 'set ${csTestLimitPref}=<new limit>'`,
+      `You may also increase the turn limit by typing 'set instant_${csTestLimitPref}TestTurnLimit=<new limit>'`,
       "red",
     );
   }

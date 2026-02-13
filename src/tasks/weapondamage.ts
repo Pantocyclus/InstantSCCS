@@ -52,6 +52,7 @@ import {
   attemptRestoringMpWithFreeRests,
   handleCustomBusks,
   handleCustomPulls,
+  haveAndNotExcluded,
   motherSlimeClan,
   runTest,
   startingClan,
@@ -63,7 +64,7 @@ import {
 import { powerlevelingLocation } from "./leveling";
 import { chooseFamiliar } from "../familiars";
 
-const attemptKFH = have($skill`Kung Fu Hustler`) && have($familiar`Disembodied Hand`);
+const attemptKFH = have($skill`Kung Fu Hustler`) && haveAndNotExcluded($familiar`Disembodied Hand`);
 const wpnTestMaximizerString = "weapon dmg, switch disembodied hand, -switch left-hand man";
 
 export const WeaponDamageQuest: Quest = {
@@ -100,7 +101,7 @@ export const WeaponDamageQuest: Quest = {
         attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
-        !have($familiar`Ghost of Crimbo Carols`) ||
+        !haveAndNotExcluded($familiar`Ghost of Crimbo Carols`) ||
         !haveFreeBanish() ||
         acquiredOrExcluded($effect`Do You Crush What I Crush?`) ||
         $effects`Do You Crush What I Crush?, Holiday Yoked, Let It Snow/Boil/Stink/Frighten/Grease, All I Want For Crimbo Is Stuff, Crimbo Wrapping`.some(
@@ -120,7 +121,6 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Inner Elf",
       prepare: (): void => {
-        if (have($item`Jurassic Parka`)) cliExecute("parka pterodactyl");
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (
           myHp() > 30 &&
@@ -133,7 +133,7 @@ export const WeaponDamageQuest: Quest = {
         Clan.join(motherSlimeClan);
       },
       completed: () =>
-        !have($familiar`Machine Elf`) ||
+        !haveAndNotExcluded($familiar`Machine Elf`) ||
         !haveMotherSlimeBanish() ||
         acquiredOrExcluded($effect`Inner Elf`) ||
         motherSlimeClan === "",
@@ -150,6 +150,7 @@ export const WeaponDamageQuest: Quest = {
         acc2: $item`Eight Days a Week Pill Keeper`,
         familiar: $familiar`Machine Elf`,
         modifier: "init",
+        modes: { parka: "pterodactyl" },
       },
       post: () => Clan.join(startingClan),
       limit: { tries: 1 },
@@ -189,7 +190,10 @@ export const WeaponDamageQuest: Quest = {
             }
           : {
               weapon: $item`Fourth of May Cosplay Saber`,
-              familiar: get("camelSpit") >= 100 ? $familiar`Melodramedary` : chooseFamiliar(false),
+              familiar:
+                haveAndNotExcluded($familiar`Melodramedary`) && get("camelSpit") >= 100
+                  ? $familiar`Melodramedary`
+                  : chooseFamiliar(false),
               avoid: sugarItemsAboutToBreak(),
             };
       },

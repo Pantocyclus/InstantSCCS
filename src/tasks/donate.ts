@@ -49,7 +49,7 @@ function printResourceUsage(tResource: trackedResource): void {
 
   if (typeof resourceValue === "boolean" || resourceValue === "true" || resourceValue === "false")
     print(
-      `${name}: ${resourceValue || resourceValue === "true" ? n ?? 1 : 0}/${
+      `${name}: ${resourceValue || resourceValue === "true" ? (n ?? 1) : 0}/${
         n ?? "?"
       } ${localResourceValue}`,
     );
@@ -60,7 +60,7 @@ function printResourceUsage(tResource: trackedResource): void {
       parseInt(resourceValue) > Math.abs(n ?? 1))
   )
     print(
-      `${name}: ${resourceValueLength > (n ?? 1) ? n ?? 1 : resourceValueLength}/${
+      `${name}: ${resourceValueLength > (n ?? 1) ? (n ?? 1) : resourceValueLength}/${
         n ?? "?"
       } ${localResourceValue}`,
     );
