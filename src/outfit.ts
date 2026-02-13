@@ -1,5 +1,5 @@
 import { OutfitSpec } from "grimoire-kolmafia";
-import { cliExecute, Effect, equip, equippedItem, Item, myPrimestat, toInt, totalTurnsPlayed } from "kolmafia";
+import { cliExecute, Effect, equip, equippedItem, Item, myPrimestat, toInt, totalTurnsPlayed, myClass } from "kolmafia";
 import {
   $class,
   $effect,
