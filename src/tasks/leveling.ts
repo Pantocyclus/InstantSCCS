@@ -137,7 +137,7 @@ import {
   wishFor,
   xpWishEffect,
 } from "../lib";
-import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella } from "../outfit";
+import { baseOutfit, docBag, garbageShirt, unbreakableUmbrella, mobiusRing } from "../outfit";
 import Macro, { haveFreeBanish } from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { chooseQuest, rufusTarget } from "libram/dist/resources/2023/ClosedCircuitPayphone";
@@ -1033,6 +1033,7 @@ export const LevelingQuest: Quest = {
           buy($item`blue rocket`, 1);
         }
         unbreakableUmbrella();
+        mobiusRing();
         docBag();
         attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
@@ -1181,6 +1182,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
+        mobiusRing();
         attemptRestoringMpWithFreeRests(50);
 
         if (
@@ -1226,6 +1228,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
+        mobiusRing();
         attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
@@ -1657,6 +1660,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!haveEquipped($item`latte lovers member's mug`)) unbreakableUmbrella();
         garbageShirt();
+        mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1692,6 +1696,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         if (!haveEquipped($item`latte lovers member's mug`)) unbreakableUmbrella();
         garbageShirt();
+        mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1726,6 +1731,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
+        mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1757,6 +1763,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
+        mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1796,6 +1803,7 @@ export const LevelingQuest: Quest = {
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
+        mobiusRing();
         attemptRestoringMpWithFreeRests(50);
         if (SourceTerminal.have()) cliExecute("terminal educate portscan");
         PeridotOfPeril.setChoice($monster`goblin flapper`);
@@ -2003,6 +2011,7 @@ export const LevelingQuest: Quest = {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
         unbreakableUmbrella();
         garbageShirt();
+        mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {

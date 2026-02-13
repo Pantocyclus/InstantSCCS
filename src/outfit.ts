@@ -1,5 +1,5 @@
 import { OutfitSpec } from "grimoire-kolmafia";
-import { cliExecute, equip, equippedItem, Item, myPrimestat } from "kolmafia";
+import { cliExecute, equip, equippedItem, Item, myPrimestat, toInt, totalTurnsPlayed } from "kolmafia";
 import { $effect, $item, $skill, $slot, $stat, DaylightShavings, examine, get, have } from "libram";
 import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
 import { chooseFamiliar } from "./familiars";
@@ -51,6 +51,31 @@ export function avoidDaylightShavingsHelm(): boolean {
     DaylightShavings.hasBuff() ||
     !have($item`Daylight Shavings Helmet`)
   );
+}
+
+export function mobiusRing(): void {
+  let turnsBetween = 0;
+  switch (toInt(get("_mobiusStripEncounters"))) {
+		case 0: turnsBetween = 4; break;
+		case 1: turnsBetween = 7; break;
+		case 2: turnsBetween = 13; break;
+		case 3: turnsBetween = 19; break;
+		case 4: turnsBetween = 25; break;
+		case 5: turnsBetween = 31; break;
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		case 10: turnsBetween = 41; break;
+		case 11:
+		case 12:
+		case 13:
+		case 14:
+		case 15: turnsBetween = 51; break;
+		default: turnsBetween = 76; break;
+	}
+  if (have($item`Möbius ring`) && toInt(get("_lastMobiusStripTurn")) + turnsBetween >= totalTurnsPlayed() && toInt(get("_timeCopsFoughtToday")) < 11)
+    equip($slot`acc3`, $item`Möbius ring`);
 }
 
 function useCandyCaneSword(): boolean {

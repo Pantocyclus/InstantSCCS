@@ -94,7 +94,7 @@ import {
 } from "../lib";
 import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
-import { baseOutfit, unbreakableUmbrella } from "../outfit";
+import { baseOutfit, unbreakableUmbrella, mobiusRing } from "../outfit";
 import { excludedFamiliars } from "../resources";
 import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
 import {
@@ -936,6 +936,7 @@ export const RunStartQuest: Quest = {
           buy($item`yellow rocket`, 1);
         }
         unbreakableUmbrella();
+        mobiusRing();
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
         PeridotOfPeril.setChoice($monster`novelty tropical skeleton`);
       },
@@ -977,6 +978,7 @@ export const RunStartQuest: Quest = {
           buy($item`yellow rocket`, 1);
         }
         unbreakableUmbrella();
+        mobiusRing();
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
       completed: () =>
@@ -1032,6 +1034,7 @@ export const RunStartQuest: Quest = {
         } else {
           unbreakableUmbrella();
         }
+        mobiusRing();
         if (get("_snokebombUsed") === 0) attemptRestoringMpWithFreeRests(50);
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
@@ -1133,6 +1136,7 @@ export const RunStartQuest: Quest = {
           useFamiliar($familiar`Left-Hand Man`);
           equip($slot`familiar`, $item`Roman Candelabra`);
         }
+        mobiusRing();
       },
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
