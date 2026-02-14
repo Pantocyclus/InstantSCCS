@@ -1043,8 +1043,6 @@ export const LevelingQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase blue rocket!");
           buy($item`blue rocket`, 1);
         }
-        mobiusRing();
-        docBag();
         attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
@@ -1065,11 +1063,15 @@ export const LevelingQuest: Quest = {
             .trySkill($skill`Gingerbread Mob Hit`)
             .trySkill($skill`Shattering Punch`)
             .default(),
+        ).if_(
+          $monster`time cop`,
+          Macro.default(useCinch),
         ).abort(),
       ),
       outfit: () => ({
         ...baseOutfit(),
         offhand: $item`unbreakable umbrella`,
+        acc1: mobiusRing(),
         acc2: $item`Peridot of Peril`,
         acc3: docBag(),
         familiar: $familiar`Trick-or-Treating Tot`,
@@ -1197,18 +1199,22 @@ export const LevelingQuest: Quest = {
       name: "Snokebomb",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        mobiusRing();
         attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
         get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0) ||
         get("_monsterHabitatsFightsLeft") > 0,
       do: powerlevelingLocation(),
-      combat: new CombatStrategy().macro(Macro.trySkill($skill`Snokebomb`).abort()),
+      combat: new CombatStrategy().macro(
+        Macro.if_($monster`time cop`,
+          Macro.default(useCinch),
+        ).trySkill($skill`Snokebomb`).abort()
+      ),
       outfit: () => ({
         ...baseOutfit(),
         hat: daylightShavingsHelmet(),
         offhand: $item`unbreakable umbrella`,
+        acc3: mobiusRing(),
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
         modes: { umbrella: "broken" },
       }),
@@ -1237,7 +1243,6 @@ export const LevelingQuest: Quest = {
       name: "Shadow Rift",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        mobiusRing();
         attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
           if (myMeat() >= 250) buy($item`red rocket`, 1);
@@ -1629,7 +1634,6 @@ export const LevelingQuest: Quest = {
           Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1647,6 +1651,7 @@ export const LevelingQuest: Quest = {
               offhand: $items`latte lovers member's mug, unbreakable umbrella`,
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
+              acc3: mobiusRing(),
               modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
               modes: { umbrella: "broken" },
             }),
@@ -1665,7 +1670,6 @@ export const LevelingQuest: Quest = {
           Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1673,6 +1677,7 @@ export const LevelingQuest: Quest = {
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() => {
         return Macro.if_($monster`fluffy bunny`, Macro.banish().abort())
+          .if_($monster`time cop`, Macro.default(useCinch))
           .trySkill($skill`Recall Facts: Monster Habitats`)
           .default(useCinch);
       }),
@@ -1685,6 +1690,7 @@ export const LevelingQuest: Quest = {
               offhand: $items`latte lovers member's mug, unbreakable umbrella`,
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
+              acc3: mobiusRing(),
               modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
             }),
         modes: { umbrella: "broken" },
@@ -1700,7 +1706,6 @@ export const LevelingQuest: Quest = {
       ready: () => freeFightMonsters.includes(get("lastCopyableMonster") ?? $monster.none),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        garbageShirt();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1711,12 +1716,14 @@ export const LevelingQuest: Quest = {
         myBasestat(mainStat) >= 190, // no longer need to back up Witchess Kings
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Back-Up to your Last Enemy`).default(useCinch),
+        Macro.if_($monster`time cop`, Macro.default(useCinch))
+        .trySkill($skill`Back-Up to your Last Enemy`).default(useCinch)
       ),
       outfit: () => ({
         ...baseOutfit(),
         shirt: garbageShirt(),
         offhand: $item`unbreakable umbrella`,
+        acc2: mobiusRing(),
         acc3: $item`backup camera`,
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
         modes: { umbrella: "broken" },
@@ -1733,7 +1740,6 @@ export const LevelingQuest: Quest = {
       name: "Kramco",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
@@ -1767,7 +1773,6 @@ export const LevelingQuest: Quest = {
       name: "Oliver's Place (Peridot)",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        mobiusRing();
         attemptRestoringMpWithFreeRests(50);
         if (SourceTerminal.have()) cliExecute("terminal educate portscan");
         PeridotOfPeril.setChoice($monster`goblin flapper`);
@@ -1984,7 +1989,6 @@ export const LevelingQuest: Quest = {
       do: powerlevelingLocation(),
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
-        mobiusRing();
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
         if (!have($effect`Everything Looks Red`) && !have($item`red rocket`)) {
@@ -1996,6 +2000,7 @@ export const LevelingQuest: Quest = {
         back: get("_batWingsFreeFights") < 5 ? $item`bat wings` : undefined,
         shirt: garbageShirt(),
         offhand: $item`unbreakable umbrella`,
+        acc3: mobiusRing(),
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 60 },

@@ -942,7 +942,8 @@ export const RunStartQuest: Quest = {
           "!haseffect Everything Looks Yellow",
           Macro.if_(
             $monster`novelty tropical skeleton`,
-            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+            Macro.if_($monster`time cop`, Macro.default())
+              .externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
               .trySkill($skill`Blow the Yellow Candle!`)
               .tryItem($item`yellow rocket`),
           ),
@@ -953,6 +954,7 @@ export const RunStartQuest: Quest = {
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
         offhand: romanCandelabra($effect`Everything Looks Yellow`),
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
+        acc2: mobiusRing(),
         acc3: $item`Peridot of Peril`,
       }),
       post: (): void => {
@@ -971,7 +973,6 @@ export const RunStartQuest: Quest = {
           if (myMeat() < 250) throw new Error("Insufficient Meat to purchase yellow rocket!");
           buy($item`yellow rocket`, 1);
         }
-        mobiusRing();
         if (haveEquipped($item`miniature crystal ball`)) equip($slot`familiar`, $item.none);
       },
       completed: () =>
@@ -994,7 +995,8 @@ export const RunStartQuest: Quest = {
           "!haseffect Everything Looks Yellow",
           Macro.if_(
             $monster`novelty tropical skeleton`,
-            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+            Macro.if_($monster`time cop`, Macro.default())
+              .externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
               .trySkill($skill`Blow the Yellow Candle!`)
               .tryItem($item`yellow rocket`),
           ),
@@ -1007,6 +1009,7 @@ export const RunStartQuest: Quest = {
           romanCandelabra($effect`Everything Looks Yellow`),
           $item`unbreakable umbrella`,
         ]),
+        acc3: mobiusRing(),
         modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
         modes: { umbrella: "broken" },
       }),
@@ -1132,7 +1135,6 @@ export const RunStartQuest: Quest = {
           useFamiliar($familiar`Left-Hand Man`);
           equip($slot`familiar`, $item`Roman Candelabra`);
         }
-        mobiusRing();
       },
       ready: () => getKramcoWandererChance() >= 1.0,
       completed: () => getKramcoWandererChance() < 1.0 || !have($item`Kramco Sausage-o-Matic™`),
