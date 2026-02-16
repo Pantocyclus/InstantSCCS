@@ -12847,7 +12847,7 @@ var Engine = /*#__PURE__*/function (_BaseEngine) {
         hpAutoRecoveryItems: hpItems,
         mpAutoRecoveryItems: mpItems,
         shadowLabyrinthGoal: "effects",
-        choiceAdventureScript: "instantsccs_choice.ash",
+        choiceAdventureScript: "instantsccs_choice.js",
         requireBoxServants: false,
         lastChanceBurn: ""
       });
