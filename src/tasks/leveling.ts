@@ -2288,6 +2288,7 @@ export const LevelingQuest: Quest = {
             shirt: garbageShirt(),
             weapon: legendarySealClubbingClub("Time"),
             offhand: $item`unbreakable umbrella`,
+            acc2: mobiusRing(),
             acc3: docBag(),
             modes: { umbrella: "broken" },
           };
@@ -2297,6 +2298,7 @@ export const LevelingQuest: Quest = {
             shirt: garbageShirt(),
             weapon: legendarySealClubbingClub("Time"),
             offhand: $items`latte lovers member's mug, unbreakable umbrella`,
+            acc2: mobiusRing(),
             acc3: docBag(),
             modes: { umbrella: "broken" },
           };
@@ -2311,7 +2313,10 @@ export const LevelingQuest: Quest = {
         (haveCBBIngredients(true) || overleveled()),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Sea *dent: Talk to Some Fish`)
+        Macro.if_(
+            $monster`time cop`,
+            Macro.default(useCinch),
+          ).trySkill($skill`Sea *dent: Talk to Some Fish`)
           .trySkill($skill`Feel Pride`)
           .trySkill($skill`Cincho: Confetti Extravaganza`)
           .trySkill($skill`Gulp Latte`)

@@ -1,5 +1,5 @@
 import { OutfitSpec } from "grimoire-kolmafia";
-import { cliExecute, Effect, equip, equippedItem, Item, myPrimestat, toInt, totalTurnsPlayed, myClass } from "kolmafia";
+import { cliExecute, Effect, equippedItem, Item, myPrimestat, toInt, totalTurnsPlayed, myClass, print } from "kolmafia";
 import {
   $class,
   $effect,
@@ -97,7 +97,7 @@ export function avoidDaylightShavingsHelm(): boolean {
 export function mobiusRing(): Item | undefined {
   const turnsBetween = [4,7,13,19,25,31,31,31,31,31,41,41,41,41,41,51,76]?.at(toInt(get("_mobiusStripEncounters"))) ?? 76;
   
-  if (have($item`Möbius ring`) && toInt(get("_lastMobiusStripTurn")) + turnsBetween >= totalTurnsPlayed() && toInt(get("_timeCopsFoughtToday")) < 11) return $item`Möbius ring`;
+  if (have($item`Möbius ring`) && (totalTurnsPlayed() + turnsBetween) >= toInt(get("_lastMobiusStripTurn")) && toInt(get("_timeCopsFoughtToday")) < 11) { return $item`Möbius ring`; }
   return undefined;
 }
 
