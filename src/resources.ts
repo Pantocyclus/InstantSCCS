@@ -301,6 +301,12 @@ const otherResources: Resource[] = [
     "instant_prioritizeParkaSpit",
     "Prefer Spitting Jurassic Acid (with 100 turn cd) over other turn-taking YRs (with 75 turn cd)",
   ),
+  new Resource(
+    "instant_saveHeartstoneKill",
+    (n) => `Save ${n}/5 Heartstone Kills`,
+    [],
+    get("instant_saveHeartstoneKill", false) ? 5 : 0,
+  ),
 ];
 
 const allResources = [

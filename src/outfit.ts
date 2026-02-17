@@ -6,7 +6,9 @@ import {
   $item,
   $skill,
   $slot,
+  $slots,
   $stat,
+  CommunityService,
   DaylightShavings,
   examine,
   get,
@@ -14,6 +16,19 @@ import {
 } from "libram";
 import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
 import { chooseFamiliar } from "./familiars";
+
+export function haveHeartstone(): boolean {
+  return (
+    // eslint-disable-next-line libram/verify-constants
+    have($item`Heartstone`) ||
+    // eslint-disable-next-line libram/verify-constants
+    (have($item`The Eternity Codpiece`) &&
+      $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`.some(
+        // eslint-disable-next-line libram/verify-constants
+        (slot) => equippedItem(slot) === $item`Heartstone`,
+      ))
+  );
+}
 
 export function reduceItemUndefinedArray(arr: (Item | undefined)[]): Item[] | undefined {
   const itemArray = arr.filter((it) => it !== undefined) as Item[];
@@ -118,7 +133,17 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     weapon: chooseWeapon(),
     offhand: $item`unbreakable umbrella`,
-    acc1: myPrimestat() === $stat`Mysticality` ? $item`codpiece` : undefined,
+    acc1:
+      CommunityService.CoilWire.isDone() &&
+      !have($item`a ten-percent bonus`) &&
+      haveHeartstone() &&
+      get("heartstoneKillUnlocked", false) &&
+      get("_heartstoneKillUsed", 0) <= 5 - get("instant_saveHeartstoneKill", 0)
+        ? // eslint-disable-next-line libram/verify-constants
+          $item`Heartstone`
+        : myPrimestat() === $stat`Mysticality`
+          ? $item`codpiece`
+          : undefined,
     acc2:
       have($item`Cincho de Mayo`) && get("_cinchUsed") <= 95 && !get("instant_saveCinch", false)
         ? $item`Cincho de Mayo`
@@ -129,6 +154,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     avoid: [
       ...sugarItemsAboutToBreak(),
       ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
+      $item`Möbius ring`,
     ],
   };
 }

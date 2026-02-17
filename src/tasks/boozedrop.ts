@@ -69,7 +69,7 @@ import {
   updateRunStats,
   wishFor,
 } from "../lib";
-import { sugarItemsAboutToBreak } from "../outfit";
+import { haveHeartstone, sugarItemsAboutToBreak } from "../outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro, { haveFreeBanish } from "../combat";
 import { chooseFamiliar } from "../familiars";
@@ -134,6 +134,10 @@ export const BoozeDropQuest: Quest = {
       name: "Acquire Clover",
       completed: () =>
         have($item`Apriling band saxophone`) ||
+        // eslint-disable-next-line libram/verify-constants
+        (have($item`Heartstone`) &&
+          get("heartstoneLuckUnlocked", false) &&
+          !get("_heartstoneLuckUsed", false)) ||
         have($item`11-leaf clover`) ||
         get("_cloversPurchased") >= 2 ||
         acquiredOrExcluded($effect`One Very Clear Eye`) ||
@@ -152,6 +156,14 @@ export const BoozeDropQuest: Quest = {
         acquiredOrExcluded($effect`One Very Clear Eye`) ||
         get("instant_skipCyclopsEyedrops", false),
       do: (): void => {
+        if (
+          haveHeartstone() &&
+          get("heartstoneLuckUnlocked", false) &&
+          !get("_heartstoneLuckUsed", false) &&
+          !have($effect`Lucky!`)
+        )
+          // eslint-disable-next-line libram/verify-constants
+          useSkill($skill`Heartstone: %luck`);
         if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`))
           AprilingBandHelmet.play($item`Apriling band saxophone`);
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);

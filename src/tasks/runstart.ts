@@ -96,6 +96,7 @@ import Macro from "../combat";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import {
   baseOutfit,
+  haveHeartstone,
   legendarySealClubbingClub,
   reduceItemUndefinedArray,
   romanCandelabra,
@@ -1106,6 +1107,14 @@ export const RunStartQuest: Quest = {
         have($effect`Lucky!`),
       completed: () => myInebriety() >= 1 || get("instant_skipDistilledFortifiedWine", false),
       do: (): void => {
+        if (
+          haveHeartstone() &&
+          get("heartstoneLuckUnlocked", false) &&
+          !get("_heartstoneLuckUsed", false) &&
+          !have($effect`Lucky!`)
+        )
+          // eslint-disable-next-line libram/verify-constants
+          useSkill($skill`Heartstone: %luck`);
         if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`))
           AprilingBandHelmet.play($item`Apriling band saxophone`);
         if (!have($effect`Lucky!`)) use($item`11-leaf clover`);

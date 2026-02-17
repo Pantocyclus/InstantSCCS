@@ -229,6 +229,8 @@ const usefulEffects: Effect[] = [
   // $effect`Think Win-Lose`,
   // $effect`Confidence of the Votive`,
   $effect`Song of Bravado`,
+  // eslint-disable-next-line libram/verify-constants
+  $effect`Ultraheart`,
   ...statEffects,
 
   // ML
