@@ -30,13 +30,13 @@ export function haveHeartstone(): boolean {
   );
 }
 
-export function reduceItemUndefinedArray(arr: (Item | undefined)[]): Item[] | undefined {
-  const itemArray = arr.filter((it) => it !== undefined) as Item[];
+export function reduceItemUndefinedArray(arr: (Item | Item[] | undefined)[]): Item[] | undefined {
+  const itemArray: Item[] = arr.filter((it) => it !== undefined).flat();
   if (itemArray.length > 0) return itemArray;
   return undefined;
 }
 
-export function daylightShavingsHelmet(): Item | undefined {
+export function daylightShavingsHelmet(): Item | Item[] | undefined {
   return myClass() === $class`Pastamancer` &&
     have($item`Sept-Ember Censer`) &&
     have($item`Daylight Shavings Helmet`) &&
@@ -47,25 +47,29 @@ export function daylightShavingsHelmet(): Item | undefined {
     : undefined;
 }
 
-export function legendarySealClubbingClub(str: string): Item | undefined {
+export function legendarySealClubbingClub(
+  str: string,
+  powerleveling = false,
+): Item | Item[] | undefined {
   if (
+    (!powerleveling || havePowerlevelingZoneBound()) &&
     // eslint-disable-next-line libram/verify-constants
     have($item`legendary seal-clubbing club`) &&
     get(`_clubEm${str}Used`, 0) < 5 - get(`instant_saveClubEm${str}`, 0)
   )
     // eslint-disable-next-line libram/verify-constants
     return $item`legendary seal-clubbing club`;
-  return undefined;
+  return baseOutfit().weapon;
 }
 
-export function romanCandelabra(ef: Effect): Item | undefined {
+export function romanCandelabra(ef: Effect): Item | Item[] | undefined {
   if (have($item`Roman Candelabra`) && !have(ef)) {
     return $item`Roman Candelabra`;
   }
-  return undefined;
+  return baseOutfit().offhand;
 }
 
-export function garbageShirt(): Item | undefined {
+export function garbageShirt(): Item | Item[] | undefined {
   if (
     have($item`January's Garbage Tote`) &&
     get("garbageShirtCharge") > 0 &&
@@ -81,9 +85,9 @@ export function garbageShirt(): Item | undefined {
   return undefined;
 }
 
-export function docBag(): Item | undefined {
+export function docBag(): Item | Item[] | undefined {
   if (have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3) return $item`Lil' Doctor™ bag`;
-  return undefined;
+  return reduceItemUndefinedArray([baseOutfit().acc1, baseOutfit().acc2, baseOutfit().acc3]);
 }
 
 export function sugarItemsAboutToBreak(): Item[] {

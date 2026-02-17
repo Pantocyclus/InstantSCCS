@@ -2272,7 +2272,7 @@ export const LevelingQuest: Quest = {
           return {
             ...baseOutfit(),
             shirt: garbageShirt(),
-            weapon: legendarySealClubbingClub("Time"),
+            weapon: legendarySealClubbingClub("Time", true),
             offhand: $item`unbreakable umbrella`,
             acc3: docBag(),
             modes: { umbrella: "broken" },
@@ -2281,7 +2281,7 @@ export const LevelingQuest: Quest = {
           return {
             ...baseOutfit(),
             shirt: garbageShirt(),
-            weapon: legendarySealClubbingClub("Time"),
+            weapon: legendarySealClubbingClub("Time", true),
             offhand: $items`latte lovers member's mug, unbreakable umbrella`,
             acc3: docBag(),
             modes: { umbrella: "broken" },
