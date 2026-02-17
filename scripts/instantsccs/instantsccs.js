@@ -13047,7 +13047,7 @@ function haveHeartstone() {
   );
 }
 function reduceItemUndefinedArray(arr) {
-  var itemArray = arr.filter(it => it !== undefined);
+  var itemArray = arr.filter(it => it !== undefined).flat();
   if (itemArray.length > 0) return itemArray;
   return undefined;
 }
@@ -13059,18 +13059,19 @@ function daylightShavingsHelmet() {
   : undefined;
 }
 function legendarySealClubbingClub(str) {
-  if (
+  var powerleveling = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  if ((!powerleveling || havePowerlevelingZoneBound()) &&
   // eslint-disable-next-line libram/verify-constants
   have$a($item(_templateObject0$a || (_templateObject0$a = _taggedTemplateLiteral(["legendary seal-clubbing club"])))) && get("_clubEm".concat(str, "Used"), 0) < 5 - get("instant_saveClubEm".concat(str), 0))
     // eslint-disable-next-line libram/verify-constants
     return $item(_templateObject1$a || (_templateObject1$a = _taggedTemplateLiteral(["legendary seal-clubbing club"])));
-  return undefined;
+  return baseOutfit().weapon;
 }
 function romanCandelabra(ef) {
   if (have$a($item(_templateObject10$a || (_templateObject10$a = _taggedTemplateLiteral(["Roman Candelabra"])))) && !have$a(ef)) {
     return $item(_templateObject11$a || (_templateObject11$a = _taggedTemplateLiteral(["Roman Candelabra"])));
   }
-  return undefined;
+  return baseOutfit().offhand;
 }
 function garbageShirt() {
   if (have$a($item(_templateObject12$a || (_templateObject12$a = _taggedTemplateLiteral(["January's Garbage Tote"])))) && get("garbageShirtCharge") > 0 && have$a($skill(_templateObject13$a || (_templateObject13$a = _taggedTemplateLiteral(["Torso Awareness"]))))) {
@@ -13085,7 +13086,7 @@ function garbageShirt() {
 }
 function docBag() {
   if (have$a($item(_templateObject18$a || (_templateObject18$a = _taggedTemplateLiteral(["Lil' Doctor\u2122 bag"])))) && get("_chestXRayUsed") < 3) return $item(_templateObject19$9 || (_templateObject19$9 = _taggedTemplateLiteral(["Lil' Doctor\u2122 bag"])));
-  return undefined;
+  return reduceItemUndefinedArray([baseOutfit().acc1, baseOutfit().acc2, baseOutfit().acc3]);
 }
 function sugarItemsAboutToBreak() {
   var sugarItems = [{
@@ -14787,7 +14788,7 @@ var LevelingQuest = {
     outfit: () => {
       if (chooseLibram() === $skill.none || !have$a($item(_templateObject587 || (_templateObject587 = _taggedTemplateLiteral(["latte lovers member's mug"])))) || get("_latteRefillsUsed") >= 3) return _objectSpread2(_objectSpread2({}, baseOutfit()), {}, {
         shirt: garbageShirt(),
-        weapon: legendarySealClubbingClub("Time"),
+        weapon: legendarySealClubbingClub("Time", true),
         offhand: $item(_templateObject588 || (_templateObject588 = _taggedTemplateLiteral(["unbreakable umbrella"]))),
         acc3: docBag(),
         modes: {
@@ -14795,7 +14796,7 @@ var LevelingQuest = {
         }
       });else return _objectSpread2(_objectSpread2({}, baseOutfit()), {}, {
         shirt: garbageShirt(),
-        weapon: legendarySealClubbingClub("Time"),
+        weapon: legendarySealClubbingClub("Time", true),
         offhand: $items(_templateObject589 || (_templateObject589 = _taggedTemplateLiteral(["latte lovers member's mug, unbreakable umbrella"]))),
         acc3: docBag(),
         modes: {
