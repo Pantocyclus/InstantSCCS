@@ -10,8 +10,10 @@ const baseSettings = {
   output: {
     dir: "KoLmafia/scripts/instantsccs",
     format: "cjs",
+    entryFileNames: "[name].js",
+    chunkFileNames: "[name].js",
     exports: "auto",
-    chunkFileNames: "_[name].js",
+    inlineDynamicImports: true,
   },
 
   external: ["kolmafia"],
@@ -59,7 +61,14 @@ const baseSettings = {
     : undefined,
 } satisfies RollupOptions;
 
-export default [{ instantsccs: "src/main.ts" }].map((input) => ({
-  input,
+const entries = {
+  instantsccs: "src/main.ts",
+  instantsccs_choice: "src/choice.ts",
+};
+export default Object.entries(entries).map(([name, path]) => ({
   ...baseSettings,
+  input: { [name]: path },
+  output: {
+    ...baseSettings.output,
+  },
 }));

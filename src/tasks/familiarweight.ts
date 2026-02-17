@@ -128,6 +128,8 @@ export const FamiliarWeightQuest: Quest = {
       prepare: (): void => {
         const usefulEffects: Effect[] = [
           $effect`A Girl Named Sue`,
+          // eslint-disable-next-line libram/verify-constants
+          $effect`Best Pals`,
           $effect`Billiards Belligerence`,
           $effect`Blood Bond`,
           $effect`Boxing Day Glow`,

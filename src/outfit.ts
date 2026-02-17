@@ -6,7 +6,9 @@ import {
   $item,
   $skill,
   $slot,
+  $slots,
   $stat,
+  CommunityService,
   DaylightShavings,
   examine,
   get,
@@ -15,13 +17,26 @@ import {
 import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
 import { chooseFamiliar } from "./familiars";
 
-export function reduceItemUndefinedArray(arr: (Item | undefined)[]): Item[] | undefined {
-  const itemArray = arr.filter((it) => it !== undefined) as Item[];
+export function haveHeartstone(): boolean {
+  return (
+    // eslint-disable-next-line libram/verify-constants
+    have($item`Heartstone`) ||
+    // eslint-disable-next-line libram/verify-constants
+    (have($item`The Eternity Codpiece`) &&
+      $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`.some(
+        // eslint-disable-next-line libram/verify-constants
+        (slot) => equippedItem(slot) === $item`Heartstone`,
+      ))
+  );
+}
+
+export function reduceItemUndefinedArray(arr: (Item | Item[] | undefined)[]): Item[] | undefined {
+  const itemArray: Item[] = arr.filter((it) => it !== undefined).flat();
   if (itemArray.length > 0) return itemArray;
   return undefined;
 }
 
-export function daylightShavingsHelmet(): Item | undefined {
+export function daylightShavingsHelmet(): Item | Item[] | undefined {
   return myClass() === $class`Pastamancer` &&
     have($item`Sept-Ember Censer`) &&
     have($item`Daylight Shavings Helmet`) &&
@@ -32,25 +47,29 @@ export function daylightShavingsHelmet(): Item | undefined {
     : undefined;
 }
 
-export function legendarySealClubbingClub(str: string): Item | undefined {
+export function legendarySealClubbingClub(
+  str: string,
+  powerleveling = false,
+): Item | Item[] | undefined {
   if (
+    (!powerleveling || havePowerlevelingZoneBound()) &&
     // eslint-disable-next-line libram/verify-constants
     have($item`legendary seal-clubbing club`) &&
     get(`_clubEm${str}Used`, 0) < 5 - get(`instant_saveClubEm${str}`, 0)
   )
     // eslint-disable-next-line libram/verify-constants
     return $item`legendary seal-clubbing club`;
-  return undefined;
+  return baseOutfit().weapon;
 }
 
-export function romanCandelabra(ef: Effect): Item | undefined {
+export function romanCandelabra(ef: Effect): Item | Item[] | undefined {
   if (have($item`Roman Candelabra`) && !have(ef)) {
     return $item`Roman Candelabra`;
   }
-  return undefined;
+  return baseOutfit().offhand;
 }
 
-export function garbageShirt(): Item | undefined {
+export function garbageShirt(): Item | Item[] | undefined {
   if (
     have($item`January's Garbage Tote`) &&
     get("garbageShirtCharge") > 0 &&
@@ -66,9 +85,9 @@ export function garbageShirt(): Item | undefined {
   return undefined;
 }
 
-export function docBag(): Item | undefined {
+export function docBag(): Item | Item[] | undefined {
   if (have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3) return $item`Lil' Doctor™ bag`;
-  return undefined;
+  return reduceItemUndefinedArray([baseOutfit().acc1, baseOutfit().acc2, baseOutfit().acc3]);
 }
 
 export function sugarItemsAboutToBreak(): Item[] {
@@ -125,7 +144,17 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     weapon: chooseWeapon(),
     offhand: $item`unbreakable umbrella`,
-    acc1: myPrimestat() === $stat`Mysticality` ? $item`codpiece` : undefined,
+    acc1:
+      CommunityService.CoilWire.isDone() &&
+      !have($item`a ten-percent bonus`) &&
+      haveHeartstone() &&
+      get("heartstoneKillUnlocked", false) &&
+      get("_heartstoneKillUsed", 0) <= 5 - get("instant_saveHeartstoneKill", 0)
+        ? // eslint-disable-next-line libram/verify-constants
+          $item`Heartstone`
+        : myPrimestat() === $stat`Mysticality`
+          ? $item`codpiece`
+          : undefined,
     acc2:
       have($item`Cincho de Mayo`) && get("_cinchUsed") <= 95 && !get("instant_saveCinch", false)
         ? $item`Cincho de Mayo`
@@ -136,6 +165,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     avoid: [
       ...sugarItemsAboutToBreak(),
       ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
+      $item`Möbius ring`,
     ],
   };
 }
