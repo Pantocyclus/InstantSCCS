@@ -276,6 +276,10 @@ const farmingResources: Resource[] = [
     [],
     get("instant_saveClubNextWeek", false) ? 5 : 0,
   ),
+  new Resource(
+    "instant_mobiusNC",
+    "Attempt to get clocks from the Mobius Ring noncombats",
+  ),
 ];
 
 const otherResources: Resource[] = [
