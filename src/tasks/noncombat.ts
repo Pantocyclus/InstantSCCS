@@ -1,4 +1,4 @@
-import { Quest } from "../engine/task";
+import { CombatStrategy } from "grimoire-kolmafia";
 import {
   buy,
   cliExecute,
@@ -23,6 +23,8 @@ import {
   have,
   uneffect,
 } from "libram";
+import Macro from "../combat";
+import { Quest } from "../engine/task";
 import {
   acquiredOrExcluded,
   handleCustomBusks,
@@ -32,8 +34,6 @@ import {
   tryAcquiringEffects,
   wishFor,
 } from "../lib";
-import { CombatStrategy } from "grimoire-kolmafia";
-import Macro from "../combat";
 
 const comTestMaximizerString = `-raw combat rate`;
 

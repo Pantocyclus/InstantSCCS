@@ -1,4 +1,4 @@
-import { Quest } from "../engine/task";
+import { CombatStrategy } from "grimoire-kolmafia";
 import {
   adv1,
   alliedRadio,
@@ -57,6 +57,9 @@ import {
   setConfiguration,
   Station,
 } from "libram/dist/resources/2022/TrainSet";
+import Macro, { haveFreeBanish } from "../combat";
+import { Quest } from "../engine/task";
+import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   attemptRestoringMpWithFreeRests,
@@ -70,9 +73,6 @@ import {
   wishFor,
 } from "../lib";
 import { haveHeartstone, sugarItemsAboutToBreak } from "../outfit";
-import { CombatStrategy } from "grimoire-kolmafia";
-import Macro, { haveFreeBanish } from "../combat";
-import { chooseFamiliar } from "../familiars";
 
 const boozeTestMaximizerString =
   "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man";

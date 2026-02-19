@@ -1,4 +1,4 @@
-import { Quest } from "../engine/task";
+import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   adv1,
   alliedRadio,
@@ -84,7 +84,11 @@ import {
   Witchess,
   withChoice,
 } from "libram";
-import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
+import { mapMonster } from "libram/dist/resources/2020/Cartography";
+import { chooseQuest, rufusTarget } from "libram/dist/resources/2023/ClosedCircuitPayphone";
+import Macro, { haveFreeBanish } from "../combat";
+import { Quest } from "../engine/task";
+import { chooseFamiliar } from "../familiars";
 import {
   abstractionXpEffect,
   abstractionXpItem,
@@ -145,10 +149,6 @@ import {
   reduceItemUndefinedArray,
   romanCandelabra,
 } from "../outfit";
-import Macro, { haveFreeBanish } from "../combat";
-import { mapMonster } from "libram/dist/resources/2020/Cartography";
-import { chooseQuest, rufusTarget } from "libram/dist/resources/2023/ClosedCircuitPayphone";
-import { chooseFamiliar } from "../familiars";
 
 const useCinch = !get("instant_saveCinch", false);
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
