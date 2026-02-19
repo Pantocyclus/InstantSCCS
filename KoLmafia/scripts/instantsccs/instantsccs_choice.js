@@ -2,8 +2,6 @@
 
 var kolmafia = require('kolmafia');
 
-import {print} from "kolmafia";
-
 function _arrayLikeToArray(r, a) {
   (null == a || a > r.length) && (a = r.length);
   for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
@@ -102,14 +100,17 @@ function getBestDartsOption() {
     return DART_PERKS.includes(text) ? -DART_PERKS.indexOf(text) : -Infinity;
   }, true)[0]);
 }
-
 function getMobiusOption() {
-  var MOBIUS_GOALS = ["Go back and take a 20-year-long nap","Go back and set an alarm"];
-  for (let i = 0; i < MOBIUS_GOALS.length; i++) {
-    for (let choice = 1; choice < 25; choice++) {
-        if (kolmafia.availableChoiceOptions()[choice] == MOBIUS_GOALS[i]) { return choice; }
+  var pickChoice = 0;
+  var MOBIUS_GOALS = ["Go back and take a 20-year-long nap", "Go back and set an alarm"];
+  for (var i = 0; i < MOBIUS_GOALS.length; i++) {
+    for (var choice = 1; choice < 25; choice++) {
+      if (kolmafia.availableChoiceOptions()[choice] == MOBIUS_GOALS[i]) {
+        pickChoice = choice;
+      }
     }
   }
+  return pickChoice;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

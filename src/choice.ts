@@ -32,10 +32,23 @@ function getBestDartsOption(): number {
   );
 }
 
+function getMobiusOption(): number {
+  var pickChoice = 0;
+  var MOBIUS_GOALS = ["Go back and take a 20-year-long nap","Go back and set an alarm"];
+  for (let i = 0; i < MOBIUS_GOALS.length; i++) {
+    for (let choice = 1; choice < 25; choice++) {
+        if (availableChoiceOptions()[choice] == MOBIUS_GOALS[i]) { pickChoice = choice; }
+    }
+  }
+  return pickChoice;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const main: ChoiceAdventureScript = (choiceNumber, pageText) => {
   switch (choiceNumber) {
     case 1525:
       return void runChoice(getBestDartsOption());
+    case 1562:
+      return void runChoice(getMobiusOption());
   }
 };
