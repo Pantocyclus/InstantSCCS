@@ -710,7 +710,7 @@ export const RunStartQuest: Quest = {
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(false),
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip backup camera, -equip Kramco Sausage-o-Matic™`,
+        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip backup camera, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
       }),
       limit: { tries: 1 },
     },
@@ -1078,7 +1078,7 @@ export const RunStartQuest: Quest = {
           acc2: $item`cursed monkey's paw`,
           acc3: !have($effect`Everything Looks Green`) ? $item`spring shoes` : undefined,
           familiar: chooseFamiliar(false),
-          modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
+          modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
           modes: { umbrella: "broken" },
         };
       },

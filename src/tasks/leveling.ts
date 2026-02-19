@@ -1008,7 +1008,7 @@ export const LevelingQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         weapon: $item`legendary seal-clubbing club`,
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 5 },
@@ -1120,7 +1120,7 @@ export const LevelingQuest: Quest = {
         offhand: $item`unbreakable umbrella`,
         acc3: docBag(),
         familiar: $familiar`Trick-or-Treating Tot`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
         modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
@@ -1151,7 +1151,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(false),
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
         modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
@@ -1184,7 +1184,7 @@ export const LevelingQuest: Quest = {
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(false),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip miniature crystal ball, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip miniature crystal ball, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
         modes: { umbrella: "broken" },
       }),
       combat: new CombatStrategy().macro(
@@ -1265,7 +1265,7 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(),
         hat: daylightShavingsHelmet(),
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
         modes: { umbrella: "broken" },
       }),
       post: (): void => {
@@ -1334,7 +1334,7 @@ export const LevelingQuest: Quest = {
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(true),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 10 },
@@ -1482,7 +1482,7 @@ export const LevelingQuest: Quest = {
             ? $item`Lil' Doctor™ bag`
             : undefined,
         modifier:
-          "Item Drop, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™",
+          "Item Drop, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring",
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 5 },
@@ -1545,7 +1545,7 @@ export const LevelingQuest: Quest = {
             : undefined,
           $item`unbreakable umbrella`,
         ]),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
         modes: { parka: "dilophosaur" },
       }),
       post: (): void => {
@@ -1597,7 +1597,7 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(false),
         weapon: $item`Fourth of May Cosplay Saber`,
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 1 },
@@ -2014,7 +2014,10 @@ export const LevelingQuest: Quest = {
         1324: 5,
       },
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Sea *dent: Talk to Some Fish`)
+        Macro.if_(
+            $monster`time cop`,
+            Macro.tryItem($item`red rocket`).trySkill($skill`Bowl Sideways`).default(useCinch),
+          ).trySkill($skill`Sea *dent: Talk to Some Fish`)
           .tryItem($item`red rocket`)
           .trySkill($skill`Bowl Sideways`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
