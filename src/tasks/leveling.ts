@@ -2292,7 +2292,7 @@ export const LevelingQuest: Quest = {
         (get("_clubEmTimeUsed", 0) >= 5 - get("instant_saveClubEmTime", 0) ||
           // eslint-disable-next-line libram/verify-constants
           !have($item`legendary seal-clubbing club`) ||
-          !havePowerlevelingZoneBound())) &&
+          !havePowerlevelingZoneBound()) &&
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
         (get("_gingerbreadMobHitUsed") || !have($skill`Gingerbread Mob Hit`)) &&
         (haveCBBIngredients(true) || overleveled()),
