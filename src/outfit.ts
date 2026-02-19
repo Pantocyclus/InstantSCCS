@@ -114,7 +114,7 @@ export function avoidDaylightShavingsHelm(): boolean {
 }
 
 export function mobiusRing(): Item | undefined {
-  if (have($item`Möbius ring`) && get("instant_mobiusNC")) {
+  if (have($item`Möbius ring`) && get("instant_runMobiusNCs", false)) {
     const turnsBetween = [4,7,13,19,25,31,31,31,31,31,41,41,41,41,41,51,76]?.at(toInt(get("_mobiusStripEncounters"))) ?? 76;
     
     if ((totalTurnsPlayed() + turnsBetween) >= toInt(get("_lastMobiusStripTurn")) && toInt(get("_timeCopsFoughtToday")) < 11) { return $item`Möbius ring`; }
