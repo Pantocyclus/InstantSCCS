@@ -1,4 +1,4 @@
-import { ChoiceAdventureScript, availableChoiceOptions, runChoice } from "kolmafia";
+import { availableChoiceOptions, ChoiceAdventureScript, runChoice } from "kolmafia";
 import { maxBy } from "libram";
 
 const DART_PERKS: string[] = [

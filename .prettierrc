@@ -1,0 +1,7 @@
+{
+  "endOfLine": "lf",
+  "printWidth": 100,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": ["<THIRD_PARTY_MODULES>", "^\\.\\./", "^\\./"],
+  "importOrderSeparation": false
+}

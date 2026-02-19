@@ -28,7 +28,9 @@ import {
   have,
   uneffect,
 } from "libram";
+import Macro from "../combat";
 import { Quest } from "../engine/task";
+import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   handleCustomBusks,
@@ -42,8 +44,6 @@ import {
   wishFor,
 } from "../lib";
 import { sugarItemsAboutToBreak } from "../outfit";
-import Macro from "../combat";
-import { chooseFamiliar } from "../familiars";
 
 const hotTestMaximizerString = "hot res";
 

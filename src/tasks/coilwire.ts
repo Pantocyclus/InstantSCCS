@@ -1,5 +1,5 @@
-import { Quest } from "../engine/task";
 import { CommunityService } from "libram";
+import { Quest } from "../engine/task";
 import { runTest } from "../lib";
 
 export const CoilWireQuest: Quest = {

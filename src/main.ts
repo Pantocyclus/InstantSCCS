@@ -1,3 +1,4 @@
+import { Args, getTasks } from "grimoire-kolmafia";
 import {
   cliExecute,
   cliExecuteOutput,
@@ -10,29 +11,28 @@ import {
   userConfirm,
   visitUrl,
 } from "kolmafia";
+import { get, set, setCombatFlags, sinceKolmafiaRevision } from "libram";
+import { Engine } from "./engine/engine";
+import { Quest, Task } from "./engine/task";
 import {
   checkGithubVersion,
   computeCombatFrequency,
   convertMilliseconds,
   simpleDateDiff,
 } from "./lib";
-import { get, set, setCombatFlags, sinceKolmafiaRevision } from "libram";
-import { Engine } from "./engine/engine";
-import { Args, getTasks } from "grimoire-kolmafia";
-import { Quest, Task } from "./engine/task";
-import { HPQuest, MoxieQuest, MuscleQuest, MysticalityQuest } from "./tasks/stat";
-import { LevelingQuest } from "./tasks/leveling";
-import { CoilWireQuest } from "./tasks/coilwire";
-import { RunStartQuest } from "./tasks/runstart";
-import { FamiliarWeightQuest } from "./tasks/familiarweight";
-import { NoncombatQuest } from "./tasks/noncombat";
-import { BoozeDropQuest } from "./tasks/boozedrop";
-import { HotResQuest } from "./tasks/hotres";
-import { WeaponDamageQuest } from "./tasks/weapondamage";
-import { DonateQuest } from "./tasks/donate";
-import { SpellDamageQuest } from "./tasks/spelldamage";
-import { checkRequirements } from "./sim";
 import { checkResources } from "./resources";
+import { checkRequirements } from "./sim";
+import { BoozeDropQuest } from "./tasks/boozedrop";
+import { CoilWireQuest } from "./tasks/coilwire";
+import { DonateQuest } from "./tasks/donate";
+import { FamiliarWeightQuest } from "./tasks/familiarweight";
+import { HotResQuest } from "./tasks/hotres";
+import { LevelingQuest } from "./tasks/leveling";
+import { NoncombatQuest } from "./tasks/noncombat";
+import { RunStartQuest } from "./tasks/runstart";
+import { SpellDamageQuest } from "./tasks/spelldamage";
+import { HPQuest, MoxieQuest, MuscleQuest, MysticalityQuest } from "./tasks/stat";
+import { WeaponDamageQuest } from "./tasks/weapondamage";
 
 const timeProperty = "fullday_elapsedTime";
 

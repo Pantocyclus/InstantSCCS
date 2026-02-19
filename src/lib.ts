@@ -102,8 +102,8 @@ import {
   withProperty,
 } from "libram";
 import { printModtrace } from "libram/dist/modifier";
-import { excludedFamiliars, forbiddenEffects } from "./resources";
 import { chooseRift } from "libram/dist/resources/2023/ClosedCircuitPayphone";
+import { excludedFamiliars, forbiddenEffects } from "./resources";
 
 export const startingClan = getClanName();
 export const motherSlimeClan = Clan.getWhitelisted().find(

@@ -32,8 +32,8 @@ import {
   have,
 } from "libram";
 import Macro from "../combat";
-import { avoidDaylightShavingsHelm, sugarItemsAboutToBreak } from "../outfit";
 import { Quest } from "../engine/task";
+import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   chooseHeaviestEquippedFamiliar,
@@ -44,7 +44,7 @@ import {
   tryAcquiringEffect,
   tryAcquiringEffects,
 } from "../lib";
-import { chooseFamiliar } from "../familiars";
+import { avoidDaylightShavingsHelm, sugarItemsAboutToBreak } from "../outfit";
 
 const famTestMaximizerString = "familiar weight, -equip dented scepter";
 

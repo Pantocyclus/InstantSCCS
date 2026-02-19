@@ -14,8 +14,8 @@ import {
   get,
   have,
 } from "libram";
-import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
 import { chooseFamiliar } from "./familiars";
+import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
 
 export function haveHeartstone(): boolean {
   return (

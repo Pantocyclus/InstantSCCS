@@ -45,7 +45,9 @@ import {
   get,
   have,
 } from "libram";
+import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { Quest } from "../engine/task";
+import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   attemptRestoringMpWithFreeRests,
@@ -59,9 +61,7 @@ import {
   tryAcquiringEffects,
   tryAcquiringOdeToBooze,
 } from "../lib";
-import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { sugarItemsAboutToBreak } from "../outfit";
-import { chooseFamiliar } from "../familiars";
 
 let triedDeepDark = false;
 const spellTestMaximizerString = "spell dmg, switch disembodied hand, -switch left-hand man";

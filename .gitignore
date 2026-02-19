@@ -1,6 +1,6 @@
 node_modules
 .DS_Store
-KoLmafia/scripts/instantsccs/instantsccs.js
+KoLmafia/scripts
 
 dist/
 .pnp.*

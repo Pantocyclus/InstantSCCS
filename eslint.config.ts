@@ -31,6 +31,14 @@ export default defineConfig(
           message: "Don't declare non-const enums",
         },
       ],
+      "sort-imports": [
+        "error",
+        {
+          ignoreCase: true,
+          ignoreDeclarationSort: true,
+        },
+      ],
+      "libram/verify-constants": "error",
     },
   },
   prettier,
