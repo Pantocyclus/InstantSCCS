@@ -13,6 +13,7 @@ import {
   examine,
   get,
   have,
+  unequip,
 } from "libram";
 import { chooseFamiliar } from "./familiars";
 import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
@@ -70,17 +71,17 @@ export function romanCandelabra(ef: Effect): Item | Item[] | undefined {
 }
 
 export function garbageShirt(): Item | Item[] | undefined {
+  if (get("garbageShirtCharge") === 1) {
+    if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`) unequip($slot`shirt`);
+  }
+
   if (
     have($item`January's Garbage Tote`) &&
-    get("garbageShirtCharge") > 0 &&
+    get("garbageShirtCharge") > 1 &&
     have($skill`Torso Awareness`)
   ) {
-    if (get("garbageShirtCharge") === 1) {
-      if (equippedItem($slot`shirt`) === $item`makeshift garbage shirt`) return $item.none;
-    } else {
-      if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
-      return $item`makeshift garbage shirt`;
-    }
+    if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
+    return $item`makeshift garbage shirt`;
   }
   return undefined;
 }
@@ -158,6 +159,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     avoid: [
       ...sugarItemsAboutToBreak(),
       ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
+      ...(get("garbageShirtCharge") === 1 ? [$item`makeshift garbage shirt`] : []),
       $item`Möbius ring`,
     ],
   };
