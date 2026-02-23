@@ -86,9 +86,9 @@ export function garbageShirt(): Item | Item[] | undefined {
   return undefined;
 }
 
-export function docBag(): Item | Item[] | undefined {
+export function docBag(defaultItem: Item | Item[] | undefined): Item | Item[] | undefined {
   if (have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3) return $item`Lil' Doctor™ bag`;
-  return reduceItemUndefinedArray([baseOutfit().acc1, baseOutfit().acc2, baseOutfit().acc3]);
+  return defaultItem;
 }
 
 export function sugarItemsAboutToBreak(): Item[] {

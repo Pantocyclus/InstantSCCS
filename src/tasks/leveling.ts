@@ -1071,7 +1071,7 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(),
         offhand: $item`unbreakable umbrella`,
         acc2: $item`Peridot of Peril`,
-        acc3: docBag(),
+        acc3: docBag(baseOutfit().acc3),
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
         modes: { umbrella: "broken" },
@@ -1113,7 +1113,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(),
         offhand: $item`unbreakable umbrella`,
-        acc3: docBag(),
+        acc3: docBag(baseOutfit().acc3),
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
         modes: { umbrella: "broken" },
@@ -2264,30 +2264,21 @@ export const LevelingQuest: Quest = {
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
-      outfit: (): OutfitSpec => {
-        if (
+      outfit: () => ({
+        ...baseOutfit(),
+        shirt: garbageShirt(),
+        weapon: legendarySealClubbingClub("Time", true),
+        offhand: reduceItemUndefinedArray([
           chooseLibram() === $skill.none ||
           !have($item`latte lovers member's mug`) ||
           get("_latteRefillsUsed") >= 3
-        )
-          return {
-            ...baseOutfit(),
-            shirt: garbageShirt(),
-            weapon: legendarySealClubbingClub("Time", true),
-            offhand: $item`unbreakable umbrella`,
-            acc3: docBag(),
-            modes: { umbrella: "broken" },
-          };
-        else
-          return {
-            ...baseOutfit(),
-            shirt: garbageShirt(),
-            weapon: legendarySealClubbingClub("Time", true),
-            offhand: $items`latte lovers member's mug, unbreakable umbrella`,
-            acc3: docBag(),
-            modes: { umbrella: "broken" },
-          };
-      },
+            ? $item`latte lovers member's mug`
+            : undefined,
+          $item`unbreakable umbrella`,
+        ]),
+        acc3: docBag(baseOutfit().acc3),
+        modes: { umbrella: "broken" },
+      }),
       completed: () =>
         myBasestat(mainStat) >= targetBaseMainStat &&
         (get("_clubEmTimeUsed", 0) >= 5 - get("instant_saveClubEmTime", 0) ||
