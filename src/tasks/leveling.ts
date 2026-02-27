@@ -147,9 +147,9 @@ import {
   docBag,
   garbageShirt,
   legendarySealClubbingClub,
+  mobiusRing,
   reduceItemUndefinedArray,
   romanCandelabra,
-  mobiusRing,
 } from "../outfit";
 
 const useCinch = !get("instant_saveCinch", false);
@@ -1068,10 +1068,9 @@ export const LevelingQuest: Quest = {
             .trySkill($skill`Gingerbread Mob Hit`)
             .trySkill($skill`Shattering Punch`)
             .default(),
-        ).if_(
-          $monster`time cop`,
-          Macro.default(useCinch),
-        ).abort(),
+        )
+          .if_($monster`time cop`, Macro.default(useCinch))
+          .abort(),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -1211,9 +1210,9 @@ export const LevelingQuest: Quest = {
         get("_monsterHabitatsFightsLeft") > 0,
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
-        Macro.if_($monster`time cop`,
-          Macro.default(useCinch),
-        ).trySkill($skill`Snokebomb`).abort()
+        Macro.if_($monster`time cop`, Macro.default(useCinch))
+          .trySkill($skill`Snokebomb`)
+          .abort(),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -1723,7 +1722,8 @@ export const LevelingQuest: Quest = {
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.if_($monster`time cop`, Macro.default(useCinch))
-        .trySkill($skill`Back-Up to your Last Enemy`).default(useCinch)
+          .trySkill($skill`Back-Up to your Last Enemy`)
+          .default(useCinch),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -2018,9 +2018,12 @@ export const LevelingQuest: Quest = {
       },
       combat: new CombatStrategy().macro(
         Macro.if_(
-            $monster`time cop`,
-            Macro.tryItem($item`red rocket`).trySkill($skill`Bowl Sideways`).default(useCinch),
-          ).trySkill($skill`Sea *dent: Talk to Some Fish`)
+          $monster`time cop`,
+          Macro.tryItem($item`red rocket`)
+            .trySkill($skill`Bowl Sideways`)
+            .default(useCinch),
+        )
+          .trySkill($skill`Sea *dent: Talk to Some Fish`)
           .tryItem($item`red rocket`)
           .trySkill($skill`Bowl Sideways`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
@@ -2312,10 +2315,8 @@ export const LevelingQuest: Quest = {
         (haveCBBIngredients(true) || overleveled()),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
-        Macro.if_(
-            $monster`time cop`,
-            Macro.default(useCinch),
-          ).trySkill($skill`Sea *dent: Talk to Some Fish`)
+        Macro.if_($monster`time cop`, Macro.default(useCinch))
+          .trySkill($skill`Sea *dent: Talk to Some Fish`)
           .trySkill($skill`Feel Pride`)
           .trySkill($skill`Cincho: Confetti Extravaganza`)
           .trySkill($skill`Gulp Latte`)

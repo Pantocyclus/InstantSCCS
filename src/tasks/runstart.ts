@@ -111,9 +111,9 @@ import {
   baseOutfit,
   haveHeartstone,
   legendarySealClubbingClub,
+  mobiusRing,
   reduceItemUndefinedArray,
   romanCandelabra,
-  mobiusRing
 } from "../outfit";
 
 const bestStillsuitFamiliar = StillSuit.bestFamiliar("Item Drop");
