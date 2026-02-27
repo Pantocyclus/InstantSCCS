@@ -100,13 +100,24 @@ function getBestDartsOption() {
     return DART_PERKS.includes(text) ? -DART_PERKS.indexOf(text) : -Infinity;
   }, true)[0]);
 }
+function getMobiusOption() {
+  var desiredChoices = ["Go back and take a 20-year-long nap", "Go back and set an alarm"];
+  return Number(maxBy(Object.entries(kolmafia.availableChoiceOptions()), _ref3 => {
+    var _ref4 = _slicedToArray(_ref3, 1),
+      text = _ref4[0];
+    return desiredChoices.includes(text) ? -desiredChoices.indexOf(text) : -Infinity;
+  }, true)[0]);
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 var main = (choiceNumber, pageText) => {
   switch (choiceNumber) {
     case 1525:
       return void kolmafia.runChoice(getBestDartsOption());
+    case 1562:
+      return void kolmafia.runChoice(getMobiusOption());
   }
 };
 
+exports.getMobiusOption = getMobiusOption;
 exports.main = main;
