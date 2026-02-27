@@ -25,6 +25,7 @@ import {
   undelay,
   uneffect,
 } from "libram";
+import { baseOutfit, reduceItemUndefinedArray } from "../outfit";
 import { excludedFamiliars } from "../resources";
 import { Task } from "./task";
 
@@ -218,7 +219,7 @@ export class Engine extends BaseEngine {
 
     // spec is an OutfitSpec
     for (const slotName of outfitSlots) {
-      const itemOrItems = spec[slotName];
+      const itemOrItems = reduceItemUndefinedArray([spec[slotName], baseOutfit()[slotName]]);
       if (itemOrItems) {
         if (itemOrItems instanceof Item) {
           if (!have(itemOrItems) && itemOrItems !== null) {

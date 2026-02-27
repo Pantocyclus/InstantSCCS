@@ -41,7 +41,10 @@ export function haveHeartstone(): boolean {
 }
 
 export function reduceItemUndefinedArray(arr: (Item | Item[] | undefined)[]): Item[] | undefined {
-  const itemArray: Item[] = arr.filter((it) => it !== undefined).flat();
+  const itemArray: Item[] = arr
+    .filter((it) => it !== undefined)
+    .flat()
+    .filter((v, i, a) => a.indexOf(v) === i);
   if (itemArray.length > 0) return itemArray;
   return undefined;
 }
