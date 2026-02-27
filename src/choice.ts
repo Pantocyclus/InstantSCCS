@@ -32,10 +32,23 @@ function getBestDartsOption(): number {
   );
 }
 
+export function getMobiusOption(): number {
+  const desiredChoices = ["Go back and take a 20-year-long nap", "Go back and set an alarm"];
+  return Number(
+    maxBy(
+      Object.entries(availableChoiceOptions()),
+      ([text]) => (desiredChoices.includes(text) ? -desiredChoices.indexOf(text) : -Infinity),
+      true,
+    )[0],
+  );
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const main: ChoiceAdventureScript = (choiceNumber, pageText) => {
   switch (choiceNumber) {
     case 1525:
       return void runChoice(getBestDartsOption());
+    case 1562:
+      return void runChoice(getMobiusOption());
   }
 };

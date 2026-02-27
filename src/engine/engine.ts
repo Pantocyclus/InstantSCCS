@@ -238,6 +238,12 @@ export class Engine extends BaseEngine {
         }
       }
     }
+
+    const itemsToEquip = outfitSlots
+      .map((slotName) => spec[slotName])
+      .flat()
+      .filter((it) => it !== undefined);
+    spec.avoid = spec.avoid?.filter((it) => !itemsToEquip.includes(it));
     return Outfit.from(spec, new Error("Failed to equip outfit"));
   }
 

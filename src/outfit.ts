@@ -1,5 +1,14 @@
 import { OutfitSpec } from "grimoire-kolmafia";
-import { cliExecute, Effect, equippedItem, Item, myClass, myPrimestat } from "kolmafia";
+import {
+  cliExecute,
+  Effect,
+  equippedItem,
+  Item,
+  myClass,
+  myPrimestat,
+  toInt,
+  totalTurnsPlayed,
+} from "kolmafia";
 import {
   $class,
   $effect,
@@ -114,6 +123,23 @@ export function avoidDaylightShavingsHelm(): boolean {
   );
 }
 
+export function mobiusRing(): Item | undefined {
+  if (have($item`Möbius ring`) && get("instant_runMobiusNCs", false)) {
+    const turnsBetween =
+      [4, 7, 13, 19, 25, 31, 31, 31, 31, 31, 41, 41, 41, 41, 41, 51, 76]?.at(
+        toInt(get("_mobiusStripEncounters")),
+      ) ?? 76;
+
+    if (
+      totalTurnsPlayed() + turnsBetween >= toInt(get("_lastMobiusStripTurn")) &&
+      toInt(get("_timeCopsFoughtToday")) < 11
+    ) {
+      return $item`Möbius ring`;
+    }
+  }
+  return undefined;
+}
+
 function useCandyCaneSword(): boolean {
   if (!have($item`candy cane sword cane`) || get("instant_saveCandySword", false)) return false;
   examine($item`candy cane sword cane`);
@@ -131,6 +157,20 @@ function chooseWeapon(): Item | undefined {
   else if (have($item`bass clarinet`)) return $item`bass clarinet`;
   else if (myPrimestat() === $stat`Muscle` && have($item`June cleaver`)) return $item`June cleaver`;
   return undefined;
+}
+
+export function preventEquipList(): Item[] {
+  return [
+    ...sugarItemsAboutToBreak(),
+    ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
+    ...(get("garbageShirtCharge") === 1 ? [$item`makeshift garbage shirt`] : []),
+    $item`tinsel tights`,
+    $item`wad of used tape`,
+    $item`Möbius ring`,
+    $item`Kramco Sausage-o-Matic™`,
+    $item`miniature crystal ball`,
+    $item`backup camera`,
+  ];
 }
 
 export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
@@ -155,12 +195,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
         : undefined,
     acc3: $item`spring shoes`,
     familiar: chooseFamiliar(allowAttackingFamiliars),
-    modifier: `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent, -equip tinsel tights, -equip wad of used tape`,
-    avoid: [
-      ...sugarItemsAboutToBreak(),
-      ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
-      ...(get("garbageShirtCharge") === 1 ? [$item`makeshift garbage shirt`] : []),
-      $item`Möbius ring`,
-    ],
+    modifier: `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent`,
+    avoid: preventEquipList(),
   };
 }

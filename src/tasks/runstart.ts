@@ -111,6 +111,7 @@ import {
   baseOutfit,
   haveHeartstone,
   legendarySealClubbingClub,
+  mobiusRing,
   reduceItemUndefinedArray,
   romanCandelabra,
 } from "../outfit";
@@ -711,7 +712,6 @@ export const RunStartQuest: Quest = {
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(false),
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip backup camera, -equip Kramco Sausage-o-Matic™`,
       }),
       limit: { tries: 1 },
     },
@@ -875,7 +875,6 @@ export const RunStartQuest: Quest = {
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
         offhand: romanCandelabra($effect`Everything Looks Yellow`),
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
       }),
       post: (): void => {
         if (!useCenser) {
@@ -915,7 +914,6 @@ export const RunStartQuest: Quest = {
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
         offhand: romanCandelabra($effect`Everything Looks Yellow`),
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
       }),
       post: (): void => {
         if (have($item`MayDay™ supply package`) && !get("instant_saveMayday", false))
@@ -944,7 +942,8 @@ export const RunStartQuest: Quest = {
           "!haseffect Everything Looks Yellow",
           Macro.if_(
             $monster`novelty tropical skeleton`,
-            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+            Macro.if_($monster`time cop`, Macro.default())
+              .externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
               .trySkill($skill`Blow the Yellow Candle!`)
               .tryItem($item`yellow rocket`),
           ),
@@ -954,7 +953,7 @@ export const RunStartQuest: Quest = {
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
         offhand: romanCandelabra($effect`Everything Looks Yellow`),
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
+        acc2: mobiusRing(),
         acc3: $item`Peridot of Peril`,
       }),
       post: (): void => {
@@ -995,7 +994,8 @@ export const RunStartQuest: Quest = {
           "!haseffect Everything Looks Yellow",
           Macro.if_(
             $monster`novelty tropical skeleton`,
-            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+            Macro.if_($monster`time cop`, Macro.default())
+              .externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
               .trySkill($skill`Blow the Yellow Candle!`)
               .tryItem($item`yellow rocket`),
           ),
@@ -1008,7 +1008,7 @@ export const RunStartQuest: Quest = {
           romanCandelabra($effect`Everything Looks Yellow`),
           $item`unbreakable umbrella`,
         ]),
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
+        acc3: mobiusRing(),
         modes: { umbrella: "broken" },
       }),
       post: (): void => {
@@ -1075,7 +1075,6 @@ export const RunStartQuest: Quest = {
           acc2: $item`cursed monkey's paw`,
           acc3: !have($effect`Everything Looks Green`) ? $item`spring shoes` : undefined,
           familiar: chooseFamiliar(false),
-          modifier: `${baseOutfit().modifier}, -equip miniature crystal ball, -equip Kramco Sausage-o-Matic™`,
           modes: { umbrella: "broken" },
         };
       },

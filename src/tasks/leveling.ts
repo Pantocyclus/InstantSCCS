@@ -147,6 +147,7 @@ import {
   docBag,
   garbageShirt,
   legendarySealClubbingClub,
+  mobiusRing,
   reduceItemUndefinedArray,
   romanCandelabra,
 } from "../outfit";
@@ -1009,7 +1010,7 @@ export const LevelingQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         weapon: $item`legendary seal-clubbing club`,
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 5 },
@@ -1067,15 +1068,18 @@ export const LevelingQuest: Quest = {
             .trySkill($skill`Gingerbread Mob Hit`)
             .trySkill($skill`Shattering Punch`)
             .default(),
-        ).abort(),
+        )
+          .if_($monster`time cop`, Macro.default(useCinch))
+          .abort(),
       ),
       outfit: () => ({
         ...baseOutfit(),
         offhand: $item`unbreakable umbrella`,
+        acc1: mobiusRing(),
         acc2: $item`Peridot of Peril`,
         acc3: docBag(baseOutfit().acc3),
         familiar: $familiar`Trick-or-Treating Tot`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
@@ -1117,7 +1121,7 @@ export const LevelingQuest: Quest = {
         offhand: $item`unbreakable umbrella`,
         acc3: docBag(baseOutfit().acc3),
         familiar: $familiar`Trick-or-Treating Tot`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
@@ -1148,7 +1152,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(false),
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
@@ -1181,7 +1185,7 @@ export const LevelingQuest: Quest = {
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(false),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip miniature crystal ball, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       combat: new CombatStrategy().macro(
@@ -1205,12 +1209,17 @@ export const LevelingQuest: Quest = {
         get("_snokebombUsed") >= 3 - get("instant_saveSBForInnerElf", 0) ||
         get("_monsterHabitatsFightsLeft") > 0,
       do: powerlevelingLocation(),
-      combat: new CombatStrategy().macro(Macro.trySkill($skill`Snokebomb`).abort()),
+      combat: new CombatStrategy().macro(
+        Macro.if_($monster`time cop`, Macro.default(useCinch))
+          .trySkill($skill`Snokebomb`)
+          .abort(),
+      ),
       outfit: () => ({
         ...baseOutfit(),
         hat: daylightShavingsHelmet(),
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        acc3: mobiusRing(),
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       choices: {
@@ -1257,7 +1266,7 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(),
         hat: daylightShavingsHelmet(),
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       post: (): void => {
@@ -1326,7 +1335,7 @@ export const LevelingQuest: Quest = {
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(true),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 10 },
@@ -1473,8 +1482,7 @@ export const LevelingQuest: Quest = {
           have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3
             ? $item`Lil' Doctor™ bag`
             : undefined,
-        modifier:
-          "Item Drop, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™",
+        modifier: "Item Drop",
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 5 },
@@ -1537,7 +1545,7 @@ export const LevelingQuest: Quest = {
             : undefined,
           $item`unbreakable umbrella`,
         ]),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { parka: "dilophosaur" },
       }),
       post: (): void => {
@@ -1589,7 +1597,7 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(false),
         weapon: $item`Fourth of May Cosplay Saber`,
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 1 },
@@ -1647,7 +1655,7 @@ export const LevelingQuest: Quest = {
               offhand: $items`latte lovers member's mug, unbreakable umbrella`,
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
-              modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
+              acc3: mobiusRing(),
               modes: { umbrella: "broken" },
             }),
       }),
@@ -1672,6 +1680,7 @@ export const LevelingQuest: Quest = {
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(() => {
         return Macro.if_($monster`fluffy bunny`, Macro.banish().abort())
+          .if_($monster`time cop`, Macro.default(useCinch))
           .trySkill($skill`Recall Facts: Monster Habitats`)
           .default(useCinch);
       }),
@@ -1684,7 +1693,7 @@ export const LevelingQuest: Quest = {
               offhand: $items`latte lovers member's mug, unbreakable umbrella`,
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
-              modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
+              acc3: mobiusRing(),
             }),
         modes: { umbrella: "broken" },
       }),
@@ -1709,14 +1718,16 @@ export const LevelingQuest: Quest = {
         myBasestat(mainStat) >= 190, // no longer need to back up Witchess Kings
       do: $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Back-Up to your Last Enemy`).default(useCinch),
+        Macro.if_($monster`time cop`, Macro.default(useCinch))
+          .trySkill($skill`Back-Up to your Last Enemy`)
+          .default(useCinch),
       ),
       outfit: () => ({
         ...baseOutfit(),
         shirt: garbageShirt(),
         offhand: $item`unbreakable umbrella`,
+        acc2: mobiusRing(),
         acc3: $item`backup camera`,
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
         modes: { umbrella: "broken" },
       }),
       post: (): void => {
@@ -1991,6 +2002,7 @@ export const LevelingQuest: Quest = {
         back: get("_batWingsFreeFights") < 5 ? $item`bat wings` : undefined,
         shirt: garbageShirt(),
         offhand: $item`unbreakable umbrella`,
+        acc3: mobiusRing(),
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 60 },
@@ -2001,7 +2013,13 @@ export const LevelingQuest: Quest = {
         1324: 5,
       },
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Sea *dent: Talk to Some Fish`)
+        Macro.if_(
+          $monster`time cop`,
+          Macro.tryItem($item`red rocket`)
+            .trySkill($skill`Bowl Sideways`)
+            .default(useCinch),
+        )
+          .trySkill($skill`Sea *dent: Talk to Some Fish`)
           .tryItem($item`red rocket`)
           .trySkill($skill`Bowl Sideways`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
@@ -2293,7 +2311,8 @@ export const LevelingQuest: Quest = {
         (haveCBBIngredients(true) || overleveled()),
       do: powerlevelingLocation(),
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Sea *dent: Talk to Some Fish`)
+        Macro.if_($monster`time cop`, Macro.default(useCinch))
+          .trySkill($skill`Sea *dent: Talk to Some Fish`)
           .trySkill($skill`Feel Pride`)
           .trySkill($skill`Cincho: Confetti Extravaganza`)
           .trySkill($skill`Gulp Latte`)
