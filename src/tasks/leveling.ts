@@ -1010,7 +1010,7 @@ export const LevelingQuest: Quest = {
         // eslint-disable-next-line libram/verify-constants
         weapon: $item`legendary seal-clubbing club`,
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 5 },
@@ -1079,7 +1079,7 @@ export const LevelingQuest: Quest = {
         acc2: $item`Peridot of Peril`,
         acc3: docBag(baseOutfit().acc3),
         familiar: $familiar`Trick-or-Treating Tot`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
@@ -1121,7 +1121,7 @@ export const LevelingQuest: Quest = {
         offhand: $item`unbreakable umbrella`,
         acc3: docBag(baseOutfit().acc3),
         familiar: $familiar`Trick-or-Treating Tot`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
@@ -1152,7 +1152,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(false),
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
@@ -1185,7 +1185,7 @@ export const LevelingQuest: Quest = {
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(false),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip miniature crystal ball, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       combat: new CombatStrategy().macro(
@@ -1219,7 +1219,7 @@ export const LevelingQuest: Quest = {
         hat: daylightShavingsHelmet(),
         offhand: $item`unbreakable umbrella`,
         acc3: mobiusRing(),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       choices: {
@@ -1266,7 +1266,7 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(),
         hat: daylightShavingsHelmet(),
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       post: (): void => {
@@ -1335,7 +1335,7 @@ export const LevelingQuest: Quest = {
           canScreech() && cyberRealmTurnsAvailable() > 0
             ? $familiar`Patriotic Eagle`
             : chooseFamiliar(true),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 10 },
@@ -1482,8 +1482,7 @@ export const LevelingQuest: Quest = {
           have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3
             ? $item`Lil' Doctor™ bag`
             : undefined,
-        modifier:
-          "Item Drop, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring",
+        modifier: "Item Drop",
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 5 },
@@ -1546,7 +1545,7 @@ export const LevelingQuest: Quest = {
             : undefined,
           $item`unbreakable umbrella`,
         ]),
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { parka: "dilophosaur" },
       }),
       post: (): void => {
@@ -1598,7 +1597,7 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(false),
         weapon: $item`Fourth of May Cosplay Saber`,
         offhand: $item`unbreakable umbrella`,
-        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
+        modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
       }),
       limit: { tries: 1 },
@@ -1657,7 +1656,6 @@ export const LevelingQuest: Quest = {
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
               acc3: mobiusRing(),
-              modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
               modes: { umbrella: "broken" },
             }),
       }),
@@ -1696,7 +1694,6 @@ export const LevelingQuest: Quest = {
               acc1: $item`Kremlin's Greatest Briefcase`,
               acc2: $item`Lil' Doctor™ bag`,
               acc3: mobiusRing(),
-              modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
             }),
         modes: { umbrella: "broken" },
       }),
@@ -1731,7 +1728,6 @@ export const LevelingQuest: Quest = {
         offhand: $item`unbreakable umbrella`,
         acc2: mobiusRing(),
         acc3: $item`backup camera`,
-        modifier: `${baseOutfit().modifier}, -equip miniature crystal ball`,
         modes: { umbrella: "broken" },
       }),
       post: (): void => {

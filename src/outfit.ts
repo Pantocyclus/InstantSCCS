@@ -159,6 +159,20 @@ function chooseWeapon(): Item | undefined {
   return undefined;
 }
 
+export function preventEquipList(): Item[] {
+  return [
+    ...sugarItemsAboutToBreak(),
+    ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
+    ...(get("garbageShirtCharge") === 1 ? [$item`makeshift garbage shirt`] : []),
+    $item`tinsel tights`,
+    $item`wad of used tape`,
+    $item`Möbius ring`,
+    $item`Kramco Sausage-o-Matic™`,
+    $item`miniature crystal ball`,
+    $item`backup camera`,
+  ];
+}
+
 export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
   return {
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
@@ -181,12 +195,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
         : undefined,
     acc3: $item`spring shoes`,
     familiar: chooseFamiliar(allowAttackingFamiliars),
-    modifier: `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent, -equip tinsel tights, -equip wad of used tape`,
-    avoid: [
-      ...sugarItemsAboutToBreak(),
-      ...(avoidDaylightShavingsHelm() ? [$item`Daylight Shavings Helmet`] : []),
-      ...(get("garbageShirtCharge") === 1 ? [$item`makeshift garbage shirt`] : []),
-      $item`Möbius ring`,
-    ],
+    modifier: `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent`,
+    avoid: preventEquipList(),
   };
 }
