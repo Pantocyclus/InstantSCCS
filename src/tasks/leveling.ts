@@ -13,6 +13,7 @@ import {
   effectModifier,
   equip,
   getCampground,
+  getDwelling,
   getWorkshed,
   haveEffect,
   holiday,
@@ -657,7 +658,7 @@ export const LevelingQuest: Quest = {
         get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0) ||
         myMp() >= Math.min(200, myMaxmp()),
       prepare: (): void => {
-        if (have($item`Newbiesport™ tent`)) use($item`Newbiesport™ tent`);
+        if (have($item`Newbiesport™ tent`) && getDwelling() === $item`big rock`) use($item`Newbiesport™ tent`);
       },
       do: (): void => {
         if (get("chateauAvailable")) {
@@ -1606,7 +1607,7 @@ export const LevelingQuest: Quest = {
         get("_cinchUsed") <= 95 ||
         !useCinch,
       prepare: (): void => {
-        if (have($item`Newbiesport™ tent`)) use($item`Newbiesport™ tent`);
+        if (have($item`Newbiesport™ tent`) && getDwelling() === $item`big rock`) use($item`Newbiesport™ tent`);
       },
       do: (): void => {
         if (get("chateauAvailable")) {
