@@ -13,6 +13,7 @@ import {
   effectModifier,
   equip,
   getCampground,
+  getDwelling,
   getWorkshed,
   haveEffect,
   holiday,
@@ -658,7 +659,8 @@ export const LevelingQuest: Quest = {
         get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0) ||
         myMp() >= Math.min(200, myMaxmp()),
       prepare: (): void => {
-        if (have($item`Newbiesport™ tent`)) use($item`Newbiesport™ tent`);
+        if (have($item`Newbiesport™ tent`) && getDwelling() === $item`big rock`)
+          use($item`Newbiesport™ tent`);
       },
       do: (): void => {
         if (get("chateauAvailable")) {
@@ -1076,7 +1078,7 @@ export const LevelingQuest: Quest = {
         offhand: $item`unbreakable umbrella`,
         acc1: mobiusRing(),
         acc2: $item`Peridot of Peril`,
-        acc3: docBag(),
+        acc3: docBag(baseOutfit().acc3),
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™`,
         modes: { umbrella: "broken" },
@@ -1118,7 +1120,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(),
         offhand: $item`unbreakable umbrella`,
-        acc3: docBag(),
+        acc3: docBag(baseOutfit().acc3),
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML, -equip tinsel tights, -equip wad of used tape, -equip Kramco Sausage-o-Matic™, -equip Möbius ring`,
         modes: { umbrella: "broken" },
@@ -1616,7 +1618,8 @@ export const LevelingQuest: Quest = {
         get("_cinchUsed") <= 95 ||
         !useCinch,
       prepare: (): void => {
-        if (have($item`Newbiesport™ tent`)) use($item`Newbiesport™ tent`);
+        if (have($item`Newbiesport™ tent`) && getDwelling() === $item`big rock`)
+          use($item`Newbiesport™ tent`);
       },
       do: (): void => {
         if (get("chateauAvailable")) {
@@ -2283,32 +2286,21 @@ export const LevelingQuest: Quest = {
         tryAcquiringEffects(usefulEffects);
         attemptRestoringMpWithFreeRests(50);
       },
-      outfit: (): OutfitSpec => {
-        if (
+      outfit: () => ({
+        ...baseOutfit(),
+        shirt: garbageShirt(),
+        weapon: legendarySealClubbingClub("Time", true),
+        offhand: reduceItemUndefinedArray([
           chooseLibram() === $skill.none ||
           !have($item`latte lovers member's mug`) ||
           get("_latteRefillsUsed") >= 3
-        )
-          return {
-            ...baseOutfit(),
-            shirt: garbageShirt(),
-            weapon: legendarySealClubbingClub("Time", true),
-            offhand: $item`unbreakable umbrella`,
-            acc2: mobiusRing(),
-            acc3: docBag(),
-            modes: { umbrella: "broken" },
-          };
-        else
-          return {
-            ...baseOutfit(),
-            shirt: garbageShirt(),
-            weapon: legendarySealClubbingClub("Time", true),
-            offhand: $items`latte lovers member's mug, unbreakable umbrella`,
-            acc2: mobiusRing(),
-            acc3: docBag(),
-            modes: { umbrella: "broken" },
-          };
-      },
+            ? $item`latte lovers member's mug`
+            : undefined,
+          $item`unbreakable umbrella`,
+        ]),
+        acc3: docBag(baseOutfit().acc3),
+        modes: { umbrella: "broken" },
+      }),
       completed: () =>
         myBasestat(mainStat) >= targetBaseMainStat &&
         (get("_clubEmTimeUsed", 0) >= 5 - get("instant_saveClubEmTime", 0) ||
