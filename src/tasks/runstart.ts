@@ -13,6 +13,7 @@ import {
   equip,
   equippedAmount,
   getCampground,
+  getDwelling,
   getWorkshed,
   haveEquipped,
   hermit,
@@ -314,7 +315,8 @@ export const RunStartQuest: Quest = {
         get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0) ||
         myMp() >= Math.min(200, myMaxmp()),
       prepare: (): void => {
-        if (have($item`Newbiesport™ tent`)) use($item`Newbiesport™ tent`);
+        if (have($item`Newbiesport™ tent`) && getDwelling() === $item`big rock`)
+          use($item`Newbiesport™ tent`);
       },
       do: (): void => {
         if (get("chateauAvailable")) {
