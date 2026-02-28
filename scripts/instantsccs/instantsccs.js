@@ -12987,7 +12987,7 @@ var Engine = /*#__PURE__*/function (_BaseEngine) {
       }
       var itemsToEquip = outfitSlots.map(slotName => spec[slotName]).flat().filter(it => it !== undefined);
       spec.avoid = (_spec$avoid = spec.avoid) === null || _spec$avoid === void 0 ? void 0 : _spec$avoid.filter(it => !itemsToEquip.includes(it));
-      return Outfit.from(spec, new Error("Failed to equip outfit"));
+      return Outfit.from(spec, new Error("Failed to equip outfit! Wanted to equip ".concat(outfitSlots.map(slotName => "".concat(slotName, ": ").concat(itemsToEquip.map(it => it.name).join(","))).join(" | "))));
     }
   }, {
     key: "dress",
@@ -15154,13 +15154,10 @@ var LevelingQuest = {
     completed: () => cyberRealmTurnsAvailable() <= 0,
     do: () => cyberRealmZone(),
     combat: new CombatStrategy().macro(Macro.if_("monstername hacker", Macro.default()).trySkillRepeat($skill(_templateObject377 || (_templateObject377 = _taggedTemplateLiteral(["Throw Cyber Rock"]))))),
-    outfit: () => {
-      var _filter;
-      return _objectSpread2(_objectSpread2({}, baseOutfit()), {}, {
-        acc1: $item(_templateObject378 || (_templateObject378 = _taggedTemplateLiteral(["datastick"]))),
-        acc3: (_filter = $items(_templateObject379 || (_templateObject379 = _taggedTemplateLiteral(["PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit"]))).filter(have$a)) === null || _filter === void 0 ? void 0 : _filter[0]
-      });
-    },
+    outfit: () => _objectSpread2(_objectSpread2({}, baseOutfit()), {}, {
+      acc1: $item(_templateObject378 || (_templateObject378 = _taggedTemplateLiteral(["datastick"]))),
+      acc3: $items(_templateObject379 || (_templateObject379 = _taggedTemplateLiteral(["PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit"])))
+    }),
     post: () => {
       sendAutumnaton();
       if (cyberRealmTurnsAvailable() <= 0) {
