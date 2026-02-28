@@ -11763,8 +11763,12 @@ function updateRunStats() {
     // This allows us to dynamically change the data being logged without needing to compile a new build for each change,
     // with the downside being that we are unable to log outputs from Mafia/Libram functions - we should not be executing
     // arbitrary code that may (but should definitely not) be placed within the forum post, as these code snippets cannot be
-    // easily vetted through the public GitHub repo. As an added safety precaution, the forum has been locked down and may
+    // easily vetted through the public GitHub repo*. As an added safety precaution, the forum has been locked down and may
     // only be modified by trusted developers of this script.
+    // *As of the current implementation, this only parses
+    // (1) Items - Reads the string <[itemId]> and returns availableAmount(toItem(itemId))
+    // (2) Preference Strings - Reads the string <'preference'> and returns get(preference, "?") or "0" / "1" if the preference returns a boolean
+    // (3) Integers - Reads the string <number> and returns number
     var remarks = (((_visitUrl$match2 = kolmafia.visitUrl("clan_freadtopic.php?topicid=197960").match(RegExp(/Currently Tracked Stats:<br>(.*?)<\/td>/))) === null || _visitUrl$match2 === void 0 || (_visitUrl$match2 = _visitUrl$match2.at(1)) === null || _visitUrl$match2 === void 0 ? void 0 : _visitUrl$match2.replace(RegExp(/<br>/g), "\n")) ?? "").split("\n").filter(l => l.length > 0).map(l => {
       var s = l.split(" / ");
       return s.map(val => {
@@ -11772,14 +11776,11 @@ function updateRunStats() {
         var num = "?";
         if (Number.isInteger(parseInt(val))) {
           num = val;
-        } else if (val === "true") {
-          num = "1";
-        } else if (val === "false") {
-          num = "0";
         } else if (kolmafia.toItem(((_val$match = val.match(/\[(\d+)\]/)) === null || _val$match === void 0 ? void 0 : _val$match.at(1)) ?? "") !== $item.none) {
           num = kolmafia.availableAmount(kolmafia.toItem(val)).toString();
         } else {
           num = get(val.replace(/[\s']/g, ""), "?");
+          if (num === "true") num = "1";else if (num === "false") num = "0";
         }
         return num;
       }).join("/");
