@@ -1,4 +1,4 @@
-import { OutfitSpec } from "grimoire-kolmafia";
+import { OutfitSlot, OutfitSpec } from "grimoire-kolmafia";
 import {
   cliExecute,
   Effect,
@@ -6,6 +6,7 @@ import {
   Item,
   myClass,
   myPrimestat,
+  Slot,
   toInt,
   totalTurnsPlayed,
 } from "kolmafia";
@@ -72,14 +73,14 @@ export function legendarySealClubbingClub(
   )
     // eslint-disable-next-line libram/verify-constants
     return $item`legendary seal-clubbing club`;
-  return baseOutfit().weapon;
+  return [];
 }
 
 export function romanCandelabra(ef: Effect): Item | Item[] | undefined {
   if (have($item`Roman Candelabra`) && !have(ef)) {
     return $item`Roman Candelabra`;
   }
-  return baseOutfit().offhand;
+  return [];
 }
 
 export function garbageShirt(): Item | Item[] | undefined {
@@ -95,12 +96,12 @@ export function garbageShirt(): Item | Item[] | undefined {
     if (!have($item`makeshift garbage shirt`)) cliExecute("fold makeshift garbage shirt");
     return $item`makeshift garbage shirt`;
   }
-  return undefined;
+  return [];
 }
 
-export function docBag(defaultItem: Item | Item[] | undefined): Item | Item[] | undefined {
+export function docBag(): Item | Item[] | undefined {
   if (have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3) return $item`Lil' Doctor™ bag`;
-  return defaultItem;
+  return [];
 }
 
 export function sugarItemsAboutToBreak(): Item[] {
@@ -126,7 +127,7 @@ export function avoidDaylightShavingsHelm(): boolean {
   );
 }
 
-export function mobiusRing(): Item | undefined {
+export function mobiusRing(): Item | Item[] | undefined {
   if (have($item`Möbius ring`) && get("instant_runMobiusNCs", false)) {
     const turnsBetween =
       [4, 7, 13, 19, 25, 31, 31, 31, 31, 31, 41, 41, 41, 41, 41, 51, 76]?.at(
@@ -140,7 +141,7 @@ export function mobiusRing(): Item | undefined {
       return $item`Möbius ring`;
     }
   }
-  return undefined;
+  return [];
 }
 
 function useCandyCaneSword(): boolean {

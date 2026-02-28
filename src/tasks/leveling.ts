@@ -1081,7 +1081,7 @@ export const LevelingQuest: Quest = {
         offhand: $item`unbreakable umbrella`,
         acc1: mobiusRing(),
         acc2: $item`Peridot of Peril`,
-        acc3: docBag(baseOutfit().acc3),
+        acc3: docBag(),
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
@@ -1123,7 +1123,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(),
         offhand: $item`unbreakable umbrella`,
-        acc3: docBag(baseOutfit().acc3),
+        acc3: docBag(),
         familiar: $familiar`Trick-or-Treating Tot`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
         modes: { umbrella: "broken" },
@@ -2308,7 +2308,7 @@ export const LevelingQuest: Quest = {
             : undefined,
           $item`unbreakable umbrella`,
         ]),
-        acc3: docBag(baseOutfit().acc3),
+        acc3: docBag(),
         modes: { umbrella: "broken" },
       }),
       completed: () =>
