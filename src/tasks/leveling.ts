@@ -1363,9 +1363,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(),
         acc1: $item`datastick`,
-        acc3: $items`PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit`.filter(
-          have,
-        )?.[0],
+        acc3: $items`PirateRealm eyepatch, FantasyRealm G. E. M., Personal Ventilation Unit`,
       }),
       post: (): void => {
         sendAutumnaton();

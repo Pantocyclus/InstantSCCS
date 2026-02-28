@@ -244,8 +244,14 @@ export class Engine extends BaseEngine {
       .map((slotName) => spec[slotName])
       .flat()
       .filter((it) => it !== undefined);
+
     spec.avoid = spec.avoid?.filter((it) => !itemsToEquip.includes(it));
-    return Outfit.from(spec, new Error("Failed to equip outfit"));
+    return Outfit.from(
+      spec,
+      new Error(
+        `Failed to equip outfit! Wanted to equip ${outfitSlots.map((slotName) => `${slotName}: ${itemsToEquip.map((it) => it.name).join(",")}`).join(" | ")}`,
+      ),
+    );
   }
 
   dress(task: Task, outfit: Outfit): void {
