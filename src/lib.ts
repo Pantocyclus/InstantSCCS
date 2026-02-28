@@ -177,7 +177,7 @@ function readWhiteboard(): string {
 }
 
 export function updateRunStats(): void {
-  if (get("instant_collectData", false)) return;
+  if (!get("instant_collectData", true)) return;
   if (getClanName().toLowerCase() !== "csloopers unite") return;
   try {
     const text = readWhiteboard();

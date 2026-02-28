@@ -137,7 +137,7 @@ function logResourceUsage(): void {
   print(`Adventures used: ${turnsPlayed()}`);
 
   if (
-    get("instant_collectData", false) &&
+    get("instant_collectData", true) &&
     Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")
   ) {
     print(
