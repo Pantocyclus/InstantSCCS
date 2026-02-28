@@ -178,6 +178,7 @@ function readWhiteboard(): string {
 
 export function updateRunStats(): void {
   if (get("instant_collectData", false)) return;
+  if (getClanName().toLowerCase() !== "csloopers unite") return;
   try {
     const text = readWhiteboard();
     const SHA =
@@ -188,6 +189,12 @@ export function updateRunStats(): void {
     const date = todayToString();
 
     // ========== DATA TO TRACK ===========
+    // The data we log to the clan whiteboard is determined by whatever is detailed in the CSLoopers Unite Clan's forum post.
+    // This allows us to dynamically change the data being logged without needing to compile a new build for each change,
+    // with the downside being that we are unable to log outputs from Mafia/Libram functions - we should not be executing
+    // arbitrary code that may (but should definitely not) be placed within the forum post, as these code snippets cannot be
+    // easily vetted through the public GitHub repo. As an added safety precaution, the forum has been locked down and may
+    // only be modified by trusted developers of this script.
     const remarks = (
       visitUrl("clan_freadtopic.php?topicid=197960")
         .match(RegExp(/Currently Tracked Stats:<br>(.*?)<\/td>/))
@@ -204,6 +211,10 @@ export function updateRunStats(): void {
 
             if (Number.isInteger(parseInt(val))) {
               num = val;
+            } else if (val === "true") {
+              num = "1";
+            } else if (val === "false") {
+              num = "0";
             } else if (toItem(val.match(/\[(\d+)\]/)?.at(1) ?? "") !== $item.none) {
               num = availableAmount(toItem(val)).toString();
             } else {
@@ -284,7 +295,6 @@ export function updateRunStats(): void {
       .join("\n");
 
     writeToWhiteboard(updateText);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     //No-op
   }
@@ -312,7 +322,6 @@ export function checkGithubVersion(): boolean {
       print(`Local Version: ${localSHA}.`);
       print(`Release Version: ${releaseSHA}`);
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     print("Failed to fetch GitHub data", "red");
   }
@@ -335,7 +344,6 @@ export function simpleDateDiff(t1: string, t2: string): number {
   return msDiff;
 }
 
-// From phccs
 export function convertMilliseconds(milliseconds: number): string {
   const seconds = milliseconds / 1000;
   const minutes = Math.floor(seconds / 60);

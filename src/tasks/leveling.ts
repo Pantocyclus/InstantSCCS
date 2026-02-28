@@ -47,6 +47,7 @@ import {
   toItem,
   totalFreeRests,
   totalTurnsPlayed,
+  turnsPlayed,
   use,
   useFamiliar,
   useSkill,
@@ -356,7 +357,9 @@ function sellMiscellaneousItems(): void {
 
 export const LevelingQuest: Quest = {
   name: "Leveling",
-  completed: () => get("csServicesPerformed").split(",").length > 1,
+  completed: () =>
+    get("csServicesPerformed").split(",").length > 1 ||
+    get("_instant_levelingTurns", Number.MIN_SAFE_INTEGER) >= 0,
   tasks: [
     /*
     {
@@ -2373,6 +2376,12 @@ export const LevelingQuest: Quest = {
         !have($item`wardrobe-o-matic`) ||
         $items`futuristic shirt, futuristic hat, futuristic collar`.some((it) => have(it)),
       do: () => use($item`wardrobe-o-matic`),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Complete Leveling",
+      completed: () => get("_instant_levelingTurns", Number.MIN_SAFE_INTEGER) >= 0,
+      do: () => set("_instant_levelingTurns", turnsPlayed() - get("_CSTest11", 0)),
       limit: { tries: 1 },
     },
   ],

@@ -86,6 +86,7 @@ export function main(command?: string): void {
 
   const setTimeNow = get(timeProperty, -1) === -1;
   if (setTimeNow) set(timeProperty, nowToString("yyyyMMddhhmmssSSS"));
+  set("_instantsccs_runsToday", get("_instantsccs_runsToday", 0) + 1);
 
   // Some checks to align mafia prefs
   visitUrl("museum.php?action=icehouse");

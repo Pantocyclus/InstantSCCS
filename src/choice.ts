@@ -43,7 +43,6 @@ export function getMobiusOption(): number {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const main: ChoiceAdventureScript = (choiceNumber, pageText) => {
   switch (choiceNumber) {
     case 1525:

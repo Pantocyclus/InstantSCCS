@@ -70,7 +70,6 @@ import {
   runTest,
   tryAcquiringEffects,
   tryAcquiringOdeToBooze,
-  updateRunStats,
   wishFor,
 } from "../lib";
 import { haveHeartstone, sugarItemsAboutToBreak } from "../outfit";
@@ -180,7 +179,6 @@ export const BoozeDropQuest: Quest = {
         acquiredOrExcluded($effect`I See Everything Thrice!`) ||
         get("instant_skipGovernment", false),
       do: (): void => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         inMuscleSign()
           ? retrieveItem($item`bitchin' meatcar`)
           : retrieveItem($item`Desert Bus pass`);
@@ -204,7 +202,6 @@ export const BoozeDropQuest: Quest = {
         // If we're whitelisted to the CSLooping clan, use that to grab the ungulith instead
         if (Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")) {
           Clan.with("CSLoopers Unite", () => {
-            updateRunStats();
             cliExecute("fax receive");
           });
         } else {

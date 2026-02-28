@@ -23,7 +23,8 @@ export default defineConfig(
       "prefer-const": "error",
       "prefer-template": "error",
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
       "no-restricted-syntax": [
         "error",
         {

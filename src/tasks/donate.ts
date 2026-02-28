@@ -14,6 +14,7 @@ import {
   $effect,
   $effects,
   $item,
+  Clan,
   CommunityService,
   get,
   have,
@@ -30,7 +31,7 @@ import {
   trackedResource,
 } from "../engine/engine";
 import { Quest } from "../engine/task";
-import { testModifiers } from "../lib";
+import { testModifiers, updateRunStats } from "../lib";
 
 function printResourceUsage(tResource: trackedResource): void {
   const resource = tResource.resource;
@@ -134,6 +135,23 @@ function logResourceUsage(): void {
     }`,
   );
   print(`Adventures used: ${turnsPlayed()}`);
+
+  if (
+    get("instant_collectData", false) &&
+    Clan.getWhitelisted().find((c) => c.name.toLowerCase() === "csloopers unite")
+  ) {
+    print(
+      "Uploading run stats and data to the CSLoopers Unite's basement whiteboard to help with further improvements to the script.",
+      "blue",
+    );
+    print(
+      "You may set instant_collectData=false if you would like to opt out of this data collection.",
+      "blue",
+    );
+    Clan.with("CSLoopers Unite", () => {
+      updateRunStats();
+    });
+  }
 
   print("");
 }
