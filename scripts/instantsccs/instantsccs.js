@@ -11749,7 +11749,7 @@ function readWhiteboard() {
   return (((_visitUrl$match = kolmafia.visitUrl("clan_basement.php?whiteboard=1").match(RegExp(/cols=60>([\s\S]*?)<\/textarea>/))) === null || _visitUrl$match === void 0 ? void 0 : _visitUrl$match.at(1)) ?? "").replace(RegExp(/[\r\n]/), "\n");
 }
 function updateRunStats() {
-  if (get("instant_collectData", false)) return;
+  if (!get("instant_collectData", true)) return;
   if (kolmafia.getClanName().toLowerCase() !== "csloopers unite") return;
   try {
     var _visitUrl$match2;
@@ -13985,7 +13985,7 @@ function logResourceUsage() {
   tests.forEach(whichTest => kolmafia.print("".concat(whichTest.statName, ": ").concat(get("_CSTest".concat(whichTest.id), "?"))));
   kolmafia.print("Leveling: ".concat(kolmafia.turnsPlayed() - sumNumbers(tests.map(whichTest => get("_CSTest".concat(whichTest.id), 0)))));
   kolmafia.print("Adventures used: ".concat(kolmafia.turnsPlayed()));
-  if (get("instant_collectData", false) && Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite")) {
+  if (get("instant_collectData", true) && Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite")) {
     kolmafia.print("Uploading run stats and data to the CSLoopers Unite's basement whiteboard to help with further improvements to the script.", "blue");
     kolmafia.print("You may set instant_collectData=false if you would like to opt out of this data collection.", "blue");
     Clan.with("CSLoopers Unite", () => {
