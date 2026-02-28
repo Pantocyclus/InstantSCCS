@@ -1,5 +1,6 @@
 import { Engine as BaseEngine, Outfit, outfitSlots } from "grimoire-kolmafia";
 import {
+  booleanModifier,
   Item,
   itemAmount,
   myFullness,
@@ -217,41 +218,30 @@ export class Engine extends BaseEngine {
       return spec.clone();
     }
 
+    const itemsToEquip: Set<Item> = new Set<Item>();
+
     // spec is an OutfitSpec
     for (const slotName of outfitSlots) {
-      const itemOrItems = reduceItemUndefinedArray([spec[slotName], baseOutfit()[slotName]]);
-      if (itemOrItems) {
-        if (itemOrItems instanceof Item) {
-          if (!have(itemOrItems) && itemOrItems !== null) {
-            print(`Ignoring slot ${slotName} because we don't have ${itemOrItems}`, "red");
-            spec[slotName] = undefined;
-          }
-        } else {
-          if (!itemOrItems.some((it) => have(it) && it !== null)) {
-            print(
-              `Ignoring slot ${slotName} because we don't have ${itemOrItems
-                .map((it) => it.name)
-                .join(", ")}`,
-              "red",
-            );
-            spec[slotName] = undefined;
-          }
-        }
+      const items = reduceItemUndefinedArray([spec[slotName], baseOutfit()[slotName]])?.filter(
+        (it) => !(itemsToEquip.has(it) && booleanModifier(it, "Single Equip")),
+      );
+
+      if (items === undefined || items.length === 0) continue;
+      if (!items.some((it) => have(it) || it === Item.none)) {
+        print(
+          `Ignoring slot ${slotName} because we don't have ${items
+            .map((it) => it.name)
+            .join(", ")}`,
+          "red",
+        );
+        spec[slotName] = undefined;
       }
+
+      [...items.filter((it) => it !== Item.none)].forEach((it) => itemsToEquip.add(it));
     }
 
-    const itemsToEquip = outfitSlots
-      .map((slotName) => spec[slotName])
-      .flat()
-      .filter((it) => it !== undefined);
-
-    spec.avoid = spec.avoid?.filter((it) => !itemsToEquip.includes(it));
-    return Outfit.from(
-      spec,
-      new Error(
-        `Failed to equip outfit! Wanted to equip ${outfitSlots.map((slotName) => `${slotName}: ${itemsToEquip.map((it) => it.name).join(",")}`).join(" | ")}`,
-      ),
-    );
+    spec.avoid = spec.avoid?.filter((it) => !itemsToEquip.has(it));
+    return Outfit.from(spec, new Error(`Failed to equip outfit!`));
   }
 
   dress(task: Task, outfit: Outfit): void {
