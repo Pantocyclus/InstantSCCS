@@ -200,6 +200,10 @@ const farmingResources: Resource[] = [
     get("instant_saveFreeRests", false) ? totalFreeRests() : 0,
   ),
   new Resource(
+    "instant_skipCampgroundRestoration",
+    "Do not use the campground to restore MP or cinch",
+  ),
+  new Resource(
     "instant_saveCatalogCredits",
     (n) => `Save ${n}/3 Mr. Store Catalog Credits (set a number)`,
     [],

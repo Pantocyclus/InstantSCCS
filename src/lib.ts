@@ -14,6 +14,7 @@ import {
   formatDateTime,
   getCampground,
   getClanName,
+  getDwelling,
   getMonsters,
   getPower,
   gitInfo,
@@ -1567,5 +1568,52 @@ export function havePowerlevelingZoneBound(): boolean {
   else if (get("coldAirportAlways")) return true;
   else if (get("sleazeAirportAlways")) return true;
   else if (get("spookyAirportAlways")) return true;
+  return false;
+}
+
+export function getFurnishings(): string[] {
+  const buffer = visitUrl("campground.php?action=inspectdwelling");
+  if (buffer.includes("Your patch of ground doesn't have anything inside it.")) return [];
+
+  return [...buffer.matchAll(/<b>(.*?)<\/b>/g)].map((match) => match[1]);
+}
+
+export function canAcquireDwellingBuff(ef: Effect): boolean {
+  if (
+    acquiredOrExcluded(ef) ||
+    get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0)
+  )
+    return false;
+
+  const dwelling = getDwelling();
+
+  if (ef === $effect`Pyramid Power`)
+    return dwelling === $item`BRICKO pyramid` && get("_pyramidRestEffectsGained", 0) < 3;
+  else if (ef === $effect`Juiced and Jacked`)
+    return dwelling === $item`ginormous pumpkin` && !get("_pumpkinRestEffectGained", false);
+  else if (ef === $effect`Uncaged Power`)
+    return dwelling === $item`giant Faraday cage` && !get("_faradayCageRestEffectGained", false);
+  else if (ef === $effect`Snow Fortified`)
+    return dwelling === $item`snow fort` && !get("_snowFortRestEffectGained", false);
+  else if (ef === $effect`It's Ridiculous`)
+    return dwelling === $item`elevent` && !get("_eleventRestEffectGained", false);
+  else if (ef === $effect`Holiday Bliss`)
+    return (
+      (dwelling === $item`gingerbread house` ||
+        getFurnishings().some((s) =>
+          ["Crimbo wreath", "Crimbo lights", "Crimbo reindeer"].includes(s),
+        )) &&
+      !get("_gingerbreadHouseRestEffectGained")
+    );
+  else if (ef === $effect`Hobonic`) return dwelling === $item`hobo fortress blueprints`;
+  else if (ef === $effect`Hypercubed`)
+    return (
+      dwelling === $item`Xiblaxian residence-cube` && !get("_residenceCubeRestEffectGained", false)
+    );
+  else if (ef === $effect`Mushed`)
+    return (
+      dwelling === $item`house-sized mushroom` && !get("_mushroomHouseRestEffectGained", false)
+    );
+
   return false;
 }

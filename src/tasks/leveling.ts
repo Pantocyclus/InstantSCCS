@@ -97,6 +97,7 @@ import {
   attemptRestoringMpWithFreeRests,
   bestShadowRift,
   burnLibram,
+  canAcquireDwellingBuff,
   canPull,
   canScreech,
   chooseLibram,
@@ -1614,7 +1615,10 @@ export const LevelingQuest: Quest = {
       completed: () =>
         get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0) ||
         get("_cinchUsed") <= 95 ||
-        !useCinch,
+        !useCinch ||
+        (get("instant_skipCampgroundRestoration", false) &&
+          !get("chateauAvailable") &&
+          !get("getawayCampsiteUnlocked")),
       prepare: (): void => {
         if (have($item`Newbiesport™ tent`) && getDwelling() === $item`big rock`)
           use($item`Newbiesport™ tent`);
@@ -2124,6 +2128,12 @@ export const LevelingQuest: Quest = {
         acquiredOrExcluded($effect`Total Protonic Reversal`) ||
         !have($item`protonic accelerator pack`),
       do: () => cliExecute("crossstreams"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Dwelling Buff",
+      completed: () => $effects`Mushed, It's Ridiculous`.every((ef) => !canAcquireDwellingBuff(ef)),
+      do: () => visitUrl("campground.php?action=rest"),
       limit: { tries: 1 },
     },
     {

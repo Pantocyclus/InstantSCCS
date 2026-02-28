@@ -314,7 +314,10 @@ export const RunStartQuest: Quest = {
       name: "Restore mp (Free Rests)",
       completed: () =>
         get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0) ||
-        myMp() >= Math.min(200, myMaxmp()),
+        myMp() >= Math.min(200, myMaxmp()) ||
+        (get("instant_skipCampgroundRestoration", false) &&
+          !get("chateauAvailable") &&
+          !get("getawayCampsiteUnlocked")),
       prepare: (): void => {
         if (have($item`Newbiesport™ tent`) && getDwelling() === $item`big rock`)
           use($item`Newbiesport™ tent`);

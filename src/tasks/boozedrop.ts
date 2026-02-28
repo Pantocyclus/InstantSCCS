@@ -63,6 +63,7 @@ import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   attemptRestoringMpWithFreeRests,
+  canAcquireDwellingBuff,
   handleCustomBusks,
   handleCustomPulls,
   haveAndNotExcluded,
@@ -329,6 +330,15 @@ export const BoozeDropQuest: Quest = {
         if (itemAmount($item`battery (AAA)`) >= 5) create($item`battery (lantern)`, 1);
         use($item`battery (lantern)`, 1);
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Dwelling Buff",
+      completed: () =>
+        $effects`Juiced and Jacked, Snow Fortified, It's Ridiculous, Holiday Bliss`.every(
+          (ef) => !canAcquireDwellingBuff(ef),
+        ),
+      do: () => visitUrl("campground.php?action=rest"),
       limit: { tries: 1 },
     },
     {

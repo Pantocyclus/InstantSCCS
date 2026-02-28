@@ -50,6 +50,7 @@ import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   attemptRestoringMpWithFreeRests,
+  canAcquireDwellingBuff,
   handleCustomBusks,
   handleCustomPulls,
   haveAndNotExcluded,
@@ -237,6 +238,12 @@ export const WeaponDamageQuest: Quest = {
       outfit: {
         acc1: $item`blood cubic zirconia`,
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Dwelling Buff",
+      completed: () => !canAcquireDwellingBuff($effect`Pyramid Power`),
+      do: () => visitUrl("campground.php?action=rest"),
       limit: { tries: 1 },
     },
     {
