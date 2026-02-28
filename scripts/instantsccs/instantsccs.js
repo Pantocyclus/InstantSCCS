@@ -12849,6 +12849,7 @@ function chooseWeapon() {
 function preventEquipList() {
   return [].concat(_toConsumableArray(sugarItemsAboutToBreak()), _toConsumableArray(avoidDaylightShavingsHelm() ? [$item(_templateObject40$a || (_templateObject40$a = _taggedTemplateLiteral(["Daylight Shavings Helmet"])))] : []), _toConsumableArray(get("garbageShirtCharge") === 1 ? [$item(_templateObject41$a || (_templateObject41$a = _taggedTemplateLiteral(["makeshift garbage shirt"])))] : []), [$item(_templateObject42$a || (_templateObject42$a = _taggedTemplateLiteral(["tinsel tights"]))), $item(_templateObject43$9 || (_templateObject43$9 = _taggedTemplateLiteral(["wad of used tape"]))), $item(_templateObject44$9 || (_templateObject44$9 = _taggedTemplateLiteral(["M\xF6bius ring"]))), $item(_templateObject45$9 || (_templateObject45$9 = _taggedTemplateLiteral(["Kramco Sausage-o-Matic\u2122"]))), $item(_templateObject46$9 || (_templateObject46$9 = _taggedTemplateLiteral(["miniature crystal ball"]))), $item(_templateObject47$9 || (_templateObject47$9 = _taggedTemplateLiteral(["backup camera"])))]);
 }
+var defaultModifier = "1 ".concat(mainStatMaximizerStr, ", 0.95 ML, 6 ").concat(mainStatMaximizerStr, " exp, 30 ").concat(mainStatMaximizerStr, " experience percent");
 function baseOutfit() {
   var allowAttackingFamiliars = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
   return {
@@ -12860,7 +12861,7 @@ function baseOutfit() {
     acc2: have$a($item(_templateObject54$9 || (_templateObject54$9 = _taggedTemplateLiteral(["Cincho de Mayo"])))) && get("_cinchUsed") <= 95 && !get("instant_saveCinch", false) ? $item(_templateObject55$9 || (_templateObject55$9 = _taggedTemplateLiteral(["Cincho de Mayo"]))) : undefined,
     acc3: $item(_templateObject56$9 || (_templateObject56$9 = _taggedTemplateLiteral(["spring shoes"]))),
     familiar: chooseFamiliar(allowAttackingFamiliars),
-    modifier: "1 ".concat(mainStatMaximizerStr, ", 0.95 ML, 6 ").concat(mainStatMaximizerStr, " exp, 30 ").concat(mainStatMaximizerStr, " experience percent"),
+    modifier: defaultModifier,
     avoid: preventEquipList()
   };
 }
@@ -12879,6 +12880,10 @@ var freeFightResources = [new trackedResource("_shadowAffinityToday", "Shadow Ri
 var potentiallyFreeFightResources = [new trackedResource("_backUpUses", "Backup Camera", 11), new trackedResource("_leafMonstersFought", "Flaming Leaflets", 5), new trackedResource("_locketMonstersFought", "Locket Reminisces", 3), new trackedResource("_photocopyUsed", "Fax Machine", 1), new trackedResource("_chateauMonsterFought", "Chateau Painting", 1)];
 var farmingResourceResources = [new trackedResource("_powerfulGloveBatteryPowerUsed", "Powerful Glove Charges", 100), new trackedResource("_cinchUsed", "Cinch", 100), new trackedResource("_kgbClicksUsed", "KGB Clicks", 22), new trackedResource("_deckCardsDrawn", "Deck Draws", 15), new trackedResource("_mimicEggsObtained", "Mimic Eggs", 11), new trackedResource("_freeBeachWalksUsed", "Beach Walks", 11), new trackedResource("_macrometeoriteUses", "Macrometeorites", 10), new trackedResource($item(_templateObject$c || (_templateObject$c = _taggedTemplateLiteral(["battery (AAA)"]))), "Batteries (AAA)", 7), new trackedResource("availableSeptEmbers", "Sept Embers", -7), new trackedResource($item(_templateObject2$c || (_templateObject2$c = _taggedTemplateLiteral(["pocket wish"]))), "Pocket Wishes (Genie + BofA)", 6), new trackedResource("_augSkillsCasts", "August Scepter Charges", 5), new trackedResource("_monkeyPawWishesUsed", "Monkey Paw Wishes", 5), new trackedResource("_beretBuskingUses", "Beret Busks", 5), new trackedResource("_clubEmNextWeekUsed", "Club 'Em Into Next Week", 5), new trackedResource("tomeSummons", "Tome Summons", 3), new trackedResource($item(_templateObject3$c || (_templateObject3$c = _taggedTemplateLiteral(["peppermint sprout"]))), "Peppermint Sprout", 3), new trackedResource("_monsterHabitatsRecalled", "Monster Habitats", 3), new trackedResource("_alliedRadioDropsUsed", "Allied Radio", 3), new trackedResource("_aprilBandInstruments", "April Band Instruments", 2), new trackedResource("_favoriteBirdVisited", "Favorite Bird", 1), new trackedResource("_clanFortuneBuffUsed", "Zatara Consult", 1), new trackedResource("_floundryItemCreated", "Clan Floundry", 1), new trackedResource("_gingerbreadCityNoonCompleted", "GingerbreadCity Noon", 1), new trackedResource("_gingerbreadCityMidnightCompleted", "GingerbreadCity Midnight", 1), new trackedResource("_pantogramModifier", "Pantogram", 1), new trackedResource("_cargoPocketEmptied", "Cargo Shorts", 1), new trackedResource("_freePillKeeperUsed", "Pillkeeper", 1), new trackedResource("_alliedRadioMaterielIntel", "Materiel Intel", 1), new trackedResource("_pottedTeaTreeUsed", "Tea Tree", 1), new trackedResource("timesRested", "Free Rests", kolmafia.totalFreeRests())];
 var trackedResources = [].concat(freeBanishResources, freeKillResources, notableSkillResources, freeFightResources, potentiallyFreeFightResources, farmingResourceResources);
+function parseOutfitSpec(spec) {
+  var s = outfitSlots.map(slotName => "".concat(slotName, ": ").concat(spec[slotName] ? [spec[slotName]].flat().map(it => it.name).join(", ") : "undefined")).join(" | ");
+  return "".concat(s, " | familiar: ").concat(spec.familiar ? spec.familiar.name : "", " | avoid: ").concat(spec.avoid ? [spec.avoid].flat().map(it => it.name).join(", ") : "", " | modifiers: ").concat(spec.modifier ? [spec.modifier].flat().join(", ") : "");
+}
 var Engine = /*#__PURE__*/function (_BaseEngine) {
   function Engine() {
     _classCallCheck(this, Engine);
@@ -12905,7 +12910,7 @@ var Engine = /*#__PURE__*/function (_BaseEngine) {
         if ([
         // "Poetic Justice", // grimoire automatically re-runs certain tasks here (https://github.com/loathers/grimoire/blob/main/src/engine.ts#L525)
         // "Lost and Found", // this includes all cleaver non-combats, so the script would never see these in lastEncounter
-        "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(get("lastEncounter"))) uneffect($effect(_templateObject5$b || (_templateObject5$b = _taggedTemplateLiteral(["Beaten Up"]))));else throw "Fight was lost; stop.";
+        "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(get("lastEncounter"))) uneffect($effect(_templateObject5$b || (_templateObject5$b = _taggedTemplateLiteral(["Beaten Up"]))));else throw new Error("Fight was lost; stop.");
       }
       originalValues.forEach(_ref2 => {
         var _ref3 = _slicedToArray(_ref2, 2),
@@ -12971,26 +12976,30 @@ var Engine = /*#__PURE__*/function (_BaseEngine) {
       var itemsToEquip = new Set();
 
       // spec is an OutfitSpec
-      var _iterator = _createForOfIteratorHelper(outfitSlots),
-        _step;
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var _reduceItemUndefinedA;
-          var slotName = _step.value;
-          var items = (_reduceItemUndefinedA = reduceItemUndefinedArray([spec[slotName], baseOutfit()[slotName]])) === null || _reduceItemUndefinedA === void 0 ? void 0 : _reduceItemUndefinedA.filter(it => !(itemsToEquip.has(it) && kolmafia.booleanModifier(it, "Single Equip")));
-          if (items === undefined || items.length === 0) continue;
-          if (!items.some(it => have$a(it) || it === kolmafia.Item.none)) {
-            kolmafia.print("Ignoring slot ".concat(slotName, " because we don't have ").concat(items.map(it => it.name).join(", ")), "red");
-            spec[slotName] = undefined;
+      outfitSlots.forEach(slotName => {
+        if (spec[slotName] !== undefined) {
+          // If slot was intentionally undefined, leave it up to the maximizer
+          // Otherwise check if any of the items can be equipped
+          var items = [spec[slotName]].flat().filter(it => !(itemsToEquip.has(it) && kolmafia.booleanModifier(it, "Single Equip"))).filter(it => have$a(it) || it === kolmafia.Item.none).filter(it => kolmafia.canEquip(it));
+          if (items.length === 0) {
+            if (spec.modifier === defaultModifier) {
+              var _reduceItemUndefinedA;
+              // If nothing can be equipped, trying using default equips if there isn't a custom modifier
+              spec[slotName] = (_reduceItemUndefinedA = reduceItemUndefinedArray([baseOutfit()[slotName]])) === null || _reduceItemUndefinedA === void 0 ? void 0 : _reduceItemUndefinedA.filter(it => !(itemsToEquip.has(it) && kolmafia.booleanModifier(it, "Single Equip"))).filter(it => have$a(it) || it === kolmafia.Item.none).filter(it => kolmafia.canEquip(it));
+            } else {
+              // Else if we have a custom modifier, let the maximizer do the equipping instead
+              spec[slotName] = undefined;
+            }
+          } else {
+            // If we found equippable items, we will equip the first item
+            // Track the items we are equipping to prevent duplicate equipping of Single Equip items
+            spec[slotName] = items[0];
+            if (items[0] !== kolmafia.Item.none) itemsToEquip.add(items[0]);
           }
-          _toConsumableArray(items.filter(it => it !== kolmafia.Item.none)).forEach(it => itemsToEquip.add(it));
         }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
+      });
       spec.avoid = (_spec$avoid = spec.avoid) === null || _spec$avoid === void 0 ? void 0 : _spec$avoid.filter(it => !itemsToEquip.has(it));
+      kolmafia.print("OutfitSpec: ".concat(parseOutfitSpec(spec)), "blue");
       return Outfit.from(spec, new Error("Failed to equip outfit!"));
     }
   }, {
