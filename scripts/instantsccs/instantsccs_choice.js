@@ -108,8 +108,6 @@ function getMobiusOption() {
     return desiredChoices.includes(text) ? -desiredChoices.indexOf(text) : -Infinity;
   }, true)[0]);
 }
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var main = (choiceNumber, pageText) => {
   switch (choiceNumber) {
     case 1525:

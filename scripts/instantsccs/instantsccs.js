@@ -11750,6 +11750,7 @@ function readWhiteboard() {
 }
 function updateRunStats() {
   if (get("instant_collectData", false)) return;
+  if (kolmafia.getClanName().toLowerCase() !== "csloopers unite") return;
   try {
     var _visitUrl$match2;
     var text = readWhiteboard();
@@ -11758,6 +11759,12 @@ function updateRunStats() {
     var date = kolmafia.todayToString();
 
     // ========== DATA TO TRACK ===========
+    // The data we log to the clan whiteboard is determined by whatever is detailed in the CSLoopers Unite Clan's forum post.
+    // This allows us to dynamically change the data being logged without needing to compile a new build for each change,
+    // with the downside being that we are unable to log outputs from Mafia/Libram functions - we should not be executing
+    // arbitrary code that may (but should definitely not) be placed within the forum post, as these code snippets cannot be
+    // easily vetted through the public GitHub repo. As an added safety precaution, the forum has been locked down and may
+    // only be modified by trusted developers of this script.
     var remarks = (((_visitUrl$match2 = kolmafia.visitUrl("clan_freadtopic.php?topicid=197960").match(RegExp(/Currently Tracked Stats:<br>(.*?)<\/td>/))) === null || _visitUrl$match2 === void 0 || (_visitUrl$match2 = _visitUrl$match2.at(1)) === null || _visitUrl$match2 === void 0 ? void 0 : _visitUrl$match2.replace(RegExp(/<br>/g), "\n")) ?? "").split("\n").filter(l => l.length > 0).map(l => {
       var s = l.split(" / ");
       return s.map(val => {
@@ -11765,6 +11772,10 @@ function updateRunStats() {
         var num = "?";
         if (Number.isInteger(parseInt(val))) {
           num = val;
+        } else if (val === "true") {
+          num = "1";
+        } else if (val === "false") {
+          num = "0";
         } else if (kolmafia.toItem(((_val$match = val.match(/\[(\d+)\]/)) === null || _val$match === void 0 ? void 0 : _val$match.at(1)) ?? "") !== $item.none) {
           num = kolmafia.availableAmount(kolmafia.toItem(val)).toString();
         } else {
@@ -11844,7 +11855,6 @@ function updateRunStats() {
       return row;
     }).filter(row => row.length >= 15).join("\n");
     writeToWhiteboard(updateText);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     //No-op
   }
@@ -11866,7 +11876,6 @@ function checkGithubVersion() {
       kolmafia.print("Local Version: ".concat(localSHA, "."));
       kolmafia.print("Release Version: ".concat(releaseSHA));
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     kolmafia.print("Failed to fetch GitHub data", "red");
   }
@@ -11883,8 +11892,6 @@ function simpleDateDiff(t1, t2) {
   var msDiff = 1000 * secDiff + kolmafia.toInt(t2.slice(14)) - kolmafia.toInt(t1.slice(14));
   return msDiff;
 }
-
-// From phccs
 function convertMilliseconds(milliseconds) {
   var seconds = milliseconds / 1000;
   var minutes = Math.floor(seconds / 60);
@@ -13666,7 +13673,6 @@ var BoozeDropQuest = {
     name: "Acquire Government",
     completed: () => !have$a($item(_templateObject26$8 || (_templateObject26$8 = _taggedTemplateLiteral(["government cheese"])))) || get("lastAnticheeseDay") > 0 || acquiredOrExcluded($effect(_templateObject27$8 || (_templateObject27$8 = _taggedTemplateLiteral(["I See Everything Thrice!"])))) || get("instant_skipGovernment", false),
     do: () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       kolmafia.inMuscleSign() ? kolmafia.retrieveItem($item(_templateObject28$8 || (_templateObject28$8 = _taggedTemplateLiteral(["bitchin' meatcar"])))) : kolmafia.retrieveItem($item(_templateObject29$8 || (_templateObject29$8 = _taggedTemplateLiteral(["Desert Bus pass"]))));
       if (!have$a($item(_templateObject30$8 || (_templateObject30$8 = _taggedTemplateLiteral(["Desert Bus pass"])))) && !have$a($item(_templateObject31$8 || (_templateObject31$8 = _taggedTemplateLiteral(["bitchin' meatcar"]))))) {
         kolmafia.autosell($item(_templateObject32$8 || (_templateObject32$8 = _taggedTemplateLiteral(["government cheese"]))), kolmafia.itemAmount($item(_templateObject33$8 || (_templateObject33$8 = _taggedTemplateLiteral(["government cheese"])))));
@@ -13689,7 +13695,6 @@ var BoozeDropQuest = {
       // If we're whitelisted to the CSLooping clan, use that to grab the ungulith instead
       if (Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite")) {
         Clan.with("CSLoopers Unite", () => {
-          updateRunStats();
           kolmafia.cliExecute("fax receive");
         });
       } else {
@@ -13970,6 +13975,13 @@ function logResourceUsage() {
   tests.forEach(whichTest => kolmafia.print("".concat(whichTest.statName, ": ").concat(get("_CSTest".concat(whichTest.id), "?"))));
   kolmafia.print("Leveling: ".concat(kolmafia.turnsPlayed() - sumNumbers(tests.map(whichTest => get("_CSTest".concat(whichTest.id), 0)))));
   kolmafia.print("Adventures used: ".concat(kolmafia.turnsPlayed()));
+  if (get("instant_collectData", false) && Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite")) {
+    kolmafia.print("Uploading run stats and data to the CSLoopers Unite's basement whiteboard to help with further improvements to the script.", "blue");
+    kolmafia.print("You may set instant_collectData=false if you would like to opt out of this data collection.", "blue");
+    Clan.with("CSLoopers Unite", () => {
+      updateRunStats();
+    });
+  }
   kolmafia.print("");
 }
 var DonateQuest = {
@@ -14344,7 +14356,7 @@ function sellMiscellaneousItems() {
 }
 var LevelingQuest = {
   name: "Leveling",
-  completed: () => get("csServicesPerformed").split(",").length > 1,
+  completed: () => get("csServicesPerformed").split(",").length > 1 || get("_instant_levelingTurns", Number.MIN_SAFE_INTEGER) >= 0,
   tasks: [
   /*
   {
@@ -15941,6 +15953,13 @@ var LevelingQuest = {
     limit: {
       tries: 1
     }
+  }, {
+    name: "Complete Leveling",
+    completed: () => get("_instant_levelingTurns", Number.MIN_SAFE_INTEGER) >= 0,
+    do: () => _set("_instant_levelingTurns", kolmafia.turnsPlayed() - get("_CSTest11", 0)),
+    limit: {
+      tries: 1
+    }
   }]
 };
 
@@ -17501,6 +17520,7 @@ function main(command) {
   }
   var setTimeNow = get(timeProperty, -1) === -1;
   if (setTimeNow) _set(timeProperty, kolmafia.nowToString("yyyyMMddhhmmssSSS"));
+  _set("_instantsccs_runsToday", get("_instantsccs_runsToday", 0) + 1);
 
   // Some checks to align mafia prefs
   kolmafia.visitUrl("museum.php?action=icehouse");
