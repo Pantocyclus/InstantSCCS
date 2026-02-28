@@ -12781,13 +12781,13 @@ function legendarySealClubbingClub(str) {
   have$a($item(_templateObject0$b || (_templateObject0$b = _taggedTemplateLiteral(["legendary seal-clubbing club"])))) && get("_clubEm".concat(str, "Used"), 0) < 5 - get("instant_saveClubEm".concat(str), 0))
     // eslint-disable-next-line libram/verify-constants
     return $item(_templateObject1$b || (_templateObject1$b = _taggedTemplateLiteral(["legendary seal-clubbing club"])));
-  return baseOutfit().weapon;
+  return [];
 }
 function romanCandelabra(ef) {
   if (have$a($item(_templateObject10$b || (_templateObject10$b = _taggedTemplateLiteral(["Roman Candelabra"])))) && !have$a(ef)) {
     return $item(_templateObject11$b || (_templateObject11$b = _taggedTemplateLiteral(["Roman Candelabra"])));
   }
-  return baseOutfit().offhand;
+  return [];
 }
 function garbageShirt() {
   if (get("garbageShirtCharge") === 1) {
@@ -12797,11 +12797,11 @@ function garbageShirt() {
     if (!have$a($item(_templateObject17$b || (_templateObject17$b = _taggedTemplateLiteral(["makeshift garbage shirt"]))))) kolmafia.cliExecute("fold makeshift garbage shirt");
     return $item(_templateObject18$b || (_templateObject18$b = _taggedTemplateLiteral(["makeshift garbage shirt"])));
   }
-  return undefined;
+  return [];
 }
-function docBag(defaultItem) {
+function docBag() {
   if (have$a($item(_templateObject19$a || (_templateObject19$a = _taggedTemplateLiteral(["Lil' Doctor\u2122 bag"])))) && get("_chestXRayUsed") < 3) return $item(_templateObject20$a || (_templateObject20$a = _taggedTemplateLiteral(["Lil' Doctor\u2122 bag"])));
-  return defaultItem;
+  return [];
 }
 function sugarItemsAboutToBreak() {
   var sugarItems = [{
@@ -12832,7 +12832,7 @@ function mobiusRing() {
       return $item(_templateObject27$a || (_templateObject27$a = _taggedTemplateLiteral(["M\xF6bius ring"])));
     }
   }
-  return undefined;
+  return [];
 }
 function useCandyCaneSword() {
   if (!have$a($item(_templateObject28$a || (_templateObject28$a = _taggedTemplateLiteral(["candy cane sword cane"])))) || get("instant_saveCandySword", false)) return false;
@@ -14935,7 +14935,7 @@ var LevelingQuest = {
       offhand: $item(_templateObject313$1 || (_templateObject313$1 = _taggedTemplateLiteral(["unbreakable umbrella"]))),
       acc1: mobiusRing(),
       acc2: $item(_templateObject314$1 || (_templateObject314$1 = _taggedTemplateLiteral(["Peridot of Peril"]))),
-      acc3: docBag(baseOutfit().acc3),
+      acc3: docBag(),
       familiar: $familiar(_templateObject315$1 || (_templateObject315$1 = _taggedTemplateLiteral(["Trick-or-Treating Tot"]))),
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML"),
       modes: {
@@ -14964,7 +14964,7 @@ var LevelingQuest = {
     combat: new CombatStrategy().macro(Macro.if_($monster(_templateObject327 || (_templateObject327 = _taggedTemplateLiteral(["amateur ninja"]))), Macro.tryItem($item(_templateObject328 || (_templateObject328 = _taggedTemplateLiteral(["blue rocket"])))).tryItem($item(_templateObject329 || (_templateObject329 = _taggedTemplateLiteral(["red rocket"])))).trySkill($skill(_templateObject330 || (_templateObject330 = _taggedTemplateLiteral(["Chest X-Ray"])))).trySkill($skill(_templateObject331 || (_templateObject331 = _taggedTemplateLiteral(["Gingerbread Mob Hit"])))).trySkill($skill(_templateObject332 || (_templateObject332 = _taggedTemplateLiteral(["Shattering Punch"])))).default()).abort()),
     outfit: () => _objectSpread2(_objectSpread2({}, baseOutfit()), {}, {
       offhand: $item(_templateObject333 || (_templateObject333 = _taggedTemplateLiteral(["unbreakable umbrella"]))),
-      acc3: docBag(baseOutfit().acc3),
+      acc3: docBag(),
       familiar: $familiar(_templateObject334 || (_templateObject334 = _taggedTemplateLiteral(["Trick-or-Treating Tot"]))),
       modifier: "0.25 ".concat(mainStatMaximizerStr, ", 0.33 ML"),
       modes: {
@@ -15918,7 +15918,7 @@ var LevelingQuest = {
       shirt: garbageShirt(),
       weapon: legendarySealClubbingClub("Time", true),
       offhand: reduceItemUndefinedArray([chooseLibram() === $skill.none || !have$a($item(_templateObject597 || (_templateObject597 = _taggedTemplateLiteral(["latte lovers member's mug"])))) || get("_latteRefillsUsed") >= 3 ? $item(_templateObject598 || (_templateObject598 = _taggedTemplateLiteral(["latte lovers member's mug"]))) : undefined, $item(_templateObject599 || (_templateObject599 = _taggedTemplateLiteral(["unbreakable umbrella"])))]),
-      acc3: docBag(baseOutfit().acc3),
+      acc3: docBag(),
       modes: {
         umbrella: "broken"
       }
