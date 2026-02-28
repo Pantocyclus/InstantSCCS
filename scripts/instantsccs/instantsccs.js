@@ -12960,36 +12960,30 @@ var Engine = /*#__PURE__*/function (_BaseEngine) {
         });
         return spec.clone();
       }
+      var itemsToEquip = new Set();
 
       // spec is an OutfitSpec
       var _iterator = _createForOfIteratorHelper(outfitSlots),
         _step;
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var _reduceItemUndefinedA;
           var slotName = _step.value;
-          var itemOrItems = reduceItemUndefinedArray([spec[slotName], baseOutfit()[slotName]]);
-          if (itemOrItems) {
-            if (itemOrItems instanceof kolmafia.Item) {
-              if (!have$a(itemOrItems) && itemOrItems !== null) {
-                kolmafia.print("Ignoring slot ".concat(slotName, " because we don't have ").concat(itemOrItems), "red");
-                spec[slotName] = undefined;
-              }
-            } else {
-              if (!itemOrItems.some(it => have$a(it) && it !== null)) {
-                kolmafia.print("Ignoring slot ".concat(slotName, " because we don't have ").concat(itemOrItems.map(it => it.name).join(", ")), "red");
-                spec[slotName] = undefined;
-              }
-            }
+          var items = (_reduceItemUndefinedA = reduceItemUndefinedArray([spec[slotName], baseOutfit()[slotName]])) === null || _reduceItemUndefinedA === void 0 ? void 0 : _reduceItemUndefinedA.filter(it => !(itemsToEquip.has(it) && kolmafia.booleanModifier(it, "Single Equip")));
+          if (items === undefined || items.length === 0) continue;
+          if (!items.some(it => have$a(it) || it === kolmafia.Item.none)) {
+            kolmafia.print("Ignoring slot ".concat(slotName, " because we don't have ").concat(items.map(it => it.name).join(", ")), "red");
+            spec[slotName] = undefined;
           }
+          _toConsumableArray(items.filter(it => it !== kolmafia.Item.none)).forEach(it => itemsToEquip.add(it));
         }
       } catch (err) {
         _iterator.e(err);
       } finally {
         _iterator.f();
       }
-      var itemsToEquip = outfitSlots.map(slotName => spec[slotName]).flat().filter(it => it !== undefined);
-      spec.avoid = (_spec$avoid = spec.avoid) === null || _spec$avoid === void 0 ? void 0 : _spec$avoid.filter(it => !itemsToEquip.includes(it));
-      return Outfit.from(spec, new Error("Failed to equip outfit! Wanted to equip ".concat(outfitSlots.map(slotName => "".concat(slotName, ": ").concat(itemsToEquip.map(it => it.name).join(","))).join(" | "))));
+      spec.avoid = (_spec$avoid = spec.avoid) === null || _spec$avoid === void 0 ? void 0 : _spec$avoid.filter(it => !itemsToEquip.has(it));
+      return Outfit.from(spec, new Error("Failed to equip outfit!"));
     }
   }, {
     key: "dress",
