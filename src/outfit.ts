@@ -176,6 +176,8 @@ export function preventEquipList(): Item[] {
   ];
 }
 
+export const defaultModifier = `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent`;
+
 export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
   return {
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
@@ -198,7 +200,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
         : undefined,
     acc3: $item`spring shoes`,
     familiar: chooseFamiliar(allowAttackingFamiliars),
-    modifier: `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent`,
+    modifier: defaultModifier,
     avoid: preventEquipList(),
   };
 }
