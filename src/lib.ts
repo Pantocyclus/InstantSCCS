@@ -34,6 +34,7 @@ import {
   myBuffedstat,
   myClass,
   myFamiliar,
+  myHp,
   myId,
   myLevel,
   myMaxhp,
@@ -1580,6 +1581,7 @@ export function getFurnishings(): string[] {
 
 export function canAcquireDwellingBuff(ef: Effect): boolean {
   if (
+    (myHp() === myMaxhp() && myMp() === myMaxmp()) || // We cannot rest if our HP and MP are both full
     acquiredOrExcluded(ef) ||
     get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0)
   )
