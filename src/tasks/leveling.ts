@@ -730,6 +730,11 @@ export const LevelingQuest: Quest = {
           wishFor($effect`Fever From the Flavor`, false);
         }
 
+        // +1 cold res from Mushroom House
+        if (canAcquireDwellingBuff($effect`Mushed`)) {
+          visitUrl("campground.php?action=rest");
+        }
+
         attemptRestoringMpWithFreeRests(50);
         const coldResEffects: Effect[] = [
           $effect`Frosty Hand`, // +5 cold res from Cargo Shorts
