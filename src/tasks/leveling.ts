@@ -95,6 +95,7 @@ import {
   abstractionXpEffect,
   abstractionXpItem,
   acquiredOrExcluded,
+  acquireDwellingBuff,
   attemptRestoringMpWithFreeRests,
   bestShadowRift,
   burnLibram,
@@ -730,11 +731,6 @@ export const LevelingQuest: Quest = {
           wishFor($effect`Fever From the Flavor`, false);
         }
 
-        // +1 cold res from Mushroom House
-        if (canAcquireDwellingBuff($effect`Mushed`)) {
-          visitUrl("campground.php?action=rest");
-        }
-
         attemptRestoringMpWithFreeRests(50);
         const coldResEffects: Effect[] = [
           $effect`Frosty Hand`, // +5 cold res from Cargo Shorts
@@ -747,6 +743,9 @@ export const LevelingQuest: Quest = {
           $effect`Astral Shell`, // +1 cold res
         ];
         tryAcquiringEffects(coldResEffects, true);
+
+        // +1 cold res from Mushroom House
+        acquireDwellingBuff($effect`Mushed`);
       },
       do: (): void => {
         // If we can get the Fireproof Foam Suit, we probably don't need the Rainbow Vaccine for the hot test
@@ -2139,7 +2138,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Dwelling Buff",
       completed: () => $effects`Mushed, It's Ridiculous`.every((ef) => !canAcquireDwellingBuff(ef)),
-      do: () => visitUrl("campground.php?action=rest"),
+      do: () => acquireDwellingBuff($effects`Mushed, It's Ridiculous`),
       limit: { tries: 1 },
     },
     {

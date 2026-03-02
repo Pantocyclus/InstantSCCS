@@ -33,6 +33,7 @@ import { Quest } from "../engine/task";
 import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
+  acquireDwellingBuff,
   canAcquireDwellingBuff,
   handleCustomBusks,
   handleCustomPulls,
@@ -213,7 +214,7 @@ export const HotResQuest: Quest = {
     {
       name: "Dwelling Buff",
       completed: () => !canAcquireDwellingBuff($effect`Mushed`),
-      do: () => visitUrl("campground.php?action=rest"),
+      do: () => acquireDwellingBuff($effect`Mushed`),
       limit: { tries: 1 },
     },
     {

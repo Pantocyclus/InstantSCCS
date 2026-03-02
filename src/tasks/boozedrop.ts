@@ -62,6 +62,7 @@ import { Quest } from "../engine/task";
 import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
+  acquireDwellingBuff,
   attemptRestoringMpWithFreeRests,
   canAcquireDwellingBuff,
   handleCustomBusks,
@@ -335,7 +336,10 @@ export const BoozeDropQuest: Quest = {
         $effects`Juiced and Jacked, Snow Fortified, It's Ridiculous, Holiday Bliss`.every(
           (ef) => !canAcquireDwellingBuff(ef),
         ),
-      do: () => visitUrl("campground.php?action=rest"),
+      do: () =>
+        acquireDwellingBuff(
+          $effects`Juiced and Jacked, Snow Fortified, It's Ridiculous, Holiday Bliss`,
+        ),
       limit: { tries: 1 },
     },
     {

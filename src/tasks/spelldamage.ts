@@ -50,6 +50,7 @@ import { Quest } from "../engine/task";
 import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
+  acquireDwellingBuff,
   attemptRestoringMpWithFreeRests,
   canAcquireDwellingBuff,
   handleCustomBusks,
@@ -249,7 +250,7 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Dwelling Buff",
       completed: () => !canAcquireDwellingBuff($effect`Pyramid Power`),
-      do: () => visitUrl("campground.php?action=rest"),
+      do: () => acquireDwellingBuff($effect`Pyramid Power`),
       limit: { tries: 1 },
     },
     {

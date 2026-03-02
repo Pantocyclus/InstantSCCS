@@ -1591,7 +1591,6 @@ export function getFurnishings(): string[] {
 
 export function canAcquireDwellingBuff(ef: Effect): boolean {
   if (
-    (myHp() === myMaxhp() && myMp() === myMaxmp()) || // We cannot rest if our HP and MP are both full
     acquiredOrExcluded(ef) ||
     get("timesRested") >= totalFreeRests() - get("instant_saveFreeRests", 0)
   )
@@ -1628,4 +1627,19 @@ export function canAcquireDwellingBuff(ef: Effect): boolean {
     );
 
   return false;
+}
+
+export function acquireDwellingBuff(ef: Effect | Effect[]): boolean {
+  const effects = [ef].flat();
+  if (!effects.some((ef) => canAcquireDwellingBuff(ef))) return false;
+  if (myHp() === myMaxhp() && myMp() === myMaxmp())
+    // We cannot rest if our HP and MP are both full - cast a 1mp skill to enable resting
+    useSkill(
+      $skills`Seal Clubbing Frenzy, Patience of the Tortoise, Manicotti Meditation, Sauce Contemplation, Disco Aerobics, Moxie of the Mariachi`
+        .filter((sk) => have(sk))
+        ?.at(0) ?? Skill.none,
+    );
+  visitUrl("campground.php?action=rest");
+
+  return effects.some((ef) => have(ef));
 }
