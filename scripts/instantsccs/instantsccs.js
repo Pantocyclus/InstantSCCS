@@ -16911,7 +16911,7 @@ var RunStartQuest = {
     },
     combat: new CombatStrategy().macro(Macro.trySkill($skill(_templateObject300 || (_templateObject300 = _taggedTemplateLiteral(["Blow the Purple Candle!"])))).externalIf(get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
     // eslint-disable-next-line libram/verify-constants
-    Macro.trySkill($skill(_templateObject301 || (_templateObject301 = _taggedTemplateLiteral(["Club 'Em Into Next Week"])))).abort()).default())
+    Macro.trySkill($skill(_templateObject301 || (_templateObject301 = _taggedTemplateLiteral(["Club 'Em Into Next Week"]))))).default())
   }, {
     name: "Bakery Pledge",
     ready: () => haveAndNotExcluded($familiar(_templateObject302 || (_templateObject302 = _taggedTemplateLiteral(["Patriotic Eagle"])))) && haveFreeRunSource(),
