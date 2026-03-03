@@ -15244,7 +15244,7 @@ var LevelingQuest = {
     },
     combat: new CombatStrategy().macro(() => Macro.externalIf(get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject401 || (_templateObject401 = _taggedTemplateLiteral(["fluffy bunny"]))))), Macro.trySkill($skill(_templateObject402 || (_templateObject402 = _taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))).trySkill($skill(_templateObject403 || (_templateObject403 = _taggedTemplateLiteral(["Blow the Purple Candle!"])))).externalIf(get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
     // eslint-disable-next-line libram/verify-constants
-    Macro.trySkill($skill(_templateObject404 || (_templateObject404 = _taggedTemplateLiteral(["Club 'Em Into Next Week"])))).abort()).default(useCinch)),
+    Macro.trySkill($skill(_templateObject404 || (_templateObject404 = _taggedTemplateLiteral(["Club 'Em Into Next Week"]))))).default(useCinch)),
     outfit: () => _objectSpread2(_objectSpread2({}, baseOutfit()), {}, {
       weapon: legendarySealClubbingClub("NextWeek"),
       offhand: reduceItemUndefinedArray([romanCandelabra($effect(_templateObject405 || (_templateObject405 = _taggedTemplateLiteral(["Everything Looks Purple"])))), $item(_templateObject406 || (_templateObject406 = _taggedTemplateLiteral(["unbreakable umbrella"])))]),
@@ -15488,7 +15488,7 @@ var LevelingQuest = {
     }),
     combat: new CombatStrategy().macro(() => Macro.externalIf(get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject489 || (_templateObject489 = _taggedTemplateLiteral(["fluffy bunny"]))))), Macro.trySkill($skill(_templateObject490 || (_templateObject490 = _taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))).externalIf(get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
     // eslint-disable-next-line libram/verify-constants
-    Macro.trySkill($skill(_templateObject491 || (_templateObject491 = _taggedTemplateLiteral(["Club 'Em Into Next Week"])))).abort()).default(useCinch)),
+    Macro.trySkill($skill(_templateObject491 || (_templateObject491 = _taggedTemplateLiteral(["Club 'Em Into Next Week"]))))).default(useCinch)),
     post: () => {
       sendAutumnaton();
       sellMiscellaneousItems();
@@ -15653,7 +15653,7 @@ var LevelingQuest = {
     },
     combat: new CombatStrategy().macro(() => Macro.externalIf(get("_monsterHabitatsFightsLeft") <= 1 && habitatCastsLeft() > 0 && (haveFreeBanish() || Array.from(getBanishedMonsters().values()).includes($monster(_templateObject519 || (_templateObject519 = _taggedTemplateLiteral(["fluffy bunny"]))))), Macro.trySkill($skill(_templateObject520 || (_templateObject520 = _taggedTemplateLiteral(["Recall Facts: Monster Habitats"]))))).trySkill($skill(_templateObject521 || (_templateObject521 = _taggedTemplateLiteral(["Blow the Purple Candle!"])))).externalIf(get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
     // eslint-disable-next-line libram/verify-constants
-    Macro.trySkill($skill(_templateObject522 || (_templateObject522 = _taggedTemplateLiteral(["Club 'Em Into Next Week"])))).abort()).default(useCinch)),
+    Macro.trySkill($skill(_templateObject522 || (_templateObject522 = _taggedTemplateLiteral(["Club 'Em Into Next Week"]))))).default(useCinch)),
     outfit: () => _objectSpread2(_objectSpread2({}, baseOutfit()), {}, {
       weapon: legendarySealClubbingClub("NextWeek"),
       offhand: reduceItemUndefinedArray([romanCandelabra($effect(_templateObject523 || (_templateObject523 = _taggedTemplateLiteral(["Everything Looks Purple"])))), $item(_templateObject524 || (_templateObject524 = _taggedTemplateLiteral(["unbreakable umbrella"])))]),
