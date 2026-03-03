@@ -1476,19 +1476,10 @@ export const LevelingQuest: Quest = {
         visitUrl("campground.php?preaction=leaves");
         visitUrl("choice.php?pwd&whichchoice=1510&option=1&leaves=11");
       },
-      combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Otoscope`)
-          .externalIf(
-            get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
-            // eslint-disable-next-line libram/verify-constants
-            Macro.trySkill($skill`Club 'Em Into Next Week`).abort(),
-          )
-          .default(),
-      ),
+      combat: new CombatStrategy().macro(Macro.trySkill($skill`Otoscope`).default()),
       outfit: () => ({
         ...baseOutfit(),
         hat: daylightShavingsHelmet(),
-        weapon: legendarySealClubbingClub("NextWeek"),
         offhand: $item`unbreakable umbrella`,
         acc3:
           have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3
