@@ -1160,8 +1160,11 @@ export const RunStartQuest: Quest = {
       },
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Blow the Purple Candle!`)
-          // eslint-disable-next-line libram/verify-constants
-          .trySkill($skill`Club 'Em Into Next Week`)
+          .externalIf(
+            get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
+            // eslint-disable-next-line libram/verify-constants
+            Macro.trySkill($skill`Club 'Em Into Next Week`).abort(),
+          )
           .default(),
       ),
     },
