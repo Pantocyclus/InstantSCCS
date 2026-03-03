@@ -275,10 +275,10 @@ const farmingResources: Resource[] = [
     get("instant_saveClubEmTime", false) ? 5 : 0,
   ),
   new Resource(
-    "instant_saveClubNextWeek",
+    "instant_saveClubEmNextWeek",
     (n) => `Save ${n}/5 legendary seal-clubbing club free kills`,
     [],
-    get("instant_saveClubNextWeek", false) ? 5 : 0,
+    get("instant_saveClubEmNextWeek", false) ? 5 : 0,
   ),
   new Resource("instant_runMobiusNCs", "Attempt to get clocks from the Mobius Ring noncombats"),
 ];
