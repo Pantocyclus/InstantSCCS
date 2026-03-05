@@ -207,3 +207,7 @@ However, the above may not work in cases where KoLMafia replaces the backup with
 Inspired by other community projects such as [Excavator](https://github.com/loathers/excavator), InstantSCCS also tries to collect data to be used in improving the script for all users. This feature is **enabled by default** (if you are whitelisted to CSLoopers Unite, the script uses the Clan Basement Whiteboard to collect and organize the data publicly). No personal or sensitive information will ever be recorded. <br/>
 
 In view of full transparency, both the [source code](https://github.com/Pantocyclus/InstantSCCS/tree/main/src) of the script and the recorded data are publicly auditable. However, if you would prefer to continue using the script without having any of your data publicly tracked, you may opt out of the data collection at any time with `set instant_collectData=false`.<br/>
+
+### The latest update is unstable and there does not appear to be an easy fix. What do I do?
+
+You can find previous builds [here](https://github.com/Pantocyclus/InstantSCCS/commits/release/) - download an earlier version of the `instantsccs.js` file of your choice to replace the one in your `kolmafia/scripts/instantsccs` folder on your PC.
