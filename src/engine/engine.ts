@@ -100,6 +100,7 @@ export const farmingResourceResources: trackedResource[] = [
   new trackedResource("_deckCardsDrawn", "Deck Draws", 15),
   new trackedResource("_mimicEggsObtained", "Mimic Eggs", 11),
   new trackedResource("_freeBeachWalksUsed", "Beach Walks", 11),
+  new trackedResource("_archSpadeDigs", "Archaeologist Spade Digs", 11),
   new trackedResource("_macrometeoriteUses", "Macrometeorites", 10),
   new trackedResource($item`battery (AAA)`, "Batteries (AAA)", 7),
   new trackedResource("availableSeptEmbers", "Sept Embers", -7),

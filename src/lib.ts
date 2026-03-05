@@ -119,6 +119,7 @@ export const useParkaSpit =
   get("instant_prioritizeParkaSpit", false) ||
   (have($item`Fourth of May Cosplay Saber`) && have($skill`Feel Envy`));
 export const useCenser = have($item`Sept-Ember Censer`) && !get("instant_saveEmbers", false);
+export const useCinch = !get("instant_saveCinch", false);
 
 export let releaseSHA = "unknown";
 

@@ -1873,10 +1873,10 @@ keyv@^4.5.4:
   dependencies:
     json-buffer "3.0.1"
 
-kolmafia@^5.28922.0:
-  version "5.28922.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28922.0.tgz#d962763167b1d750e98f7d5d7849aafaba080d29"
-  integrity sha512-BM9Y4S4MgALPzFpLd5TeJ3Lfd4czHWpc+FJOn61ER+AvkyS5Mkv+W0SnNcS9GdguMOYT6BRc65kedQim/nq+mw==
+kolmafia@^5.28948.0:
+  version "5.28948.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.28948.0.tgz#9f699b196c057bd95fc2daa9599e8fcc9b19d54c"
+  integrity sha512-X4RH9jh7EV/ZR37vDmJL/ck78WkGikEdRCOOZ/VOg/nBeZP13Wvbtr4z9kWp26W2G9XfzShg2tO4YNZ+PwnJxQ==
 
 levn@^0.4.1:
   version "0.4.1"

@@ -140,6 +140,7 @@ import {
   tryAcquiringEffects,
   tryAcquiringOdeToBooze,
   useCenser,
+  useCinch,
   useParkaSpit,
   wishFor,
   xpWishEffect,
@@ -155,7 +156,6 @@ import {
   romanCandelabra,
 } from "../outfit";
 
-const useCinch = !get("instant_saveCinch", false);
 const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
 const seaFruits = $items`sea tangelo, sea persimmon, sea lychee, sea honeydew, sea blueberry`;
 const fishDrops = $items`beefy fish meat, glistening fish meat, slick fish meat, dull fish scale, rough fish scale, pristine fish scale`;
@@ -1009,7 +1009,7 @@ export const LevelingQuest: Quest = {
             // eslint-disable-next-line libram/verify-constants
             Macro.trySkill($skill`Club 'Em Into Next Week`).abort(),
           )
-          .if_(`monstername ${get("clubEmNextWeekMonster")}`, Macro.default())
+          .if_(`monstername ${get("clubEmNextWeekMonster")}`, Macro.default(useCinch))
           .abort(),
       ),
       outfit: () => ({
@@ -1155,7 +1155,7 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Curse of Weaksauce`)
           .tryItem($item`blue rocket`)
           .tryItem($item`red rocket`)
-          .default(),
+          .default(useCinch),
       ),
       outfit: () => ({
         ...baseOutfit(false),
@@ -1268,7 +1268,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`red rocket`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
-          .default(),
+          .default(useCinch),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -1333,7 +1333,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`%fn, Release the Patriotic Screech!`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
-          .default(),
+          .default(useCinch),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -1390,7 +1390,7 @@ export const LevelingQuest: Quest = {
         !have($item`miniature crystal ball`),
       do: () => crystalBallFreeFightLocation(),
       limit: { tries: 10 },
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: () => ({
         ...baseOutfit(),
         famequip: $item`miniature crystal ball`,
@@ -1476,7 +1476,7 @@ export const LevelingQuest: Quest = {
         visitUrl("campground.php?preaction=leaves");
         visitUrl("choice.php?pwd&whichchoice=1510&option=1&leaves=11");
       },
-      combat: new CombatStrategy().macro(Macro.trySkill($skill`Otoscope`).default()),
+      combat: new CombatStrategy().macro(Macro.trySkill($skill`Otoscope`).default(useCinch)),
       outfit: () => ({
         ...baseOutfit(),
         hat: daylightShavingsHelmet(),
@@ -1793,7 +1793,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Envy`)
           .trySkill($skill`Portscan`)
-          .default(),
+          .default(useCinch),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -1823,7 +1823,7 @@ export const LevelingQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Feel Envy`)
           .trySkill($skill`Portscan`)
-          .default(),
+          .default(useCinch),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -1849,7 +1849,7 @@ export const LevelingQuest: Quest = {
         !SourceTerminal.have() ||
         get("_sourceTerminalPortscanUses") > 0,
       do: $location`An Unusually Quiet Barroom Brawl`,
-      combat: new CombatStrategy().macro(Macro.trySkill($skill`Portscan`).default()),
+      combat: new CombatStrategy().macro(Macro.trySkill($skill`Portscan`).default(useCinch)),
       outfit: () => ({
         ...baseOutfit(),
         offhand: $item`unbreakable umbrella`,
@@ -1869,7 +1869,7 @@ export const LevelingQuest: Quest = {
       },
       completed: () => get("_speakeasyFreeFights") >= 3 || !get("ownsSpeakeasy"),
       do: $location`An Unusually Quiet Barroom Brawl`,
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.default(useCinch)),
       outfit: () => ({
         ...baseOutfit(),
         offhand: $item`unbreakable umbrella`,

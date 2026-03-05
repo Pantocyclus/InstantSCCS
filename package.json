@@ -35,7 +35,7 @@
   "dependencies": {
     "core-js": "^3.48.0",
     "grimoire-kolmafia": "^0.3.33",
-    "kolmafia": "^5.28922.0",
+    "kolmafia": "^5.28948.0",
     "libram": "^0.11.19",
     "tslib": "^2.8.1"
   },

@@ -281,6 +281,12 @@ const farmingResources: Resource[] = [
     get("instant_saveClubEmNextWeek", false) ? 5 : 0,
   ),
   new Resource("instant_runMobiusNCs", "Attempt to get clocks from the Mobius Ring noncombats"),
+  new Resource(
+    "instant_saveSpadeDigs",
+    (n) => `Save ${n}/11 Archaeologist's Spade free kills from digs`,
+    [],
+    get("instant_saveSpadeDigs", false) ? 11 : 0,
+  ),
 ];
 
 const otherResources: Resource[] = [
