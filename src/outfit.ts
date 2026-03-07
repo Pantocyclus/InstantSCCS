@@ -174,6 +174,7 @@ export function preventEquipList(): Item[] {
     $item`Kramco Sausage-o-Matic™`,
     $item`miniature crystal ball`,
     $item`backup camera`,
+    $item`Peridot of Peril`,
   ];
 }
 

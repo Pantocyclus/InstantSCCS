@@ -2,6 +2,7 @@ import { Engine as BaseEngine, Outfit, outfitSlots, OutfitSpec } from "grimoire-
 import {
   booleanModifier,
   canEquip,
+  haveEquipped,
   Item,
   itemAmount,
   myFullness,
@@ -127,6 +128,8 @@ export const farmingResourceResources: trackedResource[] = [
   new trackedResource("timesRested", "Free Rests", totalFreeRests()),
 ];
 
+let lastJuneCleaverEncounters = get("_juneCleaverEncounters");
+
 export const trackedResources: trackedResource[] = [
   ...freeBanishResources,
   ...freeKillResources,
@@ -186,8 +189,18 @@ export class Engine extends BaseEngine {
         ].includes(get("lastEncounter"))
       )
         uneffect($effect`Beaten Up`);
-      else throw new Error("Fight was lost; stop.");
+      else if (
+        get("_juneCleaverEncounters") > lastJuneCleaverEncounters && // We hit a June Cleaver NC between the last run and this
+        get("juneCleaverQueue") // Hit Poetic Justice / Lost and Found NC
+          .split(",")
+          .some((noncombatId) => ["1467", "1471"].includes(noncombatId))
+      ) {
+        uneffect($effect`Beaten Up`);
+      } else throw new Error("Fight was lost; stop.");
     }
+
+    lastJuneCleaverEncounters = get("_juneCleaverEncounters");
+
     originalValues.forEach(([resource, val]) => {
       const trackingMafiaPref = get(resource, "").toString().length > 0;
       if (
