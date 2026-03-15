@@ -105,7 +105,7 @@ function parseBuskEffects(pref: string): string {
     .map((desiredBusk) => {
       const efs = beretBuskingEffects(
         toInt(desiredBusk.split(":").at(1) ?? "0"),
-        toInt(desiredBusk.split(":").at(0) ?? "0"),
+        toInt(desiredBusk.split(":").at(0) ?? "0") - 1,
       );
       return Object.keys(efs)
         .filter((s) => s !== "none")
