@@ -5831,7 +5831,7 @@ function pullsPage() {
 }
 function parseBuskEffects(pref) {
   return get(pref, "").split(",").filter(b => b.length > 0).map(desiredBusk => {
-    var efs = require$$0.beretBuskingEffects(require$$0.toInt(desiredBusk.split(":").at(1) ?? "0"), require$$0.toInt(desiredBusk.split(":").at(0) ?? "0"));
+    var efs = require$$0.beretBuskingEffects(require$$0.toInt(desiredBusk.split(":").at(1) ?? "0"), require$$0.toInt(desiredBusk.split(":").at(0) ?? "0") - 1);
     return Object.keys(efs).filter(s => s !== "none").map(s => "[".concat(require$$0.toEffect(s).id, "] ").concat(s)).join(", ");
   }).join(", ");
 }
