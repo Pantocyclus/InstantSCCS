@@ -11698,7 +11698,7 @@ var allResources = [].concat(consumptionResources, encounterResources, farmingRe
 var automaticallyExcludedBuffs = Array.from(allResources.map(resource => resource.effects).filter(efs => efs.length > 0)).reduce((acc, val) => acc.concat(val), []);
 var manuallyExcludedBuffs = get("instant_explicitlyExcludedBuffs", "").split(",").filter(s => s.length > 0).map(s => kolmafia.toEffect(s));
 var forbiddenEffects = [].concat(_toConsumableArray(automaticallyExcludedBuffs), _toConsumableArray(manuallyExcludedBuffs.filter(ef => !automaticallyExcludedBuffs.includes(ef))));
-var excludedFamiliars = get("instant_explicitlyExcludedFamiliars").split(",").map(i => kolmafia.toFamiliar(kolmafia.toInt(i)));
+var excludedFamiliars = get("instant_explicitlyExcludedFamiliars").split(",").filter(s => s.length > 0).map(i => kolmafia.toFamiliar(kolmafia.toInt(i)));
 function printResources(resources) {
   resources.sort((a, b) => a.pref < b.pref ? -1 : 1).forEach(resource => {
     var prefValue = get(resource.pref, "");
