@@ -23,13 +23,22 @@ function turnLimitsPage(): RelayPage {
   return {
     page: "Test Turn Limits",
     file: "Test Turn Limits",
-    components: Array.from(testLimits.entries()).map(([test, limit]) => ({
-      type: "string",
-      name: test.statName,
-      description: test.name,
-      preference: `instant_${testAbbreviations.get(test) ?? ""}TestTurnLimit`,
-      default: limit,
-    })),
+    components: [
+      {
+        type: "html",
+        data: `Enter the maximum turns we expect to take for each test, beyond which the script will abort. This acts as a safeguard to allow manual intervention should something have gone wrong - e.g. the script being in a weird state from interacting with holiday wanderers.`,
+      } as RelayComponent,
+      ...Array.from(testLimits.entries()).map(
+        ([test, limit]) =>
+          ({
+            type: "string",
+            name: test.statName,
+            description: test.name,
+            preference: `instant_${testAbbreviations.get(test) ?? ""}TestTurnLimit`,
+            default: limit,
+          }) as RelayComponent,
+      ),
+    ],
   };
 }
 
