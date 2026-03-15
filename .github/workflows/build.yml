@@ -65,6 +65,7 @@ jobs:
           yarn build
           mkdir BUILD
           cp -r KoLmafia/scripts BUILD/scripts
+          cp -r KoLmafia/relay BUILD/relay
           cp -r KoLmafia/dependencies.txt BUILD/dependencies.txt
           cp -r README.md BUILD/README.md
 
@@ -85,10 +86,12 @@ jobs:
           shopt -s extglob
           rm -rf !(BUILD)
           mv BUILD/scripts scripts
+          mv BUILD/relay relay
           mv BUILD/dependencies.txt dependencies.txt
           mv BUILD/README.md README.md
           rm -rf BUILD
           git add scripts
+          git add relay
           git add dependencies.txt
           git add README.md
           git commit -m "Automated build"

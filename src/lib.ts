@@ -151,7 +151,7 @@ export const testAbbreviations: Map<CommunityService, string> = new Map([
   [CommunityService.CoilWire, "coil"],
 ]);
 
-const testLimits: Map<CommunityService, number> = new Map([
+export const testLimits: Map<CommunityService, number> = new Map([
   [CommunityService.HP, 1],
   [CommunityService.Muscle, 2],
   [CommunityService.Mysticality, 1],

@@ -1,7 +1,7 @@
 node_modules
 .DS_Store
 KoLmafia/scripts
-
+KoLmafia/relay
 dist/
 .pnp.*
 .yarn/*
@@ -10,3 +10,5 @@ dist/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+src/relay_old.ts

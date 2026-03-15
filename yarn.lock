@@ -1923,6 +1923,11 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
+mafia-shared-relay@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/mafia-shared-relay/-/mafia-shared-relay-0.0.7.tgz#1a0d333ebeed8cdbb4506360376099108c72d95b"
+  integrity sha512-sz5a+5tlI7u8eMasVVUdItPq5VdekLx6cDYCCbIjqhiFLluCE+0I1IqZ4n0JDzwLuiUZmAcsIq0VZfAp9WlbKA==
+
 magic-string@^0.30.3:
   version "0.30.21"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.30.21.tgz#56763ec09a0fa8091df27879fd94d19078c00d91"

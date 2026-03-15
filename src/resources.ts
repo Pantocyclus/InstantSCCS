@@ -10,7 +10,7 @@ import {
 } from "kolmafia";
 import { $effect, $effects, $skill, get, have, set } from "libram";
 
-class Resource {
+export class Resource {
   pref: string;
   help: string | ((s?: string | number) => string);
   effects: Effect[];
@@ -31,7 +31,7 @@ class Resource {
   }
 }
 
-const consumptionResources: Resource[] = [
+export const consumptionResources: Resource[] = [
   new Resource(
     "instant_skipDistilledFortifiedWine",
     "Do not grab the DFW lucky adventure (if you have numberology)",
@@ -97,7 +97,7 @@ const consumptionResources: Resource[] = [
   ),
 ];
 
-const encounterResources: Resource[] = [
+export const encounterResources: Resource[] = [
   new Resource(
     "instant_saveWitchess",
     "Do not fight witchess monsters nor acquire Puzzle Champ",
@@ -140,7 +140,7 @@ const encounterResources: Resource[] = [
   ),
 ];
 
-const farmingResources: Resource[] = [
+export const farmingResources: Resource[] = [
   new Resource("instant_savePorquoise", "Do not autosell your porquoise"),
   new Resource("instant_saveFloundry", "Do not create a codpiece"),
   new Resource("instant_saveFortuneTeller", "Do not consult Zatara for buffs", [
@@ -289,7 +289,7 @@ const farmingResources: Resource[] = [
   ),
 ];
 
-const otherResources: Resource[] = [
+export const otherResources: Resource[] = [
   new Resource(
     "instant_skipGovernment",
     "Do not attempt to unlock the beach with meat to grab an anticheese",
@@ -340,6 +340,7 @@ export const forbiddenEffects = [
 ];
 export const excludedFamiliars = get("instant_explicitlyExcludedFamiliars")
   .split(",")
+  .filter((s) => s.length > 0)
   .map((i) => toFamiliar(toInt(i)));
 
 function printResources(resources: Resource[]) {

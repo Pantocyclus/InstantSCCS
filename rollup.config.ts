@@ -64,11 +64,22 @@ const baseSettings = {
 const entries = {
   instantsccs: "src/main.ts",
   instantsccs_choice: "src/choice.ts",
+  relay_instantsccs: "src/relay.ts",
 };
+
 export default Object.entries(entries).map(([name, path]) => ({
   ...baseSettings,
   input: { [name]: path },
-  output: {
-    ...baseSettings.output,
-  },
+  output: name.includes("relay")
+    ? {
+        dir: "KoLmafia/relay/",
+        format: "cjs",
+        entryFileNames: "[name].js",
+        chunkFileNames: "[name].js",
+        exports: "auto",
+        inlineDynamicImports: true,
+      }
+    : {
+        ...baseSettings.output,
+      },
 }));
