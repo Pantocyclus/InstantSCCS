@@ -5779,7 +5779,10 @@ function turnLimitsPage() {
   return {
     page: "Test Turn Limits",
     file: "Test Turn Limits",
-    components: Array.from(testLimits.entries()).map(_ref3 => {
+    components: [{
+      type: "html",
+      data: "Enter the maximum turns we expect to take for each test, beyond which the script will abort. This acts as a safeguard to allow manual intervention should something have gone wrong - e.g. the script being in a weird state from interacting with holiday wanderers."
+    }].concat(_toConsumableArray(Array.from(testLimits.entries()).map(_ref3 => {
       var _ref4 = _slicedToArray(_ref3, 2),
         test = _ref4[0],
         limit = _ref4[1];
@@ -5790,7 +5793,7 @@ function turnLimitsPage() {
         preference: "instant_".concat(testAbbreviations.get(test) ?? "", "TestTurnLimit"),
         default: limit
       };
-    })
+    })))
   };
 }
 function pullsPage() {
