@@ -19,6 +19,11 @@ interface RelayResource {
 
 const CSTests: CommunityService[] = Array.from(testLimits.entries()).map(([test, _]) => test);
 
+const border: RelayComponent = {
+  type: "html",
+  data: `<p style="text-align: center"><font size="3">========================================================================================================================</font></p>`,
+} as RelayComponent;
+
 function turnLimitsPage(): RelayPage {
   return {
     page: "Test Turn Limits",
@@ -232,7 +237,22 @@ function settingsToHTML(): RelayPage[] {
   pages.push(busksPage());
   pages.push(miscellanyPage());
 
-  return pages;
+  return pages.map((page) => {
+    page.components = [
+      {
+        type: "html",
+        data: `<p style="text-align: center"><font size="4"><b>${page.page}</b></font></p>`,
+      } as RelayComponent,
+      border,
+      ...page.components,
+      border,
+      {
+        type: "html",
+        data: `<p style="text-align: center"><font size="2">Some descriptions will be dynamically updated based on their respective preferences upon refreshing the page.</font></p>`,
+      } as RelayComponent,
+    ];
+    return page;
+  });
 }
 
 export function main() {
