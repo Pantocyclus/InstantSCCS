@@ -5775,6 +5775,10 @@ var CSTests = Array.from(testLimits.entries()).map(_ref => {
     _ref2[1];
   return test;
 });
+var border = {
+  type: "html",
+  data: "<p style=\"text-align: center\"><font size=\"3\">========================================================================================================================</font></p>"
+};
 function turnLimitsPage() {
   return {
     page: "Test Turn Limits",
@@ -5932,7 +5936,16 @@ function settingsToHTML() {
   pages.push(pullsPage());
   pages.push(busksPage());
   pages.push(miscellanyPage());
-  return pages;
+  return pages.map(page => {
+    page.components = [{
+      type: "html",
+      data: "<p style=\"text-align: center\"><font size=\"4\"><b>".concat(page.page, "</b></font></p>")
+    }, border].concat(_toConsumableArray(page.components), [border, {
+      type: "html",
+      data: "<p style=\"text-align: center\"><font size=\"2\">Some descriptions will be dynamically updated based on their respective preferences upon refreshing the page.</font></p>"
+    }]);
+    return page;
+  });
 }
 function main() {
   if (distExports.handleApiRequest()) return;
