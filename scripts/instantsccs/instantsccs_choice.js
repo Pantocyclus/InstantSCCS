@@ -5680,7 +5680,7 @@ var manuallyExcludedBuffs = get("instant_explicitlyExcludedBuffs", "").split(","
 [].concat(_toConsumableArray(automaticallyExcludedBuffs), _toConsumableArray(manuallyExcludedBuffs.filter(ef => !automaticallyExcludedBuffs.includes(ef))));
 get("instant_explicitlyExcludedFamiliars").split(",").filter(s => s.length > 0).map(i => kolmafia.toFamiliar(kolmafia.toInt(i)));
 
-var _templateObject$1, _templateObject2$1, _templateObject3$1, _templateObject7, _templateObject8, _templateObject9, _templateObject0, _templateObject1, _templateObject10, _templateObject11, _templateObject12, _templateObject13, _templateObject14, _templateObject15, _templateObject16, _templateObject17, _templateObject18, _templateObject19, _templateObject20, _templateObject21, _templateObject22, _templateObject23, _templateObject24, _templateObject56, _templateObject73, _templateObject74, _templateObject75, _templateObject76, _templateObject77, _templateObject78, _templateObject79, _templateObject80, _templateObject81, _templateObject82, _templateObject83, _templateObject84, _templateObject85, _templateObject86, _templateObject90, _templateObject147, _templateObject148, _templateObject149, _templateObject150, _templateObject151, _templateObject152, _templateObject153, _templateObject154, _templateObject155, _templateObject156, _templateObject157, _templateObject158, _templateObject159, _templateObject160, _templateObject161, _templateObject162, _templateObject163, _templateObject164, _templateObject165, _templateObject166, _templateObject167, _templateObject168, _templateObject169, _templateObject170, _templateObject171, _templateObject172, _templateObject173, _templateObject174, _templateObject175, _templateObject176, _templateObject177, _templateObject178, _templateObject179, _templateObject180, _templateObject181, _templateObject182, _templateObject183, _templateObject184, _templateObject185, _templateObject210, _templateObject214, _templateObject215, _templateObject216, _templateObject217, _templateObject218, _templateObject219, _templateObject220, _templateObject221, _templateObject222, _templateObject223, _templateObject224, _templateObject225, _templateObject226, _templateObject227;
+var _templateObject$1, _templateObject2$1, _templateObject3$1, _templateObject7, _templateObject8, _templateObject9, _templateObject0, _templateObject1, _templateObject10, _templateObject11, _templateObject12, _templateObject13, _templateObject14, _templateObject15, _templateObject16, _templateObject17, _templateObject18, _templateObject19, _templateObject20, _templateObject21, _templateObject22, _templateObject23, _templateObject24, _templateObject56, _templateObject73, _templateObject74, _templateObject75, _templateObject76, _templateObject77, _templateObject78, _templateObject79, _templateObject80, _templateObject81, _templateObject82, _templateObject83, _templateObject84, _templateObject85, _templateObject86, _templateObject90, _templateObject150, _templateObject151, _templateObject152, _templateObject153, _templateObject154, _templateObject155, _templateObject156, _templateObject157, _templateObject158, _templateObject159, _templateObject160, _templateObject161, _templateObject162, _templateObject163, _templateObject164, _templateObject165, _templateObject166, _templateObject167, _templateObject168, _templateObject169, _templateObject170, _templateObject171, _templateObject172, _templateObject173, _templateObject174, _templateObject175, _templateObject176, _templateObject177, _templateObject178, _templateObject179, _templateObject180, _templateObject181, _templateObject182, _templateObject183, _templateObject184, _templateObject185, _templateObject186, _templateObject187, _templateObject188, _templateObject213, _templateObject217, _templateObject218, _templateObject219, _templateObject220, _templateObject221, _templateObject222, _templateObject223, _templateObject224, _templateObject225, _templateObject226, _templateObject227, _templateObject228, _templateObject229, _templateObject230;
 kolmafia.getClanName();
 Clan.getWhitelisted().find(c => c.name.toLowerCase() === get("instant_motherSlimeClan", "").toLowerCase()) ? get("instant_motherSlimeClan", "") : Clan.getWhitelisted().find(c => c.name.toLowerCase() === "csloopers unite") ? "CSLoopers Unite" : "";
 get("instant_prioritizeParkaSpit", false) || have($item(_templateObject$1 || (_templateObject$1 = _taggedTemplateLiteral(["Fourth of May Cosplay Saber"])))) && have($skill(_templateObject2$1 || (_templateObject2$1 = _taggedTemplateLiteral(["Feel Envy"]))));
@@ -5706,73 +5706,73 @@ complexCandies.filter(candy => !Array.from(peppermintCandiesCosts.keys()).includ
 var allTomes = $skills(_templateObject90 || (_templateObject90 = _taggedTemplateLiteral(["Summon Resolutions, Summon Love Song, Summon Candy Heart, Summon Taffy, Summon BRICKOs, Summon Party Favor, Summon Dice"])));
 allTomes.filter(tome => have(tome));
 ({
-  Muscle: $effect(_templateObject147 || (_templateObject147 = _taggedTemplateLiteral(["Stabilizing Oiliness"]))),
-  Mysticality: $effect(_templateObject148 || (_templateObject148 = _taggedTemplateLiteral(["Expert Oiliness"]))),
-  Moxie: $effect(_templateObject149 || (_templateObject149 = _taggedTemplateLiteral(["Slippery Oiliness"])))
+  Muscle: $effect(_templateObject150 || (_templateObject150 = _taggedTemplateLiteral(["Stabilizing Oiliness"]))),
+  Mysticality: $effect(_templateObject151 || (_templateObject151 = _taggedTemplateLiteral(["Expert Oiliness"]))),
+  Moxie: $effect(_templateObject152 || (_templateObject152 = _taggedTemplateLiteral(["Slippery Oiliness"])))
 })[mainStatStr];
 ({
-  Muscle: $item(_templateObject150 || (_templateObject150 = _taggedTemplateLiteral(["oil of stability"]))),
-  Mysticality: $item(_templateObject151 || (_templateObject151 = _taggedTemplateLiteral(["oil of expertise"]))),
-  Moxie: $item(_templateObject152 || (_templateObject152 = _taggedTemplateLiteral(["oil of slipperiness"])))
+  Muscle: $item(_templateObject153 || (_templateObject153 = _taggedTemplateLiteral(["oil of stability"]))),
+  Mysticality: $item(_templateObject154 || (_templateObject154 = _taggedTemplateLiteral(["oil of expertise"]))),
+  Moxie: $item(_templateObject155 || (_templateObject155 = _taggedTemplateLiteral(["oil of slipperiness"])))
 })[mainStatStr];
 ({
-  Muscle: $item(_templateObject153 || (_templateObject153 = _taggedTemplateLiteral(["lime"]))),
-  Mysticality: $item(_templateObject154 || (_templateObject154 = _taggedTemplateLiteral(["cherry"]))),
-  Moxie: $item(_templateObject155 || (_templateObject155 = _taggedTemplateLiteral(["jumbo olive"])))
+  Muscle: $item(_templateObject156 || (_templateObject156 = _taggedTemplateLiteral(["lime"]))),
+  Mysticality: $item(_templateObject157 || (_templateObject157 = _taggedTemplateLiteral(["cherry"]))),
+  Moxie: $item(_templateObject158 || (_templateObject158 = _taggedTemplateLiteral(["jumbo olive"])))
 })[mainStatStr];
 ({
-  Muscle: $effect(_templateObject156 || (_templateObject156 = _taggedTemplateLiteral(["Phorcefullness"]))),
-  Mysticality: $effect(_templateObject157 || (_templateObject157 = _taggedTemplateLiteral(["Mystically Oiled"]))),
-  Moxie: $effect(_templateObject158 || (_templateObject158 = _taggedTemplateLiteral(["Superhuman Sarcasm"])))
+  Muscle: $effect(_templateObject159 || (_templateObject159 = _taggedTemplateLiteral(["Phorcefullness"]))),
+  Mysticality: $effect(_templateObject160 || (_templateObject160 = _taggedTemplateLiteral(["Mystically Oiled"]))),
+  Moxie: $effect(_templateObject161 || (_templateObject161 = _taggedTemplateLiteral(["Superhuman Sarcasm"])))
 })[mainStatStr];
 ({
-  Muscle: $item(_templateObject159 || (_templateObject159 = _taggedTemplateLiteral(["philter of phorce"]))),
-  Mysticality: $item(_templateObject160 || (_templateObject160 = _taggedTemplateLiteral(["ointment of the occult"]))),
-  Moxie: $item(_templateObject161 || (_templateObject161 = _taggedTemplateLiteral(["serum of sarcasm"])))
+  Muscle: $item(_templateObject162 || (_templateObject162 = _taggedTemplateLiteral(["philter of phorce"]))),
+  Mysticality: $item(_templateObject163 || (_templateObject163 = _taggedTemplateLiteral(["ointment of the occult"]))),
+  Moxie: $item(_templateObject164 || (_templateObject164 = _taggedTemplateLiteral(["serum of sarcasm"])))
 })[mainStatStr];
 ({
-  Muscle: $item(_templateObject162 || (_templateObject162 = _taggedTemplateLiteral(["lemon"]))),
-  Mysticality: $item(_templateObject163 || (_templateObject163 = _taggedTemplateLiteral(["grapefruit"]))),
-  Moxie: $item(_templateObject164 || (_templateObject164 = _taggedTemplateLiteral(["olive"])))
+  Muscle: $item(_templateObject165 || (_templateObject165 = _taggedTemplateLiteral(["lemon"]))),
+  Mysticality: $item(_templateObject166 || (_templateObject166 = _taggedTemplateLiteral(["grapefruit"]))),
+  Moxie: $item(_templateObject167 || (_templateObject167 = _taggedTemplateLiteral(["olive"])))
 })[mainStatStr];
 ({
-  Muscle: $effect(_templateObject165 || (_templateObject165 = _taggedTemplateLiteral(["HGH-charged"]))),
-  Mysticality: $effect(_templateObject166 || (_templateObject166 = _taggedTemplateLiteral(["Different Way of Seeing Things"]))),
-  Moxie: $effect(_templateObject167 || (_templateObject167 = _taggedTemplateLiteral(["Thou Shant Not Sing"])))
+  Muscle: $effect(_templateObject168 || (_templateObject168 = _taggedTemplateLiteral(["HGH-charged"]))),
+  Mysticality: $effect(_templateObject169 || (_templateObject169 = _taggedTemplateLiteral(["Different Way of Seeing Things"]))),
+  Moxie: $effect(_templateObject170 || (_templateObject170 = _taggedTemplateLiteral(["Thou Shant Not Sing"])))
 })[mainStatStr];
 ({
-  Muscle: $item(_templateObject168 || (_templateObject168 = _taggedTemplateLiteral(["vial of humanoid growth hormone"]))),
-  Mysticality: $item(_templateObject169 || (_templateObject169 = _taggedTemplateLiteral(["non-Euclidean angle"]))),
-  Moxie: $item(_templateObject170 || (_templateObject170 = _taggedTemplateLiteral(["Shantix\u2122"])))
+  Muscle: $item(_templateObject171 || (_templateObject171 = _taggedTemplateLiteral(["vial of humanoid growth hormone"]))),
+  Mysticality: $item(_templateObject172 || (_templateObject172 = _taggedTemplateLiteral(["non-Euclidean angle"]))),
+  Moxie: $item(_templateObject173 || (_templateObject173 = _taggedTemplateLiteral(["Shantix\u2122"])))
 })[mainStatStr];
 ({
-  Muscle: $item(_templateObject171 || (_templateObject171 = _taggedTemplateLiteral(["abstraction: purpose"]))),
-  Mysticality: $item(_templateObject172 || (_templateObject172 = _taggedTemplateLiteral(["abstraction: category"]))),
-  Moxie: $item(_templateObject173 || (_templateObject173 = _taggedTemplateLiteral(["abstraction: perception"])))
+  Muscle: $item(_templateObject174 || (_templateObject174 = _taggedTemplateLiteral(["abstraction: purpose"]))),
+  Mysticality: $item(_templateObject175 || (_templateObject175 = _taggedTemplateLiteral(["abstraction: category"]))),
+  Moxie: $item(_templateObject176 || (_templateObject176 = _taggedTemplateLiteral(["abstraction: perception"])))
 })[mainStatStr];
 ({
-  Muscle: $effect(_templateObject174 || (_templateObject174 = _taggedTemplateLiteral(["Purpose"]))),
-  Mysticality: $effect(_templateObject175 || (_templateObject175 = _taggedTemplateLiteral(["Category"]))),
-  Moxie: $effect(_templateObject176 || (_templateObject176 = _taggedTemplateLiteral(["Perception"])))
+  Muscle: $effect(_templateObject177 || (_templateObject177 = _taggedTemplateLiteral(["Purpose"]))),
+  Mysticality: $effect(_templateObject178 || (_templateObject178 = _taggedTemplateLiteral(["Category"]))),
+  Moxie: $effect(_templateObject179 || (_templateObject179 = _taggedTemplateLiteral(["Perception"])))
 })[mainStatStr];
 ({
-  Muscle: $effect(_templateObject177 || (_templateObject177 = _taggedTemplateLiteral(["Go Get 'Em, Tiger!"]))),
-  Mysticality: $effect(_templateObject178 || (_templateObject178 = _taggedTemplateLiteral(["Glittering Eyelashes"]))),
-  Moxie: $effect(_templateObject179 || (_templateObject179 = _taggedTemplateLiteral(["Butt-Rock Hair"])))
+  Muscle: $effect(_templateObject180 || (_templateObject180 = _taggedTemplateLiteral(["Go Get 'Em, Tiger!"]))),
+  Mysticality: $effect(_templateObject181 || (_templateObject181 = _taggedTemplateLiteral(["Glittering Eyelashes"]))),
+  Moxie: $effect(_templateObject182 || (_templateObject182 = _taggedTemplateLiteral(["Butt-Rock Hair"])))
 })[mainStatStr];
 ({
-  Muscle: $item(_templateObject180 || (_templateObject180 = _taggedTemplateLiteral(["wet paper weights"]))),
-  Mysticality: $item(_templateObject181 || (_templateObject181 = _taggedTemplateLiteral(["wet paperback"]))),
-  Moxie: $item(_templateObject182 || (_templateObject182 = _taggedTemplateLiteral(["wet paper cup"])))
+  Muscle: $item(_templateObject183 || (_templateObject183 = _taggedTemplateLiteral(["wet paper weights"]))),
+  Mysticality: $item(_templateObject184 || (_templateObject184 = _taggedTemplateLiteral(["wet paperback"]))),
+  Moxie: $item(_templateObject185 || (_templateObject185 = _taggedTemplateLiteral(["wet paper cup"])))
 })[mainStatStr];
 ({
-  Muscle: $effect(_templateObject183 || (_templateObject183 = _taggedTemplateLiteral(["Lifting Wets"]))),
-  Mysticality: $effect(_templateObject184 || (_templateObject184 = _taggedTemplateLiteral(["Moisticality"]))),
-  Moxie: $effect(_templateObject185 || (_templateObject185 = _taggedTemplateLiteral(["[2994]In Your Cups"])))
+  Muscle: $effect(_templateObject186 || (_templateObject186 = _taggedTemplateLiteral(["Lifting Wets"]))),
+  Mysticality: $effect(_templateObject187 || (_templateObject187 = _taggedTemplateLiteral(["Moisticality"]))),
+  Moxie: $effect(_templateObject188 || (_templateObject188 = _taggedTemplateLiteral(["[2994]In Your Cups"])))
 })[mainStatStr];
-$monsters(_templateObject210 || (_templateObject210 = _taggedTemplateLiteral(["Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle"])));
-[$item(_templateObject214 || (_templateObject214 = _taggedTemplateLiteral(["snorkel"]))), $item(_templateObject215 || (_templateObject215 = _taggedTemplateLiteral(["Kentucky-style derby"]))), $item(_templateObject216 || (_templateObject216 = _taggedTemplateLiteral(["pentacorn hat"]))), $item(_templateObject217 || (_templateObject217 = _taggedTemplateLiteral(["goofily-plumed helmet"]))), $item(_templateObject218 || (_templateObject218 = _taggedTemplateLiteral(["yellow plastic hard hat"]))), $item(_templateObject219 || (_templateObject219 = _taggedTemplateLiteral(["wooden salad bowl"]))), $item(_templateObject220 || (_templateObject220 = _taggedTemplateLiteral(["football helmet"]))), $item(_templateObject221 || (_templateObject221 = _taggedTemplateLiteral(["fishin' hat"])))];
-[$item(_templateObject222 || (_templateObject222 = _taggedTemplateLiteral(["studded leather boxer shorts"]))), $item(_templateObject223 || (_templateObject223 = _taggedTemplateLiteral(["chain-mail monokini"]))), $item(_templateObject224 || (_templateObject224 = _taggedTemplateLiteral(["union scalemail pants"]))), $item(_templateObject225 || (_templateObject225 = _taggedTemplateLiteral(["paper-plate-mail pants"]))), $item(_templateObject226 || (_templateObject226 = _taggedTemplateLiteral(["troutpiece"]))), $item(_templateObject227 || (_templateObject227 = _taggedTemplateLiteral(["alpha-mail pants"])))];
+$monsters(_templateObject213 || (_templateObject213 = _taggedTemplateLiteral(["Witchess Bishop, Witchess King, Witchess Witch, sausage goblin, Eldritch Tentacle"])));
+[$item(_templateObject217 || (_templateObject217 = _taggedTemplateLiteral(["snorkel"]))), $item(_templateObject218 || (_templateObject218 = _taggedTemplateLiteral(["Kentucky-style derby"]))), $item(_templateObject219 || (_templateObject219 = _taggedTemplateLiteral(["pentacorn hat"]))), $item(_templateObject220 || (_templateObject220 = _taggedTemplateLiteral(["goofily-plumed helmet"]))), $item(_templateObject221 || (_templateObject221 = _taggedTemplateLiteral(["yellow plastic hard hat"]))), $item(_templateObject222 || (_templateObject222 = _taggedTemplateLiteral(["wooden salad bowl"]))), $item(_templateObject223 || (_templateObject223 = _taggedTemplateLiteral(["football helmet"]))), $item(_templateObject224 || (_templateObject224 = _taggedTemplateLiteral(["fishin' hat"])))];
+[$item(_templateObject225 || (_templateObject225 = _taggedTemplateLiteral(["studded leather boxer shorts"]))), $item(_templateObject226 || (_templateObject226 = _taggedTemplateLiteral(["chain-mail monokini"]))), $item(_templateObject227 || (_templateObject227 = _taggedTemplateLiteral(["union scalemail pants"]))), $item(_templateObject228 || (_templateObject228 = _taggedTemplateLiteral(["paper-plate-mail pants"]))), $item(_templateObject229 || (_templateObject229 = _taggedTemplateLiteral(["troutpiece"]))), $item(_templateObject230 || (_templateObject230 = _taggedTemplateLiteral(["alpha-mail pants"])))];
 
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6;
 var DART_PERKS = ["Bullseyes do not impress you much", "You are less impressed by bullseyes", "25% better chance to hit bullseyes", "25% More Accurate bullseye targeting", "25% Better bullseye targeting", "Butt awareness", "Extra stats from stats targets", "Expand your dart capacity by 1", "Throw a second dart quickly", "Increase Dart Deleveling from deleveling targets", "Deal 25-50% more damage", "Add Hot Damage", "Add Cold Damage", "Add Sleaze Damage", "Add Spooky Damage", "Add Stench Damage", "Deal 25-50% extra damage", "Deal 25-50% greater damage"];
