@@ -117,6 +117,8 @@ Run `instantsccs savedresources` to see a list of preferences you can set to sav
 
 Similarly, you may exclude using certain familiars during the leveling phase by typing `set instant_explicitlyExcludedFamiliars=<comma-separated familiar IDs>` (and confirming that the correct familiars have been excluded in the savedresources printout).<br/>
 
+As of March 2026, most of the preferences may be updated using the relay page that can be accessed from the menu bar on your web browser (select `instantsccs` in the `-run script-` dropdown to access the relay).<br/>
+
 ### My settings are such that the script no longer uses all 5 softcore pulls. Can I make the script pull and use some other resources?
 
 You can make the necessary softcore pulls prior to running InstantSCCS. This generally should be equipments (e.g. [Staff of the Roaring Hearth](https://wiki.kingdomofloathing.com/Staff_of_the_Roaring_Hearth), [repaid diaper](https://wiki.kingdomofloathing.com/Repaid_diaper), [meteorite necklace](https://wiki.kingdomofloathing.com/Meteorite_necklace) etc), since they would automatically be equipped by the maximizer for various tasks/tests.<br/>
