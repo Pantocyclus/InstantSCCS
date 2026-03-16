@@ -10,6 +10,7 @@ import {
   equip,
   equippedItem,
   Familiar,
+  familiarEquippedEquipment,
   familiarWeight,
   formatDateTime,
   getCampground,
@@ -861,6 +862,12 @@ export function bestFamiliarEquip(checkedFamiliar: Familiar): Item {
   );
 }
 
+export function expectedFamiliarWeight(familiar: Familiar): number {
+  if (!have($familiar`Shorter-Order Cook`) || familiar.experience > 0)
+    return familiarWeight(familiar);
+  return familiarEquippedEquipment($familiar`Shorter-Order Cook`) === $item`blue plate` ? 10 : 9;
+}
+
 export function chooseHeaviestEquippedFamiliar(checkedFamiliars?: Familiar[]): {
   familiar: Familiar;
   equip: Item;
@@ -874,7 +881,8 @@ export function chooseHeaviestEquippedFamiliar(checkedFamiliars?: Familiar[]): {
       return {
         familiar,
         equip: bestEquip,
-        expectedWeight: familiarWeight(familiar) + numericModifier(bestEquip, "Familiar Weight"),
+        expectedWeight:
+          expectedFamiliarWeight(familiar) + numericModifier(bestEquip, "Familiar Weight"),
       };
     })
     .reduce((a, b) => (a.expectedWeight > b.expectedWeight ? a : b));

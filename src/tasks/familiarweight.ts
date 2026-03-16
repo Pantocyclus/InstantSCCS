@@ -37,6 +37,7 @@ import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   chooseHeaviestEquippedFamiliar,
+  expectedFamiliarWeight,
   handleCustomBusks,
   handleCustomPulls,
   haveAndNotExcluded,
@@ -180,10 +181,10 @@ export const FamiliarWeightQuest: Quest = {
         }
         const useTrainbot =
           haveAndNotExcluded($familiar`Mini-Trainbot`) &&
-          familiarWeight($familiar`Mini-Trainbot`) + 25 > heaviestWeight;
+          expectedFamiliarWeight($familiar`Mini-Trainbot`) + 25 > heaviestWeight;
         const useParrot =
           haveAndNotExcluded($familiar`Exotic Parrot`) &&
-          familiarWeight($familiar`Exotic Parrot`) + 15 > heaviestWeight;
+          expectedFamiliarWeight($familiar`Exotic Parrot`) + 15 > heaviestWeight;
 
         const haveFamEquip = // We only need to check for robot gear since that has special handling
           have($item`box of Familiar Jacks`) || (useComma && have($item`homemade robot gear`));

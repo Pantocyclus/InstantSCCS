@@ -147,7 +147,7 @@ function parseOutfitSpec(spec: OutfitSpec): string {
           spec[slotName]
             ? [spec[slotName]]
                 .flat()
-                .map((it) => it.name)
+                .map((it) => `${it}`)
                 .join(", ")
             : "undefined"
         }`,
