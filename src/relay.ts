@@ -250,6 +250,10 @@ function settingsToHTML(): RelayPage[] {
         type: "html",
         data: `<p style="text-align: center"><font size="2">Some descriptions will be dynamically updated based on their respective preferences upon refreshing the page.</font></p>`,
       } as RelayComponent,
+      {
+        type: "html",
+        data: `<p style="text-align: center"><font size="2">Preference changes are not tracked across different setting tabs. Please save your changes individually for each tab that has been updated.</font></p>`,
+      } as RelayComponent,
     ];
     return page;
   });
