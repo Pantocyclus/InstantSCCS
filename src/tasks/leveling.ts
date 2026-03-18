@@ -1653,7 +1653,7 @@ export const LevelingQuest: Quest = {
         return Macro.if_($monster`fluffy bunny`, Macro.banish().abort()).default(useCinch);
       }),
       outfit: (): OutfitSpec => ({
-        ...baseOutfit,
+        ...baseOutfit(),
         ...(Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)
           ? {}
           : {
@@ -1691,7 +1691,7 @@ export const LevelingQuest: Quest = {
           .default(useCinch);
       }),
       outfit: () => ({
-        ...baseOutfit,
+        ...baseOutfit(),
         shirt: garbageShirt(),
         ...(Array.from(getBanishedMonsters().values()).includes($monster`fluffy bunny`)
           ? { offhand: $item`unbreakable umbrella` }

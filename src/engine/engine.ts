@@ -147,14 +147,14 @@ function parseOutfitSpec(spec: OutfitSpec): string {
           spec[slotName]
             ? [spec[slotName]]
                 .flat()
-                .map((it) => `${it}`)
+                .map((it) => it.name)
                 .join(", ")
             : "undefined"
         }`,
     )
     .join(" | ");
 
-  return `${s} | familiar: ${spec.familiar ? spec.familiar.name : ""} | avoid: ${
+  return `${s} | familiar: ${spec.familiar ? `${spec.familiar}` : ""} | avoid: ${
     spec.avoid
       ? [spec.avoid]
           .flat()

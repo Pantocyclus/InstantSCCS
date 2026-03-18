@@ -707,7 +707,7 @@ export const RunStartQuest: Quest = {
           .trySkill($skill`Darts: Aim for the Bullseye`)
           .attack(),
       ),
-      outfit: () => ({
+      outfit: (): OutfitSpec => ({
         ...baseOutfit(false),
         acc1:
           have($item`Everfull Dart Holster`) && !have($effect`Everything Looks Red`)
@@ -876,7 +876,7 @@ export const RunStartQuest: Quest = {
             .tryItem($item`yellow rocket`),
         ).abort(),
       ),
-      outfit: () => ({
+      outfit: (): OutfitSpec => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
         offhand: romanCandelabra($effect`Everything Looks Yellow`),
@@ -915,7 +915,7 @@ export const RunStartQuest: Quest = {
             .tryItem($item`yellow rocket`),
         ).abort(),
       ),
-      outfit: () => ({
+      outfit: (): OutfitSpec => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
         offhand: romanCandelabra($effect`Everything Looks Yellow`),
@@ -939,7 +939,7 @@ export const RunStartQuest: Quest = {
         runChoice(3);
       },
       combat: new CombatStrategy().macro(Macro.default()),
-      outfit: () => baseOutfit(),
+      outfit: (): OutfitSpec => baseOutfit(),
       limit: { tries: 11 },
     },
     {
@@ -970,7 +970,7 @@ export const RunStartQuest: Quest = {
           )
           .abort(),
       ),
-      outfit: () => ({
+      outfit: (): OutfitSpec => ({
         ...baseOutfit(false),
         shirt: useParkaSpit ? $item`Jurassic Parka` : undefined,
         offhand: romanCandelabra($effect`Everything Looks Yellow`),
@@ -1203,7 +1203,7 @@ export const RunStartQuest: Quest = {
           .default(),
       ),
       outfit: () => ({
-        ...baseOutfit,
+        ...baseOutfit(),
         familiar: $familiar`Patriotic Eagle`,
         offhand: romanCandelabra($effect`Everything Looks Green`),
         acc2: have($item`spring shoes`) ? $item`spring shoes` : undefined,
