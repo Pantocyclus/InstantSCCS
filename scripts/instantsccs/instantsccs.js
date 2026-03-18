@@ -12895,8 +12895,8 @@ var farmingResourceResources = [new trackedResource("_powerfulGloveBatteryPowerU
 var lastJuneCleaverEncounters = get("_juneCleaverEncounters");
 var trackedResources = [].concat(freeBanishResources, freeKillResources, notableSkillResources, freeFightResources, potentiallyFreeFightResources, farmingResourceResources);
 function parseOutfitSpec(spec) {
-  var s = outfitSlots.map(slotName => "".concat(slotName, ": ").concat(spec[slotName] ? [spec[slotName]].flat().map(it => "".concat(it)).join(", ") : "undefined")).join(" | ");
-  return "".concat(s, " | familiar: ").concat(spec.familiar ? spec.familiar.name : "", " | avoid: ").concat(spec.avoid ? [spec.avoid].flat().map(it => it.name).join(", ") : "", " | modifiers: ").concat(spec.modifier ? [spec.modifier].flat().join(", ") : "");
+  var s = outfitSlots.map(slotName => "".concat(slotName, ": ").concat(spec[slotName] ? [spec[slotName]].flat().map(it => it.name).join(", ") : "undefined")).join(" | ");
+  return "".concat(s, " | familiar: ").concat(spec.familiar ? "".concat(spec.familiar) : "", " | avoid: ").concat(spec.avoid ? [spec.avoid].flat().map(it => it.name).join(", ") : "", " | modifiers: ").concat(spec.modifier ? [spec.modifier].flat().join(", ") : "");
 }
 var Engine = /*#__PURE__*/function (_BaseEngine) {
   function Engine() {
@@ -15402,7 +15402,7 @@ var LevelingQuest = {
     combat: new CombatStrategy().macro(() => {
       return Macro.if_($monster(_templateObject465 || (_templateObject465 = _taggedTemplateLiteral(["fluffy bunny"]))), Macro.banish().abort()).default(useCinch);
     }),
-    outfit: () => _objectSpread2(_objectSpread2({}, baseOutfit), Array.from(getBanishedMonsters().values()).includes($monster(_templateObject466 || (_templateObject466 = _taggedTemplateLiteral(["fluffy bunny"])))) ? {} : {
+    outfit: () => _objectSpread2(_objectSpread2({}, baseOutfit()), Array.from(getBanishedMonsters().values()).includes($monster(_templateObject466 || (_templateObject466 = _taggedTemplateLiteral(["fluffy bunny"])))) ? {} : {
       shirt: garbageShirt(),
       offhand: $items(_templateObject467 || (_templateObject467 = _taggedTemplateLiteral(["latte lovers member's mug, unbreakable umbrella"]))),
       acc1: $item(_templateObject468 || (_templateObject468 = _taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))),
@@ -15432,7 +15432,7 @@ var LevelingQuest = {
     combat: new CombatStrategy().macro(() => {
       return Macro.if_($monster(_templateObject472 || (_templateObject472 = _taggedTemplateLiteral(["fluffy bunny"]))), Macro.banish().abort()).if_($monster(_templateObject473 || (_templateObject473 = _taggedTemplateLiteral(["time cop"]))), Macro.default(useCinch)).trySkill($skill(_templateObject474 || (_templateObject474 = _taggedTemplateLiteral(["Recall Facts: Monster Habitats"])))).default(useCinch);
     }),
-    outfit: () => _objectSpread2(_objectSpread2(_objectSpread2({}, baseOutfit), {}, {
+    outfit: () => _objectSpread2(_objectSpread2(_objectSpread2({}, baseOutfit()), {}, {
       shirt: garbageShirt()
     }, Array.from(getBanishedMonsters().values()).includes($monster(_templateObject475 || (_templateObject475 = _taggedTemplateLiteral(["fluffy bunny"])))) ? {
       offhand: $item(_templateObject476 || (_templateObject476 = _taggedTemplateLiteral(["unbreakable umbrella"])))
@@ -16944,7 +16944,7 @@ var RunStartQuest = {
     completed: () => have$a($effect(_templateObject305 || (_templateObject305 = _taggedTemplateLiteral(["Citizen of a Zone"])))) || !haveAndNotExcluded($familiar(_templateObject306 || (_templateObject306 = _taggedTemplateLiteral(["Patriotic Eagle"])))) || get("_citizenZone").includes("Madness Bakery") || get("_instant_pledgeUsed", false),
     do: $location(_templateObject307 || (_templateObject307 = _taggedTemplateLiteral(["Madness Bakery"]))),
     combat: new CombatStrategy().macro(Macro.trySkill($skill(_templateObject308 || (_templateObject308 = _taggedTemplateLiteral(["%fn, let's pledge allegiance to a Zone"])))).trySkill($skill(_templateObject309 || (_templateObject309 = _taggedTemplateLiteral(["Spring Away"])))).trySkill($skill(_templateObject310 || (_templateObject310 = _taggedTemplateLiteral(["Blow the Green Candle!"])))).default()),
-    outfit: () => _objectSpread2(_objectSpread2({}, baseOutfit), {}, {
+    outfit: () => _objectSpread2(_objectSpread2({}, baseOutfit()), {}, {
       familiar: $familiar(_templateObject311 || (_templateObject311 = _taggedTemplateLiteral(["Patriotic Eagle"]))),
       offhand: romanCandelabra($effect(_templateObject312 || (_templateObject312 = _taggedTemplateLiteral(["Everything Looks Green"])))),
       acc2: have$a($item(_templateObject313 || (_templateObject313 = _taggedTemplateLiteral(["spring shoes"])))) ? $item(_templateObject314 || (_templateObject314 = _taggedTemplateLiteral(["spring shoes"]))) : undefined
