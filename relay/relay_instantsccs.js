@@ -5881,6 +5881,12 @@ function miscellanyPage() {
       preference: "instant_floundryClan",
       default: ""
     }, {
+      type: "string",
+      name: "Stick Knife Outfit",
+      description: "Name of outfit to attempt the stick-knife trick with as a Pastamancer",
+      preference: "instant_stickKnifeOutfit",
+      default: ""
+    }, {
       type: "boolean",
       name: "Log Preferences",
       description: "Write InstantSCCS preferences to your log for debugging or resetting lost preferences in the future",
