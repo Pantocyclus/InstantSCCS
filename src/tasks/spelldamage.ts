@@ -209,7 +209,6 @@ export const SpellDamageQuest: Quest = {
           haveAndNotExcluded($familiar`Melodramedary`) && get("camelSpit") >= 100
             ? $familiar`Melodramedary`
             : chooseFamiliar(false),
-        avoid: sugarItemsAboutToBreak(),
       }),
       choices: { 1387: 3 },
       limit: { tries: 1 },

@@ -174,6 +174,13 @@ function miscellanyPage(): RelayPage {
         default: "",
       } as RelayComponent,
       {
+        type: "string",
+        name: "Stick Knife Outfit",
+        description: "Name of outfit to attempt the stick-knife trick with as a Pastamancer",
+        preference: "instant_stickKnifeOutfit",
+        default: "",
+      } as RelayComponent,
+      {
         type: "boolean",
         name: "Log Preferences",
         description:

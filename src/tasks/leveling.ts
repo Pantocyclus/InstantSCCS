@@ -1481,10 +1481,7 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(),
         hat: daylightShavingsHelmet(),
         offhand: $item`unbreakable umbrella`,
-        acc3:
-          have($item`Lil' Doctor™ bag`) && get("_otoscopeUsed") < 3
-            ? $item`Lil' Doctor™ bag`
-            : undefined,
+        acc3: get("_otoscopeUsed") < 3 ? $item`Lil' Doctor™ bag` : undefined,
         modifier: "Item Drop",
         modes: { umbrella: "broken" },
       }),
@@ -1543,9 +1540,7 @@ export const LevelingQuest: Quest = {
         hat: daylightShavingsHelmet(),
         offhand: reduceItemUndefinedArray([
           romanCandelabra($effect`Everything Looks Yellow`),
-          have($item`April Shower Thoughts shield`) && have($skill`Northern Explosion`)
-            ? $item`April Shower Thoughts shield`
-            : undefined,
+          have($skill`Northern Explosion`) ? $item`April Shower Thoughts shield` : undefined,
           $item`unbreakable umbrella`,
         ]),
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
@@ -2308,9 +2303,7 @@ export const LevelingQuest: Quest = {
         shirt: garbageShirt(),
         weapon: legendarySealClubbingClub("Time", true),
         offhand: reduceItemUndefinedArray([
-          chooseLibram() === $skill.none ||
-          !have($item`latte lovers member's mug`) ||
-          get("_latteRefillsUsed") >= 3
+          chooseLibram() !== $skill.none && get("_latteRefillsUsed") < 3
             ? $item`latte lovers member's mug`
             : undefined,
           $item`unbreakable umbrella`,

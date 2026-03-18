@@ -223,8 +223,7 @@ export const BoozeDropQuest: Quest = {
       outfit: () => ({
         hat:
           DaylightShavings.nextBuff() === $effect`Musician's Musician's Moustache` &&
-          !DaylightShavings.hasBuff() &&
-          have($item`Daylight Shavings Helmet`)
+          !DaylightShavings.hasBuff()
             ? $item`Daylight Shavings Helmet`
             : undefined,
         back: $item`vampyric cloake`,

@@ -92,7 +92,6 @@ export const HotResQuest: Quest = {
             : $item`Roman Candelabra`,
         familiar: chooseFamiliar(false),
         modifier: "Item Drop",
-        avoid: sugarItemsAboutToBreak(),
         modes: { parka: "dilophosaur" },
       }),
       choices: { 1387: 3 },

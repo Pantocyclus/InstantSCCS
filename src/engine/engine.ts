@@ -258,26 +258,30 @@ export class Engine extends BaseEngine {
       return spec.clone();
     }
 
-    const itemsToEquip: Set<Item> = new Set<Item>();
+    const itemsToEquip: Map<Item, number> = new Map<Item, number>([]);
+    function canEquipItem(it: Item): boolean {
+      if (it === Item.none) return true; // We can always unequip a given slot
+      if (!have(it) || !canEquip(it)) return false; // We can't equip an item if we don't have it or the stats to use it
+      if (itemsToEquip.has(it)) {
+        if (booleanModifier(it, "Single Equip")) return false; // We are already planning to equip one of these single equip items
+        if (itemsToEquip.get(it) ?? 0 >= itemAmount(it)) return false; // We have no extra counts of this item to equip
+      }
+      return true;
+    }
 
     // spec is an OutfitSpec
     outfitSlots.forEach((slotName) => {
       if (spec[slotName] !== undefined) {
         // If slot was intentionally undefined, leave it up to the maximizer
         // Otherwise check if any of the items can be equipped
-        const items = [spec[slotName]]
-          .flat()
-          .filter((it) => !(itemsToEquip.has(it) && booleanModifier(it, "Single Equip")))
-          .filter((it) => have(it) || it === Item.none)
-          .filter((it) => canEquip(it));
+        const items = [spec[slotName]].flat().filter((it) => canEquipItem(it));
 
         if (items.length === 0) {
           if (spec.modifier === defaultModifier) {
             // If nothing can be equipped, trying using default equips if there isn't a custom modifier
-            spec[slotName] = reduceItemUndefinedArray([baseOutfit()[slotName]])
-              ?.filter((it) => !(itemsToEquip.has(it) && booleanModifier(it, "Single Equip")))
-              .filter((it) => have(it) || it === Item.none)
-              .filter((it) => canEquip(it));
+            spec[slotName] = reduceItemUndefinedArray([baseOutfit()[slotName]])?.filter((it) =>
+              canEquipItem(it),
+            );
           } else {
             // Else if we have a custom modifier, let the maximizer do the equipping instead
             spec[slotName] = undefined;
@@ -286,7 +290,8 @@ export class Engine extends BaseEngine {
           // If we found equippable items, we will equip the first item
           // Track the items we are equipping to prevent duplicate equipping of Single Equip items
           spec[slotName] = items[0];
-          if (items[0] !== Item.none) itemsToEquip.add(items[0]);
+          if (items[0] !== Item.none)
+            itemsToEquip.set(items[0], (itemsToEquip.get(items[0]) ?? 0) + 1);
         }
       }
     });

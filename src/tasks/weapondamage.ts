@@ -188,7 +188,6 @@ export const WeaponDamageQuest: Quest = {
               offhand: $item.none,
               familiar: $familiar`Disembodied Hand`,
               famequip: $item`Fourth of May Cosplay Saber`,
-              avoid: sugarItemsAboutToBreak(),
             }
           : {
               weapon: $item`Fourth of May Cosplay Saber`,
@@ -196,7 +195,6 @@ export const WeaponDamageQuest: Quest = {
                 haveAndNotExcluded($familiar`Melodramedary`) && get("camelSpit") >= 100
                   ? $familiar`Melodramedary`
                   : chooseFamiliar(false),
-              avoid: sugarItemsAboutToBreak(),
             };
       },
       choices: { 1387: 3 },
