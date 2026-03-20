@@ -2,7 +2,7 @@ import * as eslint from "@eslint/js";
 import prettier from "eslint-config-prettier";
 import libram, { verifyConstantsSinceRevision } from "eslint-plugin-libram";
 import tseslint from "typescript-eslint";
-import { KOLMAFIA_VERSION } from "./src/main";
+import { KOLMAFIA_VERSION } from "./version";
 
 await verifyConstantsSinceRevision(KOLMAFIA_VERSION);
 

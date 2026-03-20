@@ -12,6 +12,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import { get, set, setCombatFlags, sinceKolmafiaRevision } from "libram";
+import { KOLMAFIA_VERSION } from "../version";
 import { Engine } from "./engine/engine";
 import { Quest, Task } from "./engine/task";
 import {
@@ -34,7 +35,6 @@ import { SpellDamageQuest } from "./tasks/spelldamage";
 import { HPQuest, MoxieQuest, MuscleQuest, MysticalityQuest } from "./tasks/stat";
 import { WeaponDamageQuest } from "./tasks/weapondamage";
 
-export const KOLMAFIA_VERSION = 28944;
 const timeProperty = "fullday_elapsedTime";
 
 export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS script.", {
