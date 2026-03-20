@@ -76,7 +76,7 @@ export const FamiliarWeightQuest: Quest = {
       do: () => create($item`grubby wool trousers`, 1),
       limit: { tries: 1 },
     },
-    { 
+    {
       name: "Set Codpiece to Familiar Weight",
       completed: () =>
         get("_instant_codpieceGems", false) ||

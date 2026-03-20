@@ -28,9 +28,9 @@ import {
   have,
   unequip,
 } from "libram";
+import { current } from "libram/dist/resources/2017/Horsery";
 import { chooseFamiliar } from "./familiars";
 import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
-import { current } from "libram/dist/resources/2017/Horsery";
 
 export function haveHeartstone(): boolean {
   return (
@@ -212,18 +212,22 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
 }
 
 const codpieceSlots = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`;
-const codpieceGems = Item.all()
-    .filter(gem => stringModifier(`EternityCodpiece:${gem}`, "Modifiers").length > 0)
+const codpieceGems = Item.all().filter(
+  (gem) => stringModifier(`EternityCodpiece:${gem}`, "Modifiers").length > 0,
+);
 
 export function prepareCodpiece(modifer: string): void {
-  const desiredGems = codpieceGems.map(x => [x, numericModifier(`EternityCodpiece:${x}`, modifer)] as const)
-    .filter(gem => gem[1] > 0)
-    .sort((a,b) => b[1] - a[1]);
+  const desiredGems = codpieceGems
+    .map((x) => [x, numericModifier(`EternityCodpiece:${x}`, modifer)] as const)
+    .filter((gem) => gem[1] > 0)
+    .sort((a, b) => b[1] - a[1]);
 
   for (const slot of codpieceSlots) {
     const currentGem = equippedItem(slot);
-    const modifierToBeat = currentGem ? numericModifier(`EternityCodpiece:${currentGem}`, modifer) : 0;
-    const gemToUse = desiredGems.find(gem => have(gem[0]) && gem[1] > modifierToBeat);
+    const modifierToBeat = currentGem
+      ? numericModifier(`EternityCodpiece:${currentGem}`, modifer)
+      : 0;
+    const gemToUse = desiredGems.find((gem) => have(gem[0]) && gem[1] > modifierToBeat);
     equip(slot, gemToUse ? gemToUse[0] : $item.none);
   }
 }

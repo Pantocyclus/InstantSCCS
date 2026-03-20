@@ -128,7 +128,7 @@ export const SpellDamageQuest: Quest = {
       },
       limit: { tries: 1 },
     },
-    { 
+    {
       name: "Set Codpiece to Spell Damage",
       completed: () =>
         get("_instant_codpieceGems", false) ||
