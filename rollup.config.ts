@@ -34,11 +34,18 @@ const baseSettings = {
       extensions: [".js", ".ts"],
     }),
 
-    commonjs(),
+    commonjs({
+      exclude: [
+        "node_modules/eslint-plugin-libram/**",
+        "node_modules/typescript-eslint/**",
+        "**/eslint.config.ts",
+      ],
+    }),
 
     babel({
       babelHelpers: "bundled",
       extensions: [".js", ".ts"],
+      exclude: "node_modules/**",
       babelrc: false,
       presets: [
         [

@@ -30,12 +30,9 @@ import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
 
 export function haveHeartstone(): boolean {
   return (
-    // eslint-disable-next-line libram/verify-constants
     have($item`Heartstone`) ||
-    // eslint-disable-next-line libram/verify-constants
     (have($item`The Eternity Codpiece`) &&
       $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`.some(
-        // eslint-disable-next-line libram/verify-constants
         (slot) => equippedItem(slot) === $item`Heartstone`,
       ))
   );
@@ -67,11 +64,9 @@ export function legendarySealClubbingClub(
 ): Item | Item[] | undefined {
   if (
     (!powerleveling || havePowerlevelingZoneBound()) &&
-    // eslint-disable-next-line libram/verify-constants
     have($item`legendary seal-clubbing club`) &&
     get(`_clubEm${str}Used`, 0) < 5 - get(`instant_saveClubEm${str}`, 0)
   )
-    // eslint-disable-next-line libram/verify-constants
     return $item`legendary seal-clubbing club`;
   return [];
 }
@@ -191,8 +186,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
       haveHeartstone() &&
       get("heartstoneKillUnlocked", false) &&
       get("_heartstoneKillUsed", 0) <= 5 - get("instant_saveHeartstoneKill", 0)
-        ? // eslint-disable-next-line libram/verify-constants
-          $item`Heartstone`
+        ? $item`Heartstone`
         : myPrimestat() === $stat`Mysticality`
           ? $item`codpiece`
           : undefined,

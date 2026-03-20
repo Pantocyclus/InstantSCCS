@@ -135,7 +135,6 @@ export const BoozeDropQuest: Quest = {
       name: "Acquire Clover",
       completed: () =>
         have($item`Apriling band saxophone`) ||
-        // eslint-disable-next-line libram/verify-constants
         (have($item`Heartstone`) &&
           get("heartstoneLuckUnlocked", false) &&
           !get("_heartstoneLuckUsed", false)) ||
@@ -163,7 +162,6 @@ export const BoozeDropQuest: Quest = {
           !get("_heartstoneLuckUsed", false) &&
           !have($effect`Lucky!`)
         )
-          // eslint-disable-next-line libram/verify-constants
           useSkill($skill`Heartstone: %luck`);
         if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`))
           AprilingBandHelmet.play($item`Apriling band saxophone`);
@@ -462,7 +460,7 @@ export const BoozeDropQuest: Quest = {
           $effect`Singer's Faithful Ocelot`,
           $effect`Steely-Eyed Squint`,
           $effect`Uncucumbered`,
-          // eslint-disable-next-line libram/verify-constants
+
           $effect`Who's Going to Pay This Drunken Sailor?`,
         ];
         tryAcquiringEffects(usefulEffects, true);

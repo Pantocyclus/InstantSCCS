@@ -34,6 +34,7 @@ import { SpellDamageQuest } from "./tasks/spelldamage";
 import { HPQuest, MoxieQuest, MuscleQuest, MysticalityQuest } from "./tasks/stat";
 import { WeaponDamageQuest } from "./tasks/weapondamage";
 
+export const KOLMAFIA_VERSION = 28944;
 const timeProperty = "fullday_elapsedTime";
 
 export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS script.", {
@@ -53,7 +54,7 @@ export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS scri
 });
 
 export function main(command?: string): void {
-  sinceKolmafiaRevision(28948);
+  sinceKolmafiaRevision(KOLMAFIA_VERSION);
   checkGithubVersion();
 
   Args.fill(args, command);

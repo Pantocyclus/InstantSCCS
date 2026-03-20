@@ -928,7 +928,6 @@ export const RunStartQuest: Quest = {
       name: "Archaeologist's Spade Skeletons",
       ready: () => myLocation() === $location`The Skeleton Store`,
       completed: () =>
-        // eslint-disable-next-line libram/verify-constants
         !have($item`Archaeologist's Spade`) ||
         get("_archSpadeDigs", 0) >= 11 - get("instant_saveSpadeDigs", 0),
       do: () => {
@@ -1133,7 +1132,6 @@ export const RunStartQuest: Quest = {
           !get("_heartstoneLuckUsed", false) &&
           !have($effect`Lucky!`)
         )
-          // eslint-disable-next-line libram/verify-constants
           useSkill($skill`Heartstone: %luck`);
         if (have($item`Apriling band saxophone`) && !have($effect`Lucky!`))
           AprilingBandHelmet.play($item`Apriling band saxophone`);
@@ -1178,7 +1176,7 @@ export const RunStartQuest: Quest = {
         Macro.trySkill($skill`Blow the Purple Candle!`)
           .externalIf(
             get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
-            // eslint-disable-next-line libram/verify-constants
+
             Macro.trySkill($skill`Club 'Em Into Next Week`),
           )
           .default(useCinch),

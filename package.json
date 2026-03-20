@@ -5,8 +5,8 @@
   "main": "instantsccs",
   "scripts": {
     "build": "rollup -c rollup.config.ts --configPlugin @rollup/plugin-typescript",
-    "format": "eslint src --fix --ext .ts && cross-env NODE_OPTIONS=\"--experimental-strip-types\" prettier --write .",
-    "lint": "eslint src --ext .ts && cross-env NODE_OPTIONS=\"--experimental-strip-types\" prettier --check ."
+    "format": "eslint src --fix && cross-env NODE_OPTIONS=\"--experimental-strip-types\" prettier --write .",
+    "lint": "eslint src && cross-env NODE_OPTIONS=\"--experimental-strip-types\" prettier --check ."
   },
   "devDependencies": {
     "@babel/core": "^7.28.6",
@@ -33,7 +33,7 @@
     "typescript-eslint": "^8.53.1"
   },
   "dependencies": {
-    "core-js": "^3.48.0",
+    "core-js": "^3.49.0",
     "grimoire-kolmafia": "^0.3.33",
     "kolmafia": "^5.28948.0",
     "libram": "^0.11.19",
@@ -51,5 +51,6 @@
   "bugs": {
     "url": "https://github.com/Pantocyclus/InstantSCCS/issues"
   },
-  "homepage": "https://github.com/Pantocyclus/InstantSCCS#readme"
+  "homepage": "https://github.com/Pantocyclus/InstantSCCS#readme",
+  "packageManager": "yarn@4.13.0"
 }
