@@ -2,11 +2,14 @@ import { OutfitSlot, OutfitSpec } from "grimoire-kolmafia";
 import {
   cliExecute,
   Effect,
+  equip,
   equippedItem,
   Item,
   myClass,
   myPrimestat,
+  numericModifier,
   Slot,
+  stringModifier,
   toInt,
   totalTurnsPlayed,
 } from "kolmafia";
@@ -27,6 +30,7 @@ import {
 } from "libram";
 import { chooseFamiliar } from "./familiars";
 import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
+import { current } from "libram/dist/resources/2017/Horsery";
 
 export function haveHeartstone(): boolean {
   return (
@@ -205,4 +209,21 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     modifier: defaultModifier,
     avoid: preventEquipList(),
   };
+}
+
+const codpieceSlots = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`;
+const codpieceGems = Item.all()
+    .filter(x => stringModifier("EternityCodpiece:" + x, "Modifiers").length > 0)
+
+export function prepareCodpiece(mod: string): void {
+  const desiredGems = codpieceGems.map(x => [x, numericModifier("EternityCodpiece:" + x, mod)] as const)
+    .filter(x => x[1] > 0)
+    .sort((a,b) => b[1] - a[1]);
+
+  for (const slot of codpieceSlots) {
+    const currentGem = equippedItem(slot);
+    const modifierToBeat = !!currentGem ? numericModifier("EternityCodpiece:" + currentGem, mod) : 0;
+    const gemToUse = desiredGems.find(gem => have(gem[0]) && gem[1] > modifierToBeat);
+    equip(slot, gemToUse ? gemToUse[0] : $item.none);
+  }
 }

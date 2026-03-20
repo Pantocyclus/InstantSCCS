@@ -63,7 +63,7 @@ import {
   tryAcquiringEffects,
   tryAcquiringOdeToBooze,
 } from "../lib";
-import { sugarItemsAboutToBreak } from "../outfit";
+import { prepareCodpiece, sugarItemsAboutToBreak } from "../outfit";
 
 let triedDeepDark = false;
 const spellTestMaximizerString = "spell dmg, switch disembodied hand, -switch left-hand man";
@@ -126,6 +126,14 @@ export const SpellDamageQuest: Quest = {
         visitUrl("inventory.php?action=pocket");
         visitUrl("choice.php?whichchoice=1420&option=1&pocket=177");
       },
+      limit: { tries: 1 },
+    },
+    { 
+      name: "Set Codpiece to Spell Damage",
+      completed: () =>
+        get("_instant_codpieceGems", false) ||
+        !have($item`The Eternity Codpiece`),
+      do: () => prepareCodpiece("Spell Damage Percent"),
       limit: { tries: 1 },
     },
     {
