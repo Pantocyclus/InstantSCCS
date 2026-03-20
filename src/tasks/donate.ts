@@ -1,5 +1,6 @@
 import {
   cliExecute,
+  equip,
   fullnessLimit,
   inebrietyLimit,
   myAscensions,
@@ -14,6 +15,7 @@ import {
   $effect,
   $effects,
   $item,
+  $slots,
   Clan,
   CommunityService,
   get,
@@ -163,6 +165,22 @@ export const DonateQuest: Quest = {
       name: "Test",
       completed: () => get("kingLiberated"),
       do: () => CommunityService.donate(),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Reset Eternity Codpiece decoration",
+      completed: () => 
+        get("_instant_codpieceGems", false) ||
+        !have($item`The Eternity Codpiece`),
+      do: () => (): void => {
+        const codpieceSlots = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`;
+        const gemSnapshots = get("_instant_codpieceGems").split(",");
+        for (const [index, gemSnapshot] of gemSnapshots.entries()) {
+          if (gemSnapshot && gemSnapshot !== "none") {
+            equip(codpieceSlots[index], $item`${gemSnapshot}`);
+          }
+        }
+      },
       limit: { tries: 1 },
     },
     {
