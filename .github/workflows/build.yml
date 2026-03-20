@@ -24,15 +24,19 @@ jobs:
     steps:
       # Checkout source code
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Setup Nodejs
       - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.node-version }}
           cache: yarn
-      - run: yarn install --immutable --immutable-cache
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - run: yarn install --immutable
       - run: yarn run lint
 
   build-push:
@@ -43,24 +47,21 @@ jobs:
     steps:
       # Checkout source code
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Setup Nodejs
       - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.node-version }}
-          cache: "npm"
+          cache: yarn
 
-      # Setup Yarn
-      - name: Install yarn
-        run: npm install -g yarn
+      - name: Enable Corepack
+        run: corepack enable
 
-      # Install dependencies
       - name: Install build dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
-      # Build script
       - run: |
           yarn build
           mkdir BUILD
