@@ -261,6 +261,7 @@ export const RunStartQuest: Quest = {
       name: "Snapshot Eternity Codpiece decoration",
       completed: () => 
         !get("_instant_codpieceGems", false) ||
+        // eslint-disable-next-line libram/verify-constants
         !have($item`The Eternity Codpiece`),
       do: () => (): void => {
         const currentGems = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`

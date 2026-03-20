@@ -132,6 +132,7 @@ export const SpellDamageQuest: Quest = {
       name: "Set Codpiece to Spell Damage",
       completed: () =>
         get("_instant_codpieceGems", false) ||
+        // eslint-disable-next-line libram/verify-constants
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpiece("Spell Damage Percent"),
       limit: { tries: 1 },
