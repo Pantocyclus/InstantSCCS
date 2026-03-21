@@ -219,7 +219,7 @@ const codpieceGems = Item.all().filter(
 
 function getGemModifier(gem: Item, primaryModifier: string, secondaryModifier?: string): number {
   const baseModifier = numericModifier(`EternityCodpiece:${gem}`, primaryModifier);
-  if (baseModifier == 0 && secondaryModifier) {
+  if (baseModifier === 0 && secondaryModifier) {
     return numericModifier(`EternityCodpiece:${gem}`, secondaryModifier);
   }
   return baseModifier;
@@ -233,9 +233,10 @@ export function prepareCodpiece(primaryModifier: string, secondaryModifier?: str
 
   for (const slot of codpieceSlots) {
     const currentGem = equippedItem(slot);
-    const modifierToBeat = currentGem !== $item.none
-      ? getGemModifier(currentGem, primaryModifier, secondaryModifier)
-      : 0;
+    const modifierToBeat =
+      currentGem !== $item.none
+        ? getGemModifier(currentGem, primaryModifier, secondaryModifier)
+        : 0;
     const gemToUse = desiredGems.find((gem) => itemAmount(gem[0]) > 0 && gem[1] > modifierToBeat);
     equip(slot, gemToUse ? gemToUse[0] : $item.none);
   }
