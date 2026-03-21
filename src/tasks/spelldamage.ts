@@ -63,7 +63,7 @@ import {
   tryAcquiringEffects,
   tryAcquiringOdeToBooze,
 } from "../lib";
-import { prepareCodpiece, sugarItemsAboutToBreak } from "../outfit";
+import { prepareCodpieceForPercentTest, sugarItemsAboutToBreak } from "../outfit";
 
 let triedDeepDark = false;
 const spellTestMaximizerString = "spell dmg, switch disembodied hand, -switch left-hand man";
@@ -131,10 +131,10 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Set Codpiece to Spell Damage",
       completed: () =>
-        get("_instant_codpieceTunedTo") === "Spell Damage Percent" ||
+        get("_instant_codpieceTunedTo") === "Spell Damage" ||
         // eslint-disable-next-line libram/verify-constants
         !have($item`The Eternity Codpiece`),
-      do: () => prepareCodpiece("Spell Damage Percent"),
+      do: () => prepareCodpieceForPercentTest("Spell Damage"),
       limit: { tries: 1 },
     },
     {

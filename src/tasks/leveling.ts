@@ -152,6 +152,7 @@ import {
   garbageShirt,
   legendarySealClubbingClub,
   mobiusRing,
+  prepareCodpiece,
   reduceItemUndefinedArray,
   romanCandelabra,
 } from "../outfit";
@@ -707,6 +708,15 @@ export const LevelingQuest: Quest = {
           getWorkshed() !== $item`model train set` || acquiredOrExcluded($effect`Hot Soupy Garbage`)
         ),
       do: () => alliedRadio("Wildsun Boon"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Set Codpiece to Cold Resistance",
+      completed: () =>
+        get("_instant_codpieceTunedTo") === "Cold Resistance" ||
+        // eslint-disable-next-line libram/verify-constants
+        !have($item`The Eternity Codpiece`),
+      do: () => prepareCodpiece("Cold Resistance"),
       limit: { tries: 1 },
     },
     {

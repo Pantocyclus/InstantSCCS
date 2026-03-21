@@ -9,7 +9,6 @@ import {
   myClass,
   myPrimestat,
   numericModifier,
-  Slot,
   stringModifier,
   toInt,
   totalTurnsPlayed,
@@ -218,20 +217,32 @@ const codpieceGems = Item.all().filter(
   (gem) => stringModifier(`EternityCodpiece:${gem}`, "Modifiers").length > 0,
 );
 
-export function prepareCodpiece(modifer: string): void {
+function getGemModifier(gem: Item, primaryModifier: string, secondaryModifier?: string): number {
+  const baseModifier = numericModifier(`EternityCodpiece:${gem}`, primaryModifier);
+  if (baseModifier == 0 && secondaryModifier) {
+    return numericModifier(`EternityCodpiece:${gem}`, secondaryModifier);
+  }
+  return baseModifier;
+}
+
+export function prepareCodpiece(primaryModifier: string, secondaryModifier?: string): void {
   const desiredGems = codpieceGems
-    .map((gem) => [gem, numericModifier(`EternityCodpiece:${gem}`, modifer)] as const)
+    .map((gem) => [gem, getGemModifier(gem, primaryModifier, secondaryModifier)] as const)
     .filter((gemWithModifer) => gemWithModifer[1] > 0)
     .sort((a, b) => b[1] - a[1]);
 
   for (const slot of codpieceSlots) {
     const currentGem = equippedItem(slot);
     const modifierToBeat = currentGem !== $item.none
-      ? numericModifier(`EternityCodpiece:${currentGem}`, modifer)
+      ? getGemModifier(currentGem, primaryModifier, secondaryModifier)
       : 0;
     const gemToUse = desiredGems.find((gem) => itemAmount(gem[0]) > 0 && gem[1] > modifierToBeat);
     equip(slot, gemToUse ? gemToUse[0] : $item.none);
   }
 
-  set("_instant_codpieceTunedTo", modifer);
+  set("_instant_codpieceTunedTo", primaryModifier);
+}
+
+export function prepareCodpieceForPercentTest(modifier: string): void {
+  prepareCodpiece(modifier, `${modifier} Percent`);
 }
