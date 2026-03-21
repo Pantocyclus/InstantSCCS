@@ -186,7 +186,7 @@ export const DonateQuest: Quest = {
         }
         set("_instant_codpieceReset", true);
       },
-      limit: { tries: 2 },
+      limit: { tries: 1 },
     },
     {
       name: "Empty Hagnks",
