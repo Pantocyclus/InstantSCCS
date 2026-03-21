@@ -34,18 +34,12 @@ const baseSettings = {
       extensions: [".js", ".ts"],
     }),
 
-    commonjs({
-      exclude: [
-        "node_modules/eslint-plugin-libram/**",
-        "node_modules/typescript-eslint/**",
-        "**/eslint.config.ts",
-      ],
-    }),
+    commonjs(),
 
     babel({
       babelHelpers: "bundled",
       extensions: [".js", ".ts"],
-      exclude: "node_modules/**",
+      exclude: ["node_modules/mafia-shared-relay/**"],
       babelrc: false,
       presets: [
         [
@@ -57,6 +51,10 @@ const baseSettings = {
           },
         ],
         "@babel/preset-typescript",
+      ],
+      plugins: [
+        "@babel/plugin-transform-property-literals",
+        "@babel/plugin-transform-member-expression-literals",
       ],
     }),
   ],
