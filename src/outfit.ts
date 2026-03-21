@@ -5,6 +5,7 @@ import {
   equip,
   equippedItem,
   Item,
+  itemAmount,
   myClass,
   myPrimestat,
   numericModifier,
@@ -26,6 +27,7 @@ import {
   examine,
   get,
   have,
+  set,
   unequip,
 } from "libram";
 import { current } from "libram/dist/resources/2017/Horsery";
@@ -218,16 +220,18 @@ const codpieceGems = Item.all().filter(
 
 export function prepareCodpiece(modifer: string): void {
   const desiredGems = codpieceGems
-    .map((x) => [x, numericModifier(`EternityCodpiece:${x}`, modifer)] as const)
-    .filter((gem) => gem[1] > 0)
+    .map((gem) => [gem, numericModifier(`EternityCodpiece:${gem}`, modifer)] as const)
+    .filter((gemWithModifer) => gemWithModifer[1] > 0)
     .sort((a, b) => b[1] - a[1]);
 
   for (const slot of codpieceSlots) {
     const currentGem = equippedItem(slot);
-    const modifierToBeat = currentGem
+    const modifierToBeat = currentGem !== $item.none
       ? numericModifier(`EternityCodpiece:${currentGem}`, modifer)
       : 0;
-    const gemToUse = desiredGems.find((gem) => have(gem[0]) && gem[1] > modifierToBeat);
+    const gemToUse = desiredGems.find((gem) => itemAmount(gem[0]) > 0 && gem[1] > modifierToBeat);
     equip(slot, gemToUse ? gemToUse[0] : $item.none);
   }
+
+  set("_instant_codpieceTunedTo", modifer);
 }

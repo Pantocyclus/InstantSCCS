@@ -20,6 +20,7 @@ import {
   CommunityService,
   get,
   have,
+  set,
   sumNumbers,
   uneffect,
 } from "libram";
@@ -170,19 +171,22 @@ export const DonateQuest: Quest = {
     {
       name: "Reset Eternity Codpiece decoration",
       completed: () =>
-        get("_instant_codpieceGems", false) ||
+        !get("_instant_codpieceReset", false) ||
+        get("_instant_codpieceGems", "") == "" ||
         // eslint-disable-next-line libram/verify-constants
         !have($item`The Eternity Codpiece`),
-      do: () => (): void => {
+      do: (): void => {
         const codpieceSlots = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`;
         const gemSnapshots = get("_instant_codpieceGems").split(",");
         for (const [index, gemSnapshot] of gemSnapshots.entries()) {
           if (gemSnapshot && gemSnapshot !== "none") {
+            print(`Re-equipping ${gemSnapshot} to codpiece slot ${index + 1}`);
             equip(codpieceSlots[index], $item`${gemSnapshot}`);
           }
         }
+        set("_instant_codpieceReset", true);
       },
-      limit: { tries: 1 },
+      limit: { tries: 2 },
     },
     {
       name: "Empty Hagnks",

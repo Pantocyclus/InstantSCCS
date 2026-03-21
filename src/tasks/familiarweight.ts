@@ -79,7 +79,7 @@ export const FamiliarWeightQuest: Quest = {
     {
       name: "Set Codpiece to Familiar Weight",
       completed: () =>
-        get("_instant_codpieceGems", false) ||
+        get("_instant_codpieceTunedTo") === "Familiar Weight" ||
         // eslint-disable-next-line libram/verify-constants
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpiece("Familiar Weight"),
