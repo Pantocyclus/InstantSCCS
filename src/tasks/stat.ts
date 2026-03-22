@@ -27,6 +27,7 @@ import {
   tryAcquiringEffects,
   useCenser,
 } from "../lib";
+import { prepareCodpieceForPercentTest } from "../outfit";
 
 const hpTestMaximizerString = "HP, switch disembodied hand, -switch left-hand man";
 const musTestMaximizerString = "Muscle, switch disembodied hand, -switch left-hand man";
@@ -58,6 +59,14 @@ export const HPQuest: Quest = {
           MayamCalendar.toCombinationString(["eye", "bottle", sym3, "explosion"]),
         );
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Set Codpiece to HP",
+      completed: () =>
+        get("_instant_codpieceTunedTo").includes("Maximum HP") ||
+        !have($item`The Eternity Codpiece`),
+      do: () => prepareCodpieceForPercentTest("Maximum HP"),
       limit: { tries: 1 },
     },
     {
@@ -97,6 +106,13 @@ export const HPQuest: Quest = {
 export const MuscleQuest: Quest = {
   name: "Muscle",
   tasks: [
+    {
+      name: "Set Codpiece to Muscle",
+      completed: () =>
+        get("_instant_codpieceTunedTo").includes("Muscle") || !have($item`The Eternity Codpiece`),
+      do: () => prepareCodpieceForPercentTest("Muscle"),
+      limit: { tries: 1 },
+    },
     {
       name: "Test",
       completed: () => CommunityService.Muscle.isDone(),
@@ -145,6 +161,14 @@ export const MysticalityQuest: Quest = {
   name: "Mysticality",
   tasks: [
     {
+      name: "Set Codpiece to Mysticality",
+      completed: () =>
+        get("_instant_codpieceTunedTo").includes("Mysticality") ||
+        !have($item`The Eternity Codpiece`),
+      do: () => prepareCodpieceForPercentTest("Mysticality"),
+      limit: { tries: 1 },
+    },
+    {
       name: "Test",
       completed: () => CommunityService.Mysticality.isDone(),
       prepare: (): void => {
@@ -190,6 +214,13 @@ export const MysticalityQuest: Quest = {
 export const MoxieQuest: Quest = {
   name: "Moxie",
   tasks: [
+    {
+      name: "Set Codpiece to Moxie",
+      completed: () =>
+        get("_instant_codpieceTunedTo").includes("Moxie") || !have($item`The Eternity Codpiece`),
+      do: () => prepareCodpieceForPercentTest("Moxie"),
+      limit: { tries: 1 },
+    },
     {
       // This is also useful for the BoozeDrop test, but we can grab the +10%mox here first
       name: "High Heels",

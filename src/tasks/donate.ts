@@ -1,5 +1,6 @@
 import {
   cliExecute,
+  equip,
   fullnessLimit,
   inebrietyLimit,
   myAscensions,
@@ -14,10 +15,12 @@ import {
   $effect,
   $effects,
   $item,
+  $slots,
   Clan,
   CommunityService,
   get,
   have,
+  set,
   sumNumbers,
   uneffect,
 } from "libram";
@@ -32,6 +35,7 @@ import {
 } from "../engine/engine";
 import { Quest } from "../engine/task";
 import { testModifiers, updateRunStats } from "../lib";
+import { codpieceSlots } from "../outfit";
 
 function printResourceUsage(tResource: trackedResource): void {
   const resource = tResource.resource;
@@ -163,6 +167,27 @@ export const DonateQuest: Quest = {
       name: "Test",
       completed: () => get("kingLiberated"),
       do: () => CommunityService.donate(),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Reset Eternity Codpiece decoration",
+      completed: () =>
+        get("_instant_codpieceReset", false) ||
+        get("_instant_codpieceGems", "") === "" ||
+        !have($item`The Eternity Codpiece`),
+      do: (): void => {
+        const gemSnapshots = get("_instant_codpieceGems").split(",");
+        for (const [index, gemSnapshot] of gemSnapshots.entries()) {
+          if (gemSnapshot && gemSnapshot !== "") {
+            print(`Re-equipping ${gemSnapshot} to codpiece slot ${index + 1}`);
+            equip(codpieceSlots[index], $item`${gemSnapshot}`);
+          } else {
+            print(`Unequipping codpiece slot ${index + 1}`);
+            equip(codpieceSlots[index], $item.none);
+          }
+        }
+        set("_instant_codpieceReset", true);
+      },
       limit: { tries: 1 },
     },
     {

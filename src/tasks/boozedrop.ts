@@ -73,7 +73,7 @@ import {
   tryAcquiringOdeToBooze,
   wishFor,
 } from "../lib";
-import { haveHeartstone, sugarItemsAboutToBreak } from "../outfit";
+import { haveHeartstone, prepareCodpiece, sugarItemsAboutToBreak } from "../outfit";
 
 const boozeTestMaximizerString =
   "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man";
@@ -129,6 +129,14 @@ export const BoozeDropQuest: Quest = {
         }
         setConfiguration(newStations as Cycle);
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Set Codpiece to Booze Drop",
+      completed: () =>
+        get("_instant_codpieceTunedTo").includes("Booze Drop") ||
+        !have($item`The Eternity Codpiece`),
+      do: () => prepareCodpiece("Booze Drop", "Item Drop"),
       limit: { tries: 1 },
     },
     {
