@@ -64,7 +64,8 @@ export const HPQuest: Quest = {
     {
       name: "Set Codpiece to HP",
       completed: () =>
-        get("_instant_codpieceTunedTo") === "Maximum HP" || !have($item`The Eternity Codpiece`),
+        get("_instant_codpieceTunedTo") === "Maximum HP" || 
+        !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Maximum HP"),
       limit: { tries: 1 },
     },
@@ -108,7 +109,8 @@ export const MuscleQuest: Quest = {
     {
       name: "Set Codpiece to Muscle",
       completed: () =>
-        get("_instant_codpieceTunedTo") === "Muscle" || !have($item`The Eternity Codpiece`),
+        get("_instant_codpieceTunedTo") === "Muscle" || 
+        !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Muscle"),
       limit: { tries: 1 },
     },
@@ -162,7 +164,8 @@ export const MysticalityQuest: Quest = {
     {
       name: "Set Codpiece to Mysticality",
       completed: () =>
-        get("_instant_codpieceTunedTo") === "Mysticality" || !have($item`The Eternity Codpiece`),
+        get("_instant_codpieceTunedTo") === "Mysticality" || 
+        !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Mysticality"),
       limit: { tries: 1 },
     },
@@ -215,7 +218,8 @@ export const MoxieQuest: Quest = {
     {
       name: "Set Codpiece to Moxie",
       completed: () =>
-        get("_instant_codpieceTunedTo") === "Moxie" || !have($item`The Eternity Codpiece`),
+        get("_instant_codpieceTunedTo") === "Moxie" || 
+        !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Moxie"),
       limit: { tries: 1 },
     },
