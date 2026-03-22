@@ -79,7 +79,7 @@ export const FamiliarWeightQuest: Quest = {
     {
       name: "Set Codpiece to Familiar Weight",
       completed: () =>
-        get("_instant_codpieceTunedTo") === "Familiar Weight" ||
+        get("_instant_codpieceTunedTo").includes("Familiar Weight") ||
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpiece("Familiar Weight"),
       limit: { tries: 1 },

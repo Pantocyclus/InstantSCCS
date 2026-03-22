@@ -240,7 +240,7 @@ export function prepareCodpiece(primaryModifier: string, secondaryModifier?: str
     }
   }
 
-  set("_instant_codpieceTunedTo", primaryModifier);
+  set("_instant_codpieceTunedTo", `${primaryModifier}${secondaryModifier ? `,${secondaryModifier}` : ""}`);
 }
 
 export function prepareCodpieceForPercentTest(modifier: string): void {

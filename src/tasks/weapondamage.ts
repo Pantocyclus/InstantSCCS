@@ -160,7 +160,7 @@ export const WeaponDamageQuest: Quest = {
     {
       name: "Set Codpiece to Weapon Damage",
       completed: () =>
-        get("_instant_codpieceTunedTo") === "Weapon Damage" || !have($item`The Eternity Codpiece`),
+        get("_instant_codpieceTunedTo").includes("Weapon Damage") || !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Weapon Damage"),
       limit: { tries: 1 },
     },
