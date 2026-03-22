@@ -35,6 +35,7 @@ import {
 } from "../engine/engine";
 import { Quest } from "../engine/task";
 import { testModifiers, updateRunStats } from "../lib";
+import { codpieceSlots } from "../outfit";
 
 function printResourceUsage(tResource: trackedResource): void {
   const resource = tResource.resource;
@@ -175,12 +176,14 @@ export const DonateQuest: Quest = {
         get("_instant_codpieceGems", "") === "" ||
         !have($item`The Eternity Codpiece`),
       do: (): void => {
-        const codpieceSlots = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`;
         const gemSnapshots = get("_instant_codpieceGems").split(",");
         for (const [index, gemSnapshot] of gemSnapshots.entries()) {
-          if (gemSnapshot && gemSnapshot !== "none") {
+          if (gemSnapshot && gemSnapshot !== "") {
             print(`Re-equipping ${gemSnapshot} to codpiece slot ${index + 1}`);
             equip(codpieceSlots[index], $item`${gemSnapshot}`);
+          } else {
+            print(`Unequipping codpiece slot ${index + 1}`);
+            equip(codpieceSlots[index], $item.none);
           }
         }
         set("_instant_codpieceReset", true);

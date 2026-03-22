@@ -113,6 +113,7 @@ import {
 } from "../lib";
 import {
   baseOutfit,
+  codpieceSlots,
   haveHeartstone,
   legendarySealClubbingClub,
   mobiusRing,
@@ -263,10 +264,10 @@ export const RunStartQuest: Quest = {
         get("_instant_codpieceGems", "") !== "" || 
         !have($item`The Eternity Codpiece`),
       do: (): void => {
-        const currentGems = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`.map(
-          (slot) => equippedItem(slot)?.name || $item.none.name,
+        const currentGemNames = codpieceSlots.map(
+          (slot) => equippedItem(slot)?.name ?? "",
         );
-        set("_instant_codpieceGems", currentGems.join(","));
+        set("_instant_codpieceGems", currentGemNames.join(","));
       },
       limit: { tries: 1 },
     },

@@ -9,6 +9,7 @@ import {
   myClass,
   myPrimestat,
   numericModifier,
+  print,
   stringModifier,
   toInt,
   totalTurnsPlayed,
@@ -29,15 +30,16 @@ import {
   set,
   unequip,
 } from "libram";
-import { current } from "libram/dist/resources/2017/Horsery";
 import { chooseFamiliar } from "./familiars";
 import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
+
+export const codpieceSlots = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`;
 
 export function haveHeartstone(): boolean {
   return (
     have($item`Heartstone`) ||
     (have($item`The Eternity Codpiece`) &&
-      $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`.some(
+      codpieceSlots.some(
         (slot) => equippedItem(slot) === $item`Heartstone`,
       ))
   );
@@ -206,7 +208,6 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
   };
 }
 
-const codpieceSlots = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`;
 const codpieceGems = Item.all().filter(
   (gem) => stringModifier(`EternityCodpiece:${gem}`, "Modifiers").length > 0,
 );
@@ -231,13 +232,17 @@ export function prepareCodpiece(primaryModifier: string, secondaryModifier?: str
       currentGem !== $item.none
         ? getGemModifier(currentGem, primaryModifier, secondaryModifier)
         : 0;
-    const gemToUse = desiredGems.find((gem) => itemAmount(gem[0]) > 0 && gem[1] > modifierToBeat);
-    equip(slot, gemToUse ? gemToUse[0] : $item.none);
+    const gemToUse = desiredGems.find((gem) => itemAmount(gem[0]) > 0 && gem[1] > modifierToBeat)?.[0];
+
+    if (gemToUse) {
+      print(`Equipping ${gemToUse.name} in codpiece slot ${slot}.`);
+      equip(slot, gemToUse);
+    }
   }
 
   set("_instant_codpieceTunedTo", primaryModifier);
 }
 
 export function prepareCodpieceForPercentTest(modifier: string): void {
-  prepareCodpiece(modifier, `${modifier} Percent`);
+  prepareCodpiece(`${modifier} Percent`, modifier);
 }
