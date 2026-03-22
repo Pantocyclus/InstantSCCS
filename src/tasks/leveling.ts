@@ -236,7 +236,7 @@ const usefulEffects: Effect[] = [
   // $effect`Think Win-Lose`,
   // $effect`Confidence of the Votive`,
   $effect`Song of Bravado`,
-  // eslint-disable-next-line libram/verify-constants
+
   $effect`Ultraheart`,
   ...statEffects,
 
@@ -257,7 +257,7 @@ const usefulEffects: Effect[] = [
   $effect`Empathy`,
   $effect`Leash of Linguini`,
   $effect`Thoughtful Empathy`,
-  // eslint-disable-next-line libram/verify-constants
+
   $effect`Only Dogs Love a Drunken Sailor`,
 
   // Combat Initiative
@@ -989,7 +989,6 @@ export const LevelingQuest: Quest = {
         attemptRestoringMpWithFreeRests(50);
       },
       completed: () =>
-        // eslint-disable-next-line libram/verify-constants
         !have($item`legendary seal-clubbing club`) ||
         get("clubEmNextWeekMonster", "") === "" ||
         totalTurnsPlayed() < get("clubEmNextWeekMonsterTurn", 0) + 8,
@@ -1016,7 +1015,7 @@ export const LevelingQuest: Quest = {
         )
           .externalIf(
             get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
-            // eslint-disable-next-line libram/verify-constants
+
             Macro.trySkill($skill`Club 'Em Into Next Week`).abort(),
           )
           .if_(`monstername ${get("clubEmNextWeekMonster")}`, Macro.default(useCinch))
@@ -1025,7 +1024,7 @@ export const LevelingQuest: Quest = {
       outfit: () => ({
         ...baseOutfit(),
         shirt: garbageShirt(),
-        // eslint-disable-next-line libram/verify-constants
+
         weapon: $item`legendary seal-clubbing club`,
         offhand: $item`unbreakable umbrella`,
         modifier: `0.25 ${mainStatMaximizerStr}, 0.33 ML`,
@@ -1409,7 +1408,6 @@ export const LevelingQuest: Quest = {
     {
       name: "Mimic Sausage Goblins",
       ready: () =>
-        // eslint-disable-next-line libram/verify-constants
         (have($item`legendary seal-clubbing club`) && !have($item`Kramco Sausage-o-Matic™`)) ||
         completedPowerleveling(),
       prepare: (): void => {
@@ -1451,7 +1449,7 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Blow the Purple Candle!`)
           .externalIf(
             get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
-            // eslint-disable-next-line libram/verify-constants
+
             Macro.trySkill($skill`Club 'Em Into Next Week`),
           )
           .default(useCinch),
@@ -1576,7 +1574,7 @@ export const LevelingQuest: Quest = {
           $effect`Fat Leon's Phat Loot Lyric`,
           $effect`Singer's Faithful Ocelot`,
           $effect`The Spirit of Taking`,
-          // eslint-disable-next-line libram/verify-constants
+
           $effect`Who's Going to Pay This Drunken Sailor?`,
         ];
         if (myClass() !== $class`Pastamancer`) itemDropEffects.push($effect`Spice Haze`);
@@ -1775,7 +1773,7 @@ export const LevelingQuest: Quest = {
         )
           .externalIf(
             get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
-            // eslint-disable-next-line libram/verify-constants
+
             Macro.trySkill($skill`Club 'Em Into Next Week`),
           )
           .default(useCinch),
@@ -1958,7 +1956,7 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Blow the Purple Candle!`)
           .externalIf(
             get("_clubEmNextWeekUsed", 0) < 5 - get("instant_saveClubEmNextWeek", 0),
-            // eslint-disable-next-line libram/verify-constants
+
             Macro.trySkill($skill`Club 'Em Into Next Week`),
           )
           .default(useCinch),
@@ -2324,7 +2322,6 @@ export const LevelingQuest: Quest = {
       completed: () =>
         myBasestat(mainStat) >= targetBaseMainStat &&
         (get("_clubEmTimeUsed", 0) >= 5 - get("instant_saveClubEmTime", 0) ||
-          // eslint-disable-next-line libram/verify-constants
           !have($item`legendary seal-clubbing club`) ||
           !havePowerlevelingZoneBound()) &&
         (get("_shatteringPunchUsed") >= 3 || !have($skill`Shattering Punch`)) &&
@@ -2339,7 +2336,7 @@ export const LevelingQuest: Quest = {
           .trySkill($skill`Gulp Latte`)
           .trySkill($skill`Recall Facts: %phylum Circadian Rhythms`)
           .trySkill($skill`Chest X-Ray`)
-          // eslint-disable-next-line libram/verify-constants
+
           .trySkill($skill`Club 'Em Back in Time`)
           .trySkill($skill`Shattering Punch`)
           .trySkill($skill`Gingerbread Mob Hit`)

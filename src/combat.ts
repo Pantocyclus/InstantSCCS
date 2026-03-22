@@ -11,7 +11,7 @@ export default class Macro extends StrictMacro {
       .trySkill($skill`Sing Along`)
       .trySkill($skill`Surprisingly Sweet Stab`)
       .trySkill($skill`Surprisingly Sweet Slash`)
-      // eslint-disable-next-line libram/verify-constants
+
       .trySkill($skill`Heartstone: %kill`)
       .if_(
         `!mpbelow ${mpCost($skill`Stuffed Mortar Shell`)}`,

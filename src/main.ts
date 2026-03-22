@@ -12,6 +12,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import { get, set, setCombatFlags, sinceKolmafiaRevision } from "libram";
+import { KOLMAFIA_VERSION } from "../version";
 import { Engine } from "./engine/engine";
 import { Quest, Task } from "./engine/task";
 import {
@@ -53,7 +54,7 @@ export const args = Args.create("InstantSCCS", "An automated low-shiny SCCS scri
 });
 
 export function main(command?: string): void {
-  sinceKolmafiaRevision(28948);
+  sinceKolmafiaRevision(KOLMAFIA_VERSION);
   checkGithubVersion();
 
   Args.fill(args, command);

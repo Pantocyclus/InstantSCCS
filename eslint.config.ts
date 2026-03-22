@@ -1,18 +1,20 @@
-import js from "@eslint/js";
+import * as eslint from "@eslint/js";
 import prettier from "eslint-config-prettier";
-import libram from "eslint-plugin-libram";
-import { defineConfig } from "eslint/config";
+import libram, { verifyConstantsSinceRevision } from "eslint-plugin-libram";
 import tseslint from "typescript-eslint";
+import { KOLMAFIA_VERSION } from "./version";
 
-export default defineConfig(
+await verifyConstantsSinceRevision(KOLMAFIA_VERSION);
+
+export default tseslint.config(
   {
-    ignores: ["dist"],
+    ignores: ["dist/**"],
   },
-  js.configs.recommended,
+  eslint.configs.recommended,
   ...tseslint.configs.recommended,
   ...libram.configs.recommended,
   {
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ["src/**/*.ts", "src/**/*.tsx", "**/*.ts", "**/*.tsx"],
     rules: {
       "block-scoped-var": "error",
       "eol-last": "error",

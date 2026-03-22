@@ -39,6 +39,7 @@ const baseSettings = {
     babel({
       babelHelpers: "bundled",
       extensions: [".js", ".ts"],
+      exclude: ["node_modules/mafia-shared-relay/**"],
       babelrc: false,
       presets: [
         [
@@ -50,6 +51,10 @@ const baseSettings = {
           },
         ],
         "@babel/preset-typescript",
+      ],
+      plugins: [
+        "@babel/plugin-transform-property-literals",
+        "@babel/plugin-transform-member-expression-literals",
       ],
     }),
   ],
