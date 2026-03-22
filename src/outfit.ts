@@ -230,9 +230,7 @@ export function prepareCodpiece(primaryModifier: string, secondaryModifier?: str
       currentGem !== $item.none
         ? getGemModifier(currentGem, primaryModifier, secondaryModifier)
         : 0;
-    const gemToUse = desiredGems.find(
-      (gem) => have(gem[0]) && gem[1] > modifierToBeat,
-    )?.[0];
+    const gemToUse = desiredGems.find((gem) => have(gem[0]) && gem[1] > modifierToBeat)?.[0];
 
     if (gemToUse) {
       print(`Equipping ${gemToUse.name} in codpiece slot ${slot}.`);
@@ -241,7 +239,10 @@ export function prepareCodpiece(primaryModifier: string, secondaryModifier?: str
   }
 
   const currentTuning = get("_instant_codpieceTunedTo", "");
-  set("_instant_codpieceTunedTo", `${currentTuning}${primaryModifier},${secondaryModifier ? `${secondaryModifier},` : ""}`);
+  set(
+    "_instant_codpieceTunedTo",
+    `${currentTuning}${primaryModifier},${secondaryModifier ? `${secondaryModifier},` : ""}`,
+  );
 }
 
 export function prepareCodpieceForPercentTest(modifier: string): void {

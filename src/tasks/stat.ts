@@ -64,7 +64,8 @@ export const HPQuest: Quest = {
     {
       name: "Set Codpiece to HP",
       completed: () =>
-        get("_instant_codpieceTunedTo").includes("Maximum HP") || !have($item`The Eternity Codpiece`),
+        get("_instant_codpieceTunedTo").includes("Maximum HP") ||
+        !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Maximum HP"),
       limit: { tries: 1 },
     },
@@ -162,7 +163,8 @@ export const MysticalityQuest: Quest = {
     {
       name: "Set Codpiece to Mysticality",
       completed: () =>
-        get("_instant_codpieceTunedTo").includes("Mysticality") || !have($item`The Eternity Codpiece`),
+        get("_instant_codpieceTunedTo").includes("Mysticality") ||
+        !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Mysticality"),
       limit: { tries: 1 },
     },
