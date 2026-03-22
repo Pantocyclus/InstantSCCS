@@ -131,9 +131,7 @@ export const SpellDamageQuest: Quest = {
     {
       name: "Set Codpiece to Spell Damage",
       completed: () =>
-        get("_instant_codpieceTunedTo") === "Spell Damage" ||
-        // eslint-disable-next-line libram/verify-constants
-        !have($item`The Eternity Codpiece`),
+        get("_instant_codpieceTunedTo") === "Spell Damage" || !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Spell Damage"),
       limit: { tries: 1 },
     },

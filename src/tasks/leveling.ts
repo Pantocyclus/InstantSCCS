@@ -714,7 +714,6 @@ export const LevelingQuest: Quest = {
       name: "Set Codpiece to Cold Resistance",
       completed: () =>
         get("_instant_codpieceTunedTo") === "Cold Resistance" ||
-        // eslint-disable-next-line libram/verify-constants
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpiece("Cold Resistance"),
       limit: { tries: 1 },

@@ -173,7 +173,6 @@ export const DonateQuest: Quest = {
       completed: () =>
         !get("_instant_codpieceReset", false) ||
         get("_instant_codpieceGems", "") === "" ||
-        // eslint-disable-next-line libram/verify-constants
         !have($item`The Eternity Codpiece`),
       do: (): void => {
         const codpieceSlots = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`;

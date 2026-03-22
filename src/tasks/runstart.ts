@@ -260,9 +260,7 @@ export const RunStartQuest: Quest = {
     {
       name: "Snapshot Eternity Codpiece decoration",
       completed: () =>
-        get("_instant_codpieceGems", "") !== "" ||
-        // eslint-disable-next-line libram/verify-constants
-        !have($item`The Eternity Codpiece`),
+        get("_instant_codpieceGems", "") !== "" || !have($item`The Eternity Codpiece`),
       do: (): void => {
         const currentGems = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`.map(
           (slot) => equippedItem(slot)?.name || $item.none.name,
