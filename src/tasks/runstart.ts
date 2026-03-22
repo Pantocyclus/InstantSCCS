@@ -261,12 +261,9 @@ export const RunStartQuest: Quest = {
     {
       name: "Snapshot Eternity Codpiece decoration",
       completed: () =>
-        get("_instant_codpieceGems", "") !== "" || 
-        !have($item`The Eternity Codpiece`),
+        get("_instant_codpieceGems", "") !== "" || !have($item`The Eternity Codpiece`),
       do: (): void => {
-        const currentGemNames = codpieceSlots.map(
-          (slot) => equippedItem(slot)?.name ?? "",
-        );
+        const currentGemNames = codpieceSlots.map((slot) => equippedItem(slot)?.name ?? "");
         set("_instant_codpieceGems", currentGemNames.join(","));
       },
       limit: { tries: 1 },

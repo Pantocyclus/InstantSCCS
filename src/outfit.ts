@@ -39,9 +39,7 @@ export function haveHeartstone(): boolean {
   return (
     have($item`Heartstone`) ||
     (have($item`The Eternity Codpiece`) &&
-      codpieceSlots.some(
-        (slot) => equippedItem(slot) === $item`Heartstone`,
-      ))
+      codpieceSlots.some((slot) => equippedItem(slot) === $item`Heartstone`))
   );
 }
 
@@ -232,7 +230,9 @@ export function prepareCodpiece(primaryModifier: string, secondaryModifier?: str
       currentGem !== $item.none
         ? getGemModifier(currentGem, primaryModifier, secondaryModifier)
         : 0;
-    const gemToUse = desiredGems.find((gem) => itemAmount(gem[0]) > 0 && gem[1] > modifierToBeat)?.[0];
+    const gemToUse = desiredGems.find(
+      (gem) => itemAmount(gem[0]) > 0 && gem[1] > modifierToBeat,
+    )?.[0];
 
     if (gemToUse) {
       print(`Equipping ${gemToUse.name} in codpiece slot ${slot}.`);
