@@ -172,7 +172,7 @@ export const DonateQuest: Quest = {
     {
       name: "Reset Eternity Codpiece decoration",
       completed: () =>
-        !get("_instant_codpieceReset", false) ||
+        get("_instant_codpieceReset", false) ||
         get("_instant_codpieceGems", "") === "" ||
         !have($item`The Eternity Codpiece`),
       do: (): void => {

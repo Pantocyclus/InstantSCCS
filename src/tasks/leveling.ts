@@ -713,7 +713,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Set Codpiece to Cold Resistance",
       completed: () =>
-        get("_instant_codpieceTunedTo") === "Cold Resistance" ||
+        get("_instant_codpieceTunedTo").includes("Cold Resistance") ||
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpiece("Cold Resistance"),
       limit: { tries: 1 },
