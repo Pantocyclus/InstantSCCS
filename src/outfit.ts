@@ -210,17 +210,15 @@ const codpieceGems = Item.all().filter(
   (gem) => stringModifier(`EternityCodpiece:${gem}`, "Modifiers").length > 0,
 );
 
-function getGemModifier(gem: Item, primaryModifier: string, secondaryModifier?: string): number {
-  const baseModifier = numericModifier(`EternityCodpiece:${gem}`, primaryModifier);
-  if (baseModifier === 0 && secondaryModifier) {
-    return numericModifier(`EternityCodpiece:${gem}`, secondaryModifier);
-  }
-  return baseModifier;
+function getGemValue(gem: Item, primaryModifier: string, secondaryModifier?: string, weighting?: number): number {
+  const weightedPrimaryValue = numericModifier(`EternityCodpiece:${gem}`, primaryModifier) * (weighting ?? 1);
+  const secondaryValue = secondaryModifier ? numericModifier(`EternityCodpiece:${gem}`, secondaryModifier) : 0;
+  return weightedPrimaryValue + secondaryValue;
 }
 
-export function prepareCodpiece(primaryModifier: string, secondaryModifier?: string): void {
+export function prepareCodpiece(primaryModifier: string, secondaryModifier?: string, weighting?: number): void {
   const desiredGems = codpieceGems
-    .map((gem) => [gem, getGemModifier(gem, primaryModifier, secondaryModifier)] as const)
+    .map((gem) => [gem, getGemValue(gem, primaryModifier, secondaryModifier, weighting)] as const)
     .filter((gemWithModifer) => gemWithModifer[1] > 0)
     .sort((a, b) => b[1] - a[1]);
 
@@ -228,7 +226,7 @@ export function prepareCodpiece(primaryModifier: string, secondaryModifier?: str
     const currentGem = equippedItem(slot);
     const modifierToBeat =
       currentGem !== $item.none
-        ? getGemModifier(currentGem, primaryModifier, secondaryModifier)
+        ? getGemValue(currentGem, primaryModifier, secondaryModifier, weighting)
         : 0;
     const gemToUse = desiredGems.find((gem) => have(gem[0]) && gem[1] > modifierToBeat)?.[0];
 
@@ -238,13 +236,9 @@ export function prepareCodpiece(primaryModifier: string, secondaryModifier?: str
     }
   }
 
-  const currentTuning = get("_instant_codpieceTunedTo", "");
-  set(
-    "_instant_codpieceTunedTo",
-    `${currentTuning}${primaryModifier},${secondaryModifier ? `${secondaryModifier},` : ""}`,
-  );
+  set("_instant_codpieceTunedTo", `${primaryModifier}${secondaryModifier ? `,${secondaryModifier}` : ""}`);
 }
 
-export function prepareCodpieceForPercentTest(modifier: string): void {
-  prepareCodpiece(`${modifier} Percent`, modifier);
+export function prepareCodpieceForPercentTest(modifier: string, weighting?: number): void {
+  prepareCodpiece(`${modifier} Percent`, modifier, weighting);
 }
