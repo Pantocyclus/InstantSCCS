@@ -132,6 +132,7 @@ export const SpellDamageQuest: Quest = {
       name: "Set Codpiece to Spell Damage",
       completed: () =>
         get("_instant_codpieceTunedTo").includes("Spell Damage") ||
+        CommunityService.SpellDamage.isDone() ||
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Spell Damage"),
       limit: { tries: 1 },

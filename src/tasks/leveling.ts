@@ -71,6 +71,7 @@ import {
   ChestMimic,
   clamp,
   CombatLoversLocket,
+  CommunityService,
   ensureEffect,
   get,
   getBanishedMonsters,
@@ -714,6 +715,8 @@ export const LevelingQuest: Quest = {
       name: "Set Codpiece to Cold Resistance",
       completed: () =>
         get("_instant_codpieceTunedTo").includes("Cold Resistance") ||
+        !useCenser || 
+        get("availableSeptEmbers") === 0 ||
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpiece("Cold Resistance"),
       limit: { tries: 1 },

@@ -135,6 +135,7 @@ export const BoozeDropQuest: Quest = {
       name: "Set Codpiece to Booze Drop",
       completed: () =>
         get("_instant_codpieceTunedTo").includes("Booze Drop") ||
+        CommunityService.BoozeDrop.isDone() ||
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpiece("Booze Drop", "Item Drop", 2),
       limit: { tries: 1 },

@@ -69,6 +69,7 @@ export const HotResQuest: Quest = {
       name: "Set Codpiece to Hot Resistance",
       completed: () =>
         get("_instant_codpieceTunedTo").includes("Hot Resistance") ||
+        CommunityService.HotRes.isDone() ||
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpiece("Hot Resistance"),
       limit: { tries: 1 },
