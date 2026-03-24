@@ -210,13 +210,25 @@ const codpieceGems = Item.all().filter(
   (gem) => stringModifier(`EternityCodpiece:${gem}`, "Modifiers").length > 0,
 );
 
-function getGemValue(gem: Item, primaryModifier: string, secondaryModifier?: string, weighting?: number): number {
-  const weightedPrimaryValue = numericModifier(`EternityCodpiece:${gem}`, primaryModifier) * (weighting ?? 1);
-  const secondaryValue = secondaryModifier ? numericModifier(`EternityCodpiece:${gem}`, secondaryModifier) : 0;
+function getGemValue(
+  gem: Item,
+  primaryModifier: string,
+  secondaryModifier?: string,
+  weighting?: number,
+): number {
+  const weightedPrimaryValue =
+    numericModifier(`EternityCodpiece:${gem}`, primaryModifier) * (weighting ?? 1);
+  const secondaryValue = secondaryModifier
+    ? numericModifier(`EternityCodpiece:${gem}`, secondaryModifier)
+    : 0;
   return weightedPrimaryValue + secondaryValue;
 }
 
-export function prepareCodpiece(primaryModifier: string, secondaryModifier?: string, weighting?: number): void {
+export function prepareCodpiece(
+  primaryModifier: string,
+  secondaryModifier?: string,
+  weighting?: number,
+): void {
   const desiredGems = codpieceGems
     .map((gem) => [gem, getGemValue(gem, primaryModifier, secondaryModifier, weighting)] as const)
     .filter((gemWithModifer) => gemWithModifer[1] > 0)
@@ -236,7 +248,10 @@ export function prepareCodpiece(primaryModifier: string, secondaryModifier?: str
     }
   }
 
-  set("_instant_codpieceTunedTo", `${primaryModifier}${secondaryModifier ? `,${secondaryModifier}` : ""}`);
+  set(
+    "_instant_codpieceTunedTo",
+    `${primaryModifier}${secondaryModifier ? `,${secondaryModifier}` : ""}`,
+  );
 }
 
 export function prepareCodpieceForPercentTest(modifier: string, weighting?: number): void {

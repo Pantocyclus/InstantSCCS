@@ -110,7 +110,7 @@ export const MuscleQuest: Quest = {
     {
       name: "Set Codpiece to Muscle",
       completed: () =>
-        get("_instant_codpieceTunedTo").includes("Muscle") || 
+        get("_instant_codpieceTunedTo").includes("Muscle") ||
         CommunityService.Muscle.isDone() ||
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Muscle", 100),
@@ -221,7 +221,7 @@ export const MoxieQuest: Quest = {
     {
       name: "Set Codpiece to Moxie",
       completed: () =>
-        get("_instant_codpieceTunedTo").includes("Moxie") || 
+        get("_instant_codpieceTunedTo").includes("Moxie") ||
         CommunityService.Moxie.isDone() ||
         !have($item`The Eternity Codpiece`),
       do: () => prepareCodpieceForPercentTest("Moxie", 100),
