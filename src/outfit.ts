@@ -2,11 +2,15 @@ import { OutfitSlot, OutfitSpec } from "grimoire-kolmafia";
 import {
   cliExecute,
   Effect,
+  equip,
   equippedItem,
   Item,
+  itemAmount,
   myClass,
   myPrimestat,
-  Slot,
+  numericModifier,
+  print,
+  stringModifier,
   toInt,
   totalTurnsPlayed,
 } from "kolmafia";
@@ -23,18 +27,19 @@ import {
   examine,
   get,
   have,
+  set,
   unequip,
 } from "libram";
 import { chooseFamiliar } from "./familiars";
 import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
 
+export const codpieceSlots = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`;
+
 export function haveHeartstone(): boolean {
   return (
     have($item`Heartstone`) ||
     (have($item`The Eternity Codpiece`) &&
-      $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`.some(
-        (slot) => equippedItem(slot) === $item`Heartstone`,
-      ))
+      codpieceSlots.some((slot) => equippedItem(slot) === $item`Heartstone`))
   );
 }
 
@@ -199,4 +204,56 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
     modifier: defaultModifier,
     avoid: preventEquipList(),
   };
+}
+
+const codpieceGems = Item.all().filter(
+  (gem) => stringModifier(`EternityCodpiece:${gem}`, "Modifiers").length > 0,
+);
+
+function getGemValue(
+  gem: Item,
+  primaryModifier: string,
+  secondaryModifier?: string,
+  weighting?: number,
+): number {
+  const weightedPrimaryValue =
+    numericModifier(`EternityCodpiece:${gem}`, primaryModifier) * (weighting ?? 1);
+  const secondaryValue = secondaryModifier
+    ? numericModifier(`EternityCodpiece:${gem}`, secondaryModifier)
+    : 0;
+  return weightedPrimaryValue + secondaryValue;
+}
+
+export function prepareCodpiece(
+  primaryModifier: string,
+  secondaryModifier?: string,
+  weighting?: number,
+): void {
+  const desiredGems = codpieceGems
+    .map((gem) => [gem, getGemValue(gem, primaryModifier, secondaryModifier, weighting)] as const)
+    .filter((gemWithModifer) => gemWithModifer[1] > 0)
+    .sort((a, b) => b[1] - a[1]);
+
+  for (const slot of codpieceSlots) {
+    const currentGem = equippedItem(slot);
+    const modifierToBeat =
+      currentGem !== $item.none
+        ? getGemValue(currentGem, primaryModifier, secondaryModifier, weighting)
+        : 0;
+    const gemToUse = desiredGems.find((gem) => have(gem[0]) && gem[1] > modifierToBeat)?.[0];
+
+    if (gemToUse) {
+      print(`Equipping ${gemToUse.name} in codpiece slot ${slot}.`);
+      equip(slot, gemToUse);
+    }
+  }
+
+  set(
+    "_instant_codpieceTunedTo",
+    `${primaryModifier}${secondaryModifier ? `,${secondaryModifier}` : ""}`,
+  );
+}
+
+export function prepareCodpieceForPercentTest(modifier: string, weighting?: number): void {
+  prepareCodpiece(`${modifier} Percent`, modifier, weighting);
 }

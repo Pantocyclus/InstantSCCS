@@ -63,7 +63,7 @@ import {
   tryAcquiringOdeToBooze,
   wishFor,
 } from "../lib";
-import { sugarItemsAboutToBreak } from "../outfit";
+import { prepareCodpieceForPercentTest, sugarItemsAboutToBreak } from "../outfit";
 import { powerlevelingLocation } from "./leveling";
 
 const attemptKFH = have($skill`Kung Fu Hustler`) && haveAndNotExcluded($familiar`Disembodied Hand`);
@@ -155,6 +155,15 @@ export const WeaponDamageQuest: Quest = {
         modes: { parka: "pterodactyl" },
       },
       post: () => Clan.join(startingClan),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Set Codpiece to Weapon Damage",
+      completed: () =>
+        get("_instant_codpieceTunedTo").includes("Weapon Damage") ||
+        CommunityService.WeaponDamage.isDone() ||
+        !have($item`The Eternity Codpiece`),
+      do: () => prepareCodpieceForPercentTest("Weapon Damage"),
       limit: { tries: 1 },
     },
     {

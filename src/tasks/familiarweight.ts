@@ -45,7 +45,7 @@ import {
   tryAcquiringEffect,
   tryAcquiringEffects,
 } from "../lib";
-import { avoidDaylightShavingsHelm, sugarItemsAboutToBreak } from "../outfit";
+import { avoidDaylightShavingsHelm, prepareCodpiece, sugarItemsAboutToBreak } from "../outfit";
 
 const famTestMaximizerString = "familiar weight, -equip dented scepter";
 
@@ -74,6 +74,15 @@ export const FamiliarWeightQuest: Quest = {
       name: "Grubby Wool Pants",
       completed: () => !have($item`grubby wool`) || have($item`grubby wool trousers`),
       do: () => create($item`grubby wool trousers`, 1),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Set Codpiece to Familiar Weight",
+      completed: () =>
+        get("_instant_codpieceTunedTo").includes("Familiar Weight") ||
+        CommunityService.FamiliarWeight.isDone() ||
+        !have($item`The Eternity Codpiece`),
+      do: () => prepareCodpiece("Familiar Weight"),
       limit: { tries: 1 },
     },
     {

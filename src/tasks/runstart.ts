@@ -12,6 +12,7 @@ import {
   Effect,
   equip,
   equippedAmount,
+  equippedItem,
   getCampground,
   getDwelling,
   getWorkshed,
@@ -57,6 +58,7 @@ import {
   $monsters,
   $skill,
   $slot,
+  $slots,
   $stat,
   AprilingBandHelmet,
   ChestMimic,
@@ -111,6 +113,7 @@ import {
 } from "../lib";
 import {
   baseOutfit,
+  codpieceSlots,
   haveHeartstone,
   legendarySealClubbingClub,
   mobiusRing,
@@ -253,6 +256,16 @@ export const RunStartQuest: Quest = {
         get("availableSeptEmbers") > 0 ||
         !have($item`Sept-Ember Censer`),
       do: () => visitUrl("shop.php?whichshop=september"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Snapshot Eternity Codpiece decoration",
+      completed: () =>
+        get("_instant_codpieceGems", "") !== "" || !have($item`The Eternity Codpiece`),
+      do: (): void => {
+        const currentGemNames = codpieceSlots.map((slot) => equippedItem(slot)?.name ?? "");
+        set("_instant_codpieceGems", currentGemNames.join(","));
+      },
       limit: { tries: 1 },
     },
     {

@@ -45,7 +45,7 @@ import {
   useParkaSpit,
   wishFor,
 } from "../lib";
-import { sugarItemsAboutToBreak } from "../outfit";
+import { prepareCodpiece, sugarItemsAboutToBreak } from "../outfit";
 
 const hotTestMaximizerString = "hot res";
 
@@ -63,6 +63,15 @@ export const HotResQuest: Quest = {
       do: () => {
         buy($coinmaster`Using your Shower Thoughts`, 1, $item`spitball`);
       },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Set Codpiece to Hot Resistance",
+      completed: () =>
+        get("_instant_codpieceTunedTo").includes("Hot Resistance") ||
+        CommunityService.HotRes.isDone() ||
+        !have($item`The Eternity Codpiece`),
+      do: () => prepareCodpiece("Hot Resistance"),
       limit: { tries: 1 },
     },
     {
