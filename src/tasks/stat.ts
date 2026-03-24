@@ -34,6 +34,9 @@ const musTestMaximizerString = "Muscle, switch disembodied hand, -switch left-ha
 const mystTestMaximizerString = "Mysticality, switch disembodied hand, -switch left-hand man";
 const moxTestMaximizerString = "Mox, switch disembodied hand, -switch left-hand man";
 
+// Percent stat mods are much more valuable that flat ones so we weight them 100x as highly for codpiece
+const percentModWeighting = 100;
+
 function useBalancerForTest(testStat: Stat): void {
   if (testStat === mainStat) {
     return;
@@ -67,7 +70,7 @@ export const HPQuest: Quest = {
         get("_instant_codpieceTunedTo").includes("Maximum HP") ||
         CommunityService.HP.isDone() ||
         !have($item`The Eternity Codpiece`),
-      do: () => prepareCodpieceForPercentTest("Maximum HP", 100),
+      do: () => prepareCodpieceForPercentTest("Maximum HP", percentModWeighting),
       limit: { tries: 1 },
     },
     {
@@ -113,7 +116,7 @@ export const MuscleQuest: Quest = {
         get("_instant_codpieceTunedTo").includes("Muscle") ||
         CommunityService.Muscle.isDone() ||
         !have($item`The Eternity Codpiece`),
-      do: () => prepareCodpieceForPercentTest("Muscle", 100),
+      do: () => prepareCodpieceForPercentTest("Muscle", percentModWeighting),
       limit: { tries: 1 },
     },
     {
@@ -169,7 +172,7 @@ export const MysticalityQuest: Quest = {
         get("_instant_codpieceTunedTo").includes("Mysticality") ||
         CommunityService.Mysticality.isDone() ||
         !have($item`The Eternity Codpiece`),
-      do: () => prepareCodpieceForPercentTest("Mysticality", 100),
+      do: () => prepareCodpieceForPercentTest("Mysticality", percentModWeighting),
       limit: { tries: 1 },
     },
     {
@@ -224,7 +227,7 @@ export const MoxieQuest: Quest = {
         get("_instant_codpieceTunedTo").includes("Moxie") ||
         CommunityService.Moxie.isDone() ||
         !have($item`The Eternity Codpiece`),
-      do: () => prepareCodpieceForPercentTest("Moxie", 100),
+      do: () => prepareCodpieceForPercentTest("Moxie", percentModWeighting),
       limit: { tries: 1 },
     },
     {
