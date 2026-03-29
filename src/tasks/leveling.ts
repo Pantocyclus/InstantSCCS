@@ -1102,7 +1102,7 @@ export const LevelingQuest: Quest = {
         modes: { umbrella: "broken" },
       }),
       post: () => sellMiscellaneousItems(),
-      limit: { tries: 1 },
+      limit: { tries: 2 },
     },
     {
       name: "Map Amateur Ninja",
@@ -1251,7 +1251,7 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
-      limit: { tries: 4 },
+      limit: { tries: 5 },
     },
     {
       name: "Get Rufus Quest",
@@ -1674,7 +1674,7 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
-      limit: { tries: 14 },
+      limit: { tries: 17 },
     },
     {
       name: "Monster Habitats (Re-application)",
@@ -1712,7 +1712,7 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
-      limit: { tries: 3 },
+      limit: { tries: 6 },
     },
     {
       name: "Backups",
@@ -1747,7 +1747,7 @@ export const LevelingQuest: Quest = {
         sendAutumnaton();
         sellMiscellaneousItems();
       },
-      limit: { tries: 11 },
+      limit: { tries: 13 },
     },
     {
       name: "Kramco",
