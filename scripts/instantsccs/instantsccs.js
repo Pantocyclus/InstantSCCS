@@ -15056,7 +15056,7 @@ var LevelingQuest = {
     }),
     post: () => sellMiscellaneousItems(),
     limit: {
-      tries: 1
+      tries: 2
     }
   }, {
     name: "Map Amateur Ninja",
@@ -15178,7 +15178,7 @@ var LevelingQuest = {
       sellMiscellaneousItems();
     },
     limit: {
-      tries: 4
+      tries: 5
     }
   }, {
     name: "Get Rufus Quest",
@@ -15495,7 +15495,7 @@ var LevelingQuest = {
       sellMiscellaneousItems();
     },
     limit: {
-      tries: 14
+      tries: 17
     }
   }, {
     name: "Monster Habitats (Re-application)",
@@ -15529,7 +15529,7 @@ var LevelingQuest = {
       sellMiscellaneousItems();
     },
     limit: {
-      tries: 3
+      tries: 6
     }
   }, {
     name: "Backups",
@@ -15558,7 +15558,7 @@ var LevelingQuest = {
       sellMiscellaneousItems();
     },
     limit: {
-      tries: 11
+      tries: 13
     }
   }, {
     name: "Kramco",
@@ -16924,7 +16924,7 @@ var RunStartQuest = {
       if (have$a($item(_templateObject239 || (_templateObject239 = _taggedTemplateLiteral(["space blanket"]))))) kolmafia.autosell($item(_templateObject240 || (_templateObject240 = _taggedTemplateLiteral(["space blanket"]))), 1);
     },
     limit: {
-      tries: 1
+      tries: 2
     }
   }, {
     name: "Novelty Tropical Skeleton",
