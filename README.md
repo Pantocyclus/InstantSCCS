@@ -198,6 +198,10 @@ Note that the script<br/>
 
 <sub><sup>Do consider using [this](https://beret.loathers.net/) to help you plan out the busks you need.</sup></sub><br/>
 
+### Can I get the script to execute custom Genie/Paw wishes?
+
+As with the custom pulls and busks, `instant_<testName>TestWishes=<comma-separated effct IDs>` (e.g. `instant_spellTestWishes=1523,1833`), as well as `instant_preWishes` and `instant_freeFightWishes` are supported by the script.
+
 ### Some users have experienced having all their preferences wiped when KoLMafia inadvertently crashes. What is the best way to back up my long list of customized InstantSCCS preferences?
 
 KoLMafia periodically creates a backup of your existing preferences in a `.bak` file, which you may simply rename the extension to `.txt` to restore your preferences to the latest snapshot it has taken.<br/>

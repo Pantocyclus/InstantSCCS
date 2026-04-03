@@ -6069,6 +6069,9 @@ get("instant_targetBaseMainStatGap", 15);
 $items(_templateObject6$2 || (_templateObject6$2 = _taggedTemplateLiteral(["packet of pumpkin seeds, Peppermint Pip Packet, packet of dragon's teeth, packet of beer seeds, packet of winter seeds, packet of thanksgarden seeds, packet of tall grass seeds, packet of mushroom spores, packet of rock seeds"])));
 var craftedCBBFoods = $items(_templateObject19$1 || (_templateObject19$1 = _taggedTemplateLiteral(["honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone"])));
 craftedCBBFoods.map(it => require$$0.effectModifier(it, "effect"));
+function acquiredOrExcluded(ef) {
+  return have(ef) || excludedEffects.includes(ef);
+}
 
 var _templateObject$3, _templateObject2$3, _templateObject3$3, _templateObject32$1;
 $items(_templateObject$3 || (_templateObject$3 = _taggedTemplateLiteral(["bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey"])));
@@ -6077,7 +6080,7 @@ $items(_templateObject3$3 || (_templateObject3$3 = _taggedTemplateLiteral(["beef
 var allTomes = $skills(_templateObject32$1 || (_templateObject32$1 = _taggedTemplateLiteral(["Summon Resolutions, Summon Love Song, Summon Candy Heart, Summon Taffy, Summon BRICKOs, Summon Party Favor, Summon Dice"])));
 allTomes.filter(tome => have(tome));
 
-var _templateObject$2, _templateObject2$2, _templateObject3$2, _templateObject4$1, _templateObject5$1, _templateObject6$1, _templateObject7$1, _templateObject8$1, _templateObject9$1, _templateObject0$1, _templateObject1$1, _templateObject10$1, _templateObject11$1, _templateObject12$1, _templateObject13, _templateObject14, _templateObject15, _templateObject16, _templateObject17, _templateObject18, _templateObject19, _templateObject20, _templateObject21, _templateObject22, _templateObject23, _templateObject24, _templateObject25, _templateObject26, _templateObject27, _templateObject28, _templateObject29, _templateObject30, _templateObject31, _templateObject32, _templateObject33, _templateObject34, _templateObject35, _templateObject36, _templateObject37, _templateObject38, _templateObject39, _templateObject40, _templateObject41, _templateObject42, _templateObject43, _templateObject44, _templateObject45, _templateObject46, _templateObject47, _templateObject48, _templateObject49, _templateObject50, _templateObject51, _templateObject52, _templateObject53, _templateObject54, _templateObject55, _templateObject56, _templateObject57, _templateObject58, _templateObject59, _templateObject60, _templateObject61, _templateObject62, _templateObject63, _templateObject64, _templateObject65, _templateObject66, _templateObject67, _templateObject68, _templateObject69, _templateObject70, _templateObject71, _templateObject72, _templateObject73, _templateObject74, _templateObject75, _templateObject76, _templateObject77, _templateObject78, _templateObject79, _templateObject80, _templateObject81, _templateObject82, _templateObject83, _templateObject84, _templateObject85, _templateObject86, _templateObject87, _templateObject88, _templateObject89, _templateObject90, _templateObject91, _templateObject92, _templateObject93, _templateObject94, _templateObject95, _templateObject96, _templateObject97, _templateObject98, _templateObject99, _templateObject100, _templateObject101, _templateObject102, _templateObject103, _templateObject104, _templateObject105, _templateObject106, _templateObject125, _templateObject126, _templateObject127, _templateObject128, _templateObject129, _templateObject130, _templateObject131, _templateObject132, _templateObject133, _templateObject134, _templateObject135, _templateObject136, _templateObject137, _templateObject138;
+var _templateObject$2, _templateObject2$2, _templateObject3$2, _templateObject4$1, _templateObject5$1, _templateObject6$1, _templateObject7$1, _templateObject8$1, _templateObject9$1, _templateObject0$1, _templateObject1$1, _templateObject10$1, _templateObject11$1, _templateObject12$1, _templateObject13, _templateObject14, _templateObject15, _templateObject16, _templateObject17, _templateObject18, _templateObject19, _templateObject20, _templateObject21, _templateObject22, _templateObject23, _templateObject24, _templateObject25, _templateObject26, _templateObject27, _templateObject28, _templateObject29, _templateObject30, _templateObject31, _templateObject32, _templateObject33, _templateObject34, _templateObject35, _templateObject36, _templateObject37, _templateObject38, _templateObject39, _templateObject40, _templateObject41, _templateObject42, _templateObject43, _templateObject44, _templateObject45, _templateObject46, _templateObject47, _templateObject48, _templateObject49, _templateObject50, _templateObject51, _templateObject52, _templateObject53, _templateObject54, _templateObject55, _templateObject56, _templateObject57, _templateObject58, _templateObject59, _templateObject60, _templateObject61, _templateObject62, _templateObject63, _templateObject64, _templateObject65, _templateObject66, _templateObject67, _templateObject68, _templateObject69, _templateObject70, _templateObject71, _templateObject72, _templateObject73, _templateObject74, _templateObject75, _templateObject76, _templateObject77, _templateObject78, _templateObject79, _templateObject80, _templateObject81, _templateObject82, _templateObject83, _templateObject84, _templateObject85, _templateObject86, _templateObject87, _templateObject88, _templateObject89, _templateObject90, _templateObject91, _templateObject92, _templateObject93, _templateObject94, _templateObject95, _templateObject96, _templateObject97, _templateObject98, _templateObject99, _templateObject100, _templateObject101, _templateObject102, _templateObject103, _templateObject104, _templateObject105, _templateObject106, _templateObject123, _templateObject124, _templateObject125, _templateObject126, _templateObject127, _templateObject128, _templateObject129, _templateObject130, _templateObject131, _templateObject132, _templateObject133, _templateObject134, _templateObject135, _templateObject136;
 ({
   Muscle: $effect(_templateObject$2 || (_templateObject$2 = _taggedTemplateLiteral(["Stabilizing Oiliness"]))),
   Mysticality: $effect(_templateObject2$2 || (_templateObject2$2 = _taggedTemplateLiteral(["Expert Oiliness"]))),
@@ -6166,10 +6169,10 @@ $effect(_templateObject90 || (_templateObject90 = _taggedTemplateLiteral(["Stren
 $effect(_templateObject91 || (_templateObject91 = _taggedTemplateLiteral(["Disco over Matter"])))]);
 [$effect(_templateObject92 || (_templateObject92 = _taggedTemplateLiteral(["Frostbeard"]))), $effect(_templateObject93 || (_templateObject93 = _taggedTemplateLiteral(["Intimidating Mien"]))), $effect(_templateObject94 || (_templateObject94 = _taggedTemplateLiteral(["Pyromania"]))), $effect(_templateObject95 || (_templateObject95 = _taggedTemplateLiteral(["Rotten Memories"]))), $effect(_templateObject96 || (_templateObject96 = _taggedTemplateLiteral(["Takin' It Greasy"]))), $effect(_templateObject97 || (_templateObject97 = _taggedTemplateLiteral(["Your Fifteen Minutes"]))), $effect(_templateObject98 || (_templateObject98 = _taggedTemplateLiteral(["Bendin' Hell"])))];
 [$effect(_templateObject99 || (_templateObject99 = _taggedTemplateLiteral(["Carol of the Bulls"]))), $effect(_templateObject100 || (_templateObject100 = _taggedTemplateLiteral(["Disdain of the War Snapper"]))), $effect(_templateObject101 || (_templateObject101 = _taggedTemplateLiteral(["Frenzied, Bloody"]))), $effect(_templateObject102 || (_templateObject102 = _taggedTemplateLiteral(["Jackasses' Symphony of Destruction"]))), $effect(_templateObject103 || (_templateObject103 = _taggedTemplateLiteral(["Rage of the Reindeer"]))), $effect(_templateObject104 || (_templateObject104 = _taggedTemplateLiteral(["Scowl of the Auk"]))), $effect(_templateObject105 || (_templateObject105 = _taggedTemplateLiteral(["Song of the North"]))), $effect(_templateObject106 || (_templateObject106 = _taggedTemplateLiteral(["Tenacity of the Snapper"])))];
-mainStat === $stat(_templateObject125 || (_templateObject125 = _taggedTemplateLiteral(["Muscle"]))) ? $effect(_templateObject126 || (_templateObject126 = _taggedTemplateLiteral(["Synthesis: Movement"]))) : mainStat === $stat(_templateObject127 || (_templateObject127 = _taggedTemplateLiteral(["Mysticality"]))) ? $effect(_templateObject128 || (_templateObject128 = _taggedTemplateLiteral(["Synthesis: Learning"]))) : $effect(_templateObject129 || (_templateObject129 = _taggedTemplateLiteral(["Synthesis: Style"])));
-var complexCandies = $items(_templateObject130 || (_templateObject130 = _taggedTemplateLiteral([""]))).filter(candy => candy.candyType === "complex");
-$items(_templateObject131 || (_templateObject131 = _taggedTemplateLiteral([""]))).filter(candy => candy.candyType === "simple");
-var peppermintCandiesCosts = new Map([[$item(_templateObject132 || (_templateObject132 = _taggedTemplateLiteral(["peppermint sprout"]))), 1], [$item(_templateObject133 || (_templateObject133 = _taggedTemplateLiteral(["peppermint twist"]))), 1], [$item(_templateObject134 || (_templateObject134 = _taggedTemplateLiteral(["peppermint patty"]))), 2], [$item(_templateObject135 || (_templateObject135 = _taggedTemplateLiteral(["peppermint crook"]))), 3], [$item(_templateObject136 || (_templateObject136 = _taggedTemplateLiteral(["cane-mail pants"]))), 10], [$item(_templateObject137 || (_templateObject137 = _taggedTemplateLiteral(["peppermint rhino baby"]))), 11], [$item(_templateObject138 || (_templateObject138 = _taggedTemplateLiteral(["cane-mail shirt"]))), 15]]);
+mainStat === $stat(_templateObject123 || (_templateObject123 = _taggedTemplateLiteral(["Muscle"]))) ? $effect(_templateObject124 || (_templateObject124 = _taggedTemplateLiteral(["Synthesis: Movement"]))) : mainStat === $stat(_templateObject125 || (_templateObject125 = _taggedTemplateLiteral(["Mysticality"]))) ? $effect(_templateObject126 || (_templateObject126 = _taggedTemplateLiteral(["Synthesis: Learning"]))) : $effect(_templateObject127 || (_templateObject127 = _taggedTemplateLiteral(["Synthesis: Style"])));
+var complexCandies = $items(_templateObject128 || (_templateObject128 = _taggedTemplateLiteral([""]))).filter(candy => candy.candyType === "complex");
+$items(_templateObject129 || (_templateObject129 = _taggedTemplateLiteral([""]))).filter(candy => candy.candyType === "simple");
+var peppermintCandiesCosts = new Map([[$item(_templateObject130 || (_templateObject130 = _taggedTemplateLiteral(["peppermint sprout"]))), 1], [$item(_templateObject131 || (_templateObject131 = _taggedTemplateLiteral(["peppermint twist"]))), 1], [$item(_templateObject132 || (_templateObject132 = _taggedTemplateLiteral(["peppermint patty"]))), 2], [$item(_templateObject133 || (_templateObject133 = _taggedTemplateLiteral(["peppermint crook"]))), 3], [$item(_templateObject134 || (_templateObject134 = _taggedTemplateLiteral(["cane-mail pants"]))), 10], [$item(_templateObject135 || (_templateObject135 = _taggedTemplateLiteral(["peppermint rhino baby"]))), 11], [$item(_templateObject136 || (_templateObject136 = _taggedTemplateLiteral(["cane-mail shirt"]))), 15]]);
 complexCandies.filter(candy => !Array.from(peppermintCandiesCosts.keys()).includes(candy));
 
 var _templateObject$1, _templateObject2$1, _templateObject3$1, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject0, _templateObject1, _templateObject10, _templateObject11, _templateObject12;
@@ -6279,6 +6282,35 @@ function busksPage() {
     }].concat(_toConsumableArray(testBusks))
   };
 }
+function wishesPage() {
+  var testWishes = CSTests.filter(test => test.name !== "Coil Wire").map(test => ({
+    type: "string",
+    name: "".concat(test.statName, " Test"),
+    description: get("instant_".concat(testAbbreviations.get(test) ?? "", "TestWishes"), "").split(",").map(id => require$$0.toEffect(id)).filter(ef => !acquiredOrExcluded(ef)).map(ef => "[".concat(ef.id, "] ").concat(ef)).join(", "),
+    preference: "instant_".concat(testAbbreviations.get(test) ?? "", "TestWishes"),
+    "default": ""
+  }));
+  return {
+    page: "Wishes",
+    file: "Wishes",
+    components: [{
+      type: "html",
+      data: "Enter desired wishes by a comma-separated list of effect ids - e.g. \"1523,1833\" (without quotes) to wish for both Medieval Mage Mayhem and Nigh-Invincible."
+    }, {
+      type: "string",
+      name: "Pre-leveling",
+      description: get("instant_preWishes", "").split(",").map(id => require$$0.toEffect(id)).filter(ef => !acquiredOrExcluded(ef)).map(ef => "[".concat(ef.id, "] ").concat(ef)).join(", "),
+      preference: "instant_preWishes",
+      "default": ""
+    }, {
+      type: "string",
+      name: "Free Fight",
+      description: get("instant_freeFightWishes", "").split(",").map(id => require$$0.toEffect(id)).filter(ef => !acquiredOrExcluded(ef)).map(ef => "[".concat(ef.id, "] ").concat(ef)).join(", "),
+      preference: "instant_freeFightWishes",
+      "default": ""
+    }].concat(_toConsumableArray(testWishes))
+  };
+}
 function miscellanyPage() {
   return {
     page: "Miscellany",
@@ -6356,6 +6388,7 @@ function settingsToHTML() {
   pages.push(turnLimitsPage());
   pages.push(pullsPage());
   pages.push(busksPage());
+  pages.push(wishesPage());
   pages.push(miscellanyPage());
   return pages.map(page => {
     page.components = [{
