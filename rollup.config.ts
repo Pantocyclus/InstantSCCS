@@ -27,6 +27,7 @@ const baseSettings = {
         "process.env.GITHUB_REPOSITORY": JSON.stringify(
           process.env.GITHUB_REPOSITORY ?? "CustomBuild",
         ),
+        "\r\n": "\n", // Replaces CRLF with LF
       },
     }),
 
