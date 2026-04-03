@@ -1,6 +1,14 @@
-import { Familiar } from "kolmafia";
+import {
+  canEquip,
+  Familiar,
+  familiarEquippedEquipment,
+  familiarWeight,
+  Item,
+  numericModifier,
+} from "kolmafia";
 import { $familiar, $familiars, $item, get, have } from "libram";
-import { camelFightsLeft, haveAndNotExcluded, haveCBBIngredients } from "./lib";
+import { excludedFamiliars } from "../resources";
+import { camelFightsLeft, haveAndNotExcluded, haveCBBIngredients } from "./accountstate";
 
 function nanorhino(allowAttackingFamiliars = false): Familiar {
   return allowAttackingFamiliars && get("_nanorhinoCharge") === 100
@@ -80,4 +88,41 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
     .map((fn) => fn(allowAttackingFamiliars))
     .filter((fam) => haveAndNotExcluded(fam));
   return familiars.length > 0 ? familiars[0] : defaultFam;
+}
+
+export function bestFamiliarEquip(checkedFamiliar: Familiar): Item {
+  const validEquips = Item.all().filter(
+    (it) => have(it) && numericModifier(it, "Familiar Weight") > 0 && canEquip(checkedFamiliar, it),
+  );
+  if (validEquips.length === 0) return $item.none;
+
+  return validEquips.reduce((a, b) =>
+    numericModifier(a, "Familiar Weight") > numericModifier(b, "Familiar Weight") ? a : b,
+  );
+}
+
+export function expectedFamiliarWeight(familiar: Familiar): number {
+  if (!have($familiar`Shorter-Order Cook`) || familiar.experience > 0)
+    return familiarWeight(familiar);
+  return familiarEquippedEquipment($familiar`Shorter-Order Cook`) === $item`blue plate` ? 10 : 9;
+}
+
+export function chooseHeaviestEquippedFamiliar(checkedFamiliars?: Familiar[]): {
+  familiar: Familiar;
+  equip: Item;
+  expectedWeight: number;
+} {
+  return (checkedFamiliars ?? Familiar.all())
+    .filter((familiar) => have(familiar) && !excludedFamiliars.includes(familiar))
+    .map((familiar) => {
+      const bestEquip = bestFamiliarEquip(familiar);
+
+      return {
+        familiar,
+        equip: bestEquip,
+        expectedWeight:
+          expectedFamiliarWeight(familiar) + numericModifier(bestEquip, "Familiar Weight"),
+      };
+    })
+    .reduce((a, b) => (a.expectedWeight > b.expectedWeight ? a : b));
 }

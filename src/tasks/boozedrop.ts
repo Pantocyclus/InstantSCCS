@@ -57,23 +57,26 @@ import {
   setConfiguration,
   Station,
 } from "libram/dist/resources/2022/TrainSet";
-import Macro, { haveFreeBanish } from "../combat";
+import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   acquireDwellingBuff,
   attemptRestoringMpWithFreeRests,
   canAcquireDwellingBuff,
+  chooseFamiliar,
   handleCustomBusks,
   handleCustomPulls,
   haveAndNotExcluded,
+  haveFreeBanish,
+  haveHeartstone,
+  prepareCodpiece,
   runTest,
+  sugarItemsAboutToBreak,
   tryAcquiringEffects,
   tryAcquiringOdeToBooze,
   wishFor,
 } from "../lib";
-import { haveHeartstone, prepareCodpiece, sugarItemsAboutToBreak } from "../outfit";
 
 const boozeTestMaximizerString =
   "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man";

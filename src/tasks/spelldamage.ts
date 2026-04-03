@@ -45,25 +45,27 @@ import {
   get,
   have,
 } from "libram";
-import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
+import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   acquireDwellingBuff,
   attemptRestoringMpWithFreeRests,
   canAcquireDwellingBuff,
+  chooseFamiliar,
   handleCustomBusks,
   handleCustomPulls,
   haveAndNotExcluded,
+  haveFreeBanish,
+  haveMotherSlimeBanish,
   motherSlimeClan,
+  prepareCodpieceForPercentTest,
   runTest,
   startingClan,
   tryAcquiringEffect,
   tryAcquiringEffects,
   tryAcquiringOdeToBooze,
 } from "../lib";
-import { prepareCodpieceForPercentTest, sugarItemsAboutToBreak } from "../outfit";
 
 let triedDeepDark = false;
 const spellTestMaximizerString = "spell dmg, switch disembodied hand, -switch left-hand man";

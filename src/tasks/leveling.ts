@@ -71,7 +71,6 @@ import {
   ChestMimic,
   clamp,
   CombatLoversLocket,
-  CommunityService,
   ensureEffect,
   get,
   getBanishedMonsters,
@@ -89,26 +88,34 @@ import {
 } from "libram";
 import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { chooseQuest, rufusTarget } from "libram/dist/resources/2023/ClosedCircuitPayphone";
-import Macro, { haveFreeBanish } from "../combat";
+import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { chooseFamiliar } from "../familiars";
 import {
   abstractionXpEffect,
   abstractionXpItem,
   acquiredOrExcluded,
   acquireDwellingBuff,
   attemptRestoringMpWithFreeRests,
+  baseBoozes,
+  baseOutfit,
   bestShadowRift,
   burnLibram,
   canAcquireDwellingBuff,
   canPull,
   canScreech,
+  chooseFamiliar,
   chooseLibram,
+  completedPowerleveling,
+  craftedCBBEffects,
+  craftedCBBFoods,
   crystalBallFreeFightLocation,
   currentBusk,
   cyberRealmTurnsAvailable,
   cyberRealmZone,
+  daylightShavingsHelmet,
+  docBag,
   freeFightMonsters,
+  garbageShirt,
   generalStoreXpEffect,
   getSynthColdBuff,
   getSynthExpBuff,
@@ -118,18 +125,28 @@ import {
   handleCustomPulls,
   haveAndNotExcluded,
   haveCBBIngredients,
+  haveFreeBanish,
   havePowerlevelingZoneBound,
+  legendarySealClubbingClub,
+  LOVEquip,
   mainStat,
   mainStatMaximizerStr,
   mainStatStr,
+  mobiusRing,
   overleveled,
+  powerlevelingLocation,
+  prepareCodpiece,
+  prismaticEffects,
   reagentBalancerEffect,
   reagentBalancerIngredient,
   reagentBalancerItem,
   reagentBoosterEffect,
   reagentBoosterIngredient,
   reagentBoosterItem,
+  reduceItemUndefinedArray,
   refillLatte,
+  romanCandelabra,
+  sellMiscellaneousItems,
   sendAutumnaton,
   showerGlobXpEffect,
   showerGlobXpItem,
@@ -142,221 +159,14 @@ import {
   tryAcquiringOdeToBooze,
   useCenser,
   useCinch,
+  usefulEffects,
   useParkaSpit,
+  wdmgEffects,
   wishFor,
   xpWishEffect,
 } from "../lib";
-import {
-  baseOutfit,
-  daylightShavingsHelmet,
-  docBag,
-  garbageShirt,
-  legendarySealClubbingClub,
-  mobiusRing,
-  prepareCodpiece,
-  reduceItemUndefinedArray,
-  romanCandelabra,
-} from "../outfit";
 
-const baseBoozes = $items`bottle of rum, boxed wine, bottle of gin, bottle of vodka, bottle of tequila, bottle of whiskey`;
-const seaFruits = $items`sea tangelo, sea persimmon, sea lychee, sea honeydew, sea blueberry`;
-const fishDrops = $items`beefy fish meat, glistening fish meat, slick fish meat, dull fish scale, rough fish scale, pristine fish scale`;
-const craftedCBBFoods: Item[] = $items`honey bun of Boris, roasted vegetable of Jarlsberg, Pete's rich ricotta, plain calzone`;
-const craftedCBBEffects: Effect[] = craftedCBBFoods.map((it) => effectModifier(it, "effect"));
 let triedCraftingCBBFoods = false;
-
-const LOVEquip =
-  mainStatStr === $stat`Muscle`
-    ? "LOV Eardigan"
-    : mainStatStr === $stat`Mysticality`
-      ? "LOV Epaulettes"
-      : "LOV Earring";
-
-const muscleList: Effect[] = [
-  $effect`Seal Clubbing Frenzy`,
-  $effect`Patience of the Tortoise`,
-  $effect`Strength of the Tortoise`,
-  $effect`Disco over Matter`,
-  $effect`Disdain of the War Snapper`,
-  $effect`Go Get 'Em, Tiger!`,
-  $effect`Muddled`,
-  $effect`Lack of Body-Building`,
-  $effect`Adrenaline Rush`,
-  // Weapon dmg
-  $effect`Carol of the Bulls`,
-  // Fortune teller buff
-  $effect`Gunther Than Thou`,
-];
-
-const mysticalityList: Effect[] = [
-  $effect`Pasta Oneness`,
-  $effect`Tubes of Universal Meat`,
-  $effect`Mariachi Moisture`,
-  $effect`Saucemastery`,
-  $effect`Disdain of She-Who-Was`,
-  $effect`Glittering Eyelashes`,
-  $effect`Uncucumbered`,
-  $effect`We're All Made of Starfish`,
-  $effect`Sparkling Consciousness`,
-  // Spell dmg
-  $effect`Carol of the Hells`,
-  // Fortune teller buff
-  $effect`Everybody Calls Him Gorgon`,
-];
-
-const moxieList: Effect[] = [
-  $effect`Disco State of Mind`,
-  $effect`Slippery as a Seal`,
-  $effect`Lubricating Sauce`,
-  $effect`Mariachi Mood`,
-  $effect`Butt-Rock Hair`,
-  $effect`Ten out of Ten`,
-  $effect`Pomp & Circumsands`,
-  $effect`Sneaky Serpentine Subtlety`,
-  // Weapon dmg
-  $effect`Carol of the Bulls`,
-  // Fortune teller buff
-  $effect`They Call Him Shifty Because...`,
-];
-
-const statEffects =
-  mainStatStr === `Muscle`
-    ? muscleList
-    : mainStatStr === `Mysticality`
-      ? mysticalityList
-      : moxieList;
-
-const usefulEffects: Effect[] = [
-  // Stats
-  $effect`Big`,
-  $effect`Feeling Excited`,
-  $effect`Triple-Sized`,
-  $effect`substats.enh`,
-  $effect`Hulkien`,
-  $effect`Broad-Spectrum Vaccine`,
-  // $effect`Think Win-Lose`,
-  // $effect`Confidence of the Votive`,
-  $effect`Song of Bravado`,
-
-  $effect`Ultraheart`,
-  ...statEffects,
-
-  // ML
-  $effect`Pride of the Puffin`,
-  $effect`Drescher's Annoying Noise`,
-  $effect`Ur-Kel's Aria of Annoyance`,
-
-  // Xp
-  $effect`Carol of the Thrills`,
-
-  // Songs
-  $effect`Stevedave's Shanty of Superiority`,
-  $effect`Ur-Kel's Aria of Annoyance`,
-  $effect`Aloysius' Antiphon of Aptitude`,
-
-  // Famwt
-  $effect`Empathy`,
-  $effect`Leash of Linguini`,
-  $effect`Thoughtful Empathy`,
-
-  $effect`Only Dogs Love a Drunken Sailor`,
-
-  // Combat Initiative
-  $effect`Slippery as a Seal`,
-
-  // Mp Regen
-  $effect`Strength of the Tortoise`,
-
-  // Hp Regen
-  $effect`Disco over Matter`,
-];
-
-const prismaticEffects: Effect[] = [
-  $effect`Frostbeard`,
-  $effect`Intimidating Mien`,
-  $effect`Pyromania`,
-  $effect`Rotten Memories`,
-  $effect`Takin' It Greasy`,
-  $effect`Your Fifteen Minutes`,
-  $effect`Bendin' Hell`,
-];
-
-const wdmgEffects: Effect[] = [
-  $effect`Carol of the Bulls`,
-  $effect`Disdain of the War Snapper`,
-  $effect`Frenzied, Bloody`,
-  $effect`Jackasses' Symphony of Destruction`,
-  $effect`Rage of the Reindeer`,
-  $effect`Scowl of the Auk`,
-  $effect`Song of the North`,
-  $effect`Tenacity of the Snapper`,
-];
-
-export function powerlevelingLocation(): Location {
-  if (get("neverendingPartyAlways")) return $location`The Neverending Party`;
-  else if (get("stenchAirportAlways") || get("_stenchAirportToday"))
-    return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`;
-  else if (get("hotAirportAlways")) return $location`The SMOOCH Army HQ`;
-  else if (get("coldAirportAlways")) return $location`VYKEA`;
-  else if (get("sleazeAirportAlways")) return $location`Sloppy Seconds Diner`;
-  else if (get("spookyAirportAlways")) return $location`The Deep Dark Jungle`;
-  else if (have($item`Monodent of the Sea`)) return $location`The Dire Warren`;
-
-  return $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`; // Default location
-}
-
-function completedPowerleveling(): boolean {
-  return (
-    myBasestat(mainStat) >= targetBaseMainStat - targetBaseMainStatGap &&
-    (haveCBBIngredients(false) ||
-      overleveled() ||
-      craftedCBBEffects.some((ef) => have(ef)) ||
-      craftedCBBEffects.every((ef) => acquiredOrExcluded(ef))) &&
-    (powerlevelingLocation() !== $location`The Neverending Party` ||
-      get("_neverendingPartyFreeTurns") >= 10)
-  );
-}
-
-function sellMiscellaneousItems(): void {
-  const items: Item[] = [
-    $item`cardboard ore`,
-    $item`hot buttered roll`,
-    $item`toast`,
-    $item`meat paste`,
-    $item`meat stack`,
-    $item`jar of swamp honey`,
-    $item`turtle voicebox`,
-    $item`grody jug`,
-    $item`gas can`,
-    $item`Middle of the Road™ brand whiskey`,
-    $item`neverending wallet chain`,
-    $item`pentagram bandana`,
-    $item`denim jacket`,
-    $item`ratty knitted cap`,
-    $item`jam band bootleg`,
-    $item`Purple Beast energy drink`,
-    $item`cosmetic football`,
-    $item`shoe ad T-shirt`,
-    $item`pump-up high-tops`,
-    $item`noticeable pumps`,
-    $item`surprisingly capacious handbag`,
-    $item`electronics kit`,
-    $item`PB&J with the crusts cut off`,
-    $item`dorky glasses`,
-    $item`ponytail clip`,
-    $item`paint palette`,
-    $item`goat cheese`,
-    ...baseBoozes,
-    ...seaFruits,
-    ...fishDrops,
-    $item`vinegar-soaked lemon slice`,
-    $item`exotic jungle fruit`,
-    $item`fat stacks of cash`,
-  ];
-  items.forEach((it) => {
-    if (itemAmount(it) > 1) autosell(it, itemAmount(it) - 1);
-  });
-}
 
 export const LevelingQuest: Quest = {
   name: "Leveling",

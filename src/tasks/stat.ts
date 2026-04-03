@@ -21,13 +21,13 @@ import {
   handleCustomBusks,
   handleCustomPulls,
   mainStat,
+  prepareCodpieceForPercentTest,
   reagentBalancerEffect,
   reagentBalancerItem,
   runTest,
   tryAcquiringEffects,
   useCenser,
 } from "../lib";
-import { prepareCodpieceForPercentTest } from "../outfit";
 
 const hpTestMaximizerString = "HP, switch disembodied hand, -switch left-hand man";
 const musTestMaximizerString = "Muscle, switch disembodied hand, -switch left-hand man";

@@ -5,7 +5,6 @@ import {
   create,
   Effect,
   equippedItem,
-  familiarWeight,
   getCampground,
   haveEffect,
   itemAmount,
@@ -33,19 +32,19 @@ import {
 } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
+  chooseFamiliar,
   chooseHeaviestEquippedFamiliar,
   expectedFamiliarWeight,
   handleCustomBusks,
   handleCustomPulls,
   haveAndNotExcluded,
+  prepareCodpiece,
   runTest,
   tryAcquiringEffect,
   tryAcquiringEffects,
 } from "../lib";
-import { avoidDaylightShavingsHelm, prepareCodpiece, sugarItemsAboutToBreak } from "../outfit";
 
 const famTestMaximizerString = "familiar weight, -equip dented scepter";
 

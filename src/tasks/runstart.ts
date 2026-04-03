@@ -58,7 +58,6 @@ import {
   $monsters,
   $skill,
   $slot,
-  $slots,
   $stat,
   AprilingBandHelmet,
   ChestMimic,
@@ -93,33 +92,34 @@ import {
 } from "libram/dist/resources/2025/Leprecondo";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { chooseFamiliar, cookbookbat, melodramedary, sombrero } from "../familiars";
 import {
   attemptRestoringMpWithFreeRests,
+  baseOutfit,
   canScreech,
+  chooseFamiliar,
+  codpieceSlots,
+  cookbookbat,
   cyberRealmTurnsAvailable,
   getGarden,
   goVote,
   haveAndNotExcluded,
   haveFreeRunSource,
+  haveHeartstone,
+  legendarySealClubbingClub,
   mainStat,
   mainStatMaximizerStr,
   mainStatStr,
+  melodramedary,
+  mobiusRing,
+  reduceItemUndefinedArray,
+  romanCandelabra,
   sendAutumnaton,
+  sombrero,
   tryAcquiringOdeToBooze,
   useCenser,
   useCinch,
   useParkaSpit,
 } from "../lib";
-import {
-  baseOutfit,
-  codpieceSlots,
-  haveHeartstone,
-  legendarySealClubbingClub,
-  mobiusRing,
-  reduceItemUndefinedArray,
-  romanCandelabra,
-} from "../outfit";
 
 const bestStillsuitFamiliar = StillSuit.bestFamiliar("Item Drop");
 function completedSkeletonBanishes(): boolean {

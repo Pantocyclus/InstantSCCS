@@ -44,6 +44,7 @@ export function getMobiusOption(): number {
   );
 }
 
+// eslint-disable-next-line no-unused-vars
 export const main: ChoiceAdventureScript = (choiceNumber, pageText) => {
   switch (choiceNumber) {
     case 1467: // https://wiki.kingdomofloathing.com/Poetic_Justice

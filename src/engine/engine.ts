@@ -2,7 +2,6 @@ import { Engine as BaseEngine, Outfit, outfitSlots, OutfitSpec } from "grimoire-
 import {
   booleanModifier,
   canEquip,
-  haveEquipped,
   Item,
   itemAmount,
   myFullness,
@@ -28,7 +27,7 @@ import {
   undelay,
   uneffect,
 } from "libram";
-import { baseOutfit, defaultModifier, reduceItemUndefinedArray } from "../outfit";
+import { baseOutfit, defaultModifier, reduceItemUndefinedArray } from "../lib/outfit";
 import { excludedFamiliars } from "../resources";
 import { Task } from "./task";
 

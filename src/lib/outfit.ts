@@ -1,11 +1,10 @@
-import { OutfitSlot, OutfitSpec } from "grimoire-kolmafia";
+import { OutfitSpec } from "grimoire-kolmafia";
 import {
   cliExecute,
   Effect,
   equip,
   equippedItem,
   Item,
-  itemAmount,
   myClass,
   myPrimestat,
   numericModifier,
@@ -30,8 +29,16 @@ import {
   set,
   unequip,
 } from "libram";
+import { mainStatMaximizerStr, mainStatStr } from "./accountstate";
 import { chooseFamiliar } from "./familiars";
-import { havePowerlevelingZoneBound, mainStatMaximizerStr } from "./lib";
+import { havePowerlevelingZoneBound } from "./zones";
+
+export const LOVEquip =
+  mainStatStr === $stat`Muscle`
+    ? "LOV Eardigan"
+    : mainStatStr === $stat`Mysticality`
+      ? "LOV Epaulettes"
+      : "LOV Earring";
 
 export const codpieceSlots = $slots`codpiece1, codpiece2, codpiece3, codpiece4, codpiece5`;
 

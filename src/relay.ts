@@ -5,9 +5,9 @@ import { testAbbreviations, testLimits } from "./lib";
 import {
   consumptionResources,
   encounterResources,
+  excludedEffects,
   excludedFamiliars,
   farmingResources,
-  forbiddenEffects,
   otherResources,
   Resource,
 } from "./resources";
@@ -17,7 +17,7 @@ interface RelayResource {
   resources: Resource[];
 }
 
-const CSTests: CommunityService[] = Array.from(testLimits.entries()).map(([test, _]) => test);
+const CSTests: CommunityService[] = Array.from(testLimits.entries()).map(([test]) => test);
 
 const border: RelayComponent = {
   type: "html",
@@ -206,7 +206,7 @@ function miscellanyPage(): RelayPage {
       {
         type: "string",
         name: "Excluded Buffs",
-        description: `${forbiddenEffects.map((ef) => `[${ef.id}] ${ef.name}`).join(", ")}`,
+        description: `${excludedEffects.map((ef) => `[${ef.id}] ${ef.name}`).join(", ")}`,
         preference: "instant_explicitlyExcludedBuffs",
         default: "",
       } as RelayComponent,

@@ -30,14 +30,15 @@ import {
 } from "libram";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   acquireDwellingBuff,
   canAcquireDwellingBuff,
+  chooseFamiliar,
   handleCustomBusks,
   handleCustomPulls,
   haveAndNotExcluded,
+  prepareCodpiece,
   runTest,
   tryAcquiringEffect,
   tryAcquiringEffects,
@@ -45,7 +46,6 @@ import {
   useParkaSpit,
   wishFor,
 } from "../lib";
-import { prepareCodpiece, sugarItemsAboutToBreak } from "../outfit";
 
 const hotTestMaximizerString = "hot res";
 

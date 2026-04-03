@@ -12,12 +12,14 @@ import { $effect, $effects, $skill, get, have, set } from "libram";
 
 export class Resource {
   pref: string;
+  // eslint-disable-next-line no-unused-vars
   help: string | ((s?: string | number) => string);
   effects: Effect[];
   default_value: number;
 
   constructor(
     pref: string,
+    // eslint-disable-next-line no-unused-vars
     help: string | ((s?: string | number) => string),
     effects?: Effect[],
     default_value?: number,
@@ -334,7 +336,7 @@ const manuallyExcludedBuffs = get("instant_explicitlyExcludedBuffs", "")
   .split(",")
   .filter((s) => s.length > 0)
   .map((s) => toEffect(s));
-export const forbiddenEffects = [
+export const excludedEffects = [
   ...automaticallyExcludedBuffs,
   ...manuallyExcludedBuffs.filter((ef) => !automaticallyExcludedBuffs.includes(ef)),
 ];
@@ -377,7 +379,7 @@ export function checkResources(): void {
   printResources(otherResources);
 
   print("The following are all the buffs we will not acquire in run:");
-  forbiddenEffects.forEach((ef) => print(`- ${ef.name}`));
+  excludedEffects.forEach((ef) => print(`- ${ef.name}`));
   print("The following are all the familliars we will not use during leveling:");
   Familiar.all()
     .filter((fam) => excludedFamiliars.includes(fam))

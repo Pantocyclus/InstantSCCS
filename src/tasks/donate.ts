@@ -15,7 +15,6 @@ import {
   $effect,
   $effects,
   $item,
-  $slots,
   Clan,
   CommunityService,
   get,
@@ -34,8 +33,7 @@ import {
   trackedResource,
 } from "../engine/engine";
 import { Quest } from "../engine/task";
-import { testModifiers, updateRunStats } from "../lib";
-import { codpieceSlots } from "../outfit";
+import { codpieceSlots, testModifiers, updateRunStats } from "../lib";
 
 function printResourceUsage(tResource: trackedResource): void {
   const resource = tResource.resource;

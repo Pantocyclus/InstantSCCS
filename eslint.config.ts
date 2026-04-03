@@ -24,7 +24,7 @@ export default tseslint.config(
       "prefer-arrow-callback": "error",
       "prefer-const": "error",
       "prefer-template": "error",
-      "no-unused-vars": "off",
+      "no-unused-vars": "error",
       "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/no-unused-expressions": "off",
       "no-restricted-syntax": [

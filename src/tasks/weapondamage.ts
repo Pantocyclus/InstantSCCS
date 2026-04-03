@@ -44,18 +44,22 @@ import {
   have,
   SongBoom,
 } from "libram";
-import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
+import Macro from "../combat";
 import { Quest } from "../engine/task";
-import { chooseFamiliar } from "../familiars";
 import {
   acquiredOrExcluded,
   acquireDwellingBuff,
   attemptRestoringMpWithFreeRests,
   canAcquireDwellingBuff,
+  chooseFamiliar,
   handleCustomBusks,
   handleCustomPulls,
   haveAndNotExcluded,
+  haveFreeBanish,
+  haveMotherSlimeBanish,
   motherSlimeClan,
+  powerlevelingLocation,
+  prepareCodpieceForPercentTest,
   runTest,
   startingClan,
   tryAcquiringEffect,
@@ -63,8 +67,6 @@ import {
   tryAcquiringOdeToBooze,
   wishFor,
 } from "../lib";
-import { prepareCodpieceForPercentTest, sugarItemsAboutToBreak } from "../outfit";
-import { powerlevelingLocation } from "./leveling";
 
 const attemptKFH = have($skill`Kung Fu Hustler`) && haveAndNotExcluded($familiar`Disembodied Hand`);
 const wpnTestMaximizerString = "weapon dmg, switch disembodied hand, -switch left-hand man";
