@@ -66,7 +66,7 @@ export function handleCustomPulls(prefName: string, maximizerString = ""): boole
   // Takes a test preference and tries to pull all valid items
   // Returns true if we managed any successful pull
   if (
-    get(prefName)
+    get(prefName, "")
       .split(",")
       .map(handleCustomPull)
       .some((success) => success)

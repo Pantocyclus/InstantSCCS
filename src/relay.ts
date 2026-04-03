@@ -1,7 +1,7 @@
 import { beretBuskingEffects, toEffect, toInt, toItem, write } from "kolmafia";
 import { CommunityService, get } from "libram";
 import { generateHTML, handleApiRequest, RelayComponent, RelayPage } from "mafia-shared-relay";
-import { testAbbreviations, testLimits } from "./lib";
+import { acquiredOrExcluded, testAbbreviations, testLimits } from "./lib";
 import {
   consumptionResources,
   encounterResources,
@@ -154,6 +154,60 @@ function busksPage(): RelayPage {
   };
 }
 
+function wishesPage(): RelayPage {
+  const testWishes: RelayComponent[] = CSTests.filter((test) => test.name !== "Coil Wire").map(
+    (test) =>
+      ({
+        type: "string",
+        name: `${test.statName} Test`,
+        description: get(`instant_${testAbbreviations.get(test) ?? ""}TestWishes`, "")
+          .split(",")
+          .map((id) => toEffect(id))
+          .filter((ef) => !acquiredOrExcluded(ef))
+          .map((ef) => `[${ef.id}] ${ef}`)
+          .join(", "),
+        preference: `instant_${testAbbreviations.get(test) ?? ""}TestWishes`,
+        default: "",
+      }) as RelayComponent,
+  );
+
+  return {
+    page: "Wishes",
+    file: "Wishes",
+    components: [
+      {
+        type: "html",
+        data: `Enter desired wishes by a comma-separated list of effect ids - e.g. "1523,1833" (without quotes) to wish for both Medieval Mage Mayhem and Nigh-Invincible.`,
+      } as RelayComponent,
+      {
+        type: "string",
+        name: "Pre-leveling",
+        description: get("instant_preWishes", "")
+          .split(",")
+          .map((id) => toEffect(id))
+          .filter((ef) => !acquiredOrExcluded(ef))
+          .map((ef) => `[${ef.id}] ${ef}`)
+          .join(", "),
+        preference: "instant_preWishes",
+        default: "",
+      } as RelayComponent,
+      {
+        type: "string",
+        name: "Free Fight",
+        description: get("instant_freeFightWishes", "")
+          .split(",")
+          .map((id) => toEffect(id))
+          .filter((ef) => !acquiredOrExcluded(ef))
+          .map((ef) => `[${ef.id}] ${ef}`)
+          .join(", "),
+        preference: "instant_freeFightWishes",
+        default: "",
+      } as RelayComponent,
+      ...testWishes,
+    ],
+  };
+}
+
 function miscellanyPage(): RelayPage {
   return {
     page: "Miscellany",
@@ -242,6 +296,7 @@ function settingsToHTML(): RelayPage[] {
   pages.push(turnLimitsPage());
   pages.push(pullsPage());
   pages.push(busksPage());
+  pages.push(wishesPage());
   pages.push(miscellanyPage());
 
   return pages.map((page) => {

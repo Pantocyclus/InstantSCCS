@@ -29,6 +29,7 @@ import {
   acquiredOrExcluded,
   handleCustomBusks,
   handleCustomPulls,
+  handleCustomWishes,
   runTest,
   tryAcquiringEffect,
   tryAcquiringEffects,
@@ -127,6 +128,7 @@ export const NoncombatQuest: Quest = {
           cliExecute(`maximize ${comTestMaximizerString}`); // To avoid maximizer bug, we invoke this once more
         }
         handleCustomBusks("instant_comTestBusks");
+        handleCustomWishes("instant_comTestWishes");
 
         if (
           // Seems to be a bug where numericModifier doesn't recognize the -10 granted by an unbreakable umbrella, so check for that manually

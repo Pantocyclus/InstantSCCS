@@ -67,6 +67,7 @@ import {
   chooseFamiliar,
   handleCustomBusks,
   handleCustomPulls,
+  handleCustomWishes,
   haveAndNotExcluded,
   haveFreeBanish,
   haveHeartstone,
@@ -486,6 +487,7 @@ export const BoozeDropQuest: Quest = {
         }
         handleCustomPulls("instant_boozeTestPulls", boozeTestMaximizerString);
         handleCustomBusks("instant_boozeTestBusks");
+        handleCustomWishes("instant_boozeTestWishes");
 
         if (
           CommunityService.BoozeDrop.actualCost() > 1 &&

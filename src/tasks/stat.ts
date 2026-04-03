@@ -20,6 +20,7 @@ import {
   acquiredOrExcluded,
   handleCustomBusks,
   handleCustomPulls,
+  handleCustomWishes,
   mainStat,
   prepareCodpieceForPercentTest,
   reagentBalancerEffect,
@@ -99,6 +100,7 @@ export const HPQuest: Quest = {
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_hpTestPulls", hpTestMaximizerString);
         handleCustomBusks("instant_hpTestBusks");
+        handleCustomWishes("instant_hpTestWishes");
       },
       do: (): void => runTest(CommunityService.HP),
       outfit: { modifier: hpTestMaximizerString },
@@ -152,6 +154,7 @@ export const MuscleQuest: Quest = {
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_musTestPulls", musTestMaximizerString);
         handleCustomBusks("instant_musTestBusks");
+        handleCustomWishes("instant_musTestWishes");
       },
       do: (): void => runTest(CommunityService.Muscle),
       outfit: { modifier: musTestMaximizerString },
@@ -207,6 +210,7 @@ export const MysticalityQuest: Quest = {
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_mystTestPulls", mystTestMaximizerString);
         handleCustomBusks("instant_mystTestBusks");
+        handleCustomWishes("instant_mystTestWishes");
       },
       do: (): void => runTest(CommunityService.Mysticality),
       outfit: { modifier: mystTestMaximizerString },
@@ -276,6 +280,7 @@ export const MoxieQuest: Quest = {
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_moxTestPulls", moxTestMaximizerString);
         handleCustomBusks("instant_moxTestBusks");
+        handleCustomWishes("instant_moxTestWishes");
         if (have($skill`Acquire Rhinestones`)) useSkill($skill`Acquire Rhinestones`);
         if (have($item`rhinestone`)) use($item`rhinestone`, itemAmount($item`rhinestone`));
       },

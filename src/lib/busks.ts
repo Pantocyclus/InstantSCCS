@@ -210,7 +210,7 @@ interface BuskRequest {
   power: number;
 }
 
-export function handleCustomBusks(prefName: string) {
+export function handleCustomBusks(prefName: string): void {
   get(prefName, "")
     .split(",")
     .map((b) => {

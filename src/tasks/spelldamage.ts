@@ -55,6 +55,7 @@ import {
   chooseFamiliar,
   handleCustomBusks,
   handleCustomPulls,
+  handleCustomWishes,
   haveAndNotExcluded,
   haveFreeBanish,
   haveMotherSlimeBanish,
@@ -314,6 +315,7 @@ export const SpellDamageQuest: Quest = {
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_spellTestPulls", spellTestMaximizerString);
         handleCustomBusks("instant_spellTestBusks");
+        handleCustomWishes("instant_spellTestWishes");
 
         const wines = $items`Sacramento wine, distilled fortified wine`;
         while (

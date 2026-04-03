@@ -43,8 +43,8 @@ import {
   runChoice,
   storageAmount,
   takeStorage,
+  toEffect,
   toInt,
-  toItem,
   totalFreeRests,
   totalTurnsPlayed,
   turnsPlayed,
@@ -123,10 +123,12 @@ import {
   habitatCastsLeft,
   handleCustomBusks,
   handleCustomPulls,
+  handleCustomWishes,
   haveAndNotExcluded,
   haveCBBIngredients,
   haveFreeBanish,
   havePowerlevelingZoneBound,
+  haveWishes,
   legendarySealClubbingClub,
   LOVEquip,
   mainStat,
@@ -412,13 +414,7 @@ export const LevelingQuest: Quest = {
           .split(",")
           .map((id) => toInt(id))
           .some(canPull),
-      do: () =>
-        get("instant_prePulls", "0")
-          .split(",")
-          .forEach((id) => {
-            const it = toItem(toInt(id));
-            if (!have(it) && canPull(toInt(id))) takeStorage(it, 1);
-          }),
+      do: () => handleCustomPulls("instant_prePulls"),
       limit: { tries: 1 },
     },
     {
@@ -432,6 +428,16 @@ export const LevelingQuest: Quest = {
               .map((s) => toInt(s.split(":")?.at(0) ?? "0")),
           ),
       do: () => handleCustomBusks("instant_preBusks"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Pre-wishes",
+      completed: () =>
+        !haveWishes() ||
+        get("instant_preWishes", "0")
+          .split(",")
+          .every((id) => acquiredOrExcluded(toEffect(id)) || toEffect(id) === $effect.none),
+      do: () => handleCustomWishes("instant_preWishes"),
       limit: { tries: 1 },
     },
     {
@@ -1880,6 +1886,16 @@ export const LevelingQuest: Quest = {
               .map((s) => toInt(s.split(":")?.at(0) ?? "0")),
           ),
       do: () => handleCustomBusks("instant_freeFightBusks"),
+      limit: { tries: 1 },
+    },
+    {
+      name: "Free Fight Wishes",
+      completed: () =>
+        !haveWishes() ||
+        get("instant_freeFightWishes", "0")
+          .split(",")
+          .every((id) => acquiredOrExcluded(toEffect(id)) || toEffect(id) === $effect.none),
+      do: () => handleCustomWishes("instant_freeFightWishes"),
       limit: { tries: 1 },
     },
     {

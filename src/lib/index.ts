@@ -7,4 +7,5 @@ export * from "./miscellany";
 export * from "./outfit";
 export * from "./pulls";
 export * from "./tests";
+export * from "./wishes";
 export * from "./zones";

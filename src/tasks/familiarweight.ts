@@ -39,6 +39,7 @@ import {
   expectedFamiliarWeight,
   handleCustomBusks,
   handleCustomPulls,
+  handleCustomWishes,
   haveAndNotExcluded,
   prepareCodpiece,
   runTest,
@@ -155,6 +156,7 @@ export const FamiliarWeightQuest: Quest = {
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_famTestPulls", famTestMaximizerString);
         handleCustomBusks("instant_famTestBusks");
+        handleCustomWishes("instant_famTestWishes");
 
         if (have($item`love song of icy revenge`))
           use(

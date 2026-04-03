@@ -8,7 +8,6 @@ import {
   holiday,
   Item,
   itemAmount,
-  monkeyPaw,
   mpCost,
   myClass,
   myHp,
@@ -374,27 +373,6 @@ export function tryAcquiringSongs(songs: Effect[]): void {
       else uneffect(song);
     });
   acquirableSongs.forEach((song) => tryAcquiringEffect(song));
-}
-
-export function wishFor(ef: Effect, useGenie = true): void {
-  // Tries to wish for an effect, but does not guarantee it
-  if (have(ef)) return;
-  if (excludedEffects.includes(ef)) return;
-  // Genie and Monkey Paw both support wishing for effects
-  // However, we can always sell Genie Wishes, so we prioritize using the paw
-  // TODO: Use mafia's pref to check if we can still use the paw for wishes
-
-  if (
-    have($item`cursed monkey's paw`) &&
-    !get("instant_saveMonkeysPaw", false) &&
-    get("_monkeyPawWishesUsed") < 5
-  ) {
-    if (monkeyPaw(ef)) return;
-  }
-
-  if (have($item`pocket wish`) && !get("instant_saveGenie", false) && useGenie) {
-    cliExecute(`genie effect ${ef.name}`);
-  }
 }
 
 export const synthExpBuff =

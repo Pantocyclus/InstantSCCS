@@ -37,6 +37,7 @@ import {
   chooseFamiliar,
   handleCustomBusks,
   handleCustomPulls,
+  handleCustomWishes,
   haveAndNotExcluded,
   prepareCodpiece,
   runTest,
@@ -255,6 +256,7 @@ export const HotResQuest: Quest = {
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_hotTestPulls", hotTestMaximizerString);
         handleCustomBusks("instant_hotTestBusks");
+        handleCustomWishes("instant_hotTestWishes");
 
         if (
           CommunityService.HotRes.actualCost() >= 4 &&

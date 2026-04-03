@@ -54,6 +54,7 @@ import {
   chooseFamiliar,
   handleCustomBusks,
   handleCustomPulls,
+  handleCustomWishes,
   haveAndNotExcluded,
   haveFreeBanish,
   haveMotherSlimeBanish,
@@ -313,6 +314,7 @@ export const WeaponDamageQuest: Quest = {
         tryAcquiringEffects(usefulEffects, true);
         handleCustomPulls("instant_weaponTestPulls", wpnTestMaximizerString);
         handleCustomBusks("instant_weaponTestBusks");
+        handleCustomWishes("instant_weaponTestWishes");
 
         if (
           have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
