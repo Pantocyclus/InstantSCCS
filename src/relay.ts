@@ -1,5 +1,5 @@
 import { beretBuskingEffects, toEffect, toInt, toItem, write } from "kolmafia";
-import { CommunityService, get } from "libram";
+import { $effect, CommunityService, get } from "libram";
 import { generateHTML, handleApiRequest, RelayComponent, RelayPage } from "mafia-shared-relay";
 import { acquiredOrExcluded, testAbbreviations, testLimits } from "./lib";
 import {
@@ -163,7 +163,7 @@ function wishesPage(): RelayPage {
         description: get(`instant_${testAbbreviations.get(test) ?? ""}TestWishes`, "")
           .split(",")
           .map((id) => toEffect(id))
-          .filter((ef) => !acquiredOrExcluded(ef))
+          .filter((ef) => !acquiredOrExcluded(ef) && ef !== $effect.none)
           .map((ef) => `[${ef.id}] ${ef}`)
           .join(", "),
         preference: `instant_${testAbbreviations.get(test) ?? ""}TestWishes`,
@@ -185,7 +185,7 @@ function wishesPage(): RelayPage {
         description: get("instant_preWishes", "")
           .split(",")
           .map((id) => toEffect(id))
-          .filter((ef) => !acquiredOrExcluded(ef))
+          .filter((ef) => !acquiredOrExcluded(ef) && ef !== $effect.none)
           .map((ef) => `[${ef.id}] ${ef}`)
           .join(", "),
         preference: "instant_preWishes",
@@ -197,7 +197,7 @@ function wishesPage(): RelayPage {
         description: get("instant_freeFightWishes", "")
           .split(",")
           .map((id) => toEffect(id))
-          .filter((ef) => !acquiredOrExcluded(ef))
+          .filter((ef) => !acquiredOrExcluded(ef) && ef !== $effect.none)
           .map((ef) => `[${ef.id}] ${ef}`)
           .join(", "),
         preference: "instant_freeFightWishes",

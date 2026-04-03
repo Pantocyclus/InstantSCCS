@@ -39,7 +39,7 @@ const baseSettings = {
     babel({
       babelHelpers: "bundled",
       extensions: [".js", ".ts"],
-      exclude: ["node_modules/mafia-shared-relay/**"],
+      // exclude: ["node_modules/mafia-shared-relay/**"],
       babelrc: false,
       presets: [
         [
