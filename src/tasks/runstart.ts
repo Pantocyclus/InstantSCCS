@@ -156,15 +156,6 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Skeleton Store",
-      completed: () => get("questM23Meatsmith") !== "unstarted",
-      do: (): void => {
-        visitUrl("shop.php?whichshop=meatsmith&action=talk");
-        runChoice(1);
-      },
-      limit: { tries: 1 },
-    },
-    {
       name: "Overgrown Lot",
       completed: () => get("questM24Doc") !== "unstarted",
       do: (): void => {
@@ -938,6 +929,19 @@ export const RunStartQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Skeleton Store",
+      completed: () => get("questM23Meatsmith") !== "unstarted",
+      do: (): void => {
+        visitUrl("shop.php?whichshop=meatsmith&action=talk");
+        runChoice(1);
+
+        // The initial free NC is untracked and is best done in the same task
+        // It also changes the location, which is good for Archaeologist's Spade
+        adv1($location`The Skeleton Store`);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Archaeologist's Spade Skeletons",
       ready: () => myLocation() === $location`The Skeleton Store`,
       completed: () =>
@@ -966,6 +970,7 @@ export const RunStartQuest: Quest = {
       completed: () =>
         mainStat === $stat`Moxie` || !have($item`Peridot of Peril`) || have($item`cherry`),
       do: $location`The Skeleton Store`,
+      choices: { 1060: 5 },
       combat: new CombatStrategy().macro(
         Macro.if_($monster`time cop`, Macro.default())
           .if_(
@@ -1068,6 +1073,7 @@ export const RunStartQuest: Quest = {
             completedSkeletonBanishes() ||
             !haveFreeSkeletonBanish())),
       do: $location`The Skeleton Store`,
+      choices: { 1060: 5 },
       combat: new CombatStrategy().macro(() =>
         Macro.if_(
           "!haseffect Everything Looks Yellow",
