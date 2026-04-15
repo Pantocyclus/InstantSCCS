@@ -309,6 +309,12 @@ export class Engine extends BaseEngine {
     if (task.combat !== undefined && myHp() < myMaxhp() * 0.9) useSkill($skill`Cannelloni Cocoon`);
   }
 
+  markAttempt(task: Task): void {
+    if (!(task.name in this.attempts)) this.attempts[task.name] = 0;
+    if (!task.attempted || task.attempted()) this.attempts[task.name]++;
+    else set("lastEncounter", "");
+  }
+
   initPropertiesManager(manager: PropertiesManager): void {
     super.initPropertiesManager(manager);
     const bannedAutoRestorers = [
