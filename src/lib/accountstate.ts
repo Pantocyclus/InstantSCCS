@@ -66,7 +66,7 @@ export function getGarden(): Item {
 }
 
 export function haveCBBIngredients(fullCheck: boolean, verbose = false): boolean {
-  if (!have($familiar`Cookbookbat`) || myClass() !== $class`Sauceror`) return true;
+  if (!haveAndNotExcluded($familiar`Cookbookbat`) || myClass() !== $class`Sauceror`) return true;
   let yeast = 0,
     vegetable = 0,
     whey = 0;
@@ -282,7 +282,7 @@ export function haveFreeRunSource(): boolean {
 
 export function canScreech(): boolean {
   if (
-    !have($familiar`Patriotic Eagle`) ||
+    !haveAndNotExcluded($familiar`Patriotic Eagle`) ||
     excludedFamiliars.includes($familiar`Patriotic Eagle`) ||
     get("instant_skipPatrioticScreech", false)
   )
@@ -310,7 +310,7 @@ export function camelFightsLeft(): number {
   const snojo = get("snojoAvailable") ? 10 - get("_snojoFreeFights") : 0;
   const NEP = get("neverendingPartyAlways") ? 10 - get("_neverendingPartyFreeTurns") : 0;
   const witchess = Witchess.have() ? 5 - get("_witchessFights") : 0;
-  const DMT = have($familiar`Machine Elf`) ? 5 - get("_machineTunnelsAdv") : 0;
+  const DMT = haveAndNotExcluded($familiar`Machine Elf`) ? 5 - get("_machineTunnelsAdv") : 0;
   const LOV = get("loveTunnelAvailable") && !get("_loveTunnelToday") ? 3 : 0;
   const olivers = get("ownsSpeakeasy") ? 3 - get("_speakeasyFreeFights") : 0;
   const tentacle = get("_eldritchTentacleFought") ? 1 : 0;

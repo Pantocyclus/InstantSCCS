@@ -50,7 +50,7 @@ function optimisticCandle(): Familiar {
 }
 
 export function melodramedary(): Familiar {
-  return have($familiar`Melodramedary`) &&
+  return haveAndNotExcluded($familiar`Melodramedary`) &&
     camelFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 3.0) &&
     get("camelSpit") < 100
     ? $familiar`Melodramedary`
@@ -58,13 +58,13 @@ export function melodramedary(): Familiar {
 }
 
 function hoboInSheepsClothing(): Familiar {
-  return have($familiar`Hobo in Sheep's Clothing`) && !have($item`grubby wool`, 2)
+  return haveAndNotExcluded($familiar`Hobo in Sheep's Clothing`) && !have($item`grubby wool`, 2)
     ? $familiar`Hobo in Sheep's Clothing`
     : $familiar.none;
 }
 
 function miniKiwi(): Familiar {
-  return have($familiar`Mini Kiwi`) && !have($item`mini kiwi`, 10)
+  return haveAndNotExcluded($familiar`Mini Kiwi`) && !have($item`mini kiwi`, 10)
     ? $familiar`Mini Kiwi`
     : $familiar.none;
 }
