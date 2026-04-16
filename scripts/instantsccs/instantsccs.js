@@ -11833,7 +11833,7 @@ function getGarden() {
 }
 function haveCBBIngredients(fullCheck) {
   var verbose = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  if (!have$a($familiar(_templateObject7$h || (_templateObject7$h = _taggedTemplateLiteral(["Cookbookbat"])))) || kolmafia.myClass() !== $class(_templateObject8$g || (_templateObject8$g = _taggedTemplateLiteral(["Sauceror"])))) return true;
+  if (!haveAndNotExcluded($familiar(_templateObject7$h || (_templateObject7$h = _taggedTemplateLiteral(["Cookbookbat"])))) || kolmafia.myClass() !== $class(_templateObject8$g || (_templateObject8$g = _taggedTemplateLiteral(["Sauceror"])))) return true;
   var yeast = 0,
     vegetable = 0,
     whey = 0;
@@ -11949,7 +11949,7 @@ function haveFreeRunSource() {
 }
 function canScreech() {
   var _get$match;
-  if (!have$a($familiar(_templateObject55$c || (_templateObject55$c = _taggedTemplateLiteral(["Patriotic Eagle"])))) || excludedFamiliars.includes($familiar(_templateObject56$c || (_templateObject56$c = _taggedTemplateLiteral(["Patriotic Eagle"])))) || get("instant_skipPatrioticScreech", false)) return false;
+  if (!haveAndNotExcluded($familiar(_templateObject55$c || (_templateObject55$c = _taggedTemplateLiteral(["Patriotic Eagle"])))) || excludedFamiliars.includes($familiar(_templateObject56$c || (_templateObject56$c = _taggedTemplateLiteral(["Patriotic Eagle"])))) || get("instant_skipPatrioticScreech", false)) return false;
   var screechTurns = (_get$match = get("banishedPhyla").match(/Patriotic Screech:(\d+)/)) === null || _get$match === void 0 ? void 0 : _get$match[1];
   if (screechTurns) return kolmafia.toInt(screechTurns) <= kolmafia.myTurncount();
   return true;
@@ -11964,7 +11964,7 @@ function camelFightsLeft() {
   var snojo = get("snojoAvailable") ? 10 - get("_snojoFreeFights") : 0;
   var NEP = get("neverendingPartyAlways") ? 10 - get("_neverendingPartyFreeTurns") : 0;
   var witchess = have$8() ? 5 - get("_witchessFights") : 0;
-  var DMT = have$a($familiar(_templateObject61$a || (_templateObject61$a = _taggedTemplateLiteral(["Machine Elf"])))) ? 5 - get("_machineTunnelsAdv") : 0;
+  var DMT = haveAndNotExcluded($familiar(_templateObject61$a || (_templateObject61$a = _taggedTemplateLiteral(["Machine Elf"])))) ? 5 - get("_machineTunnelsAdv") : 0;
   var LOV = get("loveTunnelAvailable") && !get("_loveTunnelToday") ? 3 : 0;
   var olivers = get("ownsSpeakeasy") ? 3 - get("_speakeasyFreeFights") : 0;
   var tentacle = get("_eldritchTentacleFought") ? 1 : 0;
@@ -12018,13 +12018,13 @@ function optimisticCandle() {
   return !have$a($item(_templateObject10$f || (_templateObject10$f = _taggedTemplateLiteral(["glob of melted wax"])))) ? $familiar(_templateObject11$f || (_templateObject11$f = _taggedTemplateLiteral(["Optimistic Candle"]))) : $familiar.none;
 }
 function melodramedary() {
-  return have$a($familiar(_templateObject12$f || (_templateObject12$f = _taggedTemplateLiteral(["Melodramedary"])))) && camelFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 3.0) && get("camelSpit") < 100 ? $familiar(_templateObject13$f || (_templateObject13$f = _taggedTemplateLiteral(["Melodramedary"]))) : $familiar.none;
+  return haveAndNotExcluded($familiar(_templateObject12$f || (_templateObject12$f = _taggedTemplateLiteral(["Melodramedary"])))) && camelFightsLeft() >= Math.ceil((100 - get("camelSpit")) / 3.0) && get("camelSpit") < 100 ? $familiar(_templateObject13$f || (_templateObject13$f = _taggedTemplateLiteral(["Melodramedary"]))) : $familiar.none;
 }
 function hoboInSheepsClothing() {
-  return have$a($familiar(_templateObject14$f || (_templateObject14$f = _taggedTemplateLiteral(["Hobo in Sheep's Clothing"])))) && !have$a($item(_templateObject15$f || (_templateObject15$f = _taggedTemplateLiteral(["grubby wool"]))), 2) ? $familiar(_templateObject16$f || (_templateObject16$f = _taggedTemplateLiteral(["Hobo in Sheep's Clothing"]))) : $familiar.none;
+  return haveAndNotExcluded($familiar(_templateObject14$f || (_templateObject14$f = _taggedTemplateLiteral(["Hobo in Sheep's Clothing"])))) && !have$a($item(_templateObject15$f || (_templateObject15$f = _taggedTemplateLiteral(["grubby wool"]))), 2) ? $familiar(_templateObject16$f || (_templateObject16$f = _taggedTemplateLiteral(["Hobo in Sheep's Clothing"]))) : $familiar.none;
 }
 function miniKiwi() {
-  return have$a($familiar(_templateObject17$f || (_templateObject17$f = _taggedTemplateLiteral(["Mini Kiwi"])))) && !have$a($item(_templateObject18$f || (_templateObject18$f = _taggedTemplateLiteral(["mini kiwi"]))), 10) ? $familiar(_templateObject19$e || (_templateObject19$e = _taggedTemplateLiteral(["Mini Kiwi"]))) : $familiar.none;
+  return haveAndNotExcluded($familiar(_templateObject17$f || (_templateObject17$f = _taggedTemplateLiteral(["Mini Kiwi"])))) && !have$a($item(_templateObject18$f || (_templateObject18$f = _taggedTemplateLiteral(["mini kiwi"]))), 10) ? $familiar(_templateObject19$e || (_templateObject19$e = _taggedTemplateLiteral(["Mini Kiwi"]))) : $familiar.none;
 }
 function chooseFamiliar() {
   var allowAttackingFamiliars = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
