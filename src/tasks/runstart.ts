@@ -966,6 +966,7 @@ export const RunStartQuest: Quest = {
       completed: () =>
         mainStat === $stat`Moxie` || !have($item`Peridot of Peril`) || have($item`cherry`),
       do: $location`The Skeleton Store`,
+      choices: { 1060: 5 },
       combat: new CombatStrategy().macro(
         Macro.if_($monster`time cop`, Macro.default())
           .if_(
@@ -991,6 +992,10 @@ export const RunStartQuest: Quest = {
           use($item`MayDay™ supply package`, 1);
         if (have($item`space blanket`)) autosell($item`space blanket`, 1);
       },
+      attempted: () =>
+        !["Skeletons In Store", "Temporarily Out of Skeletons", "time cop"].includes(
+          get("lastEncounter"),
+        ),
       limit: { tries: 2 },
     },
     {
@@ -1047,6 +1052,10 @@ export const RunStartQuest: Quest = {
           use($item`MayDay™ supply package`, 1);
         if (have($item`space blanket`)) autosell($item`space blanket`, 1);
       },
+      attempted: () =>
+        !["Skeletons In Store", "Temporarily Out of Skeletons", "time cop"].includes(
+          get("lastEncounter"),
+        ),
       limit: { tries: 2 },
     },
     {
@@ -1068,16 +1077,18 @@ export const RunStartQuest: Quest = {
             completedSkeletonBanishes() ||
             !haveFreeSkeletonBanish())),
       do: $location`The Skeleton Store`,
+      choices: { 1060: 5 },
       combat: new CombatStrategy().macro(() =>
-        Macro.if_(
-          "!haseffect Everything Looks Yellow",
-          Macro.if_(
-            $monster`novelty tropical skeleton`,
-            Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
-              .trySkill($skill`Blow the Yellow Candle!`)
-              .tryItem($item`yellow rocket`),
-          ),
-        )
+        Macro.if_($monster`time cop`, Macro.default())
+          .if_(
+            "!haseffect Everything Looks Yellow",
+            Macro.if_(
+              $monster`novelty tropical skeleton`,
+              Macro.externalIf(useParkaSpit, Macro.trySkill($skill`Spit jurassic acid`))
+                .trySkill($skill`Blow the Yellow Candle!`)
+                .tryItem($item`yellow rocket`),
+            ),
+          )
           .externalIf(
             !Array.from(getBanishedMonsters().keys()).includes($skill`Bowl a Curveball`),
             Macro.trySkill($skill`Bowl a Curveball`),
@@ -1114,6 +1125,10 @@ export const RunStartQuest: Quest = {
           use($item`MayDay™ supply package`, 1);
         if (have($item`space blanket`)) autosell($item`space blanket`, 1);
       },
+      attempted: () =>
+        !["Skeletons In Store", "Temporarily Out of Skeletons", "time cop"].includes(
+          get("lastEncounter"),
+        ),
       limit: { tries: 4 },
     },
     {
