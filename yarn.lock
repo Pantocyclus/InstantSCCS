@@ -2674,8 +2674,8 @@ __metadata:
     eslint-plugin-libram: "npm:^0.5.3"
     grimoire-kolmafia: "npm:^0.3.33"
     jiti: "npm:^2.6.1"
-    kolmafia: "npm:^5.28948.0"
-    libram: "npm:^0.11.19"
+    kolmafia: "npm:^5.28989.0"
+    libram: "npm:^0.11.21"
     mafia-shared-relay: "npm:^0.0.7"
     prettier: "npm:^3.8.0"
     rollup: "npm:^4.55.2"
@@ -2829,10 +2829,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kolmafia@npm:^5.28948.0":
-  version: 5.28970.0
-  resolution: "kolmafia@npm:5.28970.0"
-  checksum: 10c0/98e0266ed4af804c21097eced47c430b6824ec98c74eb6c8d2c1f5c4669c096aad389621d5d4d0e70f030bb0a17b4f0dda34f40b8a40ba5970ebc33ded447ad6
+"kolmafia@npm:^5.28989.0":
+  version: 5.28989.0
+  resolution: "kolmafia@npm:5.28989.0"
+  checksum: 10c0/26998b213ba9b02170501f5acb7bc83a0c830259dc1f623db97fdd715515f117f7329219c195d5fc5f73ebcd41728a620343ac540840368570b6674ae34a773a
   languageName: node
   linkType: hard
 
@@ -2846,15 +2846,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"libram@npm:^0.11.19":
-  version: 0.11.19
-  resolution: "libram@npm:0.11.19"
+"libram@npm:^0.11.21":
+  version: 0.11.21
+  resolution: "libram@npm:0.11.21"
   dependencies:
     core-js: "npm:^3.47.0"
     entities: "npm:^7.0.0"
   peerDependencies:
     kolmafia: ^5.28100.0
-  checksum: 10c0/543f49e12a21d5e93a9e869c465720449a237093113ccfae9c753ff631a1b009fb3b5dc12cffd0180cff14db5e59e4f07948bb623f93109997a7260c6e9b0c4b
+  checksum: 10c0/51795e36358fa5abbc37bacc2d2bb10c603e5ff0fc34d90d2363ee988df29bf9b810ad00623a3200a86ae3569cc965e0f25fcb6243c8fda7113f65798c7cc9b2
   languageName: node
   linkType: hard
 

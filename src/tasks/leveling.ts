@@ -800,6 +800,24 @@ export const LevelingQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Play Ball",
+      completed: () =>
+        get("_baseballInnings", 0) >= 3 || get("baseballTeam", "").split(",").length < 9,
+      do: () => {
+        visitUrl(`inventory.php?pwd=${myHash()}&action=pball`, false);
+        runChoice(3); // Ghost Pitch or Skull Ball
+        runChoice(3); // Ghost Pitch or Skull Ball
+        runChoice(3); // Non-Euclidean Curveball (next 3 fights against this monster are free)
+        runChoice(5); // Slurveball or Bacon-Wrapped Slider
+        runChoice(5); // Slurveball or Bacon-Wrapped Slider
+        runChoice(5); // +3*level ML to this monster
+        runChoice(1); // Throw Some Smoke or Bring the Heat
+        runChoice(1); // Throw Some Smoke or Bring the Heat
+        runChoice(1); // Force all drops
+        runChoice(6); // Exit inning
+      },
+    },
+    {
       name: "Club 'Em Into Next Week",
       prepare: (): void => {
         restoreHp(clamp(1000, myMaxhp() / 2, myMaxhp()));
@@ -1834,9 +1852,8 @@ export const LevelingQuest: Quest = {
         ...baseOutfit(),
         back: get("_batWingsFreeFights") < 5 ? $item`bat wings` : undefined,
         shirt: garbageShirt(),
-        offhand: $item`unbreakable umbrella`,
+        offhand: get("_baseballInnings", 0) < 3 ? $item`Baseball Diamond` : undefined,
         acc3: mobiusRing(),
-        modes: { umbrella: "broken" },
       }),
       limit: { tries: 60 },
       choices: {

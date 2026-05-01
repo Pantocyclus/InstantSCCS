@@ -1,1 +1,1 @@
-export const KOLMAFIA_VERSION = 28944;
+export const KOLMAFIA_VERSION = 28984;
