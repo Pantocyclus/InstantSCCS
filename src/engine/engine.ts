@@ -337,6 +337,8 @@ export class Engine extends BaseEngine {
       .join(";");
     manager.set({
       autoSatisfyWithCloset: false,
+      autoSatisfyWithCoinmasters: true,
+      autoSatisfyWithNPCs: true,
       hpAutoRecovery: -0.05,
       mpAutoRecovery: -0.05,
       maximizerCombinationLimit: 0,
