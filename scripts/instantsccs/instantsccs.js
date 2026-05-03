@@ -12372,6 +12372,8 @@ var Engine = /*#__PURE__*/function (_BaseEngine) {
       var mpItems = Array.from(new Set([].concat(_toConsumableArray(get("mpAutoRecoveryItems").split(";")), ["doc galaktik's invigorating tonic"]))).filter(s => !bannedAutoMpRestorers.includes(s)).join(";");
       manager.set({
         autoSatisfyWithCloset: false,
+        autoSatisfyWithCoinmasters: true,
+        autoSatisfyWithNPCs: true,
         hpAutoRecovery: -0.05,
         mpAutoRecovery: -0.05,
         maximizerCombinationLimit: 0,
