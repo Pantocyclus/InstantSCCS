@@ -504,9 +504,10 @@ export function canAcquireDwellingBuff(ef: Effect): boolean {
   else if (ef === $effect`Holiday Bliss`)
     return (
       (dwelling === $item`gingerbread house` ||
-        getFurnishings().some((s) =>
+        (getFurnishings().some((s) =>
           ["Crimbo wreath", "Crimbo lights", "Crimbo reindeer"].includes(s),
-        )) &&
+        ) &&
+          get("timesRested") === 0)) && // Mafia currently doesn't track acquisition of Holiday Bliss without the gingerbread house
       !get("_gingerbreadHouseRestEffectGained")
     );
   else if (ef === $effect`Hobonic`) return dwelling === $item`hobo fortress blueprints`;
