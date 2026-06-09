@@ -94,7 +94,10 @@ export const HotResQuest: Quest = {
       outfit: () => ({
         back: $item`vampyric cloake`,
         shirt: $item`Jurassic Parka`,
-        weapon: $item`Fourth of May Cosplay Saber`,
+        weapon:
+          get("_saberForceUses") < 5 - get("instant_saveSaberForceUses", 0)
+            ? $item`Fourth of May Cosplay Saber`
+            : undefined,
         offhand: have($skill`Double-Fisted Skull Smashing`)
           ? $item`industrial fire extinguisher`
           : have($effect`Everything Looks Yellow`)

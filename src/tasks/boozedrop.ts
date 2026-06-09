@@ -238,7 +238,10 @@ export const BoozeDropQuest: Quest = {
             ? $item`Daylight Shavings Helmet`
             : undefined,
         back: $item`vampyric cloake`,
-        weapon: $item`Fourth of May Cosplay Saber`,
+        weapon:
+          get("_saberForceUses") < 5 - get("instant_saveSaberForceUses", 0)
+            ? $item`Fourth of May Cosplay Saber`
+            : undefined,
         offhand: have($skill`Double-Fisted Skull Smashing`)
           ? $item`industrial fire extinguisher`
           : undefined,
