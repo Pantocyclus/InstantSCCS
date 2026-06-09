@@ -108,7 +108,10 @@ export const HotResQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Become a Cloud of Mist`)
           .trySkill($skill`Fire Extinguisher: Foam Yourself`)
-          .trySkill($skill`Use the Force`)
+          .externalIf(
+            get("_saberForceUses") < 5 - get("instant_saveSaberForceUses", 0),
+            Macro.trySkill($skill`Use the Force`),
+          )
           .trySkill($skill`Shocking Lick`)
           .if_(
             "!haseffect Everything Looks Yellow",
@@ -130,7 +133,7 @@ export const HotResQuest: Quest = {
       completed: () =>
         acquiredOrExcluded($effect`Fireproof Foam Suit`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
-        get("_saberForceUses") >= 5 ||
+        get("_saberForceUses") >= 5 - get("instant_saveSaberForceUses", 0) ||
         !have($item`industrial fire extinguisher`) ||
         !have($skill`Double-Fisted Skull Smashing`),
       do: $location`The Dire Warren`,

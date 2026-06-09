@@ -185,7 +185,7 @@ export const WeaponDamageQuest: Quest = {
         acquiredOrExcluded($effect`Meteor Showered`) ||
         !have($item`Fourth of May Cosplay Saber`) ||
         !have($skill`Meteor Lore`) ||
-        get("_saberForceUses") >= 5,
+        get("_saberForceUses") >= 5 - get("instant_saveSaberForceUses", 0),
       do: attemptKFH ? powerlevelingLocation() : $location`The Dire Warren`,
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Meteor Shower`)

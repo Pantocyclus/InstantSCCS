@@ -251,7 +251,10 @@ export const BoozeDropQuest: Quest = {
         Macro.trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Become a Bat`)
           .trySkill($skill`Fire Extinguisher: Polar Vortex`)
-          .trySkill($skill`Use the Force`)
+          .externalIf(
+            get("_saberForceUses") < 5 - get("instant_saveSaberForceUses", 0),
+            Macro.trySkill($skill`Use the Force`),
+          )
           .default(),
       ),
       limit: { tries: 5 },

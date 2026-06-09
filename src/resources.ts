@@ -320,6 +320,12 @@ export const otherResources: Resource[] = [
     [],
     get("instant_saveHeartstoneKill", false) ? 5 : 0,
   ),
+  new Resource(
+    "instant_saveSaberForceUses",
+    (n) => `Save ${n}/5 Cosplay Saber Force Uses`,
+    [],
+    get("instant_saveSaberForceUses", false) ? 5 : 0,
+  ),
 ];
 
 const allResources = [
