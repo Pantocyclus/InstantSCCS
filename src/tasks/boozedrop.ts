@@ -238,7 +238,10 @@ export const BoozeDropQuest: Quest = {
             ? $item`Daylight Shavings Helmet`
             : undefined,
         back: $item`vampyric cloake`,
-        weapon: $item`Fourth of May Cosplay Saber`,
+        weapon:
+          get("_saberForceUses") < 5 - get("instant_saveSaberForceUses", 0)
+            ? $item`Fourth of May Cosplay Saber`
+            : undefined,
         offhand: have($skill`Double-Fisted Skull Smashing`)
           ? $item`industrial fire extinguisher`
           : undefined,
@@ -251,7 +254,10 @@ export const BoozeDropQuest: Quest = {
         Macro.trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Become a Bat`)
           .trySkill($skill`Fire Extinguisher: Polar Vortex`)
-          .trySkill($skill`Use the Force`)
+          .externalIf(
+            get("_saberForceUses") < 5 - get("instant_saveSaberForceUses", 0),
+            Macro.trySkill($skill`Use the Force`),
+          )
           .default(),
       ),
       limit: { tries: 5 },
