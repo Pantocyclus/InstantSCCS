@@ -180,7 +180,7 @@ export class Engine extends BaseEngine {
 
     set(
       "_instant_currentTaskAttempts",
-      `task.name:${task.name in this.attempts ? this.attempts[task.name] : 0}`,
+      `${task.name}:${task.name in this.attempts ? this.attempts[task.name] : 0}`,
     );
     super.execute(task);
     if (have($effect`Beaten Up`)) {
