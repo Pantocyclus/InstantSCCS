@@ -178,6 +178,10 @@ export class Engine extends BaseEngine {
     const originalOrgans = organUsage();
     this.checkLimits(task, undefined);
 
+    set(
+      "_instant_currentTaskAttempts",
+      `task.name:${task.name in this.attempts ? this.attempts[task.name] : 0}`,
+    );
     super.execute(task);
     if (have($effect`Beaten Up`)) {
       if (
