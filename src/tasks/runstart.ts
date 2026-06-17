@@ -710,6 +710,7 @@ export const RunStartQuest: Quest = {
           cliExecute("umbrella weapon");
       },
       completed: () =>
+        getWorkshed() !== $item`model train set` ||
         get("trainsetPosition") > 0 ||
         turnsPlayed() > 0 ||
         get("hasMaydayContract") ||
