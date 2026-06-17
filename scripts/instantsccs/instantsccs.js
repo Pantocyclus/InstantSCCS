@@ -12232,7 +12232,7 @@ var Engine = /*#__PURE__*/function (_BaseEngine) {
       var organUsage = () => [kolmafia.myFullness(), kolmafia.myInebriety(), kolmafia.mySpleenUse()];
       var originalOrgans = organUsage();
       this.checkLimits(task, undefined);
-      _set("_instant_currentTaskAttempts", "task.name:".concat(task.name in this.attempts ? this.attempts[task.name] : 0));
+      _set("_instant_currentTaskAttempts", "".concat(task.name, ":").concat(task.name in this.attempts ? this.attempts[task.name] : 0));
       _superPropGet(Engine, "execute", this, 3)([task]);
       if (have$a($effect(_templateObject4$g || (_templateObject4$g = _taggedTemplateLiteral(["Beaten Up"]))))) {
         if ([
