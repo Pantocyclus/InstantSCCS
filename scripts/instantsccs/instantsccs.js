@@ -12957,7 +12957,7 @@ function updateRunStats() {
       return s.map(val => {
         var _val$match;
         var num = "?";
-        if (val === "_instant_runBreakpoints") {
+        if (val.replace(/[\s']/g, "") === "_instant_runBreakpoints") {
           num = formatRunBreakpoints(get(val, ""));
         } else if (Number.isInteger(parseInt(val))) {
           num = val;
