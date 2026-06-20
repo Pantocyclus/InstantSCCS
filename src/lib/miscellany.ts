@@ -14,6 +14,40 @@ import { $item, get } from "libram";
 
 export let releaseSHA = "unknown";
 
+function formatRunBreakpoints(text: string): string {
+  if (get("_instantsccs_runsToday", 0) === 0) return "";
+  return [
+    ...new Set(
+      text
+        .split("|")
+        .map((currentTaskAttempts) => {
+          const currentFullTask = currentTaskAttempts?.split(":")?.at(0) ?? "";
+          if (currentFullTask.length > 0) {
+            const currentTask =
+              currentFullTask // "Run Start/Restore mp (Bat Wings)"
+                .split("/") // ["Run Start", "Restore mp (Bat Wings)"]
+                ?.at(0) // "Run Start"
+                ?.replace(/[aeiou']/g, "") // "Rn Strt"
+                ?.split(" ") // ["Rn", "Strt"]
+                ?.map((s) => s.slice(0, 2)) // ["Rn", "St"]
+                ?.join("") ?? ""; // "RnSt"
+            const currentSubtask =
+              currentFullTask // "Run Start/Restore mp (Bat Wings)"
+                .split("/") // ["Run Start", "Restore mp (Bat Wings)"]
+                ?.at(1) // "Restore mp (Bat Wings)"
+                ?.replace(/[aeiou'\s]/g, "") ?? ""; // "Rstrmp(BtWngs)"
+
+            if (currentSubtask === "Tst" || currentTask.length === 0 || currentSubtask.length === 0)
+              return "";
+            return [currentTask, currentSubtask].join("/"); // "RnSt/Rstrmp(BtWngs)"
+          }
+          return "";
+        })
+        .filter((s) => s.length > 0),
+    ),
+  ].join(",");
+}
+
 function writeToWhiteboard(text: string): void {
   visitUrl(`clan_basement.php?whiteboard=${text}&action=whitewrite`);
 }
@@ -63,7 +97,9 @@ export function updateRunStats(): void {
           .map((val) => {
             let num = "?";
 
-            if (Number.isInteger(parseInt(val))) {
+            if (val === "_instant_runBreakpoints") {
+              num = formatRunBreakpoints(get(val, ""));
+            } else if (Number.isInteger(parseInt(val))) {
               num = val;
             } else if (toItem(val.match(/\[(\d+)\]/)?.at(1) ?? "") !== $item.none) {
               num = availableAmount(toItem(val)).toString();

@@ -88,39 +88,14 @@ export function main(command?: string): void {
   const setTimeNow = get(timeProperty, -1) === -1;
   if (setTimeNow) set(timeProperty, nowToString("yyyyMMddhhmmssSSS"));
   set("_instantsccs_runsToday", get("_instantsccs_runsToday", 0) + 1);
-  if (get("_instantsccs_runsToday", 0) > 1) {
-    const currentFullTask = get("_instant_currentTaskAttempts", "")?.split(":")?.at(0) ?? "";
-    if (currentFullTask.length > 0) {
-      const currentTask =
-        currentFullTask // "Run Start/Restore mp (Bat Wings)"
-          .split("/") // ["Run Start", "Restore mp (Bat Wings)"]
-          ?.at(0) // "Run Start"
-          ?.replace(/[aeiou']/g, "") // "Rn Strt"
-          ?.split(" ") // ["Rn", "Strt"]
-          ?.map((s) => s.slice(0, 2)) // ["Rn", "St"]
-          ?.join("") ?? ""; // "RnSt"
-      const currentSubtask =
-        currentFullTask // "Run Start/Restore mp (Bat Wings)"
-          .split("/") // ["Run Start", "Restore mp (Bat Wings)"]
-          ?.at(1) // "Restore mp (Bat Wings)"
-          ?.replace(/[aeiou'\s]/g, "") ?? ""; // "Rstrmp(BtWngs)"
-
-      if (currentSubtask !== "Tst" && currentTask.length > 0 && currentSubtask.length > 0) {
-        const previousBreaks = get("_instant_runBreakpoints", "").split(",");
-        const currentBreak = [currentTask, currentSubtask].join("/"); // "RnSt/Rstrmp(BtWngs)"
-
-        if (!previousBreaks.includes(currentBreak))
-          set(
-            "_instant_runBreakpoints",
-            get("_instant_runBreakpoints", "")
-              .split(",")
-              .concat(currentBreak)
-              .filter((s) => s.length > 0)
-              .join(""),
-          );
-      }
-    }
-  }
+  set(
+    "_instant_runBreakpoints",
+    get("_instant_runBreakpoints", "")
+      .split(",")
+      .concat(get("_instant_currentTaskAttempts", ""))
+      .filter((s) => s.length > 0)
+      .join("|"),
+  );
 
   // Some checks to align mafia prefs
   visitUrl("museum.php?action=icehouse");
