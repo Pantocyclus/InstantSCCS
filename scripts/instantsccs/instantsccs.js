@@ -12899,6 +12899,31 @@ function handleCustomBusks(prefName) {
 }
 
 var releaseSHA = "unknown";
+function formatRunBreakpoints(text) {
+  if (get("_instantsccs_runsToday", 0) === 0) return "";
+  return _toConsumableArray(new Set(text.split("|").map(currentTaskAttempts => {
+    var _currentTaskAttempts$;
+    var currentFullTask = (currentTaskAttempts === null || currentTaskAttempts === void 0 || (_currentTaskAttempts$ = currentTaskAttempts.split(":")) === null || _currentTaskAttempts$ === void 0 ? void 0 : _currentTaskAttempts$.at(0)) ?? "";
+    if (currentFullTask.length > 0) {
+      var _currentFullTask$spli, _currentFullTask$spli2;
+      var currentTask = ((_currentFullTask$spli = currentFullTask // "Run Start/Restore mp (Bat Wings)"
+      .split("/") // ["Run Start", "Restore mp (Bat Wings)"]
+      ) === null || _currentFullTask$spli === void 0 || (_currentFullTask$spli = _currentFullTask$spli.at(0) // "Run Start"
+      ) === null || _currentFullTask$spli === void 0 || (_currentFullTask$spli = _currentFullTask$spli.replace(/[aeiou']/g, "") // "Rn Strt"
+      ) === null || _currentFullTask$spli === void 0 || (_currentFullTask$spli = _currentFullTask$spli.split(" ") // ["Rn", "Strt"]
+      ) === null || _currentFullTask$spli === void 0 || (_currentFullTask$spli = _currentFullTask$spli.map(s => s.slice(0, 2)) // ["Rn", "St"]
+      ) === null || _currentFullTask$spli === void 0 ? void 0 : _currentFullTask$spli.join("")) ?? ""; // "RnSt"
+      var currentSubtask = ((_currentFullTask$spli2 = currentFullTask // "Run Start/Restore mp (Bat Wings)"
+      .split("/") // ["Run Start", "Restore mp (Bat Wings)"]
+      ) === null || _currentFullTask$spli2 === void 0 || (_currentFullTask$spli2 = _currentFullTask$spli2.at(1) // "Restore mp (Bat Wings)"
+      ) === null || _currentFullTask$spli2 === void 0 ? void 0 : _currentFullTask$spli2.replace(/[aeiou'\s]/g, "")) ?? ""; // "Rstrmp(BtWngs)"
+
+      if (currentSubtask === "Tst" || currentTask.length === 0 || currentSubtask.length === 0) return "";
+      return [currentTask, currentSubtask].join("/"); // "RnSt/Rstrmp(BtWngs)"
+    }
+    return "";
+  }).filter(s => s.length > 0))).join(",");
+}
 function writeToWhiteboard(text) {
   kolmafia.visitUrl("clan_basement.php?whiteboard=".concat(text, "&action=whitewrite"));
 }
@@ -12932,7 +12957,9 @@ function updateRunStats() {
       return s.map(val => {
         var _val$match;
         var num = "?";
-        if (Number.isInteger(parseInt(val))) {
+        if (val === "_instant_runBreakpoints") {
+          num = formatRunBreakpoints(get(val, ""));
+        } else if (Number.isInteger(parseInt(val))) {
           num = val;
         } else if (kolmafia.toItem(((_val$match = val.match(/\[(\d+)\]/)) === null || _val$match === void 0 ? void 0 : _val$match.at(1)) ?? "") !== $item.none) {
           num = kolmafia.availableAmount(kolmafia.toItem(val)).toString();
@@ -17755,31 +17782,7 @@ function main(command) {
   var setTimeNow = get(timeProperty, -1) === -1;
   if (setTimeNow) _set(timeProperty, kolmafia.nowToString("yyyyMMddhhmmssSSS"));
   _set("_instantsccs_runsToday", get("_instantsccs_runsToday", 0) + 1);
-  if (get("_instantsccs_runsToday", 0) > 1) {
-    var _get;
-    var currentFullTask = ((_get = get("_instant_currentTaskAttempts", "")) === null || _get === void 0 || (_get = _get.split(":")) === null || _get === void 0 ? void 0 : _get.at(0)) ?? "";
-    if (currentFullTask.length > 0) {
-      var _currentFullTask$spli, _currentFullTask$spli2;
-      var currentTask = ((_currentFullTask$spli = currentFullTask // "Run Start/Restore mp (Bat Wings)"
-      .split("/") // ["Run Start", "Restore mp (Bat Wings)"]
-      ) === null || _currentFullTask$spli === void 0 || (_currentFullTask$spli = _currentFullTask$spli.at(0) // "Run Start"
-      ) === null || _currentFullTask$spli === void 0 || (_currentFullTask$spli = _currentFullTask$spli.replace(/[aeiou']/g, "") // "Rn Strt"
-      ) === null || _currentFullTask$spli === void 0 || (_currentFullTask$spli = _currentFullTask$spli.split(" ") // ["Rn", "Strt"]
-      ) === null || _currentFullTask$spli === void 0 || (_currentFullTask$spli = _currentFullTask$spli.map(s => s.slice(0, 2)) // ["Rn", "St"]
-      ) === null || _currentFullTask$spli === void 0 ? void 0 : _currentFullTask$spli.join("")) ?? ""; // "RnSt"
-      var currentSubtask = ((_currentFullTask$spli2 = currentFullTask // "Run Start/Restore mp (Bat Wings)"
-      .split("/") // ["Run Start", "Restore mp (Bat Wings)"]
-      ) === null || _currentFullTask$spli2 === void 0 || (_currentFullTask$spli2 = _currentFullTask$spli2.at(1) // "Restore mp (Bat Wings)"
-      ) === null || _currentFullTask$spli2 === void 0 ? void 0 : _currentFullTask$spli2.replace(/[aeiou'\s]/g, "")) ?? ""; // "Rstrmp(BtWngs)"
-
-      if (currentSubtask !== "Tst" && currentTask.length > 0 && currentSubtask.length > 0) {
-        var previousBreaks = get("_instant_runBreakpoints", "").split(",");
-        var currentBreak = [currentTask, currentSubtask].join("/"); // "RnSt/Rstrmp(BtWngs)"
-
-        if (!previousBreaks.includes(currentBreak)) _set("_instant_runBreakpoints", get("_instant_runBreakpoints", "").split(",").concat(currentBreak).filter(s => s.length > 0).join(""));
-      }
-    }
-  }
+  _set("_instant_runBreakpoints", get("_instant_runBreakpoints", "").split(",").concat(get("_instant_currentTaskAttempts", "")).filter(s => s.length > 0).join("|"));
 
   // Some checks to align mafia prefs
   kolmafia.visitUrl("museum.php?action=icehouse");
