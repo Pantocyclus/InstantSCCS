@@ -97,7 +97,7 @@ export function updateRunStats(): void {
           .map((val) => {
             let num = "?";
 
-            if (val === "_instant_runBreakpoints") {
+            if (val.replace(/[\s']/g, "") === "_instant_runBreakpoints") {
               num = formatRunBreakpoints(get(val, ""));
             } else if (Number.isInteger(parseInt(val))) {
               num = val;
