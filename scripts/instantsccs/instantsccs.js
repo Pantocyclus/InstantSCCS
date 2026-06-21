@@ -12957,15 +12957,18 @@ function updateRunStats() {
       return s.map(val => {
         var _val$match;
         var num = "?";
-        if (val.replace(/[\s']/g, "") === "_instant_runBreakpoints") {
-          num = formatRunBreakpoints(get(val, ""));
-        } else if (Number.isInteger(parseInt(val))) {
+        if (Number.isInteger(parseInt(val))) {
           num = val;
         } else if (kolmafia.toItem(((_val$match = val.match(/\[(\d+)\]/)) === null || _val$match === void 0 ? void 0 : _val$match.at(1)) ?? "") !== $item.none) {
           num = kolmafia.availableAmount(kolmafia.toItem(val)).toString();
         } else {
-          num = get(val.replace(/[\s']/g, ""), "?");
-          if (num === "true") num = "1";else if (num === "false") num = "0";
+          var prefname = val.replace(/[\s']/g, "");
+          if (prefname === "_instant_runBreakpoints") {
+            num = formatRunBreakpoints(get(prefname, ""));
+          } else {
+            num = get(prefname, "?");
+            if (num === "true") num = "1";else if (num === "false") num = "0";
+          }
         }
         return num;
       }).join("/");
