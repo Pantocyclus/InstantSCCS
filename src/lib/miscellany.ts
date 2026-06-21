@@ -96,17 +96,19 @@ export function updateRunStats(): void {
         return s
           .map((val) => {
             let num = "?";
-
-            if (val.replace(/[\s']/g, "") === "_instant_runBreakpoints") {
-              num = formatRunBreakpoints(get(val, ""));
-            } else if (Number.isInteger(parseInt(val))) {
+            if (Number.isInteger(parseInt(val))) {
               num = val;
             } else if (toItem(val.match(/\[(\d+)\]/)?.at(1) ?? "") !== $item.none) {
               num = availableAmount(toItem(val)).toString();
             } else {
-              num = get(val.replace(/[\s']/g, ""), "?");
-              if (num === "true") num = "1";
-              else if (num === "false") num = "0";
+              const prefname = val.replace(/[\s']/g, "");
+              if (prefname === "_instant_runBreakpoints") {
+                num = formatRunBreakpoints(get(prefname, ""));
+              } else {
+                num = get(prefname, "?");
+                if (num === "true") num = "1";
+                else if (num === "false") num = "0";
+              }
             }
             return num;
           })
