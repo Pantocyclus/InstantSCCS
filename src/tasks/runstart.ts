@@ -948,7 +948,7 @@ export const RunStartQuest: Quest = {
         visitUrl(`inv_use.php?which=3&whichitem=12184&pwd`);
         runChoice(3);
       },
-      combat: new CombatStrategy().macro(Macro.default()),
+      combat: new CombatStrategy().macro(Macro.attack()),
       outfit: (): OutfitSpec => baseOutfit(),
       limit: { tries: 11 },
     },
