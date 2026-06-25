@@ -16937,7 +16937,7 @@ var RunStartQuest = {
       kolmafia.visitUrl("inv_use.php?which=3&whichitem=12184&pwd");
       kolmafia.runChoice(3);
     },
-    combat: new CombatStrategy().macro(Macro["default"]()),
+    combat: new CombatStrategy().macro(Macro.attack()),
     outfit: () => baseOutfit(),
     limit: {
       tries: 11
