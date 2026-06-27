@@ -12235,15 +12235,15 @@ var Engine = /*#__PURE__*/function (_BaseEngine) {
       _set("_instant_currentTaskAttempts", "".concat(task.name, ":").concat(task.name in this.attempts ? this.attempts[task.name] : 0));
       _superPropGet(Engine, "execute", this, 3)([task]);
       if (have$a($effect(_templateObject4$g || (_templateObject4$g = _taggedTemplateLiteral(["Beaten Up"]))))) {
-        if ([
-        // "Poetic Justice", // grimoire automatically re-runs certain tasks here (https://github.com/loathers/grimoire/blob/main/src/engine.ts#L525)
-        // "Lost and Found", // this includes all cleaver non-combats, so the script would never see these in lastEncounter
-        "Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(get("lastEncounter"))) uneffect($effect(_templateObject5$f || (_templateObject5$f = _taggedTemplateLiteral(["Beaten Up"]))));else if (get("_juneCleaverEncounters") > lastJuneCleaverEncounters &&
+        if (["Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(get("lastEncounter"))) uneffect($effect(_templateObject5$f || (_templateObject5$f = _taggedTemplateLiteral(["Beaten Up"]))));else if (get("_juneCleaverEncounters") > lastJuneCleaverEncounters &&
         // We hit a June Cleaver NC between the last run and this
         get("juneCleaverQueue") // Hit Poetic Justice / Lost and Found NC
         .split(",").some(noncombatId => ["1467", "1471"].includes(noncombatId))) {
           uneffect($effect(_templateObject6$f || (_templateObject6$f = _taggedTemplateLiteral(["Beaten Up"]))));
         } else throw new Error("Fight was lost; stop.");
+      }
+      if (task.name in this.attempts && (get("_juneCleaverEncounters") > lastJuneCleaverEncounters || ["Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(get("lastEncounter")))) {
+        this.attempts[task.name] = Math.max(0, this.attempts[task.name] - 1);
       }
       lastJuneCleaverEncounters = get("_juneCleaverEncounters");
       originalValues.forEach(_ref2 => {
