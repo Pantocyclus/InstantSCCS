@@ -182,7 +182,12 @@ export class Engine extends BaseEngine {
       "_instant_currentTaskAttempts",
       `${task.name}:${task.name in this.attempts ? this.attempts[task.name] : 0}`,
     );
+
+    // Conduct checkLimits() ourselves (outside of execute()) so we can properly handle things like june cleaver encounters
+    const originalTries = task.limit?.tries;
+    if (task.limit?.tries) task.limit.tries = undefined;
     super.execute(task);
+    if (task.limit?.tries) task.limit.tries = originalTries;
     if (have($effect`Beaten Up`)) {
       if (["Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(get("lastEncounter")))
         uneffect($effect`Beaten Up`);
@@ -235,6 +240,9 @@ export class Engine extends BaseEngine {
     } else {
       print(`${task.name} not completed!`, "blue");
     }
+
+    // Finally handle the checkLimits() ourselves since we plucked it out of execute()
+    this.checkLimits(task, undefined);
   }
 
   createOutfit(task: Task): Outfit {
