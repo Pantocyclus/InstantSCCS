@@ -12227,7 +12227,7 @@ var Engine = /*#__PURE__*/function (_BaseEngine) {
   }, {
     key: "execute",
     value: function execute(task) {
-      var _task$limit, _task$limit2, _task$limit3;
+      var _task$limit, _task$limit2;
       var originalValues = trackedResources.map(_ref => {
         var resource = _ref.resource;
         return typeof resource === "string" ? [resource, get(resource).toString()] : [resource.name, "".concat(kolmafia.itemAmount(resource))];
@@ -12241,7 +12241,7 @@ var Engine = /*#__PURE__*/function (_BaseEngine) {
       var originalTries = (_task$limit = task.limit) === null || _task$limit === void 0 ? void 0 : _task$limit.tries;
       if ((_task$limit2 = task.limit) !== null && _task$limit2 !== void 0 && _task$limit2.tries) task.limit.tries = undefined;
       _superPropGet(Engine, "execute", this, 3)([task]);
-      if ((_task$limit3 = task.limit) !== null && _task$limit3 !== void 0 && _task$limit3.tries) task.limit.tries = originalTries;
+      if (task.limit && originalTries) task.limit.tries = originalTries;
       if (have$a($effect(_templateObject4$g || (_templateObject4$g = _taggedTemplateLiteral(["Beaten Up"]))))) {
         if (["Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(get("lastEncounter"))) uneffect($effect(_templateObject5$f || (_templateObject5$f = _taggedTemplateLiteral(["Beaten Up"]))));else if (get("_juneCleaverEncounters") > lastJuneCleaverEncounters &&
         // We hit a June Cleaver NC between the last run and this
