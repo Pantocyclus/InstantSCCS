@@ -187,7 +187,7 @@ export class Engine extends BaseEngine {
     const originalTries = task.limit?.tries;
     if (task.limit?.tries) task.limit.tries = undefined;
     super.execute(task);
-    if (task.limit?.tries) task.limit.tries = originalTries;
+    if (task.limit && originalTries) task.limit.tries = originalTries;
     if (have($effect`Beaten Up`)) {
       if (["Sssshhsssblllrrggghsssssggggrrgglsssshhssslblgl"].includes(get("lastEncounter")))
         uneffect($effect`Beaten Up`);
