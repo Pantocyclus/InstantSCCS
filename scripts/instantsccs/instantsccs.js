@@ -16552,7 +16552,7 @@ var RunStartQuest = {
     }
   }, {
     name: "Mummery",
-    completed: () => get("_mummeryMods").includes("Experience (".concat(mainStat, ")")) || !have$a($item(_templateObject75$3 || (_templateObject75$3 = _taggedTemplateLiteral(["mumming trunk"])))) || get("instant_saveMummingTrunk", false),
+    completed: () => get("_mummeryMods").includes("Experience (".concat(mainStat, ")")) || get("_mummeryMods").includes("".concat(mainStat, " Experience")) || !have$a($item(_templateObject75$3 || (_templateObject75$3 = _taggedTemplateLiteral(["mumming trunk"])))) || get("instant_saveMummingTrunk", false),
     "do": () => {
       kolmafia.cliExecute("mummery ".concat(mainStatMaximizerStr));
     },
