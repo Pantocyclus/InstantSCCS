@@ -470,6 +470,9 @@ export const LevelingQuest: Quest = {
           Math.min(200, myMaxmp() - numericModifier(equippedItem($slot`back`), "Maximum Mp")),
       do: (): void => {
         if (myMp() < Math.min(200, myMaxmp())) {
+          print(
+            `Current MP: ${myMp()}/${myMaxmp()} (${myMaxmp() - numericModifier(equippedItem($slot`back`), "Maximum Mp")})`,
+          );
           useSkill($skill`Rest upside down`);
         }
       },

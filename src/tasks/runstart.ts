@@ -319,8 +319,10 @@ export const RunStartQuest: Quest = {
         myMp() >=
           Math.min(200, myMaxmp() - numericModifier(equippedItem($slot`back`), "Maximum Mp")),
       do: (): void => {
-        equip($slot`back`, $item`bat wings`);
         if (myMp() < Math.min(200, myMaxmp())) {
+          print(
+            `Current MP: ${myMp()}/${myMaxmp()} (${myMaxmp() - numericModifier(equippedItem($slot`back`), "Maximum Mp")})`,
+          );
           useSkill($skill`Rest upside down`);
         }
       },
