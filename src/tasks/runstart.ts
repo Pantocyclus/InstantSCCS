@@ -316,7 +316,8 @@ export const RunStartQuest: Quest = {
       completed: () =>
         !have($item`bat wings`) ||
         get("_batWingsRestUsed") >= 11 ||
-        myMp() >= Math.min(200, myMaxmp()),
+        myMp() >=
+          Math.min(200, myMaxmp() - numericModifier(equippedItem($slot`back`), "Maximum Mp")),
       do: (): void => {
         equip($slot`back`, $item`bat wings`);
         if (myMp() < Math.min(200, myMaxmp())) {

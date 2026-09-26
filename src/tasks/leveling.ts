@@ -12,6 +12,7 @@ import {
   Effect,
   effectModifier,
   equip,
+  equippedItem,
   getCampground,
   getDwelling,
   getWorkshed,
@@ -35,6 +36,7 @@ import {
   myMeat,
   myMp,
   mySoulsauce,
+  numericModifier,
   print,
   putCloset,
   refreshStatus,
@@ -464,7 +466,8 @@ export const LevelingQuest: Quest = {
       completed: () =>
         !have($item`bat wings`) ||
         get("_batWingsRestUsed") >= 11 ||
-        myMp() >= Math.min(200, myMaxmp()),
+        myMp() >=
+          Math.min(200, myMaxmp() - numericModifier(equippedItem($slot`back`), "Maximum Mp")),
       do: (): void => {
         if (myMp() < Math.min(200, myMaxmp())) {
           useSkill($skill`Rest upside down`);
