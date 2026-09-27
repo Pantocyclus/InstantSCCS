@@ -469,7 +469,10 @@ export const LevelingQuest: Quest = {
         myMp() >=
           Math.min(200, myMaxmp() - numericModifier(equippedItem($slot`back`), "Maximum Mp")),
       do: (): void => {
-        if (myMp() < Math.min(200, myMaxmp())) {
+        if (
+          myMp() <
+          Math.min(200, myMaxmp() - numericModifier(equippedItem($slot`back`), "Maximum Mp"))
+        ) {
           print(
             `Current MP: ${myMp()}/${myMaxmp()} (${myMaxmp() - numericModifier(equippedItem($slot`back`), "Maximum Mp")})`,
           );
