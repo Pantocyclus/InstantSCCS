@@ -329,6 +329,7 @@ export const RunStartQuest: Quest = {
           useSkill($skill`Rest upside down`);
         }
       },
+      outfit: () => ({ back: $item`bat wings` }),
       limit: { tries: 11 },
     },
     {
