@@ -35,6 +35,7 @@ import {
   acquireDwellingBuff,
   canAcquireDwellingBuff,
   chooseFamiliar,
+  getSynthHotBuff,
   handleCustomBusks,
   handleCustomPulls,
   handleCustomWishes,
@@ -278,6 +279,9 @@ export const HotResQuest: Quest = {
 
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.HotRes.actualCost() >= 7) wishFor($effect`Fireproof Lips`);
+        
+        // If it saves 9 turns, get the Sweet Synthesis hot buff
+        if (CommunityService.HotRes.actualCost() >= 10) getSynthHotBuff();
 
         if (
           CommunityService.HotRes.actualCost() > 1 &&
