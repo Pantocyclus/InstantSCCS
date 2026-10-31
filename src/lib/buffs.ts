@@ -487,6 +487,11 @@ export function getSynthColdBuff(): void {
   synthBestPair(filteredSimpleCandyPairs);
 }
 
+export function getSynthHotBuff(): void {
+  const filteredSimpleCandyPairs = getValidSimpleCandyPairs(0);
+  synthBestPair(filteredSimpleCandyPairs);
+}
+
 export function getFurnishings(): string[] {
   const buffer = visitUrl("campground.php?action=inspectdwelling");
   if (buffer.includes("Your patch of ground doesn't have anything inside it.")) return [];
