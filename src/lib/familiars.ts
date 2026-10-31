@@ -32,6 +32,7 @@ function garbageFire(): Familiar {
 
 export function sombrero(allowAttackingFamiliars = true): Familiar {
   const sombreros = [
+    $familiar`Meat Shield Maiden`,
     ...(allowAttackingFamiliars
       ? $familiars`Jill-of-All-Trades, Patriotic Eagle, Galloping Grill`
       : []),
