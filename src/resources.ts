@@ -289,6 +289,12 @@ export const farmingResources: Resource[] = [
     [],
     get("instant_saveSpadeDigs", false) ? 11 : 0,
   ),
+  new Resource(
+    "instant_saveInterestingCoins",
+    (n) => `Save ${n}/4 Interesting Coins`,
+    [],
+    get("instant_saveInterestingCoins", false) ? 4 : 0,
+  ),
 ];
 
 export const otherResources: Resource[] = [

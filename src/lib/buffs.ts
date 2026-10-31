@@ -127,6 +127,18 @@ export const showerGlobXpEffect: Effect = {
   Moxie: $effect`[2994]In Your Cups`,
 }[mainStatStr];
 
+export const interestingCoinItem: Item = {
+  Muscle: $item`invisible hand`,
+  Mysticality: $item`circle of overdraft protection scroll`,
+  Moxie: $item`mint`,
+}[mainStatStr];
+
+export const interestingCoinBuff: Effect = {
+  Muscle: $effect`Invisible Hand`,
+  Mysticality: $effect`Overdraft Protected`,
+  Moxie: $effect`Freshly Minted`,
+}[mainStatStr];
+
 const muscleList: Effect[] = [
   $effect`Seal Clubbing Frenzy`,
   $effect`Patience of the Tortoise`,
