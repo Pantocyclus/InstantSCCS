@@ -88,7 +88,6 @@ import {
   Witchess,
   withChoice,
 } from "libram";
-import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { chooseQuest, rufusTarget } from "libram/dist/resources/2023/ClosedCircuitPayphone";
 import Macro from "../combat";
 import { Quest } from "../engine/task";
@@ -171,6 +170,7 @@ import {
   wishFor,
   xpWishEffect,
 } from "../lib";
+import { mapMonster } from "../lib/mapping";
 
 let triedCraftingCBBFoods = false;
 
@@ -983,15 +983,17 @@ export const LevelingQuest: Quest = {
         get("instant_skipMappingNinja", false),
       do: () => mapMonster($location`The Haiku Dungeon`, $monster`amateur ninja`),
       combat: new CombatStrategy().macro(
-        Macro.if_(
-          $monster`amateur ninja`,
-          Macro.tryItem($item`blue rocket`)
-            .tryItem($item`red rocket`)
-            .trySkill($skill`Chest X-Ray`)
-            .trySkill($skill`Gingerbread Mob Hit`)
-            .trySkill($skill`Shattering Punch`)
-            .default(),
-        ).abort(),
+        Macro.mappingWanderers()
+          .if_(
+            $monster`amateur ninja`,
+            Macro.tryItem($item`blue rocket`)
+              .tryItem($item`red rocket`)
+              .trySkill($skill`Chest X-Ray`)
+              .trySkill($skill`Gingerbread Mob Hit`)
+              .trySkill($skill`Shattering Punch`)
+              .default(),
+          )
+          .abort(),
       ),
       outfit: () => ({
         ...baseOutfit(),
@@ -1684,9 +1686,14 @@ export const LevelingQuest: Quest = {
         get("_monstersMapped") >= 3,
       do: () => mapMonster($location`An Unusually Quiet Barroom Brawl`, $monster`goblin flapper`),
       combat: new CombatStrategy().macro(
-        Macro.trySkill($skill`Feel Envy`)
-          .trySkill($skill`Portscan`)
-          .default(useCinch),
+        Macro.mappingWanderers()
+          .if_(
+            $monster`goblin flapper`,
+            Macro.trySkill($skill`Feel Envy`)
+              .trySkill($skill`Portscan`)
+              .default(useCinch),
+          )
+          .abort(),
       ),
       outfit: () => ({
         ...baseOutfit(),
