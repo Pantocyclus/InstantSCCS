@@ -12768,6 +12768,10 @@ function getSynthColdBuff() {
   var filteredSimpleCandyPairs = getValidSimpleCandyPairs(1);
   synthBestPair(filteredSimpleCandyPairs);
 }
+function getSynthHotBuff() {
+  var filteredSimpleCandyPairs = getValidSimpleCandyPairs(0);
+  synthBestPair(filteredSimpleCandyPairs);
+}
 function getFurnishings() {
   var buffer = kolmafia.visitUrl("campground.php?action=inspectdwelling");
   if (buffer.includes("Your patch of ground doesn't have anything inside it.")) return [];
@@ -14519,6 +14523,9 @@ var HotResQuest = {
 
       // If it saves us >= 6 turns, try using a wish
       if (CommunityService.HotRes.actualCost() >= 7) wishFor($effect(_templateObject86$5 || (_templateObject86$5 = _taggedTemplateLiteral(["Fireproof Lips"]))));
+
+      // If it saves 9 turns, get the Sweet Synthesis hot buff
+      if (CommunityService.HotRes.actualCost() >= 10) getSynthHotBuff();
       if (CommunityService.HotRes.actualCost() > 1 && have$a($skill(_templateObject87$5 || (_templateObject87$5 = _taggedTemplateLiteral(["Summon Clip Art"])))) && !get("instant_saveClipArt", false) && haveAndNotExcluded($familiar(_templateObject88$5 || (_templateObject88$5 = _taggedTemplateLiteral(["Exotic Parrot"])))) && !have$a($item(_templateObject89$5 || (_templateObject89$5 = _taggedTemplateLiteral(["cracker"]))))) {
         if (!have$a($item(_templateObject90$5 || (_templateObject90$5 = _taggedTemplateLiteral(["box of Familiar Jacks"]))))) kolmafia.create($item(_templateObject91$5 || (_templateObject91$5 = _taggedTemplateLiteral(["box of Familiar Jacks"]))), 1);
         kolmafia.useFamiliar($familiar(_templateObject92$5 || (_templateObject92$5 = _taggedTemplateLiteral(["Exotic Parrot"]))));
