@@ -71,20 +71,14 @@ function miniKiwi(): Familiar {
 }
 
 function miniTrainbot(allowAttackingFamiliars = true): Familiar {
-  return allowAttackingFamiliars && haveAndNotExcluded($familiar`Mini-Trainbot`) && !have($item`Overloaded Yule battery`) && !haveAndNotExcluded($familiar`Comma Chameleon`) && have($item`toy Cupid bow`) && get("instant_noCupid") !== "true"
+  return allowAttackingFamiliars && haveAndNotExcluded($familiar`Mini-Trainbot`) && !have($item`overloaded Yule battery`) && !haveAndNotExcluded($familiar`Comma Chameleon`) && have($item`toy Cupid bow`) && get("instant_noCupid") !== "true"
     ? $familiar`Mini-Trainbot`
     : $familiar.none;
 }
 
 function homemadeRobot(): Familiar {
-  return haveAndNotExcluded($familiar`Homemade Robot`) && !have($item`Homemade robot gear`) && haveAndNotExcluded($familiar`Comma Chameleon`) && have($item`toy Cupid bow`) && get("instant_noCupid") !== "true"
+  return haveAndNotExcluded($familiar`Homemade Robot`) && !have($item`homemade robot gear`) && haveAndNotExcluded($familiar`Comma Chameleon`) && have($item`toy Cupid bow`) && get("instant_noCupid") !== "true"
     ? $familiar`Homemade Robot`
-    : $familiar.none;
-}
-
-function exoticParrot(): Familiar {
-  return haveAndNotExcluded($familiar`Exotic Parrot`) && !have($item`Cracker`) && have($item`toy Cupid bow`) && get("instant_noCupid") !== "true"
-    ? $familiar`Exotic Parrot`
     : $familiar.none;
 }
 
@@ -104,7 +98,6 @@ export function chooseFamiliar(allowAttackingFamiliars = true): Familiar {
 	homemadeRobot,
     hoboInSheepsClothing,
     miniKiwi,
-    exoticParrot,
     sombrero,
   ]
     .map((fn) => fn(allowAttackingFamiliars))
