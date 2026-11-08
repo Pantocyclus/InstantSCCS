@@ -17,7 +17,6 @@ import {
   $class,
   $effect,
   $familiar,
-  $familiars,
   $item,
   $skill,
   $slot,
@@ -176,20 +175,20 @@ function chooseFamEquip(allowAttackingFamiliars = true): Item | undefined {
 	const useCupid = have($item`toy Cupid bow`) && get("instant_noCupid") !== "true"; 
 	switch (chooseFamiliar(allowAttackingFamiliars)) {
 		case $familiar`Mini-Trainbot`:
-			return useCupid && !have($item`Overloaded Yule battery`) ? $item`Toy Cupid bow` : undefined;
+			return useCupid && !have($item`overloaded Yule battery`) ? $item`toy Cupid bow` : undefined;
 		case $familiar`Homemade Robot`:
-			return useCupid && !have($item`Homemade robot gear`) ? $item`Toy Cupid bow` : undefined;
+			return useCupid && !have($item`homemade robot gear`) ? $item`toy Cupid bow` : undefined;
 		case $familiar`Cornbeefadon`:
-			return useCupid && !have($item`Amulet coin`) ? $item`Toy Cupid bow` : undefined;
+			return useCupid && !have($item`amulet coin`) ? $item`toy Cupid bow` : undefined;
 		case $familiar`Exotic Parrot`:
-			return useCupid && !have($item`Cracker`) ? $item`Toy Cupid bow` : undefined;
+			return useCupid && !have($item`Cracker`) ? $item`toy Cupid bow` : undefined;
 		case $familiar`Shorter-Order Cook`:
 			// Current implementation in familiars.ts stops at short stack of pancakes. If we go to short stick of butter or beyond, would want to equip the blue plate.
-			return useCupid && !have($item`blue plate`) ? $item`Toy Cupid bow` : undefined;
+			return useCupid && !have($item`blue plate`) ? $item`toy Cupid bow` : undefined;
 /* 			if (have($item`blue plate`)) {
 				return $item`blue plate`;
 			} else if (useCupid) {
-				return $item`Toy Cupid bow`;
+				return $item`toy Cupid bow`;
 			} else {
 				return undefined;
 			}	 */	
@@ -197,7 +196,7 @@ function chooseFamEquip(allowAttackingFamiliars = true): Item | undefined {
 			if (have($item`Dromedary drinking helmet`)) {
 				return $item`Dromedary drinking helmet`;
 			} else if (useCupid) {
-				return $item`Toy Cupid bow`;
+				return $item`toy Cupid bow`;
 			} else {
 				return undefined;
 			}
@@ -205,7 +204,7 @@ function chooseFamEquip(allowAttackingFamiliars = true): Item | undefined {
 			if (have($item`Nanorhino credit card`)) {
 				return $item`Nanorhino credit card`;
 			} else if (useCupid) {
-				return $item`Toy Cupid bow`;
+				return $item`toy Cupid bow`;
 			} else {
 				return undefined;
 			}
@@ -213,7 +212,7 @@ function chooseFamEquip(allowAttackingFamiliars = true): Item | undefined {
 			if (have($item`Aviator goggles`)) {
 				return $item`Aviator goggles`;
 			} else if (useCupid) {
-				return $item`Toy Cupid bow`;
+				return $item`toy Cupid bow`;
 			} else {
 				return undefined;
 			}
@@ -221,7 +220,7 @@ function chooseFamEquip(allowAttackingFamiliars = true): Item | undefined {
 			if (have($item`Half-height cigar`)) {
 				return $item`Half-height cigar`;
 			} else if (useCupid) {
-				return $item`Toy Cupid bow`;
+				return $item`toy Cupid bow`;
 			} else {
 				return undefined;
 			}
@@ -232,7 +231,7 @@ function chooseFamEquip(allowAttackingFamiliars = true): Item | undefined {
 				}
 				return $item`LED candle`;
 			} else if (useCupid) {
-				return $item`Toy Cupid bow`;
+				return $item`toy Cupid bow`;
 			} else {
 				return undefined;
 			}
