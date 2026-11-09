@@ -71,13 +71,13 @@ function miniKiwi(): Familiar {
 }
 
 function miniTrainbot(allowAttackingFamiliars = true): Familiar {
-  return allowAttackingFamiliars && haveAndNotExcluded($familiar`Mini-Trainbot`) && !have($item`overloaded Yule battery`) && !haveAndNotExcluded($familiar`Comma Chameleon`) && have($item`toy Cupid bow`) && get("instant_noCupid") !== "true"
+  return allowAttackingFamiliars && haveAndNotExcluded($familiar`Mini-Trainbot`) && !have($item`overloaded Yule battery`) && !haveAndNotExcluded($familiar`Comma Chameleon`) && have($item`toy Cupid bow`) && !get("instant_noCupid", false)
     ? $familiar`Mini-Trainbot`
     : $familiar.none;
 }
 
 function homemadeRobot(): Familiar {
-  return haveAndNotExcluded($familiar`Homemade Robot`) && !have($item`homemade robot gear`) && haveAndNotExcluded($familiar`Comma Chameleon`) && have($item`toy Cupid bow`) && get("instant_noCupid") !== "true"
+  return haveAndNotExcluded($familiar`Homemade Robot`) && !have($item`homemade robot gear`) && haveAndNotExcluded($familiar`Comma Chameleon`) && have($item`toy Cupid bow`) && !get("instant_noCupid", false)
     ? $familiar`Homemade Robot`
     : $familiar.none;
 }

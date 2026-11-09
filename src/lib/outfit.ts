@@ -172,7 +172,7 @@ function chooseWeapon(): Item | undefined {
 }
 
 function chooseFamEquip(allowAttackingFamiliars = true): Item | undefined {
-	const useCupid = have($item`toy Cupid bow`) && get("instant_noCupid") !== "true"; 
+	const useCupid = have($item`toy Cupid bow`) && !get("instant_noCupid", false); 
 	switch (chooseFamiliar(allowAttackingFamiliars)) {
 		case $familiar`Mini-Trainbot`:
 			return useCupid && !have($item`overloaded Yule battery`) ? $item`toy Cupid bow` : undefined;
