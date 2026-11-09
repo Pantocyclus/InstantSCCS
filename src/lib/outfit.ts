@@ -16,6 +16,7 @@ import {
 import {
   $class,
   $effect,
+  $familiar,
   $item,
   $skill,
   $slot,
@@ -170,6 +171,75 @@ function chooseWeapon(): Item | undefined {
   return undefined;
 }
 
+function chooseFamEquip(allowAttackingFamiliars = true): Item | undefined {
+	const useCupid = have($item`toy Cupid bow`) && !get("instant_noCupid", false); 
+	switch (chooseFamiliar(allowAttackingFamiliars)) {
+		case $familiar`Mini-Trainbot`:
+			return useCupid && !have($item`overloaded Yule battery`) ? $item`toy Cupid bow` : undefined;
+		case $familiar`Homemade Robot`:
+			return useCupid && !have($item`homemade robot gear`) ? $item`toy Cupid bow` : undefined;
+		case $familiar`Cornbeefadon`:
+			return useCupid && !have($item`amulet coin`) ? $item`toy Cupid bow` : undefined;
+		case $familiar`Exotic Parrot`:
+			return useCupid && !have($item`Cracker`) ? $item`toy Cupid bow` : undefined;
+		case $familiar`Shorter-Order Cook`:
+			// Current implementation in familiars.ts stops at short stack of pancakes. If we go to short stick of butter or beyond, would want to equip the blue plate.
+			return useCupid && !have($item`blue plate`) ? $item`toy Cupid bow` : undefined;
+/* 			if (have($item`blue plate`)) {
+				return $item`blue plate`;
+			} else if (useCupid) {
+				return $item`toy Cupid bow`;
+			} else {
+				return undefined;
+			}	 */	
+		case $familiar`Melodramedary`:
+			if (have($item`Dromedary drinking helmet`)) {
+				return $item`Dromedary drinking helmet`;
+			} else if (useCupid) {
+				return $item`toy Cupid bow`;
+			} else {
+				return undefined;
+			}
+		case $familiar`Nanorhino`:
+			if (have($item`Nanorhino credit card`)) {
+				return $item`Nanorhino credit card`;
+			} else if (useCupid) {
+				return $item`toy Cupid bow`;
+			} else {
+				return undefined;
+			}
+		case $familiar`Mini Kiwi`:
+			if (have($item`Aviator goggles`)) {
+				return $item`Aviator goggles`;
+			} else if (useCupid) {
+				return $item`toy Cupid bow`;
+			} else {
+				return undefined;
+			}
+		case $familiar`Hobo in Sheep's Clothing`:
+			if (have($item`Half-height cigar`)) {
+				return $item`Half-height cigar`;
+			} else if (useCupid) {
+				return $item`toy Cupid bow`;
+			} else {
+				return undefined;
+			}
+		case $familiar`Jill-of-All-Trades`:
+			if (have($item`LED candle`)) {
+				if (get("ledCandleMode") !== "reading") {
+					cliExecute("ledcandle stats");
+				}
+				return $item`LED candle`;
+			} else if (useCupid) {
+				return $item`toy Cupid bow`;
+			} else {
+				return undefined;
+			}
+		default:
+			return undefined;
+	}
+}
+
 export function preventEquipList(): Item[] {
   return [
     ...sugarItemsAboutToBreak(),
@@ -208,6 +278,7 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
         : undefined,
     acc3: $item`spring shoes`,
     familiar: chooseFamiliar(allowAttackingFamiliars),
+    famequip: chooseFamEquip(allowAttackingFamiliars),		
     modifier: defaultModifier,
     avoid: preventEquipList(),
   };
