@@ -4,6 +4,8 @@ import {
   Effect,
   equip,
   equippedItem,
+  Familiar,
+  familiarEquipment,
   Item,
   myClass,
   myPrimestat,
@@ -16,6 +18,7 @@ import {
 import {
   $class,
   $effect,
+  $familiar,
   $item,
   $skill,
   $slot,
@@ -170,6 +173,36 @@ function chooseWeapon(): Item | undefined {
   return undefined;
 }
 
+function chooseFamEquip(fam: Familiar): Item | undefined {
+  const useCupid = have($item`toy Cupid bow`) && !get("instant_skipCupid", false);
+  const famEquip = familiarEquipment(fam);
+  switch (fam) {
+    case $familiar`Mini-Trainbot`:
+    case $familiar`Homemade Robot`:
+    case $familiar`Cornbeefadon`:
+    case $familiar`Exotic Parrot`:
+    case $familiar`Shorter-Order Cook`:
+      return useCupid && !have(famEquip) ? $item`toy Cupid bow` : undefined;
+    case $familiar`Melodramedary`:
+    case $familiar`Nanorhino`:
+    case $familiar`Mini Kiwi`:
+    case $familiar`Hobo in Sheep's Clothing`:
+    case $familiar`Jill-of-All-Trades`:
+      if (have(famEquip)) {
+        if (have($item`LED candle`) && get("ledCandleMode") !== "reading") {
+          cliExecute("ledcandle stats");
+        }
+        return famEquip;
+      } else if (useCupid) {
+        return $item`toy Cupid bow`;
+      } else {
+        return undefined;
+      }
+    default:
+      return undefined;
+  }
+}
+
 export function preventEquipList(): Item[] {
   return [
     ...sugarItemsAboutToBreak(),
@@ -188,6 +221,7 @@ export function preventEquipList(): Item[] {
 export const defaultModifier = `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent`;
 
 export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
+  const fam = chooseFamiliar(allowAttackingFamiliars);
   return {
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     weapon: chooseWeapon(),
@@ -207,7 +241,8 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
         ? $item`Cincho de Mayo`
         : undefined,
     acc3: $item`spring shoes`,
-    familiar: chooseFamiliar(allowAttackingFamiliars),
+    familiar: fam,
+    famequip: chooseFamEquip(fam),
     modifier: defaultModifier,
     avoid: preventEquipList(),
   };
