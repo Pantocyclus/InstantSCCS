@@ -4,6 +4,7 @@ import {
   Effect,
   equip,
   equippedItem,
+  Familiar,
   familiarEquipment,
   Item,
   myClass,
@@ -172,16 +173,14 @@ function chooseWeapon(): Item | undefined {
   return undefined;
 }
 
-function chooseFamEquip(allowAttackingFamiliars = true): Item | undefined {
+function chooseFamEquip(fam: Familiar): Item | undefined {
 	const useCupid = have($item`toy Cupid bow`) && !get("instant_skipCupid", false); 
-	const fam = chooseFamiliar(allowAttackingFamiliars);
 	const famEquip = familiarEquipment(fam);
 	switch (fam) {
 		case $familiar`Mini-Trainbot`:
 		case $familiar`Homemade Robot`:
 		case $familiar`Cornbeefadon`:
 		case $familiar`Exotic Parrot`:
-		// Current implementation in familiars.ts stops at short stack of pancakes. If we go to short stick of butter or beyond, would want to equip the blue plate.
 		case $familiar`Shorter-Order Cook`:
 			return useCupid && !have(famEquip) ? $item`toy Cupid bow` : undefined;
 		case $familiar`Melodramedary`:
@@ -222,6 +221,7 @@ export function preventEquipList(): Item[] {
 export const defaultModifier = `1 ${mainStatMaximizerStr}, 0.95 ML, 6 ${mainStatMaximizerStr} exp, 30 ${mainStatMaximizerStr} experience percent`;
 
 export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
+  const fam = chooseFamiliar(allowAttackingFamiliars);  
   return {
     hat: avoidDaylightShavingsHelm() ? undefined : $item`Daylight Shavings Helmet`,
     weapon: chooseWeapon(),
@@ -241,8 +241,8 @@ export function baseOutfit(allowAttackingFamiliars = true): OutfitSpec {
         ? $item`Cincho de Mayo`
         : undefined,
     acc3: $item`spring shoes`,
-    familiar: chooseFamiliar(allowAttackingFamiliars),
-    famequip: chooseFamEquip(allowAttackingFamiliars),		
+    familiar: fam,
+    famequip: chooseFamEquip(fam),		
     modifier: defaultModifier,
     avoid: preventEquipList(),
   };
