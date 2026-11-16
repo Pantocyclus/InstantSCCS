@@ -1,10 +1,17 @@
 import { mpCost, toInt } from "kolmafia";
-import { $skill, $stat, StrictMacro } from "libram";
+import { $monster, $skill, $stat, getTodaysHolidayWanderers, StrictMacro } from "libram";
 import { mainStat } from "./lib";
 
 const damageSkill = mainStat === $stat`Muscle` ? $skill`Lunging Thrust-Smack` : $skill`Saucegeyser`;
 
 export default class Macro extends StrictMacro {
+  static mappingWanderers(): Macro {
+    return [$monster`time cop`, ...getTodaysHolidayWanderers()].reduce(
+      (macro, monster) => macro.if_(monster, Macro.default()),
+      new Macro(),
+    );
+  }
+
   kill(useCinch = false): Macro {
     const macroHead = this.trySkill($skill`Curse of Weaksauce`)
       .trySkill($skill`Micrometeorite`)

@@ -77,7 +77,6 @@ import {
   SongBoom,
   StillSuit,
 } from "libram";
-import { mapMonster } from "libram/dist/resources/2020/Cartography";
 import { canConfigure, setConfiguration, Station } from "libram/dist/resources/2022/TrainSet";
 import {
   discoveredFurniture,
@@ -120,6 +119,7 @@ import {
   useCinch,
   useParkaSpit,
 } from "../lib";
+import { mapMonster } from "../lib/mapping";
 
 const bestStillsuitFamiliar = StillSuit.bestFamiliar("Item Drop");
 function completedSkeletonBanishes(): boolean {
@@ -1034,7 +1034,7 @@ export const RunStartQuest: Quest = {
         })(),
       do: () => mapMonster($location`The Skeleton Store`, $monster`novelty tropical skeleton`),
       combat: new CombatStrategy().macro(
-        Macro.if_($monster`time cop`, Macro.default())
+        Macro.mappingWanderers()
           .if_(
             "!haseffect Everything Looks Yellow",
             Macro.if_(
